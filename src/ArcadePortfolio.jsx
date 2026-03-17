@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const PROJECTS = [
   { id: "sonido", title: "SONIDO", subtitle: "EMBEDDED DSP ENGINE", lang: "Rust", color: "#00ffaa", icon: "\u266b", github: "https://github.com/ampactor-labs/sonido", desc: "Kernel-based audio effects library targeting Daisy Seed / Hothouse hardware. Embassy-based BSP, zero-alloc DSP math, preset morphing, cross-platform deployment. The shape of sound.", tags: ["embedded", "dsp", "stm32h7", "no_std"] },
@@ -250,21 +250,25 @@ function SynthEngine({ width }) {
       <div style={{ display: "flex", justifyContent: "center", position: "relative", height: 58, marginTop: 2 }}>
         {WHITES.map((k, i) => {
           const pressed = pressedKeys.has(k.key);
-          return (<div key={k.key}
+          return (<div key={k.key} role="button" aria-label={`Note ${k.n}`} aria-pressed={pressed}
             onMouseDown={() => { noteOn(NOTE_MAP[k.key]); setPressedKeys(p => new Set([...p, k.key])); }}
             onMouseUp={() => { noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); }}
             onMouseLeave={() => { if (pressedKeys.has(k.key)) { noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); } }}
-            style={{ width: keyW, height: 52, background: pressed ? "rgba(255,200,0,0.3)" : "linear-gradient(180deg, #2a2a3a, #1a1a2a)", border: `1px solid ${pressed ? "#ffcc00" : "#333348"}`, borderRadius: "0 0 4px 4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", paddingBottom: 3, cursor: "pointer", boxShadow: pressed ? "0 0 8px rgba(255,200,0,0.3)" : "0 2px 4px rgba(0,0,0,0.3)", transition: "all 0.05s ease" }}>
+            onTouchStart={(e) => { e.preventDefault(); noteOn(NOTE_MAP[k.key]); setPressedKeys(p => new Set([...p, k.key])); }}
+            onTouchEnd={(e) => { e.preventDefault(); noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); }}
+            style={{ width: keyW, height: 52, background: pressed ? "rgba(255,200,0,0.3)" : "linear-gradient(180deg, #2a2a3a, #1a1a2a)", border: `1px solid ${pressed ? "#ffcc00" : "#333348"}`, borderRadius: "0 0 4px 4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", paddingBottom: 3, cursor: "pointer", boxShadow: pressed ? "0 0 8px rgba(255,200,0,0.3)" : "0 2px 4px rgba(0,0,0,0.3)", transition: "all 0.05s ease", touchAction: "none" }}>
             <div style={{ fontSize: 7, color: pressed ? "#ffcc00" : "#445", fontFamily: "'JetBrains Mono', monospace" }}>{k.key.toUpperCase()}</div>
           </div>);
         })}
         {BLACKS.map(k => {
           const pressed = pressedKeys.has(k.key);
-          return (<div key={k.key}
+          return (<div key={k.key} role="button" aria-label={`Sharp note ${k.key.toUpperCase()}`} aria-pressed={pressed}
             onMouseDown={(e) => { e.stopPropagation(); noteOn(NOTE_MAP[k.key]); setPressedKeys(p => new Set([...p, k.key])); }}
             onMouseUp={() => { noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); }}
             onMouseLeave={() => { if (pressedKeys.has(k.key)) { noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); } }}
-            style={{ position: "absolute", left: (k.after + 1) * keyW - keyW * 0.3, top: 0, width: keyW * 0.6, height: 32, background: pressed ? "rgba(255,200,0,0.4)" : "#111118", border: `1px solid ${pressed ? "#ffcc00" : "#222232"}`, borderRadius: "0 0 3px 3px", zIndex: 2, cursor: "pointer", display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 2, boxShadow: pressed ? "0 0 6px rgba(255,200,0,0.3)" : "0 2px 4px rgba(0,0,0,0.5)", transition: "all 0.05s ease" }}>
+            onTouchStart={(e) => { e.preventDefault(); noteOn(NOTE_MAP[k.key]); setPressedKeys(p => new Set([...p, k.key])); }}
+            onTouchEnd={(e) => { e.preventDefault(); noteOff(NOTE_MAP[k.key]); setPressedKeys(p => { const s = new Set(p); s.delete(k.key); return s; }); }}
+            style={{ position: "absolute", left: (k.after + 1) * keyW - keyW * 0.3, top: 0, width: keyW * 0.6, height: 32, background: pressed ? "rgba(255,200,0,0.4)" : "#111118", border: `1px solid ${pressed ? "#ffcc00" : "#222232"}`, borderRadius: "0 0 3px 3px", zIndex: 2, cursor: "pointer", display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 2, boxShadow: pressed ? "0 0 6px rgba(255,200,0,0.3)" : "0 2px 4px rgba(0,0,0,0.5)", transition: "all 0.05s ease", touchAction: "none" }}>
             <div style={{ fontSize: 6, color: pressed ? "#ffcc00" : "#334" }}>{k.key.toUpperCase()}</div>
           </div>);
         })}
@@ -284,7 +288,7 @@ export default function ArcadePortfolio() {
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const screenRef = useRef(null);
 
-  const allProjects = coinInserted ? [...PROJECTS, ...HIDDEN_PROJECTS] : PROJECTS;
+  const allProjects = useMemo(() => coinInserted ? [...PROJECTS, ...HIDDEN_PROJECTS] : PROJECTS, [coinInserted]);
 
   const BOOT_LINES = ["AMPACTOR BIOS v4.2.0", "Initializing kernel graph...", "Loading DSP subsystem.......... OK", "Calibrating resonance field.... OK", "Mounting /dev/creativity....... OK", "Linking x402 payment layer..... OK", "Phase coupling established..... OK", "", "ALL SYSTEMS NOMINAL", "", "INSERT COIN TO CONTINUE"];
 
@@ -343,13 +347,13 @@ export default function ArcadePortfolio() {
       {/* CABINET */}
       <div style={{ margin: "0 10px 10px", background: "linear-gradient(180deg, #1a1a2a 0%, #12121c 100%)", borderRadius: "0 0 16px 16px", border: "3px solid #1a1a2a", borderTop: "1px solid #222238", padding: "14px 20px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", boxShadow: "0 8px 24px rgba(0,0,0,0.5)" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-          <div className="btn-cabinet" onClick={() => { if (screen === "select") setSelectedIdx(i => (i - 1 + allProjects.length) % allProjects.length); if (screen === "boot" && bootLine >= BOOT_LINES.length - 1) setScreen("select"); }} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25b2"}</div>
+          <div className="btn-cabinet" role="button" aria-label="Navigate up" tabIndex={0} onClick={() => { if (screen === "select") setSelectedIdx(i => (i - 1 + allProjects.length) % allProjects.length); if (screen === "boot" && bootLine >= BOOT_LINES.length - 1) setScreen("select"); }} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25b2"}</div>
           <div style={{ display: "flex", gap: 2 }}>
-            <div className="btn-cabinet" onClick={goBack} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25c4"}</div>
+            <div className="btn-cabinet" role="button" aria-label="Go back" tabIndex={0} onClick={goBack} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25c4"}</div>
             <div style={{ width: 30, height: 30, background: "#222232", borderRadius: 4, border: "1px solid #2a2a3a" }} />
-            <div className="btn-cabinet" style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25ba"}</div>
+            <div className="btn-cabinet" role="button" aria-label="Navigate right" tabIndex={0} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25ba"}</div>
           </div>
-          <div className="btn-cabinet" onClick={() => { if (screen === "select") setSelectedIdx(i => (i + 1) % allProjects.length); }} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25bc"}</div>
+          <div className="btn-cabinet" role="button" aria-label="Navigate down" tabIndex={0} onClick={() => { if (screen === "select") setSelectedIdx(i => (i + 1) % allProjects.length); }} style={{ width: 30, height: 30, background: "#2a2a3a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", color: "#556", fontSize: 12, border: "1px solid #333348" }}>{"\u25bc"}</div>
         </div>
 
         <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
@@ -357,15 +361,15 @@ export default function ArcadePortfolio() {
             <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: "#00ffaa", letterSpacing: "0.2em", textShadow: "0 0 8px rgba(0,255,170,0.4)", marginBottom: 3 }}>AMPACTOR</div>
             <div style={{ fontSize: 7, color: "#445", letterSpacing: "0.15em" }}>SALT LAKE CITY \u00b7 EST. 2018</div>
           </div>
-          <div className="coin-slot" onClick={insertCoin} title="Insert coin" style={{ width: 48, height: 14, background: coinInserted ? "rgba(255,200,0,0.1)" : "#111118", borderRadius: 7, border: `2px solid ${coinInserted ? "rgba(255,200,0,0.3)" : "#2a2a3a"}`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+          <div className="coin-slot" role="button" aria-label={coinInserted ? "Bonus loaded" : "Insert coin"} tabIndex={0} onClick={insertCoin} title="Insert coin" style={{ width: 48, height: 14, background: coinInserted ? "rgba(255,200,0,0.1)" : "#111118", borderRadius: 7, border: `2px solid ${coinInserted ? "rgba(255,200,0,0.3)" : "#2a2a3a"}`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ width: 28, height: 3, background: coinInserted ? "rgba(255,200,0,0.4)" : "#222232", borderRadius: 2, boxShadow: coinInserted ? "0 0 4px rgba(255,200,0,0.3)" : "inset 0 1px 2px rgba(0,0,0,0.5)" }} />
           </div>
           <div style={{ fontSize: 6, color: coinInserted ? "rgba(255,200,0,0.4)" : "#333", letterSpacing: "0.15em", transition: "color 0.3s ease" }}>{coinInserted ? "BONUS LOADED" : "INSERT COIN"}</div>
         </div>
 
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <div className="btn-cabinet" onClick={goBack} style={{ width: 38, height: 38, borderRadius: "50%", background: "radial-gradient(circle at 30% 30%, #553333, #331111)", border: "2px solid #664444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, color: "#ff6644", fontFamily: "'Press Start 2P', monospace", boxShadow: "0 2px 8px rgba(255,100,68,0.2), inset 0 1px 0 rgba(255,255,255,0.1)" }}>B</div>
-          <div className="btn-cabinet" onClick={() => { if (screen === "boot" && bootLine >= BOOT_LINES.length - 1) setScreen("select"); if (screen === "select") openProject(selectedIdx); }} style={{ width: 38, height: 38, borderRadius: "50%", background: "radial-gradient(circle at 30% 30%, #225544, #113322)", border: "2px solid #338866", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, color: "#00ffaa", fontFamily: "'Press Start 2P', monospace", boxShadow: "0 2px 8px rgba(0,255,170,0.2), inset 0 1px 0 rgba(255,255,255,0.1)" }}>A</div>
+          <div className="btn-cabinet" role="button" aria-label="Back" tabIndex={0} onClick={goBack} style={{ width: 38, height: 38, borderRadius: "50%", background: "radial-gradient(circle at 30% 30%, #553333, #331111)", border: "2px solid #664444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, color: "#ff6644", fontFamily: "'Press Start 2P', monospace", boxShadow: "0 2px 8px rgba(255,100,68,0.2), inset 0 1px 0 rgba(255,255,255,0.1)" }}>B</div>
+          <div className="btn-cabinet" role="button" aria-label="Select" tabIndex={0} onClick={() => { if (screen === "boot" && bootLine >= BOOT_LINES.length - 1) setScreen("select"); if (screen === "select") openProject(selectedIdx); }} style={{ width: 38, height: 38, borderRadius: "50%", background: "radial-gradient(circle at 30% 30%, #225544, #113322)", border: "2px solid #338866", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, color: "#00ffaa", fontFamily: "'Press Start 2P', monospace", boxShadow: "0 2px 8px rgba(0,255,170,0.2), inset 0 1px 0 rgba(255,255,255,0.1)" }}>A</div>
         </div>
       </div>
     </div>
@@ -399,11 +403,11 @@ function SelectScreen({ projects, selectedIdx, onSelect, onHover, coinInserted }
         </div>
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 7, color: "#334", textAlign: "right", lineHeight: 1.8 }}>{"\u25b2\u25bc"} NAV<br/>{"\u24b6"} SELECT</div>
       </div>
-      <div ref={listRef} style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column", gap: 3 }}>
+      <div ref={listRef} role="listbox" aria-label="Project list" style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column", gap: 3 }}>
         {projects.map((p, i) => {
           const active = i === selectedIdx, isH = p.hidden;
           return (
-            <div key={p.id} className={`project-row${isH ? " hidden-row glitch-enter" : ""}`} onClick={() => onSelect(i)} onMouseEnter={() => onHover(i)}
+            <div key={p.id} role="option" aria-selected={active} aria-label={`${p.title} — ${p.subtitle}`} className={`project-row${isH ? " hidden-row glitch-enter" : ""}`} onClick={() => onSelect(i)} onMouseEnter={() => onHover(i)}
               style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 12px", borderRadius: 6, background: active ? (isH ? "rgba(255,200,0,0.04)" : "rgba(0,255,170,0.05)") : "transparent", border: active ? `1px solid ${isH ? "rgba(255,200,0,0.15)" : "rgba(0,255,170,0.15)"}` : "1px solid transparent", position: "relative", borderLeft: isH ? `2px dashed ${p.color}33` : undefined }}>
               <div style={{ width: 3, height: "70%", background: active ? p.color : "transparent", borderRadius: 2, position: "absolute", left: isH ? -1 : 2, boxShadow: active ? `0 0 6px ${p.color}` : "none", transition: "all 0.2s ease" }} />
               <div style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: p.color, background: `${p.color}11`, borderRadius: 5, border: `1px solid ${p.color}22`, textShadow: active ? `0 0 8px ${p.color}` : "none", flexShrink: 0 }}>{p.icon}</div>
@@ -435,7 +439,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column", opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(10px)", transition: "all 0.3s ease" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, paddingBottom: 12, borderBottom: `1px solid ${p.color}22` }}>
-        <div className="btn-cabinet" onClick={onBack} style={{ fontSize: 12, color: "#556", padding: "3px 7px", borderRadius: 4, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>{"\u25c4"}</div>
+        <div className="btn-cabinet" role="button" aria-label="Back to project list" tabIndex={0} onClick={onBack} style={{ fontSize: 12, color: "#556", padding: "3px 7px", borderRadius: 4, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>{"\u25c4"}</div>
         <div style={{ fontSize: 24, color: p.color, textShadow: `0 0 12px ${p.color}44` }}>{p.icon}</div>
         <div>
           <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 12, color: p.color, textShadow: `0 0 10px ${p.color}44`, letterSpacing: "0.05em" }}>{p.title}</div>
