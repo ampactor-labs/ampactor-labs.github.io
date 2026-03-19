@@ -1,26 +1,28 @@
 import { useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
 
 const RING_COUNT = 12;
-const DUST_COUNT = 45;
+const DUST_COUNT = 30;
 const FOV = 200;
 const DEPTH_RANGE = 800;
 const TWO_PI = Math.PI * 2;
+const MAX_DPR = 1; // Background effect — no need for retina resolution
 
-// Color palette by depth tier
 const COLORS = [
-  { stroke: "#00E5FF", shadow: "#00E5FF" },   // cyan (near)
-  { stroke: "#00FFD0", shadow: "#00FFD0" },   // teal
-  { stroke: "#00E5FF", shadow: "#00E5FF" },   // cyan
-  { stroke: "#44aaff", shadow: "#4488FF" },   // blue (mid)
-  { stroke: "#4488FF", shadow: "#4488FF" },
-  { stroke: "#4466dd", shadow: "#4466dd" },
-  { stroke: "#5544cc", shadow: "#5544cc" },   // indigo (far)
-  { stroke: "#6644FF", shadow: "#6644FF" },
-  { stroke: "#5533bb", shadow: "#5533bb" },
-  { stroke: "#4422aa", shadow: "#4422aa" },
-  { stroke: "#331199", shadow: "#331199" },
-  { stroke: "#221088", shadow: "#221088" },
+  { stroke: "#00E5FF", glow: "rgba(0,229,255," },
+  { stroke: "#00FFD0", glow: "rgba(0,255,208," },
+  { stroke: "#00E5FF", glow: "rgba(0,229,255," },
+  { stroke: "#44aaff", glow: "rgba(68,170,255," },
+  { stroke: "#4488FF", glow: "rgba(68,136,255," },
+  { stroke: "#4466dd", glow: "rgba(68,102,221," },
+  { stroke: "#5544cc", glow: "rgba(85,68,204," },
+  { stroke: "#6644FF", glow: "rgba(102,68,255," },
+  { stroke: "#5533bb", glow: "rgba(85,51,187," },
+  { stroke: "#4422aa", glow: "rgba(68,34,170," },
+  { stroke: "#331199", glow: "rgba(51,17,153," },
+  { stroke: "#221088", glow: "rgba(34,16,136," },
 ];
+
+const DUST_COLORS = ["#00FFD0", "#00E5FF", "#4488FF", "#6644FF"];
 
 function pentagonVertices(cx, cy, radius, rotation) {
   const verts = [];
@@ -47,8 +49,6 @@ function initDust() {
   return particles;
 }
 
-const DUST_COLORS = ["#00FFD0", "#00E5FF", "#4488FF", "#6644FF"];
-
 const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) {
   const canvasRef = useRef(null);
   const stateRef = useRef({
@@ -60,13 +60,11 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     animId: null,
   });
 
-  // Expose imperative speed control for intro sequence
   useImperativeHandle(ref, () => ({
     setSpeed(s) { stateRef.current.speed = s; },
     getSpeed() { return stateRef.current.speed; },
   }));
 
-  // Sync prop changes
   useEffect(() => { stateRef.current.speed = speed; }, [speed]);
 
   const draw = useCallback((ctx, w, h, dt) => {
@@ -76,98 +74,107 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
 
     ctx.clearRect(0, 0, w, h);
 
-    // Advance tunnel and time
     st.tunnelDepth += st.speed * dt;
     st.elapsed += dt;
-    st.sweepAngle += (TWO_PI / 18000) * dt; // ~18s full rotation
+    st.sweepAngle += (TWO_PI / 18000) * dt;
 
-    // --- Pentagon rings with perspective ---
-    // Base radius scales to viewport so tunnel fills the screen
     const baseRadius = Math.max(w, h) * 0.7;
 
+    // Pre-compute all ring data once
+    const rings = [];
     for (let i = 0; i < RING_COUNT; i++) {
-      const z = ((i / RING_COUNT) + st.tunnelDepth) % 1.0; // 0=far, 1=near
-      const nearness = z; // 1 = closest
+      const nearness = ((i / RING_COUNT) + st.tunnelDepth) % 1.0;
       const scale = FOV / (FOV + (1 - nearness) * DEPTH_RANGE);
-      const radius = baseRadius * scale;
-      // Slow independent rotation per ring — decoupled from tunnel advance
       const dir = i % 2 === 0 ? 1 : -1;
-      const ringPeriod = 50000 + i * 7000; // 50-130s per revolution, like original
-      const rotation = dir * (st.elapsed / ringPeriod) * TWO_PI;
-
+      const rotation = dir * (st.elapsed / (50000 + i * 7000)) * TWO_PI;
       const colorIdx = Math.min(Math.floor((1 - nearness) * RING_COUNT), COLORS.length - 1);
-      const color = COLORS[colorIdx];
-
-      const alpha = 0.04 + nearness * 0.25;
-      const lineWidth = 0.4 + nearness * 2.2;
-      const blur = 4 + nearness * 14;
-
-      const verts = pentagonVertices(cx, cy, radius, rotation);
-
-      ctx.save();
-      ctx.strokeStyle = color.stroke;
-      ctx.globalAlpha = alpha;
-      ctx.lineWidth = lineWidth;
-      ctx.shadowBlur = blur;
-      ctx.shadowColor = color.shadow;
-
-      ctx.beginPath();
-      ctx.moveTo(verts[0][0], verts[0][1]);
-      for (let v = 1; v < 5; v++) ctx.lineTo(verts[v][0], verts[v][1]);
-      ctx.closePath();
-      ctx.stroke();
-
-      // Connecting lines to center for nearest rings (Tempest web lanes)
-      if (nearness > 0.6) {
-        const lineAlpha = (nearness - 0.6) / 0.4 * 0.12;
-        ctx.globalAlpha = lineAlpha;
-        ctx.lineWidth = 0.6;
-        ctx.shadowBlur = 4;
-        for (let v = 0; v < 5; v++) {
-          ctx.beginPath();
-          ctx.moveTo(cx, cy);
-          ctx.lineTo(verts[v][0], verts[v][1]);
-          ctx.stroke();
-        }
-      }
-
-      ctx.restore();
+      rings.push({
+        nearness,
+        radius: baseRadius * scale,
+        rotation,
+        color: COLORS[colorIdx],
+        alpha: 0.04 + nearness * 0.25,
+        lineWidth: 0.4 + nearness * 2.2,
+        verts: pentagonVertices(cx, cy, baseRadius * scale, rotation),
+      });
     }
 
-    // --- Radar sweep ---
-    ctx.save();
-    const sx = cx + Math.cos(st.sweepAngle) * Math.max(w, h) * 0.6;
-    const sy = cy + Math.sin(st.sweepAngle) * Math.max(w, h) * 0.6;
+    // Pass 1: All sharp ring strokes (source-over, no composite switch)
+    for (let i = 0; i < rings.length; i++) {
+      const r = rings[i];
+      ctx.globalAlpha = r.alpha;
+      ctx.strokeStyle = r.color.stroke;
+      ctx.lineWidth = r.lineWidth;
+      ctx.beginPath();
+      ctx.moveTo(r.verts[0][0], r.verts[0][1]);
+      for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // Pass 2: All glow strokes in one batch (single composite switch)
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < rings.length; i++) {
+      const r = rings[i];
+      if (r.nearness <= 0.15) continue;
+      ctx.globalAlpha = r.alpha * 0.25;
+      ctx.strokeStyle = r.color.glow + "0.4)";
+      ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
+      ctx.beginPath();
+      ctx.moveTo(r.verts[0][0], r.verts[0][1]);
+      for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
+      ctx.closePath();
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = "source-over";
+
+    // Pass 3: Connecting lines — batch per ring into one path
+    for (let i = 0; i < rings.length; i++) {
+      const r = rings[i];
+      if (r.nearness <= 0.6) continue;
+      ctx.globalAlpha = (r.nearness - 0.6) / 0.4 * 0.12;
+      ctx.strokeStyle = r.color.stroke;
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      for (let v = 0; v < 5; v++) {
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(r.verts[v][0], r.verts[v][1]);
+      }
+      ctx.stroke(); // single stroke call for all 5 lines
+    }
+
+    // Radar sweep
     ctx.strokeStyle = "#00E5FF";
     ctx.globalAlpha = 0.035;
     ctx.lineWidth = 1;
-    ctx.shadowBlur = 6;
-    ctx.shadowColor = "#00E5FF";
     ctx.beginPath();
     ctx.moveTo(cx, cy);
-    ctx.lineTo(sx, sy);
+    ctx.lineTo(
+      cx + Math.cos(st.sweepAngle) * Math.max(w, h) * 0.6,
+      cy + Math.sin(st.sweepAngle) * Math.max(w, h) * 0.6,
+    );
     ctx.stroke();
-    ctx.restore();
 
-    // --- Dust particles ---
+    // Dust particles — batched by color, single path per color group
     const dust = st.dust;
-    for (let i = 0; i < dust.length; i++) {
-      const p = dust[i];
-      p.y -= p.speed * dt;
-      p.x += p.drift * dt;
-      if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
-      if (p.x < -0.02 || p.x > 1.02) p.x = Math.random();
-
-      ctx.save();
-      ctx.fillStyle = DUST_COLORS[p.colorIdx];
-      ctx.globalAlpha = p.opacity;
-      ctx.shadowBlur = 3;
-      ctx.shadowColor = DUST_COLORS[p.colorIdx];
-      ctx.beginPath();
-      ctx.arc(p.x * w, p.y * h, p.size, 0, TWO_PI);
-      ctx.fill();
-      ctx.restore();
+    for (let ci = 0; ci < DUST_COLORS.length; ci++) {
+      ctx.fillStyle = DUST_COLORS[ci];
+      // Group particles with similar opacity to reduce state changes
+      for (let i = 0; i < dust.length; i++) {
+        const p = dust[i];
+        if (p.colorIdx !== ci) continue;
+        p.y -= p.speed * dt;
+        p.x += p.drift * dt;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        if (p.x < -0.02 || p.x > 1.02) p.x = Math.random();
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x * w, p.y * h, p.size, 0, TWO_PI);
+        ctx.fill();
+      }
     }
+
+    ctx.globalAlpha = 1;
   }, []);
 
   useEffect(() => {
@@ -177,7 +184,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     let lastTime = performance.now();
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -186,7 +193,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     window.addEventListener("resize", resize);
 
     const loop = (now) => {
-      const dt = Math.min(now - lastTime, 50); // cap delta to avoid jumps
+      const dt = Math.min(now - lastTime, 50);
       lastTime = now;
       draw(ctx, canvas.offsetWidth, canvas.offsetHeight, dt);
       stateRef.current.animId = requestAnimationFrame(loop);

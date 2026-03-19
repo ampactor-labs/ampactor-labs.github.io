@@ -86,15 +86,16 @@ export default function SynthEngine({ width }) {
     const dpr = window.devicePixelRatio || 1, w = width, h = 70;
     canvas.width = w * dpr; canvas.height = h * dpr;
     const ctx = canvas.getContext("2d");
+    let buf = null;
     const draw = () => {
       ctx.save(); ctx.scale(dpr, dpr);
       ctx.fillStyle = "rgba(8,8,12,0.4)"; ctx.fillRect(0, 0, w, h);
       if (analyserRef.current) {
-        const buf = new Uint8Array(analyserRef.current.frequencyBinCount);
+        if (!buf) buf = new Uint8Array(analyserRef.current.frequencyBinCount);
         analyserRef.current.getByteTimeDomainData(buf);
         ctx.beginPath(); const sw = w / buf.length; let x = 0;
         for (let i = 0; i < buf.length; i++) { const y = buf[i] / 128.0 * h / 2; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); x += sw; }
-        ctx.strokeStyle = "#FFB800"; ctx.lineWidth = 1.5; ctx.shadowColor = "#FFB800"; ctx.shadowBlur = 6; ctx.stroke();
+        ctx.strokeStyle = "#FFB800"; ctx.lineWidth = 1.5; ctx.stroke();
       } else { ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2); ctx.strokeStyle = "rgba(255,200,0,0.2)"; ctx.lineWidth = 1; ctx.stroke(); }
       ctx.restore(); animRef.current = requestAnimationFrame(draw);
     };

@@ -47,12 +47,18 @@ export default function CoherenceField({ width, height }) {
         p.x += p.vx; p.y += p.vy;
         if (p.x < 10) p.vx += 0.2; if (p.x > width - 10) p.vx -= 0.2; if (p.y < 10) p.vy += 0.2; if (p.y > height - 10) p.vy -= 0.2;
         const g = Math.sin(p.phase) * 0.5 + 0.5, hue = 170 + Math.sin(p.phase) * 40;
-        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3.5);
-        grad.addColorStop(0, `hsla(${hue},60%,${45 + g * 25}%,${p.energy * (0.4 + g * 0.3)})`);
-        grad.addColorStop(1, `hsla(${hue},60%,${45 + g * 25}%,0)`);
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.5, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (0.7 + g * 0.4), 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${hue},65%,${50 + g * 25}%,${p.energy * (0.6 + g * 0.4)})`; ctx.fill();
+
+        // Outer glow — simple larger circle with low alpha (replaces createRadialGradient)
+        const glowAlpha = p.energy * (0.12 + g * 0.08);
+        ctx.globalAlpha = glowAlpha;
+        ctx.fillStyle = `hsl(${hue},60%,${45 + g * 25}%)`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.5, 0, Math.PI * 2); ctx.fill();
+
+        // Inner core — brighter solid dot
+        ctx.globalAlpha = p.energy * (0.6 + g * 0.4);
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (0.7 + g * 0.4), 0, Math.PI * 2); ctx.fill();
+
+        ctx.globalAlpha = 1;
       }
       if (!v.consume && t % 50 === 0) { const d = particles.find(p => !p.alive && p.consumed); if (d) Object.assign(d, { x: Math.random() * width, y: Math.random() * height, vx: 0, vy: 0, phase: Math.random() * Math.PI * 2, freq: d.baseFreq, energy: 0.5, r: d.baseR, alive: true, consumed: false, wallTimer: 0 }); }
       if (!v.neglect && t % 35 === 0) { const d = particles.find(p => !p.alive && !p.consumed); if (d) Object.assign(d, { x: Math.random() * width, y: Math.random() * height, vx: 0, vy: 0, phase: Math.random() * Math.PI * 2, freq: d.baseFreq, energy: 0.5, r: d.baseR, alive: true, consumed: false, wallTimer: 0 }); }
@@ -69,7 +75,7 @@ export default function CoherenceField({ width, height }) {
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "center" }}>
         {["fear", "protect", "consume", "neglect"].map(k => {
           const on = violations[k];
-          return (<button key={k} onClick={() => toggle(k)} style={{ background: on ? "rgba(220,70,50,0.15)" : "rgba(0,220,180,0.06)", border: `1px solid ${on ? "rgba(220,70,50,0.3)" : "rgba(0,220,180,0.12)"}`, borderRadius: 4, padding: "5px 12px", cursor: "pointer", color: on ? "#dc4632" : "#5a8a7a", fontSize: 9, letterSpacing: "0.1em", fontFamily: "'JetBrains Mono', monospace" }}>{k.toUpperCase()}{on ? " \u00d7" : ""}</button>);
+          return (<button key={k} onClick={() => toggle(k)} style={{ background: on ? "rgba(220,70,50,0.15)" : "rgba(0,220,180,0.06)", border: `1px solid ${on ? "rgba(220,70,50,0.3)" : "rgba(0,220,180,0.12)"}`, borderRadius: 4, padding: "5px 12px", cursor: "pointer", color: on ? "#dc4632" : "#5a8a7a", fontSize: 9, letterSpacing: "0.1em", fontFamily: "'JetBrains Mono', monospace" }}>{k.toUpperCase()}{on ? " ×" : ""}</button>);
         })}
       </div>
       {Object.values(violations).some(Boolean) && <div style={{ fontSize: 8, color: "rgba(220,70,50,0.5)", letterSpacing: "0.15em" }}>PATTERN DEGRADING</div>}
