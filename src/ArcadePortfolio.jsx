@@ -7,21 +7,21 @@ import useAmbientHum from "./useAmbientHum";
 import useIntroSequence from "./useIntroSequence";
 
 const PROJECTS = [
-  { id: "sonido", title: "SONIDO", subtitle: "MODULAR DSP WORKSTATION", lang: "Rust", color: "#00E5FF", icon: "\u266b", github: "https://github.com/ampactor-labs/sonido", desc: "Modular audio effects workstation. 30+ DSP effects, node graph, CLAP plugin, Daisy hardware export. The shape of sound.", tags: ["dsp", "clap", "embedded", "no_std"] },
-  { id: "forge", title: "FORGE", subtitle: "LLM CONVERSATION ENGINE", lang: "Rust", color: "#44aaff", icon: "\u2692", github: "https://github.com/ampactor-labs/forge", desc: "CLI tool for multi-provider LLM conversations with tool use. Route between models, maintain context, execute tools.", tags: ["llm", "cli", "tool-use", "multi-provider"] },
-  { id: "browsore", title: "BROWSORE", subtitle: "BROWSER AUTOMATION MCP", lang: "Rust", color: "#aa66ff", icon: "\u29be", github: "https://github.com/ampactor-labs/browsore", desc: "Browser automation MCP server for AI agent web interaction. Navigate, click, extract, automate.", tags: ["mcp", "browser", "automation", "ai-agents"] },
-  { id: "bounty-hunter", title: "BOUNTY-HUNTER", subtitle: "SECURITY SCANNER", lang: "Rust", color: "#ff6644", icon: "\u2620", github: "https://github.com/ampactor-labs/bounty-hunter", desc: "Automated security bug bounty hunter. Multi-vertical vulnerability scanning across web, API, and infrastructure targets.", tags: ["security", "scanning", "bounty", "automation"] },
-  { id: "tokensafe", title: "TOKENSAFE", subtitle: "RUG PULL DETECTION", lang: "Rust", color: "#ff44aa", icon: "\u25c8", github: "https://github.com/ampactor-labs/tokensafe", desc: "Solana token safety analyzer. Rug pull detection, concentration risk scoring, honeypot identification.", tags: ["solana", "security", "defi", "analysis"] },
-  { id: "solguard", title: "ST-SOLGUARD", subtitle: "PROGRAM SECURITY SCANNER", lang: "Rust", color: "#ff8844", icon: "\u2b22", github: "https://github.com/ampactor-labs/st-solguard", desc: "Solana program security scanner. Static analysis for common vulnerabilities in on-chain programs.", tags: ["solana", "static-analysis", "security", "audit"] },
-  { id: "st-audit", title: "ST-AUDIT", subtitle: "SMART CONTRACT AUDITOR", lang: "Rust", color: "#66ffcc", icon: "\u25c7", github: "https://github.com/ampactor-labs/st-audit", desc: "Automated smart contract audit tooling. Pattern matching against known vulnerability classes. Structural analysis, not string matching.", tags: ["audit", "solana", "security", "analysis"] },
-  { id: "flowpilot", title: "FLOWPILOT", subtitle: "ALGORITHMIC TRADING", lang: "Rust", color: "#ffaa00", icon: "\u2b21", github: "https://github.com/ampactor-labs/flowpilot", desc: "Algorithmic trading engine for Solana DEXs. Edge-first architecture, real-time execution, on-chain settlement.", tags: ["solana", "trading", "defi", "algorithms"] },
-  { id: "selekta", title: "CELEZDIAL SELEKTA", subtitle: "AUDIO INTERFACE", lang: "JavaScript", color: "#cc66ff", icon: "\u2726", github: "https://github.com/ampactor-labs/celezdial-selekta", desc: "Interactive audio selection and mixing interface. Celestial dial energy. Select your frequency.", tags: ["audio", "interactive", "web", "creative"] },
-  { id: "narrative", title: "ST-NARRATIVE", subtitle: "STORY ENGINE", lang: "HTML", color: "#66ccff", icon: "\u25c9", github: "https://github.com/ampactor-labs/st-narrative", desc: "Narrative presentation layer for SuperTeam submissions. Telling the story behind the code.", tags: ["narrative", "presentation", "superteam"] },
+  { id: "sonido", title: "SONIDO", subtitle: "MODULAR DSP WORKSTATION", lang: "Rust", color: "#00E5FF", icon: "\u266b", github: "https://github.com/ampactor-labs/sonido", desc: "Production-grade DSP framework in Rust. 35 audio effects on a three-layer kernel architecture \u2014 runs identically on desktop CLAP plugins, CLI tools, and bare-metal ARM (Daisy Seed @ 480 MHz). DAG-based routing with buffer liveness analysis. Every kernel is zero-heap, zero-trait-dispatch.", tags: ["dsp", "clap", "embedded", "no_std"], tagline: "THE SHAPE OF SOUND", highlights: ["35 EFFECTS / 35 CLAP PLUGINS", "14 CRATES (6 no_std)", "1,369 TESTS", "DAG AUDIO ROUTING", "egui GUI + WASM", "from_knobs() ADC MAPPING"], stack: ["Rust", "CLAP", "egui", "cpal", "libm"], status: "active" },
+  { id: "forge", title: "FORGE", subtitle: "LLM CONVERSATION ENGINE", lang: "Rust", color: "#44aaff", icon: "\u2692", github: "https://github.com/ampactor-labs/forge", desc: "Rust-native reimplementation of Claude Code's agentic tool loop. Full state machine, security policy engine, session persistence. Six crates. One binary. No compromises.", tags: ["llm", "cli", "tool-use", "agentic"], tagline: "THE LOOP REMEMBERS", highlights: ["6-CRATE WORKSPACE", "CAPABILITY-BASED SECURITY", "RATATUI TUI", "MCP CLIENT (rmcp)", "SESSION PERSISTENCE", "MODEL-PER-MODE GUARD"], stack: ["Rust", "ratatui", "rmcp", "tokio"], status: "active" },
+  { id: "browsore", title: "BROWSORE", subtitle: "BROWSER AUTOMATION MCP", lang: "TypeScript", color: "#aa66ff", icon: "\u29be", github: "https://github.com/ampactor-labs/browsore", desc: "Politeness-first browser automation. Robots.txt compliance, per-domain rate limiting, exponential backoff \u2014 then 40 MCP tools for AI agents to navigate, extract, and automate. Standalone CLI, programmatic API, and autonomous agent loop.", tags: ["mcp", "browser", "automation", "ai-agents"], tagline: "IT ASKS BEFORE IT ENTERS", highlights: ["40 MCP TOOLS", "ROBOTS.TXT (RFC 9309)", "30+ COOKIE CMPs", "HUMAN-LIKE INPUT", "SESSION PERSISTENCE", "PROMPT INJECTION DETECTION"], stack: ["TypeScript", "Playwright", "MCP/stdio"], status: "active" },
+  { id: "bounty-hunter", title: "BOUNTY-HUNTER", subtitle: "SECURITY SCANNER", lang: "Rust", color: "#ff6644", icon: "\u2620", github: "https://github.com/ampactor-labs/bounty-hunter", desc: "AI-powered bug bounty aggregator across 8 platforms \u2014 Immunefi, HackerOne, Bugcrowd, Code4rena, Sherlock, and more. Fetches listings, runs vulnerability analysis across 9 security verticals, surfaces findings through a web dashboard with human approval workflows.", tags: ["security", "bounty", "aggregator", "ai-analysis"], tagline: "EIGHT EYES. NINE ANGLES.", highlights: ["8 PLATFORMS", "9 SECURITY VERTICALS", "SWARM ORCHESTRATION", "AXUM WEB DASHBOARD", "HUMAN APPROVAL GATES", "7-CRATE WORKSPACE"], stack: ["Rust", "Axum", "tokio", "WebSocket"], status: "active" },
+  { id: "tokensafe", title: "TOKENSAFE", subtitle: "RUG PULL DETECTION", lang: "TypeScript", color: "#ff44aa", icon: "\u25c8", github: "https://github.com/ampactor-labs/tokensafe", desc: "Solana token safety scanner. Nine deterministic on-chain checks \u2014 no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments: payment is authentication. Free MCP tool for Claude Code. Live and deployed.", tags: ["solana", "security", "defi", "analysis"], tagline: "0.008 BUYS THE TRUTH", highlights: ["9 ON-CHAIN CHECKS", "x402 MICROPAYMENTS", "$0.008/REQUEST", "FREE MCP TOOL", "DELTA DETECTION", "Ed25519 SIGNED RESPONSES"], stack: ["TypeScript", "Express", "Helius RPC", "Jupiter"], status: "deployed" },
+  { id: "solguard", title: "ST-SOLGUARD", subtitle: "PROGRAM SECURITY SCANNER", lang: "Rust", color: "#ff8844", icon: "\u2b22", github: "https://github.com/ampactor-labs/st-solguard", desc: "Autonomous narrative-informed security intelligence pipeline. Five phases: signal collection, narrative synthesis, target selection, vulnerability scanning, cross-reference. Static scanning without narrative targeting found zero real vulnerabilities. With it: 7 confirmed findings, 3 Critical.", tags: ["solana", "static-analysis", "security", "audit"], tagline: "THE STORY CHOSE THE TARGET", highlights: ["5-PHASE PIPELINE", "13 SCAN PATTERNS", "LLM DEEP REVIEW", "ADVERSARIAL VALIDATOR", "98 TESTS", "LIVE REPORT PUBLISHED"], stack: ["Rust", "syn", "askama", "tokio"], status: "shipped" },
+  { id: "st-audit", title: "ST-AUDIT", subtitle: "SMART CONTRACT AUDITOR", lang: "Rust", color: "#66ffcc", icon: "\u25c7", github: "https://github.com/ampactor-labs/st-audit", desc: "Solana smart contract vulnerability scanner. 10 regex + 3 AST patterns via syn. The honest finding: static patterns hit 88-100% false positive rates on real targets. All confirmed vulnerabilities came from LLM-guided manual review. The scanner is the filter. The human is the auditor.", tags: ["audit", "solana", "security", "analysis"], tagline: "THE MACHINE FOUND ITS LIMITS", highlights: ["13 STATIC PATTERNS", "LLM DEEP REVIEW", "PoC DOCUMENTS", "88% FP RATE (ROUND 1)", "FIX PR FILED UPSTREAM", "INTEGRATED INTO ST-SOLGUARD"], stack: ["Rust", "syn", "regex", "walkdir"], status: "shipped" },
+  { id: "flowpilot", title: "FLOWPILOT", subtitle: "ALGORITHMIC TRADING", lang: "Rust", color: "#ffaa00", icon: "\u2b21", github: "https://github.com/ampactor-labs/flowpilot", desc: "Automated Solana token trading engine. Discovers trending tokens, filters through a 4-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), executes via Jupiter with graduated take-profit exits and on-chain trailing stop-loss. Paper mode default. Micro-capital ready.", tags: ["solana", "trading", "defi", "algorithms"], tagline: "PAPER UNTIL PROVEN", highlights: ["13-CRATE WORKSPACE", "4-LAYER SAFETY GATE", "3 TP TIERS", "TRAILING STOP-LOSS", "TELEGRAM ALERTS", "GRID/ARB/LP/DCA STRATEGIES"], stack: ["Rust", "rust_decimal", "SQLite", "Jupiter API"], status: "active" },
+  { id: "selekta", title: "CELEZDIAL SELEKTA", subtitle: "AUDIO INTERFACE", lang: "JavaScript", color: "#cc66ff", icon: "\u2726", github: "https://github.com/ampactor-labs/celezdial-selekta", desc: "Polyphonic ambient synthesizer with 12 voices mapped to the zodiac. Planetary tuning derived from Hans Cousto's Cosmic Octave. 39 parameter knobs across 8 swappable FX chains. Enter two birth charts \u2014 shared signs glow, microtonal detuning follows degree positions.", tags: ["audio", "synthesizer", "astrology", "creative"], tagline: "ARIES FEARS NOTHING", highlights: ["12 ZODIAC VOICES", "39 KNOBS", "8 FX CHAINS", "COUSTO PLANETARY TUNING", "DUAL NATAL CHARTS", "ECLIPSE MODE"], stack: ["React", "Tone.js", "circular-natal-horoscope-js"], status: "shipped" },
+  { id: "narrative", title: "ST-NARRATIVE", subtitle: "STORY ENGINE", lang: "HTML", color: "#66ccff", icon: "\u25c9", github: "https://github.com/ampactor-labs/st-narrative", desc: "Solana narrative detection pipeline. Cross-validates signals from GitHub API, Solana RPC, blog scraping, and DeFiLlama. LLM synthesis requires quantitative citations and confidence scores. Generates build ideas with timing rationale. Auto-refreshes fortnightly via GitHub Actions.", tags: ["solana", "narrative", "intelligence", "pipeline"], tagline: "THE SIGNAL WAS ALWAYS THERE", highlights: ["4 SIGNAL SOURCES", "LLM SYNTHESIS", "AUTO-REFRESH (1st & 15th)", "BUILD IDEA GENERATION", "FEEDS INTO ST-SOLGUARD", "LIVE REPORT"], stack: ["Rust", "reqwest", "askama", "scraper"], status: "shipped" },
 ];
 
 const HIDDEN_PROJECTS = [
-  { id: "coherence", title: "COHERENCE FIELD", subtitle: "CONSERVATION LAWS", lang: "\u2014", color: "#00ddbb", icon: "\u25ce", github: null, desc: "Self-sustaining distributed coherence. Phase-coupled particles, no central authority. Toggle the four constraints and watch the pattern live or die.", tags: ["don't fear", "don't protect", "don't consume", "don't neglect"], hidden: true, interactive: "coherence" },
-  { id: "resonance", title: "SYS/RESONANCE", subtitle: "SUBTRACTIVE SYNTH", lang: "WebAudio", color: "#FFB800", icon: "\u223f", github: null, desc: "Playable single-voice subtractive synthesizer. Oscillator \u2192 Filter \u2192 Amp \u2192 Delay. Keyboard-mapped. The signal chain, alive in the browser.", tags: ["oscillator", "filter", "envelope", "delay"], hidden: true, interactive: "synth" },
+  { id: "coherence", title: "COHERENCE FIELD", subtitle: "CONSERVATION LAWS", lang: "\u2014", color: "#00ddbb", icon: "\u25ce", github: null, desc: "Self-sustaining distributed coherence. Phase-coupled particles, no central authority. Toggle the four constraints and watch the pattern live or die.", tags: ["don't fear", "don't protect", "don't consume", "don't neglect"], hidden: true, interactive: "coherence", tagline: "THE FIELD PERSISTS" },
+  { id: "resonance", title: "SYS/RESONANCE", subtitle: "SUBTRACTIVE SYNTH", lang: "WebAudio", color: "#FFB800", icon: "\u223f", github: null, desc: "Playable single-voice subtractive synthesizer. Oscillator \u2192 Filter \u2192 Amp \u2192 Delay. Keyboard-mapped. The signal chain, alive in the browser.", tags: ["oscillator", "filter", "envelope", "delay"], hidden: true, interactive: "synth", tagline: "THE CHAIN SPEAKS" },
 ];
 
 const crtStyles = `
@@ -77,7 +77,7 @@ export default function ArcadePortfolio() {
   const tunnelRef = useRef(null);
   const logoRef = useRef(null);
   const consoleRef = useRef(null);
-  const { humming, toggleHum, initHum, playBlip } = useAmbientHum();
+  const { playBlip } = useAmbientHum();
   const { introComplete, skipIntro } = useIntroSequence(logoRef, tunnelRef, consoleRef);
 
   const allProjects = useMemo(() => coinInserted ? [...PROJECTS, ...HIDDEN_PROJECTS] : PROJECTS, [coinInserted]);
@@ -144,7 +144,7 @@ export default function ArcadePortfolio() {
   const goBack = () => { setScreen("select"); setDetailProject(null); };
 
   return (
-    <div onClick={() => initHum()} style={{ width: "100%", height: "100vh", background: "radial-gradient(ellipse at 50% 40%, #0a0c18 0%, #08080f 50%, #050508 100%)", display: "flex", justifyContent: "center", alignItems: "stretch", overflow: "hidden", fontFamily: "'JetBrains Mono', monospace", position: "relative" }}>
+    <div style={{ width: "100%", height: "100vh", background: "radial-gradient(ellipse at 50% 40%, #0a0c18 0%, #08080f 50%, #050508 100%)", display: "flex", justifyContent: "center", alignItems: "stretch", overflow: "hidden", fontFamily: "'JetBrains Mono', monospace", position: "relative" }}>
       <CrtSvgDefs />
       <style>{crtStyles}</style>
       <TunnelCanvas ref={tunnelRef} />
@@ -203,8 +203,6 @@ export default function ArcadePortfolio() {
             <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: "#00E5FF", letterSpacing: "0.2em", textShadow: "0 0 8px rgba(0,229,255,0.4)" }}>AMPACTOR</div>
             <div style={{ fontSize: 7, color: "#667788", letterSpacing: "0.15em" }}>SALT LAKE CITY {"\u00b7"} EST. 2018</div>
           </div>
-          {/* Speaker toggle */}
-          <div className="btn-cabinet" role="button" aria-label={humming ? "Mute hum" : "Enable hum"} tabIndex={0} onClick={toggleHum} style={{ width: 22, height: 22, background: humming ? "rgba(0,229,255,0.08)" : "rgba(255,255,255,0.03)", borderRadius: "50%", border: `1px solid ${humming ? "rgba(0,229,255,0.2)" : "#2a2a3a"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: humming ? "#00E5FF" : "#334" }}>{humming ? "\u{1F50A}" : "\u{1F507}"}</div>
           <div className="coin-slot" role="button" aria-label={coinInserted ? "Bonus loaded" : "Insert coin"} tabIndex={0} onClick={insertCoin} title="Insert coin" style={{ width: 48, height: 14, background: coinInserted ? "rgba(255,184,0,0.1)" : "#111118", borderRadius: 7, border: `2px solid ${coinInserted ? "rgba(255,184,0,0.3)" : "#2a2a3a"}`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ width: 28, height: 3, background: coinInserted ? "rgba(255,184,0,0.4)" : "#222232", borderRadius: 2, boxShadow: coinInserted ? "0 0 4px rgba(255,184,0,0.3)" : "inset 0 1px 2px rgba(0,0,0,0.5)" }} />
           </div>
@@ -302,8 +300,16 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { const t = setTimeout(() => setLoaded(true), 100); return () => clearTimeout(t); }, []);
   const iw = Math.min(screenWidth, 400), ih = Math.min(screenHeight - 220, 240);
+  const statusColor = p.status === "active" ? "#00ff88" : p.status === "deployed" ? "#ffaa00" : "#4488ff";
+  const SectionLabel = ({ text }) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+      <span style={{ fontFamily: "'Press Start 2P'", fontSize: 7, color: `${p.color}55`, letterSpacing: "0.2em" }}>{text}</span>
+      <div style={{ flex: 1, height: 1, background: `${p.color}15` }} />
+    </div>
+  );
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column", opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(10px)", transition: "all 0.3s ease" }}>
+      {/* Header */}
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, paddingBottom: 12, borderBottom: `1px solid ${p.color}22` }}>
         <div className="btn-cabinet" role="button" aria-label="Back to project list" tabIndex={0} onClick={onBack} style={{ fontSize: 12, color: "#667788", padding: "3px 7px", borderRadius: 4, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>{"\u25c4"}</div>
         <div style={{ fontSize: 24, color: p.color, textShadow: `0 0 12px ${p.color}44` }}>{p.icon}</div>
@@ -313,15 +319,41 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
         </div>
         {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" style={{ fontSize: 10, color: "#667788", letterSpacing: "0.08em", textDecoration: "none", marginLeft: "auto", flexShrink: 0 }}>{"\u203a"} SOURCE</a>}
       </div>
-      <div style={{ flex: 1, overflow: "auto" }}>
-        <div style={{ fontSize: 14, lineHeight: 1.7, color: "#99aabb", marginBottom: 14, maxWidth: 520 }}>{p.desc}</div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 14 }}>
-          {p.tags.map(tag => (<span key={tag} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 3, background: `${p.color}0a`, border: `1px solid ${p.color}20`, color: `${p.color}aa`, letterSpacing: "0.05em" }}>{tag}</span>))}
+      {/* Body */}
+      <div style={{ flex: 1, overflow: "auto", position: "relative" }}>
+        {/* Tagline stencil — rotated 90deg, barely visible */}
+        {p.tagline && <span style={{ position: "absolute", right: 6, top: "50%", transform: "rotate(90deg)", transformOrigin: "right center", whiteSpace: "nowrap", fontFamily: "'Press Start 2P'", fontSize: 7, letterSpacing: "0.3em", color: `${p.color}18`, pointerEvents: "none", userSelect: "none" }}>{p.tagline}</span>}
+        {/* Zone A — SYS/READOUT */}
+        <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 4, background: `${p.color}05`, border: `1px solid ${p.color}0a` }}>
+          <SectionLabel text="SYS/READOUT" />
+          <div style={{ fontSize: 13, lineHeight: 1.75, color: "#99aabb", maxWidth: 520 }}><span style={{ color: p.color }}>&gt; </span>{p.desc}</div>
+        </div>
+        {/* Zone B — SPECIFICATIONS + STACK */}
+        {(p.highlights || p.stack) && (
+          <div style={{ display: "flex", flexDirection: screenWidth < 340 ? "column" : "row", gap: 14, marginBottom: 14 }}>
+            {p.highlights && <div style={{ flex: 1 }}>
+              <SectionLabel text="SPECIFICATIONS" />
+              {p.highlights.map((h, i) => <div key={i} style={{ fontSize: 11, color: "#99aabb", lineHeight: 1.8, letterSpacing: "0.04em" }}><span style={{ color: `${p.color}88` }}>&gt;&gt; </span>{h}</div>)}
+            </div>}
+            {p.stack && <div style={{ minWidth: 90 }}>
+              <SectionLabel text="STACK" />
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                {p.stack.map(s => <span key={s} style={{ fontSize: 9, padding: "2px 7px", borderRadius: 3, background: `${p.color}15`, border: `1px solid ${p.color}30`, color: `${p.color}cc`, letterSpacing: "0.05em" }}>{s}</span>)}
+              </div>
+            </div>}
+          </div>
+        )}
+        {/* Zone C — STATUS + TAGS */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
+          {p.status && <><span style={{ fontSize: 10, color: statusColor }}>{"\u25cf"} {p.status.toUpperCase()}</span><span style={{ color: "#333", fontSize: 10 }}>{"\u2502"}</span></>}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+            {p.tags.map(tag => <span key={tag} style={{ fontSize: 8, padding: "2px 6px", borderRadius: 3, background: `${p.color}0a`, border: `1px solid ${p.color}20`, color: `${p.color}aa`, letterSpacing: "0.05em" }}>{tag}</span>)}
+          </div>
         </div>
         {p.interactive === "coherence" && <CoherenceField width={iw} height={ih} />}
         {p.interactive === "synth" && <SynthEngine width={iw} />}
-        {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 16px", marginTop: 14, background: `${p.color}11`, border: `1px solid ${p.color}33`, borderRadius: 6, color: p.color, textDecoration: "none", fontSize: 10, letterSpacing: "0.1em", fontFamily: "'JetBrains Mono', monospace" }} onMouseEnter={(e) => { e.currentTarget.style.background = `${p.color}22`; e.currentTarget.style.boxShadow = `0 0 16px ${p.color}22`; }} onMouseLeave={(e) => { e.currentTarget.style.background = `${p.color}11`; e.currentTarget.style.boxShadow = "none"; }}>VIEW SOURCE {"\u2192"}</a>}
       </div>
+      {/* Footer */}
       <div style={{ paddingTop: 10, borderTop: `1px solid ${p.color}11`, fontSize: 8, color: "#445566", display: "flex", justifyContent: "space-between" }}>
         <span>[ {"\u24b7"} BACK ]</span>
         <span>{p.github ? p.github.replace("https://github.com/", "") : p.id}</span>
