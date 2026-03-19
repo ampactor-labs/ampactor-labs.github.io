@@ -2,6 +2,9 @@ import { useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from 
 
 const RING_COUNT = 12;
 const DUST_COUNT = 30;
+const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+const RING_COUNT_M = isMobile ? 8 : RING_COUNT;
+const DUST_COUNT_M = isMobile ? 12 : DUST_COUNT;
 const FOV = 200;
 const DEPTH_RANGE = 800;
 const TWO_PI = Math.PI * 2;
@@ -55,7 +58,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     tunnelDepth: 0,
     sweepAngle: 0,
     elapsed: 0,
-    dust: initDust(),
+    dust: initDust().slice(0, DUST_COUNT_M),
     speed,
     animId: null,
   });
@@ -82,7 +85,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
 
     // Pre-compute all ring data once
     const rings = [];
-    for (let i = 0; i < RING_COUNT; i++) {
+    for (let i = 0; i < RING_COUNT_M; i++) {
       const nearness = ((i / RING_COUNT) + st.tunnelDepth) % 1.0;
       const scale = FOV / (FOV + (1 - nearness) * DEPTH_RANGE);
       const dir = i % 2 === 0 ? 1 : -1;
@@ -112,21 +115,23 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
       ctx.stroke();
     }
 
-    // Pass 2: All glow strokes in one batch (single composite switch)
-    ctx.globalCompositeOperation = "lighter";
-    for (let i = 0; i < rings.length; i++) {
-      const r = rings[i];
-      if (r.nearness <= 0.15) continue;
-      ctx.globalAlpha = r.alpha * 0.25;
-      ctx.strokeStyle = r.color.glow + "0.4)";
-      ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
-      ctx.beginPath();
-      ctx.moveTo(r.verts[0][0], r.verts[0][1]);
-      for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
-      ctx.closePath();
-      ctx.stroke();
+    // Pass 2: All glow strokes in one batch (single composite switch) — desktop only
+    if (!isMobile) {
+      ctx.globalCompositeOperation = "lighter";
+      for (let i = 0; i < rings.length; i++) {
+        const r = rings[i];
+        if (r.nearness <= 0.15) continue;
+        ctx.globalAlpha = r.alpha * 0.25;
+        ctx.strokeStyle = r.color.glow + "0.4)";
+        ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
+        ctx.beginPath();
+        ctx.moveTo(r.verts[0][0], r.verts[0][1]);
+        for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
+        ctx.closePath();
+        ctx.stroke();
+      }
+      ctx.globalCompositeOperation = "source-over";
     }
-    ctx.globalCompositeOperation = "source-over";
 
     // Pass 3: Connecting lines — batch per ring into one path
     for (let i = 0; i < rings.length; i++) {
@@ -155,23 +160,19 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     );
     ctx.stroke();
 
-    // Dust particles — batched by color, single path per color group
+    // Dust particles — single pass (alpha varies per particle, batching by color buys nothing)
     const dust = st.dust;
-    for (let ci = 0; ci < DUST_COLORS.length; ci++) {
-      ctx.fillStyle = DUST_COLORS[ci];
-      // Group particles with similar opacity to reduce state changes
-      for (let i = 0; i < dust.length; i++) {
-        const p = dust[i];
-        if (p.colorIdx !== ci) continue;
-        p.y -= p.speed * dt;
-        p.x += p.drift * dt;
-        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
-        if (p.x < -0.02 || p.x > 1.02) p.x = Math.random();
-        ctx.globalAlpha = p.opacity;
-        ctx.beginPath();
-        ctx.arc(p.x * w, p.y * h, p.size, 0, TWO_PI);
-        ctx.fill();
-      }
+    for (let i = 0; i < dust.length; i++) {
+      const p = dust[i];
+      p.y -= p.speed * dt;
+      p.x += p.drift * dt;
+      if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+      if (p.x < -0.02 || p.x > 1.02) p.x = Math.random();
+      ctx.fillStyle = DUST_COLORS[p.colorIdx];
+      ctx.globalAlpha = p.opacity;
+      ctx.beginPath();
+      ctx.arc(p.x * w, p.y * h, p.size, 0, TWO_PI);
+      ctx.fill();
     }
 
     ctx.globalAlpha = 1;

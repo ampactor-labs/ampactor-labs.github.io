@@ -39,12 +39,12 @@ const crtStyles = `
   @keyframes phosphorPulse { 0%,100%{text-shadow:0 0 4px rgba(0,255,140,0.3),0 0 12px rgba(0,255,140,0.1)} 50%{text-shadow:0 0 6px rgba(0,255,140,0.4),0 0 18px rgba(0,255,140,0.15)} }
   @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
   @keyframes testPattern { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
-  .crt-screen{animation:flicker 8s infinite,crtOn 0.8s ease-out both}
+  .crt-screen{animation:flicker 14s infinite,crtOn 0.8s ease-out both}
   .crt-glass{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 40%,transparent 60%,rgba(255,255,255,0.01) 100%);pointer-events:none;z-index:91;border-radius:inherit}
   .crt-curvature{position:absolute;inset:0;border-radius:50%/3%;box-shadow:inset 0 0 60px rgba(0,0,0,0.4);pointer-events:none;z-index:89}
-  .crt-phosphor{text-shadow:0 0 4px rgba(0,255,140,0.25),0 0 12px rgba(0,255,140,0.08),-0.7px 0 0 rgba(219,116,151,0.2),0.7px 0 0 rgba(40,100,255,0.15);animation:phosphorPulse 3s ease-in-out infinite}
+  .crt-phosphor{text-shadow:0 0 4px rgba(0,255,140,0.25),0 0 12px rgba(0,255,140,0.08),-0.7px 0 0 rgba(219,116,151,0.2),0.7px 0 0 rgba(40,100,255,0.15)}
   .crt-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:88;opacity:0.04;mix-blend-mode:screen}
-  .scanline-bar{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.03);animation:scanmove 4s linear infinite;pointer-events:none;z-index:100}
+  .scanline-bar{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.03);animation:scanmove 8s linear infinite;pointer-events:none;z-index:100}
   .blink-cursor{animation:blink 1s step-end infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
   .project-row:hover{background:rgba(219,116,151,0.03)!important;transform:translateX(4px)}
@@ -54,7 +54,7 @@ const crtStyles = `
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   .glitch-enter{animation:glitchIn 0.5s ease-out}
   .crt-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.01) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.01) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:42}
-  .coin-slot{animation:coinGlow 2s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
+  .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
   .coin-slot:hover{box-shadow:inset 0 0 12px rgba(255,184,0,0.6),0 0 10px rgba(255,184,0,0.2)!important}
   .coin-slot:active{transform:scale(0.95)}
   .cabinet-body{box-shadow:0 20px 80px rgba(0,229,255,0.07),0 0 120px rgba(0,229,255,0.04),0 40px 60px rgba(0,0,0,0.5);position:relative}
@@ -296,17 +296,20 @@ function SelectScreen({ projects, selectedIdx, onSelect, onHover, coinInserted }
   );
 }
 
+function SectionLabel({ text, color }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+      <span style={{ fontFamily: "'Press Start 2P'", fontSize: 7, color: `${color}55`, letterSpacing: "0.2em" }}>{text}</span>
+      <div style={{ flex: 1, height: 1, background: `${color}15` }} />
+    </div>
+  );
+}
+
 function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { const t = setTimeout(() => setLoaded(true), 100); return () => clearTimeout(t); }, []);
   const iw = Math.min(screenWidth, 400), ih = Math.min(screenHeight - 220, 240);
   const statusColor = p.status === "active" ? "#00ff88" : p.status === "deployed" ? "#ffaa00" : "#4488ff";
-  const SectionLabel = ({ text }) => (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-      <span style={{ fontFamily: "'Press Start 2P'", fontSize: 7, color: `${p.color}55`, letterSpacing: "0.2em" }}>{text}</span>
-      <div style={{ flex: 1, height: 1, background: `${p.color}15` }} />
-    </div>
-  );
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column", opacity: loaded ? 1 : 0, transform: loaded ? "none" : "translateY(10px)", transition: "all 0.3s ease" }}>
       {/* Header */}
@@ -322,21 +325,21 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
       {/* Body */}
       <div style={{ flex: 1, overflow: "auto", position: "relative" }}>
         {/* Tagline stencil — rotated 90deg, barely visible */}
-        {p.tagline && <span style={{ position: "absolute", right: 6, top: "50%", transform: "rotate(90deg)", transformOrigin: "right center", whiteSpace: "nowrap", fontFamily: "'Press Start 2P'", fontSize: 7, letterSpacing: "0.3em", color: `${p.color}18`, pointerEvents: "none", userSelect: "none" }}>{p.tagline}</span>}
+        {p.tagline && <span style={{ position: "absolute", right: 6, top: "50%", transform: "rotate(90deg)", transformOrigin: "right center", whiteSpace: "nowrap", fontFamily: "'Press Start 2P'", fontSize: 7, letterSpacing: "0.3em", color: `${p.color}0a`, pointerEvents: "none", userSelect: "none" }}>{p.tagline}</span>}
         {/* Zone A — SYS/READOUT */}
         <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 4, background: `${p.color}05`, border: `1px solid ${p.color}0a` }}>
-          <SectionLabel text="SYS/READOUT" />
+          <SectionLabel color={p.color} text="SYS/READOUT" />
           <div style={{ fontSize: 13, lineHeight: 1.75, color: "#99aabb", maxWidth: 520 }}><span style={{ color: p.color }}>&gt; </span>{p.desc}</div>
         </div>
         {/* Zone B — SPECIFICATIONS + STACK */}
         {(p.highlights || p.stack) && (
           <div style={{ display: "flex", flexDirection: screenWidth < 340 ? "column" : "row", gap: 14, marginBottom: 14 }}>
             {p.highlights && <div style={{ flex: 1 }}>
-              <SectionLabel text="SPECIFICATIONS" />
+              <SectionLabel color={p.color} text="SPECIFICATIONS" />
               {p.highlights.map((h, i) => <div key={i} style={{ fontSize: 11, color: "#99aabb", lineHeight: 1.8, letterSpacing: "0.04em" }}><span style={{ color: `${p.color}88` }}>&gt;&gt; </span>{h}</div>)}
             </div>}
             {p.stack && <div style={{ minWidth: 90 }}>
-              <SectionLabel text="STACK" />
+              <SectionLabel color={p.color} text="STACK" />
               <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                 {p.stack.map(s => <span key={s} style={{ fontSize: 9, padding: "2px 7px", borderRadius: 3, background: `${p.color}15`, border: `1px solid ${p.color}30`, color: `${p.color}cc`, letterSpacing: "0.05em" }}>{s}</span>)}
               </div>

@@ -13,7 +13,7 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
 
     // Start with everything hidden
     gsap.set(logo, { opacity: 0 });
-    gsap.set(console_, { opacity: 0, scale: 0.85, y: 20 });
+    gsap.set(console_, { opacity: 0, y: 20 });
 
     // Start tunnel at zero speed
     if (tunnel) tunnel.setSpeed(0);
@@ -55,7 +55,6 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
     // 1.5–2.5s: Console scales in and fades up
     tl.to(console_, {
       opacity: 1,
-      scale: 1,
       y: 0,
       duration: 1,
       ease: "power2.out",
