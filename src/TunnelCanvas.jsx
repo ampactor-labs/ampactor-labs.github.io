@@ -1,4 +1,10 @@
-import { useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
+import {
+  useRef,
+  useEffect,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
 const RING_COUNT = 12;
 const DUST_COUNT = 30;
@@ -52,7 +58,10 @@ function initDust() {
   return particles;
 }
 
-const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) {
+const TunnelCanvas = forwardRef(function TunnelCanvas(
+  { speed = 0.00008 },
+  ref,
+) {
   const canvasRef = useRef(null);
   const stateRef = useRef({
     tunnelDepth: 0,
@@ -60,18 +69,35 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     elapsed: 0,
     dust: initDust().slice(0, DUST_COUNT_M),
     speed,
+    revealRadius: 0,
     animId: null,
   });
 
   useImperativeHandle(ref, () => ({
-    setSpeed(s) { stateRef.current.speed = s; },
-    getSpeed() { return stateRef.current.speed; },
+    setSpeed(s) {
+      stateRef.current.speed = s;
+    },
+    getSpeed() {
+      return stateRef.current.speed;
+    },
+    setRevealRadius(r) {
+      stateRef.current.revealRadius = r;
+    },
   }));
 
-  useEffect(() => { stateRef.current.speed = speed; }, [speed]);
+  useEffect(() => {
+    stateRef.current.speed = speed;
+  }, [speed]);
 
   const draw = useCallback((ctx, w, h, dt) => {
     const st = stateRef.current;
+
+    // Nothing to draw — revealRadius=0 keeps canvas blank
+    if (st.revealRadius <= 0) {
+      ctx.clearRect(0, 0, w, h);
+      return;
+    }
+
     const cx = w / 2;
     const cy = h / 2;
 
@@ -83,14 +109,23 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
 
     const baseRadius = Math.max(w, h) * 0.7;
 
+    // Clip all drawing to the reveal circle
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, st.revealRadius, 0, TWO_PI);
+    ctx.clip();
+
     // Pre-compute all ring data once
     const rings = [];
     for (let i = 0; i < RING_COUNT_M; i++) {
-      const nearness = ((i / RING_COUNT) + st.tunnelDepth) % 1.0;
+      const nearness = (i / RING_COUNT + st.tunnelDepth) % 1.0;
       const scale = FOV / (FOV + (1 - nearness) * DEPTH_RANGE);
       const dir = i % 2 === 0 ? 1 : -1;
       const rotation = dir * (st.elapsed / (50000 + i * 7000)) * TWO_PI;
-      const colorIdx = Math.min(Math.floor((1 - nearness) * RING_COUNT), COLORS.length - 1);
+      const colorIdx = Math.min(
+        Math.floor((1 - nearness) * RING_COUNT),
+        COLORS.length - 1,
+      );
       rings.push({
         nearness,
         radius: baseRadius * scale,
@@ -105,6 +140,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     // Pass 1: All sharp ring strokes (source-over, no composite switch)
     for (let i = 0; i < rings.length; i++) {
       const r = rings[i];
+      if (r.radius < 2) continue; // skip rings not yet emerged from center
       ctx.globalAlpha = r.alpha;
       ctx.strokeStyle = r.color.stroke;
       ctx.lineWidth = r.lineWidth;
@@ -120,7 +156,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
       ctx.globalCompositeOperation = "lighter";
       for (let i = 0; i < rings.length; i++) {
         const r = rings[i];
-        if (r.nearness <= 0.15) continue;
+        if (r.radius < 2 || r.nearness <= 0.15) continue;
         ctx.globalAlpha = r.alpha * 0.25;
         ctx.strokeStyle = r.color.glow + "0.4)";
         ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
@@ -137,7 +173,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     for (let i = 0; i < rings.length; i++) {
       const r = rings[i];
       if (r.nearness <= 0.6) continue;
-      ctx.globalAlpha = (r.nearness - 0.6) / 0.4 * 0.12;
+      ctx.globalAlpha = ((r.nearness - 0.6) / 0.4) * 0.12;
       ctx.strokeStyle = r.color.stroke;
       ctx.lineWidth = 0.6;
       ctx.beginPath();
@@ -160,13 +196,16 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     );
     ctx.stroke();
 
-    // Dust particles — single pass (alpha varies per particle, batching by color buys nothing)
+    // Dust particles
     const dust = st.dust;
     for (let i = 0; i < dust.length; i++) {
       const p = dust[i];
       p.y -= p.speed * dt;
       p.x += p.drift * dt;
-      if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+      if (p.y < -0.02) {
+        p.y = 1.02;
+        p.x = Math.random();
+      }
       if (p.x < -0.02 || p.x > 1.02) p.x = Math.random();
       ctx.fillStyle = DUST_COLORS[p.colorIdx];
       ctx.globalAlpha = p.opacity;
@@ -176,6 +215,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas({ speed = 0.00008 }, ref) 
     }
 
     ctx.globalAlpha = 1;
+    ctx.restore();
   }, []);
 
   useEffect(() => {
