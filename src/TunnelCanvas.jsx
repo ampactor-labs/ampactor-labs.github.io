@@ -83,6 +83,10 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     setRevealRadius(r) {
       stateRef.current.revealRadius = r;
     },
+    getState() {
+      const st = stateRef.current;
+      return { tunnelDepth: st.tunnelDepth, elapsed: st.elapsed };
+    },
   }));
 
   useEffect(() => {
