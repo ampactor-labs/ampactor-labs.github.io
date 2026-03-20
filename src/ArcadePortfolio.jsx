@@ -336,7 +336,7 @@ export default function ArcadePortfolio() {
     "",
     "ALL SYSTEMS NOMINAL",
     "",
-    "INSERT COIN TO CONTINUE",
+    "PRESS ANY KEY",
   ];
 
   // Boot phase 0: test pattern (800ms), then phase 1: text sequence
@@ -386,19 +386,27 @@ export default function ArcadePortfolio() {
     };
   }, [introComplete, skipIntro]);
 
+  // Boot screen: any key OR click/tap advances
+  useEffect(() => {
+    if (!introComplete || screen !== "boot") return;
+    const advance = () => {
+      if (bootPhase === 0) {
+        setBootPhase(1);
+      } else if (bootLine >= BOOT_LINES.length - 1) {
+        setScreen("select");
+      }
+    };
+    window.addEventListener("keydown", advance);
+    window.addEventListener("pointerdown", advance);
+    return () => {
+      window.removeEventListener("keydown", advance);
+      window.removeEventListener("pointerdown", advance);
+    };
+  }, [introComplete, screen, bootPhase, bootLine]);
+
   useEffect(() => {
     const handler = (e) => {
       if (!introComplete) return;
-      if (screen === "boot") {
-        if (bootPhase === 0) {
-          setBootPhase(1);
-          return;
-        }
-        if (bootLine >= BOOT_LINES.length - 1) {
-          setScreen("select");
-          return;
-        }
-      }
       if (screen === "select") {
         if (e.key === "ArrowUp") {
           setSelectedIdx(
@@ -894,7 +902,7 @@ export default function ArcadePortfolio() {
               <div
                 style={{
                   fontSize: 7,
-                  color: "#667788",
+                  color: "#99aabb",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -1150,7 +1158,7 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
           top: 12,
           right: 16,
           fontSize: 9,
-          color: "#667788",
+          color: "#99aabb",
           cursor: "pointer",
           letterSpacing: "0.1em",
           zIndex: 60,
@@ -1168,20 +1176,19 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
                   ? "#00E5FF"
                   : line === "ALL SYSTEMS NOMINAL"
                     ? "#00E5FF"
-                    : line === "INSERT COIN TO CONTINUE"
+                    : line === "PRESS ANY KEY"
                       ? "#FFB800"
                       : line.includes("OK")
                         ? "#55bbdd"
                         : "#778899",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
-                line === "INSERT COIN TO CONTINUE"
+                line === "PRESS ANY KEY"
                   ? "'Press Start 2P', monospace"
                   : undefined,
-              fontSize: line === "INSERT COIN TO CONTINUE" ? 13 : undefined,
-              textAlign:
-                line === "INSERT COIN TO CONTINUE" ? "center" : undefined,
-              marginTop: line === "INSERT COIN TO CONTINUE" ? 8 : undefined,
+              fontSize: line === "PRESS ANY KEY" ? 13 : undefined,
+              textAlign: line === "PRESS ANY KEY" ? "center" : undefined,
+              marginTop: line === "PRESS ANY KEY" ? 8 : undefined,
             }}
           >
             {line}
@@ -1200,7 +1207,7 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
             textAlign: "center",
             marginTop: 14,
             fontSize: 9,
-            color: "#667788",
+            color: "#99aabb",
             cursor: "pointer",
           }}
           onClick={onSkip}
@@ -1254,7 +1261,7 @@ function SelectScreen({
           <div
             style={{
               fontSize: 10,
-              color: "#667788",
+              color: "#99aabb",
               letterSpacing: "0.12em",
               marginTop: 3,
             }}
@@ -1264,7 +1271,7 @@ function SelectScreen({
           <div
             style={{
               fontSize: 11,
-              color: "#667788",
+              color: "#99aabb",
               marginTop: 5,
               letterSpacing: "0.05em",
             }}
@@ -1276,7 +1283,7 @@ function SelectScreen({
           style={{
             fontFamily: "'Press Start 2P', monospace",
             fontSize: 9,
-            color: "#445566",
+            color: "#778899",
             textAlign: "right",
             lineHeight: 1.8,
           }}
@@ -1374,7 +1381,7 @@ function SelectScreen({
                   <span
                     style={{
                       fontSize: 9,
-                      color: "#445566",
+                      color: "#778899",
                       padding: "1px 5px",
                       background: "rgba(255,255,255,0.03)",
                       borderRadius: 3,
@@ -1388,7 +1395,7 @@ function SelectScreen({
                 <div
                   style={{
                     fontSize: 10,
-                    color: "#667788",
+                    color: "#99aabb",
                     marginTop: 1,
                     letterSpacing: "0.08em",
                   }}
@@ -1509,7 +1516,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           onClick={onBack}
           style={{
             fontSize: 12,
-            color: "#667788",
+            color: "#99aabb",
             padding: "3px 7px",
             borderRadius: 4,
             background: "rgba(255,255,255,0.03)",
@@ -1542,7 +1549,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           <div
             style={{
               fontSize: 11,
-              color: "#667788",
+              color: "#99aabb",
               letterSpacing: "0.1em",
               marginTop: 3,
             }}
@@ -1557,7 +1564,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
             rel="noopener noreferrer"
             style={{
               fontSize: 10,
-              color: "#667788",
+              color: "#99aabb",
               letterSpacing: "0.08em",
               textDecoration: "none",
               marginLeft: "auto",
@@ -1716,7 +1723,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           paddingTop: 10,
           borderTop: `1px solid ${p.color}11`,
           fontSize: 8,
-          color: "#445566",
+          color: "#778899",
           display: "flex",
           justifyContent: "space-between",
         }}
