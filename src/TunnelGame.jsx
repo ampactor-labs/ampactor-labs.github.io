@@ -7,18 +7,22 @@ const DEPTH_RANGE = 800;
 const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
 
 const OBSTACLE_TYPES = [
-  { text: "TypeError: undefined is not a function", color: "#ff4444", speed: 1, points: 100 },
+  { text: "NaN", color: "#ff4444", speed: 1, points: 100 },
   { text: "SEGFAULT", color: "#ff2222", speed: 1.1, points: 200, dodges: true },
-  { text: "404 NOT FOUND", color: "#ff8844", speed: 0.9, points: 150, wave: true },
-  { text: "STACK OVERFLOW", color: "#ffaa00", speed: 0.7, points: 300, big: true },
+  { text: "404", color: "#ff8844", speed: 0.9, points: 150, wave: true },
+  { text: "OVERFLOW", color: "#ffaa00", speed: 0.7, points: 300, big: true },
   { text: "null", color: "#ff6666", speed: 1.6, points: 250 },
-  { text: "panic!(\"thread 'main'\")", color: "#ff0044", speed: 1, points: 200, splits: true },
-  { text: "cannot borrow as mutable", color: "#ff66aa", speed: 0.9, points: 175 },
-  { text: "SIGKILL -9", color: "#ff0000", speed: 2, points: 500 },
-  { text: "OOM KILLER INVOKED", color: "#cc0000", speed: 0.6, points: 400, big: true },
-  { text: "unresolved import", color: "#ff5533", speed: 1.2, points: 120 },
-  { text: "ECONNREFUSED", color: "#ff7744", speed: 1.1, points: 130 },
-  { text: "thread 'main' has overflowed its stack", color: "#ff3355", speed: 0.8, points: 280 },
+  { text: "panic!", color: "#ff0044", speed: 1, points: 200, splits: true },
+  { text: "E0502", color: "#ff66aa", speed: 0.9, points: 175 },
+  { text: "SIGKILL", color: "#ff0000", speed: 2, points: 500 },
+  { text: "OOM", color: "#cc0000", speed: 0.6, points: 400, big: true },
+  { text: "ERR!", color: "#ff5533", speed: 1.2, points: 120 },
+  { text: "REFUSED", color: "#ff7744", speed: 1.1, points: 130 },
+  { text: "FATAL", color: "#ff3355", speed: 0.8, points: 280 },
+  { text: "undef", color: "#ff5566", speed: 1.3, points: 140 },
+  { text: "LEAK", color: "#dd4400", speed: 1.0, points: 160 },
+  { text: "HANG", color: "#ff6600", speed: 0.5, points: 220 },
+  { text: "RACE", color: "#ff44cc", speed: 1.8, points: 350 },
 ];
 
 /* ── A-mark logo vertices (normalized to -1..1 from the SVG 0..512 viewBox) ── */
@@ -395,7 +399,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       const scale = depthScale(o.depth);
       const oScreenX = cx + o.x * scale;
       const oScreenY = cy + (shipY - cy) * o.depth;
-      const fontSize = Math.max(4, (o.big ? 16 : 11) * scale * (isMobile ? 0.7 : 1));
+      const fontSize = Math.max(6, (o.big ? 36 : 26) * scale * (isMobile ? 0.8 : 1));
 
       ctx.save();
       ctx.font = `${fontSize}px 'Press Start 2P', monospace`;
@@ -408,7 +412,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.lineWidth = 0.8 + o.depth * 0.8;
       ctx.strokeText(o.text, oScreenX, oScreenY);
       // Faint fill for readability at larger sizes
-      if (o.depth > 0.5) {
+      if (o.depth > 0.25) {
         ctx.fillStyle = o.color + "30";
         ctx.fillText(o.text, oScreenX, oScreenY);
       }
