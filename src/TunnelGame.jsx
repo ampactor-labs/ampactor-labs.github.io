@@ -570,36 +570,63 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     };
   }, [gameLoop, initState, tunnelRef, audio, onExit]);
 
-  /* ── touch controls ── */
+  /* ── touch controls (dual-thumb: left half = slide to steer, right half = fire) ── */
+  const touchOriginRef = useRef(null); // tracks where left-side touch started
+
   const handleTouchStart = useCallback((e) => {
     e.preventDefault();
-    const w = window.innerWidth;
+    const half = window.innerWidth / 2;
     for (const touch of e.changedTouches) {
-      if (touch.clientX < w / 3) touchRef.current.left = true;
-      else if (touch.clientX > (w * 2) / 3) touchRef.current.right = true;
-      else touchRef.current.fire = true;
+      if (touch.clientX < half) {
+        // Left half — record anchor for relative slide steering
+        touchOriginRef.current = { id: touch.identifier, startX: touch.clientX, lastX: touch.clientX };
+      } else {
+        // Right half — fire
+        touchRef.current.fire = true;
+      }
     }
     // Game over exit
     if (stateRef.current?.phase === "gameover") onExit?.();
   }, [onExit]);
 
+  const handleTouchMove = useCallback((e) => {
+    e.preventDefault();
+    const origin = touchOriginRef.current;
+    if (!origin) return;
+    for (const touch of e.changedTouches) {
+      if (touch.identifier === origin.id) {
+        const dx = touch.clientX - origin.lastX;
+        const deadzone = 2;
+        touchRef.current.left = dx < -deadzone;
+        touchRef.current.right = dx > deadzone;
+        origin.lastX = touch.clientX;
+      }
+    }
+  }, []);
+
   const handleTouchEnd = useCallback((e) => {
     e.preventDefault();
-    const w = window.innerWidth;
-    // Check remaining touches
-    const left = Array.from(e.touches).some((t) => t.clientX < w / 3);
-    const right = Array.from(e.touches).some((t) => t.clientX > (w * 2) / 3);
-    const fire = Array.from(e.touches).some(
-      (t) => t.clientX >= w / 3 && t.clientX <= (w * 2) / 3,
-    );
-    touchRef.current = { left, right, fire };
+    const origin = touchOriginRef.current;
+    // Check if the left-side touch was released
+    if (origin) {
+      const stillDown = Array.from(e.touches).some((t) => t.identifier === origin.id);
+      if (!stillDown) {
+        touchOriginRef.current = null;
+        touchRef.current.left = false;
+        touchRef.current.right = false;
+      }
+    }
+    // Check if all right-side touches released
+    const half = window.innerWidth / 2;
+    const rightStillDown = Array.from(e.touches).some((t) => t.clientX >= half);
+    if (!rightStillDown) touchRef.current.fire = false;
   }, []);
 
   return (
     <div
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      onTouchMove={(e) => e.preventDefault()}
+      onTouchMove={handleTouchMove}
       style={{
         position: "fixed",
         inset: 0,
@@ -632,13 +659,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           }}
         >
           <span style={{ color: "#00E5FF", fontSize: 10, fontFamily: "'Press Start 2P'" }}>
-            {"< MOVE"}
+            {"< SLIDE TO STEER >"}
           </span>
           <span style={{ color: "#00FFD0", fontSize: 10, fontFamily: "'Press Start 2P'" }}>
-            FIRE
-          </span>
-          <span style={{ color: "#00E5FF", fontSize: 10, fontFamily: "'Press Start 2P'" }}>
-            {"MOVE >"}
+            TAP TO FIRE
           </span>
         </div>
       )}
