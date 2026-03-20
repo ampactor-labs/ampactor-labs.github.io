@@ -31,6 +31,72 @@ const PROJECTS = [
     status: "active",
   },
   {
+    id: "flowpilot",
+    title: "FLOWPILOT",
+    subtitle: "ALGORITHMIC TRADING",
+    lang: "Rust",
+    color: "#ffaa00",
+    icon: "\u2b21",
+    github: "https://github.com/ampactor-labs/flowpilot",
+    desc: "Automated Solana token trading engine. Discovers trending tokens, filters through a 4-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), executes via Jupiter with graduated take-profit exits and on-chain trailing stop-loss. Paper mode default. Micro-capital ready.",
+    tags: ["solana", "trading", "defi", "algorithms"],
+    tagline: "PAPER UNTIL PROVEN",
+    highlights: [
+      "13-CRATE WORKSPACE",
+      "4-LAYER SAFETY GATE",
+      "3 TP TIERS",
+      "TRAILING STOP-LOSS",
+      "TELEGRAM ALERTS",
+      "GRID/ARB/LP/DCA STRATEGIES",
+    ],
+    stack: ["Rust", "rust_decimal", "SQLite", "Jupiter API"],
+    status: "active",
+  },
+  {
+    id: "selekta",
+    title: "CELEZDIAL SELEKTA",
+    subtitle: "AUDIO INTERFACE",
+    lang: "JavaScript",
+    color: "#cc66ff",
+    icon: "\u2726",
+    github: "https://github.com/ampactor-labs/celezdial-selekta",
+    desc: "Polyphonic ambient synthesizer with 12 voices mapped to the zodiac. Planetary tuning derived from Hans Cousto's Cosmic Octave. 39 parameter knobs across 8 swappable FX chains. Enter two birth charts \u2014 shared signs glow, microtonal detuning follows degree positions.",
+    tags: ["audio", "synthesizer", "astrology", "creative"],
+    tagline: "ARIES FEARS NOTHING",
+    highlights: [
+      "12 ZODIAC VOICES",
+      "39 KNOBS",
+      "8 FX CHAINS",
+      "COUSTO PLANETARY TUNING",
+      "DUAL NATAL CHARTS",
+      "ECLIPSE MODE",
+    ],
+    stack: ["React", "Tone.js", "circular-natal-horoscope-js"],
+    status: "shipped",
+  },
+  {
+    id: "tokensafe",
+    title: "TOKENSAFE",
+    subtitle: "RUG PULL DETECTION",
+    lang: "TypeScript",
+    color: "#ff44aa",
+    icon: "\u25c8",
+    github: "https://github.com/ampactor-labs/tokensafe",
+    desc: "Solana token safety scanner. Nine deterministic on-chain checks \u2014 no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments: payment is authentication. Free MCP tool for Claude Code. Live and deployed.",
+    tags: ["solana", "security", "defi", "analysis"],
+    tagline: "0.008 BUYS THE TRUTH",
+    highlights: [
+      "9 ON-CHAIN CHECKS",
+      "x402 MICROPAYMENTS",
+      "$0.008/REQUEST",
+      "FREE MCP TOOL",
+      "DELTA DETECTION",
+      "Ed25519 SIGNED RESPONSES",
+    ],
+    stack: ["TypeScript", "Express", "Helius RPC", "Jupiter"],
+    status: "deployed",
+  },
+  {
     id: "forge",
     title: "FORGE",
     subtitle: "LLM CONVERSATION ENGINE",
@@ -97,28 +163,6 @@ const PROJECTS = [
     status: "active",
   },
   {
-    id: "tokensafe",
-    title: "TOKENSAFE",
-    subtitle: "RUG PULL DETECTION",
-    lang: "TypeScript",
-    color: "#ff44aa",
-    icon: "\u25c8",
-    github: "https://github.com/ampactor-labs/tokensafe",
-    desc: "Solana token safety scanner. Nine deterministic on-chain checks \u2014 no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments: payment is authentication. Free MCP tool for Claude Code. Live and deployed.",
-    tags: ["solana", "security", "defi", "analysis"],
-    tagline: "0.008 BUYS THE TRUTH",
-    highlights: [
-      "9 ON-CHAIN CHECKS",
-      "x402 MICROPAYMENTS",
-      "$0.008/REQUEST",
-      "FREE MCP TOOL",
-      "DELTA DETECTION",
-      "Ed25519 SIGNED RESPONSES",
-    ],
-    stack: ["TypeScript", "Express", "Helius RPC", "Jupiter"],
-    status: "deployed",
-  },
-  {
     id: "solguard",
     title: "ST-SOLGUARD",
     subtitle: "PROGRAM SECURITY SCANNER",
@@ -163,50 +207,6 @@ const PROJECTS = [
     status: "shipped",
   },
   {
-    id: "flowpilot",
-    title: "FLOWPILOT",
-    subtitle: "ALGORITHMIC TRADING",
-    lang: "Rust",
-    color: "#ffaa00",
-    icon: "\u2b21",
-    github: "https://github.com/ampactor-labs/flowpilot",
-    desc: "Automated Solana token trading engine. Discovers trending tokens, filters through a 4-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), executes via Jupiter with graduated take-profit exits and on-chain trailing stop-loss. Paper mode default. Micro-capital ready.",
-    tags: ["solana", "trading", "defi", "algorithms"],
-    tagline: "PAPER UNTIL PROVEN",
-    highlights: [
-      "13-CRATE WORKSPACE",
-      "4-LAYER SAFETY GATE",
-      "3 TP TIERS",
-      "TRAILING STOP-LOSS",
-      "TELEGRAM ALERTS",
-      "GRID/ARB/LP/DCA STRATEGIES",
-    ],
-    stack: ["Rust", "rust_decimal", "SQLite", "Jupiter API"],
-    status: "active",
-  },
-  {
-    id: "selekta",
-    title: "CELEZDIAL SELEKTA",
-    subtitle: "AUDIO INTERFACE",
-    lang: "JavaScript",
-    color: "#cc66ff",
-    icon: "\u2726",
-    github: "https://github.com/ampactor-labs/celezdial-selekta",
-    desc: "Polyphonic ambient synthesizer with 12 voices mapped to the zodiac. Planetary tuning derived from Hans Cousto's Cosmic Octave. 39 parameter knobs across 8 swappable FX chains. Enter two birth charts \u2014 shared signs glow, microtonal detuning follows degree positions.",
-    tags: ["audio", "synthesizer", "astrology", "creative"],
-    tagline: "ARIES FEARS NOTHING",
-    highlights: [
-      "12 ZODIAC VOICES",
-      "39 KNOBS",
-      "8 FX CHAINS",
-      "COUSTO PLANETARY TUNING",
-      "DUAL NATAL CHARTS",
-      "ECLIPSE MODE",
-    ],
-    stack: ["React", "Tone.js", "circular-natal-horoscope-js"],
-    status: "shipped",
-  },
-  {
     id: "narrative",
     title: "ST-NARRATIVE",
     subtitle: "STORY ENGINE",
@@ -232,20 +232,6 @@ const PROJECTS = [
 
 const HIDDEN_PROJECTS = [
   {
-    id: "coherence",
-    title: "COHERENCE FIELD",
-    subtitle: "CONSERVATION LAWS",
-    lang: "\u2014",
-    color: "#00ddbb",
-    icon: "\u25ce",
-    github: null,
-    desc: "Self-sustaining distributed coherence. Phase-coupled particles, no central authority. Toggle the four constraints and watch the pattern live or die.",
-    tags: ["don't fear", "don't protect", "don't consume", "don't neglect"],
-    hidden: true,
-    interactive: "coherence",
-    tagline: "THE FIELD PERSISTS",
-  },
-  {
     id: "resonance",
     title: "SYS/RESONANCE",
     subtitle: "SUBTRACTIVE SYNTH",
@@ -257,7 +243,23 @@ const HIDDEN_PROJECTS = [
     tags: ["oscillator", "filter", "envelope", "delay"],
     hidden: true,
     interactive: "synth",
+    tier: 1,
     tagline: "THE CHAIN SPEAKS",
+  },
+  {
+    id: "coherence",
+    title: "COHERENCE FIELD",
+    subtitle: "CONSERVATION LAWS",
+    lang: "\u2014",
+    color: "#00ddbb",
+    icon: "\u25ce",
+    github: null,
+    desc: "Self-sustaining distributed coherence. Phase-coupled particles, no central authority. Toggle the four constraints and watch the pattern live or die.",
+    tags: ["don't fear", "don't protect", "don't consume", "don't neglect"],
+    hidden: true,
+    interactive: "coherence",
+    tier: 2,
+    tagline: "THE FIELD PERSISTS",
   },
   {
     id: "tunnel-run",
@@ -271,6 +273,7 @@ const HIDDEN_PROJECTS = [
     tags: ["dodge", "shoot", "survive", "compile"],
     hidden: true,
     interactive: "tunnelgame",
+    tier: 3,
     tagline: "COMPILE OR DIE",
     highlights: [
       "VECTOR WIREFRAME GFX",
@@ -324,6 +327,18 @@ const crtStyles = `
   ::-webkit-scrollbar{width:4px}
   ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3)}
   ::-webkit-scrollbar-thumb{background:rgba(0,229,255,0.2);border-radius:2px}
+  @keyframes synthEnter { 0%{transform:translateX(-6px);opacity:0;filter:hue-rotate(30deg) brightness(2)} 40%{transform:translateX(2px);opacity:0.8;filter:hue-rotate(-10deg) brightness(1.3)} 100%{transform:none;opacity:1;filter:none} }
+  @keyframes coherenceEnter { 0%{opacity:0;letter-spacing:0.4em;filter:blur(3px)} 60%{opacity:0.9;letter-spacing:0.05em;filter:blur(0.5px)} 100%{opacity:1;letter-spacing:inherit;filter:none} }
+  @keyframes gameEnter { 0%{opacity:0;transform:scaleY(0.1)} 50%{opacity:0.7;transform:scaleY(1.05)} 100%{opacity:1;transform:scaleY(1)} }
+  @keyframes announceIn { 0%{opacity:0;transform:translateY(8px)} 20%{opacity:1;transform:translateY(0)} 80%{opacity:1} 100%{opacity:0} }
+  @keyframes tier3Overlay { 0%{opacity:0} 10%{opacity:1} 85%{opacity:1} 100%{opacity:0} }
+  .tier-1-enter{animation:synthEnter 0.6s ease-out}
+  .tier-2-enter{animation:coherenceEnter 0.7s ease-out}
+  .tier-3-enter{animation:gameEnter 0.5s ease-out}
+  .coin-announce{position:absolute;left:50%;transform:translateX(-50%);animation:announceIn 1.6s ease forwards;font-family:'Press Start 2P',monospace;pointer-events:none;z-index:200}
+  .coin-announce.tier-1{bottom:120px;font-size:8px;color:#FFB800}
+  .coin-announce.tier-2{bottom:120px;font-size:8px;color:#00ddbb}
+  .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:14px;color:#ff2266;text-align:center;animation:tier3Overlay 2.8s ease forwards;background:rgba(0,0,0,0.9);padding:20px 30px;border:1px solid #ff2266}
 `;
 
 export default function ArcadePortfolio() {
@@ -332,24 +347,28 @@ export default function ArcadePortfolio() {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [detailProject, setDetailProject] = useState(null);
   const [bootLine, setBootLine] = useState(0);
-  const [coinInserted, setCoinInserted] = useState(false);
+  const [coinCount, setCoinCount] = useState(0);
+  const [announcing, setAnnouncing] = useState(null);
   const [glitching, setGlitching] = useState(false);
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const screenRef = useRef(null);
   const tunnelRef = useRef(null);
   const logoRef = useRef(null);
   const consoleRef = useRef(null);
-  const { playBlip } = useAmbientHum();
+  const { playBlip, playInsertSting } = useAmbientHum();
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
     tunnelRef,
     consoleRef,
   );
 
-  const allProjects = useMemo(
-    () => (coinInserted ? [...PROJECTS, ...HIDDEN_PROJECTS] : PROJECTS),
-    [coinInserted],
-  );
+  const allProjects = useMemo(() => {
+    let result = [...PROJECTS];
+    if (coinCount >= 1) result = [...result, HIDDEN_PROJECTS[0]];
+    if (coinCount >= 2) result = [...result, HIDDEN_PROJECTS[1]];
+    if (coinCount >= 3) result = [...result, HIDDEN_PROJECTS[2]];
+    return result;
+  }, [coinCount]);
 
   const BOOT_LINES = [
     "AMPACTOR BIOS v4.2.0",
@@ -482,10 +501,14 @@ export default function ArcadePortfolio() {
   }, [screen, selectedIdx, bootLine, bootPhase, allProjects]);
 
   const insertCoin = () => {
-    if (coinInserted) return;
+    if (!introComplete || coinCount >= 3) return;
+    const next = coinCount + 1;
+    setCoinCount(next);
     setGlitching(true);
-    setCoinInserted(true);
+    setAnnouncing(next);
     setTimeout(() => setGlitching(false), 600);
+    setTimeout(() => setAnnouncing(null), next === 3 ? 2800 : 1600);
+    playInsertSting(next);
   };
 
   const openProject = (idx) => {
@@ -682,6 +705,23 @@ export default function ArcadePortfolio() {
               }}
             />
           )}
+          {announcing === 1 && (
+            <div className="coin-announce tier-1">
+              ◈ SYS/RESONANCE · SIGNAL ACQUIRED
+            </div>
+          )}
+          {announcing === 2 && (
+            <div className="coin-announce tier-2">
+              ◈ COHERENCE FIELD · DETECTED
+            </div>
+          )}
+          {announcing === 3 && (
+            <div className="coin-announce tier-3">
+              TUNNEL_RUN
+              <br />
+              <span>3/3 CREDITS · GAME UNLOCKED</span>
+            </div>
+          )}
           {/* Project color bleed */}
           <div
             style={{
@@ -723,7 +763,8 @@ export default function ArcadePortfolio() {
                   selectedIdx={selectedIdx}
                   onSelect={openProject}
                   onHover={setSelectedIdx}
-                  coinInserted={coinInserted}
+                  coinCount={coinCount}
+                  onHoverBlip={playBlip}
                 />
               )}
               {screen === "detail" && detailProject && (
@@ -987,54 +1028,65 @@ export default function ArcadePortfolio() {
             <div
               className="coin-slot"
               role="button"
-              aria-label={coinInserted ? "Bonus loaded" : "Insert coin"}
+              aria-label="Insert coin"
               tabIndex={0}
               onClick={insertCoin}
               title="Insert coin"
               style={{
                 width: 52,
                 height: 16,
-                background: coinInserted
-                  ? "rgba(255,184,0,0.1)"
-                  : "linear-gradient(180deg, #0e0e16 0%, #161622 100%)",
+                background:
+                  coinCount > 0
+                    ? "rgba(255,184,0,0.1)"
+                    : "linear-gradient(180deg, #0e0e16 0%, #161622 100%)",
                 borderRadius: 8,
-                border: `2px solid ${coinInserted ? "rgba(255,184,0,0.35)" : "#3a3a4a"}`,
+                border: `2px solid ${coinCount > 0 ? "rgba(255,184,0,0.35)" : "#3a3a4a"}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 position: "relative",
                 overflow: "hidden",
-                boxShadow: coinInserted
-                  ? "inset 0 2px 6px rgba(255,184,0,0.15)"
-                  : "inset 0 2px 6px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
+                boxShadow:
+                  coinCount > 0
+                    ? "inset 0 2px 6px rgba(255,184,0,0.15)"
+                    : "inset 0 2px 6px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
+                opacity: introComplete ? 1 : 0.3,
+                pointerEvents: introComplete ? "auto" : "none",
+                cursor: introComplete ? "pointer" : "default",
               }}
             >
               <div
                 style={{
                   width: 30,
                   height: 3,
-                  background: coinInserted
-                    ? "rgba(255,184,0,0.5)"
-                    : "linear-gradient(90deg, #2a2a3a, #383848, #2a2a3a)",
+                  background:
+                    coinCount > 0
+                      ? "rgba(255,184,0,0.5)"
+                      : "linear-gradient(90deg, #2a2a3a, #383848, #2a2a3a)",
                   borderRadius: 2,
-                  boxShadow: coinInserted
-                    ? "0 0 6px rgba(255,184,0,0.4)"
-                    : "inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05)",
+                  boxShadow:
+                    coinCount > 0
+                      ? "0 0 6px rgba(255,184,0,0.4)"
+                      : "inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05)",
                 }}
               />
             </div>
             <div
               style={{
                 fontSize: 6,
-                color: coinInserted ? "rgba(255,184,0,0.5)" : "#556",
+                color: coinCount > 0 ? "rgba(255,184,0,0.5)" : "#556",
                 letterSpacing: "0.15em",
                 transition: "color 0.3s ease",
-                animation: coinInserted
-                  ? "none"
-                  : "coinTextPulse 3s ease-in-out infinite",
+                animation:
+                  coinCount > 0
+                    ? "none"
+                    : "coinTextPulse 3s ease-in-out infinite",
+                fontFamily: "'Press Start 2P', monospace",
               }}
             >
-              {coinInserted ? "BONUS LOADED" : "INSERT COIN"}
+              {[1, 2, 3]
+                .map((n) => (coinCount >= n ? "\u25c9" : "\u25ce"))
+                .join(" ")}
             </div>
           </div>
 
@@ -1306,7 +1358,8 @@ function SelectScreen({
   selectedIdx,
   onSelect,
   onHover,
-  coinInserted,
+  coinCount,
+  onHoverBlip,
 }) {
   const listRef = useRef(null);
   useEffect(() => {
@@ -1396,9 +1449,12 @@ function SelectScreen({
               role="option"
               aria-selected={active}
               aria-label={`${p.title} — ${p.subtitle}`}
-              className={`project-row${isH ? " hidden-row glitch-enter" : ""}`}
+              className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}`}
               onClick={() => onSelect(i)}
-              onMouseEnter={() => onHover(i)}
+              onMouseEnter={() => {
+                onHover(i);
+                onHoverBlip();
+              }}
               style={{
                 display: "flex",
                 alignItems: "center",
