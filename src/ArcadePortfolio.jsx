@@ -269,7 +269,7 @@ const crtStyles = `
   @keyframes glitchIn { 0%{transform:translateX(-8px) skewX(-5deg);opacity:0;filter:hue-rotate(90deg)} 30%{transform:translateX(4px) skewX(2deg);opacity:0.7;filter:hue-rotate(-30deg)} 60%{transform:translateX(-2px) skewX(-1deg);opacity:0.9;filter:hue-rotate(10deg)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes glitchFlash { 0%{background:transparent} 10%{background:rgba(0,229,255,0.08)} 20%{background:rgba(255,0,100,0.05)} 30%{background:transparent} 40%{background:rgba(0,100,255,0.06)} 50%,100%{background:transparent} }
   @keyframes marquee { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
-  @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 4px rgba(255,184,0,0.2)} 50%{box-shadow:inset 0 0 8px rgba(255,184,0,0.5),0 0 6px rgba(255,184,0,0.15)} }
+  @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 6px rgba(255,184,0,0.25),0 0 4px rgba(255,184,0,0.1)} 50%{box-shadow:inset 0 0 12px rgba(255,184,0,0.6),0 0 10px rgba(255,184,0,0.2)} }
   @keyframes hiddenPulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
   @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
   @keyframes phosphorPulse { 0%,100%{text-shadow:0 0 4px rgba(0,255,140,0.3),0 0 12px rgba(0,255,140,0.1)} 50%{text-shadow:0 0 6px rgba(0,255,140,0.4),0 0 18px rgba(0,255,140,0.15)} }
@@ -393,6 +393,15 @@ export default function ArcadePortfolio() {
       if (bootPhase === 0) {
         setBootPhase(1);
       } else if (bootLine >= BOOT_LINES.length - 1) {
+        // Swallow the next click so it doesn't bleed into the select screen
+        const eatClick = (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        };
+        window.addEventListener("click", eatClick, {
+          capture: true,
+          once: true,
+        });
         setScreen("select");
       }
     };
@@ -717,16 +726,18 @@ export default function ArcadePortfolio() {
                   setScreen("select");
               }}
               style={{
-                width: 30,
-                height: 30,
-                background: "#2a2a3a",
-                borderRadius: 4,
+                width: 34,
+                height: 34,
+                background: "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                borderRadius: 5,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#556",
-                fontSize: 12,
-                border: "1px solid #333348",
+                color: "#99aabb",
+                fontSize: 11,
+                border: "1px solid #444458",
+                boxShadow:
+                  "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
               {"\u25b2"}
@@ -739,27 +750,32 @@ export default function ArcadePortfolio() {
                 tabIndex={0}
                 onClick={goBack}
                 style={{
-                  width: 30,
-                  height: 30,
-                  background: "#2a2a3a",
-                  borderRadius: 4,
+                  width: 34,
+                  height: 34,
+                  background:
+                    "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                  borderRadius: 5,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#556",
-                  fontSize: 12,
-                  border: "1px solid #333348",
+                  color: "#99aabb",
+                  fontSize: 11,
+                  border: "1px solid #444458",
+                  boxShadow:
+                    "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
                 }}
               >
                 {"\u25c4"}
               </div>
               <div
                 style={{
-                  width: 30,
-                  height: 30,
-                  background: "#222232",
-                  borderRadius: 4,
+                  width: 34,
+                  height: 34,
+                  background:
+                    "radial-gradient(circle at 50% 50%, #1a1a28, #161622)",
+                  borderRadius: 5,
                   border: "1px solid #2a2a3a",
+                  boxShadow: "inset 0 2px 6px rgba(0,0,0,0.6)",
                 }}
               />
               <div
@@ -768,16 +784,19 @@ export default function ArcadePortfolio() {
                 aria-label="Navigate right"
                 tabIndex={0}
                 style={{
-                  width: 30,
-                  height: 30,
-                  background: "#2a2a3a",
-                  borderRadius: 4,
+                  width: 34,
+                  height: 34,
+                  background:
+                    "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                  borderRadius: 5,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#556",
-                  fontSize: 12,
-                  border: "1px solid #333348",
+                  color: "#99aabb",
+                  fontSize: 11,
+                  border: "1px solid #444458",
+                  boxShadow:
+                    "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
                 }}
               >
                 {"\u25ba"}
@@ -793,16 +812,18 @@ export default function ArcadePortfolio() {
                   setSelectedIdx((i) => (i + 1) % allProjects.length);
               }}
               style={{
-                width: 30,
-                height: 30,
-                background: "#2a2a3a",
-                borderRadius: 4,
+                width: 34,
+                height: 34,
+                background: "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                borderRadius: 5,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#556",
-                fontSize: 12,
-                border: "1px solid #333348",
+                color: "#99aabb",
+                fontSize: 11,
+                border: "1px solid #444458",
+                boxShadow:
+                  "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
               {"\u25bc"}
@@ -917,27 +938,34 @@ export default function ArcadePortfolio() {
               onClick={insertCoin}
               title="Insert coin"
               style={{
-                width: 48,
-                height: 14,
-                background: coinInserted ? "rgba(255,184,0,0.1)" : "#111118",
-                borderRadius: 7,
-                border: `2px solid ${coinInserted ? "rgba(255,184,0,0.3)" : "#2a2a3a"}`,
+                width: 52,
+                height: 16,
+                background: coinInserted
+                  ? "rgba(255,184,0,0.1)"
+                  : "linear-gradient(180deg, #0e0e16 0%, #161622 100%)",
+                borderRadius: 8,
+                border: `2px solid ${coinInserted ? "rgba(255,184,0,0.35)" : "#3a3a4a"}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 position: "relative",
                 overflow: "hidden",
+                boxShadow: coinInserted
+                  ? "inset 0 2px 6px rgba(255,184,0,0.15)"
+                  : "inset 0 2px 6px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
               }}
             >
               <div
                 style={{
-                  width: 28,
+                  width: 30,
                   height: 3,
-                  background: coinInserted ? "rgba(255,184,0,0.4)" : "#222232",
+                  background: coinInserted
+                    ? "rgba(255,184,0,0.5)"
+                    : "linear-gradient(90deg, #2a2a3a, #383848, #2a2a3a)",
                   borderRadius: 2,
                   boxShadow: coinInserted
-                    ? "0 0 4px rgba(255,184,0,0.3)"
-                    : "inset 0 1px 2px rgba(0,0,0,0.5)",
+                    ? "0 0 6px rgba(255,184,0,0.4)"
+                    : "inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05)",
                 }}
               />
             </div>
@@ -964,20 +992,20 @@ export default function ArcadePortfolio() {
               tabIndex={0}
               onClick={goBack}
               style={{
-                width: 38,
-                height: 38,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle at 30% 30%, #553333, #331111)",
-                border: "2px solid #664444",
+                  "radial-gradient(circle at 35% 35%, #664040, #441818 70%)",
+                border: "2px solid #774444",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 8,
-                color: "#ff6644",
+                fontSize: 9,
+                color: "#ff7755",
                 fontFamily: "'Press Start 2P', monospace",
                 boxShadow:
-                  "0 2px 8px rgba(255,100,68,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                  "0 3px 10px rgba(255,100,68,0.3), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.3)",
               }}
             >
               B
@@ -996,20 +1024,20 @@ export default function ArcadePortfolio() {
                 if (screen === "select") openProject(selectedIdx);
               }}
               style={{
-                width: 38,
-                height: 38,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle at 30% 30%, #224455, #112233)",
-                border: "2px solid #336688",
+                  "radial-gradient(circle at 35% 35%, #2a5566, #143344 70%)",
+                border: "2px solid #3a7799",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 8,
+                fontSize: 9,
                 color: "#00E5FF",
                 fontFamily: "'Press Start 2P', monospace",
                 boxShadow:
-                  "0 2px 8px rgba(0,229,255,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                  "0 3px 10px rgba(0,229,255,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.3)",
               }}
             >
               A
