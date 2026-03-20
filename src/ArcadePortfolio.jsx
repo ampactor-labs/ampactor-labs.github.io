@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import CoherenceField from "./CoherenceField";
 import SynthEngine from "./SynthEngine";
+import TunnelGame from "./TunnelGame";
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
 import useAmbientHum from "./useAmbientHum";
@@ -258,6 +259,30 @@ const HIDDEN_PROJECTS = [
     interactive: "synth",
     tagline: "THE CHAIN SPEAKS",
   },
+  {
+    id: "tunnel-run",
+    title: "TUNNEL_RUN",
+    subtitle: "VECTOR SHOOTER",
+    lang: "Canvas",
+    color: "#ff2266",
+    icon: "\u25b8",
+    github: null,
+    desc: "The tunnel is alive. Compiler errors are pouring out. Dodge the exceptions. Destroy the segfaults. Your ship is the signal \u2014 how long can you keep it clean?",
+    tags: ["dodge", "shoot", "survive", "compile"],
+    hidden: true,
+    interactive: "tunnelgame",
+    tagline: "COMPILE OR DIE",
+    highlights: [
+      "VECTOR WIREFRAME GFX",
+      "PROCEDURAL AUDIO",
+      "DODGE COMPILER ERRORS",
+      "COMBO MULTIPLIER",
+      "LOCAL HIGH SCORE",
+      "TOUCH CONTROLS",
+    ],
+    stack: ["Canvas 2D", "Web Audio", "requestAnimationFrame"],
+    status: "active",
+  },
 ];
 
 const crtStyles = `
@@ -274,6 +299,7 @@ const crtStyles = `
   @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
   @keyframes phosphorPulse { 0%,100%{text-shadow:0 0 4px rgba(0,255,140,0.3),0 0 12px rgba(0,255,140,0.1)} 50%{text-shadow:0 0 6px rgba(0,255,140,0.4),0 0 18px rgba(0,255,140,0.15)} }
   @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
+  @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
   .crt-screen{animation:flicker 14s infinite,crtOn 0.8s ease-out both}
   .crt-glass{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 40%,transparent 60%,rgba(255,255,255,0.01) 100%);pointer-events:none;z-index:91;border-radius:inherit}
@@ -416,6 +442,7 @@ export default function ArcadePortfolio() {
   useEffect(() => {
     const handler = (e) => {
       if (!introComplete) return;
+      if (screen === "game") return;
       if (screen === "select") {
         if (e.key === "ArrowUp") {
           setSelectedIdx(
@@ -463,14 +490,38 @@ export default function ArcadePortfolio() {
 
   const openProject = (idx) => {
     setSelectedIdx(idx);
-    setDetailProject(allProjects[idx]);
-    setScreen("detail");
+    const project = allProjects[idx];
+    setDetailProject(project);
+    if (project?.interactive === "tunnelgame") {
+      setScreen("game");
+    } else {
+      setScreen("detail");
+    }
     playBlip();
   };
   const goBack = () => {
     setScreen("select");
     setDetailProject(null);
   };
+  const exitGame = () => {
+    setScreen("select");
+    setDetailProject(null);
+  };
+
+  // Fade console in/out for game mode
+  useEffect(() => {
+    const el = consoleRef.current;
+    if (!el || !introComplete) return;
+    if (screen === "game") {
+      el.style.transition = "opacity 0.6s ease";
+      el.style.opacity = "0";
+      el.style.pointerEvents = "none";
+    } else {
+      el.style.transition = "opacity 0.6s ease";
+      el.style.opacity = "1";
+      el.style.pointerEvents = "";
+    }
+  }, [screen, introComplete]);
 
   return (
     <div
@@ -559,6 +610,9 @@ export default function ArcadePortfolio() {
           />
         </svg>
       </div>
+      {screen === "game" && (
+        <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
+      )}
       <div
         ref={consoleRef}
         style={{
