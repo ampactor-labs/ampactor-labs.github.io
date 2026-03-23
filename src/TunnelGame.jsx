@@ -393,13 +393,13 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     // ── DRAW ──
 
     // Draw obstacles (depth-sorted, farthest first)
-    const sortedObs = [...gs.obstacles].sort((a, b) => a.depth - b.depth);
+    const sortedObs = gs.obstacles.filter(o => o.alive).sort((a, b) => a.depth - b.depth);
     for (const o of sortedObs) {
       if (!o.alive) continue;
       const scale = depthScale(o.depth);
       const oScreenX = cx + o.x * scale;
       const oScreenY = cy + (shipY - cy) * o.depth;
-      const fontSize = Math.max(6, (o.big ? 36 : 26) * scale * (isMobile ? 0.8 : 1));
+      const fontSize = Math.max(8, (o.big ? 52 : 38) * scale * (isMobile ? 0.8 : 1));
 
       ctx.save();
       ctx.font = `${fontSize}px 'Press Start 2P', monospace`;
@@ -501,12 +501,14 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       drawShip(ctx, 24 + i * 28, h - 24, 10, 0.7, false);
     }
 
-    // Scanline overlay (subtle)
+    // Scanline overlay (single pattern fill instead of per-line rects)
     ctx.globalAlpha = 0.03;
+    ctx.fillStyle = "#000";
+    ctx.beginPath();
     for (let y = 0; y < h; y += 3) {
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, y, w, 1);
+      ctx.rect(0, y, w, 1);
     }
+    ctx.fill();
 
     ctx.restore();
     ctx.restore(); // Pop shake transform

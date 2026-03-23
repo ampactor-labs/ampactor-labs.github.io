@@ -370,6 +370,12 @@ export default function ArcadePortfolio() {
     return result;
   }, [coinCount]);
 
+  const fontScale = useMemo(
+    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.75)),
+    [dims.w],
+  );
+  const fs = (size) => Math.round(size * fontScale);
+
   const BOOT_LINES = [
     "AMPACTOR BIOS v4.2.0",
     "Initializing kernel graph...",
@@ -552,7 +558,7 @@ export default function ArcadePortfolio() {
         width: "100%",
         height: "100dvh",
         background:
-          "radial-gradient(ellipse at 50% 40%, #0a0c18 0%, #08080f 50%, #050508 100%)",
+          "radial-gradient(ellipse at 50% 40%, #1a1e30 0%, #141824 50%, #10121c 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "stretch",
@@ -645,7 +651,7 @@ export default function ArcadePortfolio() {
           flexDirection: "column",
           position: "relative",
           zIndex: 1,
-          background: "#08080f",
+          background: "#141824",
           borderRadius: 16,
           opacity: 0,
         }}
@@ -657,11 +663,11 @@ export default function ArcadePortfolio() {
             flex: 1,
             margin: "10px 10px 0",
             borderRadius: "16px 16px 0 0",
-            border: "3px solid #1a1a2a",
-            borderTop: "3px solid #222238",
+            border: "3px solid #2a2c40",
+            borderTop: "3px solid #363650",
             borderBottom: "none",
             background:
-              "radial-gradient(ellipse at center, #0c0c1a 0%, #05050c 80%)",
+              "radial-gradient(ellipse at center, #181830 0%, #10121e 80%)",
             position: "relative",
             overflow: "hidden",
             boxShadow:
@@ -674,7 +680,7 @@ export default function ArcadePortfolio() {
               position: "absolute",
               inset: 0,
               background:
-                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px)",
+                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
               pointerEvents: "none",
               zIndex: 90,
             }}
@@ -688,7 +694,7 @@ export default function ArcadePortfolio() {
               position: "absolute",
               inset: 0,
               background:
-                "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.8) 100%)",
+                "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)",
               pointerEvents: "none",
               zIndex: 80,
             }}
@@ -751,6 +757,7 @@ export default function ArcadePortfolio() {
                   lines={BOOT_LINES}
                   currentLine={bootLine}
                   bootPhase={bootPhase}
+                  fs={fs}
                   onSkip={() => {
                     if (bootPhase === 0) setBootPhase(1);
                     else setScreen("select");
@@ -765,6 +772,7 @@ export default function ArcadePortfolio() {
                   onHover={setSelectedIdx}
                   coinCount={coinCount}
                   onHoverBlip={playBlip}
+                  fs={fs}
                 />
               )}
               {screen === "detail" && detailProject && (
@@ -773,6 +781,7 @@ export default function ArcadePortfolio() {
                   onBack={goBack}
                   screenWidth={dims.w}
                   screenHeight={dims.h}
+                  fs={fs}
                 />
               )}
             </div>
@@ -784,10 +793,10 @@ export default function ArcadePortfolio() {
           className="cabinet-body"
           style={{
             margin: "0 10px 10px",
-            background: "linear-gradient(180deg, #1a1a2a 0%, #12121c 100%)",
+            background: "linear-gradient(180deg, #2a2c40 0%, #1e2030 100%)",
             borderRadius: "0 0 16px 16px",
-            border: "3px solid #1a1a2a",
-            borderTop: "1px solid #222238",
+            border: "3px solid #2a2c40",
+            borderTop: "1px solid #363650",
             padding: "14px 20px",
             paddingBottom: "calc(env(safe-area-inset-bottom) + 16px)",
             display: "flex",
@@ -823,14 +832,14 @@ export default function ArcadePortfolio() {
               style={{
                 width: 34,
                 height: 34,
-                background: "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
                 borderRadius: 5,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#99aabb",
-                fontSize: 11,
-                border: "1px solid #444458",
+                color: "#b8c8d8",
+                fontSize: fs(11),
+                border: "1px solid #565870",
                 boxShadow:
                   "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
@@ -848,14 +857,14 @@ export default function ArcadePortfolio() {
                   width: 34,
                   height: 34,
                   background:
-                    "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                    "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
                   borderRadius: 5,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#99aabb",
-                  fontSize: 11,
-                  border: "1px solid #444458",
+                  color: "#b8c8d8",
+                  fontSize: fs(11),
+                  border: "1px solid #565870",
                   boxShadow:
                     "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
                 }}
@@ -867,9 +876,9 @@ export default function ArcadePortfolio() {
                   width: 34,
                   height: 34,
                   background:
-                    "radial-gradient(circle at 50% 50%, #1a1a28, #161622)",
+                    "radial-gradient(circle at 50% 50%, #2a2c40, #222436)",
                   borderRadius: 5,
-                  border: "1px solid #2a2a3a",
+                  border: "1px solid #3a3c52",
                   boxShadow: "inset 0 2px 6px rgba(0,0,0,0.6)",
                 }}
               />
@@ -882,14 +891,14 @@ export default function ArcadePortfolio() {
                   width: 34,
                   height: 34,
                   background:
-                    "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                    "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
                   borderRadius: 5,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#99aabb",
-                  fontSize: 11,
-                  border: "1px solid #444458",
+                  color: "#b8c8d8",
+                  fontSize: fs(11),
+                  border: "1px solid #565870",
                   boxShadow:
                     "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
                 }}
@@ -909,14 +918,14 @@ export default function ArcadePortfolio() {
               style={{
                 width: 34,
                 height: 34,
-                background: "linear-gradient(180deg, #363648 0%, #2a2a3a 100%)",
+                background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
                 borderRadius: 5,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#99aabb",
-                fontSize: 11,
-                border: "1px solid #444458",
+                color: "#b8c8d8",
+                fontSize: fs(11),
+                border: "1px solid #565870",
                 boxShadow:
                   "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
@@ -1007,7 +1016,7 @@ export default function ArcadePortfolio() {
               <div
                 style={{
                   fontFamily: "'Press Start 2P', monospace",
-                  fontSize: 9,
+                  fontSize: fs(9),
                   color: "#00E5FF",
                   letterSpacing: "0.2em",
                   textShadow: "0 0 8px rgba(0,229,255,0.4)",
@@ -1017,8 +1026,8 @@ export default function ArcadePortfolio() {
               </div>
               <div
                 style={{
-                  fontSize: 7,
-                  color: "#99aabb",
+                  fontSize: fs(7),
+                  color: "#b8c8d8",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -1038,7 +1047,7 @@ export default function ArcadePortfolio() {
                 background:
                   coinCount > 0
                     ? "rgba(255,184,0,0.1)"
-                    : "linear-gradient(180deg, #0e0e16 0%, #161622 100%)",
+                    : "linear-gradient(180deg, #1e2030 0%, #222436 100%)",
                 borderRadius: 8,
                 border: `2px solid ${coinCount > 0 ? "rgba(255,184,0,0.35)" : "#3a3a4a"}`,
                 display: "flex",
@@ -1073,7 +1082,7 @@ export default function ArcadePortfolio() {
             </div>
             <div
               style={{
-                fontSize: 6,
+                fontSize: fs(6),
                 color: coinCount > 0 ? "rgba(255,184,0,0.5)" : "#556",
                 letterSpacing: "0.15em",
                 transition: "color 0.3s ease",
@@ -1107,7 +1116,7 @@ export default function ArcadePortfolio() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 9,
+                fontSize: fs(9),
                 color: "#ff7755",
                 fontFamily: "'Press Start 2P', monospace",
                 boxShadow:
@@ -1139,7 +1148,7 @@ export default function ArcadePortfolio() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 9,
+                fontSize: fs(9),
                 color: "#00E5FF",
                 fontFamily: "'Press Start 2P', monospace",
                 boxShadow:
@@ -1155,7 +1164,7 @@ export default function ArcadePortfolio() {
   );
 }
 
-function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
+function BootScreen({ lines, currentLine, bootPhase, onSkip, fs }) {
   if (bootPhase === 0) {
     return (
       <div
@@ -1291,8 +1300,8 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
           position: "absolute",
           top: 12,
           right: 16,
-          fontSize: 9,
-          color: "#99aabb",
+          fontSize: fs(9),
+          color: "#b8c8d8",
           cursor: "pointer",
           letterSpacing: "0.1em",
           zIndex: 60,
@@ -1300,7 +1309,7 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
       >
         [ SKIP ]
       </div>
-      <div style={{ fontSize: 14, lineHeight: 2 }}>
+      <div style={{ fontSize: fs(14), lineHeight: 2 }}>
         {lines.slice(0, currentLine + 1).map((line, i) => (
           <div
             key={i}
@@ -1313,14 +1322,14 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
                     : line === "PRESS ANY KEY"
                       ? "#FFB800"
                       : line.includes("OK")
-                        ? "#55bbdd"
-                        : "#778899",
+                        ? "#77ddff"
+                        : "#96a8ba",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 line === "PRESS ANY KEY"
                   ? "'Press Start 2P', monospace"
                   : undefined,
-              fontSize: line === "PRESS ANY KEY" ? 13 : undefined,
+              fontSize: line === "PRESS ANY KEY" ? fs(13) : undefined,
               textAlign: line === "PRESS ANY KEY" ? "center" : undefined,
               marginTop: line === "PRESS ANY KEY" ? 8 : undefined,
             }}
@@ -1340,8 +1349,8 @@ function BootScreen({ lines, currentLine, bootPhase, onSkip }) {
           style={{
             textAlign: "center",
             marginTop: 14,
-            fontSize: 9,
-            color: "#99aabb",
+            fontSize: fs(9),
+            color: "#b8c8d8",
             cursor: "pointer",
           }}
           onClick={onSkip}
@@ -1360,6 +1369,7 @@ function SelectScreen({
   onHover,
   coinCount,
   onHoverBlip,
+  fs,
 }) {
   const listRef = useRef(null);
   useEffect(() => {
@@ -1385,7 +1395,7 @@ function SelectScreen({
           <div
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: 16,
+              fontSize: fs(16),
               color: "#00E5FF",
               textShadow: "0 0 12px rgba(0,229,255,0.4)",
               letterSpacing: "0.1em",
@@ -1395,8 +1405,8 @@ function SelectScreen({
           </div>
           <div
             style={{
-              fontSize: 10,
-              color: "#99aabb",
+              fontSize: fs(10),
+              color: "#b8c8d8",
               letterSpacing: "0.12em",
               marginTop: 3,
             }}
@@ -1405,8 +1415,18 @@ function SelectScreen({
           </div>
           <div
             style={{
-              fontSize: 11,
-              color: "#99aabb",
+              fontSize: fs(9),
+              color: "#8a9aaa",
+              letterSpacing: "0.08em",
+              marginTop: 2,
+            }}
+          >
+            ampactorlabs@gmail.com {"\u00b7"} 435-268-2446
+          </div>
+          <div
+            style={{
+              fontSize: fs(11),
+              color: "#b8c8d8",
               marginTop: 5,
               letterSpacing: "0.05em",
             }}
@@ -1417,8 +1437,8 @@ function SelectScreen({
         <div
           style={{
             fontFamily: "'Press Start 2P', monospace",
-            fontSize: 9,
-            color: "#778899",
+            fontSize: fs(9),
+            color: "#96a8ba",
             textAlign: "right",
             lineHeight: 1.8,
           }}
@@ -1492,7 +1512,7 @@ function SelectScreen({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: 16,
+                  fontSize: fs(16),
                   color: p.color,
                   background: `${p.color}11`,
                   borderRadius: 5,
@@ -1508,8 +1528,8 @@ function SelectScreen({
                   <span
                     style={{
                       fontFamily: "'Silkscreen', monospace",
-                      fontSize: 14,
-                      color: active ? p.color : "#99aabb",
+                      fontSize: fs(14),
+                      color: active ? p.color : "#b8c8d8",
                       textShadow: active ? `0 0 8px ${p.color}44` : "none",
                       transition: "color 0.2s ease",
                     }}
@@ -1518,8 +1538,8 @@ function SelectScreen({
                   </span>
                   <span
                     style={{
-                      fontSize: 9,
-                      color: "#778899",
+                      fontSize: fs(9),
+                      color: "#96a8ba",
                       padding: "1px 5px",
                       background: "rgba(255,255,255,0.03)",
                       borderRadius: 3,
@@ -1532,8 +1552,8 @@ function SelectScreen({
                 </div>
                 <div
                   style={{
-                    fontSize: 10,
-                    color: "#99aabb",
+                    fontSize: fs(10),
+                    color: "#b8c8d8",
                     marginTop: 1,
                     letterSpacing: "0.08em",
                   }}
@@ -1545,7 +1565,7 @@ function SelectScreen({
                 <div
                   style={{
                     color: p.color,
-                    fontSize: 14,
+                    fontSize: fs(14),
                     flexShrink: 0,
                     opacity: 0.6,
                   }}
@@ -1571,8 +1591,8 @@ function SelectScreen({
           style={{
             position: "absolute",
             whiteSpace: "nowrap",
-            fontSize: 8,
-            color: "#3a4a5a",
+            fontSize: fs(8),
+            color: "#5a6a7a",
             letterSpacing: "0.1em",
             animation: "marquee 90s linear infinite",
           }}
@@ -1590,7 +1610,7 @@ function SelectScreen({
   );
 }
 
-function SectionLabel({ text, color }) {
+function SectionLabel({ text, color, fs }) {
   return (
     <div
       style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}
@@ -1598,7 +1618,7 @@ function SectionLabel({ text, color }) {
       <span
         style={{
           fontFamily: "'Press Start 2P'",
-          fontSize: 7,
+          fontSize: fs(7),
           color: `${color}55`,
           letterSpacing: "0.2em",
         }}
@@ -1610,7 +1630,7 @@ function SectionLabel({ text, color }) {
   );
 }
 
-function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
+function DetailScreen({ project: p, onBack, screenWidth, screenHeight, fs }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -1653,8 +1673,8 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           tabIndex={0}
           onClick={onBack}
           style={{
-            fontSize: 12,
-            color: "#99aabb",
+            fontSize: fs(12),
+            color: "#b8c8d8",
             padding: "3px 7px",
             borderRadius: 4,
             background: "rgba(255,255,255,0.03)",
@@ -1665,7 +1685,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
         </div>
         <div
           style={{
-            fontSize: 24,
+            fontSize: fs(20),
             color: p.color,
             textShadow: `0 0 12px ${p.color}44`,
           }}
@@ -1676,7 +1696,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           <div
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: 14,
+              fontSize: fs(12),
               color: p.color,
               textShadow: `0 0 10px ${p.color}44`,
               letterSpacing: "0.05em",
@@ -1686,8 +1706,8 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           </div>
           <div
             style={{
-              fontSize: 11,
-              color: "#99aabb",
+              fontSize: fs(10),
+              color: "#b8c8d8",
               letterSpacing: "0.1em",
               marginTop: 3,
             }}
@@ -1701,8 +1721,8 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontSize: 10,
-              color: "#99aabb",
+              fontSize: fs(10),
+              color: "#b8c8d8",
               letterSpacing: "0.08em",
               textDecoration: "none",
               marginLeft: "auto",
@@ -1726,7 +1746,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
               transformOrigin: "right center",
               whiteSpace: "nowrap",
               fontFamily: "'Press Start 2P'",
-              fontSize: 7,
+              fontSize: fs(7),
               letterSpacing: "0.3em",
               color: `${p.color}0a`,
               pointerEvents: "none",
@@ -1746,12 +1766,12 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
             border: `1px solid ${p.color}0a`,
           }}
         >
-          <SectionLabel color={p.color} text="SYS/READOUT" />
+          <SectionLabel color={p.color} text="SYS/READOUT" fs={fs} />
           <div
             style={{
-              fontSize: 13,
+              fontSize: fs(11),
               lineHeight: 1.75,
-              color: "#99aabb",
+              color: "#b8c8d8",
               maxWidth: 520,
             }}
           >
@@ -1771,13 +1791,13 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
           >
             {p.highlights && (
               <div style={{ flex: 1 }}>
-                <SectionLabel color={p.color} text="SPECIFICATIONS" />
+                <SectionLabel color={p.color} text="SPECIFICATIONS" fs={fs} />
                 {p.highlights.map((h, i) => (
                   <div
                     key={i}
                     style={{
-                      fontSize: 11,
-                      color: "#99aabb",
+                      fontSize: fs(10),
+                      color: "#b8c8d8",
                       lineHeight: 1.8,
                       letterSpacing: "0.04em",
                     }}
@@ -1790,13 +1810,13 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
             )}
             {p.stack && (
               <div style={{ minWidth: 90 }}>
-                <SectionLabel color={p.color} text="STACK" />
+                <SectionLabel color={p.color} text="STACK" fs={fs} />
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                   {p.stack.map((s) => (
                     <span
                       key={s}
                       style={{
-                        fontSize: 9,
+                        fontSize: fs(9),
                         padding: "2px 7px",
                         borderRadius: 3,
                         background: `${p.color}15`,
@@ -1825,10 +1845,10 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
         >
           {p.status && (
             <>
-              <span style={{ fontSize: 10, color: statusColor }}>
+              <span style={{ fontSize: fs(10), color: statusColor }}>
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
-              <span style={{ color: "#333", fontSize: 10 }}>{"\u2502"}</span>
+              <span style={{ color: "#333", fontSize: fs(10) }}>{"\u2502"}</span>
             </>
           )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -1836,7 +1856,7 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
               <span
                 key={tag}
                 style={{
-                  fontSize: 8,
+                  fontSize: fs(8),
                   padding: "2px 6px",
                   borderRadius: 3,
                   background: `${p.color}0a`,
@@ -1860,8 +1880,8 @@ function DetailScreen({ project: p, onBack, screenWidth, screenHeight }) {
         style={{
           paddingTop: 10,
           borderTop: `1px solid ${p.color}11`,
-          fontSize: 8,
-          color: "#778899",
+          fontSize: fs(8),
+          color: "#96a8ba",
           display: "flex",
           justifyContent: "space-between",
         }}
