@@ -9,6 +9,28 @@ import useIntroSequence from "./useIntroSequence";
 
 const PROJECTS = [
   {
+    id: "lux",
+    title: "LUX",
+    subtitle: "EFFECT-ALGEBRAIC LANGUAGE",
+    lang: "Lux/Rust",
+    color: "#E0FF00",
+    icon: "\u2600",
+    github: "https://github.com/ampactor/lux",
+    desc: "Self-hosting language where algebraic effects replace exceptions, generators, async, DI, and mocking with one mechanism. Effect algebra \u2014 union, negation (!Alloc), subtraction (DSP - Network) \u2014 enables compile-time proofs no other language can express. The compiler is written in Lux, compiles itself, and teaches you why it inferred what it did.",
+    tags: ["language", "compiler", "effects", "self-hosting"],
+    tagline: "THE COMPILER TEACHES",
+    highlights: [
+      "FULL EFFECT ALGEBRA (+, -, !, Pure)",
+      "SELF-HOSTED (70,752 chars compiles itself)",
+      "--teach MODE (Why Engine)",
+      "AUTODIFF VIA EFFECTS (XOR trains)",
+      "!Alloc REAL-TIME PROOFS",
+      "46 STDLIB FUNCTIONS IN LUX",
+    ],
+    stack: ["Rust", "bytecode VM", "Hindley-Milner", "row polymorphism"],
+    status: "active",
+  },
+  {
     id: "sonido",
     title: "SONIDO",
     subtitle: "MODULAR DSP WORKSTATION",
@@ -304,7 +326,7 @@ const crtStyles = `
   @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
-  .crt-screen{animation:flicker 14s infinite,crtOn 0.8s ease-out both}
+  .crt-screen{animation:flicker 14s infinite}
   .crt-glass{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 40%,transparent 60%,rgba(255,255,255,0.01) 100%);pointer-events:none;z-index:91;border-radius:inherit}
   .crt-curvature{position:absolute;inset:0;border-radius:50%/3%;box-shadow:inset 0 0 60px rgba(0,0,0,0.4);pointer-events:none;z-index:89}
   .crt-phosphor{text-shadow:0 0 4px rgba(0,255,140,0.25),0 0 12px rgba(0,255,140,0.08),-0.7px 0 0 rgba(219,116,151,0.2),0.7px 0 0 rgba(40,100,255,0.15)}
@@ -319,6 +341,8 @@ const crtStyles = `
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   .glitch-enter{animation:glitchIn 0.5s ease-out}
   .crt-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.01) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.01) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:42}
+  @keyframes gameHighlight { 0%{box-shadow:0 0 20px rgba(255,34,102,0.6),inset 0 0 10px rgba(255,34,102,0.15)} 100%{box-shadow:none} }
+  .game-highlight{animation:gameHighlight 2s ease-out forwards}
   .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
   .coin-slot:hover{box-shadow:inset 0 0 12px rgba(255,184,0,0.6),0 0 10px rgba(255,184,0,0.2)!important}
   .coin-slot:active{transform:scale(0.95)}
@@ -506,15 +530,23 @@ export default function ArcadePortfolio() {
     return () => window.removeEventListener("keydown", handler);
   }, [screen, selectedIdx, bootLine, bootPhase, allProjects]);
 
+  const [gameHighlight, setGameHighlight] = useState(false);
+
   const insertCoin = () => {
-    if (!introComplete || coinCount >= 3) return;
-    const next = coinCount + 1;
-    setCoinCount(next);
+    if (!introComplete || coinCount >= 1) return;
+    setCoinCount(3);
     setGlitching(true);
-    setAnnouncing(next);
+    setAnnouncing(3);
     setTimeout(() => setGlitching(false), 600);
-    setTimeout(() => setAnnouncing(null), next === 3 ? 2800 : 1600);
-    playInsertSting(next);
+    setTimeout(() => setAnnouncing(null), 2800);
+    playInsertSting(3);
+    // After announcement clears, auto-scroll to game and highlight it
+    setTimeout(() => {
+      const gameIdx = PROJECTS.length + HIDDEN_PROJECTS.length - 1;
+      setSelectedIdx(gameIdx);
+      setGameHighlight(true);
+      setTimeout(() => setGameHighlight(false), 2000);
+    }, 3000);
   };
 
   const openProject = (idx) => {
@@ -611,7 +643,7 @@ export default function ArcadePortfolio() {
             fill="none"
           />
           <path
-            d="M 168,300 C 180,268 200,268 212,300 C 224,332 244,332 256,300 C 268,268 288,268 300,300 C 312,332 332,332 344,300"
+            d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
             stroke="#00E5FF"
             strokeWidth="20"
             strokeLinecap="round"
@@ -654,6 +686,7 @@ export default function ArcadePortfolio() {
           background: "#141824",
           borderRadius: 16,
           opacity: 0,
+          willChange: "opacity, clip-path",
         }}
       >
         <div
@@ -672,7 +705,7 @@ export default function ArcadePortfolio() {
             overflow: "hidden",
             boxShadow:
               "inset 0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,229,255,0.08), 0 0 80px rgba(0,229,255,0.04), 0 0 120px rgba(0,255,140,0.02)",
-            willChange: "transform",
+            willChange: "clip-path, filter",
           }}
         >
           <div
@@ -711,21 +744,11 @@ export default function ArcadePortfolio() {
               }}
             />
           )}
-          {announcing === 1 && (
-            <div className="coin-announce tier-1">
-              ◈ SYS/RESONANCE · SIGNAL ACQUIRED
-            </div>
-          )}
-          {announcing === 2 && (
-            <div className="coin-announce tier-2">
-              ◈ COHERENCE FIELD · DETECTED
-            </div>
-          )}
           {announcing === 3 && (
             <div className="coin-announce tier-3">
-              TUNNEL_RUN
+              CREDIT ACCEPTED
               <br />
-              <span>3/3 CREDITS · GAME UNLOCKED</span>
+              <span>3 PROGRAMS UNLOCKED</span>
             </div>
           )}
           {/* Project color bleed */}
@@ -773,6 +796,7 @@ export default function ArcadePortfolio() {
                   coinCount={coinCount}
                   onHoverBlip={playBlip}
                   fs={fs}
+                  gameHighlight={gameHighlight}
                 />
               )}
               {screen === "detail" && detailProject && (
@@ -983,7 +1007,7 @@ export default function ArcadePortfolio() {
                   fill="none"
                 />
                 <path
-                  d="M 168,300 C 180,268 200,268 212,300 C 224,332 244,332 256,300 C 268,268 288,268 300,300 C 312,332 332,332 344,300"
+                  d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
                   stroke="#00E5FF"
                   strokeWidth="20"
                   strokeLinecap="round"
@@ -1080,6 +1104,22 @@ export default function ArcadePortfolio() {
                 }}
               />
             </div>
+            {introComplete && (
+              <div
+                style={{
+                  fontSize: fs(7),
+                  fontFamily: "'Press Start 2P', monospace",
+                  color: "#FFB800",
+                  letterSpacing: "0.12em",
+                  opacity: coinCount > 0 ? 0 : 1,
+                  transition: "opacity 0.4s ease",
+                  animation: "blink 1.2s step-end infinite",
+                  marginTop: 4,
+                }}
+              >
+                INSERT COIN
+              </div>
+            )}
             <div
               style={{
                 fontSize: fs(6),
@@ -1093,9 +1133,7 @@ export default function ArcadePortfolio() {
                 fontFamily: "'Press Start 2P', monospace",
               }}
             >
-              {[1, 2, 3]
-                .map((n) => (coinCount >= n ? "\u25c9" : "\u25ce"))
-                .join(" ")}
+              {coinCount >= 1 ? "\u25c9" : "\u25ce"}
             </div>
           </div>
 
@@ -1370,6 +1408,7 @@ function SelectScreen({
   coinCount,
   onHoverBlip,
   fs,
+  gameHighlight,
 }) {
   const listRef = useRef(null);
   useEffect(() => {
@@ -1415,13 +1454,15 @@ function SelectScreen({
           </div>
           <div
             style={{
-              fontSize: fs(9),
+              fontSize: fs(11),
               color: "#8a9aaa",
               letterSpacing: "0.08em",
               marginTop: 2,
             }}
           >
-            ampactorlabs@gmail.com {"\u00b7"} 435-268-2446
+            <a href="mailto:ampactorlabs@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>ampactorlabs@gmail.com</a>
+            {" \u00b7 "}
+            <a href="tel:+14352682446" style={{ color: "inherit", textDecoration: "none" }}>435-268-2446</a>
           </div>
           <div
             style={{
@@ -1462,14 +1503,16 @@ function SelectScreen({
       >
         {projects.map((p, i) => {
           const active = i === selectedIdx,
-            isH = p.hidden;
+            isH = p.hidden,
+            isGame = p.id === "tunnel-run",
+            isGameGlow = isGame && gameHighlight;
           return (
             <div
               key={p.id}
               role="option"
               aria-selected={active}
               aria-label={`${p.title} — ${p.subtitle}`}
-              className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}`}
+              className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
               onClick={() => onSelect(i)}
               onMouseEnter={() => {
                 onHover(i);
@@ -1479,7 +1522,7 @@ function SelectScreen({
                 display: "flex",
                 alignItems: "center",
                 gap: 12,
-                padding: "10px 12px",
+                padding: isGame ? "14px 12px" : "10px 12px",
                 borderRadius: 6,
                 background: active
                   ? isH
@@ -1491,6 +1534,7 @@ function SelectScreen({
                   : "1px solid transparent",
                 position: "relative",
                 borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
+                boxShadow: isGame && isH ? `0 0 8px ${p.color}22` : undefined,
               }}
             >
               <div
@@ -1507,17 +1551,17 @@ function SelectScreen({
               />
               <div
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: isGame ? 40 : 32,
+                  height: isGame ? 40 : 32,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: fs(16),
+                  fontSize: isGame ? fs(20) : fs(16),
                   color: p.color,
-                  background: `${p.color}11`,
+                  background: `${p.color}${isGame ? "1a" : "11"}`,
                   borderRadius: 5,
-                  border: `1px solid ${p.color}22`,
-                  textShadow: active ? `0 0 8px ${p.color}` : "none",
+                  border: `1px solid ${p.color}${isGame ? "44" : "22"}`,
+                  textShadow: active || isGame ? `0 0 8px ${p.color}` : "none",
                   flexShrink: 0,
                 }}
               >
