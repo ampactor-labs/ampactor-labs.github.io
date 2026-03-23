@@ -533,7 +533,7 @@ export default function ArcadePortfolio() {
   const [gameHighlight, setGameHighlight] = useState(false);
 
   const insertCoin = () => {
-    if (!introComplete || coinCount >= 1) return;
+    if (!introComplete || screen === "boot" || coinCount >= 1) return;
     setCoinCount(3);
     setGlitching(true);
     setAnnouncing(3);
@@ -1083,9 +1083,9 @@ export default function ArcadePortfolio() {
                   coinCount > 0
                     ? "inset 0 2px 6px rgba(255,184,0,0.15)"
                     : "inset 0 2px 6px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
-                opacity: introComplete ? 1 : 0.3,
-                pointerEvents: introComplete ? "auto" : "none",
-                cursor: introComplete ? "pointer" : "default",
+                opacity: introComplete && screen !== "boot" ? 1 : 0.3,
+                pointerEvents: introComplete && screen !== "boot" ? "auto" : "none",
+                cursor: introComplete && screen !== "boot" ? "pointer" : "default",
               }}
             >
               <div
@@ -1104,7 +1104,7 @@ export default function ArcadePortfolio() {
                 }}
               />
             </div>
-            {introComplete && (
+            {introComplete && screen !== "boot" && (
               <div
                 style={{
                   fontSize: fs(7),
@@ -1454,6 +1454,9 @@ function SelectScreen({
           </div>
           <div
             style={{
+              display: "flex",
+              flexWrap: "wrap",
+              columnGap: 6,
               fontSize: fs(11),
               color: "#8a9aaa",
               letterSpacing: "0.08em",
@@ -1461,7 +1464,6 @@ function SelectScreen({
             }}
           >
             <a href="mailto:ampactorlabs@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>ampactorlabs@gmail.com</a>
-            {" \u00b7 "}
             <a href="tel:+14352682446" style={{ color: "inherit", textDecoration: "none" }}>435-268-2446</a>
           </div>
           <div
