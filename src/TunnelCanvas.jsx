@@ -8,9 +8,6 @@ import {
 
 const RING_COUNT = 12;
 const DUST_COUNT = 30;
-const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
-const RING_COUNT_M = isMobile ? 8 : RING_COUNT;
-const DUST_COUNT_M = isMobile ? 12 : DUST_COUNT;
 const FOV = 200;
 const DEPTH_RANGE = 800;
 const TWO_PI = Math.PI * 2;
@@ -62,12 +59,13 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
   { speed = 0.00008 },
   ref,
 ) {
+  const isMobileRef = useRef(typeof window !== "undefined" && window.innerWidth <= 600);
   const canvasRef = useRef(null);
   const stateRef = useRef({
     tunnelDepth: 0,
     sweepAngle: 0,
     elapsed: 0,
-    dust: initDust().slice(0, DUST_COUNT_M),
+    dust: initDust().slice(0, (typeof window !== "undefined" && window.innerWidth <= 600) ? 12 : DUST_COUNT),
     speed,
     revealRadius: 0,
     animId: null,
@@ -121,7 +119,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
 
     // Pre-compute all ring data once
     const rings = [];
-    for (let i = 0; i < RING_COUNT_M; i++) {
+    for (let i = 0; i < (isMobileRef.current ? 8 : RING_COUNT); i++) {
       const nearness = (i / RING_COUNT + st.tunnelDepth) % 1.0;
       const scale = FOV / (FOV + (1 - nearness) * DEPTH_RANGE);
       const dir = i % 2 === 0 ? 1 : -1;
@@ -156,7 +154,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     }
 
     // Pass 2: All glow strokes in one batch (single composite switch) — desktop only
-    if (!isMobile) {
+    if (!isMobileRef.current) {
       ctx.globalCompositeOperation = "lighter";
       for (let i = 0; i < rings.length; i++) {
         const r = rings[i];
@@ -233,9 +231,17 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      isMobileRef.current = window.innerWidth <= 600;
     };
     resize();
     window.addEventListener("resize", resize);
+
+    const prefersReduced = typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      draw(ctx, canvas.offsetWidth, canvas.offsetHeight, 0);
+      return () => { window.removeEventListener("resize", resize); };
+    }
 
     const loop = (now) => {
       const dt = Math.min(now - lastTime, 50);

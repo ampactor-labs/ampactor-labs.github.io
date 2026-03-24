@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 
 export default function useTunnelGameAudio() {
   const ctxRef = useRef(null);
@@ -110,6 +110,13 @@ export default function useTunnelGameAudio() {
 
   const playCountdown = useCallback(() => tone(660, "square", 0.1, 0.03), [tone]);
   const playGo = useCallback(() => tone(1320, "square", 0.15, 0.04), [tone]);
+
+  useEffect(() => {
+    return () => {
+      ctxRef.current?.close();
+      ctxRef.current = null;
+    };
+  }, []);
 
   return {
     playLaser,

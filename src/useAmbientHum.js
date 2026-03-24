@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 
 export default function useAmbientHum() {
   const ctxRef = useRef(null);
@@ -105,6 +105,13 @@ export default function useAmbientHum() {
     },
     [getCtx],
   );
+
+  useEffect(() => {
+    return () => {
+      ctxRef.current?.close();
+      ctxRef.current = null;
+    };
+  }, []);
 
   return {
     humming: false,

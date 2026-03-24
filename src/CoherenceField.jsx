@@ -13,6 +13,8 @@ export default function CoherenceField({ width, height }) {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = width * dpr; canvas.height = height * dpr;
     const ctx = canvas.getContext("2d");
+    const prefersReduced = typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const N = 45;
     const particles = [];
     for (let i = 0; i < N; i++) {
@@ -62,9 +64,9 @@ export default function CoherenceField({ width, height }) {
       }
       if (!v.consume && t % 50 === 0) { const d = particles.find(p => !p.alive && p.consumed); if (d) Object.assign(d, { x: Math.random() * width, y: Math.random() * height, vx: 0, vy: 0, phase: Math.random() * Math.PI * 2, freq: d.baseFreq, energy: 0.5, r: d.baseR, alive: true, consumed: false, wallTimer: 0 }); }
       if (!v.neglect && t % 35 === 0) { const d = particles.find(p => !p.alive && !p.consumed); if (d) Object.assign(d, { x: Math.random() * width, y: Math.random() * height, vx: 0, vy: 0, phase: Math.random() * Math.PI * 2, freq: d.baseFreq, energy: 0.5, r: d.baseR, alive: true, consumed: false, wallTimer: 0 }); }
-      ctx.restore(); animRef.current = requestAnimationFrame(tick);
+      ctx.restore(); if (!prefersReduced) animRef.current = requestAnimationFrame(tick);
     };
-    animRef.current = requestAnimationFrame(tick);
+    if (!prefersReduced) animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
   }, [width, height]);
 

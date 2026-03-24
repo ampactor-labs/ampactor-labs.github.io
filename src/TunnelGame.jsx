@@ -4,8 +4,6 @@ import useTunnelGameAudio from "./useTunnelGameAudio";
 /* ── constants ──────────────────────────────────────────── */
 const FOV = 200;
 const DEPTH_RANGE = 800;
-const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
-
 const OBSTACLE_TYPES = [
   { text: "NaN", color: "#ff4444", speed: 1, points: 100 },
   { text: "SEGFAULT", color: "#ff2222", speed: 1.1, points: 200, dodges: true },
@@ -50,6 +48,7 @@ function depthScale(depth) {
 
 /* ── component ──────────────────────────────────────────── */
 export default function TunnelGame({ tunnelRef, onExit }) {
+  const isMobileRef = useRef(window.innerWidth <= 600);
   const canvasRef = useRef(null);
   const audio = useTunnelGameAudio();
   const stateRef = useRef(null);
@@ -160,7 +159,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       }
 
       // Draw countdown text
-      ctx.font = `${isMobile ? 48 : 72}px 'Press Start 2P', monospace`;
+      ctx.font = `${isMobileRef.current ? 48 : 72}px 'Press Start 2P', monospace`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.shadowBlur = 20;
@@ -174,8 +173,8 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.shadowBlur = 0;
 
       // Draw ship during countdown
-      const shipY = h - (isMobile ? 60 : 80);
-      drawShip(ctx, cx, shipY, isMobile ? 28 : 40);
+      const shipY = h - (isMobileRef.current ? 60 : 80);
+      drawShip(ctx, cx, shipY, isMobileRef.current ? 28 : 40);
 
       ctx.restore();
       return;
@@ -186,7 +185,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // Still draw particles
       updateAndDrawParticles(ctx, gs, dt);
 
-      ctx.font = `${isMobile ? 18 : 32}px 'Press Start 2P', monospace`;
+      ctx.font = `${isMobileRef.current ? 18 : 32}px 'Press Start 2P', monospace`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.shadowBlur = 25;
@@ -198,23 +197,23 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.fillText("GAME OVER", cx, cy - 50);
 
       ctx.shadowBlur = 0;
-      ctx.font = `${isMobile ? 8 : 14}px 'Press Start 2P', monospace`;
+      ctx.font = `${isMobileRef.current ? 8 : 14}px 'Press Start 2P', monospace`;
       ctx.fillStyle = "#00E5FF";
       ctx.fillText(`SCORE: ${gs.score}`, cx, cy + 10);
       ctx.fillStyle = gs.score >= gs.hiScore ? "#FFB800" : "#778899";
-      ctx.fillText(`HI: ${gs.hiScore}`, cx, cy + (isMobile ? 30 : 40));
+      ctx.fillText(`HI: ${gs.hiScore}`, cx, cy + (isMobileRef.current ? 30 : 40));
 
       if (gs.score >= gs.hiScore) {
-        ctx.font = `${isMobile ? 6 : 10}px 'Press Start 2P', monospace`;
+        ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
         ctx.fillStyle = "#FFB800";
-        ctx.fillText("NEW HIGH SCORE", cx, cy + (isMobile ? 50 : 65));
+        ctx.fillText("NEW HIGH SCORE", cx, cy + (isMobileRef.current ? 50 : 65));
       }
 
       // Blink "press any key"
       if (Math.floor(gs.elapsed / 600) % 2 === 0) {
-        ctx.font = `${isMobile ? 6 : 10}px 'Press Start 2P', monospace`;
+        ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
         ctx.fillStyle = "#556";
-        ctx.fillText("PRESS ANY KEY TO RETURN", cx, cy + (isMobile ? 70 : 100));
+        ctx.fillText("PRESS ANY KEY TO RETURN", cx, cy + (isMobileRef.current ? 70 : 100));
       }
 
       ctx.restore();
@@ -228,14 +227,14 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       fire: keysRef.current.fire || touchRef.current.fire,
     };
 
-    const shipSpeed = (isMobile ? 0.4 : 0.5) * dt;
+    const shipSpeed = (isMobileRef.current ? 0.4 : 0.5) * dt;
     if (input.left) gs.player.x -= shipSpeed;
     if (input.right) gs.player.x += shipSpeed;
     gs.player.x = Math.max(-w / 2 + 30, Math.min(w / 2 - 30, gs.player.x));
 
     const shipX = cx + gs.player.x;
-    const shipY = h - (isMobile ? 60 : 80);
-    const shipSize = isMobile ? 28 : 40;
+    const shipY = h - (isMobileRef.current ? 60 : 80);
+    const shipSize = isMobileRef.current ? 28 : 40;
 
     // Engine trail
     gs.player.trail.unshift({ x: shipX, y: shipY, alpha: 0.4 });
@@ -399,7 +398,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       const scale = depthScale(o.depth);
       const oScreenX = cx + o.x * scale;
       const oScreenY = cy + (shipY - cy) * o.depth;
-      const fontSize = Math.max(8, (o.big ? 52 : 38) * scale * (isMobile ? 0.8 : 1));
+      const fontSize = Math.max(8, (o.big ? 52 : 38) * scale * (isMobileRef.current ? 0.8 : 1));
 
       ctx.save();
       ctx.font = `${fontSize}px 'Press Start 2P', monospace`;
@@ -474,7 +473,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     // ── HUD ──
     ctx.save();
     ctx.shadowBlur = 0;
-    ctx.font = `${isMobile ? 8 : 12}px 'Press Start 2P', monospace`;
+    ctx.font = `${isMobileRef.current ? 8 : 12}px 'Press Start 2P', monospace`;
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 
@@ -534,6 +533,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      isMobileRef.current = window.innerWidth <= 600;
     };
     resize();
     window.addEventListener("resize", resize);
@@ -650,7 +650,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         }}
       />
       {/* Mobile touch zone hints - fade after 3s */}
-      {isMobile && (
+      {isMobileRef.current && (
         <div
           style={{
             position: "absolute",

@@ -103,6 +103,14 @@ export default function SynthEngine({ width }) {
     return () => cancelAnimationFrame(animRef.current);
   }, [width]);
 
+  useEffect(() => {
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      audioCtxRef.current?.close();
+      audioCtxRef.current = null;
+    };
+  }, []);
+
   const WHITES = [{ key: "a", n: "C" }, { key: "s", n: "D" }, { key: "d", n: "E" }, { key: "f", n: "F" }, { key: "g", n: "G" }, { key: "h", n: "A" }, { key: "j", n: "B" }, { key: "k", n: "C5" }, { key: "l", n: "D5" }];
   const BLACKS = [{ key: "w", after: 0 }, { key: "e", after: 1 }, { key: "t", after: 3 }, { key: "y", after: 4 }, { key: "u", after: 5 }, { key: "o", after: 7 }];
   const keyW = Math.min(32, (width - 20) / 9);
