@@ -1,220 +1,43 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useRef } from "react";
 import TunnelGame from "./TunnelGame";
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
-import useAmbientHum from "./useAmbientHum";
-import useIntroSequence from "./useIntroSequence";
-import { PROJECTS, HIDDEN_PROJECTS } from "./data/projects";
 import { crtStyles } from "./styles/crtStyles";
 import { BOOT_LINES } from "./constants";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
 import DetailScreen from "./components/screens/DetailScreen";
+import useCabinetState from "./hooks/useCabinetState";
 
 export default function ArcadePortfolio() {
-  const [screen, setScreen] = useState("boot");
-  const [bootPhase, setBootPhase] = useState(0);
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const [detailProject, setDetailProject] = useState(null);
-  const [bootLine, setBootLine] = useState(0);
-  const [coinCount, setCoinCount] = useState(0);
-  const [announcing, setAnnouncing] = useState(null);
-  const [glitching, setGlitching] = useState(false);
-  const [dims, setDims] = useState({ w: 360, h: 500 });
   const screenRef = useRef(null);
   const tunnelRef = useRef(null);
   const logoRef = useRef(null);
   const consoleRef = useRef(null);
-  const { playBlip, playInsertSting } = useAmbientHum();
-  const { introComplete, skipIntro } = useIntroSequence(
-    logoRef,
-    tunnelRef,
-    consoleRef,
-  );
 
-  const allProjects = useMemo(() => {
-    let result = [...PROJECTS];
-    if (coinCount >= 1) result = [...result, HIDDEN_PROJECTS[0]];
-    if (coinCount >= 2) result = [...result, HIDDEN_PROJECTS[1]];
-    if (coinCount >= 3) result = [...result, HIDDEN_PROJECTS[2]];
-    return result;
-  }, [coinCount]);
-
-  const fontScale = useMemo(
-    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.75)),
-    [dims.w],
-  );
-  const fs = (size) => Math.round(size * fontScale);
-
-  // Boot phase 0: test pattern (800ms), then phase 1: text sequence
-  useEffect(() => {
-    if (screen !== "boot" || !introComplete) return;
-    if (bootPhase === 0) {
-      const t = setTimeout(() => setBootPhase(1), 800);
-      return () => clearTimeout(t);
-    }
-  }, [screen, bootPhase, introComplete]);
-
-  useEffect(() => {
-    if (screen !== "boot" || bootPhase < 1) return;
-    const interval = setInterval(() => {
-      setBootLine((prev) => {
-        if (prev >= BOOT_LINES.length - 1) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 280);
-    return () => clearInterval(interval);
-  }, [screen, bootPhase]);
-
-  useEffect(() => {
-    const measure = () => {
-      if (screenRef.current) {
-        const r = screenRef.current.getBoundingClientRect();
-        setDims({ w: r.width - 40, h: r.height - 32 });
-      }
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  // Skip intro on any key or click
-  useEffect(() => {
-    if (introComplete) return;
-    const skip = () => skipIntro();
-    window.addEventListener("keydown", skip);
-    window.addEventListener("pointerdown", skip);
-    return () => {
-      window.removeEventListener("keydown", skip);
-      window.removeEventListener("pointerdown", skip);
-    };
-  }, [introComplete, skipIntro]);
-
-  // Boot screen: any key OR click/tap advances
-  useEffect(() => {
-    if (!introComplete || screen !== "boot") return;
-    const advance = () => {
-      if (bootPhase === 0) {
-        setBootPhase(1);
-      } else if (bootLine >= BOOT_LINES.length - 1) {
-        // Swallow the next click so it doesn't bleed into the select screen
-        const eatClick = (e) => {
-          e.stopPropagation();
-          e.preventDefault();
-        };
-        window.addEventListener("click", eatClick, {
-          capture: true,
-          once: true,
-        });
-        setScreen("select");
-      }
-    };
-    window.addEventListener("keydown", advance);
-    window.addEventListener("pointerdown", advance);
-    return () => {
-      window.removeEventListener("keydown", advance);
-      window.removeEventListener("pointerdown", advance);
-    };
-  }, [introComplete, screen, bootPhase, bootLine]);
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (!introComplete) return;
-      if (screen === "game") return;
-      if (screen === "select") {
-        if (e.key === "ArrowUp") {
-          setSelectedIdx(
-            (i) => (i - 1 + allProjects.length) % allProjects.length,
-          );
-          playBlip();
-        } else if (e.key === "ArrowDown") {
-          setSelectedIdx((i) => (i + 1) % allProjects.length);
-          playBlip();
-        } else if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setDetailProject(allProjects[selectedIdx]);
-          setScreen("detail");
-          playBlip();
-        }
-      }
-      if (
-        screen === "detail" &&
-        !allProjects[selectedIdx]?.interactive?.includes("synth")
-      ) {
-        if (e.key === "Escape" || e.key === "Backspace") {
-          setScreen("select");
-          setDetailProject(null);
-        }
-      }
-      if (
-        screen === "detail" &&
-        allProjects[selectedIdx]?.interactive === "synth" &&
-        e.key === "Escape"
-      ) {
-        setScreen("select");
-        setDetailProject(null);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [screen, selectedIdx, bootLine, bootPhase, allProjects]);
-
-  const [gameHighlight, setGameHighlight] = useState(false);
-
-  const insertCoin = () => {
-    if (!introComplete || screen === "boot" || coinCount >= 1) return;
-    setCoinCount(3);
-    setGlitching(true);
-    setAnnouncing(3);
-    setTimeout(() => setGlitching(false), 600);
-    setTimeout(() => setAnnouncing(null), 2800);
-    playInsertSting(3);
-    // After announcement clears, auto-scroll to game and highlight it
-    setTimeout(() => {
-      const gameIdx = PROJECTS.length + HIDDEN_PROJECTS.length - 1;
-      setSelectedIdx(gameIdx);
-      setGameHighlight(true);
-      setTimeout(() => setGameHighlight(false), 2000);
-    }, 3000);
-  };
-
-  const openProject = (idx) => {
-    setSelectedIdx(idx);
-    const project = allProjects[idx];
-    setDetailProject(project);
-    if (project?.interactive === "tunnelgame") {
-      setScreen("game");
-    } else {
-      setScreen("detail");
-    }
-    playBlip();
-  };
-  const goBack = () => {
-    setScreen("select");
-    setDetailProject(null);
-  };
-  const exitGame = () => {
-    setScreen("select");
-    setDetailProject(null);
-  };
-
-  // Fade console in/out for game mode
-  useEffect(() => {
-    const el = consoleRef.current;
-    if (!el || !introComplete) return;
-    if (screen === "game") {
-      el.style.transition = "opacity 0.6s ease";
-      el.style.opacity = "0";
-      el.style.pointerEvents = "none";
-    } else {
-      el.style.transition = "opacity 0.6s ease";
-      el.style.opacity = "1";
-      el.style.pointerEvents = "";
-    }
-  }, [screen, introComplete]);
+  const {
+    screen,
+    bootPhase,
+    bootLine,
+    selectedIdx,
+    detailProject,
+    coinCount,
+    announcing,
+    glitching,
+    dims,
+    gameHighlight,
+    allProjects,
+    fs,
+    introComplete,
+    insertCoin,
+    openProject,
+    goBack,
+    exitGame,
+    advanceBoot,
+    navUp,
+    navDown,
+    playBlip,
+  } = useCabinetState(screenRef, tunnelRef, logoRef, consoleRef);
 
   return (
     <div
@@ -413,10 +236,7 @@ export default function ArcadePortfolio() {
                   currentLine={bootLine}
                   bootPhase={bootPhase}
                   fs={fs}
-                  onSkip={() => {
-                    if (bootPhase === 0) setBootPhase(1);
-                    else setScreen("select");
-                  }}
+                  onSkip={advanceBoot}
                 />
               )}
               {screen === "select" && (
@@ -424,7 +244,7 @@ export default function ArcadePortfolio() {
                   projects={allProjects}
                   selectedIdx={selectedIdx}
                   onSelect={openProject}
-                  onHover={setSelectedIdx}
+                  onHover={(i) => { selectedIdx !== i && playBlip(); }}
                   coinCount={coinCount}
                   onHoverBlip={playBlip}
                   fs={fs}
@@ -473,18 +293,7 @@ export default function ArcadePortfolio() {
               role="button"
               aria-label="Navigate up"
               tabIndex={0}
-              onClick={() => {
-                if (screen === "select")
-                  setSelectedIdx(
-                    (i) => (i - 1 + allProjects.length) % allProjects.length,
-                  );
-                if (
-                  screen === "boot" &&
-                  bootPhase > 0 &&
-                  bootLine >= BOOT_LINES.length - 1
-                )
-                  setScreen("select");
-              }}
+              onClick={navUp}
               style={{
                 width: 34,
                 height: 34,
@@ -539,10 +348,6 @@ export default function ArcadePortfolio() {
                 }}
               />
               <div
-                className="btn-cabinet"
-                role="button"
-                aria-label="Navigate right"
-                tabIndex={0}
                 style={{
                   width: 34,
                   height: 34,
@@ -567,10 +372,7 @@ export default function ArcadePortfolio() {
               role="button"
               aria-label="Navigate down"
               tabIndex={0}
-              onClick={() => {
-                if (screen === "select")
-                  setSelectedIdx((i) => (i + 1) % allProjects.length);
-              }}
+              onClick={navDown}
               style={{
                 width: 34,
                 height: 34,
@@ -801,11 +603,7 @@ export default function ArcadePortfolio() {
               aria-label="Select"
               tabIndex={0}
               onClick={() => {
-                if (screen === "boot") {
-                  if (bootPhase === 0) setBootPhase(1);
-                  else if (bootLine >= BOOT_LINES.length - 1)
-                    setScreen("select");
-                }
+                if (screen === "boot") advanceBoot();
                 if (screen === "select") openProject(selectedIdx);
               }}
               style={{
