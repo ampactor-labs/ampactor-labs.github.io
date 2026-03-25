@@ -1,0 +1,370 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DetailScreen > matches snapshot for regular project 1`] = `
+<div
+  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+>
+  <div
+    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
+  >
+    <div
+      aria-label="Back to project list"
+      class="btn-cabinet"
+      role="button"
+      style="font-size: 12px; color: rgb(184, 200, 216); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      tabindex="0"
+    >
+      ◄
+    </div>
+    <div
+      style="font-size: 20px; color: rgb(224, 255, 0); text-shadow: 0 0 12px #E0FF0044;"
+    >
+      ☀
+    </div>
+    <div
+      style="flex: 1 1 0%;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; color: rgb(224, 255, 0); text-shadow: 0 0 10px #E0FF0044; letter-spacing: 0.05em;"
+      >
+        LUX
+      </div>
+      <div
+        style="font-size: 10px; color: rgb(184, 200, 216); letter-spacing: 0.1em; margin-top: 3px;"
+      >
+        EFFECT-ALGEBRAIC LANGUAGE
+      </div>
+    </div>
+    <a
+      href="https://github.com/ampactor/lux"
+      rel="noopener noreferrer"
+      style="font-size: 10px; color: rgb(184, 200, 216); letter-spacing: 0.08em; text-decoration: none; margin-left: auto; flex-shrink: 0;"
+      target="_blank"
+    >
+      ›
+       SOURCE
+    </a>
+  </div>
+  <div
+    style="flex: 1 1 0%; overflow: auto; position: relative;"
+  >
+    <span
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
+    >
+      THE COMPILER TEACHES
+    </span>
+    <div
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          SYS/READOUT
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 11px; line-height: 1.75; color: rgb(184, 200, 216); max-width: 520px;"
+      >
+        <span
+          style="color: rgb(224, 255, 0);"
+        >
+          &gt; 
+        </span>
+        Zero-annotation language — write code, the compiler infers types, effects, purity, and allocation behavior, then teaches you what it found. One mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. Effect algebra (!Alloc, Pure, subtraction) proves real-time safety that Rust can't express. Self-hosted: the compiler is written in Lux.
+      </div>
+    </div>
+    <div
+      style="display: flex; flex-direction: row; gap: 14px; margin-bottom: 14px;"
+    >
+      <div
+        style="flex: 1 1 0%;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            SPECIFICATIONS
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          FULL EFFECT ALGEBRA (+, -, !, Pure)
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          SELF-HOSTED COMPILER
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          --teach MODE (annotation gradient)
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          !Alloc REAL-TIME PROOFS
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          TESTING = HANDLER SWAP
+        </div>
+        <div
+          style="font-size: 10px; color: rgb(184, 200, 216); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          AUTODIFF VIA EFFECTS (XOR trains)
+        </div>
+      </div>
+      <div
+        style="min-width: 90px;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            STACK
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="display: flex; flex-wrap: wrap; gap: 4px;"
+        >
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            Rust
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            bytecode VM
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            Hindley-Milner
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            row polymorphism
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
+    >
+      <span
+        style="font-size: 10px; color: rgb(0, 255, 136);"
+      >
+        ●
+         
+        ACTIVE
+      </span>
+      <span
+        style="color: rgb(51, 51, 51); font-size: 10px;"
+      >
+        │
+      </span>
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 4px;"
+      >
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          language
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          compiler
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          effects
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          self-hosting
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: rgb(150, 168, 186); display: flex; justify-content: space-between;"
+  >
+    <span>
+      [ 
+      Ⓑ
+       BACK ]
+    </span>
+    <span>
+      ampactor/lux
+    </span>
+  </div>
+</div>
+`;
+
+exports[`DetailScreen > matches snapshot for synth project 1`] = `
+<div
+  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+>
+  <div
+    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 184, 0, 0.133);"
+  >
+    <div
+      aria-label="Back to project list"
+      class="btn-cabinet"
+      role="button"
+      style="font-size: 12px; color: rgb(184, 200, 216); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      tabindex="0"
+    >
+      ◄
+    </div>
+    <div
+      style="font-size: 20px; color: rgb(255, 184, 0); text-shadow: 0 0 12px #FFB80044;"
+    >
+      ∿
+    </div>
+    <div
+      style="flex: 1 1 0%;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; color: rgb(255, 184, 0); text-shadow: 0 0 10px #FFB80044; letter-spacing: 0.05em;"
+      >
+        SYS/RESONANCE
+      </div>
+      <div
+        style="font-size: 10px; color: rgb(184, 200, 216); letter-spacing: 0.1em; margin-top: 3px;"
+      >
+        SUBTRACTIVE SYNTH
+      </div>
+    </div>
+  </div>
+  <div
+    style="flex: 1 1 0%; overflow: auto; position: relative;"
+  >
+    <span
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"
+    >
+      THE CHAIN SPEAKS
+    </span>
+    <div
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(255, 184, 0, 0.02); border: 1px solid rgba(255, 184, 0, 0.04);"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          SYS/READOUT
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 11px; line-height: 1.75; color: rgb(184, 200, 216); max-width: 520px;"
+      >
+        <span
+          style="color: rgb(255, 184, 0);"
+        >
+          &gt; 
+        </span>
+        Playable single-voice subtractive synthesizer. Oscillator → Filter → Amp → Delay. Keyboard-mapped. The signal chain, alive in the browser.
+      </div>
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
+    >
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 4px;"
+      >
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          oscillator
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          filter
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          envelope
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          delay
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style="padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: rgb(150, 168, 186); display: flex; justify-content: space-between;"
+  >
+    <span>
+      [ 
+      Ⓑ
+       BACK ]
+    </span>
+    <span>
+      resonance
+    </span>
+  </div>
+</div>
+`;
