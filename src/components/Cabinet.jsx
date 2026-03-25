@@ -17,15 +17,18 @@ export default function Cabinet({
       className="cabinet-body"
       style={{
         margin: "0 10px 10px",
-        background: "linear-gradient(180deg, #2a2c40 0%, #1e2030 100%)",
+        background:
+          "linear-gradient(180deg, #1c1e30 0%, #161824 50%, #111320 100%)",
         borderRadius: "0 0 16px 16px",
-        border: "3px solid #2a2c40",
-        borderTop: "1px solid #363650",
-        padding: "14px 20px",
-        paddingBottom: "calc(env(safe-area-inset-bottom) + 16px)",
+        border: "3px solid #252738",
+        borderTop: "1px solid #2e3048",
+        padding: "8px 16px",
+        paddingBottom: "calc(env(safe-area-inset-bottom) + 10px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        boxShadow:
+          "inset 0 1px 0 rgba(0,229,255,0.06), inset 0 -2px 8px rgba(0,0,0,0.5)",
       }}
     >
       {/* D-pad */}
@@ -50,18 +53,18 @@ export default function Cabinet({
             }
           }}
           style={{
-            width: 34,
-            height: 34,
-            background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
-            borderRadius: 5,
+            width: 26,
+            height: 26,
+            background: "linear-gradient(180deg, #3a3c52 0%, #2e3048 100%)",
+            borderRadius: 4,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#b8c8d8",
-            fontSize: fs(11),
-            border: "1px solid #565870",
+            color: "#8a9aaa",
+            fontSize: fs(9),
+            border: "1px solid #484a62",
             boxShadow:
-              "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+              "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {"\u25b2"}
@@ -80,46 +83,46 @@ export default function Cabinet({
               }
             }}
             style={{
-              width: 34,
-              height: 34,
-              background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
-              borderRadius: 5,
+              width: 26,
+              height: 26,
+              background: "linear-gradient(180deg, #3a3c52 0%, #2e3048 100%)",
+              borderRadius: 4,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#b8c8d8",
-              fontSize: fs(11),
-              border: "1px solid #565870",
+              color: "#8a9aaa",
+              fontSize: fs(9),
+              border: "1px solid #484a62",
               boxShadow:
-                "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
             }}
           >
             {"\u25c4"}
           </div>
           <div
             style={{
-              width: 34,
-              height: 34,
-              background: "radial-gradient(circle at 50% 50%, #2a2c40, #222436)",
-              borderRadius: 5,
-              border: "1px solid #3a3c52",
+              width: 26,
+              height: 26,
+              background: "radial-gradient(circle at 50% 50%, #1e2032, #161828)",
+              borderRadius: 4,
+              border: "1px solid #2e3048",
               boxShadow: "inset 0 2px 6px rgba(0,0,0,0.6)",
             }}
           />
           <div
             style={{
-              width: 34,
-              height: 34,
-              background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
-              borderRadius: 5,
+              width: 26,
+              height: 26,
+              background: "linear-gradient(180deg, #3a3c52 0%, #2e3048 100%)",
+              borderRadius: 4,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#b8c8d8",
-              fontSize: fs(11),
-              border: "1px solid #565870",
+              color: "#8a9aaa",
+              fontSize: fs(9),
+              border: "1px solid #484a62",
               boxShadow:
-                "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+                "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
             }}
           >
             {"\u25ba"}
@@ -138,18 +141,18 @@ export default function Cabinet({
             }
           }}
           style={{
-            width: 34,
-            height: 34,
-            background: "linear-gradient(180deg, #464860 0%, #3a3c52 100%)",
-            borderRadius: 5,
+            width: 26,
+            height: 26,
+            background: "linear-gradient(180deg, #3a3c52 0%, #2e3048 100%)",
+            borderRadius: 4,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#b8c8d8",
-            fontSize: fs(11),
-            border: "1px solid #565870",
+            color: "#8a9aaa",
+            fontSize: fs(9),
+            border: "1px solid #484a62",
             boxShadow:
-              "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+              "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {"\u25bc"}
@@ -163,7 +166,7 @@ export default function Cabinet({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 8,
+          gap: 5,
         }}
       >
         <div
@@ -349,18 +352,6 @@ export default function Cabinet({
             >
               INSERT COIN
             </div>
-            <div
-              style={{
-                fontSize: fs(6),
-                color: "#FFB800",
-                letterSpacing: "0.1em",
-                opacity: coinCount > 0 ? 0 : 0.7,
-                transition: "opacity 0.4s ease",
-                animation: "blink 1.2s step-end infinite",
-              }}
-            >
-              UNLOCK HIDDEN DEMOS
-            </div>
           </div>
         )}
         <div
@@ -395,20 +386,20 @@ export default function Cabinet({
             }
           }}
           style={{
-            width: 42,
-            height: 42,
+            width: 34,
+            height: 34,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle at 35% 35%, #664040, #441818 70%)",
-            border: "2px solid #774444",
+              "radial-gradient(circle at 35% 35%, #553535, #381414 70%)",
+            border: "2px solid #664040",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: fs(9),
-            color: "#ff7755",
+            fontSize: fs(8),
+            color: "#ee6644",
             fontFamily: "'Press Start 2P', monospace",
             boxShadow:
-              "0 3px 10px rgba(255,100,68,0.3), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.3)",
+              "0 2px 8px rgba(255,100,68,0.25), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.3)",
           }}
         >
           B
@@ -434,20 +425,20 @@ export default function Cabinet({
             }
           }}
           style={{
-            width: 42,
-            height: 42,
+            width: 34,
+            height: 34,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle at 35% 35%, #2a5566, #143344 70%)",
-            border: "2px solid #3a7799",
+              "radial-gradient(circle at 35% 35%, #224455, #112233 70%)",
+            border: "2px solid #2e6688",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: fs(9),
+            fontSize: fs(8),
             color: "#00E5FF",
             fontFamily: "'Press Start 2P', monospace",
             boxShadow:
-              "0 3px 10px rgba(0,229,255,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.3)",
+              "0 2px 8px rgba(0,229,255,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.3)",
           }}
         >
           A

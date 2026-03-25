@@ -19,14 +19,62 @@ export default function useAmbientHum() {
     }
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = 800;
-    gain.gain.value = 0.02;
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    osc.type = "square";
+    osc.frequency.value = 960;
+    gain.gain.value = 0.012;
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start();
-    osc.stop(ctx.currentTime + 0.04);
+    osc.stop(ctx.currentTime + 0.022);
+  }, [getCtx]);
+
+  const playEnter = useCallback(() => {
+    let ctx;
+    try {
+      ctx = getCtx();
+    } catch {
+      return;
+    }
+    // Two ascending tones: 440 → 660 Hz, crisp select sound
+    [440, 660].forEach((freq, i) => {
+      setTimeout(() => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "square";
+        osc.frequency.value = freq;
+        gain.gain.value = 0.05;
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.06);
+      }, i * 55);
+    });
+  }, [getCtx]);
+
+  const playBack = useCallback(() => {
+    let ctx;
+    try {
+      ctx = getCtx();
+    } catch {
+      return;
+    }
+    // Two descending tones: 550 → 330 Hz
+    [550, 330].forEach((freq, i) => {
+      setTimeout(() => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "square";
+        osc.frequency.value = freq;
+        gain.gain.value = 0.04;
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.055);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.055);
+      }, i * 50);
+    });
   }, [getCtx]);
 
   const playInsertSting = useCallback(
@@ -118,6 +166,8 @@ export default function useAmbientHum() {
     toggleHum: () => {},
     initHum: () => {},
     playBlip,
+    playEnter,
+    playBack,
     playInsertSting,
   };
 }

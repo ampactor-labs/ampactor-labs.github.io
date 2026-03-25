@@ -6,6 +6,7 @@ export default function SelectScreen({
   onSelect,
   onHover,
   onHoverBlip,
+  onHoverSelect,
   fs,
   gameHighlight,
   coinCount,
@@ -95,19 +96,6 @@ export default function SelectScreen({
                 </a>
               );
             })()}
-          </div>
-          <div
-            style={{
-              fontSize: fs(9),
-              color: "#7a8a9a",
-              marginTop: 4,
-              letterSpacing: "0.06em",
-              lineHeight: 1.6,
-              borderLeft: "2px solid rgba(0,229,255,0.15)",
-              paddingLeft: 6,
-            }}
-          >
-            8 YRS {"\u00b7"} COMPILER + DSP + DEFI SECURITY {"\u00b7"} SHIPS PRODUCTION RUST
           </div>
           <div
             style={{
@@ -212,6 +200,7 @@ export default function SelectScreen({
               className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
               onClick={() => onSelect(i)}
               onMouseEnter={() => {
+                onHoverSelect(i);
                 onHover(i);
                 onHoverBlip();
               }}

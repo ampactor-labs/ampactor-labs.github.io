@@ -8,6 +8,8 @@ import { BOOT_LINES } from "../../constants";
 vi.mock("../../useAmbientHum", () => ({
   default: () => ({
     playBlip: vi.fn(),
+    playEnter: vi.fn(),
+    playBack: vi.fn(),
     playInsertSting: vi.fn(),
   }),
 }));

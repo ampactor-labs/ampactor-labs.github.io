@@ -35,6 +35,7 @@ export default function ArcadePortfolio() {
     openProject,
     goBack,
     exitGame,
+    hoverSelect,
     advanceBoot,
     navUp,
     navDown,
@@ -276,6 +277,7 @@ export default function ArcadePortfolio() {
                   onHover={(i) => {
                     selectedIdx !== i && playBlip();
                   }}
+                  onHoverSelect={hoverSelect}
                   coinCount={coinCount}
                   onHoverBlip={playBlip}
                   fs={fs}

@@ -29,7 +29,7 @@ export default function useCabinetState(
   const coinTimerRefs = useRef([]);
   const screenTransitionRef = useRef(0);
 
-  const { playBlip, playInsertSting } = useAmbientHum();
+  const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum();
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
     tunnelRef,
@@ -54,7 +54,7 @@ export default function useCabinetState(
   }, [coinCount]);
 
   const fontScale = useMemo(
-    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.75)),
+    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.5)),
     [dims.w],
   );
   const fs = (size) => Math.round(size * fontScale);
@@ -217,12 +217,17 @@ export default function useCabinetState(
     } else {
       setScreen("detail");
     }
-    playBlip();
+    playEnter();
   };
 
   const goBack = () => {
     setScreen("select");
     setDetailProject(null);
+    playBack();
+  };
+
+  const hoverSelect = (idx) => {
+    setSelectedIdx(idx);
   };
 
   const exitGame = () => {
@@ -278,6 +283,7 @@ export default function useCabinetState(
     openProject,
     goBack,
     exitGame,
+    hoverSelect,
     advanceBoot,
     navUp,
     navDown,

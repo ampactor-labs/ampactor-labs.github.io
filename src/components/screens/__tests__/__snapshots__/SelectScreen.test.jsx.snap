@@ -37,15 +37,6 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         </a>
       </div>
       <div
-        style="font-size: 9px; color: rgb(122, 138, 154); margin-top: 4px; letter-spacing: 0.06em; line-height: 1.6; border-left: 2px solid rgba(0, 229, 255, 0.15); padding-left: 6px;"
-      >
-        8 YRS 
-        ·
-         COMPILER + DSP + DEFI SECURITY 
-        ·
-         SHIPS PRODUCTION RUST
-      </div>
-      <div
         style="font-size: 11px; color: rgb(184, 200, 216); margin-top: 5px; letter-spacing: 0.05em;"
       >
         15
@@ -852,15 +843,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         >
           +1 (435) 268-2446
         </a>
-      </div>
-      <div
-        style="font-size: 9px; color: rgb(122, 138, 154); margin-top: 4px; letter-spacing: 0.06em; line-height: 1.6; border-left: 2px solid rgba(0, 229, 255, 0.15); padding-left: 6px;"
-      >
-        8 YRS 
-        ·
-         COMPILER + DSP + DEFI SECURITY 
-        ·
-         SHIPS PRODUCTION RUST
       </div>
       <div
         style="font-size: 11px; color: rgb(184, 200, 216); margin-top: 5px; letter-spacing: 0.05em;"
