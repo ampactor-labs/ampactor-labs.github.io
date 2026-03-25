@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import TunnelGame from "./TunnelGame";
+import { useRef, lazy, Suspense } from "react";
+const TunnelGame = lazy(() => import("./TunnelGame"));
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
 import { crtStyles } from "./styles/crtStyles";
@@ -127,7 +127,9 @@ export default function ArcadePortfolio() {
         </svg>
       </div>
       {screen === "game" && (
-        <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
+        <Suspense fallback={null}>
+          <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
+        </Suspense>
       )}
       <div
         ref={consoleRef}
@@ -294,6 +296,7 @@ export default function ArcadePortfolio() {
               aria-label="Navigate up"
               tabIndex={0}
               onClick={navUp}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navUp(); } }}
               style={{
                 width: 34,
                 height: 34,
@@ -318,6 +321,7 @@ export default function ArcadePortfolio() {
                 aria-label="Go back"
                 tabIndex={0}
                 onClick={goBack}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBack(); } }}
                 style={{
                   width: 34,
                   height: 34,
@@ -373,6 +377,7 @@ export default function ArcadePortfolio() {
               aria-label="Navigate down"
               tabIndex={0}
               onClick={navDown}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navDown(); } }}
               style={{
                 width: 34,
                 height: 34,
@@ -498,6 +503,7 @@ export default function ArcadePortfolio() {
               aria-label="Insert coin"
               tabIndex={0}
               onClick={insertCoin}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); insertCoin(); } }}
               title="Insert coin"
               style={{
                 width: 52,
@@ -578,6 +584,7 @@ export default function ArcadePortfolio() {
               aria-label="Back"
               tabIndex={0}
               onClick={goBack}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBack(); } }}
               style={{
                 width: 42,
                 height: 42,
@@ -605,6 +612,13 @@ export default function ArcadePortfolio() {
               onClick={() => {
                 if (screen === "boot") advanceBoot();
                 if (screen === "select") openProject(selectedIdx);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  if (screen === "boot") advanceBoot();
+                  if (screen === "select") openProject(selectedIdx);
+                }
               }}
               style={{
                 width: 42,

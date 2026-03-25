@@ -64,7 +64,12 @@ export default function SelectScreen({
             }}
           >
             <a href="mailto:ampactorlabs@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>ampactorlabs@gmail.com</a>
-            <a href="tel:+14352682446" style={{ color: "inherit", textDecoration: "none" }}>435-268-2446</a>
+            {(() => {
+              const _p = ['+','1','4','3','5','2','6','8','2','4','4','6'];
+              const phone = _p.join('');
+              const display = `+1 (${_p.slice(2,5).join('')}) ${_p.slice(5,8).join('')}-${_p.slice(8).join('')}`;
+              return <a href={`tel:${phone}`} style={{ color: "inherit", textDecoration: "none" }}>{display}</a>;
+            })()}
           </div>
           <div
             style={{

@@ -65,6 +65,7 @@ export default function DetailScreen({ project: p, onBack, screenWidth, screenHe
           aria-label="Back to project list"
           tabIndex={0}
           onClick={onBack}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onBack(); } }}
           style={{
             fontSize: fs(12),
             color: "#b8c8d8",
