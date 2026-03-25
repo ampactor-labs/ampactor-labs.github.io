@@ -23,7 +23,13 @@ function SectionLabel({ text, color, fs }) {
   );
 }
 
-export default function DetailScreen({ project: p, onBack, screenWidth, screenHeight, fs }) {
+export default function DetailScreen({
+  project: p,
+  onBack,
+  screenWidth,
+  screenHeight,
+  fs,
+}) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -65,7 +71,12 @@ export default function DetailScreen({ project: p, onBack, screenWidth, screenHe
           aria-label="Back to project list"
           tabIndex={0}
           onClick={onBack}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onBack(); } }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onBack();
+            }
+          }}
           style={{
             fontSize: fs(12),
             color: "#b8c8d8",
@@ -242,7 +253,9 @@ export default function DetailScreen({ project: p, onBack, screenWidth, screenHe
               <span style={{ fontSize: fs(10), color: statusColor }}>
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
-              <span style={{ color: "#333", fontSize: fs(10) }}>{"\u2502"}</span>
+              <span style={{ color: "#333", fontSize: fs(10) }}>
+                {"\u2502"}
+              </span>
             </>
           )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>

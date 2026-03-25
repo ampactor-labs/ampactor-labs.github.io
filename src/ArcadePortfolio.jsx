@@ -246,7 +246,9 @@ export default function ArcadePortfolio() {
                   projects={allProjects}
                   selectedIdx={selectedIdx}
                   onSelect={openProject}
-                  onHover={(i) => { selectedIdx !== i && playBlip(); }}
+                  onHover={(i) => {
+                    selectedIdx !== i && playBlip();
+                  }}
                   coinCount={coinCount}
                   onHoverBlip={playBlip}
                   fs={fs}
@@ -296,7 +298,12 @@ export default function ArcadePortfolio() {
               aria-label="Navigate up"
               tabIndex={0}
               onClick={navUp}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navUp(); } }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  navUp();
+                }
+              }}
               style={{
                 width: 34,
                 height: 34,
@@ -321,7 +328,12 @@ export default function ArcadePortfolio() {
                 aria-label="Go back"
                 tabIndex={0}
                 onClick={goBack}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBack(); } }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    goBack();
+                  }
+                }}
                 style={{
                   width: 34,
                   height: 34,
@@ -377,7 +389,12 @@ export default function ArcadePortfolio() {
               aria-label="Navigate down"
               tabIndex={0}
               onClick={navDown}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navDown(); } }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  navDown();
+                }
+              }}
               style={{
                 width: 34,
                 height: 34,
@@ -503,7 +520,12 @@ export default function ArcadePortfolio() {
               aria-label="Insert coin"
               tabIndex={0}
               onClick={insertCoin}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); insertCoin(); } }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  insertCoin();
+                }
+              }}
               title="Insert coin"
               style={{
                 width: 52,
@@ -524,8 +546,10 @@ export default function ArcadePortfolio() {
                     ? "inset 0 2px 6px rgba(255,184,0,0.15)"
                     : "inset 0 2px 6px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
                 opacity: introComplete && screen !== "boot" ? 1 : 0.3,
-                pointerEvents: introComplete && screen !== "boot" ? "auto" : "none",
-                cursor: introComplete && screen !== "boot" ? "pointer" : "default",
+                pointerEvents:
+                  introComplete && screen !== "boot" ? "auto" : "none",
+                cursor:
+                  introComplete && screen !== "boot" ? "pointer" : "default",
               }}
             >
               <div
@@ -584,7 +608,12 @@ export default function ArcadePortfolio() {
               aria-label="Back"
               tabIndex={0}
               onClick={goBack}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBack(); } }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  goBack();
+                }
+              }}
               style={{
                 width: 42,
                 height: 42,

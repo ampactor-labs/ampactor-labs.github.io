@@ -62,7 +62,8 @@ export default function useTunnelGameAudio() {
     // White noise burst
     const buf = ctx.createBuffer(1, ctx.sampleRate * 0.06, ctx.sampleRate);
     const data = buf.getChannelData(0);
-    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.5;
+    for (let i = 0; i < data.length; i++)
+      data[i] = (Math.random() * 2 - 1) * 0.5;
     const noise = ctx.createBufferSource();
     noise.buffer = buf;
     const noiseGain = ctx.createGain();
@@ -108,7 +109,10 @@ export default function useTunnelGameAudio() {
     });
   }, [tone]);
 
-  const playCountdown = useCallback(() => tone(660, "square", 0.1, 0.03), [tone]);
+  const playCountdown = useCallback(
+    () => tone(660, "square", 0.1, 0.03),
+    [tone],
+  );
   const playGo = useCallback(() => tone(1320, "square", 0.15, 0.04), [tone]);
 
   useEffect(() => {

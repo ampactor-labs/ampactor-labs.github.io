@@ -1,4 +1,10 @@
-export default function BootScreen({ lines, currentLine, bootPhase, onSkip, fs }) {
+export default function BootScreen({
+  lines,
+  currentLine,
+  bootPhase,
+  onSkip,
+  fs,
+}) {
   if (bootPhase === 0) {
     return (
       <div

@@ -59,13 +59,20 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
   { speed = 0.00008 },
   ref,
 ) {
-  const isMobileRef = useRef(typeof window !== "undefined" && window.innerWidth <= 600);
+  const isMobileRef = useRef(
+    typeof window !== "undefined" && window.innerWidth <= 600,
+  );
   const canvasRef = useRef(null);
   const stateRef = useRef({
     tunnelDepth: 0,
     sweepAngle: 0,
     elapsed: 0,
-    dust: initDust().slice(0, (typeof window !== "undefined" && window.innerWidth <= 600) ? 12 : DUST_COUNT),
+    dust: initDust().slice(
+      0,
+      typeof window !== "undefined" && window.innerWidth <= 600
+        ? 12
+        : DUST_COUNT,
+    ),
     speed,
     revealRadius: 0,
     animId: null,
@@ -236,11 +243,14 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     resize();
     window.addEventListener("resize", resize);
 
-    const prefersReduced = typeof window !== "undefined" &&
+    const prefersReduced =
+      typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
       draw(ctx, canvas.offsetWidth, canvas.offsetHeight, 0);
-      return () => { window.removeEventListener("resize", resize); };
+      return () => {
+        window.removeEventListener("resize", resize);
+      };
     }
 
     const loop = (now) => {

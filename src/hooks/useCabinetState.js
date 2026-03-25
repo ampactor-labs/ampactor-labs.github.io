@@ -4,7 +4,12 @@ import useIntroSequence from "../useIntroSequence";
 import { PROJECTS, HIDDEN_PROJECTS } from "../data/projects";
 import { BOOT_LINES } from "../constants";
 
-export default function useCabinetState(screenRef, tunnelRef, logoRef, consoleRef) {
+export default function useCabinetState(
+  screenRef,
+  tunnelRef,
+  logoRef,
+  consoleRef,
+) {
   const [screen, setScreen] = useState("boot");
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -18,7 +23,11 @@ export default function useCabinetState(screenRef, tunnelRef, logoRef, consoleRe
   const coinTimerRefs = useRef([]);
 
   const { playBlip, playInsertSting } = useAmbientHum();
-  const { introComplete, skipIntro } = useIntroSequence(logoRef, tunnelRef, consoleRef);
+  const { introComplete, skipIntro } = useIntroSequence(
+    logoRef,
+    tunnelRef,
+    consoleRef,
+  );
 
   const allProjects = useMemo(() => {
     let result = [...PROJECTS];
@@ -166,8 +175,9 @@ export default function useCabinetState(screenRef, tunnelRef, logoRef, consoleRe
 
   // Cleanup coin timers on unmount
   useEffect(() => {
+    const timers = coinTimerRefs.current;
     return () => {
-      coinTimerRefs.current.forEach(clearTimeout);
+      timers.forEach(clearTimeout);
     };
   }, []);
 
@@ -221,7 +231,11 @@ export default function useCabinetState(screenRef, tunnelRef, logoRef, consoleRe
   const navUp = () => {
     if (screen === "select")
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
-    else if (screen === "boot" && bootPhase > 0 && bootLine >= BOOT_LINES.length - 1)
+    else if (
+      screen === "boot" &&
+      bootPhase > 0 &&
+      bootLine >= BOOT_LINES.length - 1
+    )
       setScreen("select");
   };
 

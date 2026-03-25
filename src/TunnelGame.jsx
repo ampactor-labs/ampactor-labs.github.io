@@ -37,8 +37,13 @@ const LOGO_LINES = [
 
 // Sine wave crossbar sample points (from SVG path, normalized)
 const WAVE_PTS = [
-  [-0.344, 0.172], [-0.219, -0.063], [-0.109, -0.063], [0, 0.172],
-  [0.109, -0.063], [0.219, -0.063], [0.344, 0.172],
+  [-0.344, 0.172],
+  [-0.219, -0.063],
+  [-0.109, -0.063],
+  [0, 0.172],
+  [0.109, -0.063],
+  [0.219, -0.063],
+  [0.344, 0.172],
   // extra control-point-derived approx for smoothness
 ].map(([x, y]) => [(x / 0.344) * 0.344, y * 0.5]);
 
@@ -57,28 +62,31 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   const animRef = useRef(null);
 
   /* ── init game state ── */
-  const initState = useCallback(() => ({
-    phase: "countdown", // countdown | playing | gameover
-    countdownLeft: 3,
-    countdownTimer: 0,
-    player: { x: 0, invincibleUntil: 0, trail: [] },
-    projectiles: [],
-    obstacles: [],
-    particles: [],
-    score: 0,
-    lives: 3,
-    combo: 1.0,
-    comboTimer: 0,
-    hiScore: parseInt(localStorage.getItem("tunnelrun_hiscore") || "0", 10),
-    spawnInterval: 1200,
-    spawnTimer: 0,
-    baseSpeed: 1.5,
-    elapsed: 0,
-    difficultyTick: 0,
-    lastFireTime: 0,
-    shakeUntil: 0,
-    shakeIntensity: 0,
-  }), []);
+  const initState = useCallback(
+    () => ({
+      phase: "countdown", // countdown | playing | gameover
+      countdownLeft: 3,
+      countdownTimer: 0,
+      player: { x: 0, invincibleUntil: 0, trail: [] },
+      projectiles: [],
+      obstacles: [],
+      particles: [],
+      score: 0,
+      lives: 3,
+      combo: 1.0,
+      comboTimer: 0,
+      hiScore: parseInt(localStorage.getItem("tunnelrun_hiscore") || "0", 10),
+      spawnInterval: 1200,
+      spawnTimer: 0,
+      baseSpeed: 1.5,
+      elapsed: 0,
+      difficultyTick: 0,
+      lastFireTime: 0,
+      shakeUntil: 0,
+      shakeIntensity: 0,
+    }),
+    [],
+  );
 
   /* ── draw the A-mark ship ── */
   const drawShip = useCallback((ctx, cx, cy, size, alpha = 1, glow = true) => {
@@ -124,394 +132,427 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   }, []);
 
   /* ── main game loop ── */
-  const gameLoop = useCallback((ctx, w, h, dt) => {
-    const gs = stateRef.current;
-    if (!gs) return;
+  const gameLoop = useCallback(
+    (ctx, w, h, dt) => {
+      const gs = stateRef.current;
+      if (!gs) return;
 
-    const cx = w / 2;
-    const cy = h / 2;
-    gs.elapsed += dt;
+      const cx = w / 2;
+      const cy = h / 2;
+      gs.elapsed += dt;
 
-    // Screen shake offset
-    let shakeX = 0, shakeY = 0;
-    if (gs.elapsed < gs.shakeUntil) {
-      shakeX = (Math.random() - 0.5) * gs.shakeIntensity;
-      shakeY = (Math.random() - 0.5) * gs.shakeIntensity;
-    }
+      // Screen shake offset
+      let shakeX = 0,
+        shakeY = 0;
+      if (gs.elapsed < gs.shakeUntil) {
+        shakeX = (Math.random() - 0.5) * gs.shakeIntensity;
+        shakeY = (Math.random() - 0.5) * gs.shakeIntensity;
+      }
 
-    ctx.clearRect(0, 0, w, h);
-    ctx.save();
-    ctx.translate(shakeX, shakeY);
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(shakeX, shakeY);
 
-    // ── COUNTDOWN ──
-    if (gs.phase === "countdown") {
-      gs.countdownTimer += dt;
-      if (gs.countdownTimer >= 1000) {
-        gs.countdownTimer -= 1000;
-        gs.countdownLeft--;
-        if (gs.countdownLeft > 0) {
-          audio.playCountdown();
-        } else if (gs.countdownLeft === 0) {
-          audio.playGo();
-        } else {
-          gs.phase = "playing";
+      // ── COUNTDOWN ──
+      if (gs.phase === "countdown") {
+        gs.countdownTimer += dt;
+        if (gs.countdownTimer >= 1000) {
+          gs.countdownTimer -= 1000;
+          gs.countdownLeft--;
+          if (gs.countdownLeft > 0) {
+            audio.playCountdown();
+          } else if (gs.countdownLeft === 0) {
+            audio.playGo();
+          } else {
+            gs.phase = "playing";
+          }
+        }
+
+        // Draw countdown text
+        ctx.font = `${isMobileRef.current ? 48 : 72}px 'Press Start 2P', monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "rgba(0,229,255,0.8)";
+        ctx.strokeStyle = "#00E5FF";
+        ctx.lineWidth = 2;
+        const countText =
+          gs.countdownLeft > 0 ? String(gs.countdownLeft) : "COMPILE";
+        ctx.strokeText(countText, cx, cy);
+        ctx.fillStyle = "rgba(0,229,255,0.15)";
+        ctx.fillText(countText, cx, cy);
+        ctx.shadowBlur = 0;
+
+        // Draw ship during countdown
+        const shipY = h - (isMobileRef.current ? 60 : 80);
+        drawShip(ctx, cx, shipY, isMobileRef.current ? 28 : 40);
+
+        ctx.restore();
+        return;
+      }
+
+      // ── GAME OVER ──
+      if (gs.phase === "gameover") {
+        // Still draw particles
+        updateAndDrawParticles(ctx, gs, dt);
+
+        ctx.font = `${isMobileRef.current ? 18 : 32}px 'Press Start 2P', monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = "rgba(255,34,34,0.8)";
+        ctx.strokeStyle = "#ff2222";
+        ctx.lineWidth = 2;
+        ctx.strokeText("GAME OVER", cx, cy - 50);
+        ctx.fillStyle = "rgba(255,34,34,0.2)";
+        ctx.fillText("GAME OVER", cx, cy - 50);
+
+        ctx.shadowBlur = 0;
+        ctx.font = `${isMobileRef.current ? 8 : 14}px 'Press Start 2P', monospace`;
+        ctx.fillStyle = "#00E5FF";
+        ctx.fillText(`SCORE: ${gs.score}`, cx, cy + 10);
+        ctx.fillStyle = gs.score >= gs.hiScore ? "#FFB800" : "#778899";
+        ctx.fillText(
+          `HI: ${gs.hiScore}`,
+          cx,
+          cy + (isMobileRef.current ? 30 : 40),
+        );
+
+        if (gs.score >= gs.hiScore) {
+          ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
+          ctx.fillStyle = "#FFB800";
+          ctx.fillText(
+            "NEW HIGH SCORE",
+            cx,
+            cy + (isMobileRef.current ? 50 : 65),
+          );
+        }
+
+        // Blink "press any key"
+        if (Math.floor(gs.elapsed / 600) % 2 === 0) {
+          ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
+          ctx.fillStyle = "#556";
+          ctx.fillText(
+            "PRESS ANY KEY TO RETURN",
+            cx,
+            cy + (isMobileRef.current ? 70 : 100),
+          );
+        }
+
+        ctx.restore();
+        return;
+      }
+
+      // ── PLAYING ──
+      const input = {
+        left: keysRef.current.left || touchRef.current.left,
+        right: keysRef.current.right || touchRef.current.right,
+        fire: keysRef.current.fire || touchRef.current.fire,
+      };
+
+      const shipSpeed = (isMobileRef.current ? 0.4 : 0.5) * dt;
+      if (input.left) gs.player.x -= shipSpeed;
+      if (input.right) gs.player.x += shipSpeed;
+      gs.player.x = Math.max(-w / 2 + 30, Math.min(w / 2 - 30, gs.player.x));
+
+      const shipX = cx + gs.player.x;
+      const shipY = h - (isMobileRef.current ? 60 : 80);
+      const shipSize = isMobileRef.current ? 28 : 40;
+
+      // Engine trail
+      gs.player.trail.unshift({ x: shipX, y: shipY, alpha: 0.4 });
+      if (gs.player.trail.length > 4) gs.player.trail.pop();
+
+      // Fire
+      if (
+        input.fire &&
+        gs.elapsed - gs.lastFireTime > 150 &&
+        gs.projectiles.length < 5
+      ) {
+        gs.projectiles.push({ x: gs.player.x, y: shipY, depth: 0.95 });
+        gs.lastFireTime = gs.elapsed;
+        audio.playLaser();
+      }
+
+      // Update projectiles (move toward center / deeper)
+      for (let i = gs.projectiles.length - 1; i >= 0; i--) {
+        const p = gs.projectiles[i];
+        p.depth -= 0.002 * dt;
+        // Converge x toward center
+        p.x *= 0.997;
+        p.y -= 0.3 * dt;
+        if (p.depth < 0.05) gs.projectiles.splice(i, 1);
+      }
+
+      // Spawn obstacles
+      gs.spawnTimer += dt;
+      if (gs.spawnTimer >= gs.spawnInterval) {
+        gs.spawnTimer = 0;
+        const typeIdx = Math.floor(Math.random() * OBSTACLE_TYPES.length);
+        // Weight rarer types
+        const type = OBSTACLE_TYPES[typeIdx];
+        const xSpread = (Math.random() - 0.5) * w * 0.6;
+        gs.obstacles.push({
+          ...type,
+          x: xSpread,
+          depth: 0.0,
+          alive: true,
+          wavePhase: Math.random() * Math.PI * 2,
+          originalX: xSpread,
+        });
+      }
+
+      // Difficulty ramp
+      gs.difficultyTick += dt;
+      if (gs.difficultyTick >= 10000) {
+        gs.difficultyTick -= 10000;
+        gs.spawnInterval = Math.max(350, gs.spawnInterval - 30);
+        gs.baseSpeed += 0.08;
+        gs.combo += 0.1;
+        gs.comboTimer = gs.elapsed;
+        audio.playCombo();
+      }
+
+      // Update obstacles
+      const playerHitboxW = shipSize * 0.6;
+      const playerHitboxTop = shipY - shipSize * 0.5;
+
+      for (let i = gs.obstacles.length - 1; i >= 0; i--) {
+        const o = gs.obstacles[i];
+        o.depth += (gs.baseSpeed * (o.speed || 1) * dt) / 4000;
+
+        // Wave behavior
+        if (o.wave) {
+          o.x = o.originalX + Math.sin(o.depth * 12 + o.wavePhase) * 80;
+        }
+        // Dodge behavior (after 60s)
+        if (o.dodges && gs.elapsed > 60000 && o.depth > 0.7) {
+          const dir = gs.player.x > o.x ? -1 : 1;
+          o.x += dir * 0.15 * dt;
+        }
+
+        const scale = depthScale(o.depth);
+
+        // Check if obstacle reached player plane
+        if (o.depth >= 1.0 && o.alive) {
+          const obstacleScreenX = cx + o.x * scale;
+          const obstacleW = (o.big ? 160 : 100) * scale;
+
+          // Collision check
+          const dx = Math.abs(obstacleScreenX - shipX);
+          if (
+            dx < (playerHitboxW + obstacleW) / 2 &&
+            gs.elapsed > gs.player.invincibleUntil
+          ) {
+            // HIT
+            gs.lives--;
+            gs.player.invincibleUntil = gs.elapsed + 2000;
+            gs.combo = 1.0;
+            gs.shakeUntil = gs.elapsed + 300;
+            gs.shakeIntensity = 8;
+            audio.playHit();
+            spawnExplosion(gs, shipX, shipY, "#ff2222", 15);
+
+            if (gs.lives <= 0) {
+              gs.phase = "gameover";
+              gs.hiScore = Math.max(gs.hiScore, gs.score);
+              localStorage.setItem("tunnelrun_hiscore", String(gs.hiScore));
+              audio.playGameOver();
+              // Slow down tunnel
+              if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
+            }
+          }
+
+          o.alive = false;
+        }
+
+        // Dodged (past player)
+        if (o.depth > 1.15) {
+          if (o.alive) {
+            gs.score += Math.round((o.points || 100) * gs.combo * 0.5);
+            audio.playDodge();
+          }
+          gs.obstacles.splice(i, 1);
+          continue;
+        }
+
+        // Check projectile collisions
+        for (let j = gs.projectiles.length - 1; j >= 0; j--) {
+          const p = gs.projectiles[j];
+          const depthDiff = Math.abs(p.depth - o.depth);
+          if (depthDiff < 0.08) {
+            const pScale = depthScale(p.depth);
+            const pScreenX = cx + p.x * pScale;
+            const oScreenX = cx + o.x * scale;
+            const hitDist = (o.big ? 80 : 50) * scale;
+            if (Math.abs(pScreenX - oScreenX) < hitDist && o.alive) {
+              // Destroy obstacle
+              o.alive = false;
+              gs.projectiles.splice(j, 1);
+              gs.score += Math.round((o.points || 100) * gs.combo);
+              audio.playExplosion();
+
+              // Spawn text explosion particles
+              const oDrawX = cx + o.x * scale;
+              const oDrawY = cy + (shipY - cy) * o.depth;
+              spawnTextExplosion(gs, oDrawX, oDrawY, o.text, o.color);
+
+              // Splits behavior
+              if (o.splits && o.depth < 0.9) {
+                for (let s = 0; s < 2; s++) {
+                  gs.obstacles.push({
+                    text: "FRAGMENT",
+                    color: o.color,
+                    speed: o.speed * 1.3,
+                    points: 50,
+                    x: o.x + (s === 0 ? -40 : 40),
+                    originalX: o.x + (s === 0 ? -40 : 40),
+                    depth: o.depth,
+                    alive: true,
+                    wavePhase: Math.random() * Math.PI * 2,
+                  });
+                }
+              }
+              break;
+            }
+          }
         }
       }
 
-      // Draw countdown text
-      ctx.font = `${isMobileRef.current ? 48 : 72}px 'Press Start 2P', monospace`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.shadowBlur = 20;
-      ctx.shadowColor = "rgba(0,229,255,0.8)";
-      ctx.strokeStyle = "#00E5FF";
-      ctx.lineWidth = 2;
-      const countText = gs.countdownLeft > 0 ? String(gs.countdownLeft) : "COMPILE";
-      ctx.strokeText(countText, cx, cy);
-      ctx.fillStyle = "rgba(0,229,255,0.15)";
-      ctx.fillText(countText, cx, cy);
-      ctx.shadowBlur = 0;
+      // ── DRAW ──
 
-      // Draw ship during countdown
-      const shipY = h - (isMobileRef.current ? 60 : 80);
-      drawShip(ctx, cx, shipY, isMobileRef.current ? 28 : 40);
+      // Draw obstacles (depth-sorted, farthest first)
+      const sortedObs = gs.obstacles
+        .filter((o) => o.alive)
+        .sort((a, b) => a.depth - b.depth);
+      for (const o of sortedObs) {
+        if (!o.alive) continue;
+        const scale = depthScale(o.depth);
+        const oScreenX = cx + o.x * scale;
+        const oScreenY = cy + (shipY - cy) * o.depth;
+        const fontSize = Math.max(
+          8,
+          (o.big ? 52 : 38) * scale * (isMobileRef.current ? 0.8 : 1),
+        );
 
-      ctx.restore();
-      return;
-    }
+        ctx.save();
+        ctx.font = `${fontSize}px 'Press Start 2P', monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.globalAlpha = 0.3 + o.depth * 0.7;
+        ctx.shadowBlur = 6 + o.depth * 12;
+        ctx.shadowColor = o.color;
+        ctx.strokeStyle = o.color;
+        ctx.lineWidth = 0.8 + o.depth * 0.8;
+        ctx.strokeText(o.text, oScreenX, oScreenY);
+        // Faint fill for readability at larger sizes
+        if (o.depth > 0.25) {
+          ctx.fillStyle = o.color + "30";
+          ctx.fillText(o.text, oScreenX, oScreenY);
+        }
+        ctx.restore();
+      }
 
-    // ── GAME OVER ──
-    if (gs.phase === "gameover") {
-      // Still draw particles
+      // Draw projectiles
+      for (const p of gs.projectiles) {
+        const scale = depthScale(p.depth);
+        const pScreenX = cx + p.x * scale;
+        const pScreenY = cy + (shipY - cy) * p.depth;
+        const len = 12 * scale;
+
+        ctx.save();
+        ctx.strokeStyle = "#00FFD0";
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(0,255,208,0.8)";
+        ctx.lineWidth = 2 * scale;
+        ctx.globalAlpha = 0.9;
+        ctx.beginPath();
+        ctx.moveTo(pScreenX, pScreenY);
+        ctx.lineTo(pScreenX, pScreenY - len);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Draw particles
       updateAndDrawParticles(ctx, gs, dt);
 
-      ctx.font = `${isMobileRef.current ? 18 : 32}px 'Press Start 2P', monospace`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.shadowBlur = 25;
-      ctx.shadowColor = "rgba(255,34,34,0.8)";
-      ctx.strokeStyle = "#ff2222";
-      ctx.lineWidth = 2;
-      ctx.strokeText("GAME OVER", cx, cy - 50);
-      ctx.fillStyle = "rgba(255,34,34,0.2)";
-      ctx.fillText("GAME OVER", cx, cy - 50);
+      // Draw engine trail
+      for (let i = 1; i < gs.player.trail.length; i++) {
+        const t = gs.player.trail[i];
+        const trailSize = shipSize * (1 - i * 0.2);
+        const alpha = t.alpha * (1 - i / gs.player.trail.length);
+        drawShip(ctx, t.x, t.y + i * 4, trailSize * 0.6, alpha * 0.15, false);
+      }
 
+      // Draw player ship
+      const invincible = gs.elapsed < gs.player.invincibleUntil;
+      const shipAlpha = invincible
+        ? Math.floor(gs.elapsed / 80) % 2 === 0
+          ? 0.3
+          : 0.9
+        : 1;
+      drawShip(ctx, shipX, shipY, shipSize, shipAlpha);
+
+      // Engine exhaust particles
+      if (Math.random() < 0.4) {
+        gs.particles.push({
+          x: shipX + (Math.random() - 0.5) * 8,
+          y: shipY + shipSize * 0.5,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: 0.1 + Math.random() * 0.15,
+          alpha: 0.5,
+          life: 400,
+          maxLife: 400,
+          char: null,
+          color: "#00E5FF",
+          size: 1 + Math.random() * 2,
+        });
+      }
+
+      // ── HUD ──
+      ctx.save();
       ctx.shadowBlur = 0;
-      ctx.font = `${isMobileRef.current ? 8 : 14}px 'Press Start 2P', monospace`;
+      ctx.font = `${isMobileRef.current ? 8 : 12}px 'Press Start 2P', monospace`;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+
+      // Score
       ctx.fillStyle = "#00E5FF";
-      ctx.fillText(`SCORE: ${gs.score}`, cx, cy + 10);
-      ctx.fillStyle = gs.score >= gs.hiScore ? "#FFB800" : "#778899";
-      ctx.fillText(`HI: ${gs.hiScore}`, cx, cy + (isMobileRef.current ? 30 : 40));
+      ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
 
-      if (gs.score >= gs.hiScore) {
-        ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
+      // Hi score
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#778899";
+      ctx.fillText(`HI: ${String(gs.hiScore).padStart(6, "0")}`, w - 16, 16);
+
+      // Combo
+      if (gs.combo > 1.0) {
+        ctx.textAlign = "center";
         ctx.fillStyle = "#FFB800";
-        ctx.fillText("NEW HIGH SCORE", cx, cy + (isMobileRef.current ? 50 : 65));
+        const comboText = `COMBO x${gs.combo.toFixed(1)}`;
+        ctx.fillText(comboText, cx, 16);
       }
 
-      // Blink "press any key"
-      if (Math.floor(gs.elapsed / 600) % 2 === 0) {
-        ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
-        ctx.fillStyle = "#556";
-        ctx.fillText("PRESS ANY KEY TO RETURN", cx, cy + (isMobileRef.current ? 70 : 100));
+      // Lives (small ship icons)
+      ctx.textAlign = "left";
+      for (let i = 0; i < gs.lives; i++) {
+        drawShip(ctx, 24 + i * 28, h - 24, 10, 0.7, false);
       }
 
-      ctx.restore();
-      return;
-    }
-
-    // ── PLAYING ──
-    const input = {
-      left: keysRef.current.left || touchRef.current.left,
-      right: keysRef.current.right || touchRef.current.right,
-      fire: keysRef.current.fire || touchRef.current.fire,
-    };
-
-    const shipSpeed = (isMobileRef.current ? 0.4 : 0.5) * dt;
-    if (input.left) gs.player.x -= shipSpeed;
-    if (input.right) gs.player.x += shipSpeed;
-    gs.player.x = Math.max(-w / 2 + 30, Math.min(w / 2 - 30, gs.player.x));
-
-    const shipX = cx + gs.player.x;
-    const shipY = h - (isMobileRef.current ? 60 : 80);
-    const shipSize = isMobileRef.current ? 28 : 40;
-
-    // Engine trail
-    gs.player.trail.unshift({ x: shipX, y: shipY, alpha: 0.4 });
-    if (gs.player.trail.length > 4) gs.player.trail.pop();
-
-    // Fire
-    if (input.fire && gs.elapsed - gs.lastFireTime > 150 && gs.projectiles.length < 5) {
-      gs.projectiles.push({ x: gs.player.x, y: shipY, depth: 0.95 });
-      gs.lastFireTime = gs.elapsed;
-      audio.playLaser();
-    }
-
-    // Update projectiles (move toward center / deeper)
-    for (let i = gs.projectiles.length - 1; i >= 0; i--) {
-      const p = gs.projectiles[i];
-      p.depth -= 0.002 * dt;
-      // Converge x toward center
-      p.x *= 0.997;
-      p.y -= 0.3 * dt;
-      if (p.depth < 0.05) gs.projectiles.splice(i, 1);
-    }
-
-    // Spawn obstacles
-    gs.spawnTimer += dt;
-    if (gs.spawnTimer >= gs.spawnInterval) {
-      gs.spawnTimer = 0;
-      const typeIdx = Math.floor(Math.random() * OBSTACLE_TYPES.length);
-      // Weight rarer types
-      const type = OBSTACLE_TYPES[typeIdx];
-      const xSpread = (Math.random() - 0.5) * w * 0.6;
-      gs.obstacles.push({
-        ...type,
-        x: xSpread,
-        depth: 0.0,
-        alive: true,
-        wavePhase: Math.random() * Math.PI * 2,
-        originalX: xSpread,
-      });
-    }
-
-    // Difficulty ramp
-    gs.difficultyTick += dt;
-    if (gs.difficultyTick >= 10000) {
-      gs.difficultyTick -= 10000;
-      gs.spawnInterval = Math.max(350, gs.spawnInterval - 30);
-      gs.baseSpeed += 0.08;
-      gs.combo += 0.1;
-      gs.comboTimer = gs.elapsed;
-      audio.playCombo();
-    }
-
-    // Update obstacles
-    const playerHitboxW = shipSize * 0.6;
-    const playerHitboxTop = shipY - shipSize * 0.5;
-
-    for (let i = gs.obstacles.length - 1; i >= 0; i--) {
-      const o = gs.obstacles[i];
-      o.depth += (gs.baseSpeed * (o.speed || 1) * dt) / 4000;
-
-      // Wave behavior
-      if (o.wave) {
-        o.x = o.originalX + Math.sin(o.depth * 12 + o.wavePhase) * 80;
-      }
-      // Dodge behavior (after 60s)
-      if (o.dodges && gs.elapsed > 60000 && o.depth > 0.7) {
-        const dir = gs.player.x > o.x ? -1 : 1;
-        o.x += dir * 0.15 * dt;
-      }
-
-      const scale = depthScale(o.depth);
-
-      // Check if obstacle reached player plane
-      if (o.depth >= 1.0 && o.alive) {
-        const obstacleScreenX = cx + o.x * scale;
-        const obstacleW = (o.big ? 160 : 100) * scale;
-
-        // Collision check
-        const dx = Math.abs(obstacleScreenX - shipX);
-        if (dx < (playerHitboxW + obstacleW) / 2 && gs.elapsed > gs.player.invincibleUntil) {
-          // HIT
-          gs.lives--;
-          gs.player.invincibleUntil = gs.elapsed + 2000;
-          gs.combo = 1.0;
-          gs.shakeUntil = gs.elapsed + 300;
-          gs.shakeIntensity = 8;
-          audio.playHit();
-          spawnExplosion(gs, shipX, shipY, "#ff2222", 15);
-
-          if (gs.lives <= 0) {
-            gs.phase = "gameover";
-            gs.hiScore = Math.max(gs.hiScore, gs.score);
-            localStorage.setItem("tunnelrun_hiscore", String(gs.hiScore));
-            audio.playGameOver();
-            // Slow down tunnel
-            if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
-          }
-        }
-
-        o.alive = false;
-      }
-
-      // Dodged (past player)
-      if (o.depth > 1.15) {
-        if (o.alive) {
-          gs.score += Math.round((o.points || 100) * gs.combo * 0.5);
-          audio.playDodge();
-        }
-        gs.obstacles.splice(i, 1);
-        continue;
-      }
-
-      // Check projectile collisions
-      for (let j = gs.projectiles.length - 1; j >= 0; j--) {
-        const p = gs.projectiles[j];
-        const depthDiff = Math.abs(p.depth - o.depth);
-        if (depthDiff < 0.08) {
-          const pScale = depthScale(p.depth);
-          const pScreenX = cx + p.x * pScale;
-          const oScreenX = cx + o.x * scale;
-          const hitDist = (o.big ? 80 : 50) * scale;
-          if (Math.abs(pScreenX - oScreenX) < hitDist && o.alive) {
-            // Destroy obstacle
-            o.alive = false;
-            gs.projectiles.splice(j, 1);
-            gs.score += Math.round((o.points || 100) * gs.combo);
-            audio.playExplosion();
-
-            // Spawn text explosion particles
-            const oDrawX = cx + o.x * scale;
-            const oDrawY = cy + (shipY - cy) * o.depth;
-            spawnTextExplosion(gs, oDrawX, oDrawY, o.text, o.color);
-
-            // Splits behavior
-            if (o.splits && o.depth < 0.9) {
-              for (let s = 0; s < 2; s++) {
-                gs.obstacles.push({
-                  text: "FRAGMENT",
-                  color: o.color,
-                  speed: o.speed * 1.3,
-                  points: 50,
-                  x: o.x + (s === 0 ? -40 : 40),
-                  originalX: o.x + (s === 0 ? -40 : 40),
-                  depth: o.depth,
-                  alive: true,
-                  wavePhase: Math.random() * Math.PI * 2,
-                });
-              }
-            }
-            break;
-          }
-        }
-      }
-    }
-
-    // ── DRAW ──
-
-    // Draw obstacles (depth-sorted, farthest first)
-    const sortedObs = gs.obstacles.filter(o => o.alive).sort((a, b) => a.depth - b.depth);
-    for (const o of sortedObs) {
-      if (!o.alive) continue;
-      const scale = depthScale(o.depth);
-      const oScreenX = cx + o.x * scale;
-      const oScreenY = cy + (shipY - cy) * o.depth;
-      const fontSize = Math.max(8, (o.big ? 52 : 38) * scale * (isMobileRef.current ? 0.8 : 1));
-
-      ctx.save();
-      ctx.font = `${fontSize}px 'Press Start 2P', monospace`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.globalAlpha = 0.3 + o.depth * 0.7;
-      ctx.shadowBlur = 6 + o.depth * 12;
-      ctx.shadowColor = o.color;
-      ctx.strokeStyle = o.color;
-      ctx.lineWidth = 0.8 + o.depth * 0.8;
-      ctx.strokeText(o.text, oScreenX, oScreenY);
-      // Faint fill for readability at larger sizes
-      if (o.depth > 0.25) {
-        ctx.fillStyle = o.color + "30";
-        ctx.fillText(o.text, oScreenX, oScreenY);
-      }
-      ctx.restore();
-    }
-
-    // Draw projectiles
-    for (const p of gs.projectiles) {
-      const scale = depthScale(p.depth);
-      const pScreenX = cx + p.x * scale;
-      const pScreenY = cy + (shipY - cy) * p.depth;
-      const len = 12 * scale;
-
-      ctx.save();
-      ctx.strokeStyle = "#00FFD0";
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = "rgba(0,255,208,0.8)";
-      ctx.lineWidth = 2 * scale;
-      ctx.globalAlpha = 0.9;
+      // Scanline overlay (single pattern fill instead of per-line rects)
+      ctx.globalAlpha = 0.03;
+      ctx.fillStyle = "#000";
       ctx.beginPath();
-      ctx.moveTo(pScreenX, pScreenY);
-      ctx.lineTo(pScreenX, pScreenY - len);
-      ctx.stroke();
+      for (let y = 0; y < h; y += 3) {
+        ctx.rect(0, y, w, 1);
+      }
+      ctx.fill();
+
       ctx.restore();
-    }
-
-    // Draw particles
-    updateAndDrawParticles(ctx, gs, dt);
-
-    // Draw engine trail
-    for (let i = 1; i < gs.player.trail.length; i++) {
-      const t = gs.player.trail[i];
-      const trailSize = (shipSize * (1 - i * 0.2));
-      const alpha = t.alpha * (1 - i / gs.player.trail.length);
-      drawShip(ctx, t.x, t.y + i * 4, trailSize * 0.6, alpha * 0.15, false);
-    }
-
-    // Draw player ship
-    const invincible = gs.elapsed < gs.player.invincibleUntil;
-    const shipAlpha = invincible ? (Math.floor(gs.elapsed / 80) % 2 === 0 ? 0.3 : 0.9) : 1;
-    drawShip(ctx, shipX, shipY, shipSize, shipAlpha);
-
-    // Engine exhaust particles
-    if (Math.random() < 0.4) {
-      gs.particles.push({
-        x: shipX + (Math.random() - 0.5) * 8,
-        y: shipY + shipSize * 0.5,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: 0.1 + Math.random() * 0.15,
-        alpha: 0.5,
-        life: 400,
-        maxLife: 400,
-        char: null,
-        color: "#00E5FF",
-        size: 1 + Math.random() * 2,
-      });
-    }
-
-    // ── HUD ──
-    ctx.save();
-    ctx.shadowBlur = 0;
-    ctx.font = `${isMobileRef.current ? 8 : 12}px 'Press Start 2P', monospace`;
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-
-    // Score
-    ctx.fillStyle = "#00E5FF";
-    ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
-
-    // Hi score
-    ctx.textAlign = "right";
-    ctx.fillStyle = "#778899";
-    ctx.fillText(`HI: ${String(gs.hiScore).padStart(6, "0")}`, w - 16, 16);
-
-    // Combo
-    if (gs.combo > 1.0) {
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#FFB800";
-      const comboText = `COMBO x${gs.combo.toFixed(1)}`;
-      ctx.fillText(comboText, cx, 16);
-    }
-
-    // Lives (small ship icons)
-    ctx.textAlign = "left";
-    for (let i = 0; i < gs.lives; i++) {
-      drawShip(ctx, 24 + i * 28, h - 24, 10, 0.7, false);
-    }
-
-    // Scanline overlay (single pattern fill instead of per-line rects)
-    ctx.globalAlpha = 0.03;
-    ctx.fillStyle = "#000";
-    ctx.beginPath();
-    for (let y = 0; y < h; y += 3) {
-      ctx.rect(0, y, w, 1);
-    }
-    ctx.fill();
-
-    ctx.restore();
-    ctx.restore(); // Pop shake transform
-  }, [audio, drawShip, tunnelRef]);
+      ctx.restore(); // Pop shake transform
+    },
+    [audio, drawShip, tunnelRef],
+  );
 
   /* ── mount / unmount ── */
   useEffect(() => {
@@ -555,13 +596,17 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         keysRef.current.fire = true;
       }
       // Game over → exit on any key
-      if (stateRef.current?.phase === "gameover" && stateRef.current.elapsed > stateRef.current.shakeUntil + 1000) {
+      if (
+        stateRef.current?.phase === "gameover" &&
+        stateRef.current.elapsed > stateRef.current.shakeUntil + 1000
+      ) {
         onExit?.();
       }
     };
     const onKeyUp = (e) => {
       if (e.key === "ArrowLeft" || e.key === "a") keysRef.current.left = false;
-      if (e.key === "ArrowRight" || e.key === "d") keysRef.current.right = false;
+      if (e.key === "ArrowRight" || e.key === "d")
+        keysRef.current.right = false;
       if (e.key === " " || e.key === "ArrowUp") keysRef.current.fire = false;
     };
     window.addEventListener("keydown", onKeyDown);
@@ -579,21 +624,28 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   /* ── touch controls (dual-thumb: left half = slide to steer, right half = fire) ── */
   const touchOriginRef = useRef(null); // tracks where left-side touch started
 
-  const handleTouchStart = useCallback((e) => {
-    e.preventDefault();
-    const half = window.innerWidth / 2;
-    for (const touch of e.changedTouches) {
-      if (touch.clientX < half) {
-        // Left half — record anchor for relative slide steering
-        touchOriginRef.current = { id: touch.identifier, startX: touch.clientX, lastX: touch.clientX };
-      } else {
-        // Right half — fire
-        touchRef.current.fire = true;
+  const handleTouchStart = useCallback(
+    (e) => {
+      e.preventDefault();
+      const half = window.innerWidth / 2;
+      for (const touch of e.changedTouches) {
+        if (touch.clientX < half) {
+          // Left half — record anchor for relative slide steering
+          touchOriginRef.current = {
+            id: touch.identifier,
+            startX: touch.clientX,
+            lastX: touch.clientX,
+          };
+        } else {
+          // Right half — fire
+          touchRef.current.fire = true;
+        }
       }
-    }
-    // Game over exit
-    if (stateRef.current?.phase === "gameover") onExit?.();
-  }, [onExit]);
+      // Game over exit
+      if (stateRef.current?.phase === "gameover") onExit?.();
+    },
+    [onExit],
+  );
 
   const handleTouchMove = useCallback((e) => {
     e.preventDefault();
@@ -615,7 +667,9 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     const origin = touchOriginRef.current;
     // Check if the left-side touch was released
     if (origin) {
-      const stillDown = Array.from(e.touches).some((t) => t.identifier === origin.id);
+      const stillDown = Array.from(e.touches).some(
+        (t) => t.identifier === origin.id,
+      );
       if (!stillDown) {
         touchOriginRef.current = null;
         touchRef.current.left = false;
@@ -664,10 +718,22 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             animation: "fadeHints 4s ease-out forwards",
           }}
         >
-          <span style={{ color: "#00E5FF", fontSize: 10, fontFamily: "'Press Start 2P'" }}>
+          <span
+            style={{
+              color: "#00E5FF",
+              fontSize: 10,
+              fontFamily: "'Press Start 2P'",
+            }}
+          >
             {"< SLIDE TO STEER >"}
           </span>
-          <span style={{ color: "#00FFD0", fontSize: 10, fontFamily: "'Press Start 2P'" }}>
+          <span
+            style={{
+              color: "#00FFD0",
+              fontSize: 10,
+              fontFamily: "'Press Start 2P'",
+            }}
+          >
             TAP TO FIRE
           </span>
         </div>
