@@ -27,6 +27,10 @@ export const crtStyles = `
   .btn-cabinet{transition:all 0.15s ease;cursor:pointer;user-select:none}
   .btn-cabinet:hover{transform:scale(1.1);filter:brightness(1.3)}
   .btn-cabinet:active{transform:scale(0.95);filter:brightness(0.8)}
+  @keyframes btnGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.04)}}
+  .btn-action{animation:btnGlow 5s ease-in-out infinite;transition:transform 0.12s ease,filter 0.12s ease;cursor:pointer;user-select:none}
+  .btn-action:hover{transform:scale(1.10);filter:brightness(1.35)!important}
+  .btn-action:active{transform:scale(0.92);filter:brightness(0.75)!important}
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   .glitch-enter{animation:glitchIn 0.5s ease-out}
   .crt-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.01) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.01) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:42}
@@ -53,7 +57,7 @@ export const crtStyles = `
   .coin-announce.tier-2{bottom:120px;font-size:8px;color:#00ddbb}
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:14px;color:#ff2266;text-align:center;animation:tier3Overlay 2.8s ease forwards;background:rgba(0,0,0,0.9);padding:20px 30px;border:1px solid #ff2266}
   @media (prefers-reduced-motion: reduce) {
-    .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot,
+    .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot, .btn-action,
     .glitch-enter, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce { animation: none !important; }
   }
 `;
