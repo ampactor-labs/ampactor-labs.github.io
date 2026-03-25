@@ -10,7 +10,13 @@ export default function useCabinetState(
   logoRef,
   consoleRef,
 ) {
-  const [screen, setScreen] = useState("boot");
+  const hasVisited = useRef(
+    typeof localStorage !== "undefined" &&
+      !!localStorage.getItem("ampactor_visited"),
+  );
+  const [screen, setScreen] = useState(() =>
+    hasVisited.current ? "select" : "boot",
+  );
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [detailProject, setDetailProject] = useState(null);
@@ -21,13 +27,23 @@ export default function useCabinetState(
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const [gameHighlight, setGameHighlight] = useState(false);
   const coinTimerRefs = useRef([]);
+  const screenTransitionRef = useRef(0);
 
   const { playBlip, playInsertSting } = useAmbientHum();
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
     tunnelRef,
     consoleRef,
+    hasVisited.current,
   );
+
+  // Write visited key on first boot → select transition
+  useEffect(() => {
+    if (screen === "select" && !hasVisited.current) {
+      localStorage.setItem("ampactor_visited", "1");
+      hasVisited.current = true;
+    }
+  }, [screen]);
 
   const allProjects = useMemo(() => {
     let result = [...PROJECTS];
@@ -62,7 +78,7 @@ export default function useCabinetState(
         }
         return prev + 1;
       });
-    }, 280);
+    }, 180);
     return () => clearInterval(interval);
   }, [screen, bootPhase]);
 
@@ -97,14 +113,7 @@ export default function useCabinetState(
       if (bootPhase === 0) {
         setBootPhase(1);
       } else if (bootLine >= BOOT_LINES.length - 1) {
-        const eatClick = (e) => {
-          e.stopPropagation();
-          e.preventDefault();
-        };
-        window.addEventListener("click", eatClick, {
-          capture: true,
-          once: true,
-        });
+        screenTransitionRef.current = Date.now();
         setScreen("select");
       }
     };
@@ -224,7 +233,10 @@ export default function useCabinetState(
   // Boot advancement: phase 0 → 1 → select
   const advanceBoot = () => {
     if (bootPhase === 0) setBootPhase(1);
-    else if (bootLine >= BOOT_LINES.length - 1) setScreen("select");
+    else if (bootLine >= BOOT_LINES.length - 1) {
+      screenTransitionRef.current = Date.now();
+      setScreen("select");
+    }
   };
 
   // D-pad navigation
@@ -244,6 +256,9 @@ export default function useCabinetState(
       setSelectedIdx((i) => (i + 1) % allProjects.length);
   };
 
+  const isBootTransitioning = () =>
+    Date.now() - screenTransitionRef.current < 150;
+
   return {
     screen,
     bootPhase,
@@ -258,6 +273,7 @@ export default function useCabinetState(
     allProjects,
     fs,
     introComplete,
+    skipIntro,
     insertCoin,
     openProject,
     goBack,
@@ -266,5 +282,6 @@ export default function useCabinetState(
     navUp,
     navDown,
     playBlip,
+    isBootTransitioning,
   };
 }

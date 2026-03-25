@@ -8,6 +8,7 @@ export default function SelectScreen({
   onHoverBlip,
   fs,
   gameHighlight,
+  coinCount,
 }) {
   const listRef = useRef(null);
   useEffect(() => {
@@ -97,6 +98,19 @@ export default function SelectScreen({
           </div>
           <div
             style={{
+              fontSize: fs(9),
+              color: "#7a8a9a",
+              marginTop: 4,
+              letterSpacing: "0.06em",
+              lineHeight: 1.6,
+              borderLeft: "2px solid rgba(0,229,255,0.15)",
+              paddingLeft: 6,
+            }}
+          >
+            8 YRS {"\u00b7"} COMPILER + DSP + DEFI SECURITY {"\u00b7"} SHIPS PRODUCTION RUST
+          </div>
+          <div
+            style={{
               fontSize: fs(11),
               color: "#b8c8d8",
               marginTop: 5,
@@ -109,12 +123,25 @@ export default function SelectScreen({
         <div
           style={{
             fontFamily: "'Press Start 2P', monospace",
-            fontSize: fs(9),
+            fontSize: fs(8),
             color: "#96a8ba",
             textAlign: "right",
-            lineHeight: 1.8,
+            lineHeight: 2.0,
           }}
         >
+          <a
+            href="https://github.com/ampactor"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#00E5FF",
+              textDecoration: "none",
+              display: "block",
+              fontSize: fs(8),
+            }}
+          >
+            {"\u25c8"} GITHUB
+          </a>
           {"\u25b2\u25bc"} NAV
           <br />
           {"\u24b6"} SELECT
@@ -137,9 +164,48 @@ export default function SelectScreen({
             isH = p.hidden,
             isGame = p.id === "tunnel-run",
             isGameGlow = isGame && gameHighlight;
+          const prevCategory = i > 0 ? projects[i - 1].category : null;
+          const showHeader = !isH && p.category && p.category !== prevCategory;
+          const CATEGORY_LABELS = {
+            systems: "SYSTEMS",
+            tooling: "TOOLING",
+            defi: "DEFI + SEC",
+            creative: "CREATIVE",
+          };
           return (
+            <div key={p.id}>
+              {showHeader && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "8px 4px 4px",
+                    marginTop: i === 0 ? 0 : 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'Press Start 2P', monospace",
+                      fontSize: fs(7),
+                      color: "rgba(0,229,255,0.3)",
+                      letterSpacing: "0.3em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {CATEGORY_LABELS[p.category] ?? p.category.toUpperCase()}
+                  </span>
+                  <div
+                    style={{
+                      flex: 1,
+                      height: 1,
+                      background: "rgba(0,229,255,0.08)",
+                    }}
+                  />
+                </div>
+              )}
             <div
-              key={p.id}
+              key={`row-${p.id}`}
               role="option"
               aria-selected={active}
               aria-label={`${p.title} — ${p.subtitle}`}
@@ -249,8 +315,66 @@ export default function SelectScreen({
                 </div>
               )}
             </div>
+            </div>
           );
         })}
+        {coinCount === 0 &&
+          [1, 2, 3].map((tier) => (
+            <div
+              key={`locked-${tier}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "10px 12px",
+                borderRadius: 6,
+                opacity: 0.3,
+                pointerEvents: "none",
+                borderLeft: "2px dashed rgba(255,184,0,0.2)",
+                userSelect: "none",
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: fs(14),
+                  color: "#5a6a7a",
+                  background: "rgba(255,184,0,0.05)",
+                  borderRadius: 5,
+                  border: "1px solid rgba(255,184,0,0.1)",
+                  flexShrink: 0,
+                }}
+              >
+                {"\uD83D\uDD12"}
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontSize: fs(11),
+                    color: "#5a6a7a",
+                    letterSpacing: "0.1em",
+                    fontFamily: "'Silkscreen', monospace",
+                  }}
+                >
+                  [CLASSIFIED]
+                </div>
+                <div
+                  style={{
+                    fontSize: fs(9),
+                    color: "#4a5a6a",
+                    letterSpacing: "0.08em",
+                    marginTop: 1,
+                  }}
+                >
+                  INSERT COIN TO UNLOCK
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
       <div
         style={{
@@ -273,12 +397,12 @@ export default function SelectScreen({
           }}
         >
           MORGAN ESPITIA {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST{" "}
-          {"\u00b7"} REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} PYTHON {"\u00b7"}{" "}
-          AUDIO ENGINEERING {"\u00b7"} SOLANA {"\u00b7"} x402 {"\u00b7"} SLC UT{" "}
-          {"\u00b7\u00a0\u00a0\u00a0"}MORGAN ESPITIA {"\u00b7"} FULL-STACK + DSP
-          + EMBEDDED {"\u00b7"} RUST {"\u00b7"} REACT {"\u00b7"} TYPESCRIPT{" "}
-          {"\u00b7"} PYTHON {"\u00b7"} AUDIO ENGINEERING {"\u00b7"} SOLANA{" "}
-          {"\u00b7"} x402 {"\u00b7"} SLC UT
+          {"\u00b7"} REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"}{" "}
+          AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor
+          {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}MORGAN ESPITIA{" "}
+          {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST {"\u00b7"}{" "}
+          REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"} AVAILABLE
+          FOR CONTRACT {"\u00b7"} github.com/ampactor
         </div>
       </div>
     </div>

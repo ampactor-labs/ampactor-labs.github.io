@@ -20,6 +20,9 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "bytecode VM", "Hindley-Milner", "row polymorphism"],
     status: "active",
+    category: "systems",
+    operatorNote:
+      "Self-hosting: the language compiles itself. One mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. Written from scratch.",
   },
   {
     id: "sonido",
@@ -42,6 +45,9 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "CLAP", "egui", "cpal", "libm"],
     status: "active",
+    category: "systems",
+    operatorNote:
+      "1,369 tests. Identical code runs on desktop DAW plugins and bare-metal ARM at 480 MHz. Three-layer kernel: zero heap, zero trait dispatch.",
   },
   {
     id: "turbosort",
@@ -49,9 +55,9 @@ export const PROJECTS = [
     subtitle: "SIMD-ACCELERATED RADIX SORT",
     lang: "Rust",
     color: "#FF6B35",
-    icon: "⚡",
+    icon: "\u26a1",
     github: "https://github.com/ampactor-labs/turbosort",
-    desc: "Pure Rust sort library for all 10 primitive numeric types. AVX2 sorting networks for small arrays, LSD radix sort for large — adaptive dispatch with runtime CPUID detection. 3.1x faster than std at 1M elements. Zero unsafe trait implementations, no FFI, no nightly. Full no_std support.",
+    desc: "Pure Rust sort library for all 10 primitive numeric types. AVX2 sorting networks for small arrays, LSD radix sort for large \u2014 adaptive dispatch with runtime CPUID detection. 3.1x faster than std at 1M elements. Zero unsafe trait implementations, no FFI, no nightly. Full no_std support.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
     highlights: [
@@ -64,6 +70,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "AVX2", "NEON", "rayon"],
     status: "active",
+    category: "systems",
   },
   {
     id: "flowpilot",
@@ -86,6 +93,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "rust_decimal", "SQLite", "Jupiter API"],
     status: "active",
+    category: "defi",
   },
   {
     id: "selekta",
@@ -108,6 +116,7 @@ export const PROJECTS = [
     ],
     stack: ["React", "Tone.js", "circular-natal-horoscope-js"],
     status: "shipped",
+    category: "creative",
   },
   {
     id: "tokensafe",
@@ -130,6 +139,9 @@ export const PROJECTS = [
     ],
     stack: ["TypeScript", "Express", "Helius RPC", "Jupiter"],
     status: "deployed",
+    category: "defi",
+    operatorNote:
+      "Live. Deployed. Paying. $0.008/request via x402 micropayments. No signup, no API key. Payment is authentication.",
   },
   {
     id: "forge",
@@ -152,6 +164,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "ratatui", "rmcp", "tokio"],
     status: "active",
+    category: "tooling",
   },
   {
     id: "browsore",
@@ -174,6 +187,7 @@ export const PROJECTS = [
     ],
     stack: ["TypeScript", "Playwright", "MCP/stdio"],
     status: "active",
+    category: "tooling",
   },
   {
     id: "bounty-hunter",
@@ -196,6 +210,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "Axum", "tokio", "WebSocket"],
     status: "active",
+    category: "defi",
   },
   {
     id: "solguard",
@@ -218,6 +233,9 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "syn", "askama", "tokio"],
     status: "shipped",
+    category: "defi",
+    operatorNote:
+      "Static scanning without narrative targeting found zero real vulnerabilities. With it: 7 confirmed findings, 3 Critical. This is a result, not a feature claim.",
   },
   {
     id: "st-audit",
@@ -240,6 +258,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "syn", "regex", "walkdir"],
     status: "shipped",
+    category: "defi",
   },
   {
     id: "narrative",
@@ -262,6 +281,7 @@ export const PROJECTS = [
     ],
     stack: ["Rust", "reqwest", "askama", "scraper"],
     status: "shipped",
+    category: "defi",
   },
 ];
 

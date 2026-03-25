@@ -238,7 +238,33 @@ export default function DetailScreen({
             )}
           </div>
         )}
-        {/* Zone C — STATUS + TAGS */}
+        {/* Zone C — OPERATOR NOTES (flagship projects only) */}
+        {p.operatorNote && (
+          <div
+            style={{
+              marginBottom: 14,
+              padding: "8px 12px",
+              borderRadius: 4,
+              background: `${p.color}06`,
+              border: `1px solid ${p.color}15`,
+              borderLeft: `3px solid ${p.color}40`,
+            }}
+          >
+            <SectionLabel color={p.color} text="OPERATOR NOTES" fs={fs} />
+            <div
+              style={{
+                fontSize: fs(10),
+                lineHeight: 1.75,
+                color: "#c8d8e8",
+                fontStyle: "italic",
+                maxWidth: 520,
+              }}
+            >
+              {p.operatorNote}
+            </div>
+          </div>
+        )}
+        {/* Zone D — STATUS + TAGS */}
         <div
           style={{
             display: "flex",

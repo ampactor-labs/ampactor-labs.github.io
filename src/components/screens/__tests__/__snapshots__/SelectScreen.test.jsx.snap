@@ -37,17 +37,35 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         </a>
       </div>
       <div
+        style="font-size: 9px; color: rgb(122, 138, 154); margin-top: 4px; letter-spacing: 0.06em; line-height: 1.6; border-left: 2px solid rgba(0, 229, 255, 0.15); padding-left: 6px;"
+      >
+        8 YRS 
+        ·
+         COMPILER + DSP + DEFI SECURITY 
+        ·
+         SHIPS PRODUCTION RUST
+      </div>
+      <div
         style="font-size: 11px; color: rgb(184, 200, 216); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        14
+        15
          CARTRIDGE
         S
          LOADED
       </div>
     </div>
     <div
-      style="font-family: "Press Start 2P", monospace; font-size: 9px; color: rgb(150, 168, 186); text-align: right; line-height: 1.8;"
+      style="font-family: "Press Start 2P", monospace; font-size: 8px; color: rgb(150, 168, 186); text-align: right; line-height: 2;"
     >
+      <a
+        href="https://github.com/ampactor"
+        rel="noopener noreferrer"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        target="_blank"
+      >
+        ◈
+         GITHUB
+      </a>
       ▲▼
        NAV
       <br />
@@ -60,554 +78,695 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     role="listbox"
     style="flex: 1 1 0%; overflow: auto; display: flex; flex-direction: column; gap: 3px;"
   >
-    <div
-      aria-label="LUX — EFFECT-ALGEBRAIC LANGUAGE"
-      aria-selected="true"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 0px;"
       >
-        ☀
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          SYSTEMS
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="LUX — EFFECT-ALGEBRAIC LANGUAGE"
+        aria-selected="true"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
-          >
-            LUX
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Lux/Rust
-          </span>
+          ☀
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          EFFECT-ALGEBRAIC LANGUAGE
-        </div>
-      </div>
-      <div
-        style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-      >
-        ›
-      </div>
-    </div>
-    <div
-      aria-label="SONIDO — MODULAR DSP WORKSTATION"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ♫
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            SONIDO
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
+            >
+              LUX
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Lux/Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
+            EFFECT-ALGEBRAIC LANGUAGE
+          </div>
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
         >
-          MODULAR DSP WORKSTATION
+          ›
         </div>
       </div>
     </div>
-    <div
-      aria-label="FLOWPILOT — ALGORITHMIC TRADING"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 170, 0); background: rgba(255, 170, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 170, 0, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ⬡
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="SONIDO — MODULAR DSP WORKSTATION"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            FLOWPILOT
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Rust
-          </span>
+          ♫
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          ALGORITHMIC TRADING
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="CELEZDIAL SELEKTA — AUDIO INTERFACE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(204, 102, 255); background: rgba(204, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(204, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ✦
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            CELEZDIAL SELEKTA
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              SONIDO
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            JavaScript
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          AUDIO INTERFACE
+            MODULAR DSP WORKSTATION
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="TOKENSAFE — RUG PULL DETECTION"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ◈
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="TURBOSORT — SIMD-ACCELERATED RADIX SORT"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 107, 53); background: rgba(255, 107, 53, 0.067); border-radius: 5px; border: 1px solid rgba(255, 107, 53, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            TOKENSAFE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            TypeScript
-          </span>
+          ⚡
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          RUG PULL DETECTION
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="FORGE — LLM CONVERSATION ENGINE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(68, 170, 255); background: rgba(68, 170, 255, 0.067); border-radius: 5px; border: 1px solid rgba(68, 170, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ⚒
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            FORGE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TURBOSORT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          LLM CONVERSATION ENGINE
+            SIMD-ACCELERATED RADIX SORT
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="BROWSORE — BROWSER AUTOMATION MCP"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(170, 102, 255); background: rgba(170, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(170, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ⦾
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="FLOWPILOT — ALGORITHMIC TRADING"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 170, 0); background: rgba(255, 170, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 170, 0, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            BROWSORE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            TypeScript
-          </span>
+          ⬡
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          BROWSER AUTOMATION MCP
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ☠
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            BOUNTY-HUNTER
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              FLOWPILOT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          SECURITY SCANNER
+            ALGORITHMIC TRADING
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ⬢
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          CREATIVE
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="CELEZDIAL SELEKTA — AUDIO INTERFACE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(204, 102, 255); background: rgba(204, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(204, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            ST-SOLGUARD
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Rust
-          </span>
+          ✦
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          PROGRAM SECURITY SCANNER
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ◇
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            ST-AUDIT
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              CELEZDIAL SELEKTA
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JavaScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          SMART CONTRACT AUDITOR
+            AUDIO INTERFACE
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="ST-NARRATIVE — STORY ENGINE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ◉
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="TOKENSAFE — RUG PULL DETECTION"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            ST-NARRATIVE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            HTML
-          </span>
+          ◈
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          STORY ENGINE
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="SYS/RESONANCE — SUBTRACTIVE SYNTH"
-      aria-selected="false"
-      class="project-row hidden-row tier-1-enter"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 184, 0); background: rgba(255, 184, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 184, 0, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ∿
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            SYS/RESONANCE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TOKENSAFE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            WebAudio
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          SUBTRACTIVE SYNTH
+            RUG PULL DETECTION
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="COHERENCE FIELD — CONSERVATION LAWS"
-      aria-selected="false"
-      class="project-row hidden-row tier-2-enter"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 221, 187); background: rgba(0, 221, 187, 0.067); border-radius: 5px; border: 1px solid rgba(0, 221, 187, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ◎
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          TOOLING
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="FORGE — LLM CONVERSATION ENGINE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(68, 170, 255); background: rgba(68, 170, 255, 0.067); border-radius: 5px; border: 1px solid rgba(68, 170, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            COHERENCE FIELD
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            —
-          </span>
+          ⚒
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          CONSERVATION LAWS
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              FORGE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            LLM CONVERSATION ENGINE
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="TUNNEL_RUN — VECTOR SHOOTER"
-      aria-selected="false"
-      class="project-row hidden-row tier-3-enter"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 14px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: rgb(255, 34, 102); background: rgba(255, 34, 102, 0.1); border-radius: 5px; border: 1px solid rgba(255, 34, 102, 0.267); text-shadow: 0 0 8px #ff2266; flex-shrink: 0;"
-      >
-        ▸
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="BROWSORE — BROWSER AUTOMATION MCP"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(170, 102, 255); background: rgba(170, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(170, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            TUNNEL_RUN
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Canvas
-          </span>
+          ⦾
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          VECTOR SHOOTER
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              BROWSORE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            BROWSER AUTOMATION MCP
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
+      </div>
+      <div
+        aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ☠
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              BOUNTY-HUNTER
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ⬢
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-SOLGUARD
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            PROGRAM SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◇
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-AUDIT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SMART CONTRACT AUDITOR
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-NARRATIVE — STORY ENGINE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◉
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-NARRATIVE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              HTML
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            STORY ENGINE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="SYS/RESONANCE — SUBTRACTIVE SYNTH"
+        aria-selected="false"
+        class="project-row hidden-row tier-1-enter"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 184, 0); background: rgba(255, 184, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 184, 0, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ∿
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              SYS/RESONANCE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              WebAudio
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SUBTRACTIVE SYNTH
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="COHERENCE FIELD — CONSERVATION LAWS"
+        aria-selected="false"
+        class="project-row hidden-row tier-2-enter"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 221, 187); background: rgba(0, 221, 187, 0.067); border-radius: 5px; border: 1px solid rgba(0, 221, 187, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◎
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              COHERENCE FIELD
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              —
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            CONSERVATION LAWS
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="TUNNEL_RUN — VECTOR SHOOTER"
+        aria-selected="false"
+        class="project-row hidden-row tier-3-enter"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 14px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: rgb(255, 34, 102); background: rgba(255, 34, 102, 0.1); border-radius: 5px; border: 1px solid rgba(255, 34, 102, 0.267); text-shadow: 0 0 8px #ff2266; flex-shrink: 0;"
+        >
+          ▸
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TUNNEL_RUN
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Canvas
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            VECTOR SHOOTER
+          </div>
         </div>
       </div>
     </div>
@@ -629,39 +788,30 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       ·
        TYPESCRIPT 
       ·
-       PYTHON 
-      ·
-       
-      AUDIO ENGINEERING 
-      ·
        SOLANA 
       ·
-       x402 
-      ·
-       SLC UT
        
-      ·   
-      MORGAN ESPITIA 
+      AVAILABLE FOR CONTRACT 
+      ·
+       github.com/ampactor
+         ·   
+      MORGAN ESPITIA
+       
       ·
        FULL-STACK + DSP + EMBEDDED 
       ·
        RUST 
       ·
-       REACT 
-      ·
-       TYPESCRIPT
        
+      REACT 
       ·
-       PYTHON 
+       TYPESCRIPT 
       ·
-       AUDIO ENGINEERING 
+       SOLANA 
       ·
-       SOLANA
-       
+       AVAILABLE FOR CONTRACT 
       ·
-       x402 
-      ·
-       SLC UT
+       github.com/ampactor
     </div>
   </div>
 </div>
@@ -704,17 +854,35 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         </a>
       </div>
       <div
+        style="font-size: 9px; color: rgb(122, 138, 154); margin-top: 4px; letter-spacing: 0.06em; line-height: 1.6; border-left: 2px solid rgba(0, 229, 255, 0.15); padding-left: 6px;"
+      >
+        8 YRS 
+        ·
+         COMPILER + DSP + DEFI SECURITY 
+        ·
+         SHIPS PRODUCTION RUST
+      </div>
+      <div
         style="font-size: 11px; color: rgb(184, 200, 216); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        11
+        12
          CARTRIDGE
         S
          LOADED
       </div>
     </div>
     <div
-      style="font-family: "Press Start 2P", monospace; font-size: 9px; color: rgb(150, 168, 186); text-align: right; line-height: 1.8;"
+      style="font-family: "Press Start 2P", monospace; font-size: 8px; color: rgb(150, 168, 186); text-align: right; line-height: 2;"
     >
+      <a
+        href="https://github.com/ampactor"
+        rel="noopener noreferrer"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        target="_blank"
+      >
+        ◈
+         GITHUB
+      </a>
       ▲▼
        NAV
       <br />
@@ -727,437 +895,572 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     role="listbox"
     style="flex: 1 1 0%; overflow: auto; display: flex; flex-direction: column; gap: 3px;"
   >
-    <div
-      aria-label="LUX — EFFECT-ALGEBRAIC LANGUAGE"
-      aria-selected="true"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 0px;"
       >
-        ☀
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          SYSTEMS
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="LUX — EFFECT-ALGEBRAIC LANGUAGE"
+        aria-selected="true"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
-          >
-            LUX
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Lux/Rust
-          </span>
+          ☀
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          EFFECT-ALGEBRAIC LANGUAGE
-        </div>
-      </div>
-      <div
-        style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-      >
-        ›
-      </div>
-    </div>
-    <div
-      aria-label="SONIDO — MODULAR DSP WORKSTATION"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ♫
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            SONIDO
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
+            >
+              LUX
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Lux/Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
+            EFFECT-ALGEBRAIC LANGUAGE
+          </div>
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
         >
-          MODULAR DSP WORKSTATION
+          ›
         </div>
       </div>
     </div>
-    <div
-      aria-label="FLOWPILOT — ALGORITHMIC TRADING"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 170, 0); background: rgba(255, 170, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 170, 0, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ⬡
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="SONIDO — MODULAR DSP WORKSTATION"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            FLOWPILOT
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Rust
-          </span>
+          ♫
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          ALGORITHMIC TRADING
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="CELEZDIAL SELEKTA — AUDIO INTERFACE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(204, 102, 255); background: rgba(204, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(204, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ✦
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            CELEZDIAL SELEKTA
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              SONIDO
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            JavaScript
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          AUDIO INTERFACE
+            MODULAR DSP WORKSTATION
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="TOKENSAFE — RUG PULL DETECTION"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ◈
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="TURBOSORT — SIMD-ACCELERATED RADIX SORT"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 107, 53); background: rgba(255, 107, 53, 0.067); border-radius: 5px; border: 1px solid rgba(255, 107, 53, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            TOKENSAFE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            TypeScript
-          </span>
+          ⚡
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          RUG PULL DETECTION
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="FORGE — LLM CONVERSATION ENGINE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(68, 170, 255); background: rgba(68, 170, 255, 0.067); border-radius: 5px; border: 1px solid rgba(68, 170, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ⚒
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            FORGE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TURBOSORT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          LLM CONVERSATION ENGINE
+            SIMD-ACCELERATED RADIX SORT
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="BROWSORE — BROWSER AUTOMATION MCP"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(170, 102, 255); background: rgba(170, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(170, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ⦾
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="FLOWPILOT — ALGORITHMIC TRADING"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 170, 0); background: rgba(255, 170, 0, 0.067); border-radius: 5px; border: 1px solid rgba(255, 170, 0, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            BROWSORE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            TypeScript
-          </span>
+          ⬡
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          BROWSER AUTOMATION MCP
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ☠
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            BOUNTY-HUNTER
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              FLOWPILOT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          SECURITY SCANNER
+            ALGORITHMIC TRADING
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ⬢
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          CREATIVE
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="CELEZDIAL SELEKTA — AUDIO INTERFACE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(204, 102, 255); background: rgba(204, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(204, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            ST-SOLGUARD
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            Rust
-          </span>
+          ✦
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          PROGRAM SECURITY SCANNER
-        </div>
-      </div>
-    </div>
-    <div
-      aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
-      <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
-      >
-        ◇
-      </div>
-      <div
-        style="flex: 1 1 0%; min-width: 0px;"
-      >
-        <div
-          style="display: flex; align-items: center; gap: 6px;"
-        >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
           >
-            ST-AUDIT
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              CELEZDIAL SELEKTA
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JavaScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            Rust
-          </span>
-        </div>
-        <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
-        >
-          SMART CONTRACT AUDITOR
+            AUDIO INTERFACE
+          </div>
         </div>
       </div>
     </div>
-    <div
-      aria-label="ST-NARRATIVE — STORY ENGINE"
-      aria-selected="false"
-      class="project-row"
-      role="option"
-      style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-    >
+    <div>
       <div
-        style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-      />
-      <div
-        style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
-        ◉
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
       </div>
       <div
-        style="flex: 1 1 0%; min-width: 0px;"
+        aria-label="TOKENSAFE — RUG PULL DETECTION"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px;"
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
         >
-          <span
-            style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
-          >
-            ST-NARRATIVE
-          </span>
-          <span
-            style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-          >
-            HTML
-          </span>
+          ◈
         </div>
         <div
-          style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          style="flex: 1 1 0%; min-width: 0px;"
         >
-          STORY ENGINE
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TOKENSAFE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            RUG PULL DETECTION
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          TOOLING
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
+      </div>
+      <div
+        aria-label="FORGE — LLM CONVERSATION ENGINE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(68, 170, 255); background: rgba(68, 170, 255, 0.067); border-radius: 5px; border: 1px solid rgba(68, 170, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ⚒
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              FORGE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            LLM CONVERSATION ENGINE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="BROWSORE — BROWSER AUTOMATION MCP"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(170, 102, 255); background: rgba(170, 102, 255, 0.067); border-radius: 5px; border: 1px solid rgba(170, 102, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ⦾
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              BROWSORE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            BROWSER AUTOMATION MCP
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
+          DEFI + SEC
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
+      </div>
+      <div
+        aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ☠
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              BOUNTY-HUNTER
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ⬢
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-SOLGUARD
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            PROGRAM SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◇
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-AUDIT
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SMART CONTRACT AUDITOR
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="ST-NARRATIVE — STORY ENGINE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◉
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Silkscreen", monospace; font-size: 14px; color: rgb(184, 200, 216); text-shadow: none; transition: color 0.2s ease;"
+            >
+              ST-NARRATIVE
+            </span>
+            <span
+              style="font-size: 9px; color: rgb(150, 168, 186); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              HTML
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: rgb(184, 200, 216); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            STORY ENGINE
+          </div>
         </div>
       </div>
     </div>
@@ -1179,39 +1482,30 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       ·
        TYPESCRIPT 
       ·
-       PYTHON 
-      ·
-       
-      AUDIO ENGINEERING 
-      ·
        SOLANA 
       ·
-       x402 
-      ·
-       SLC UT
        
-      ·   
-      MORGAN ESPITIA 
+      AVAILABLE FOR CONTRACT 
+      ·
+       github.com/ampactor
+         ·   
+      MORGAN ESPITIA
+       
       ·
        FULL-STACK + DSP + EMBEDDED 
       ·
        RUST 
       ·
-       REACT 
-      ·
-       TYPESCRIPT
        
+      REACT 
       ·
-       PYTHON 
+       TYPESCRIPT 
       ·
-       AUDIO ENGINEERING 
+       SOLANA 
       ·
-       SOLANA
-       
+       AVAILABLE FOR CONTRACT 
       ·
-       x402 
-      ·
-       SLC UT
+       github.com/ampactor
     </div>
   </div>
 </div>

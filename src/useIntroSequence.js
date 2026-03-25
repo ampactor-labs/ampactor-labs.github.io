@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 
-export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
-  const [introComplete, setIntroComplete] = useState(false);
+export default function useIntroSequence(logoRef, tunnelRef, consoleRef, skipOnMount = false) {
+  const [introComplete, setIntroComplete] = useState(skipOnMount);
   const tlRef = useRef(null);
 
   useEffect(() => {
@@ -10,6 +10,13 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
     const console_ = consoleRef.current;
     const tunnel = tunnelRef.current;
     if (!logo || !console_) return;
+
+    // Returning visitor: skip intro entirely, show cabinet immediately
+    if (skipOnMount) {
+      gsap.set(logo, { opacity: 0 });
+      gsap.set(console_, { opacity: 1 });
+      return;
+    }
 
     // Start with everything hidden
     gsap.set(logo, { opacity: 0 });
@@ -58,7 +65,7 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
       0,
     );
 
-    // 0.8–1.3s: Logo dims to ambient (starts just after flicker ends at 0.79s)
+    // 0.8–1.3s: Logo dims to ambient
     tl.to(
       logo,
       {
@@ -69,24 +76,24 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
       0.8,
     );
 
-    // 2.0–3.5s: CRT scan-on reveal — clip-path runs on compositor, no JS per frame
+    // 1.5–2.5s: CRT scan-on reveal (trimmed from 2.0–3.5s)
     tl.set(
       console_,
       { opacity: 1, clipPath: "inset(49% 0 49% 0 round 16px)" },
-      2.0,
+      1.5,
     );
     tl.to(
       console_,
       {
         clipPath: "inset(0% 0 0% 0 round 16px)",
-        duration: 1.5,
+        duration: 1.0,
         ease: "power2.out",
         clearProps: "clipPath",
       },
-      2.0,
+      1.5,
     );
 
-    // 3.6s: Restart flicker animation only (not crtOn — that already played silently at mount)
+    // 2.6s: Restart flicker animation
     tl.call(
       () => {
         const screenEl = console_.querySelector(".crt-screen");
@@ -97,7 +104,7 @@ export default function useIntroSequence(logoRef, tunnelRef, consoleRef) {
         }
       },
       [],
-      3.6,
+      2.6,
     );
 
     tlRef.current = tl;

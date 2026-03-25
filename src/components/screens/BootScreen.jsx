@@ -11,8 +11,10 @@ export default function BootScreen({
         style={{
           height: "100%",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          gap: 16,
           animation: "testPattern 0.8s ease-out forwards",
         }}
         onClick={onSkip}
@@ -121,6 +123,17 @@ export default function BootScreen({
             opacity="0.5"
           />
         </svg>
+        <div
+          style={{
+            fontSize: fs(7),
+            color: "rgba(184,200,216,0.3)",
+            letterSpacing: "0.15em",
+            animation: "blink 2s step-end infinite",
+            userSelect: "none",
+          }}
+        >
+          [ TAP TO SKIP ]
+        </div>
       </div>
     );
   }
@@ -161,9 +174,17 @@ export default function BootScreen({
                     ? "#00E5FF"
                     : line === "PRESS ANY KEY"
                       ? "#FFB800"
-                      : line.includes("OK")
-                        ? "#77ddff"
-                        : "#96a8ba",
+                      : line.startsWith("OPERATOR:")
+                        ? "#00E5FF"
+                        : line.startsWith("CLEARANCE:")
+                          ? "#77ddff"
+                          : line.startsWith("STATUS:")
+                            ? "#FFB800"
+                            : line.includes("CLASSIFIED")
+                            ? "#FFB800"
+                            : line.includes("OK")
+                              ? "#77ddff"
+                              : "#96a8ba",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 line === "PRESS ANY KEY"
@@ -184,7 +205,7 @@ export default function BootScreen({
           </div>
         ))}
       </div>
-      {currentLine >= lines.length - 1 && (
+      {currentLine >= 6 && (
         <div
           style={{
             textAlign: "center",

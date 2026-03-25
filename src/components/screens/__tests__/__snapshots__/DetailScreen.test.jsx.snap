@@ -200,6 +200,27 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       </div>
     </div>
     <div
+      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          OPERATOR NOTES
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 10px; line-height: 1.75; color: rgb(200, 216, 232); font-style: italic; max-width: 520px;"
+      >
+        Self-hosting: the language compiles itself. One mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. Written from scratch.
+      </div>
+    </div>
+    <div
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
