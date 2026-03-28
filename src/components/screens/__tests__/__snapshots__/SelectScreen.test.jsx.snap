@@ -39,7 +39,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        15
+        11
          CARTRIDGE
         S
          LOADED
@@ -49,7 +49,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
     >
       <a
-        href="https://github.com/ampactor"
+        href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
         style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
         target="_blank"
@@ -258,170 +258,6 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
             RUG PULL DETECTION
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ☠
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              BOUNTY-HUNTER
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ⬢
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-SOLGUARD
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            PROGRAM SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◇
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-AUDIT
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SMART CONTRACT AUDITOR
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-NARRATIVE — STORY ENGINE"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◉
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-NARRATIVE
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              HTML
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            STORY ENGINE
           </div>
         </div>
       </div>
@@ -772,7 +608,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
        
       AVAILABLE FOR CONTRACT 
       ·
-       github.com/ampactor
+       github.com/ampactor-labs
          ·   
       MORGAN ESPITIA
        
@@ -790,7 +626,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       ·
        AVAILABLE FOR CONTRACT 
       ·
-       github.com/ampactor
+       github.com/ampactor-labs
     </div>
   </div>
 </div>
@@ -835,7 +671,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <div
         style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        12
+        8
          CARTRIDGE
         S
          LOADED
@@ -845,7 +681,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
     >
       <a
-        href="https://github.com/ampactor"
+        href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
         style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
         target="_blank"
@@ -1054,170 +890,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
             RUG PULL DETECTION
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="BOUNTY-HUNTER — SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 102, 68); background: rgba(255, 102, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 102, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ☠
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              BOUNTY-HUNTER
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-SOLGUARD — PROGRAM SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 136, 68); background: rgba(255, 136, 68, 0.067); border-radius: 5px; border: 1px solid rgba(255, 136, 68, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ⬢
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-SOLGUARD
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            PROGRAM SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-AUDIT — SMART CONTRACT AUDITOR"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 255, 204); background: rgba(102, 255, 204, 0.067); border-radius: 5px; border: 1px solid rgba(102, 255, 204, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◇
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-AUDIT
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SMART CONTRACT AUDITOR
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="ST-NARRATIVE — STORY ENGINE"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(102, 204, 255); background: rgba(102, 204, 255, 0.067); border-radius: 5px; border: 1px solid rgba(102, 204, 255, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◉
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              ST-NARRATIVE
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              HTML
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            STORY ENGINE
           </div>
         </div>
       </div>
@@ -1445,7 +1117,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
        
       AVAILABLE FOR CONTRACT 
       ·
-       github.com/ampactor
+       github.com/ampactor-labs
          ·   
       MORGAN ESPITIA
        
@@ -1463,7 +1135,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       ·
        AVAILABLE FOR CONTRACT 
       ·
-       github.com/ampactor
+       github.com/ampactor-labs
     </div>
   </div>
 </div>

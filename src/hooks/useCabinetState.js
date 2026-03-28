@@ -262,7 +262,7 @@ export default function useCabinetState(
   };
 
   const isBootTransitioning = () =>
-    Date.now() - screenTransitionRef.current < 150;
+    Date.now() - screenTransitionRef.current < 500;
 
   return {
     screen,

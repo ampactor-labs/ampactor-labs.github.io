@@ -239,7 +239,7 @@ export default function Cabinet({
             }}
           >
             <a
-              href="https://github.com/ampactor"
+              href="https://github.com/ampactor-labs"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--color-comment)", textDecoration: "none" }}

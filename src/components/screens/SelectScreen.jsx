@@ -118,7 +118,7 @@ export default function SelectScreen({
           }}
         >
           <a
-            href="https://github.com/ampactor"
+            href="https://github.com/ampactor-labs"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -391,11 +391,11 @@ export default function SelectScreen({
         >
           MORGAN ESPITIA {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST{" "}
           {"\u00b7"} REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"}{" "}
-          AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor
+          AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor-labs
           {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}MORGAN ESPITIA{" "}
           {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST {"\u00b7"}{" "}
           REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"} AVAILABLE FOR
-          CONTRACT {"\u00b7"} github.com/ampactor
+          CONTRACT {"\u00b7"} github.com/ampactor-labs
         </div>
       </div>
     </div>

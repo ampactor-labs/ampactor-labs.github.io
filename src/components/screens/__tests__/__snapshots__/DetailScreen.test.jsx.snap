@@ -36,7 +36,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       </div>
     </div>
     <a
-      href="https://github.com/ampactor/lux"
+      href="https://github.com/ampactor-labs/lux"
       rel="noopener noreferrer"
       style="font-size: 10px; color: var(--fg); letter-spacing: 0.08em; text-decoration: none; margin-left: auto; flex-shrink: 0;"
       target="_blank"
@@ -270,7 +270,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
        BACK ]
     </span>
     <span>
-      ampactor/lux
+      ampactor-labs/lux
     </span>
   </div>
 </div>
