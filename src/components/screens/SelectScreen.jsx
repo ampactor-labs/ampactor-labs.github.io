@@ -46,7 +46,7 @@ export default function SelectScreen({
           <div
             style={{
               fontSize: fs(10),
-              color: "#b8c8d8",
+              color: "var(--fg)",
               letterSpacing: "0.12em",
               marginTop: 3,
             }}
@@ -59,7 +59,7 @@ export default function SelectScreen({
               flexWrap: "wrap",
               columnGap: 6,
               fontSize: fs(11),
-              color: "#8a9aaa",
+              color: "var(--color-muted)",
               letterSpacing: "0.08em",
               marginTop: 2,
             }}
@@ -100,7 +100,7 @@ export default function SelectScreen({
           <div
             style={{
               fontSize: fs(11),
-              color: "#b8c8d8",
+              color: "var(--fg)",
               marginTop: 5,
               letterSpacing: "0.05em",
             }}
@@ -112,7 +112,7 @@ export default function SelectScreen({
           style={{
             fontFamily: "'Press Start 2P', monospace",
             fontSize: fs(8),
-            color: "#96a8ba",
+            color: "var(--color-muted)",
             textAlign: "right",
             lineHeight: 2.0,
           }}
@@ -156,8 +156,9 @@ export default function SelectScreen({
           const showHeader = !isH && p.category && p.category !== prevCategory;
           const CATEGORY_LABELS = {
             systems: "SYSTEMS",
+            security: "SECURITY",
+            defi: "DEFI",
             tooling: "TOOLING",
-            defi: "DEFI + SEC",
             creative: "CREATIVE",
           };
           return (
@@ -192,118 +193,121 @@ export default function SelectScreen({
                   />
                 </div>
               )}
-            <div
-              key={`row-${p.id}`}
-              role="option"
-              aria-selected={active}
-              aria-label={`${p.title} — ${p.subtitle}`}
-              className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
-              onClick={() => onSelect(i)}
-              onMouseEnter={() => {
-                onHoverSelect(i);
-                onHover(i);
-                onHoverBlip();
-              }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: isGame ? "14px 12px" : "10px 12px",
-                borderRadius: 6,
-                background: active
-                  ? isH
-                    ? "rgba(255,200,0,0.04)"
-                    : "rgba(0,229,255,0.05)"
-                  : "transparent",
-                border: active
-                  ? `1px solid ${isH ? "rgba(255,200,0,0.15)" : "rgba(0,229,255,0.15)"}`
-                  : "1px solid transparent",
-                position: "relative",
-                borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
-                boxShadow: isGame && isH ? `0 0 8px ${p.color}22` : undefined,
-              }}
-            >
               <div
-                style={{
-                  width: 3,
-                  height: "70%",
-                  background: active ? p.color : "transparent",
-                  borderRadius: 2,
-                  position: "absolute",
-                  left: isH ? -1 : 2,
-                  boxShadow: active ? `0 0 6px ${p.color}` : "none",
-                  transition: "all 0.2s ease",
+                key={`row-${p.id}`}
+                role="option"
+                aria-selected={active}
+                aria-label={`${p.title} — ${p.subtitle}`}
+                className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
+                onClick={() => onSelect(i)}
+                onMouseEnter={() => {
+                  onHoverSelect(i);
+                  onHover(i);
+                  onHoverBlip();
                 }}
-              />
-              <div
                 style={{
-                  width: isGame ? 40 : 32,
-                  height: isGame ? 40 : 32,
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: isGame ? fs(20) : fs(16),
-                  color: p.color,
-                  background: `${p.color}${isGame ? "1a" : "11"}`,
-                  borderRadius: 5,
-                  border: `1px solid ${p.color}${isGame ? "44" : "22"}`,
-                  textShadow: active || isGame ? `0 0 8px ${p.color}` : "none",
-                  flexShrink: 0,
+                  gap: 12,
+                  padding: isGame ? "14px 12px" : "10px 12px",
+                  borderRadius: 6,
+                  background: active
+                    ? isH
+                      ? "rgba(255,200,0,0.04)"
+                      : "rgba(0,229,255,0.05)"
+                    : "transparent",
+                  border: active
+                    ? `1px solid ${isH ? "rgba(255,200,0,0.15)" : "rgba(0,229,255,0.15)"}`
+                    : "1px solid transparent",
+                  position: "relative",
+                  borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
+                  boxShadow: isGame && isH ? `0 0 8px ${p.color}22` : undefined,
                 }}
               >
-                {p.icon}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span
-                    style={{
-                      fontFamily: "'Silkscreen', monospace",
-                      fontSize: fs(14),
-                      color: active ? p.color : "#b8c8d8",
-                      textShadow: active ? `0 0 8px ${p.color}44` : "none",
-                      transition: "color 0.2s ease",
-                    }}
-                  >
-                    {p.title}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: fs(9),
-                      color: "#96a8ba",
-                      padding: "1px 5px",
-                      background: "rgba(255,255,255,0.03)",
-                      borderRadius: 3,
-                      border: "1px solid rgba(255,255,255,0.05)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {p.lang}
-                  </span>
-                </div>
                 <div
                   style={{
-                    fontSize: fs(10),
-                    color: "#b8c8d8",
-                    marginTop: 1,
-                    letterSpacing: "0.08em",
+                    width: 3,
+                    height: "70%",
+                    background: active ? p.color : "transparent",
+                    borderRadius: 2,
+                    position: "absolute",
+                    left: isH ? -1 : 2,
+                    boxShadow: active ? `0 0 6px ${p.color}` : "none",
+                    transition: "all 0.2s ease",
                   }}
-                >
-                  {p.subtitle}
-                </div>
-              </div>
-              {active && (
+                />
                 <div
                   style={{
+                    width: isGame ? 40 : 32,
+                    height: isGame ? 40 : 32,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: isGame ? fs(20) : fs(16),
                     color: p.color,
-                    fontSize: fs(14),
+                    background: `${p.color}${isGame ? "1a" : "11"}`,
+                    borderRadius: 5,
+                    border: `1px solid ${p.color}${isGame ? "44" : "22"}`,
+                    textShadow:
+                      active || isGame ? `0 0 8px ${p.color}` : "none",
                     flexShrink: 0,
-                    opacity: 0.6,
                   }}
                 >
-                  {"\u203a"}
+                  {p.icon}
                 </div>
-              )}
-            </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 6 }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'Share Tech Mono', monospace",
+                        fontSize: fs(14),
+                        color: active ? p.color : "var(--fg)",
+                        textShadow: active ? `0 0 8px ${p.color}44` : "none",
+                        transition: "color 0.2s ease",
+                      }}
+                    >
+                      {p.title}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: fs(9),
+                        color: "var(--color-muted)",
+                        padding: "1px 5px",
+                        background: "rgba(255,255,255,0.03)",
+                        borderRadius: 3,
+                        border: "1px solid rgba(255,255,255,0.05)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {p.lang}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: fs(10),
+                      color: "var(--fg)",
+                      marginTop: 1,
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {p.subtitle}
+                  </div>
+                </div>
+                {active && (
+                  <div
+                    style={{
+                      color: p.color,
+                      fontSize: fs(14),
+                      flexShrink: 0,
+                      opacity: 0.6,
+                    }}
+                  >
+                    {"\u203a"}
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
@@ -331,7 +335,7 @@ export default function SelectScreen({
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: fs(14),
-                  color: "#5a6a7a",
+                  color: "var(--color-comment)",
                   background: "rgba(255,184,0,0.05)",
                   borderRadius: 5,
                   border: "1px solid rgba(255,184,0,0.1)",
@@ -344,9 +348,9 @@ export default function SelectScreen({
                 <div
                   style={{
                     fontSize: fs(11),
-                    color: "#5a6a7a",
+                    color: "var(--color-comment)",
                     letterSpacing: "0.1em",
-                    fontFamily: "'Silkscreen', monospace",
+                    fontFamily: "'Share Tech Mono', monospace",
                   }}
                 >
                   [CLASSIFIED]
@@ -354,7 +358,7 @@ export default function SelectScreen({
                 <div
                   style={{
                     fontSize: fs(9),
-                    color: "#4a5a6a",
+                    color: "var(--color-comment)",
                     letterSpacing: "0.08em",
                     marginTop: 1,
                   }}
@@ -380,7 +384,7 @@ export default function SelectScreen({
             position: "absolute",
             whiteSpace: "nowrap",
             fontSize: fs(8),
-            color: "#5a6a7a",
+            color: "var(--color-comment)",
             letterSpacing: "0.1em",
             animation: "marquee 90s linear infinite",
           }}
@@ -390,8 +394,8 @@ export default function SelectScreen({
           AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor
           {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}MORGAN ESPITIA{" "}
           {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST {"\u00b7"}{" "}
-          REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"} AVAILABLE
-          FOR CONTRACT {"\u00b7"} github.com/ampactor
+          REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"} AVAILABLE FOR
+          CONTRACT {"\u00b7"} github.com/ampactor
         </div>
       </div>
     </div>

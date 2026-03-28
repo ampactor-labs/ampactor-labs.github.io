@@ -1,6 +1,8 @@
 import { useRef, useEffect, useCallback } from "react";
 import useTunnelGameAudio from "./useTunnelGameAudio";
 
+const AMBER = "#d8a657";
+
 /* ── constants ──────────────────────────────────────────── */
 const FOV = 200;
 const DEPTH_RANGE = 800;
@@ -211,7 +213,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.font = `${isMobileRef.current ? 8 : 14}px 'Press Start 2P', monospace`;
         ctx.fillStyle = "#00E5FF";
         ctx.fillText(`SCORE: ${gs.score}`, cx, cy + 10);
-        ctx.fillStyle = gs.score >= gs.hiScore ? "#FFB800" : "#778899";
+        ctx.fillStyle = gs.score >= gs.hiScore ? AMBER : "#778899";
         ctx.fillText(
           `HI: ${gs.hiScore}`,
           cx,
@@ -220,7 +222,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
         if (gs.score >= gs.hiScore) {
           ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
-          ctx.fillStyle = "#FFB800";
+          ctx.fillStyle = AMBER;
           ctx.fillText(
             "NEW HIGH SCORE",
             cx,
@@ -528,7 +530,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // Combo
       if (gs.combo > 1.0) {
         ctx.textAlign = "center";
-        ctx.fillStyle = "#FFB800";
+        ctx.fillStyle = AMBER;
         const comboText = `COMBO x${gs.combo.toFixed(1)}`;
         ctx.fillText(comboText, cx, 16);
       }

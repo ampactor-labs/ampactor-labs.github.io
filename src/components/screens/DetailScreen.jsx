@@ -39,10 +39,10 @@ export default function DetailScreen({
     ih = Math.min(screenHeight - 220, 240);
   const statusColor =
     p.status === "active"
-      ? "#00ff88"
+      ? "var(--ui-signal-ok)"
       : p.status === "deployed"
-        ? "#ffaa00"
-        : "#4488ff";
+        ? "var(--color-amber)"
+        : "var(--color-steel)";
   return (
     <div
       style={{
@@ -79,7 +79,7 @@ export default function DetailScreen({
           }}
           style={{
             fontSize: fs(12),
-            color: "#b8c8d8",
+            color: "var(--fg)",
             padding: "3px 7px",
             borderRadius: 4,
             background: "rgba(255,255,255,0.03)",
@@ -112,7 +112,7 @@ export default function DetailScreen({
           <div
             style={{
               fontSize: fs(10),
-              color: "#b8c8d8",
+              color: "var(--fg)",
               letterSpacing: "0.1em",
               marginTop: 3,
             }}
@@ -127,7 +127,7 @@ export default function DetailScreen({
             rel="noopener noreferrer"
             style={{
               fontSize: fs(10),
-              color: "#b8c8d8",
+              color: "var(--fg)",
               letterSpacing: "0.08em",
               textDecoration: "none",
               marginLeft: "auto",
@@ -176,7 +176,7 @@ export default function DetailScreen({
             style={{
               fontSize: fs(11),
               lineHeight: 1.75,
-              color: "#b8c8d8",
+              color: "var(--fg)",
               maxWidth: 520,
             }}
           >
@@ -202,7 +202,7 @@ export default function DetailScreen({
                     key={i}
                     style={{
                       fontSize: fs(10),
-                      color: "#b8c8d8",
+                      color: "var(--fg)",
                       lineHeight: 1.8,
                       letterSpacing: "0.04em",
                     }}
@@ -255,7 +255,7 @@ export default function DetailScreen({
               style={{
                 fontSize: fs(10),
                 lineHeight: 1.75,
-                color: "#c8d8e8",
+                color: "var(--fg)",
                 fontStyle: "italic",
                 maxWidth: 520,
               }}
@@ -279,7 +279,7 @@ export default function DetailScreen({
               <span style={{ fontSize: fs(10), color: statusColor }}>
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
-              <span style={{ color: "#333", fontSize: fs(10) }}>
+              <span style={{ color: "var(--color-comment)", fontSize: fs(10) }}>
                 {"\u2502"}
               </span>
             </>
@@ -320,7 +320,7 @@ export default function DetailScreen({
           paddingTop: 10,
           borderTop: `1px solid ${p.color}11`,
           fontSize: fs(8),
-          color: "#96a8ba",
+          color: "var(--color-muted)",
           display: "flex",
           justifyContent: "space-between",
         }}

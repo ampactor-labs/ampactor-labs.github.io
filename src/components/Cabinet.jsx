@@ -15,14 +15,15 @@ export default function Cabinet({
   const dpadBtn = {
     width: 30,
     height: 30,
-    background: "linear-gradient(145deg, #40425c 0%, #2e3048 55%, #24263c 100%)",
+    background:
+      "linear-gradient(145deg, #3a3632 0%, #2e2a27 55%, #241f1c 100%)",
     borderRadius: 4,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "#aabbd0",
+    color: "var(--color-muted)",
     fontSize: fs(9),
-    border: "1.5px solid #56587a",
+    border: "1.5px solid var(--color-umber)",
     boxShadow: [
       "0 3px 6px rgba(0,0,0,0.5)",
       "inset 0 1px 0 rgba(255,255,255,0.10)",
@@ -36,10 +37,10 @@ export default function Cabinet({
       style={{
         margin: "0 10px 10px",
         background:
-          "linear-gradient(180deg, #22243a 0%, #1a1c2e 40%, #141626 100%)",
+          "linear-gradient(180deg, #2a2826 0%, #1d2021 40%, #0f0e0d 100%)",
         borderRadius: "0 0 16px 16px",
-        border: "3px solid #2a2c40",
-        borderTop: "2px solid #3a3c54",
+        border: "3px solid var(--color-umber)",
+        borderTop: "2px solid var(--color-umber)",
         padding: "10px 20px",
         paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)",
         display: "flex",
@@ -224,7 +225,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(7),
-              color: "#b8c8d8",
+              color: "var(--fg)",
               letterSpacing: "0.15em",
             }}
           >
@@ -233,7 +234,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(6),
-              color: "#4a5a6a",
+              color: "var(--color-comment)",
               letterSpacing: "0.12em",
             }}
           >
@@ -241,7 +242,7 @@ export default function Cabinet({
               href="https://github.com/ampactor"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#4a5a6a", textDecoration: "none" }}
+              style={{ color: "var(--color-comment)", textDecoration: "none" }}
             >
               GH: AMPACTOR
             </a>
@@ -266,9 +267,9 @@ export default function Cabinet({
             background:
               coinCount > 0
                 ? "rgba(255,184,0,0.08)"
-                : "linear-gradient(180deg, #181a2c 0%, #222436 60%, #1c1e30 100%)",
+                : "linear-gradient(180deg, #0f0e0d 0%, #2a2826 60%, #0f0e0d 100%)",
             borderRadius: 10,
-            border: `2px solid ${coinCount > 0 ? "rgba(255,184,0,0.45)" : "#484a64"}`,
+            border: `2px solid ${coinCount > 0 ? "rgba(255,184,0,0.45)" : "var(--color-umber)"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -282,10 +283,8 @@ export default function Cabinet({
                     "0 1px 0 rgba(255,255,255,0.05)",
                   ].join(", "),
             opacity: introComplete && screen !== "boot" ? 1 : 0.3,
-            pointerEvents:
-              introComplete && screen !== "boot" ? "auto" : "none",
-            cursor:
-              introComplete && screen !== "boot" ? "pointer" : "default",
+            pointerEvents: introComplete && screen !== "boot" ? "auto" : "none",
+            cursor: introComplete && screen !== "boot" ? "pointer" : "default",
           }}
         >
           <div
@@ -295,7 +294,7 @@ export default function Cabinet({
               background:
                 coinCount > 0
                   ? "rgba(255,184,0,0.65)"
-                  : "linear-gradient(90deg, #141628, #2c2e44 35%, #3a3c54 50%, #2c2e44 65%, #141628)",
+                  : "linear-gradient(90deg, #0f0e0d, #2a2826 35%, #45403d 50%, #2a2826 65%, #0f0e0d)",
               borderRadius: 2,
               boxShadow:
                 coinCount > 0
@@ -317,7 +316,7 @@ export default function Cabinet({
               style={{
                 fontSize: fs(7),
                 fontFamily: "'Press Start 2P', monospace",
-                color: "#FFB800",
+                color: "var(--color-amber)",
                 letterSpacing: "0.12em",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
@@ -331,13 +330,11 @@ export default function Cabinet({
         <div
           style={{
             fontSize: fs(6),
-            color: coinCount > 0 ? "rgba(255,184,0,0.5)" : "#556",
+            color: coinCount > 0 ? "rgba(255,184,0,0.5)" : "var(--color-umber)",
             letterSpacing: "0.15em",
             transition: "color 0.3s ease",
             animation:
-              coinCount > 0
-                ? "none"
-                : "coinTextPulse 3s ease-in-out infinite",
+              coinCount > 0 ? "none" : "coinTextPulse 3s ease-in-out infinite",
             fontFamily: "'Press Start 2P', monospace",
           }}
         >
@@ -372,17 +369,17 @@ export default function Cabinet({
               height: 46,
               borderRadius: "50%",
               background:
-                "radial-gradient(circle at 38% 32%, #6a2828 0%, #4a1414 50%, #340e0e 100%)",
-              border: "2.5px solid #7a3636",
+                "radial-gradient(circle at 38% 32%, #5a2a28 0%, #3e1a18 50%, #2c1210 100%)",
+              border: "2.5px solid #5a3a38",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: fs(9),
-              color: "#dd3322",
+              color: "var(--ui-danger)",
               fontFamily: "'Press Start 2P', monospace",
               boxShadow: [
-                "0 0 16px rgba(200,50,30,0.40)",
-                "0 0 6px rgba(200,50,30,0.70)",
+                "0 0 16px rgba(234,105,98,0.40)",
+                "0 0 6px rgba(234,105,98,0.70)",
                 "0 4px 10px rgba(0,0,0,0.55)",
                 "inset 0 1px 0 rgba(255,255,255,0.12)",
                 "inset 0 -3px 6px rgba(0,0,0,0.45)",
@@ -394,7 +391,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(5),
-              color: "rgba(138,154,170,0.45)",
+              color: "rgba(168,153,132,0.45)",
               letterSpacing: "0.12em",
               fontFamily: "'Press Start 2P', monospace",
               userSelect: "none",
@@ -458,7 +455,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(5),
-              color: "rgba(138,154,170,0.45)",
+              color: "rgba(168,153,132,0.45)",
               letterSpacing: "0.12em",
               fontFamily: "'Press Start 2P', monospace",
               userSelect: "none",

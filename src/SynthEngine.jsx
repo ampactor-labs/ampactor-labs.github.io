@@ -1,5 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
+const PATINA = {
+  amber: "#d8a657",
+  charcoal: "#1d2021",
+  dim: "#2a2826",
+  void: "#0f0e0d",
+  umber: "#45403d",
+  muted: "#a89984",
+  comment: "#5a524c",
+  parchment: "#d4be98",
+  coral: "#ea6962",
+  teal: "#7daea3",
+};
+
 const NOTE_MAP = {
   a: 261.63,
   w: 277.18,
@@ -18,7 +31,15 @@ const NOTE_MAP = {
   l: 587.33,
 };
 
-function Knob({ label, value, min, max, step, onChange, color = "#FFB800" }) {
+function Knob({
+  label,
+  value,
+  min,
+  max,
+  step,
+  onChange,
+  color = PATINA.amber,
+}) {
   const pct = (value - min) / (max - min);
   return (
     <div
@@ -34,8 +55,8 @@ function Knob({ label, value, min, max, step, onChange, color = "#FFB800" }) {
           width: 34,
           height: 34,
           borderRadius: "50%",
-          background: `conic-gradient(${color} ${pct * 270}deg, #1a1a2a ${pct * 270}deg)`,
-          border: "2px solid #2a2a3a",
+          background: `conic-gradient(${color} ${pct * 270}deg, ${PATINA.charcoal} ${pct * 270}deg)`,
+          border: `2px solid ${PATINA.umber}`,
           position: "relative",
           boxShadow: `0 0 ${pct * 8}px ${color}33`,
         }}
@@ -45,7 +66,7 @@ function Knob({ label, value, min, max, step, onChange, color = "#FFB800" }) {
             position: "absolute",
             inset: 4,
             borderRadius: "50%",
-            background: "#12121c",
+            background: PATINA.void,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -72,7 +93,9 @@ function Knob({ label, value, min, max, step, onChange, color = "#FFB800" }) {
         onChange={(e) => onChange(parseFloat(e.target.value))}
         style={{ width: 40, height: 3, accentColor: color, opacity: 0.5 }}
       />
-      <div style={{ fontSize: 7, color: "#445", letterSpacing: "0.05em" }}>
+      <div
+        style={{ fontSize: 7, color: PATINA.comment, letterSpacing: "0.05em" }}
+      >
         {label}
       </div>
     </div>
@@ -237,14 +260,14 @@ export default function SynthEngine({ width }) {
           else ctx.lineTo(x, y);
           x += sw;
         }
-        ctx.strokeStyle = "#FFB800";
+        ctx.strokeStyle = PATINA.amber;
         ctx.lineWidth = 1.5;
         ctx.stroke();
       } else {
         ctx.beginPath();
         ctx.moveTo(0, h / 2);
         ctx.lineTo(w, h / 2);
-        ctx.strokeStyle = "rgba(255,200,0,0.2)";
+        ctx.strokeStyle = "rgba(216,166,87,0.2)";
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -299,7 +322,7 @@ export default function SynthEngine({ width }) {
           width,
           height: 70,
           borderRadius: 4,
-          border: "1px solid rgba(255,200,0,0.1)",
+          border: "1px solid rgba(216,166,87,0.1)",
         }}
       />
       <div style={{ display: "flex", gap: 3 }}>
@@ -313,13 +336,13 @@ export default function SynthEngine({ width }) {
             style={{
               background:
                 params.waveform === w
-                  ? "rgba(255,200,0,0.15)"
+                  ? "rgba(216,166,87,0.15)"
                   : "rgba(255,255,255,0.03)",
-              border: `1px solid ${params.waveform === w ? "rgba(255,200,0,0.3)" : "rgba(255,255,255,0.06)"}`,
+              border: `1px solid ${params.waveform === w ? "rgba(216,166,87,0.3)" : "rgba(255,255,255,0.06)"}`,
               borderRadius: 3,
               padding: "4px 7px",
               cursor: "pointer",
-              color: params.waveform === w ? "#FFB800" : "#556",
+              color: params.waveform === w ? PATINA.amber : PATINA.comment,
               fontSize: 8,
               fontFamily: "'JetBrains Mono', monospace",
             }}
@@ -470,9 +493,9 @@ export default function SynthEngine({ width }) {
                 width: keyW,
                 height: 52,
                 background: pressed
-                  ? "rgba(255,200,0,0.3)"
-                  : "linear-gradient(180deg, #2a2a3a, #1a1a2a)",
-                border: `1px solid ${pressed ? "#FFB800" : "#333348"}`,
+                  ? "rgba(216,166,87,0.3)"
+                  : `linear-gradient(180deg, ${PATINA.dim}, ${PATINA.charcoal})`,
+                border: `1px solid ${pressed ? PATINA.amber : PATINA.dim}`,
                 borderRadius: "0 0 4px 4px",
                 display: "flex",
                 flexDirection: "column",
@@ -481,7 +504,7 @@ export default function SynthEngine({ width }) {
                 paddingBottom: 3,
                 cursor: "pointer",
                 boxShadow: pressed
-                  ? "0 0 8px rgba(255,200,0,0.3)"
+                  ? "0 0 8px rgba(216,166,87,0.3)"
                   : "0 2px 4px rgba(0,0,0,0.3)",
                 transition: "all 0.05s ease",
                 touchAction: "none",
@@ -490,7 +513,7 @@ export default function SynthEngine({ width }) {
               <div
                 style={{
                   fontSize: 7,
-                  color: pressed ? "#FFB800" : "#445",
+                  color: pressed ? PATINA.amber : PATINA.comment,
                   fontFamily: "'JetBrains Mono', monospace",
                 }}
               >
@@ -550,8 +573,8 @@ export default function SynthEngine({ width }) {
                 top: 0,
                 width: keyW * 0.6,
                 height: 32,
-                background: pressed ? "rgba(255,200,0,0.4)" : "#111118",
-                border: `1px solid ${pressed ? "#FFB800" : "#222232"}`,
+                background: pressed ? "rgba(216,166,87,0.4)" : PATINA.void,
+                border: `1px solid ${pressed ? PATINA.amber : PATINA.charcoal}`,
                 borderRadius: "0 0 3px 3px",
                 zIndex: 2,
                 cursor: "pointer",
@@ -560,13 +583,18 @@ export default function SynthEngine({ width }) {
                 justifyContent: "center",
                 paddingBottom: 2,
                 boxShadow: pressed
-                  ? "0 0 6px rgba(255,200,0,0.3)"
+                  ? "0 0 6px rgba(216,166,87,0.3)"
                   : "0 2px 4px rgba(0,0,0,0.5)",
                 transition: "all 0.05s ease",
                 touchAction: "none",
               }}
             >
-              <div style={{ fontSize: 6, color: pressed ? "#FFB800" : "#334" }}>
+              <div
+                style={{
+                  fontSize: 6,
+                  color: pressed ? PATINA.amber : PATINA.dim,
+                }}
+              >
                 {k.key.toUpperCase()}
               </div>
             </div>
@@ -577,7 +605,7 @@ export default function SynthEngine({ width }) {
         <div
           style={{
             fontSize: 9,
-            color: "#556",
+            color: PATINA.comment,
             letterSpacing: "0.08em",
             textAlign: "center",
           }}

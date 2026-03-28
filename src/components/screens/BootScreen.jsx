@@ -126,7 +126,7 @@ export default function BootScreen({
         <div
           style={{
             fontSize: fs(7),
-            color: "rgba(184,200,216,0.3)",
+            color: "rgba(212,190,152,0.3)",
             letterSpacing: "0.15em",
             animation: "blink 2s step-end infinite",
             userSelect: "none",
@@ -154,7 +154,7 @@ export default function BootScreen({
           top: 12,
           right: 16,
           fontSize: fs(9),
-          color: "#b8c8d8",
+          color: "var(--color-muted)",
           cursor: "pointer",
           letterSpacing: "0.1em",
           zIndex: 60,
@@ -173,18 +173,18 @@ export default function BootScreen({
                   : line === "ALL SYSTEMS NOMINAL"
                     ? "#00E5FF"
                     : line === "PRESS ANY KEY"
-                      ? "#FFB800"
+                      ? "var(--color-amber)"
                       : line.startsWith("OPERATOR:")
                         ? "#00E5FF"
                         : line.startsWith("CLEARANCE:")
-                          ? "#77ddff"
+                          ? "var(--color-teal)"
                           : line.startsWith("STATUS:")
-                            ? "#FFB800"
+                            ? "var(--color-amber)"
                             : line.includes("CLASSIFIED")
-                            ? "#FFB800"
-                            : line.includes("OK")
-                              ? "#77ddff"
-                              : "#96a8ba",
+                              ? "var(--color-amber)"
+                              : line.includes("OK")
+                                ? "var(--color-teal)"
+                                : "var(--color-muted)",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 line === "PRESS ANY KEY"
@@ -211,7 +211,7 @@ export default function BootScreen({
             textAlign: "center",
             marginTop: 14,
             fontSize: fs(9),
-            color: "#b8c8d8",
+            color: "var(--color-muted)",
             cursor: "pointer",
           }}
           onClick={onSkip}
