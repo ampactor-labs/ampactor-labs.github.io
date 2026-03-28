@@ -125,11 +125,12 @@ export default function BootScreen({
         </svg>
         <div
           style={{
-            fontSize: fs(7),
-            color: "rgba(212,190,152,0.3)",
+            fontSize: fs(9),
+            color: "rgba(212,190,152,0.6)",
             letterSpacing: "0.15em",
             animation: "blink 2s step-end infinite",
             userSelect: "none",
+            cursor: "pointer",
           }}
         >
           [ TAP TO SKIP ]
@@ -153,11 +154,12 @@ export default function BootScreen({
           position: "absolute",
           top: 12,
           right: 16,
-          fontSize: fs(9),
-          color: "var(--color-muted)",
+          fontSize: fs(10),
+          color: "var(--color-amber)",
           cursor: "pointer",
           letterSpacing: "0.1em",
           zIndex: 60,
+          opacity: 0.7,
         }}
       >
         [ SKIP ]

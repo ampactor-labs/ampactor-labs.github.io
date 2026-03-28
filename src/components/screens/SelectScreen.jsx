@@ -51,7 +51,22 @@ export default function SelectScreen({
               marginTop: 3,
             }}
           >
-            MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER
+            MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER{" "}
+            <a
+              href="mailto:ampactorlabs@gmail.com"
+              style={{
+                color: "var(--color-amber)",
+                fontSize: fs(8),
+                letterSpacing: "0.1em",
+                textDecoration: "none",
+                border: "1px solid rgba(255,184,0,0.25)",
+                borderRadius: 3,
+                padding: "1px 6px",
+                marginLeft: 6,
+              }}
+            >
+              AVAILABLE FOR CONTRACT
+            </a>
           </div>
           <div
             style={{
@@ -129,6 +144,19 @@ export default function SelectScreen({
             }}
           >
             {"\u25c8"} GITHUB
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ampactor-labs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#00E5FF",
+              textDecoration: "none",
+              display: "block",
+              fontSize: fs(8),
+            }}
+          >
+            {"\u25c8"} LINKEDIN
           </a>
           {"\u25b2\u25bc"} NAV
           <br />
