@@ -32,6 +32,10 @@ export default [
         AudioContext: "readonly",
         localStorage: "readonly",
         performance: "readonly",
+        // Used by the jsdom test setup (src/test/setup.js)
+        global: "readonly",
+        HTMLCanvasElement: "readonly",
+        Element: "readonly",
       },
     },
     settings: {
