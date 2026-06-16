@@ -54,6 +54,11 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       THE COMPILER BOOTSTRAPS ITSELF
     </span>
     <div
+      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #E0FF0022;"
+    >
+      A programming language that compiles itself — the deepest tier of systems work, built solo from scratch.
+    </div>
+    <div
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
     >
       <div

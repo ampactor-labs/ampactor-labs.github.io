@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { CONTACT, MAILTO } from "../../data/profile";
 
 export default function SelectScreen({
   projects,
@@ -53,7 +54,7 @@ export default function SelectScreen({
           >
             MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER · RUST{" "}
             <a
-              href="mailto:ampactorlabs@gmail.com"
+              href={MAILTO}
               style={{
                 color: "var(--color-amber)",
                 fontSize: fs(8),
@@ -80,37 +81,17 @@ export default function SelectScreen({
             }}
           >
             <a
-              href="mailto:ampactorlabs@gmail.com"
+              href={`mailto:${CONTACT.email}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              ampactorlabs@gmail.com
+              {CONTACT.email}
             </a>
-            {(() => {
-              const _p = [
-                "+",
-                "1",
-                "4",
-                "3",
-                "5",
-                "2",
-                "6",
-                "8",
-                "2",
-                "4",
-                "4",
-                "6",
-              ];
-              const phone = _p.join("");
-              const display = `+1 (${_p.slice(2, 5).join("")}) ${_p.slice(5, 8).join("")}-${_p.slice(8).join("")}`;
-              return (
-                <a
-                  href={`tel:${phone}`}
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  {display}
-                </a>
-              );
-            })()}
+            <a
+              href={`tel:${CONTACT.phoneTel}`}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              {CONTACT.phoneDisplay}
+            </a>
           </div>
           <div
             style={{
@@ -133,7 +114,7 @@ export default function SelectScreen({
           }}
         >
           <a
-            href="https://github.com/ampactor-labs"
+            href={CONTACT.github}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -146,7 +127,7 @@ export default function SelectScreen({
             {"\u25c8"} GITHUB
           </a>
           <a
-            href="https://www.linkedin.com/in/ampactor-labs/"
+            href={CONTACT.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -421,9 +402,9 @@ export default function SelectScreen({
           {"\u00b7"} SECURITY {"\u00b7"} RUST {"\u00b7"} WASM {"\u00b7"}{" "}
           AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor-labs
           {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}SELF-HOSTING COMPILER{" "}
-          {"\u00b7"} 1,369 DSP TESTS {"\u00b7"} DETERMINISTIC NETCODE{" "}
-          {"\u00b7"} TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR
-          CONTRACT {"\u00b7"} ampactorlabs@gmail.com
+          {"\u00b7"} 1,369 DSP TESTS {"\u00b7"} DETERMINISTIC NETCODE {"\u00b7"}{" "}
+          TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR CONTRACT {"\u00b7"}{" "}
+          ampactorlabs@gmail.com
         </div>
       </div>
     </div>

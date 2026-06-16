@@ -161,6 +161,22 @@ export default function DetailScreen({
             {p.tagline}
           </span>
         )}
+        {/* Plain-language outcome — buyer-framed lead line */}
+        {p.outcome && (
+          <div
+            style={{
+              marginBottom: 14,
+              fontSize: fs(13),
+              lineHeight: 1.5,
+              color: p.color,
+              fontWeight: 600,
+              maxWidth: 520,
+              textShadow: `0 0 12px ${p.color}22`,
+            }}
+          >
+            {p.outcome}
+          </div>
+        )}
         {/* Zone A — SYS/READOUT */}
         <div
           style={{

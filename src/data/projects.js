@@ -10,6 +10,8 @@ export const PROJECTS = [
     desc: "A programming language that compiles itself. Full Hindley-Milner type inference with row-polymorphic effect algebra — one mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. L1 bootstrap: the compiler written in Mentl produces bit-identical WASM output across generations. Graph-native IR, not AST-walking.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
     tagline: "THE COMPILER BOOTSTRAPS ITSELF",
+    outcome:
+      "A programming language that compiles itself — the deepest tier of systems work, built solo from scratch.",
     highlights: [
       "BIT-IDENTICAL L1 BOOTSTRAP",
       "FULL EFFECT ALGEBRA (+, -, !, Pure)",
@@ -35,6 +37,8 @@ export const PROJECTS = [
     desc: "Three-layer DSP kernel architecture in Rust. Identical code runs on desktop CLAP plugins, CLI tools, and bare-metal ARM (Daisy Seed STM32H750 Cortex-M7 @ 480 MHz). DAG-based audio routing with buffer liveness analysis. Every kernel is zero-heap, zero-trait-dispatch, no_std-native.",
     tags: ["dsp", "clap", "embedded", "no_std"],
     tagline: "DESKTOP AND BARE METAL. SAME CODE.",
+    outcome:
+      "Write audio code once; run it unchanged on a desktop plugin and a $20 microcontroller.",
     highlights: [
       "1,369 TESTS",
       "14 CRATES (6 no_std)",
@@ -60,6 +64,8 @@ export const PROJECTS = [
     desc: "1v1 mobile rollback brawler with provably deterministic cross-platform simulation. Fixed-point math, replay codec with frame-accurate scrub, 18-phase build plan with explicit exit criteria. bevy_ggrs + Matchbox WebRTC. Portrait orientation, iOS/Android/web (PWA).",
     tags: ["netcode", "determinism", "ecs", "mobile"],
     tagline: "DETERMINISTIC ACROSS PLATFORMS",
+    outcome:
+      "Online multiplayer that stays perfectly in sync across phones — the hardest problem in real-time games.",
     highlights: [
       "275 TESTS",
       "ROLLBACK NETCODE (bevy_ggrs)",
@@ -85,6 +91,8 @@ export const PROJECTS = [
     desc: "Original neural network architecture from scratch in Rust. 1.58-bit ternary weights, no floating-point matrix multiplication, O(1) memory inference. Trains and infers on laptop CPUs without GPU. Complete train → export → deploy pipeline. SIMD-accelerated (AVX2).",
     tags: ["ml", "ternary", "simd", "no-gpu"],
     tagline: "NO GPU. NO MATMUL. PURE RUST.",
+    outcome:
+      "Neural-network inference on a plain laptop CPU — no GPU, and constant memory no matter how long the input.",
     highlights: [
       "1.58-BIT TERNARY WEIGHTS",
       "NO MATRIX MULTIPLICATION",
@@ -110,6 +118,7 @@ export const PROJECTS = [
     desc: "Pure Rust sort library for all 10 primitive numeric types. AVX2 sorting networks for small arrays, LSD radix sort for large — adaptive dispatch with runtime CPUID detection. 3.1x faster than std at 1M elements. Zero unsafe trait implementations, no FFI, no nightly. Full no_std support.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
+    outcome: "Sorting that's 3.1× faster than the Rust standard library's own.",
     highlights: [
       "3.1x FASTER (1M ELEMENTS)",
       "AVX2 SORTING NETWORKS",
@@ -133,6 +142,8 @@ export const PROJECTS = [
     desc: "Deterministic on-chain token safety analysis — 9 checks, no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments. Scry wraps it in a deployed web UI + Telegram bot at scry.app. Free MCP tool for Claude Code.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "LIVE. DEPLOYED. PAYING.",
+    outcome:
+      "A live product that charges real money to tell you whether a crypto token is a scam — shipped and earning.",
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
@@ -158,6 +169,8 @@ export const PROJECTS = [
     desc: "Rust-native reimplementation of Claude Code's agentic tool loop. Full state machine, security policy engine, session persistence. Mechanical control over model selection, approval dialogs, and guard logic. Six crates. One binary.",
     tags: ["llm", "cli", "tool-use", "agentic"],
     tagline: "THE LOOP REMEMBERS",
+    outcome:
+      "A from-scratch rebuild of an AI coding agent, with security and control built in.",
     highlights: [
       "6-CRATE WORKSPACE",
       "CAPABILITY-BASED SECURITY",
@@ -167,6 +180,31 @@ export const PROJECTS = [
       "MODEL-PER-MODE GUARD",
     ],
     stack: ["Rust", "ratatui", "rmcp", "tokio"],
+    status: "active",
+    category: "tooling",
+  },
+  {
+    id: "browsore",
+    title: "BROWSORE",
+    subtitle: "BROWSER AUTOMATION MCP",
+    lang: "TypeScript",
+    color: "#aa66ff",
+    icon: "⦾",
+    github: "https://github.com/ampactor-labs/browsore",
+    desc: "Politeness-first browser automation. Robots.txt compliance, per-domain rate limiting, exponential backoff — then 40 MCP tools for AI agents to navigate, extract, and automate. Standalone CLI, programmatic API, and autonomous agent loop.",
+    tags: ["mcp", "browser", "automation", "ai-agents"],
+    tagline: "IT ASKS BEFORE IT ENTERS",
+    outcome:
+      "Lets AI agents browse the web safely and politely — 40 tools, and it respects every site's rules.",
+    highlights: [
+      "40 MCP TOOLS",
+      "ROBOTS.TXT (RFC 9309)",
+      "30+ COOKIE CMPs",
+      "HUMAN-LIKE INPUT",
+      "SESSION PERSISTENCE",
+      "PROMPT INJECTION DETECTION",
+    ],
+    stack: ["TypeScript", "Playwright", "MCP/stdio"],
     status: "active",
     category: "tooling",
   },
@@ -181,6 +219,8 @@ export const PROJECTS = [
     desc: "Automated Solana token trading engine. Discovers trending tokens, filters through a 4-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), executes via Jupiter with graduated take-profit exits and on-chain trailing stop-loss. Paper mode default.",
     tags: ["solana", "trading", "defi", "algorithms"],
     tagline: "PAPER UNTIL PROVEN",
+    outcome:
+      "An automated crypto trading engine with a four-layer safety gate before any real money moves.",
     highlights: [
       "13-CRATE WORKSPACE",
       "4-LAYER SAFETY GATE",
