@@ -44,7 +44,9 @@ describe("SelectScreen", () => {
   });
 
   it("highlights selected project", () => {
-    const { getAllByRole } = render(<SelectScreen {...baseProps} selectedIdx={1} />);
+    const { getAllByRole } = render(
+      <SelectScreen {...baseProps} selectedIdx={1} />,
+    );
     const options = getAllByRole("option");
     expect(options[1]).toHaveAttribute("aria-selected", "true");
     expect(options[0]).toHaveAttribute("aria-selected", "false");

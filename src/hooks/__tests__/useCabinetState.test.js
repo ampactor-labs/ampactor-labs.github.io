@@ -30,7 +30,9 @@ describe("useCabinetState", () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    screenRef = makeRef({ getBoundingClientRect: () => ({ width: 400, height: 600 }) });
+    screenRef = makeRef({
+      getBoundingClientRect: () => ({ width: 400, height: 600 }),
+    });
     tunnelRef = makeRef();
     logoRef = makeRef();
     consoleRef = makeRef({ style: {} });
@@ -80,7 +82,9 @@ describe("useCabinetState", () => {
       result.current.insertCoin();
     });
     expect(result.current.coinCount).toBe(3);
-    expect(result.current.allProjects.length).toBe(PROJECTS.length + HIDDEN_PROJECTS.length);
+    expect(result.current.allProjects.length).toBe(
+      PROJECTS.length + HIDDEN_PROJECTS.length,
+    );
   });
 
   it("openProject changes screen to detail for regular projects", () => {

@@ -1,7 +1,12 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 
-export default function useIntroSequence(logoRef, tunnelRef, consoleRef, skipOnMount = false) {
+export default function useIntroSequence(
+  logoRef,
+  tunnelRef,
+  consoleRef,
+  skipOnMount = false,
+) {
   const [introComplete, setIntroComplete] = useState(skipOnMount);
   const tlRef = useRef(null);
 

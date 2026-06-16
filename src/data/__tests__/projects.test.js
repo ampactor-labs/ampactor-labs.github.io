@@ -1,7 +1,17 @@
 import { describe, it, expect } from "vitest";
 import { PROJECTS, HIDDEN_PROJECTS } from "../projects";
 
-const REQUIRED_FIELDS = ["id", "title", "subtitle", "lang", "desc", "stack", "color", "icon", "tags"];
+const REQUIRED_FIELDS = [
+  "id",
+  "title",
+  "subtitle",
+  "lang",
+  "desc",
+  "stack",
+  "color",
+  "icon",
+  "tags",
+];
 
 describe("PROJECTS", () => {
   it("has at least one project", () => {
@@ -10,7 +20,9 @@ describe("PROJECTS", () => {
 
   it.each(PROJECTS)("$title has all required fields", (project) => {
     for (const field of REQUIRED_FIELDS) {
-      expect(project, `${project.id} missing field: ${field}`).toHaveProperty(field);
+      expect(project, `${project.id} missing field: ${field}`).toHaveProperty(
+        field,
+      );
     }
   });
 
