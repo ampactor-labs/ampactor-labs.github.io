@@ -51,7 +51,7 @@ export default function SelectScreen({
               marginTop: 3,
             }}
           >
-            MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER{" "}
+            MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER · RUST{" "}
             <a
               href="mailto:ampactorlabs@gmail.com"
               style={{
@@ -417,13 +417,13 @@ export default function SelectScreen({
             animation: "marquee 90s linear infinite",
           }}
         >
-          MORGAN ESPITIA {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST{" "}
-          {"\u00b7"} REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"}{" "}
+          MORGAN ESPITIA {"\u00b7"} COMPILER {"\u00b7"} DSP {"\u00b7"} EMBEDDED{" "}
+          {"\u00b7"} SECURITY {"\u00b7"} RUST {"\u00b7"} WASM {"\u00b7"}{" "}
           AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor-labs
-          {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}MORGAN ESPITIA{" "}
-          {"\u00b7"} FULL-STACK + DSP + EMBEDDED {"\u00b7"} RUST {"\u00b7"}{" "}
-          REACT {"\u00b7"} TYPESCRIPT {"\u00b7"} SOLANA {"\u00b7"} AVAILABLE FOR
-          CONTRACT {"\u00b7"} github.com/ampactor-labs
+          {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}SELF-HOSTING COMPILER{" "}
+          {"\u00b7"} 1,369 DSP TESTS {"\u00b7"} DETERMINISTIC NETCODE{" "}
+          {"\u00b7"} TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR
+          CONTRACT {"\u00b7"} ampactorlabs@gmail.com
         </div>
       </div>
     </div>

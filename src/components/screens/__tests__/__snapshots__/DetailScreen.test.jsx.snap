@@ -27,16 +27,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-family: "Press Start 2P", monospace; font-size: 12px; color: rgb(224, 255, 0); text-shadow: 0 0 10px #E0FF0044; letter-spacing: 0.05em;"
       >
-        LUX
+        MENTL
       </div>
       <div
         style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
       >
-        EFFECT-ALGEBRAIC LANGUAGE
+        SELF-HOSTING COMPILER
       </div>
     </div>
     <a
-      href="https://github.com/ampactor-labs/lux"
+      href="https://github.com/ampactor-labs/mentl"
       rel="noopener noreferrer"
       style="font-size: 10px; color: var(--fg); letter-spacing: 0.08em; text-decoration: none; margin-left: auto; flex-shrink: 0;"
       target="_blank"
@@ -51,7 +51,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     <span
       style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
     >
-      THE COMPILER TEACHES
+      THE COMPILER BOOTSTRAPS ITSELF
     </span>
     <div
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
@@ -76,7 +76,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        Zero-annotation language — write code, the compiler infers types, effects, purity, and allocation behavior, then teaches you what it found. One mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. Effect algebra (!Alloc, Pure, subtraction) proves real-time safety that Rust can't express. Self-hosted: the compiler is written in Lux.
+        A programming language that compiles itself. Full Hindley-Milner type inference with row-polymorphic effect algebra — one mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. L1 bootstrap: the compiler written in Mentl produces bit-identical WASM output across generations. Graph-native IR, not AST-walking.
       </div>
     </div>
     <div
@@ -105,6 +105,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
+          BIT-IDENTICAL L1 BOOTSTRAP
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
           FULL EFFECT ALGEBRA (+, -, !, Pure)
         </div>
         <div
@@ -115,7 +125,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          SELF-HOSTED COMPILER
+          SELF-HOSTED: MENTL COMPILES MENTL
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -125,7 +135,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          --teach MODE (annotation gradient)
+          GRAPH-NATIVE IR (NOT AST-WALKING)
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -135,7 +145,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          !Alloc REAL-TIME PROOFS
+          ROW-POLYMORPHIC TYPE SYSTEM
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -145,17 +155,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          TESTING = HANDLER SWAP
-        </div>
-        <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
-        >
-          <span
-            style="color: rgba(224, 255, 0, 0.533);"
-          >
-            &gt;&gt; 
-          </span>
-          AUTODIFF VIA EFFECTS (XOR trains)
+          WASM CODEGEN + MEMORY ARENAS
         </div>
       </div>
       <div
@@ -184,7 +184,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           <span
             style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            bytecode VM
+            WASM
           </span>
           <span
             style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
@@ -217,7 +217,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        Self-hosting: the language compiles itself. One mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. Written from scratch.
+        The compiler compiles itself to bit-identical output across generations. Architecture doc, conventions doc, and phased build plan written before the first line of code. One mechanism (handle/resume) replaces five language features.
       </div>
     </div>
     <div
@@ -241,11 +241,6 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         <span
           style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
-          language
-        </span>
-        <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
-        >
           compiler
         </span>
         <span
@@ -257,6 +252,11 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
           self-hosting
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          wasm
         </span>
       </div>
     </div>
@@ -270,7 +270,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
        BACK ]
     </span>
     <span>
-      ampactor-labs/lux
+      ampactor-labs/mentl
     </span>
   </div>
 </div>
