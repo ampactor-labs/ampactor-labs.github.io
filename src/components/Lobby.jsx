@@ -132,11 +132,15 @@ export default function Lobby({ onEnter }) {
     <div
       className="lobby"
       style={{
-        minHeight: "100dvh",
+        height: "100dvh",
         width: "100%",
         overflowY: "auto",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        // 'safe center' keeps short content vertically centered but anchors to
+        // the top (instead of clipping) once content exceeds the viewport.
+        justifyContent: "safe center",
         padding: "clamp(20px, 5vw, 56px) clamp(20px, 5vw, 48px)",
       }}
     >
@@ -147,7 +151,8 @@ export default function Lobby({ onEnter }) {
         style={{
           maxWidth: 780,
           width: "100%",
-          margin: "auto",
+          margin: 0,
+          flexShrink: 0,
           position: "relative",
           zIndex: 3,
           display: "flex",
