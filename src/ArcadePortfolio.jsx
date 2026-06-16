@@ -10,7 +10,7 @@ import DetailScreen from "./components/screens/DetailScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
 
-export default function ArcadePortfolio() {
+export default function ArcadePortfolio({ onExitToLobby }) {
   const screenRef = useRef(null);
   const tunnelRef = useRef(null);
   const logoRef = useRef(null);
@@ -61,6 +61,33 @@ export default function ArcadePortfolio() {
       <CrtSvgDefs />
       <style>{crtStyles}</style>
       <TunnelCanvas ref={tunnelRef} />
+      {/* Return to the lobby — hidden during the fullscreen game */}
+      {onExitToLobby && screen !== "game" && (
+        <button
+          type="button"
+          onClick={onExitToLobby}
+          aria-label="Back to home"
+          style={{
+            position: "absolute",
+            top: 16,
+            left: 16,
+            zIndex: 6,
+            appearance: "none",
+            background: "rgba(15,14,13,0.6)",
+            border: "1px solid rgba(0,229,255,0.25)",
+            borderRadius: 6,
+            color: "#00E5FF",
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: 11,
+            letterSpacing: "0.1em",
+            padding: "6px 10px",
+            cursor: "pointer",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          {"‹"} LOBBY
+        </button>
+      )}
       {/* A-mark logo — intro entry point, then ambient background */}
       <div
         ref={logoRef}
