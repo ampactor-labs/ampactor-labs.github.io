@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PROJECTS } from "../data/projects";
 import {
   CONTACT,
@@ -13,13 +14,11 @@ import {
 // — CRT teal, patina palette, mono fonts — but calmer. A buyer can read everything
 // they need and make contact here without ever entering the cabinet.
 
-const TEAL = "#00E5FF";
-
 const lobbyStyles = `
   .lobby { color: var(--fg); font-family: var(--font-body); }
   .lobby ::selection { background: var(--color-umber); color: var(--fg); }
   .lobby-link { color: var(--color-muted); text-decoration: none; transition: color 0.15s ease; }
-  .lobby-link:hover { color: ${TEAL}; }
+  .lobby-link:hover { color: var(--color-cyan); }
   .lobby-cta {
     text-decoration: none;
     transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
@@ -27,14 +26,14 @@ const lobbyStyles = `
   .lobby-cta:hover { background: rgba(0,229,255,0.14); box-shadow: 0 0 24px rgba(0,229,255,0.25); transform: translateY(-1px); }
   .lobby-cta:active { transform: translateY(0); }
   .lobby-ghost { text-decoration: none; transition: color 0.15s ease, border-color 0.15s ease; }
-  .lobby-ghost:hover { color: var(--fg); border-color: rgba(212,190,152,0.4); }
+  .lobby-ghost:hover { color: var(--fg); border-color: var(--hairline-strong); }
   .lobby-card { text-decoration: none; transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease; }
   .lobby-card:hover { transform: translateY(-3px); }
   .lobby-explore { transition: background 0.18s ease, box-shadow 0.18s ease, letter-spacing 0.2s ease; cursor: pointer; }
   .lobby-explore:hover { background: rgba(0,229,255,0.06); box-shadow: inset 0 0 30px rgba(0,229,255,0.06); letter-spacing: 0.24em; }
   .lobby-scan {
-    position: fixed; inset: 0; pointer-events: none; z-index: 2; opacity: 0.4;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px);
+    position: fixed; inset: 0; pointer-events: none; z-index: 2; opacity: 0.2;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scanline) 2px, var(--scanline) 3px);
   }
   @media (prefers-reduced-motion: reduce) {
     .lobby *, .lobby-explore { transition: none !important; animation: none !important; }
@@ -48,14 +47,17 @@ function AMark({ size = 34 }) {
       width={size}
       height={size}
       aria-hidden="true"
-      style={{ filter: "drop-shadow(0 0 8px rgba(0,229,255,0.4))" }}
+      style={{
+        color: "var(--color-cyan)",
+        filter: "drop-shadow(0 0 8px rgba(0,229,255,0.4))",
+      }}
     >
       <line
         x1="108"
         y1="408"
         x2="256"
         y2="104"
-        stroke={TEAL}
+        stroke="currentColor"
         strokeWidth="36"
         strokeLinecap="round"
       />
@@ -64,13 +66,13 @@ function AMark({ size = 34 }) {
         y1="408"
         x2="256"
         y2="104"
-        stroke={TEAL}
+        stroke="currentColor"
         strokeWidth="36"
         strokeLinecap="round"
       />
       <path
         d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
-        stroke={TEAL}
+        stroke="currentColor"
         strokeWidth="20"
         strokeLinecap="round"
         fill="none"
@@ -80,7 +82,7 @@ function AMark({ size = 34 }) {
         y1="408"
         x2="140"
         y2="408"
-        stroke={TEAL}
+        stroke="currentColor"
         strokeWidth="36"
         strokeLinecap="round"
       />
@@ -89,7 +91,7 @@ function AMark({ size = 34 }) {
         y1="408"
         x2="436"
         y2="408"
-        stroke={TEAL}
+        stroke="currentColor"
         strokeWidth="36"
         strokeLinecap="round"
       />
@@ -112,14 +114,72 @@ function SectionLabel({ children }) {
           fontFamily: "var(--font-arcade)",
           fontSize: 8,
           letterSpacing: "0.3em",
-          color: "rgba(0,229,255,0.45)",
+          color: "var(--color-muted)",
           whiteSpace: "nowrap",
         }}
       >
         {children}
       </span>
-      <div style={{ flex: 1, height: 1, background: "rgba(0,229,255,0.12)" }} />
+      <div style={{ flex: 1, height: 1, background: "var(--hairline)" }} />
     </div>
+  );
+}
+
+// Live-product proof shot. Renders only when the flagship's `live` URL is set AND
+// public/scry-preview.png loads — so it never shows a broken link or a missing image.
+// While the product is offline (live: null) the whole panel is absent.
+const PRODUCT_SHOT = "/scry-preview.png";
+
+function ProductPreview({ liveUrl }) {
+  const [loaded, setLoaded] = useState(false);
+  if (!liveUrl) return null;
+  const host = liveUrl.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  return (
+    <section style={{ display: loaded ? "block" : "none" }}>
+      <SectionLabel>SEE IT LIVE</SectionLabel>
+      <a
+        className="lobby-card"
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: "block",
+          borderRadius: 10,
+          overflow: "hidden",
+          border: "1px solid rgba(0,229,255,0.22)",
+          boxShadow: "0 0 30px rgba(0,229,255,0.08)",
+          textDecoration: "none",
+        }}
+      >
+        <img
+          src={PRODUCT_SHOT}
+          alt="Scry — Solana token-safety scanner, live scan result"
+          onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(false)}
+          style={{ display: "block", width: "100%", height: "auto" }}
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 8,
+            padding: "10px 14px",
+            fontSize: 12,
+            letterSpacing: "0.04em",
+            color: "var(--color-muted)",
+            borderTop: "1px solid var(--hairline)",
+          }}
+        >
+          <span>
+            Scry — live Solana token-safety scanner, taking real payments
+          </span>
+          <span style={{ color: "var(--color-cyan)", whiteSpace: "nowrap" }}>
+            {host} →
+          </span>
+        </div>
+      </a>
+    </section>
   );
 }
 
@@ -127,6 +187,8 @@ export default function Lobby({ onEnter }) {
   const flagships = FLAGSHIP_IDS.map((id) =>
     PROJECTS.find((p) => p.id === id),
   ).filter(Boolean);
+  // Single switch: the SEE IT LIVE panel follows the flagship's `live` URL.
+  const scryLive = flagships.find((p) => p.id === "tokensafe")?.live ?? null;
 
   return (
     <div
@@ -177,7 +239,7 @@ export default function Lobby({ onEnter }) {
                 fontFamily: "var(--font-arcade)",
                 fontSize: 11,
                 letterSpacing: "0.2em",
-                color: TEAL,
+                color: "var(--color-cyan)",
                 textShadow: "0 0 12px rgba(0,229,255,0.4)",
               }}
             >
@@ -238,20 +300,20 @@ export default function Lobby({ onEnter }) {
               lineHeight: 1.05,
               fontWeight: 400,
               letterSpacing: "0.01em",
-              color: "#efe4cc",
+              color: "var(--fg-bright)",
               margin: 0,
             }}
           >
-            I build the{" "}
+            Low-level{" "}
             <span
               style={{
-                color: TEAL,
+                color: "var(--color-cyan)",
                 textShadow: "0 0 20px rgba(0,229,255,0.45)",
               }}
             >
-              hard layer
+              Rust
             </span>
-            .
+            . Full-stack web.
           </h1>
           <p
             style={{
@@ -298,7 +360,7 @@ export default function Lobby({ onEnter }) {
                 fontFamily: "var(--font-display)",
                 fontSize: 15,
                 letterSpacing: "0.06em",
-                color: TEAL,
+                color: "var(--color-cyan)",
                 padding: "13px 24px",
                 borderRadius: 6,
                 background: "rgba(0,229,255,0.07)",
@@ -320,7 +382,7 @@ export default function Lobby({ onEnter }) {
                   color: "var(--color-muted)",
                   padding: "12px 18px",
                   borderRadius: 6,
-                  border: "1px solid rgba(212,190,152,0.2)",
+                  border: "1px solid var(--hairline)",
                 }}
               >
                 Book a call
@@ -335,7 +397,7 @@ export default function Lobby({ onEnter }) {
                 color: "var(--color-muted)",
                 padding: "12px 18px",
                 borderRadius: 6,
-                border: "1px solid rgba(212,190,152,0.2)",
+                border: "1px solid var(--hairline)",
               }}
             >
               Résumé
@@ -360,7 +422,7 @@ export default function Lobby({ onEnter }) {
               >
                 <span
                   style={{
-                    color: TEAL,
+                    color: "var(--color-muted)",
                     fontSize: 15,
                     lineHeight: 1.5,
                     flexShrink: 0,
@@ -378,19 +440,21 @@ export default function Lobby({ onEnter }) {
           </div>
         </section>
 
+        <ProductPreview liveUrl={scryLive} />
+
         {/* What I take on */}
         <section>
           <SectionLabel>WHAT I TAKE ON</SectionLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
-              <span style={{ color: TEAL, fontWeight: 600 }}>
-                The hard stuff:{" "}
+              <span style={{ color: "var(--color-cyan)", fontWeight: 600 }}>
+                Hard systems —{" "}
               </span>
               <span style={{ color: "var(--fg)" }}>{TAKE_ON.hard}</span>
             </p>
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
               <span style={{ color: "var(--color-amber)", fontWeight: 600 }}>
-                The everyday stuff, done right:{" "}
+                Everyday delivery —{" "}
               </span>
               <span style={{ color: "var(--fg)" }}>{TAKE_ON.everyday}</span>
             </p>
@@ -418,79 +482,90 @@ export default function Lobby({ onEnter }) {
               gap: 16,
             }}
           >
-            {flagships.map((p) => (
-              <a
-                key={p.id}
-                className="lobby-card"
-                href={p.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  padding: 18,
-                  borderRadius: 8,
-                  background: `${p.color}08`,
-                  border: `1px solid ${p.color}26`,
-                  borderTop: `2px solid ${p.color}`,
-                  boxShadow: `0 0 0 rgba(0,0,0,0)`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 30px ${p.color}22`;
-                  e.currentTarget.style.borderColor = `${p.color}66`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
-                  e.currentTarget.style.borderColor = `${p.color}26`;
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ color: p.color, fontSize: 18 }}>{p.icon}</span>
-                  <span
+            {flagships.map((p) => {
+              // Mute each project's neon identity toward the warm patina so the three
+              // cards harmonize instead of clashing (magenta / acid-green / cyan).
+              const accent = `color-mix(in srgb, ${p.color} 55%, var(--color-muted))`;
+              const href = p.live || p.github;
+              const cta = p.live ? "Try it live →" : "View source →";
+              return (
+                <a
+                  key={p.id}
+                  className="lobby-card"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                    padding: 18,
+                    borderRadius: 8,
+                    background: `${p.color}08`,
+                    border: `1px solid ${p.color}26`,
+                    borderTop: `2px solid ${accent}`,
+                    boxShadow: `0 0 0 rgba(0,0,0,0)`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 8px 30px ${p.color}22`;
+                    e.currentTarget.style.borderColor = `${p.color}66`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
+                    e.currentTarget.style.borderColor = `${p.color}26`;
+                  }}
+                >
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 10 }}
+                  >
+                    <span style={{ color: accent, fontSize: 18 }}>
+                      {p.icon}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: 16,
+                        color: accent,
+                        letterSpacing: "0.02em",
+                      }}
+                    >
+                      {p.title}
+                    </span>
+                  </div>
+                  <div
                     style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 16,
-                      color: p.color,
-                      letterSpacing: "0.02em",
+                      fontSize: 9,
+                      fontFamily: "var(--font-arcade)",
+                      letterSpacing: "0.12em",
+                      color: "var(--color-muted)",
                     }}
                   >
-                    {p.title}
+                    {p.subtitle}
+                  </div>
+                  <p
+                    style={{
+                      margin: "2px 0 0",
+                      fontSize: 13,
+                      lineHeight: 1.5,
+                      color: "var(--fg)",
+                    }}
+                  >
+                    {p.outcome}
+                  </p>
+                  <span
+                    style={{
+                      marginTop: "auto",
+                      paddingTop: 8,
+                      fontSize: 12,
+                      color: accent,
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    {cta}
                   </span>
-                </div>
-                <div
-                  style={{
-                    fontSize: 9,
-                    fontFamily: "var(--font-arcade)",
-                    letterSpacing: "0.12em",
-                    color: "var(--color-muted)",
-                  }}
-                >
-                  {p.subtitle}
-                </div>
-                <p
-                  style={{
-                    margin: "2px 0 0",
-                    fontSize: 13,
-                    lineHeight: 1.5,
-                    color: "var(--fg)",
-                  }}
-                >
-                  {p.outcome}
-                </p>
-                <span
-                  style={{
-                    marginTop: "auto",
-                    paddingTop: 8,
-                    fontSize: 12,
-                    color: `${p.color}cc`,
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  View source →
-                </span>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </section>
 
@@ -506,7 +581,7 @@ export default function Lobby({ onEnter }) {
             borderRadius: 10,
             border: "1px solid rgba(0,229,255,0.22)",
             background: "rgba(0,229,255,0.02)",
-            color: TEAL,
+            color: "var(--color-cyan)",
             fontFamily: "var(--font-display)",
             fontSize: 15,
             letterSpacing: "0.18em",
@@ -538,7 +613,7 @@ export default function Lobby({ onEnter }) {
             fontSize: 11,
             letterSpacing: "0.06em",
             color: "var(--color-comment)",
-            borderTop: "1px solid rgba(212,190,152,0.08)",
+            borderTop: "1px solid var(--hairline-faint)",
             paddingTop: 18,
           }}
         >

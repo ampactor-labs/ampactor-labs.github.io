@@ -27,7 +27,7 @@ describe("App", () => {
 
   it("shows the lobby by default, not the cabinet", () => {
     const { getByText, queryByLabelText } = render(<App />);
-    expect(getByText(/hard layer/i)).toBeTruthy();
+    expect(getByText("Rust")).toBeTruthy();
     expect(queryByLabelText("Back to home")).toBeNull();
   });
 
@@ -43,7 +43,7 @@ describe("App", () => {
     );
     fireEvent.click(getByRole("button", { name: /explore the full arcade/i }));
     fireEvent.click(getByLabelText("Back to home"));
-    expect(getByText(/hard layer/i)).toBeTruthy();
+    expect(getByText("Rust")).toBeTruthy();
     expect(queryByLabelText("Back to home")).toBeNull();
   });
 });

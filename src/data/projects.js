@@ -10,8 +10,7 @@ export const PROJECTS = [
     desc: "A programming language that compiles itself. Full Hindley-Milner type inference with row-polymorphic effect algebra — one mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. L1 bootstrap: the compiler written in Mentl produces bit-identical WASM output across generations. Graph-native IR, not AST-walking.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
     tagline: "THE COMPILER BOOTSTRAPS ITSELF",
-    outcome:
-      "A programming language that compiles itself — the deepest tier of systems work, built solo from scratch.",
+    outcome: "A programming language that compiles itself.",
     highlights: [
       "BIT-IDENTICAL L1 BOOTSTRAP",
       "FULL EFFECT ALGEBRA (+, -, !, Pure)",
@@ -65,7 +64,7 @@ export const PROJECTS = [
     tags: ["netcode", "determinism", "ecs", "mobile"],
     tagline: "DETERMINISTIC ACROSS PLATFORMS",
     outcome:
-      "Online multiplayer that stays perfectly in sync across phones — the hardest problem in real-time games.",
+      "Online multiplayer that stays perfectly in sync across phones — deterministic rollback netcode.",
     highlights: [
       "275 TESTS",
       "ROLLBACK NETCODE (bevy_ggrs)",
@@ -88,7 +87,7 @@ export const PROJECTS = [
     color: "#d946ef",
     icon: "\u26a1",
     github: "https://github.com/ampactor-labs/tmr",
-    desc: "Original neural network architecture from scratch in Rust. 1.58-bit ternary weights, no floating-point matrix multiplication, O(1) memory inference. Trains and infers on laptop CPUs without GPU. Complete train → export → deploy pipeline. SIMD-accelerated (AVX2).",
+    desc: "Original neural network architecture in Rust. 1.58-bit ternary weights, no floating-point matrix multiplication, O(1) memory inference. Trains and infers on laptop CPUs without GPU. Complete train → export → deploy pipeline. SIMD-accelerated (AVX2).",
     tags: ["ml", "ternary", "simd", "no-gpu"],
     tagline: "NO GPU. NO MATMUL. PURE RUST.",
     outcome:
@@ -118,7 +117,7 @@ export const PROJECTS = [
     desc: "Pure Rust sort library for all 10 primitive numeric types. AVX2 sorting networks for small arrays, LSD radix sort for large — adaptive dispatch with runtime CPUID detection. 3.1x faster than std at 1M elements. Zero unsafe trait implementations, no FFI, no nightly. Full no_std support.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
-    outcome: "Sorting that's 3.1× faster than the Rust standard library's own.",
+    outcome: "Sorting that's 3.1× faster than the Rust standard library.",
     highlights: [
       "3.1x FASTER (1M ELEMENTS)",
       "AVX2 SORTING NETWORKS",
@@ -139,11 +138,14 @@ export const PROJECTS = [
     color: "#ff44aa",
     icon: "\u25c8",
     github: "https://github.com/ampactor-labs/tokensafe",
-    desc: "Deterministic on-chain token safety analysis — 9 checks, no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments. Scry wraps it in a deployed web UI + Telegram bot at scry.app. Free MCP tool for Claude Code.",
+    // SCRY OFFLINE until ~2026-06-18 (Firebase custom-domain cert unprovisioned; Railway deploy down).
+    // Flip this back to "https://scry.app" to re-light "Try it live →" + the SEE IT LIVE panel together.
+    live: null,
+    desc: "Deterministic on-chain token safety analysis — 9 checks, no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments. Scry wraps it in a web UI + Telegram bot. Free MCP tool for Claude Code.",
     tags: ["solana", "security", "deployed", "x402"],
-    tagline: "LIVE. DEPLOYED. PAYING.",
+    tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
-      "A live product that charges real money to tell you whether a crypto token is a scam — shipped and earning.",
+      "A security product that charges real money to tell you whether a crypto token is a scam — shipped to production.",
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
@@ -156,7 +158,7 @@ export const PROJECTS = [
     status: "deployed",
     category: "security",
     operatorNote:
-      "Live. Deployed. Real users. API (TokenSafe) + web frontend + Telegram bot (Scry). $0.008/request via x402 micropayments — payment is authentication. No signup, no API key.",
+      "Shipped to production. API (TokenSafe) + web frontend + Telegram bot (Scry). $0.008/request via x402 micropayments — payment is authentication. No signup, no API key.",
   },
   {
     id: "forge",
@@ -170,7 +172,7 @@ export const PROJECTS = [
     tags: ["llm", "cli", "tool-use", "agentic"],
     tagline: "THE LOOP REMEMBERS",
     outcome:
-      "A from-scratch rebuild of an AI coding agent, with security and control built in.",
+      "An AI coding agent rebuilt in Rust, with a capability-based security policy.",
     highlights: [
       "6-CRATE WORKSPACE",
       "CAPABILITY-BASED SECURITY",
@@ -195,7 +197,7 @@ export const PROJECTS = [
     tags: ["mcp", "browser", "automation", "ai-agents"],
     tagline: "IT ASKS BEFORE IT ENTERS",
     outcome:
-      "Lets AI agents browse the web safely and politely — 40 tools, and it respects every site's rules.",
+      "Lets AI agents drive a browser — 40 tools, with robots.txt compliance and rate-limiting built in.",
     highlights: [
       "40 MCP TOOLS",
       "ROBOTS.TXT (RFC 9309)",

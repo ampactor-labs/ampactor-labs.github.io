@@ -42,17 +42,17 @@ export const MAILTO = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
 )}`;
 
 export const POSITIONING = {
-  headline: "I build the hard layer.",
+  headline: "Low-level Rust. Full-stack web.",
   subhead:
-    "Compilers, real-time DSP, deterministic netcode, and from-scratch ML — in Rust. And the full-stack web, APIs, and dashboards that keep the lights on.",
+    "Compilers, real-time DSP, deterministic netcode, from-scratch ML — in Rust. Plus everyday APIs, dashboards, and integrations — PHP and TypeScript.",
   status: "Available now — contract, full-time, or fractional",
 };
 
-// Proof strip — strongest contract proof first (a live, paying product).
+// Proof strip — strongest contract proof first (a shipped, paying product).
 export const PROOF = [
   {
     icon: "◈",
-    text: "A live security product taking real payments in production",
+    text: "A Solana security product, shipped to production with real on-chain payments",
   },
   {
     icon: "☀",
@@ -73,7 +73,7 @@ export const TAKE_ON = {
   hard: "Real-time audio & DSP, embedded / bare-metal, compilers & DSLs, performance-critical Rust, on-chain security, AI-agent tooling.",
   everyday:
     "Full-stack web apps, REST/GraphQL APIs, dashboards, integrations, backend services — PHP / TypeScript / Rust. Years of production experience.",
-  note: "Same rigor either way. Spec → shipped. Remote — Salt Lake City, UT.",
+  note: "No throwaway code. Remote — Salt Lake City, UT.",
 };
 
 // Flagship projects surfaced as lobby cards (ids from data/projects.js),
