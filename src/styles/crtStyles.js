@@ -60,4 +60,10 @@ export const crtStyles = `
     .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot, .btn-action,
     .glitch-enter, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce { animation: none !important; }
   }
+  /* Mobile: drop the continuous filter / box-shadow / blend effects that jank
+     low-power GPUs. These repaint every frame; the static look is nearly identical. */
+  @media (max-width: 600px) {
+    .crt-screen, .btn-action, .coin-slot { animation: none !important; }
+    .crt-noise, .cabinet-body::after { display: none !important; }
+  }
 `;

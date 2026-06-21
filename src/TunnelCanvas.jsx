@@ -253,10 +253,19 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       };
     }
 
+    // Cap the redraw to ~30fps on phones. The ambient motion is slow enough that
+    // halving the canvas work is invisible, but it's noticeably smoother on weak GPUs.
     const loop = (now) => {
-      const dt = Math.min(now - lastTime, 50);
-      lastTime = now;
-      draw(ctx, canvas.offsetWidth, canvas.offsetHeight, dt);
+      const elapsed = now - lastTime;
+      if (elapsed >= (isMobileRef.current ? 33 : 0)) {
+        lastTime = now;
+        draw(
+          ctx,
+          canvas.offsetWidth,
+          canvas.offsetHeight,
+          Math.min(elapsed, 50),
+        );
+      }
       stateRef.current.animId = requestAnimationFrame(loop);
     };
     stateRef.current.animId = requestAnimationFrame(loop);
