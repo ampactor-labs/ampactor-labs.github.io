@@ -3,11 +3,11 @@ export const PROJECTS = [
     id: "mentl",
     title: "MENTL",
     subtitle: "SELF-HOSTING COMPILER",
-    lang: "Mentl/Rust",
+    lang: "Mentl/WASM",
     color: "#E0FF00",
     icon: "\u2600",
     github: "https://github.com/ampactor-labs/mentl",
-    desc: "A programming language that compiles itself. Full Hindley-Milner type inference with row-polymorphic effect algebra — one mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. L1 bootstrap: the compiler written in Mentl produces bit-identical WASM output across generations. Graph-native IR, not AST-walking.",
+    desc: "Self-hosting programming language. One handle/resume mechanism in place of exceptions, generators, async, DI, and mocking. Hindley-Milner types with an effect system, graph IR, WASM target. The compiler is written in Mentl and rebuilds itself to identical bytes. Bootstrapped from WebAssembly text.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
     tagline: "THE COMPILER BOOTSTRAPS ITSELF",
     outcome: "A programming language that compiles itself.",
@@ -19,11 +19,11 @@ export const PROJECTS = [
       "ROW-POLYMORPHIC TYPE SYSTEM",
       "WASM CODEGEN + MEMORY ARENAS",
     ],
-    stack: ["Rust", "WASM", "Hindley-Milner", "row polymorphism"],
+    stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
     status: "active",
     category: "systems",
     operatorNote:
-      "The compiler compiles itself to bit-identical output across generations. Architecture doc, conventions doc, and phased build plan written before the first line of code. One mechanism (handle/resume) replaces five language features.",
+      "Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.",
   },
   {
     id: "sonido",
@@ -33,7 +33,7 @@ export const PROJECTS = [
     color: "#00E5FF",
     icon: "\u266b",
     github: "https://github.com/ampactor-labs/sonido",
-    desc: "Three-layer DSP kernel architecture in Rust. Identical code runs on desktop CLAP plugins, CLI tools, and bare-metal ARM (Daisy Seed STM32H750 Cortex-M7 @ 480 MHz). DAG-based audio routing with buffer liveness analysis. Every kernel is zero-heap, zero-trait-dispatch, no_std-native.",
+    desc: "Three-layer DSP kernel in Rust. The same code runs as desktop CLAP plugins, CLI tools, and on bare-metal ARM (Daisy Seed, STM32H750 Cortex-M7 at 480 MHz). DAG audio routing with buffer liveness analysis. Zero-heap, zero-trait-dispatch, no_std.",
     tags: ["dsp", "clap", "embedded", "no_std"],
     tagline: "DESKTOP AND BARE METAL. SAME CODE.",
     outcome:
@@ -50,7 +50,7 @@ export const PROJECTS = [
     status: "active",
     category: "systems",
     operatorNote:
-      "1,369 tests. Three-layer kernel: zero heap, zero trait dispatch. Identical Rust code on desktop DAW and bare-metal Cortex-M7 at 480 MHz. Firmware flashed to physical Daisy Seed hardware.",
+      "1,369 tests. Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. Firmware flashed to real Daisy Seed hardware.",
   },
   {
     id: "two-top",
@@ -60,11 +60,11 @@ export const PROJECTS = [
     color: "#ff4466",
     icon: "\u2694",
     github: "https://github.com/ampactor-labs/two-top",
-    desc: "1v1 mobile rollback brawler with provably deterministic cross-platform simulation. Fixed-point math, replay codec with frame-accurate scrub, 18-phase build plan with explicit exit criteria. bevy_ggrs + Matchbox WebRTC. Portrait orientation, iOS/Android/web (PWA).",
+    desc: "1v1 mobile rollback brawler. Provably deterministic cross-platform simulation with fixed-point math and a replay codec with frame-accurate scrub. bevy_ggrs + Matchbox WebRTC. Portrait, runs on iOS, Android, and web (PWA).",
     tags: ["netcode", "determinism", "ecs", "mobile"],
     tagline: "DETERMINISTIC ACROSS PLATFORMS",
     outcome:
-      "Online multiplayer that stays perfectly in sync across phones — deterministic rollback netcode.",
+      "Online multiplayer that stays perfectly in sync across phones. Deterministic rollback netcode.",
     highlights: [
       "275 TESTS",
       "ROLLBACK NETCODE (bevy_ggrs)",
@@ -77,7 +77,7 @@ export const PROJECTS = [
     status: "active",
     category: "systems",
     operatorNote:
-      "Every phase has explicit exit criteria. ARCHITECTURE.md + CONVENTIONS.md + BUILD_PLAN.md written before code. Cross-platform determinism verification matrix runs in CI. 275 tests green.",
+      "275 tests, and a cross-platform determinism matrix in CI that checks every target produces the identical simulation.",
   },
   {
     id: "clob",
@@ -87,11 +87,11 @@ export const PROJECTS = [
     color: "#d946ef",
     icon: "◉",
     github: "https://github.com/ampactor-labs/clob",
-    desc: "An original AI architecture in Rust built on one bet: intelligence is compression efficiency per joule. A crystallization loop distills prediction errors into compiled ternary modules and discards the raw episodes once the pattern is captured; the compile pipeline lowers a ternary matrix to native x86-64 and loads it live. Runs on floor hardware — a laptop CPU, no GPU. In active development.",
+    desc: "Ternary recurrent AI kernel in Rust. The objective is energy: joules per nat, driven down. A crystallization loop turns prediction errors into compiled ternary modules and drops the raw episodes once the pattern is captured. The compile path lowers a ternary matrix to native x86-64 and loads it at runtime. Targets a laptop CPU, no GPU. In development.",
     tags: ["ai", "ternary", "rust", "research"],
     tagline: "INTELLIGENCE PER JOULE",
     outcome:
-      "An original AI architecture that compiles what it learns into native machine code — measured in energy, not parameters.",
+      "A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU.",
     highlights: [
       "J/NAT: ENERGY-FIRST OBJECTIVE",
       "CRYSTALLIZATION LOOP",
@@ -104,7 +104,7 @@ export const PROJECTS = [
     status: "active",
     category: "systems",
     operatorNote:
-      "An original architecture with a falsifiable thesis: every improvement must cost less energy, or the design has failed on its own terms. Verified end-to-end on a smoke corpus; the J/nat gate on a real corpus is the next milestone. Reproducible to the seed, auditable to the sha256.",
+      "Falsifiable by design: if joules-per-nat trends up, it's failing. Verified end-to-end on a smoke corpus so far; the real-corpus J/nat gate is next. Reproducible to the seed, auditable to the sha256.",
   },
   {
     id: "turbosort",
@@ -114,12 +114,13 @@ export const PROJECTS = [
     color: "#FF6B35",
     icon: "\u26a1",
     github: "https://github.com/ampactor-labs/turbosort",
-    desc: "Pure Rust sort library for all 10 primitive numeric types. AVX2 sorting networks for small arrays, LSD radix sort for large — adaptive dispatch with runtime CPUID detection. 3.1x faster than std at 1M elements. Zero unsafe trait implementations, no FFI, no nightly. Full no_std support.",
+    desc: "Rust sort covering all 10 primitive number types. AVX2 sorting networks for small arrays, LSD radix sort for large, dispatched at runtime by CPUID. No unsafe trait impls, no FFI, no nightly, no_std. Benched around 3× over std on my laptop, but that machine isn't reliable for it; re-running on real hardware before I commit to a number.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
-    outcome: "Sorting that's 3.1× faster than the Rust standard library.",
+    outcome:
+      "A SIMD sort that beat std by about 3× on my laptop. Re-checking the number on better hardware.",
     highlights: [
-      "3.1x FASTER (1M ELEMENTS)",
+      "~3× OVER STD (RE-BENCH PENDING)",
       "AVX2 SORTING NETWORKS",
       "LSD RADIX SORT (O(n))",
       "RUNTIME CPUID DISPATCH",
@@ -143,11 +144,11 @@ export const PROJECTS = [
     // added, point it at the Railway service and swap it in here; that re-lights
     // "Try it live →" + the SEE IT LIVE panel together.
     live: "https://scry-production.up.railway.app",
-    desc: "Deterministic on-chain token safety analysis — 9 checks, no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments. Scry wraps it in a web UI + Telegram bot. Free MCP tool for Claude Code.",
+    desc: "Deterministic on-chain token safety: 9 checks, no ML or third-party oracles, reading raw RPC through Helius. Paid with x402 micropayments. Scry wraps it in a web UI and Telegram bot; free MCP tool for Claude Code.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
-      "A security product that charges real money to tell you whether a crypto token is a scam — shipped to production.",
+      "Scores how likely a Solana token is a rug, from on-chain data alone. Live, and it charges for it (x402 micropayments).",
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
@@ -160,32 +161,7 @@ export const PROJECTS = [
     status: "deployed",
     category: "security",
     operatorNote:
-      "Shipped to production. API (TokenSafe) + web frontend + Telegram bot (Scry). $0.008/request via x402 micropayments — payment is authentication. No signup, no API key.",
-  },
-  {
-    id: "forge",
-    title: "FORGE",
-    subtitle: "LLM AGENTIC ENGINE",
-    lang: "Rust",
-    color: "#44aaff",
-    icon: "\u2692",
-    github: "https://github.com/ampactor-labs/forge",
-    desc: "Rust-native reimplementation of Claude Code's agentic tool loop. Full state machine, security policy engine, session persistence. Mechanical control over model selection, approval dialogs, and guard logic. Six crates. One binary.",
-    tags: ["llm", "cli", "tool-use", "agentic"],
-    tagline: "THE LOOP REMEMBERS",
-    outcome:
-      "An AI coding agent rebuilt in Rust, with a capability-based security policy.",
-    highlights: [
-      "6-CRATE WORKSPACE",
-      "CAPABILITY-BASED SECURITY",
-      "RATATUI TUI",
-      "MCP CLIENT (rmcp)",
-      "SESSION PERSISTENCE",
-      "MODEL-PER-MODE GUARD",
-    ],
-    stack: ["Rust", "ratatui", "rmcp", "tokio"],
-    status: "active",
-    category: "tooling",
+      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
   },
   {
     id: "browsore",
@@ -195,11 +171,11 @@ export const PROJECTS = [
     color: "#aa66ff",
     icon: "⦾",
     github: "https://github.com/ampactor-labs/browsore",
-    desc: "Politeness-first browser automation. Robots.txt compliance, per-domain rate limiting, exponential backoff — then 40 MCP tools for AI agents to navigate, extract, and automate. Standalone CLI, programmatic API, and autonomous agent loop.",
+    desc: "Browser automation for AI agents. 40 MCP tools for navigating, extracting, and acting, with robots.txt compliance, per-domain rate limiting, and exponential backoff underneath. Ships as an MCP server, a CLI, and a programmatic API.",
     tags: ["mcp", "browser", "automation", "ai-agents"],
     tagline: "IT ASKS BEFORE IT ENTERS",
     outcome:
-      "Lets AI agents drive a browser — 40 tools, with robots.txt compliance and rate-limiting built in.",
+      "Lets an AI agent drive a real browser. 40 tools, and it respects robots.txt and rate limits.",
     highlights: [
       "40 MCP TOOLS",
       "ROBOTS.TXT (RFC 9309)",
@@ -220,11 +196,11 @@ export const PROJECTS = [
     color: "#ffaa00",
     icon: "\u2b21",
     github: "https://github.com/ampactor-labs/flowpilot",
-    desc: "Automated Solana token trading engine. Discovers trending tokens, filters through a 4-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), executes via Jupiter with graduated take-profit exits and on-chain trailing stop-loss. Paper mode default.",
+    desc: "Automated Solana trading engine, 13 crates. Finds trending tokens, screens them through a four-layer safety gate (Jupiter Shield, Token API, RugCheck, bundler detection), and trades via Jupiter with staged take-profits and an on-chain trailing stop. Paper mode by default. The strategy can't beat institutional order flow on-chain, so it loses money; kept for the systems work.",
     tags: ["solana", "trading", "defi", "algorithms"],
     tagline: "PAPER UNTIL PROVEN",
     outcome:
-      "An automated crypto trading engine with a four-layer safety gate before any real money moves.",
+      "A 13-crate Solana trading engine. The strategy can't beat institutional order flow, so it doesn't make money.",
     highlights: [
       "13-CRATE WORKSPACE",
       "4-LAYER SAFETY GATE",

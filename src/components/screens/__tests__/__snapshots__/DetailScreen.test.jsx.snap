@@ -81,7 +81,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        A programming language that compiles itself. Full Hindley-Milner type inference with row-polymorphic effect algebra — one mechanism (handle/resume) replaces exceptions, generators, async, DI, and mocking. L1 bootstrap: the compiler written in Mentl produces bit-identical WASM output across generations. Graph-native IR, not AST-walking.
+        Self-hosting programming language. One handle/resume mechanism in place of exceptions, generators, async, DI, and mocking. Hindley-Milner types with an effect system, graph IR, WASM target. The compiler is written in Mentl and rebuilds itself to identical bytes. Bootstrapped from WebAssembly text.
       </div>
     </div>
     <div
@@ -184,12 +184,12 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           <span
             style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            Rust
+            WASM
           </span>
           <span
             style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            WASM
+            WAT
           </span>
           <span
             style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
@@ -222,7 +222,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        The compiler compiles itself to bit-identical output across generations. Architecture doc, conventions doc, and phased build plan written before the first line of code. One mechanism (handle/resume) replaces five language features.
+        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
       </div>
     </div>
     <div

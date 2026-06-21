@@ -228,7 +228,7 @@
         <div class="job">
           <div class="head">
             <span class="name">MENTL — Self-Hosting Compiler</span>
-            <span class="stack">Rust · WASM</span>
+            <span class="stack">Mentl · WASM</span>
           </div>
           <div class="outcome">
             A programming language that compiles itself.
@@ -296,24 +296,10 @@
             <span class="stack">Rust</span>
           </div>
           <div class="outcome">
-            An original AI architecture that compiles what it learns into
-            native machine code — measured in energy, not parameters.
+            A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU.
           </div>
           <div class="detail">
-            Built on one bet: intelligence = compression efficiency per joule.
-            A crystallization loop distills prediction errors into compiled
-            ternary modules; the compile pipeline lowers a ternary matrix to
-            native x86-64. Runs GPU-free on a laptop. In active development.
-          </div>
-        </div>
-          <div class="outcome">
-            Neural-network inference on a plain laptop CPU — no GPU, and
-            constant memory no matter how long the input.
-          </div>
-          <div class="detail">
-            Original architecture: 1.58-bit ternary weights, no floating-point
-            matrix multiplication, O(1) memory inference.
-            Complete train → export → deploy pipeline, SIMD-accelerated.
+            Ternary recurrent kernel. The objective is energy: joules per nat, driven down. A crystallization loop turns prediction errors into compiled ternary modules. The compile path lowers a ternary matrix to native x86-64. Targets a laptop CPU, no GPU. In development.
           </div>
         </div>
 
@@ -323,7 +309,7 @@
             <span class="stack">Rust · AVX2</span>
           </div>
           <div class="outcome">
-            Sorting that's 3.1× faster than the Rust standard library's own.
+            A SIMD sort that beat std by about 3× on my laptop. Re-checking the number on better hardware.
           </div>
           <div class="detail">
             All 10 primitive numeric types. AVX2 sorting networks for small
@@ -334,28 +320,11 @@
 
         <div class="job">
           <div class="head">
-            <span class="name">FORGE — LLM Agentic Engine</span>
-            <span class="stack">Rust</span>
-          </div>
-          <div class="outcome">
-            An AI coding agent rebuilt in Rust, with a capability-based
-            security policy.
-          </div>
-          <div class="detail">
-            Rust-native reimplementation of an agentic tool loop: full state
-            machine, capability-based security policy engine, session
-            persistence, MCP client. Six crates, one binary.
-          </div>
-        </div>
-
-        <div class="job">
-          <div class="head">
             <span class="name">BROWSORE — Browser Automation MCP</span>
             <span class="stack">TypeScript · Playwright</span>
           </div>
           <div class="outcome">
-            Lets AI agents drive a browser — 40 tools, with robots.txt
-            compliance and rate-limiting built in.
+            Lets an AI agent drive a real browser. 40 tools, and it respects robots.txt and rate limits.
           </div>
           <div class="detail">
             Robots.txt compliance (RFC 9309), per-domain rate limiting,
@@ -370,8 +339,7 @@
             <span class="stack">Rust</span>
           </div>
           <div class="outcome">
-            An automated crypto trading engine with a four-layer safety gate
-            before any real money moves.
+            A 13-crate Solana trading engine. The strategy can't beat institutional order flow, so it doesn't make money.
           </div>
           <div class="detail">
             Discovers trending Solana tokens, filters through a 4-layer safety
