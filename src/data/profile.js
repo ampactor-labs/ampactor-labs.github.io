@@ -1,5 +1,5 @@
 // Single source of truth for identity, contact, and positioning copy.
-// Consumed by the Lobby and SelectScreen. The static public/resume.html mirrors
+// Consumed by SelectScreen. The static public/resume.html mirrors
 // this copy by hand (it cannot import JS) — keep the two in sync when editing.
 
 // Phone kept as split digits so naive source/HTML scrapers can't lift a clean

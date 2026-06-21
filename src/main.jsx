@@ -1,13 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import { applyTheme } from "./theme";
-import "./styles/theme.css";
-
-applyTheme();
+import ArcadePortfolio from "./ArcadePortfolio";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <ArcadePortfolio />
   </React.StrictMode>,
 );
