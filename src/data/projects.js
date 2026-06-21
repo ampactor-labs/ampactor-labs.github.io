@@ -138,9 +138,11 @@ export const PROJECTS = [
     color: "#ff44aa",
     icon: "\u25c8",
     github: "https://github.com/ampactor-labs/tokensafe",
-    // SCRY OFFLINE until ~2026-06-18 (Firebase custom-domain cert unprovisioned; Railway deploy down).
-    // Flip this back to "https://scry.app" to re-light "Try it live →" + the SEE IT LIVE panel together.
-    live: null,
+    // Live on Railway (valid cert, 200). scry.app is still cert-broken + 404 — its
+    // Firebase custom domain was never provisioned. Swap this to "https://scry.app"
+    // once that domain serves a real cert; it re-lights "Try it live →" + the
+    // SEE IT LIVE panel together.
+    live: "https://scry-production.up.railway.app",
     desc: "Deterministic on-chain token safety analysis — 9 checks, no ML, no third-party oracles, no off-chain databases. Raw RPC reads via Helius. Paid via x402 micropayments. Scry wraps it in a web UI + Telegram bot. Free MCP tool for Claude Code.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
