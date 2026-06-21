@@ -54,7 +54,7 @@ export default function useCabinetState(
   }, [coinCount]);
 
   const fontScale = useMemo(
-    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.5)),
+    () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.25)),
     [dims.w],
   );
   const fs = (size) => Math.round(size * fontScale);
