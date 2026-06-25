@@ -20,6 +20,7 @@ export default function useIntroSequence(
     if (skipOnMount) {
       gsap.set(logo, { opacity: 0 });
       gsap.set(console_, { opacity: 1 });
+      if (tunnel) tunnel.setRevealRadius(9999);
       return;
     }
 

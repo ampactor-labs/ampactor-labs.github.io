@@ -655,11 +655,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     if (!origin) return;
     for (const touch of e.changedTouches) {
       if (touch.identifier === origin.id) {
-        const dx = touch.clientX - origin.lastX;
-        const deadzone = 2;
+        const dx = touch.clientX - origin.startX;
+        const deadzone = 10;
         touchRef.current.left = dx < -deadzone;
         touchRef.current.right = dx > deadzone;
-        origin.lastX = touch.clientX;
       }
     }
   }, []);

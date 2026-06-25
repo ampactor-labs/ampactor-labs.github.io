@@ -67,12 +67,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     tunnelDepth: 0,
     sweepAngle: 0,
     elapsed: 0,
-    dust: initDust().slice(
-      0,
-      typeof window !== "undefined" && window.innerWidth <= 600
-        ? 12
-        : DUST_COUNT,
-    ),
+    dust: initDust(),
     speed,
     revealRadius: 0,
     animId: null,
@@ -126,7 +121,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
 
     // Pre-compute all ring data once
     const rings = [];
-    for (let i = 0; i < (isMobileRef.current ? 8 : RING_COUNT); i++) {
+    for (let i = 0; i < RING_COUNT; i++) {
       const nearness = (i / RING_COUNT + st.tunnelDepth) % 1.0;
       const scale = FOV / (FOV + (1 - nearness) * DEPTH_RANGE);
       const dir = i % 2 === 0 ? 1 : -1;
@@ -149,7 +144,6 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     // Pass 1: All sharp ring strokes (source-over, no composite switch)
     for (let i = 0; i < rings.length; i++) {
       const r = rings[i];
-      if (r.radius < 2) continue; // skip rings not yet emerged from center
       ctx.globalAlpha = r.alpha;
       ctx.strokeStyle = r.color.stroke;
       ctx.lineWidth = r.lineWidth;
@@ -160,23 +154,21 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       ctx.stroke();
     }
 
-    // Pass 2: All glow strokes in one batch (single composite switch) — desktop only
-    if (!isMobileRef.current) {
-      ctx.globalCompositeOperation = "lighter";
-      for (let i = 0; i < rings.length; i++) {
-        const r = rings[i];
-        if (r.radius < 2 || r.nearness <= 0.15) continue;
-        ctx.globalAlpha = r.alpha * 0.25;
-        ctx.strokeStyle = r.color.glow + "0.4)";
-        ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
-        ctx.beginPath();
-        ctx.moveTo(r.verts[0][0], r.verts[0][1]);
-        for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
-        ctx.closePath();
-        ctx.stroke();
-      }
-      ctx.globalCompositeOperation = "source-over";
+    // Pass 2: All glow strokes in one batch (single composite switch)
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < rings.length; i++) {
+      const r = rings[i];
+      if (r.nearness <= 0.15) continue;
+      ctx.globalAlpha = r.alpha * 0.25;
+      ctx.strokeStyle = r.color.glow + "0.4)";
+      ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
+      ctx.beginPath();
+      ctx.moveTo(r.verts[0][0], r.verts[0][1]);
+      for (let v = 1; v < 5; v++) ctx.lineTo(r.verts[v][0], r.verts[v][1]);
+      ctx.closePath();
+      ctx.stroke();
     }
+    ctx.globalCompositeOperation = "source-over";
 
     // Pass 3: Connecting lines — batch per ring into one path
     for (let i = 0; i < rings.length; i++) {
