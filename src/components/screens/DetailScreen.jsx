@@ -120,22 +120,49 @@ export default function DetailScreen({
             {p.subtitle}
           </div>
         </div>
-        {p.github && (
-          <a
-            href={p.github}
-            target="_blank"
-            rel="noopener noreferrer"
+        {(p.live || p.github) && (
+          <div
             style={{
-              fontSize: fs(10),
-              color: "var(--fg)",
-              letterSpacing: "0.08em",
-              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
               marginLeft: "auto",
               flexShrink: 0,
             }}
           >
-            {"\u203a"} SOURCE
-          </a>
+            {p.live && (
+              <a
+                href={p.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: fs(10),
+                  color: p.color,
+                  letterSpacing: "0.08em",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  textShadow: `0 0 10px ${p.color}66`,
+                }}
+              >
+                {"\u25b8"} DEMO
+              </a>
+            )}
+            {p.github && (
+              <a
+                href={p.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: fs(10),
+                  color: "var(--fg)",
+                  letterSpacing: "0.08em",
+                  textDecoration: "none",
+                }}
+              >
+                {"\u203a"} SOURCE
+              </a>
+            )}
+          </div>
         )}
       </div>
       {/* Body */}

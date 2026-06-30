@@ -7,6 +7,7 @@ export const PROJECTS = [
     color: "#00E5FF",
     icon: "♫",
     github: "https://github.com/ampactor-labs/sonido",
+    live: "https://ampactor.dev/sonido",
     desc: "Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware, verified by 1,369 tests.",
     tags: ["dsp", "clap", "embedded", "no_std"],
     tagline: "DESKTOP AND BARE METAL. SAME CODE.",
@@ -131,7 +132,7 @@ export const PROJECTS = [
     category: "systems",
     operatorNote:
       "275 tests, and a cross-platform determinism matrix in CI that checks every target produces the identical simulation.",
-  }
+  },
 ];
 
 export const HIDDEN_PROJECTS = [
@@ -204,8 +205,8 @@ export const HIDDEN_PROJECTS = [
       "PROCEDURAL AUDIO",
       "DODGE COMPILER ERRORS",
       "COMBO MULTIPLIER",
-      "LOCAL HIGH SCORE",
-      "TOUCH CONTROLS",
+      "TOP-10 LEADERBOARD",
+      "KEYBOARD + TOUCH CONTROLS",
     ],
     stack: ["Canvas 2D", "Web Audio", "requestAnimationFrame"],
     status: "active",

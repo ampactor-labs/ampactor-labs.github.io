@@ -149,15 +149,23 @@ export default function useCabinetState(
         screen === "detail" &&
         !allProjects[selectedIdx]?.interactive?.includes("synth")
       ) {
-        if (e.key === "Escape" || e.key === "Backspace") {
+        if (
+          e.key === "Escape" ||
+          e.key === "Backspace" ||
+          e.key === "b" ||
+          e.key === "B"
+        ) {
           setScreen("select");
           setDetailProject(null);
         }
       }
+      // Synth is keyboard-playable; "b" is not one of its note keys, so it is
+      // safe as a back shortcut here. Backspace is excluded to avoid surprises
+      // while playing.
       if (
         screen === "detail" &&
         allProjects[selectedIdx]?.interactive === "synth" &&
-        e.key === "Escape"
+        (e.key === "Escape" || e.key === "b" || e.key === "B")
       ) {
         setScreen("select");
         setDetailProject(null);

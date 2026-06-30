@@ -1,5 +1,14 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import useTunnelGameAudio from "./useTunnelGameAudio";
+import {
+  LB_MAX,
+  LETTERS,
+  loadLeaderboard,
+  saveLeaderboard,
+  qualifies,
+  insertScore,
+  dispChar,
+} from "./tunnelLeaderboard";
 
 const AMBER = "#d8a657";
 
@@ -37,18 +46,6 @@ const LOGO_LINES = [
   { x1: 0.453, y1: 0.594, x2: 0.703, y2: 0.594 },
 ];
 
-// Sine wave crossbar sample points (from SVG path, normalized)
-const WAVE_PTS = [
-  [-0.344, 0.172],
-  [-0.219, -0.063],
-  [-0.109, -0.063],
-  [0, 0.172],
-  [0.109, -0.063],
-  [0.219, -0.063],
-  [0.344, 0.172],
-  // extra control-point-derived approx for smoothness
-].map(([x, y]) => [(x / 0.344) * 0.344, y * 0.5]);
-
 function depthScale(depth) {
   return FOV / (FOV + (1 - depth) * DEPTH_RANGE);
 }
@@ -62,13 +59,29 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   const keysRef = useRef({ left: false, right: false, fire: false });
   const touchRef = useRef({ left: false, right: false, fire: false });
   const animRef = useRef(null);
+  const lastPhaseRef = useRef("countdown");
+
+  // HTML-overlay mirrors of game state (refs are the source of truth; these
+  // exist only so the overlay re-renders when the phase changes / on entry).
+  const [uiPhase, setUiPhase] = useState("countdown");
+  const [entry, setEntry] = useState(null); // { score, rank } when typing initials
+
+  // Refs that always point at the latest closures, so the mount effect can run
+  // exactly ONCE and never tear the game down on a parent re-render. This is
+  // what keeps the countdown from "glitching" (resetting) mid-count.
+  const gameLoopRef = useRef(null);
+  const onExitRef = useRef(onExit);
+  const endRunRef = useRef(null);
+  onExitRef.current = onExit;
 
   /* ── init game state ── */
-  const initState = useCallback(
-    () => ({
-      phase: "countdown", // countdown | playing | gameover
+  const initState = useCallback(() => {
+    const leaderboard = loadLeaderboard();
+    return {
+      phase: "countdown", // countdown | playing | paused | gameover
       countdownLeft: 3,
       countdownTimer: 0,
+      countdownBeeped: false,
       player: { x: 0, invincibleUntil: 0, trail: [] },
       projectiles: [],
       obstacles: [],
@@ -77,7 +90,12 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       lives: 3,
       combo: 1.0,
       comboTimer: 0,
-      hiScore: parseInt(localStorage.getItem("tunnelrun_hiscore") || "0", 10),
+      leaderboard,
+      hiScore: leaderboard[0]?.s || 0,
+      hiInitials: leaderboard[0]?.i || "",
+      newEntry: null, // reference to the freshly-inserted leaderboard row
+      entering: false, // true while the initials modal is open
+      gameoverAt: 0,
       spawnInterval: 1200,
       spawnTimer: 0,
       baseSpeed: 1.5,
@@ -86,8 +104,50 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       lastFireTime: 0,
       shakeUntil: 0,
       shakeIntensity: 0,
-    }),
-    [],
+    };
+  }, []);
+
+  /* ── end the current run (death, or manual quit via ESC/B/✕) ── */
+  const endRun = useCallback(
+    (gs) => {
+      if (!gs || gs.phase === "gameover") return;
+      audio.playGameOver();
+      if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
+      gs.phase = "gameover";
+      gs.gameoverAt = gs.elapsed;
+      keysRef.current.left =
+        keysRef.current.right =
+        keysRef.current.fire =
+          false;
+      if (qualifies(gs.leaderboard, gs.score)) {
+        const rank = gs.leaderboard.filter((e) => e.s > gs.score).length + 1;
+        gs.entering = true;
+        setEntry({ score: gs.score, rank });
+      } else {
+        gs.entering = false;
+      }
+    },
+    [audio, tunnelRef],
+  );
+  endRunRef.current = endRun;
+
+  /* ── commit the typed initials into the board ── */
+  const handleSubmitInitials = useCallback(
+    (initials) => {
+      const gs = stateRef.current;
+      if (!gs || !gs.entering) return; // guard against a double-submit
+      const { list, row } = insertScore(gs.leaderboard, initials, gs.score);
+      gs.leaderboard = list;
+      saveLeaderboard(gs.leaderboard);
+      gs.newEntry = row;
+      gs.hiScore = gs.leaderboard[0].s;
+      gs.hiInitials = gs.leaderboard[0].i;
+      gs.entering = false;
+      gs.gameoverAt = gs.elapsed; // restart the "press any key" read buffer
+      setEntry(null);
+      audio.playGo();
+    },
+    [audio],
   );
 
   /* ── draw the A-mark ship ── */
@@ -139,8 +199,37 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       const gs = stateRef.current;
       if (!gs) return;
 
+      // Keep the HTML overlay's phase mirror current (fires only on change).
+      if (gs.phase !== lastPhaseRef.current) {
+        lastPhaseRef.current = gs.phase;
+        setUiPhase(gs.phase);
+      }
+
       const cx = w / 2;
       const cy = h / 2;
+      const mobile = isMobileRef.current;
+
+      // ── PAUSED ── (freeze time + the battlefield; show a pause card)
+      if (gs.phase === "paused") {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(8,10,14,0.6)";
+        ctx.fillRect(0, 0, w, h);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "#00E5FF";
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = "rgba(0,229,255,0.7)";
+        ctx.font = `${mobile ? 22 : 34}px 'Press Start 2P', monospace`;
+        ctx.fillText("PAUSED", cx, cy - (mobile ? 14 : 20));
+        ctx.shadowBlur = 0;
+        ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
+        ctx.fillStyle = "rgba(143,160,179,0.8)";
+        ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
+        ctx.fillStyle = "rgba(143,160,179,0.5)";
+        ctx.fillText("ESC / B TO END", cx, cy + (mobile ? 34 : 48));
+        return;
+      }
+
       gs.elapsed += dt;
 
       // Screen shake offset
@@ -157,6 +246,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
       // ── COUNTDOWN ──
       if (gs.phase === "countdown") {
+        if (!gs.countdownBeeped) {
+          audio.playCountdown();
+          gs.countdownBeeped = true;
+        }
         gs.countdownTimer += dt;
         if (gs.countdownTimer >= 1000) {
           gs.countdownTimer -= 1000;
@@ -171,7 +264,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         }
 
         // Draw countdown text
-        ctx.font = `${isMobileRef.current ? 48 : 72}px 'Press Start 2P', monospace`;
+        ctx.font = `${mobile ? 48 : 72}px 'Press Start 2P', monospace`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.shadowBlur = 20;
@@ -186,8 +279,11 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.shadowBlur = 0;
 
         // Draw ship during countdown
-        const shipY = h - (isMobileRef.current ? 60 : 80);
-        drawShip(ctx, cx, shipY, isMobileRef.current ? 28 : 40);
+        const shipY = h - (mobile ? 60 : 80);
+        drawShip(ctx, cx, shipY, mobile ? 28 : 40);
+
+        // Controls narration
+        drawControlsLegend(ctx, cx, h, mobile);
 
         ctx.restore();
         return;
@@ -195,52 +291,9 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
       // ── GAME OVER ──
       if (gs.phase === "gameover") {
-        // Still draw particles
+        // Still draw lingering explosion particles
         updateAndDrawParticles(ctx, gs, dt);
-
-        ctx.font = `${isMobileRef.current ? 18 : 32}px 'Press Start 2P', monospace`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "rgba(255,34,34,0.8)";
-        ctx.strokeStyle = "#ff2222";
-        ctx.lineWidth = 2;
-        ctx.strokeText("GAME OVER", cx, cy - 50);
-        ctx.fillStyle = "rgba(255,34,34,0.2)";
-        ctx.fillText("GAME OVER", cx, cy - 50);
-
-        ctx.shadowBlur = 0;
-        ctx.font = `${isMobileRef.current ? 8 : 14}px 'Press Start 2P', monospace`;
-        ctx.fillStyle = "#00E5FF";
-        ctx.fillText(`SCORE: ${gs.score}`, cx, cy + 10);
-        ctx.fillStyle = gs.score >= gs.hiScore ? AMBER : "#778899";
-        ctx.fillText(
-          `HI: ${gs.hiScore}`,
-          cx,
-          cy + (isMobileRef.current ? 30 : 40),
-        );
-
-        if (gs.score >= gs.hiScore) {
-          ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
-          ctx.fillStyle = AMBER;
-          ctx.fillText(
-            "NEW HIGH SCORE",
-            cx,
-            cy + (isMobileRef.current ? 50 : 65),
-          );
-        }
-
-        // Blink "press any key"
-        if (Math.floor(gs.elapsed / 600) % 2 === 0) {
-          ctx.font = `${isMobileRef.current ? 6 : 10}px 'Press Start 2P', monospace`;
-          ctx.fillStyle = "#556";
-          ctx.fillText(
-            "PRESS ANY KEY TO RETURN",
-            cx,
-            cy + (isMobileRef.current ? 70 : 100),
-          );
-        }
-
+        drawGameOver(ctx, gs, w, h, mobile);
         ctx.restore();
         return;
       }
@@ -252,14 +305,14 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         fire: keysRef.current.fire || touchRef.current.fire,
       };
 
-      const shipSpeed = (isMobileRef.current ? 0.4 : 0.5) * dt;
+      const shipSpeed = (mobile ? 0.4 : 0.5) * dt;
       if (input.left) gs.player.x -= shipSpeed;
       if (input.right) gs.player.x += shipSpeed;
       gs.player.x = Math.max(-w / 2 + 30, Math.min(w / 2 - 30, gs.player.x));
 
       const shipX = cx + gs.player.x;
-      const shipY = h - (isMobileRef.current ? 60 : 80);
-      const shipSize = isMobileRef.current ? 28 : 40;
+      const shipY = h - (mobile ? 60 : 80);
+      const shipSize = mobile ? 28 : 40;
 
       // Engine trail
       gs.player.trail.unshift({ x: shipX, y: shipY, alpha: 0.4 });
@@ -317,7 +370,6 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
       // Update obstacles
       const playerHitboxW = shipSize * 0.6;
-      const playerHitboxTop = shipY - shipSize * 0.5;
 
       for (let i = gs.obstacles.length - 1; i >= 0; i--) {
         const o = gs.obstacles[i];
@@ -356,12 +408,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             spawnExplosion(gs, shipX, shipY, "#ff2222", 15);
 
             if (gs.lives <= 0) {
-              gs.phase = "gameover";
-              gs.hiScore = Math.max(gs.hiScore, gs.score);
-              localStorage.setItem("tunnelrun_hiscore", String(gs.hiScore));
-              audio.playGameOver();
-              // Slow down tunnel
-              if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
+              endRun(gs);
             }
           }
 
@@ -434,7 +481,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         const oScreenY = cy + (shipY - cy) * o.depth;
         const fontSize = Math.max(
           8,
-          (o.big ? 52 : 38) * scale * (isMobileRef.current ? 0.8 : 1),
+          (o.big ? 52 : 38) * scale * (mobile ? 0.8 : 1),
         );
 
         ctx.save();
@@ -514,7 +561,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // ── HUD ──
       ctx.save();
       ctx.shadowBlur = 0;
-      ctx.font = `${isMobileRef.current ? 8 : 12}px 'Press Start 2P', monospace`;
+      ctx.font = `${mobile ? 8 : 12}px 'Press Start 2P', monospace`;
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
@@ -522,10 +569,13 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.fillStyle = "#00E5FF";
       ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
 
-      // Hi score
+      // Hi score (with the reigning champion's initials)
       ctx.textAlign = "right";
       ctx.fillStyle = "#778899";
-      ctx.fillText(`HI: ${String(gs.hiScore).padStart(6, "0")}`, w - 16, 16);
+      const hiText = `HI: ${String(gs.hiScore).padStart(6, "0")}${
+        gs.hiInitials ? " " + gs.hiInitials : ""
+      }`;
+      ctx.fillText(hiText, w - 16, 16);
 
       // Combo
       if (gs.combo > 1.0) {
@@ -541,6 +591,19 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         drawShip(ctx, 24 + i * 28, h - 24, 10, 0.7, false);
       }
 
+      // Persistent controls hint (desktop — phones get on-screen buttons)
+      if (!mobile) {
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+        ctx.font = `8px 'Press Start 2P', monospace`;
+        ctx.fillStyle = "rgba(143,160,179,0.28)";
+        ctx.fillText(
+          "◄ ► MOVE  ·  SPACE FIRE  ·  ESC/B END  ·  P PAUSE",
+          cx,
+          h - 8,
+        );
+      }
+
       // Scanline overlay (single pattern fill instead of per-line rects)
       ctx.globalAlpha = 0.03;
       ctx.fillStyle = "#000";
@@ -553,10 +616,11 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.restore();
       ctx.restore(); // Pop shake transform
     },
-    [audio, drawShip, tunnelRef],
+    [audio, drawShip, endRun],
   );
+  gameLoopRef.current = gameLoop;
 
-  /* ── mount / unmount ── */
+  /* ── mount / unmount (runs ONCE; the loop & handlers call latest via refs) ── */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -567,9 +631,6 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
     // Speed up tunnel
     if (tunnelRef?.current) tunnelRef.current.setSpeed(0.0008);
-
-    // Play first countdown beep
-    audio.playCountdown();
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -584,32 +645,62 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     const loop = (now) => {
       const dt = Math.min(now - lastTime, 50);
       lastTime = now;
-      gameLoop(ctx, canvas.offsetWidth, canvas.offsetHeight, dt);
+      gameLoopRef.current?.(ctx, canvas.offsetWidth, canvas.offsetHeight, dt);
       animRef.current = requestAnimationFrame(loop);
     };
     animRef.current = requestAnimationFrame(loop);
 
-    // Keyboard
+    // Keyboard — branches on the live phase from stateRef
     const onKeyDown = (e) => {
-      if (e.key === "ArrowLeft" || e.key === "a") keysRef.current.left = true;
-      if (e.key === "ArrowRight" || e.key === "d") keysRef.current.right = true;
-      if (e.key === " " || e.key === "ArrowUp") {
+      const gs = stateRef.current;
+      if (!gs || gs.entering) return; // initials modal owns the keyboard
+      const k = e.key;
+
+      if (gs.phase === "countdown") {
+        if (k === "Escape" || k === "b" || k === "B") onExitRef.current?.();
+        return;
+      }
+
+      if (gs.phase === "gameover") {
+        if (gs.elapsed - (gs.gameoverAt || 0) > 800) onExitRef.current?.();
+        return;
+      }
+
+      if (gs.phase === "paused") {
+        if (k === "Escape" || k === "b" || k === "B") endRunRef.current?.(gs);
+        else if (k === "p" || k === "P" || k === "Enter" || k === " ") {
+          e.preventDefault();
+          gs.phase = "playing";
+        }
+        return;
+      }
+
+      // playing
+      if (k === "ArrowLeft" || k === "a" || k === "A")
+        keysRef.current.left = true;
+      if (k === "ArrowRight" || k === "d" || k === "D")
+        keysRef.current.right = true;
+      if (k === " " || k === "ArrowUp") {
         e.preventDefault();
         keysRef.current.fire = true;
       }
-      // Game over → exit on any key
-      if (
-        stateRef.current?.phase === "gameover" &&
-        stateRef.current.elapsed > stateRef.current.shakeUntil + 1000
-      ) {
-        onExit?.();
+      if (k === "Escape" || k === "b" || k === "B") {
+        endRunRef.current?.(gs);
+      } else if (k === "p" || k === "P") {
+        gs.phase = "paused";
+        keysRef.current.left =
+          keysRef.current.right =
+          keysRef.current.fire =
+            false;
       }
     };
     const onKeyUp = (e) => {
-      if (e.key === "ArrowLeft" || e.key === "a") keysRef.current.left = false;
-      if (e.key === "ArrowRight" || e.key === "d")
+      const k = e.key;
+      if (k === "ArrowLeft" || k === "a" || k === "A")
+        keysRef.current.left = false;
+      if (k === "ArrowRight" || k === "d" || k === "D")
         keysRef.current.right = false;
-      if (e.key === " " || e.key === "ArrowUp") keysRef.current.fire = false;
+      if (k === " " || k === "ArrowUp") keysRef.current.fire = false;
     };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
@@ -621,7 +712,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       window.removeEventListener("keyup", onKeyUp);
       if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
     };
-  }, [gameLoop, initState, tunnelRef, audio, onExit]);
+  }, [initState, tunnelRef]);
 
   /* ── touch controls (dual-thumb: left half = slide to steer, right half = fire) ── */
   const touchOriginRef = useRef(null); // tracks where left-side touch started
@@ -629,6 +720,19 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   const handleTouchStart = useCallback(
     (e) => {
       e.preventDefault();
+      const gs = stateRef.current;
+      if (!gs || gs.entering) return;
+
+      if (gs.phase === "paused") {
+        gs.phase = "playing";
+        return;
+      }
+      if (gs.phase === "gameover") {
+        if (gs.elapsed - (gs.gameoverAt || 0) > 800) onExit?.();
+        return;
+      }
+      if (gs.phase !== "playing") return; // ignore steering during countdown
+
       const half = window.innerWidth / 2;
       for (const touch of e.changedTouches) {
         if (touch.clientX < half) {
@@ -643,8 +747,6 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           touchRef.current.fire = true;
         }
       }
-      // Game over exit
-      if (stateRef.current?.phase === "gameover") onExit?.();
     },
     [onExit],
   );
@@ -683,67 +785,483 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     if (!rightStillDown) touchRef.current.fire = false;
   }, []);
 
+  // ✕ END / ❚❚ PAUSE overlay button presses
+  const handlePauseButton = useCallback(() => {
+    const gs = stateRef.current;
+    if (!gs) return;
+    if (gs.phase === "playing") {
+      gs.phase = "paused";
+      keysRef.current.left =
+        keysRef.current.right =
+        keysRef.current.fire =
+          false;
+    } else if (gs.phase === "paused") {
+      gs.phase = "playing";
+    }
+  }, []);
+
+  const handleEndButton = useCallback(() => {
+    const gs = stateRef.current;
+    if (!gs) return;
+    if (gs.phase === "playing" || gs.phase === "paused")
+      endRunRef.current?.(gs);
+    else onExitRef.current?.();
+  }, []);
+
+  const showControls =
+    !entry &&
+    (uiPhase === "countdown" || uiPhase === "playing" || uiPhase === "paused");
+
+  return (
+    <>
+      {/* canvas + touch steering layer */}
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchMove={handleTouchMove}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 10,
+          touchAction: "none",
+        }}
+      >
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        />
+        {/* Mobile touch zone hints - fade after 4s */}
+        {isMobileRef.current && uiPhase === "countdown" && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: 0,
+              right: 0,
+              display: "flex",
+              justifyContent: "space-around",
+              pointerEvents: "none",
+              opacity: 0.4,
+              animation: "fadeHints 4s ease-out forwards",
+            }}
+          >
+            <span
+              style={{
+                color: "#00E5FF",
+                fontSize: 10,
+                fontFamily: "'Press Start 2P'",
+              }}
+            >
+              {"< SLIDE TO STEER >"}
+            </span>
+            <span
+              style={{
+                color: "#00FFD0",
+                fontSize: 10,
+                fontFamily: "'Press Start 2P'",
+              }}
+            >
+              TAP TO FIRE
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* PAUSE / END overlay buttons (also serve as control narration) */}
+      {showControls && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            zIndex: 16,
+            display: "flex",
+            gap: 8,
+            padding: 12,
+            paddingTop: "calc(env(safe-area-inset-top) + 12px)",
+            pointerEvents: "none",
+          }}
+        >
+          <OverlayButton
+            label={uiPhase === "paused" ? "▶ RESUME" : "❚❚ PAUSE"}
+            color="#00E5FF"
+            onPress={handlePauseButton}
+          />
+          <OverlayButton
+            label="✕ END"
+            color="#ff5a6a"
+            onPress={handleEndButton}
+          />
+        </div>
+      )}
+
+      {/* Galaga-style initials entry */}
+      {entry && (
+        <InitialsEntry
+          score={entry.score}
+          rank={entry.rank}
+          color={AMBER}
+          onSubmit={handleSubmitInitials}
+        />
+      )}
+    </>
+  );
+}
+
+/* ── overlay button (touch + mouse, never bubbles into steering) ── */
+function OverlayButton({ label, color, onPress }) {
+  return (
+    <button
+      type="button"
+      aria-label={label.replace(/[^A-Za-z ]/g, "").trim()}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onPress();
+      }}
+      style={{
+        pointerEvents: "auto",
+        fontFamily: "'Press Start 2P', monospace",
+        fontSize: 9,
+        letterSpacing: "0.06em",
+        padding: "8px 10px",
+        borderRadius: 6,
+        background: "rgba(10,14,20,0.62)",
+        border: `1.5px solid ${color}59`,
+        color,
+        cursor: "pointer",
+        touchAction: "manipulation",
+        WebkitTapHighlightColor: "transparent",
+        backdropFilter: "blur(2px)",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+/* ── Galaga-style initials entry modal (HTML; keyboard + tap) ── */
+function InitialsEntry({ score, rank, color, onSubmit }) {
+  const [chars, setChars] = useState([0, 0, 0]);
+  const [slot, setSlot] = useState(0);
+  const charsRef = useRef(chars);
+  const slotRef = useRef(slot);
+  charsRef.current = chars;
+  slotRef.current = slot;
+  const mobile = window.innerWidth <= 600;
+
+  const moveSlot = (d) => setSlot((s) => Math.min(2, Math.max(0, s + d)));
+  const cycleAt = (i, dir) => {
+    setSlot(i);
+    setChars((c) => {
+      const n = [...c];
+      n[i] = (n[i] + dir + LETTERS.length) % LETTERS.length;
+      return n;
+    });
+  };
+  const setLetterAt = (i, idx) =>
+    setChars((c) => {
+      const n = [...c];
+      n[i] = idx;
+      return n;
+    });
+  const submit = () =>
+    onSubmit(charsRef.current.map((i) => LETTERS[i]).join(""));
+
+  useEffect(() => {
+    const onKey = (e) => {
+      const k = e.key;
+      if (k === "ArrowLeft") {
+        e.preventDefault();
+        moveSlot(-1);
+      } else if (k === "ArrowRight") {
+        e.preventDefault();
+        moveSlot(1);
+      } else if (k === "ArrowUp") {
+        e.preventDefault();
+        cycleAt(slotRef.current, 1);
+      } else if (k === "ArrowDown") {
+        e.preventDefault();
+        cycleAt(slotRef.current, -1);
+      } else if (k === "Enter") {
+        e.preventDefault();
+        submit();
+      } else if (k === "Backspace") {
+        e.preventDefault();
+        moveSlot(-1);
+      } else if (k === " ") {
+        e.preventDefault();
+        if (slotRef.current === 2) submit();
+        else moveSlot(1);
+      } else if (k.length === 1) {
+        const idx = LETTERS.indexOf(k.toUpperCase());
+        if (idx >= 0) {
+          setLetterAt(slotRef.current, idx);
+          if (slotRef.current < 2) moveSlot(1);
+        }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const press = (fn) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    fn();
+  };
+
+  const chev = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: mobile ? 14 : 16,
+    width: mobile ? 44 : 52,
+    height: mobile ? 34 : 38,
+    borderRadius: 6,
+    background: "rgba(216,166,87,0.08)",
+    border: `1.5px solid ${color}55`,
+    color,
+    cursor: "pointer",
+    touchAction: "manipulation",
+    WebkitTapHighlightColor: "transparent",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
   return (
     <div
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchMove={handleTouchMove}
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 10,
-        touchAction: "none",
+        zIndex: 20,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: mobile ? 12 : 16,
+        padding: 20,
+        textAlign: "center",
+        background: "rgba(6,8,12,0.85)",
+        backdropFilter: "blur(3px)",
+        touchAction: "manipulation",
+        fontFamily: "'Press Start 2P', monospace",
       }}
     >
-      <canvas
-        ref={canvasRef}
+      <div
         style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
+          color,
+          fontSize: mobile ? 14 : 18,
+          letterSpacing: "0.08em",
+          textShadow: `0 0 16px ${color}`,
         }}
-      />
-      {/* Mobile touch zone hints - fade after 3s */}
-      {isMobileRef.current && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 20,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "space-around",
-            pointerEvents: "none",
-            opacity: 0.4,
-            animation: "fadeHints 4s ease-out forwards",
-          }}
-        >
-          <span
+      >
+        NEW HIGH SCORE
+      </div>
+      <div style={{ color: "#00E5FF", fontSize: mobile ? 10 : 13 }}>
+        SCORE {String(score).padStart(6, "0")}
+      </div>
+      <div style={{ color: "#778899", fontSize: mobile ? 8 : 10 }}>
+        RANK #{rank}
+      </div>
+
+      <div style={{ display: "flex", gap: mobile ? 12 : 18, marginTop: 4 }}>
+        {chars.map((ci, i) => (
+          <div
+            key={i}
             style={{
-              color: "#00E5FF",
-              fontSize: 10,
-              fontFamily: "'Press Start 2P'",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
             }}
           >
-            {"< SLIDE TO STEER >"}
-          </span>
-          <span
-            style={{
-              color: "#00FFD0",
-              fontSize: 10,
-              fontFamily: "'Press Start 2P'",
-            }}
-          >
-            TAP TO FIRE
-          </span>
-        </div>
-      )}
+            <button
+              type="button"
+              aria-label={`slot ${i + 1} next letter`}
+              onPointerDown={press(() => cycleAt(i, 1))}
+              style={chev}
+            >
+              {"▲"}
+            </button>
+            <button
+              type="button"
+              aria-label={`select slot ${i + 1}`}
+              onPointerDown={press(() => setSlot(i))}
+              style={{
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: mobile ? 30 : 42,
+                width: mobile ? 52 : 66,
+                height: mobile ? 60 : 76,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 8,
+                color: i === slot ? "#1a1410" : color,
+                background: i === slot ? color : "rgba(216,166,87,0.06)",
+                border: `2px solid ${color}${i === slot ? "" : "44"}`,
+                boxShadow: i === slot ? `0 0 18px ${color}88` : "none",
+                cursor: "pointer",
+                touchAction: "manipulation",
+                WebkitTapHighlightColor: "transparent",
+                transition: "background 0.12s ease, color 0.12s ease",
+              }}
+            >
+              {dispChar(ci)}
+            </button>
+            <button
+              type="button"
+              aria-label={`slot ${i + 1} previous letter`}
+              onPointerDown={press(() => cycleAt(i, -1))}
+              style={chev}
+            >
+              {"▼"}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        aria-label="confirm initials"
+        onPointerDown={press(submit)}
+        style={{
+          marginTop: mobile ? 6 : 10,
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: mobile ? 11 : 13,
+          letterSpacing: "0.1em",
+          padding: mobile ? "12px 22px" : "14px 30px",
+          borderRadius: 8,
+          background: color,
+          border: "none",
+          color: "#1a1410",
+          cursor: "pointer",
+          touchAction: "manipulation",
+          WebkitTapHighlightColor: "transparent",
+          boxShadow: `0 0 20px ${color}88`,
+        }}
+      >
+        ENTER {"▶"}
+      </button>
+
+      <div
+        style={{
+          color: "rgba(143,160,179,0.55)",
+          fontSize: mobile ? 6 : 8,
+          letterSpacing: "0.08em",
+          marginTop: 2,
+          lineHeight: 1.6,
+        }}
+      >
+        {mobile
+          ? "TAP ▲▼ TO PICK · ENTER TO SAVE"
+          : "◄ ► SLOT · ▲ ▼ LETTER · TYPE A–Z · ⏎ SAVE"}
+      </div>
     </div>
   );
 }
 
 /* ── helpers (outside component for perf) ──────────────── */
+
+function drawControlsLegend(ctx, cx, h, mobile) {
+  ctx.save();
+  ctx.shadowBlur = 0;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
+  const y = mobile ? h * 0.7 : h * 0.66;
+  ctx.fillStyle = "rgba(143,160,179,0.72)";
+  ctx.fillText(
+    mobile ? "SLIDE: MOVE   TAP: FIRE" : "◄ ►  MOVE       SPACE / ▲  FIRE",
+    cx,
+    y,
+  );
+  ctx.fillStyle = "rgba(143,160,179,0.45)";
+  ctx.fillText(
+    mobile ? "✕ END    ❚❚ PAUSE" : "ESC / B  END       P  PAUSE",
+    cx,
+    y + (mobile ? 15 : 20),
+  );
+  ctx.restore();
+}
+
+function drawGameOver(ctx, gs, w, h, mobile) {
+  const cx = w / 2;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const top = mobile ? 18 : 30;
+  const goY = top + (mobile ? 16 : 26);
+
+  // GAME OVER
+  ctx.font = `${mobile ? 20 : 34}px 'Press Start 2P', monospace`;
+  ctx.shadowBlur = 22;
+  ctx.shadowColor = "rgba(255,34,34,0.8)";
+  ctx.strokeStyle = "#ff2222";
+  ctx.lineWidth = 2;
+  ctx.strokeText("GAME OVER", cx, goY);
+  ctx.fillStyle = "rgba(255,34,34,0.2)";
+  ctx.fillText("GAME OVER", cx, goY);
+  ctx.shadowBlur = 0;
+
+  // Final score
+  ctx.font = `${mobile ? 10 : 14}px 'Press Start 2P', monospace`;
+  ctx.fillStyle = "#00E5FF";
+  ctx.fillText(
+    `SCORE ${String(gs.score).padStart(6, "0")}`,
+    cx,
+    goY + (mobile ? 22 : 34),
+  );
+
+  // Leaderboard
+  const lbHeaderY = goY + (mobile ? 44 : 66);
+  ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
+  ctx.fillStyle = AMBER;
+  ctx.fillText("- HIGH SCORES -", cx, lbHeaderY);
+
+  const rowH = mobile ? 15 : 20;
+  const startY = lbHeaderY + (mobile ? 17 : 24);
+  const bottomLimit = h - (mobile ? 24 : 36);
+  const fit = Math.floor((bottomLimit - startY) / rowH);
+  const maxRows = Math.max(0, Math.min(gs.leaderboard.length, fit, LB_MAX));
+
+  const bandW = mobile ? Math.min(w - 48, 220) : 300;
+  const bx = cx - bandW / 2;
+  ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
+  for (let i = 0; i < maxRows; i++) {
+    const e = gs.leaderboard[i];
+    const y = startY + i * rowH;
+    const isNew = e === gs.newEntry;
+    ctx.fillStyle = isNew ? AMBER : "#8fa0b3";
+    ctx.textAlign = "left";
+    ctx.fillText(String(i + 1).padStart(2, " "), bx, y);
+    ctx.textAlign = "center";
+    ctx.fillText(e.i, cx, y);
+    ctx.textAlign = "right";
+    ctx.fillText(String(e.s).padStart(6, "0"), bx + bandW, y);
+    if (isNew) {
+      ctx.textAlign = "left";
+      ctx.fillText("◀", bx + bandW + (mobile ? 8 : 12), y);
+    }
+  }
+
+  // Press any key (only after a short read buffer; suppressed while typing)
+  ctx.textAlign = "center";
+  if (
+    !gs.entering &&
+    gs.elapsed - (gs.gameoverAt || 0) > 800 &&
+    Math.floor(gs.elapsed / 600) % 2 === 0
+  ) {
+    ctx.font = `${mobile ? 6 : 10}px 'Press Start 2P', monospace`;
+    ctx.fillStyle = "#667";
+    ctx.fillText("PRESS ANY KEY / TAP TO RETURN", cx, h - (mobile ? 14 : 24));
+  }
+}
 
 function spawnExplosion(gs, x, y, color, count = 10) {
   for (let i = 0; i < count; i++) {
