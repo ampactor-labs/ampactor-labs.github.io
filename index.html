@@ -6,7 +6,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>Morgan Espitia — Systems Engineer | Rust · DSP · Embedded · Compilers · Full-Stack</title>
+    <title>
+      Morgan Espitia — Systems Engineer | Rust · DSP · Embedded · Compilers ·
+      Full-Stack
+    </title>
     <meta
       name="description"
       content="Systems engineer working low-level in Rust — self-hosting compiler, zero-heap DSP kernel (1,369 tests), rollback netcode, a ternary AI kernel, a production security product — plus full-stack web, APIs, and dashboards. Available for contract or full-time. SLC, UT."
@@ -14,13 +17,19 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ampactor.dev/" />
     <link rel="canonical" href="https://ampactor.dev/" />
-    <meta property="og:title" content="Morgan Espitia — Low-level Rust, full-stack web" />
+    <meta
+      property="og:title"
+      content="Morgan Espitia — Low-level Rust, full-stack web"
+    />
     <meta
       property="og:description"
       content="Compilers, real-time DSP, embedded, deterministic netcode, from-scratch ML — in Rust. Plus full-stack web, APIs, and dashboards. Available now."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Morgan Espitia — Low-level Rust, full-stack web" />
+    <meta
+      name="twitter:title"
+      content="Morgan Espitia — Low-level Rust, full-stack web"
+    />
     <meta
       name="twitter:description"
       content="Compilers, real-time DSP, embedded, deterministic netcode, from-scratch ML — in Rust. Plus full-stack web, APIs, and dashboards. Available now."
@@ -28,38 +37,41 @@
     <meta property="og:image" content="https://ampactor.dev/logo-512.png" />
     <meta name="twitter:image" content="https://ampactor.dev/logo-512.png" />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Morgan Espitia",
-      "jobTitle": "Systems Engineer",
-      "url": "https://ampactor.dev/",
-      "email": "ampactorlabs@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Salt Lake City",
-        "addressRegion": "UT"
-      },
-      "sameAs": ["https://github.com/ampactor-labs", "https://www.linkedin.com/in/ampactor-labs/"],
-      "knowsAbout": [
-        "Rust",
-        "Compiler Construction",
-        "Digital Signal Processing",
-        "Embedded Systems",
-        "Rollback Netcode",
-        "Neural Architecture Design",
-        "Solana Security",
-        "WebAssembly",
-        "Full-Stack Web Development",
-        "TypeScript",
-        "React",
-        "REST APIs",
-        "PHP",
-        "Audio Engineering"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Morgan Espitia",
+        "jobTitle": "Systems Engineer",
+        "url": "https://ampactor.dev/",
+        "email": "ampactorlabs@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Salt Lake City",
+          "addressRegion": "UT"
+        },
+        "sameAs": [
+          "https://github.com/ampactor-labs",
+          "https://www.linkedin.com/in/ampactor-labs/"
+        ],
+        "knowsAbout": [
+          "Rust",
+          "Compiler Construction",
+          "Digital Signal Processing",
+          "Embedded Systems",
+          "Rollback Netcode",
+          "Neural Architecture Design",
+          "Solana Security",
+          "WebAssembly",
+          "Full-Stack Web Development",
+          "TypeScript",
+          "React",
+          "REST APIs",
+          "PHP",
+          "Audio Engineering"
+        ]
+      }
     </script>
-    <link rel="stylesheet" href="/tokens.css">
+    <link rel="stylesheet" href="/tokens.css" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/logo-192.png" />
@@ -82,35 +94,154 @@
         background-attachment: fixed;
         overflow: hidden;
       }
+      /* The app shell uses 100vh as a universal fallback; modern browsers that
+         support dynamic viewport units get the nicer 100dvh (no jump when the
+         mobile browser chrome shows/hides). Older Safari that lacks dvh would
+         otherwise collapse the layout. */
+      .app-shell {
+        height: 100vh;
+      }
+      @supports (height: 100dvh) {
+        .app-shell {
+          height: 100dvh;
+        }
+      }
     </style>
+    <script>
+      // Pre-boot shim + visible error reporter. Runs before the app module so
+      // that (1) older mobile Safari gets the few modern APIs our deps assume,
+      // and (2) if the app still fails to boot, the real error is shown on-page
+      // instead of a blank screen — essential for debugging devices we can't
+      // open a console on.
+      (function () {
+        if (!Object.hasOwn) {
+          Object.hasOwn = function (o, p) {
+            return Object.prototype.hasOwnProperty.call(o, p);
+          };
+        }
+        function at(n) {
+          n = Math.trunc(n) || 0;
+          if (n < 0) n += this.length;
+          return n < 0 || n >= this.length ? undefined : this[n];
+        }
+        if (!Array.prototype.at) {
+          Object.defineProperty(Array.prototype, "at", {
+            value: at,
+            writable: true,
+            configurable: true,
+          });
+        }
+        if (!String.prototype.at) {
+          Object.defineProperty(String.prototype, "at", {
+            value: at,
+            writable: true,
+            configurable: true,
+          });
+        }
+        function show(msg) {
+          var root = document.getElementById("root");
+          if (root && root.childNodes.length > 0) return; // app rendered — don't cover it
+          var el = document.getElementById("boot-error");
+          if (!el) {
+            el = document.createElement("pre");
+            el.id = "boot-error";
+            el.style.cssText =
+              "position:fixed;inset:0;z-index:99999;margin:0;padding:18px;background:#0f0e0d;color:#ff5a6a;font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto";
+            (document.body || document.documentElement).appendChild(el);
+          }
+          el.textContent =
+            "⚠ boot error — please screenshot and send:\n\n" + msg;
+        }
+        window.addEventListener(
+          "error",
+          function (e) {
+            if (!e.message && e.target && e.target !== window) return; // ignore resource 404s
+            show(
+              (e.message || "error") +
+                "\n" +
+                ((e.error && e.error.stack) || e.filename || ""),
+            );
+          },
+          true,
+        );
+        window.addEventListener("unhandledrejection", function (e) {
+          var r = e.reason;
+          show("unhandledrejection: " + ((r && (r.stack || r.message)) || r));
+        });
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@300;400;600&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <noscript>
-      <div style="color:#00e5ff;font-family:monospace;padding:40px;max-width:800px;margin:0 auto;">
-        <h1 style="color:#00e5ff;margin-bottom:16px;">Morgan Espitia — Systems Engineer</h1>
-        <p style="color:#d4be98;margin-bottom:24px;">
-          Systems engineer building compilers, DSP frameworks, and real-time networked systems in Rust — plus full-stack web, APIs, and dashboards.
-          Available for contract or full-time work.
-          Salt Lake City, UT &middot;
-          <a href="mailto:ampactorlabs@gmail.com" style="color:#00e5ff;">ampactorlabs@gmail.com</a>
+      <div
+        style="
+          color: #00e5ff;
+          font-family: monospace;
+          padding: 40px;
+          max-width: 800px;
+          margin: 0 auto;
+        "
+      >
+        <h1 style="color: #00e5ff; margin-bottom: 16px">
+          Morgan Espitia — Systems Engineer
+        </h1>
+        <p style="color: #d4be98; margin-bottom: 24px">
+          Systems engineer building compilers, DSP frameworks, and real-time
+          networked systems in Rust — plus full-stack web, APIs, and dashboards.
+          Available for contract or full-time work. Salt Lake City, UT &middot;
+          <a href="mailto:ampactorlabs@gmail.com" style="color: #00e5ff"
+            >ampactorlabs@gmail.com</a
+          >
           &middot;
-          <a href="https://github.com/ampactor-labs" style="color:#00e5ff;">github.com/ampactor-labs</a>
+          <a href="https://github.com/ampactor-labs" style="color: #00e5ff"
+            >github.com/ampactor-labs</a
+          >
           &middot;
-          <a href="/resume.html" style="color:#00e5ff;">Résumé</a>
+          <a href="/resume.html" style="color: #00e5ff">Résumé</a>
         </p>
-        <h2 style="color:#00e5ff;margin-bottom:12px;">Projects</h2>
-        <ul style="color:#d4be98;line-height:2.4;list-style:none;padding:0;">
-          <li><strong>MENTL</strong> &mdash; Self-hosting compiler. Effect algebra, Hindley-Milner types, bit-identical L1 bootstrap. WASM.</li>
-          <li><strong>SONIDO</strong> &mdash; Cross-platform DSP kernel. 35 effects, 1,369 tests, bare-metal ARM + CLAP plugins. Rust.</li>
-          <li><strong>2-TOP</strong> &mdash; Rollback netcode mobile brawler. 275 tests, deterministic cross-platform simulation. Rust/Bevy.</li>
-          <li><strong>CLOB</strong> &mdash; Ternary intelligence kernel. Compiles what it learns into native x86-64, GPU-free. Energy-first (J/nat) objective. Rust.</li>
-          <li><strong>TURBOSORT</strong> &mdash; SIMD-accelerated sort library, 3.1&times; faster than std. Rust/AVX2.</li>
-          <li><strong>TOKENSAFE + SCRY</strong> &mdash; Solana security scanner, x402 micropayments, shipped to production. TypeScript/Rust.</li>
-          <li><strong>BROWSORE</strong> &mdash; Politeness-first browser automation, 40 MCP tools for AI agents. TypeScript/Playwright.</li>
-          <li><strong>FLOWPILOT</strong> &mdash; Algorithmic Solana trading engine with 4-layer safety gate. Rust.</li>
+        <h2 style="color: #00e5ff; margin-bottom: 12px">Projects</h2>
+        <ul
+          style="color: #d4be98; line-height: 2.4; list-style: none; padding: 0"
+        >
+          <li>
+            <strong>MENTL</strong> &mdash; Self-hosting compiler. Effect
+            algebra, Hindley-Milner types, bit-identical L1 bootstrap. WASM.
+          </li>
+          <li>
+            <strong>SONIDO</strong> &mdash; Cross-platform DSP kernel. 35
+            effects, 1,369 tests, bare-metal ARM + CLAP plugins. Rust.
+          </li>
+          <li>
+            <strong>2-TOP</strong> &mdash; Rollback netcode mobile brawler. 275
+            tests, deterministic cross-platform simulation. Rust/Bevy.
+          </li>
+          <li>
+            <strong>CLOB</strong> &mdash; Ternary intelligence kernel. Compiles
+            what it learns into native x86-64, GPU-free. Energy-first (J/nat)
+            objective. Rust.
+          </li>
+          <li>
+            <strong>TURBOSORT</strong> &mdash; SIMD-accelerated sort library,
+            3.1&times; faster than std. Rust/AVX2.
+          </li>
+          <li>
+            <strong>TOKENSAFE + SCRY</strong> &mdash; Solana security scanner,
+            x402 micropayments, shipped to production. TypeScript/Rust.
+          </li>
+          <li>
+            <strong>BROWSORE</strong> &mdash; Politeness-first browser
+            automation, 40 MCP tools for AI agents. TypeScript/Playwright.
+          </li>
+          <li>
+            <strong>FLOWPILOT</strong> &mdash; Algorithmic Solana trading engine
+            with 4-layer safety gate. Rust.
+          </li>
         </ul>
       </div>
     </noscript>

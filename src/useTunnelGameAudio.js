@@ -7,6 +7,14 @@ export default function useTunnelGameAudio() {
     if (!ctxRef.current) {
       ctxRef.current = new (window.AudioContext || window.webkitAudioContext)();
     }
+    // Mobile browsers (esp. iOS) start the context "suspended" and re-suspend
+    // it whenever the tab is backgrounded. While suspended, currentTime is
+    // frozen, so every scheduled oscillator queues without ever firing or being
+    // collected — they pile up as live nodes until the next gesture, spiking
+    // CPU/memory. Nudging resume() on each request keeps the clock running.
+    if (ctxRef.current.state === "suspended") {
+      ctxRef.current.resume().catch(() => {});
+    }
     return ctxRef.current;
   }, []);
 

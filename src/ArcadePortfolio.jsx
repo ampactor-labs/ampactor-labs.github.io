@@ -45,9 +45,10 @@ export default function ArcadePortfolio() {
 
   return (
     <div
+      className="app-shell"
       style={{
         width: "100%",
-        height: "100dvh",
+        height: "100vh",
         background:
           "radial-gradient(ellipse at 50% 40%, #1d2021 0%, #2a2826 50%, #0f0e0d 100%)",
         display: "flex",

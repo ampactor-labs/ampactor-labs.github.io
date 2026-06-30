@@ -643,9 +643,21 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     window.addEventListener("resize", resize);
 
     const loop = (now) => {
-      const dt = Math.min(now - lastTime, 50);
-      lastTime = now;
-      gameLoopRef.current?.(ctx, canvas.offsetWidth, canvas.offsetHeight, dt);
+      const elapsed = now - lastTime;
+      // Cap the game to ~60fps on phones. Motion is dt-based so speed is
+      // unchanged; this just stops a 120Hz panel from running the
+      // shadowBlur-heavy render twice as often as it needs to. Desktop is
+      // left uncapped.
+      const minInterval = isMobileRef.current ? 15 : 0;
+      if (elapsed >= minInterval) {
+        lastTime = now;
+        gameLoopRef.current?.(
+          ctx,
+          canvas.offsetWidth,
+          canvas.offsetHeight,
+          Math.min(elapsed, 50),
+        );
+      }
       animRef.current = requestAnimationFrame(loop);
     };
     animRef.current = requestAnimationFrame(loop);
@@ -1305,7 +1317,14 @@ function spawnTextExplosion(gs, x, y, text, color) {
   }
 }
 
+const MAX_PARTICLES = 240;
+
 function updateAndDrawParticles(ctx, gs, dt) {
+  // Defensive cap: many simultaneous text-explosions could otherwise spike the
+  // array. Drop the oldest excess (barely visible) to keep memory bounded.
+  if (gs.particles.length > MAX_PARTICLES) {
+    gs.particles.splice(0, gs.particles.length - MAX_PARTICLES);
+  }
   for (let i = gs.particles.length - 1; i >= 0; i--) {
     const p = gs.particles[i];
     p.x += p.vx * dt;
