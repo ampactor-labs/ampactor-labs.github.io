@@ -130,7 +130,13 @@ export default function SynthEngine({ width }) {
   }, [params]);
 
   const initAudio = useCallback(() => {
-    if (audioCtxRef.current) return audioCtxRef.current;
+    if (audioCtxRef.current) {
+      // Mobile Safari re-suspends the context after backgrounding; resume the
+      // cached one so held/new notes sound instead of queuing silently.
+      if (audioCtxRef.current.state === "suspended")
+        audioCtxRef.current.resume().catch(() => {});
+      return audioCtxRef.current;
+    }
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
@@ -156,6 +162,8 @@ export default function SynthEngine({ width }) {
     delayRef.current = delay;
     feedbackRef.current = feedback;
     analyserRef.current = analyser;
+    // New contexts start suspended on mobile; resume so the first note sounds.
+    if (ctx.state === "suspended") ctx.resume().catch(() => {});
     setActive(true);
     return ctx;
   }, []);

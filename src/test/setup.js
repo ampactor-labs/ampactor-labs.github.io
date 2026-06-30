@@ -53,6 +53,15 @@ class MockAudioContext {
   get currentTime() {
     return 0;
   }
+  get state() {
+    return "running";
+  }
+  resume() {
+    return Promise.resolve();
+  }
+  suspend() {
+    return Promise.resolve();
+  }
   close() {}
 }
 

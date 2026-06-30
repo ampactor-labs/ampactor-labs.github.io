@@ -7,7 +7,8 @@ export default function useAmbientHum() {
     if (!ctxRef.current) {
       ctxRef.current = new (window.AudioContext || window.webkitAudioContext)();
     }
-    if (ctxRef.current.state === "suspended") ctxRef.current.resume();
+    if (ctxRef.current.state === "suspended")
+      ctxRef.current.resume().catch(() => {});
     return ctxRef.current;
   }, []);
 
