@@ -48,7 +48,7 @@ describe("useCabinetState", () => {
   // all boot lines.
   function bootToSelect(result) {
     act(() => {
-      vi.advanceTimersByTime(900); // bootPhase 0→1 (800ms) + buffer
+      vi.advanceTimersByTime(900); // bootPhase 0→1 (450ms) + buffer
     });
     act(() => {
       vi.advanceTimersByTime(BOOT_LINES.length * 280 + 100); // all boot lines

@@ -15,7 +15,7 @@ export default function BootScreen({
           alignItems: "center",
           justifyContent: "center",
           gap: 16,
-          animation: "testPattern 0.8s ease-out forwards",
+          animation: "testPattern 0.5s ease-out forwards",
         }}
         onClick={onSkip}
       >
@@ -178,7 +178,7 @@ export default function BootScreen({
                       ? "var(--color-amber)"
                       : line.startsWith("OPERATOR:")
                         ? "#00E5FF"
-                        : line.startsWith("CLEARANCE:")
+                        : line.startsWith("FOCUS:")
                           ? "var(--color-teal)"
                           : line.startsWith("STATUS:")
                             ? "var(--color-amber)"

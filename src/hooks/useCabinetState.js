@@ -63,7 +63,7 @@ export default function useCabinetState(
   useEffect(() => {
     if (screen !== "boot" || !introComplete) return;
     if (bootPhase === 0) {
-      const t = setTimeout(() => setBootPhase(1), 800);
+      const t = setTimeout(() => setBootPhase(1), 450);
       return () => clearTimeout(t);
     }
   }, [screen, bootPhase, introComplete]);
@@ -78,7 +78,7 @@ export default function useCabinetState(
         }
         return prev + 1;
       });
-    }, 180);
+    }, 130);
     return () => clearInterval(interval);
   }, [screen, bootPhase]);
 

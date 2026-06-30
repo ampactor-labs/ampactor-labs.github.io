@@ -133,6 +133,34 @@ export const PROJECTS = [
     operatorNote:
       "275 tests, and a cross-platform determinism matrix in CI that checks every target produces the identical simulation.",
   },
+  {
+    id: "celezdial",
+    title: "CELEZDIAL SELEKTA",
+    subtitle: "ZODIAC-MAPPED SYNTHESIZER",
+    lang: "React/Tone.js",
+    color: "#9d7bff",
+    icon: "☽",
+    github: "https://github.com/ampactor-labs/celezdial-selekta",
+    live: "https://ampactor.dev/celezdial-selekta/",
+    desc: "Celezdial Selekta maps the twelve zodiac signs to twelve voices on a chromatic keyboard. Each sign's pitch class comes from a chromatic-calendar scheme, and its microtuning follows Hans Cousto's planetary octave, detuning the voice by its ruling planet's deviation from 12-TET. The voices sum before a Chebyshev waveshaper, so the distortion generates sum and difference tones across the whole mix instead of per voice. A natal-chart mode reads two birth charts at once and sounds whichever signs each chart owns, so a sign both charts share plays its two tunings together.",
+    tags: ["synthesis", "tone.js", "microtuning", "generative"],
+    tagline: "TWELVE SIGNS, TWELVE VOICES",
+    outcome:
+      "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
+    highlights: [
+      "12 VOICES, ONE PER ZODIAC SIGN",
+      "8 SWAPPABLE FX CHAINS",
+      "COUSTO PLANETARY MICROTUNING",
+      "SUM-BEFORE-SATURATION CHEBYSHEV",
+      "DUAL NATAL-CHART MODE",
+      "DIM7 OCTAVE PARTITIONING",
+    ],
+    stack: ["React", "Tone.js", "Web Audio", "circular-natal-horoscope-js"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
+  },
 ];
 
 export const HIDDEN_PROJECTS = [

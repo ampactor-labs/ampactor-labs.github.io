@@ -148,7 +148,7 @@ export default function ArcadePortfolio() {
           background: "var(--color-dim)",
           borderRadius: 16,
           opacity: 0,
-          willChange: "opacity, clip-path",
+          willChange: "opacity, clip-path, filter",
         }}
       >
         <div

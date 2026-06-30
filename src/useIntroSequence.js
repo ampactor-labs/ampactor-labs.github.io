@@ -35,7 +35,7 @@ export default function useIntroSequence(
       },
     });
 
-    // 0.0–1.5s: Radial reveal — tunnel already running at default speed
+    // 0.0–0.8s: Radial reveal — tunnel already running at default speed
     if (tunnel) {
       const rMax =
         Math.hypot(window.innerWidth / 2, window.innerHeight / 2) * 1.1;
@@ -44,7 +44,7 @@ export default function useIntroSequence(
         proxy,
         {
           r: rMax,
-          duration: 1.5,
+          duration: 0.8,
           ease: "power2.out",
           onUpdate: () => tunnel.setRevealRadius(proxy.r),
         },
@@ -52,54 +52,72 @@ export default function useIntroSequence(
       );
     }
 
-    // 0.0–0.8s: A-mark logo flickers into existence (CRT warm-up)
+    // 0.0–0.55s: A-mark logo flickers into existence (CRT warm-up)
     tl.to(
       logo,
       {
         keyframes: [
           { opacity: 0, duration: 0 },
-          { opacity: 0.4, duration: 0.1 },
-          { opacity: 0.1, duration: 0.08 },
-          { opacity: 0.6, duration: 0.12 },
-          { opacity: 0.2, duration: 0.06 },
-          { opacity: 0.8, duration: 0.15 },
-          { opacity: 0.5, duration: 0.08 },
-          { opacity: 0.9, duration: 0.2 },
+          { opacity: 0.4, duration: 0.07 },
+          { opacity: 0.1, duration: 0.056 },
+          { opacity: 0.6, duration: 0.084 },
+          { opacity: 0.2, duration: 0.042 },
+          { opacity: 0.8, duration: 0.105 },
+          { opacity: 0.5, duration: 0.056 },
+          { opacity: 0.9, duration: 0.14 },
         ],
         ease: "none",
       },
       0,
     );
 
-    // 0.8–1.3s: Logo dims to ambient
+    // 0.55–0.9s: Logo dims to ambient
     tl.to(
       logo,
       {
         opacity: 0.03,
-        duration: 0.5,
+        duration: 0.35,
         ease: "power2.in",
       },
-      0.8,
+      0.55,
     );
 
-    // 1.5–2.5s: CRT scan-on reveal (trimmed from 2.0–3.5s)
-    tl.set(
-      console_,
-      { opacity: 1, clipPath: "inset(49% 0 49% 0 round 16px)" },
-      1.5,
-    );
+    // 0.5–1.16s: CRT power-on — a bright scanline igniting and expanding. The
+    // brightness pop reads as a real tube firing instead of a hollow unfold.
+    tl.set(console_, { opacity: 1 }, 0.5);
     tl.to(
       console_,
       {
-        clipPath: "inset(0% 0 0% 0 round 16px)",
-        duration: 1.0,
-        ease: "power2.out",
-        clearProps: "clipPath",
+        keyframes: [
+          {
+            clipPath: "inset(49% 0 49% 0 round 16px)",
+            filter: "brightness(6)",
+            duration: 0,
+          },
+          {
+            clipPath: "inset(34% 0 34% 0 round 16px)",
+            filter: "brightness(3)",
+            duration: 0.14,
+          },
+          {
+            clipPath: "inset(8% 0 8% 0 round 16px)",
+            filter: "brightness(1.5)",
+            duration: 0.26,
+          },
+          {
+            clipPath: "inset(0% 0 0% 0 round 16px)",
+            filter: "brightness(1)",
+            duration: 0.26,
+            ease: "power2.out",
+          },
+        ],
+        ease: "none",
+        clearProps: "clipPath,filter",
       },
-      1.5,
+      0.5,
     );
 
-    // 2.6s: Restart flicker animation
+    // 1.2s: Restart flicker animation
     tl.call(
       () => {
         const screenEl = console_.querySelector(".crt-screen");
@@ -110,7 +128,7 @@ export default function useIntroSequence(
         }
       },
       [],
-      2.6,
+      1.2,
     );
 
     tlRef.current = tl;

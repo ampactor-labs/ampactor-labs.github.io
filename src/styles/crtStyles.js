@@ -14,7 +14,7 @@ export const crtStyles = `
   @keyframes phosphorPulse { 0%,100%{text-shadow:0 0 4px rgba(137,191,173,0.36),0 0 12px rgba(137,191,173,0.12)} 50%{text-shadow:0 0 6px rgba(137,191,173,0.48),0 0 18px rgba(137,191,173,0.18)} }
   @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
-  @keyframes testPattern { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
+  @keyframes testPattern { 0%{opacity:1} 60%{opacity:1} 100%{opacity:0} }
   .crt-screen{animation:flicker 14s infinite}
   .crt-glass{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 40%,transparent 60%,rgba(255,255,255,0.01) 100%);pointer-events:none;z-index:91;border-radius:inherit}
   .crt-curvature{position:absolute;inset:0;border-radius:50%/3%;box-shadow:inset 0 0 60px rgba(0,0,0,0.4);pointer-events:none;z-index:89}
