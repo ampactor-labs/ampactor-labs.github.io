@@ -182,11 +182,9 @@ export default function BootScreen({
                           ? "var(--color-teal)"
                           : line.startsWith("STATUS:")
                             ? "var(--color-amber)"
-                            : line.includes("CLASSIFIED")
-                              ? "var(--color-amber)"
-                              : line.includes("OK")
-                                ? "var(--color-teal)"
-                                : "var(--color-muted)",
+                            : line.includes("OK")
+                              ? "var(--color-teal)"
+                              : "var(--color-muted)",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 line === "PRESS ANY KEY"

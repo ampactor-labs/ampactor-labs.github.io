@@ -120,12 +120,18 @@ export default function SelectScreen({
             style={{
               color: "#00E5FF",
               textDecoration: "none",
-              display: "block",
+              display: "inline-block",
               fontSize: fs(8),
+              border: "1px solid rgba(0,229,255,0.35)",
+              borderRadius: 3,
+              background: "rgba(0,229,255,0.06)",
+              padding: "3px 7px",
+              marginBottom: 5,
             }}
           >
             {"\u25c8"} GITHUB
           </a>
+          <br />
           <a
             href={CONTACT.linkedin}
             target="_blank"
@@ -133,12 +139,18 @@ export default function SelectScreen({
             style={{
               color: "#00E5FF",
               textDecoration: "none",
-              display: "block",
+              display: "inline-block",
               fontSize: fs(8),
+              border: "1px solid rgba(0,229,255,0.35)",
+              borderRadius: 3,
+              background: "rgba(0,229,255,0.06)",
+              padding: "3px 7px",
+              marginBottom: 5,
             }}
           >
             {"\u25c8"} LINKEDIN
           </a>
+          <br />
           {"\u25b2\u25bc"} NAV
           <br />
           {"\u24b6"} SELECT
@@ -402,9 +414,9 @@ export default function SelectScreen({
           {"\u00b7"} SECURITY {"\u00b7"} RUST {"\u00b7"} WASM {"\u00b7"}{" "}
           AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor-labs
           {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}SELF-HOSTING COMPILER{" "}
-          {"\u00b7"} 1,369 DSP TESTS {"\u00b7"} DETERMINISTIC NETCODE {"\u00b7"}{" "}
-          TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR CONTRACT {"\u00b7"}{" "}
-          ampactorlabs@gmail.com
+          {"\u00b7"} ZERO-HEAP DSP KERNEL {"\u00b7"} DETERMINISTIC NETCODE{" "}
+          {"\u00b7"} TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR CONTRACT{" "}
+          {"\u00b7"} ampactorlabs@gmail.com
         </div>
       </div>
     </div>

@@ -137,11 +137,15 @@ export default function DetailScreen({
                 rel="noopener noreferrer"
                 style={{
                   fontSize: fs(10),
-                  color: p.color,
+                  color: "var(--color-void)",
                   letterSpacing: "0.08em",
                   textDecoration: "none",
-                  fontWeight: 600,
-                  textShadow: `0 0 10px ${p.color}66`,
+                  fontWeight: 700,
+                  padding: "5px 12px",
+                  borderRadius: 4,
+                  background: p.color,
+                  boxShadow: `0 0 14px ${p.color}66`,
+                  whiteSpace: "nowrap",
                 }}
               >
                 {"\u25b8"} DEMO
@@ -154,9 +158,15 @@ export default function DetailScreen({
                 rel="noopener noreferrer"
                 style={{
                   fontSize: fs(10),
-                  color: "var(--fg)",
+                  color: p.color,
                   letterSpacing: "0.08em",
                   textDecoration: "none",
+                  fontWeight: 600,
+                  padding: "5px 12px",
+                  borderRadius: 4,
+                  background: `${p.color}11`,
+                  border: `1px solid ${p.color}55`,
+                  whiteSpace: "nowrap",
                 }}
               >
                 {"\u203a"} SOURCE
@@ -369,9 +379,22 @@ export default function DetailScreen({
         }}
       >
         <span>[ {"\u24b7"} BACK ]</span>
-        <span>
-          {p.github ? p.github.replace("https://github.com/", "") : p.id}
-        </span>
+        {p.github ? (
+          <a
+            href={p.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: `${p.color}aa`,
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+            }}
+          >
+            {p.github.replace("https://github.com/", "")}
+          </a>
+        ) : (
+          <span>{p.id}</span>
+        )}
       </div>
     </div>
   );

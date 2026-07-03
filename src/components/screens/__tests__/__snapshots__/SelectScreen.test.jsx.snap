@@ -46,7 +46,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        9
+        10
          CARTRIDGE
         S
          LOADED
@@ -58,21 +58,23 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
         ◈
          GITHUB
       </a>
+      <br />
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
         ◈
          LINKEDIN
       </a>
+      <br />
       ▲▼
        NAV
       <br />
@@ -327,6 +329,47 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
             ROLLBACK NETCODE BRAWLER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 255, 156); background: rgba(0, 255, 156, 0.067); border-radius: 5px; border: 1px solid rgba(0, 255, 156, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ∴
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              CLOB
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            TERNARY INTELLIGENCE KERNEL
           </div>
         </div>
       </div>
@@ -537,17 +580,17 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       SELF-HOSTING COMPILER
        
       ·
-       1,369 DSP TESTS 
+       ZERO-HEAP DSP KERNEL 
       ·
-       DETERMINISTIC NETCODE 
-      ·
+       DETERMINISTIC NETCODE
        
-      TERNARY ML ARCHITECTURE 
       ·
-       AVAILABLE FOR CONTRACT 
+       TERNARY ML ARCHITECTURE 
       ·
+       AVAILABLE FOR CONTRACT
        
-      ampactorlabs@gmail.com
+      ·
+       ampactorlabs@gmail.com
     </div>
   </div>
 </div>
@@ -599,7 +642,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <div
         style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
       >
-        6
+        7
          CARTRIDGE
         S
          LOADED
@@ -611,21 +654,23 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
         ◈
          GITHUB
       </a>
+      <br />
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: block; font-size: 8px;"
+        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
         ◈
          LINKEDIN
       </a>
+      <br />
       ▲▼
        NAV
       <br />
@@ -886,6 +931,47 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     </div>
     <div>
       <div
+        aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 255, 156); background: rgba(0, 255, 156, 0.067); border-radius: 5px; border: 1px solid rgba(0, 255, 156, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ∴
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              CLOB
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            TERNARY INTELLIGENCE KERNEL
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
         style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
       >
         <span
@@ -967,17 +1053,17 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       SELF-HOSTING COMPILER
        
       ·
-       1,369 DSP TESTS 
+       ZERO-HEAP DSP KERNEL 
       ·
-       DETERMINISTIC NETCODE 
-      ·
+       DETERMINISTIC NETCODE
        
-      TERNARY ML ARCHITECTURE 
       ·
-       AVAILABLE FOR CONTRACT 
+       TERNARY ML ARCHITECTURE 
       ·
+       AVAILABLE FOR CONTRACT
        
-      ampactorlabs@gmail.com
+      ·
+       ampactorlabs@gmail.com
     </div>
   </div>
 </div>

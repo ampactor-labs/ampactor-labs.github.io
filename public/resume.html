@@ -252,8 +252,8 @@
           </div>
           <div class="detail">
             Three-layer kernel architecture: identical Rust on desktop CLAP
-            plugins and bare-metal ARM (Cortex-M7 @ 480 MHz). 1,369 tests, 14
-            crates, zero-heap, zero-trait-dispatch. Firmware flashed to physical
+            plugins and bare-metal ARM (Cortex-M7 @ 480 MHz). 14 crates,
+            zero-heap, zero-trait-dispatch. Firmware flashed to physical
             Daisy Seed hardware.
           </div>
         </div>
@@ -286,7 +286,8 @@
           <div class="detail">
             Provably deterministic cross-platform simulation, fixed-point math,
             replay codec with frame-accurate scrub, bevy_ggrs + Matchbox WebRTC.
-            275 tests; cross-platform determinism matrix in CI.
+            A cross-platform determinism matrix in CI checks every target
+            produces the identical simulation.
           </div>
         </div>
 
@@ -309,12 +310,14 @@
             <span class="stack">Rust · AVX2</span>
           </div>
           <div class="outcome">
-            A SIMD sort that beat std by about 3× on my laptop. Re-checking the number on better hardware.
+            A SIMD sort on crates.io, up to 2.9× faster than std single-threaded
+            and 3.1× parallel.
           </div>
           <div class="detail">
             All 10 primitive numeric types. AVX2 sorting networks for small
             arrays, LSD radix sort for large, runtime CPUID dispatch. No unsafe
-            trait impls, no FFI, no nightly; full no_std.
+            trait impls, no FFI, no nightly; full no_std. Benchmarked against
+            std and voracious, with the losses published alongside the wins.
           </div>
         </div>
 

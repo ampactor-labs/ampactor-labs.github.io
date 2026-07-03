@@ -41,7 +41,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <a
         href="https://ampactor.dev/sonido"
         rel="noopener noreferrer"
-        style="font-size: 10px; color: rgb(0, 229, 255); letter-spacing: 0.08em; text-decoration: none; font-weight: 600; text-shadow: 0 0 10px #00E5FF66;"
+        style="font-size: 10px; color: var(--color-void); letter-spacing: 0.08em; text-decoration: none; font-weight: 700; padding: 5px 12px; border-radius: 4px; background: rgb(0, 229, 255); box-shadow: 0 0 14px #00E5FF66; white-space: nowrap;"
         target="_blank"
       >
         ▸
@@ -50,7 +50,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <a
         href="https://github.com/ampactor-labs/sonido"
         rel="noopener noreferrer"
-        style="font-size: 10px; color: var(--fg); letter-spacing: 0.08em; text-decoration: none;"
+        style="font-size: 10px; color: rgb(0, 229, 255); letter-spacing: 0.08em; text-decoration: none; font-weight: 600; padding: 5px 12px; border-radius: 4px; background: rgba(0, 229, 255, 0.067); border: 1px solid rgba(0, 229, 255, 0.333); white-space: nowrap;"
         target="_blank"
       >
         ›
@@ -94,7 +94,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware, verified by 1,369 tests.
+        Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware.
       </div>
     </div>
     <div
@@ -123,7 +123,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          1,369 TESTS
+          FLASHED TO REAL DAISY SEED HARDWARE
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -240,7 +240,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        1,369 tests. Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. Firmware flashed to real Daisy Seed hardware.
+        Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. The firmware runs on physical Daisy Seed hardware, not just a cross-compile target.
       </div>
     </div>
     <div
@@ -292,9 +292,14 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       Ⓑ
        BACK ]
     </span>
-    <span>
+    <a
+      href="https://github.com/ampactor-labs/sonido"
+      rel="noopener noreferrer"
+      style="color: rgba(0, 229, 255, 0.667); text-decoration: underline; text-underline-offset: 3px;"
+      target="_blank"
+    >
       ampactor-labs/sonido
-    </span>
+    </a>
   </div>
 </div>
 `;

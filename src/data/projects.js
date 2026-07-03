@@ -8,13 +8,13 @@ export const PROJECTS = [
     icon: "♫",
     github: "https://github.com/ampactor-labs/sonido",
     live: "https://ampactor.dev/sonido",
-    desc: "Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware, verified by 1,369 tests.",
+    desc: "Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware.",
     tags: ["dsp", "clap", "embedded", "no_std"],
     tagline: "DESKTOP AND BARE METAL. SAME CODE.",
     outcome:
       "Write audio code once; run it unchanged on a desktop plugin and a $20 microcontroller.",
     highlights: [
-      "1,369 TESTS",
+      "FLASHED TO REAL DAISY SEED HARDWARE",
       "14 CRATES (6 no_std)",
       "35 EFFECTS / 35 CLAP PLUGINS",
       "ZERO-HEAP KERNEL ARCHITECTURE",
@@ -25,7 +25,7 @@ export const PROJECTS = [
     status: "active",
     category: "systems",
     operatorNote:
-      "1,369 tests. Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. Firmware flashed to real Daisy Seed hardware.",
+      "Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. The firmware runs on physical Daisy Seed hardware, not just a cross-compile target.",
   },
   {
     id: "mentl",
@@ -61,22 +61,24 @@ export const PROJECTS = [
     color: "#FF6B35",
     icon: "⚡",
     github: "https://github.com/ampactor-labs/turbosort",
-    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types in a strict no_std environment without relying on FFI or the nightly compiler. The algorithm currently benches about three times faster than the standard library on a laptop, pending verification on isolated hardware.",
+    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types in a strict no_std environment without relying on FFI or the nightly compiler. Benchmarked against std and voracious with full criterion runs: serial peaks at 2.9× over std (f32 at 1M elements), and the parallel feature reaches 3.1× at 10M. The README publishes the losses too; mid-size arrays and u64 still go to std or voracious.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
     outcome:
-      "A SIMD sort that beat std by about 3× on my laptop. Re-checking the number on better hardware.",
+      "A SIMD sort up to 2.9× faster than std single-threaded, 3.1× parallel. On crates.io, with the full win-and-loss tables in the README.",
     highlights: [
-      "~3× OVER STD (RE-BENCH PENDING)",
+      "2.9× OVER STD (SERIAL, f32 @ 1M)",
+      "3.1× OVER STD (PARALLEL @ 10M)",
       "AVX2 SORTING NETWORKS",
       "LSD RADIX SORT (O(n))",
       "RUNTIME CPUID DISPATCH",
-      "ALL 10 PRIMITIVE TYPES",
-      "no_std + PARALLEL MODES",
+      "ALL 10 PRIMITIVE TYPES, no_std",
     ],
     stack: ["Rust", "AVX2", "NEON", "rayon"],
     status: "active",
     category: "systems",
+    operatorNote:
+      "The benchmark tables publish where it loses: u64 goes to voracious, 128–512 element arrays go to std. Trust a table that shows its losses over one that only shows wins.",
   },
   {
     id: "tokensafe",
@@ -114,13 +116,13 @@ export const PROJECTS = [
     color: "#ff4466",
     icon: "⚔",
     github: "https://github.com/ampactor-labs/two-top",
-    desc: "2-Top uses rollback netcode to keep a mobile brawler synchronized across iOS, Android, and the web. Because floating-point math diverges across architectures, the engine relies strictly on fixed-point arithmetic. A continuous integration matrix tests this determinism across platforms, ensuring the simulation produces identical state everywhere. This stability allows the custom replay codec to scrub seamlessly through matches.",
+    desc: "2-Top uses rollback netcode to keep a mobile brawler synchronized across iOS, Android, and the web. Because floating-point math diverges across architectures, the engine relies strictly on fixed-point arithmetic. A continuous integration matrix tests this determinism across platforms, ensuring the simulation produces identical state everywhere. This stability allows the custom replay codec to scrub through matches frame by frame.",
     tags: ["netcode", "determinism", "ecs", "mobile"],
     tagline: "DETERMINISTIC ACROSS PLATFORMS",
     outcome:
       "Online multiplayer that stays perfectly in sync across phones. Deterministic rollback netcode.",
     highlights: [
-      "275 TESTS",
+      "FIXED-POINT MATH THROUGHOUT",
       "ROLLBACK NETCODE (bevy_ggrs)",
       "CROSS-PLATFORM DETERMINISM MATRIX",
       "REPLAY CODEC WITH SCRUB",
@@ -131,7 +133,34 @@ export const PROJECTS = [
     status: "active",
     category: "systems",
     operatorNote:
-      "275 tests, and a cross-platform determinism matrix in CI that checks every target produces the identical simulation.",
+      "A determinism matrix in CI checks that every platform produces the identical simulation, bit for bit. Fixed-point math everywhere, because floats drift across architectures.",
+  },
+  {
+    id: "clob",
+    title: "CLOB",
+    subtitle: "TERNARY INTELLIGENCE KERNEL",
+    lang: "Rust",
+    color: "#00ff9c",
+    icon: "∴",
+    github: "https://github.com/ampactor-labs/clob",
+    desc: "Clob bets that intelligence is compression efficiency per joule. A ternary recurrent kernel streams text on a laptop CPU while a crystallization loop distills prediction errors into compiled ternary modules; the compile path lowers ternary matrices to native x86-64, with no GPU anywhere in the loop. Every run writes a manifest recording the seed, git commit, and input hashes, so every result is auditable. The core is still untrained; the first real run crystallized zero modules, so training the recurrent core is the current track.",
+    tags: ["ternary", "ml", "energy", "codegen"],
+    tagline: "JOULES PER NAT, DRIVEN DOWN",
+    outcome:
+      "A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU. In development.",
+    highlights: [
+      "TERNARY RECURRENT CORE",
+      "J/nat ENERGY OBJECTIVE",
+      "CRYSTALLIZATION LOOP",
+      "TERNARY → NATIVE x86-64 COMPILE",
+      "MANIFEST-AUDITED RUNS",
+      "NO GPU: LAPTOP CPU IS THE FLOOR",
+    ],
+    stack: ["Rust", "x86-64 codegen", "REINFORCE", "ternary DSL"],
+    status: "active",
+    category: "systems",
+    operatorNote:
+      "The J/nat number is the whole game: a change that makes the model smarter but hotter fails on its own terms. First real run crystallized zero modules; that is the honest baseline, and training the core comes first.",
   },
   {
     id: "celezdial",

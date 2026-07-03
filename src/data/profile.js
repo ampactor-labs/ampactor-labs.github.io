@@ -64,7 +64,7 @@ export const PROOF = [
   },
   {
     icon: "⚡",
-    text: "A sort library 3.1× faster than the Rust standard library",
+    text: "A sort crate on crates.io, up to 3.1× faster than the Rust standard library",
   },
 ];
 
