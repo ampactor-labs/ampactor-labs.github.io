@@ -129,7 +129,7 @@ export default function SelectScreen({
               marginBottom: 5,
             }}
           >
-            {"\u25c8"} GITHUB
+            GITHUB
           </a>
           <br />
           <a
@@ -148,7 +148,7 @@ export default function SelectScreen({
               marginBottom: 5,
             }}
           >
-            {"\u25c8"} LINKEDIN
+            LINKEDIN
           </a>
           <br />
           {"\u25b2\u25bc"} NAV
