@@ -217,7 +217,7 @@ export default function BootScreen({
           }}
           onClick={onSkip}
         >
-          [ press any key or tap A ]
+          {/* [ press any key or tap A ] */}
         </div>
       )}
     </div>
