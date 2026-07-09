@@ -151,9 +151,9 @@ export default function SelectScreen({
             LINKEDIN
           </a>
           <br />
-          {"\u25b2\u25bc"} NAV
+          {/* {"\u25b2\u25bc"} NAV */}
           <br />
-          {"\u24b6"} SELECT
+          {/* {"\u24b6"} SELECT */}
         </div>
       </div>
       <div
