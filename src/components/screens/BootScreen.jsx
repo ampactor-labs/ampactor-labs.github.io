@@ -4,6 +4,7 @@ export default function BootScreen({
   bootPhase,
   onSkip,
   fs,
+  screenWidth = 400,
 }) {
   if (bootPhase === 0) {
     return (
@@ -164,7 +165,7 @@ export default function BootScreen({
       >
         [ SKIP ]
       </div>
-      <div style={{ fontSize: fs(14), lineHeight: 2 }}>
+      <div style={{ fontSize: Math.min(fs(14), screenWidth / 28), lineHeight: 2, whiteSpace: "nowrap" }}>
         {lines.slice(0, currentLine + 1).map((line, i) => (
           <div
             key={i}

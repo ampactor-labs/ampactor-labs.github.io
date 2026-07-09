@@ -102,6 +102,8 @@
          otherwise collapse the layout. */
       .app-shell {
         height: 100vh;
+        /* Push content above the Android/iOS navigation bar */
+        padding-bottom: env(safe-area-inset-bottom);
       }
       @supports (height: 100dvh) {
         .app-shell {

@@ -41,8 +41,7 @@ export default function Cabinet({
         borderRadius: "0 0 16px 16px",
         border: "3px solid var(--color-umber)",
         borderTop: "2px solid var(--color-umber)",
-        padding: "10px 20px",
-        paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)",
+        padding: "10px 20px 12px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -238,14 +237,6 @@ export default function Cabinet({
               letterSpacing: "0.12em",
             }}
           >
-            <a
-              href="https://github.com/ampactor-labs"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--color-comment)", textDecoration: "none" }}
-            >
-              GH: AMPACTOR
-            </a>
           </div>
         </div>
         <div

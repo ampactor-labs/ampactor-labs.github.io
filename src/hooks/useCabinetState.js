@@ -155,8 +155,7 @@ export default function useCabinetState(
           e.key === "b" ||
           e.key === "B"
         ) {
-          setScreen("select");
-          setDetailProject(null);
+          window.history.back();
         }
       }
       // Synth is keyboard-playable; "b" is not one of its note keys, so it is
@@ -167,8 +166,7 @@ export default function useCabinetState(
         allProjects[selectedIdx]?.interactive === "synth" &&
         (e.key === "Escape" || e.key === "b" || e.key === "B")
       ) {
-        setScreen("select");
-        setDetailProject(null);
+        window.history.back();
       }
     };
     window.addEventListener("keydown", handler);
@@ -189,6 +187,22 @@ export default function useCabinetState(
       el.style.pointerEvents = "";
     }
   }, [screen, introComplete]);
+
+  // Handle popstate for Android back button
+  useEffect(() => {
+    const handlePopState = () => {
+      setScreen((prev) => {
+        if (prev === "detail" || prev === "game") {
+          setDetailProject(null);
+          playBack();
+          return "select";
+        }
+        return prev;
+      });
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [playBack]);
 
   // Cleanup coin timers on unmount
   useEffect(() => {
@@ -226,12 +240,17 @@ export default function useCabinetState(
       setScreen("detail");
     }
     playEnter();
+    window.history.pushState({ screen: 'project' }, '');
   };
 
   const goBack = () => {
-    setScreen("select");
-    setDetailProject(null);
-    playBack();
+    if (screen === "detail" || screen === "game") {
+      window.history.back();
+    } else {
+      setScreen("select");
+      setDetailProject(null);
+      playBack();
+    }
   };
 
   const hoverSelect = (idx) => {
@@ -239,8 +258,12 @@ export default function useCabinetState(
   };
 
   const exitGame = () => {
-    setScreen("select");
-    setDetailProject(null);
+    if (screen === "game" || screen === "detail") {
+      window.history.back();
+    } else {
+      setScreen("select");
+      setDetailProject(null);
+    }
   };
 
   // Boot advancement: phase 0 → 1 → select

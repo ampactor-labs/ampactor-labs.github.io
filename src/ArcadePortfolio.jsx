@@ -266,6 +266,7 @@ export default function ArcadePortfolio() {
                   bootPhase={bootPhase}
                   fs={fs}
                   onSkip={advanceBoot}
+                  screenWidth={dims.w}
                 />
               )}
               {screen === "select" && (
