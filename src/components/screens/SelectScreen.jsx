@@ -44,22 +44,7 @@ export default function SelectScreen({
           marginTop: 6,
         }}
       >
-        MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER{" "}
-        <a
-          href={MAILTO}
-          style={{
-            color: "var(--color-amber)",
-            fontSize: fs(8),
-            letterSpacing: "0.1em",
-            textDecoration: "none",
-            border: "1px solid rgba(255,184,0,0.25)",
-            borderRadius: 3,
-            padding: "1px 6px",
-            marginLeft: 6,
-          }}
-        >
-          AVAILABLE FOR CONTRACT
-        </a>
+        MORGAN ESPITIA · SYSTEMS ENGINEER
       </div>
       <div
         style={{
@@ -204,7 +189,7 @@ export default function SelectScreen({
             GITHUB
           </a>
         </div>
-        
+
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
           <div
             style={{
@@ -498,7 +483,7 @@ export default function SelectScreen({
         >
           MORGAN ESPITIA {"\u00b7"} COMPILER {"\u00b7"} DSP {"\u00b7"} EMBEDDED{" "}
           {"\u00b7"} SECURITY {"\u00b7"} RUST {"\u00b7"} WASM {"\u00b7"}{" "}
-          AVAILABLE FOR CONTRACT {"\u00b7"} github.com/ampactor-labs
+          {"\u00b7"} github.com/ampactor-labs
           {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}SELF-HOSTING COMPILER{" "}
           {"\u00b7"} ZERO-HEAP DSP KERNEL {"\u00b7"} DETERMINISTIC NETCODE{" "}
           {"\u00b7"} TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR CONTRACT{" "}
