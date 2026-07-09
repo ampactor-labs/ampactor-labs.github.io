@@ -150,13 +150,13 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
 
 exports[`BootScreen > matches snapshot in phase 1 1`] = `
 <div
-  style="height: 100%; display: flex; flex-direction: column; justify-content: center; position: relative;"
+  style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
 >
   <div
     style="position: absolute; top: 12px; right: 16px; font-size: 10px; color: var(--color-amber); cursor: pointer; letter-spacing: 0.1em; z-index: 60; opacity: 0.7;"
   />
   <div
-    style="font-size: 14px; line-height: 2; white-space: nowrap;"
+    style="font-size: 14px; line-height: 2; max-width: 100%; text-align: left; white-space: nowrap; width: 34ch;"
   >
     <div
       style="color: rgb(0, 229, 255);"

@@ -6,6 +6,8 @@ export default function BootScreen({
   fs,
   screenWidth = 400,
 }) {
+  const bootColumnWidth = `${Math.max(1, ...lines.map((line) => line.length))}ch`;
+
   if (bootPhase === 0) {
     return (
       <div
@@ -145,6 +147,7 @@ export default function BootScreen({
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         justifyContent: "center",
         position: "relative",
       }}
@@ -165,7 +168,16 @@ export default function BootScreen({
       >
         {/* [ SKIP ] */}
       </div>
-      <div style={{ fontSize: Math.min(fs(14), screenWidth / 28), lineHeight: 2, whiteSpace: "nowrap" }}>
+      <div
+        style={{
+          fontSize: Math.min(fs(14), screenWidth / 28),
+          lineHeight: 2,
+          maxWidth: "100%",
+          textAlign: "left",
+          whiteSpace: "nowrap",
+          width: bootColumnWidth,
+        }}
+      >
         {lines.slice(0, currentLine + 1).map((line, i) => (
           <div
             key={i}
