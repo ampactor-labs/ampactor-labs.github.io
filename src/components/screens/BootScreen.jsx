@@ -163,7 +163,7 @@ export default function BootScreen({
           opacity: 0.7,
         }}
       >
-        [ SKIP ]
+        {/* [ SKIP ] */}
       </div>
       <div style={{ fontSize: Math.min(fs(14), screenWidth / 28), lineHeight: 2, whiteSpace: "nowrap" }}>
         {lines.slice(0, currentLine + 1).map((line, i) => (
