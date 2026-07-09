@@ -639,6 +639,8 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       ·
        WASM 
       ·
+       
+      ·
        github.com/ampactor-labs
          ·   
       SELF-HOSTING COMPILER
@@ -650,6 +652,8 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
        
       ·
        TERNARY ML ARCHITECTURE 
+      ·
+       AVAILABLE FOR CONTRACT
        
       ·
        ampactorlabs@gmail.com
@@ -676,7 +680,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
       >
         MORGAN ESPITIA · SYSTEMS ENGINEER
-        </a>
       </div>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
@@ -760,7 +763,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
       >
         MORGAN ESPITIA · SYSTEMS ENGINEER
-        </a>
       </div>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
@@ -1176,6 +1178,8 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       ·
        WASM 
       ·
+       
+      ·
        github.com/ampactor-labs
          ·   
       SELF-HOSTING COMPILER
@@ -1186,7 +1190,9 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
        DETERMINISTIC NETCODE
        
       ·
-       TERNARY ML ARCHITECTURE
+       TERNARY ML ARCHITECTURE 
+      ·
+       AVAILABLE FOR CONTRACT
        
       ·
        ampactorlabs@gmail.com

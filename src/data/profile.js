@@ -30,7 +30,7 @@ export const CONTACT = {
   // While null, the lobby falls back to email-only.
   scheduler: null,
   phoneTel: PHONE_DIGITS.join(""),
-  phoneDisplay: `+1 (${PHONE_DIGITS.slice(2, 5).join("")}) ${PHONE_DIGITS.slice(
+  phoneDisplay: `+1 ${PHONE_DIGITS.slice(2, 5).join("")}-${PHONE_DIGITS.slice(
     5,
     8,
   ).join("")}-${PHONE_DIGITS.slice(8).join("")}`,
