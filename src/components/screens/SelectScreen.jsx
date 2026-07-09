@@ -44,7 +44,7 @@ export default function SelectScreen({
           marginTop: 6,
         }}
       >
-        MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER · RUST{" "}
+        MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER{" "}
         <a
           href={MAILTO}
           style={{
@@ -84,16 +84,6 @@ export default function SelectScreen({
         >
           {CONTACT.phoneDisplay}
         </a>
-      </div>
-      <div
-        style={{
-          fontSize: fs(11),
-          color: "var(--fg)",
-          marginTop: 5,
-          letterSpacing: "0.05em",
-        }}
-      >
-        {projects.length} CARTRIDGE{projects.length !== 1 ? "S" : ""} LOADED
       </div>
     </>
   );

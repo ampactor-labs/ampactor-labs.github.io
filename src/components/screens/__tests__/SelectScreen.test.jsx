@@ -58,7 +58,7 @@ describe("SelectScreen", () => {
   });
 
   it("renders contact email", () => {
-    const { getByText } = render(<SelectScreen {...baseProps} />);
-    expect(getByText("ampactorlabs@gmail.com")).toBeTruthy();
+    const { getAllByText } = render(<SelectScreen {...baseProps} />);
+    expect(getAllByText("ampactorlabs@gmail.com").length).toBeGreaterThan(0);
   });
 });

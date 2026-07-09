@@ -5,7 +5,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
   style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
 >
   <div
-    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(0, 229, 255, 0.133);"
+    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
   >
     <div
       aria-label="Back to project list"
@@ -17,40 +17,31 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       ◄
     </div>
     <div
-      style="font-size: 20px; color: rgb(0, 229, 255); text-shadow: 0 0 12px #00E5FF44;"
+      style="font-size: 20px; color: rgb(224, 255, 0); text-shadow: 0 0 12px #E0FF0044;"
     >
-      ♫
+      ☀
     </div>
     <div
       style="flex: 1 1 0%;"
     >
       <div
-        style="font-family: "Press Start 2P", monospace; font-size: 12px; color: rgb(0, 229, 255); text-shadow: 0 0 10px #00E5FF44; letter-spacing: 0.05em;"
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; color: rgb(224, 255, 0); text-shadow: 0 0 10px #E0FF0044; letter-spacing: 0.05em;"
       >
-        SONIDO
+        MENTL
       </div>
       <div
         style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
       >
-        CROSS-PLATFORM DSP KERNEL
+        SELF-HOSTING COMPILER
       </div>
     </div>
     <div
       style="display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0;"
     >
       <a
-        href="https://ampactor.dev/sonido"
+        href="https://github.com/ampactor-labs/mentl"
         rel="noopener noreferrer"
-        style="font-size: 10px; color: var(--color-void); letter-spacing: 0.08em; text-decoration: none; font-weight: 700; padding: 5px 12px; border-radius: 4px; background: rgb(0, 229, 255); box-shadow: 0 0 14px #00E5FF66; white-space: nowrap;"
-        target="_blank"
-      >
-        ▸
-         DEMO
-      </a>
-      <a
-        href="https://github.com/ampactor-labs/sonido"
-        rel="noopener noreferrer"
-        style="font-size: 10px; color: rgb(0, 229, 255); letter-spacing: 0.08em; text-decoration: none; font-weight: 600; padding: 5px 12px; border-radius: 4px; background: rgba(0, 229, 255, 0.067); border: 1px solid rgba(0, 229, 255, 0.333); white-space: nowrap;"
+        style="font-size: 10px; color: rgb(224, 255, 0); letter-spacing: 0.08em; text-decoration: none; font-weight: 600; padding: 5px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); white-space: nowrap;"
         target="_blank"
       >
         ›
@@ -62,39 +53,39 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     style="flex: 1 1 0%; overflow: auto; position: relative;"
   >
     <span
-      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(0, 229, 255, 0.04); pointer-events: none; user-select: none;"
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
     >
-      DESKTOP AND BARE METAL. SAME CODE.
+      THE COMPILER BOOTSTRAPS ITSELF
     </span>
     <div
-      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(0, 229, 255); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #00E5FF22;"
+      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #E0FF0022;"
     >
-      Write audio code once; run it unchanged on a desktop plugin and a $20 microcontroller.
+      A programming language that compiles itself.
     </div>
     <div
-      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(0, 229, 255, 0.02); border: 1px solid rgba(0, 229, 255, 0.04);"
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
     >
       <div
         style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(0, 229, 255, 0.333); letter-spacing: 0.2em;"
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
         >
           SYS/READOUT
         </span>
         <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.082);"
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
         />
       </div>
       <div
         style="font-size: 11px; line-height: 1.75; color: var(--fg); max-width: 520px;"
       >
         <span
-          style="color: rgb(0, 229, 255);"
+          style="color: rgb(224, 255, 0);"
         >
           &gt; 
         </span>
-        Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware.
+        Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.
       </div>
     </div>
     <div
@@ -107,73 +98,73 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(0, 229, 255, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
           >
             SPECIFICATIONS
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.082);"
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
           />
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          FLASHED TO REAL DAISY SEED HARDWARE
+          BIT-IDENTICAL L1 BOOTSTRAP
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          14 CRATES (6 no_std)
+          FULL EFFECT ALGEBRA (+, -, !, Pure)
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          35 EFFECTS / 35 CLAP PLUGINS
+          SELF-HOSTED: MENTL COMPILES MENTL
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          ZERO-HEAP KERNEL ARCHITECTURE
+          GRAPH-NATIVE IR (NOT AST-WALKING)
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          DAG AUDIO ROUTING
+          ROW-POLYMORPHIC TYPE SYSTEM
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
-            style="color: rgba(0, 229, 255, 0.533);"
+            style="color: rgba(224, 255, 0, 0.533);"
           >
             &gt;&gt; 
           </span>
-          from_knobs() ADC MAPPING
+          WASM CODEGEN + MEMORY ARENAS
         </div>
       </div>
       <div
@@ -183,64 +174,59 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(0, 229, 255, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
           >
             STACK
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.082);"
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
           />
         </div>
         <div
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(0, 229, 255, 0.082); border: 1px solid rgba(0, 229, 255, 0.19); color: rgba(0, 229, 255, 0.8); letter-spacing: 0.05em;"
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            Rust
+            WASM
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(0, 229, 255, 0.082); border: 1px solid rgba(0, 229, 255, 0.19); color: rgba(0, 229, 255, 0.8); letter-spacing: 0.05em;"
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            CLAP
+            WAT
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(0, 229, 255, 0.082); border: 1px solid rgba(0, 229, 255, 0.19); color: rgba(0, 229, 255, 0.8); letter-spacing: 0.05em;"
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            egui
+            Hindley-Milner
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(0, 229, 255, 0.082); border: 1px solid rgba(0, 229, 255, 0.19); color: rgba(0, 229, 255, 0.8); letter-spacing: 0.05em;"
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
           >
-            cpal
-          </span>
-          <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(0, 229, 255, 0.082); border: 1px solid rgba(0, 229, 255, 0.19); color: rgba(0, 229, 255, 0.8); letter-spacing: 0.05em;"
-          >
-            libm
+            row polymorphism
           </span>
         </div>
       </div>
     </div>
     <div
-      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(0, 229, 255, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(0, 229, 255, 0.082) rgba(0, 229, 255, 0.082) rgba(0, 229, 255, 0.082) rgba(0, 229, 255, 0.25); border-image: none;"
+      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
     >
       <div
         style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(0, 229, 255, 0.333); letter-spacing: 0.2em;"
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
         >
           OPERATOR NOTES
         </span>
         <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.082);"
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
         />
       </div>
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. The firmware runs on physical Daisy Seed hardware, not just a cross-compile target.
+        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
       </div>
     </div>
     <div
@@ -262,30 +248,30 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(0, 229, 255, 0.04); border: 1px solid rgba(0, 229, 255, 0.125); color: rgba(0, 229, 255, 0.667); letter-spacing: 0.05em;"
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
-          dsp
+          compiler
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(0, 229, 255, 0.04); border: 1px solid rgba(0, 229, 255, 0.125); color: rgba(0, 229, 255, 0.667); letter-spacing: 0.05em;"
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
-          clap
+          effects
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(0, 229, 255, 0.04); border: 1px solid rgba(0, 229, 255, 0.125); color: rgba(0, 229, 255, 0.667); letter-spacing: 0.05em;"
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
-          embedded
+          self-hosting
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(0, 229, 255, 0.04); border: 1px solid rgba(0, 229, 255, 0.125); color: rgba(0, 229, 255, 0.667); letter-spacing: 0.05em;"
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
         >
-          no_std
+          wasm
         </span>
       </div>
     </div>
   </div>
   <div
-    style="padding-top: 10px; border-top: 1px solid rgba(0, 229, 255, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
+    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 
@@ -293,12 +279,12 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
        BACK ]
     </span>
     <a
-      href="https://github.com/ampactor-labs/sonido"
+      href="https://github.com/ampactor-labs/mentl"
       rel="noopener noreferrer"
-      style="color: rgba(0, 229, 255, 0.667); text-decoration: underline; text-underline-offset: 3px;"
+      style="color: rgba(224, 255, 0, 0.667); text-decoration: underline; text-underline-offset: 3px;"
       target="_blank"
     >
-      ampactor-labs/sonido
+      ampactor-labs/mentl
     </a>
   </div>
 </div>

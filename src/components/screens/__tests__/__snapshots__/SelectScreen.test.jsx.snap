@@ -5,7 +5,8 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   style="height: 100%; display: flex; flex-direction: column;"
 >
   <div
-    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+    class="desktop-only-flex"
+    style="justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
   >
     <div>
       <div
@@ -14,11 +15,11 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         SELECT PROGRAM
       </div>
       <div
-        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
       >
         MORGAN ESPITIA 
         ·
-         SYSTEMS ENGINEER · RUST
+         SYSTEMS ENGINEER
          
         <a
           href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
@@ -43,14 +44,6 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
           +1 (435) 268-2446
         </a>
       </div>
-      <div
-        style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
-      >
-        10
-         CARTRIDGE
-        S
-         LOADED
-      </div>
     </div>
     <div
       style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
@@ -61,8 +54,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
-        ◈
-         GITHUB
+        GITHUB
       </a>
       <br />
       <a
@@ -71,21 +63,85 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
-        ◈
-         LINKEDIN
+        LINKEDIN
       </a>
-      <br />
-      ▲▼
-       NAV
-      <br />
-      Ⓐ
-       SELECT
+    </div>
+  </div>
+  <div
+    class="mobile-only-block"
+    style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+  >
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+      >
+        SELECT
+      </div>
+      <a
+        href="https://github.com/ampactor-labs"
+        rel="noopener noreferrer"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
+        target="_blank"
+      >
+        GITHUB
+      </a>
+    </div>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+      >
+        PROGRAM
+      </div>
+      <a
+        href="https://www.linkedin.com/in/ampactor-labs/"
+        rel="noopener noreferrer"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
+        target="_blank"
+      >
+        LINKEDIN
+      </a>
+    </div>
+    <div>
+      <div
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
+      >
+        MORGAN ESPITIA 
+        ·
+         SYSTEMS ENGINEER
+         
+        <a
+          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          style="color: var(--color-amber); font-size: 8px; letter-spacing: 0.1em; text-decoration: none; border: 1px solid rgba(255, 184, 0, 0.25); border-radius: 3px; padding: 1px 6px; margin-left: 6px;"
+        >
+          AVAILABLE FOR CONTRACT
+        </a>
+      </div>
+      <div
+        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+      >
+        <a
+          href="mailto:ampactorlabs@gmail.com"
+          style="color: inherit; text-decoration: none;"
+        >
+          ampactorlabs@gmail.com
+        </a>
+        <a
+          href="tel:+14352682446"
+          style="color: inherit; text-decoration: none;"
+        >
+          +1 (435) 268-2446
+        </a>
+      </div>
     </div>
   </div>
   <div
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow: auto; display: flex; flex-direction: column; gap: 3px;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px;"
   >
     <div>
       <div
@@ -101,63 +157,17 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         />
       </div>
       <div
-        aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
+        aria-label="MENTL — SELF-HOSTING COMPILER"
         aria-selected="true"
         class="project-row"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="width: 3px; height: 70%; background: rgb(0, 229, 255); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #00E5FF; transition: all 0.2s ease;"
+          style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
         />
         <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: 0 0 8px #00E5FF; flex-shrink: 0;"
-        >
-          ♫
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(0, 229, 255); text-shadow: 0 0 8px #00E5FF44; transition: color 0.2s ease;"
-            >
-              SONIDO
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            CROSS-PLATFORM DSP KERNEL
-          </div>
-        </div>
-        <div
-          style="color: rgb(0, 229, 255); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-        >
-          ›
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="MENTL — SELF-HOSTING COMPILER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: none; flex-shrink: 0;"
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
         >
           ☀
         </div>
@@ -168,7 +178,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
             >
               MENTL
             </span>
@@ -182,6 +192,52 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SELF-HOSTING COMPILER
+          </div>
+        </div>
+        <div
+          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
+        >
+          ›
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ♫
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              SONIDO
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            CROSS-PLATFORM DSP KERNEL
           </div>
         </div>
       </div>
@@ -228,71 +284,6 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       </div>
     </div>
     <div>
-      <div
-        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
-      >
-        <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
-        >
-          SECURITY
-        </span>
-        <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
-        />
-      </div>
-      <div
-        aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◈
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              TOKENSAFE + SCRY
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              TypeScript/Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SOLANA SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
-      >
-        <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
-        >
-          SYSTEMS
-        </span>
-        <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
-        />
-      </div>
       <div
         aria-label="2-TOP — ROLLBACK NETCODE BRAWLER"
         aria-selected="false"
@@ -381,12 +372,106 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
         >
+          SECURITY
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
+      </div>
+      <div
+        aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◈
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TOKENSAFE + SCRY
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript/Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SOLANA SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
           CREATIVE
         </span>
         <div
           style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
         />
       </div>
+      <div
+        aria-label="NOODLES — MOBILE DAW"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(232, 184, 75); background: rgba(232, 184, 75, 0.067); border-radius: 5px; border: 1px solid rgba(232, 184, 75, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ♬
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              NOODLES
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JS/Tone.js
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            MOBILE DAW
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
       <div
         aria-label="CELEZDIAL SELEKTA — ZODIAC-MAPPED SYNTHESIZER"
         aria-selected="false"
@@ -552,7 +637,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     </div>
   </div>
   <div
-    style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0, 229, 255, 0.06); overflow: hidden; height: 16px; position: relative;"
+    style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0, 229, 255, 0.06); overflow: hidden; height: 24px; position: relative;"
   >
     <div
       style="position: absolute; white-space: nowrap; font-size: 8px; color: var(--color-comment); letter-spacing: 0.1em; animation: marquee 90s linear infinite;"
@@ -601,7 +686,8 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   style="height: 100%; display: flex; flex-direction: column;"
 >
   <div
-    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+    class="desktop-only-flex"
+    style="justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
   >
     <div>
       <div
@@ -610,11 +696,11 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         SELECT PROGRAM
       </div>
       <div
-        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
       >
         MORGAN ESPITIA 
         ·
-         SYSTEMS ENGINEER · RUST
+         SYSTEMS ENGINEER
          
         <a
           href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
@@ -639,14 +725,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           +1 (435) 268-2446
         </a>
       </div>
-      <div
-        style="font-size: 11px; color: var(--fg); margin-top: 5px; letter-spacing: 0.05em;"
-      >
-        7
-         CARTRIDGE
-        S
-         LOADED
-      </div>
     </div>
     <div
       style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
@@ -657,8 +735,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
-        ◈
-         GITHUB
+        GITHUB
       </a>
       <br />
       <a
@@ -667,21 +744,85 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
         target="_blank"
       >
-        ◈
-         LINKEDIN
+        LINKEDIN
       </a>
-      <br />
-      ▲▼
-       NAV
-      <br />
-      Ⓐ
-       SELECT
+    </div>
+  </div>
+  <div
+    class="mobile-only-block"
+    style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+  >
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+      >
+        SELECT
+      </div>
+      <a
+        href="https://github.com/ampactor-labs"
+        rel="noopener noreferrer"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
+        target="_blank"
+      >
+        GITHUB
+      </a>
+    </div>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;"
+    >
+      <div
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+      >
+        PROGRAM
+      </div>
+      <a
+        href="https://www.linkedin.com/in/ampactor-labs/"
+        rel="noopener noreferrer"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
+        target="_blank"
+      >
+        LINKEDIN
+      </a>
+    </div>
+    <div>
+      <div
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.12em; margin-top: 6px;"
+      >
+        MORGAN ESPITIA 
+        ·
+         SYSTEMS ENGINEER
+         
+        <a
+          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          style="color: var(--color-amber); font-size: 8px; letter-spacing: 0.1em; text-decoration: none; border: 1px solid rgba(255, 184, 0, 0.25); border-radius: 3px; padding: 1px 6px; margin-left: 6px;"
+        >
+          AVAILABLE FOR CONTRACT
+        </a>
+      </div>
+      <div
+        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+      >
+        <a
+          href="mailto:ampactorlabs@gmail.com"
+          style="color: inherit; text-decoration: none;"
+        >
+          ampactorlabs@gmail.com
+        </a>
+        <a
+          href="tel:+14352682446"
+          style="color: inherit; text-decoration: none;"
+        >
+          +1 (435) 268-2446
+        </a>
+      </div>
     </div>
   </div>
   <div
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow: auto; display: flex; flex-direction: column; gap: 3px;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px;"
   >
     <div>
       <div
@@ -697,63 +838,17 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         />
       </div>
       <div
-        aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
+        aria-label="MENTL — SELF-HOSTING COMPILER"
         aria-selected="true"
         class="project-row"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="width: 3px; height: 70%; background: rgb(0, 229, 255); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #00E5FF; transition: all 0.2s ease;"
+          style="width: 3px; height: 70%; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
         />
         <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: 0 0 8px #00E5FF; flex-shrink: 0;"
-        >
-          ♫
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(0, 229, 255); text-shadow: 0 0 8px #00E5FF44; transition: color 0.2s ease;"
-            >
-              SONIDO
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            CROSS-PLATFORM DSP KERNEL
-          </div>
-        </div>
-        <div
-          style="color: rgb(0, 229, 255); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-        >
-          ›
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        aria-label="MENTL — SELF-HOSTING COMPILER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: none; flex-shrink: 0;"
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); text-shadow: 0 0 8px #E0FF00; flex-shrink: 0;"
         >
           ☀
         </div>
@@ -764,7 +859,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(224, 255, 0); text-shadow: 0 0 8px #E0FF0044; transition: color 0.2s ease;"
             >
               MENTL
             </span>
@@ -778,6 +873,52 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SELF-HOSTING COMPILER
+          </div>
+        </div>
+        <div
+          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
+        >
+          ›
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(0, 229, 255); background: rgba(0, 229, 255, 0.067); border-radius: 5px; border: 1px solid rgba(0, 229, 255, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ♫
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              SONIDO
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            CROSS-PLATFORM DSP KERNEL
           </div>
         </div>
       </div>
@@ -824,71 +965,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       </div>
     </div>
     <div>
-      <div
-        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
-      >
-        <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
-        >
-          SECURITY
-        </span>
-        <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
-        />
-      </div>
-      <div
-        aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
-        aria-selected="false"
-        class="project-row"
-        role="option"
-        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
-      >
-        <div
-          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
-        />
-        <div
-          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
-        >
-          ◈
-        </div>
-        <div
-          style="flex: 1 1 0%; min-width: 0px;"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 6px;"
-          >
-            <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
-            >
-              TOKENSAFE + SCRY
-            </span>
-            <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
-            >
-              TypeScript/Rust
-            </span>
-          </div>
-          <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
-          >
-            SOLANA SECURITY SCANNER
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div
-        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
-      >
-        <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
-        >
-          SYSTEMS
-        </span>
-        <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
-        />
-      </div>
       <div
         aria-label="2-TOP — ROLLBACK NETCODE BRAWLER"
         aria-selected="false"
@@ -977,12 +1053,106 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
         >
+          SECURITY
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
+        />
+      </div>
+      <div
+        aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(255, 68, 170); background: rgba(255, 68, 170, 0.067); border-radius: 5px; border: 1px solid rgba(255, 68, 170, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ◈
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              TOKENSAFE + SCRY
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              TypeScript/Rust
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            SOLANA SECURITY SCANNER
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 4px 4px; margin-top: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: rgba(0, 229, 255, 0.3); letter-spacing: 0.3em; white-space: nowrap;"
+        >
           CREATIVE
         </span>
         <div
           style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
         />
       </div>
+      <div
+        aria-label="NOODLES — MOBILE DAW"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(232, 184, 75); background: rgba(232, 184, 75, 0.067); border-radius: 5px; border: 1px solid rgba(232, 184, 75, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ♬
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              NOODLES
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JS/Tone.js
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            MOBILE DAW
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
       <div
         aria-label="CELEZDIAL SELEKTA — ZODIAC-MAPPED SYNTHESIZER"
         aria-selected="false"
@@ -1025,7 +1195,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     </div>
   </div>
   <div
-    style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0, 229, 255, 0.06); overflow: hidden; height: 16px; position: relative;"
+    style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0, 229, 255, 0.06); overflow: hidden; height: 24px; position: relative;"
   >
     <div
       style="position: absolute; white-space: nowrap; font-size: 8px; color: var(--color-comment); letter-spacing: 0.1em; animation: marquee 90s linear infinite;"

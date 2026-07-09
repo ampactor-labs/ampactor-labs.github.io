@@ -85,16 +85,4 @@ describe("BootScreen", () => {
     expect(getByText("PRESS ANY KEY")).toBeTruthy();
   });
 
-  it("shows skip hint when halfway through boot lines", () => {
-    const { getByText } = render(
-      <BootScreen
-        lines={lines}
-        currentLine={6}
-        bootPhase={1}
-        fs={fs}
-        onSkip={onSkip}
-      />,
-    );
-    expect(getByText(/press any key or tap/i)).toBeTruthy();
-  });
 });

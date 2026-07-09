@@ -100,6 +100,11 @@ describe("useCabinetState", () => {
   });
 
   it("goBack returns to select screen", () => {
+    const originalBack = window.history.back;
+    window.history.back = () => {
+      window.dispatchEvent(new Event("popstate"));
+    };
+
     const { result } = renderHook(() =>
       useCabinetState(screenRef, tunnelRef, logoRef, consoleRef),
     );
@@ -112,6 +117,8 @@ describe("useCabinetState", () => {
     });
     expect(result.current.screen).toBe("select");
     expect(result.current.detailProject).toBeNull();
+
+    window.history.back = originalBack;
   });
 
   it("openProject navigates to game for tunnel-run", () => {
