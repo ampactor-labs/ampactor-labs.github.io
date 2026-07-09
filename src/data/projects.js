@@ -1,5 +1,32 @@
 export const PROJECTS = [
-  {
+{
+    id: "mentl",
+    title: "MENTL",
+    subtitle: "SELF-HOSTING COMPILER",
+    lang: "Mentl/WASM",
+    color: "#E0FF00",
+    icon: "☀",
+    github: "https://github.com/ampactor-labs/mentl",
+    desc: "Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.",
+    tags: ["compiler", "effects", "self-hosting", "wasm"],
+    tagline: "THE COMPILER BOOTSTRAPS ITSELF",
+    outcome: "A programming language that compiles itself.",
+    highlights: [
+      "BIT-IDENTICAL L1 BOOTSTRAP",
+      "FULL EFFECT ALGEBRA (+, -, !, Pure)",
+      "SELF-HOSTED: MENTL COMPILES MENTL",
+      "GRAPH-NATIVE IR (NOT AST-WALKING)",
+      "ROW-POLYMORPHIC TYPE SYSTEM",
+      "WASM CODEGEN + MEMORY ARENAS",
+    ],
+    stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
+    status: "active",
+    category: "systems",
+    operatorNote:
+      "Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.",
+  },
+
+{
     id: "sonido",
     title: "SONIDO",
     subtitle: "CROSS-PLATFORM DSP KERNEL",
@@ -27,61 +54,8 @@ export const PROJECTS = [
     operatorNote:
       "Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. The firmware runs on physical Daisy Seed hardware, not just a cross-compile target.",
   },
-  {
-    id: "noodles",
-    title: "NOODLES",
-    subtitle: "MOBILE DAW",
-    lang: "JS/Tone.js",
-    color: "#e8b84b",
-    icon: "♬",
-    github: "https://github.com/ampactor-labs/noodles",
-    live: "https://ampactor.dev/noodles",
-    desc: "Noodles is a mobile-first browser DAW built in Ableton Live's idiom. It enforces scale-awareness across every surface: pick a key and scale and every note, chord, and bass line stays in key automatically. Harmony is stored as scale-degree indices so a key change transposes the whole song for free. Four tracks (harmony, drums, bass, melody) run through a Session clip grid and an Arrangement timeline with drag-move, edge-resize, split, and duplicate. The audio graph is Tone.js: detuned pads, filtered bass/lead synths, a synthesized drum kit, per-track channels with volume/pan/send, and a master limiter.",
-    tags: ["daw", "tone.js", "mobile", "scale-aware"],
-    tagline: "CAN'T PLAY A WRONG NOTE",
-    outcome:
-      "A phone-sized DAW where the scale constraint makes everything sound musical, even on first touch.",
-    highlights: [
-      "SESSION + ARRANGEMENT VIEWS",
-      "SCALE-AWARE: ALWAYS IN KEY",
-      "4-TRACK MIXER WITH LIVE METERS",
-      "CHORD / DRUM RACK / PIANO ROLL EDITORS",
-      "DRAG, RESIZE, SPLIT, DUPLICATE CLIPS",
-      "ONE-TAP TRANSFORMS (ARP/OCT/HUMANIZE)",
-    ],
-    stack: ["Vite", "Tone.js", "Vanilla DOM", "CSS"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "Targets a Galaxy A16 5G (entry-level MediaTek). The whole thing is four files: model (pure data + music theory), audio (Tone.js graph), main (all UI), and index.html (CSS shell). No framework, no React — vanilla DOM for performance on weak hardware.",
-  },
-  {
-    id: "mentl",
-    title: "MENTL",
-    subtitle: "SELF-HOSTING COMPILER",
-    lang: "Mentl/WASM",
-    color: "#E0FF00",
-    icon: "☀",
-    github: "https://github.com/ampactor-labs/mentl",
-    desc: "Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.",
-    tags: ["compiler", "effects", "self-hosting", "wasm"],
-    tagline: "THE COMPILER BOOTSTRAPS ITSELF",
-    outcome: "A programming language that compiles itself.",
-    highlights: [
-      "BIT-IDENTICAL L1 BOOTSTRAP",
-      "FULL EFFECT ALGEBRA (+, -, !, Pure)",
-      "SELF-HOSTED: MENTL COMPILES MENTL",
-      "GRAPH-NATIVE IR (NOT AST-WALKING)",
-      "ROW-POLYMORPHIC TYPE SYSTEM",
-      "WASM CODEGEN + MEMORY ARENAS",
-    ],
-    stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
-    status: "active",
-    category: "systems",
-    operatorNote:
-      "Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.",
-  },
-  {
+
+{
     id: "turbosort",
     title: "TURBOSORT",
     subtitle: "SIMD-ACCELERATED RADIX SORT",
@@ -108,7 +82,64 @@ export const PROJECTS = [
     operatorNote:
       "The benchmark tables publish where it loses: u64 goes to voracious, 128–512 element arrays go to std. Trust a table that shows its losses over one that only shows wins.",
   },
-  {
+
+{
+    id: "two-top",
+    title: "2-TOP",
+    subtitle: "ROLLBACK NETCODE BRAWLER",
+    lang: "Rust/Bevy",
+    color: "#ff4466",
+    icon: "⚔",
+    github: "https://github.com/ampactor-labs/two-top",
+    desc: "2-Top uses rollback netcode to keep a mobile brawler synchronized across iOS, Android, and the web. Because floating-point math diverges across architectures, the engine relies strictly on fixed-point arithmetic. A continuous integration matrix tests this determinism across platforms, ensuring the simulation produces identical state everywhere. This stability allows the custom replay codec to scrub through matches frame by frame.",
+    tags: ["netcode", "determinism", "ecs", "mobile"],
+    tagline: "DETERMINISTIC ACROSS PLATFORMS",
+    outcome:
+      "Online multiplayer that stays perfectly in sync across phones. Deterministic rollback netcode.",
+    highlights: [
+      "FIXED-POINT MATH THROUGHOUT",
+      "ROLLBACK NETCODE (bevy_ggrs)",
+      "CROSS-PLATFORM DETERMINISM MATRIX",
+      "REPLAY CODEC WITH SCRUB",
+      "18-PHASE BUILD PLAN",
+      "16-COLOR PALETTE DISCIPLINE",
+    ],
+    stack: ["Rust", "Bevy", "bevy_ggrs", "Matchbox"],
+    status: "active",
+    category: "systems",
+    operatorNote:
+      "A determinism matrix in CI checks that every platform produces the identical simulation, bit for bit. Fixed-point math everywhere, because floats drift across architectures.",
+  },
+
+{
+    id: "clob",
+    title: "CLOB",
+    subtitle: "TERNARY INTELLIGENCE KERNEL",
+    lang: "Rust",
+    color: "#00ff9c",
+    icon: "∴",
+    github: "https://github.com/ampactor-labs/clob",
+    desc: "Clob bets that intelligence is compression efficiency per joule. A ternary recurrent kernel streams text on a laptop CPU while a crystallization loop distills prediction errors into compiled ternary modules; the compile path lowers ternary matrices to native x86-64, with no GPU anywhere in the loop. Every run writes a manifest recording the seed, git commit, and input hashes, so every result is auditable. The core is still untrained; the first real run crystallized zero modules, so training the recurrent core is the current track.",
+    tags: ["ternary", "ml", "energy", "codegen"],
+    tagline: "JOULES PER NAT, DRIVEN DOWN",
+    outcome:
+      "A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU. In development.",
+    highlights: [
+      "TERNARY RECURRENT CORE",
+      "J/nat ENERGY OBJECTIVE",
+      "CRYSTALLIZATION LOOP",
+      "TERNARY → NATIVE x86-64 COMPILE",
+      "MANIFEST-AUDITED RUNS",
+      "NO GPU: LAPTOP CPU IS THE FLOOR",
+    ],
+    stack: ["Rust", "x86-64 codegen", "REINFORCE", "ternary DSL"],
+    status: "active",
+    category: "systems",
+    operatorNote:
+      "The J/nat number is the whole game: a change that makes the model smarter but hotter fails on its own terms. First real run crystallized zero modules; that is the honest baseline, and training the core comes first.",
+  },
+
+{
     id: "tokensafe",
     title: "TOKENSAFE + SCRY",
     subtitle: "SOLANA SECURITY SCANNER",
@@ -136,61 +167,37 @@ export const PROJECTS = [
     operatorNote:
       "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
   },
-  {
-    id: "two-top",
-    title: "2-TOP",
-    subtitle: "ROLLBACK NETCODE BRAWLER",
-    lang: "Rust/Bevy",
-    color: "#ff4466",
-    icon: "⚔",
-    github: "https://github.com/ampactor-labs/two-top",
-    desc: "2-Top uses rollback netcode to keep a mobile brawler synchronized across iOS, Android, and the web. Because floating-point math diverges across architectures, the engine relies strictly on fixed-point arithmetic. A continuous integration matrix tests this determinism across platforms, ensuring the simulation produces identical state everywhere. This stability allows the custom replay codec to scrub through matches frame by frame.",
-    tags: ["netcode", "determinism", "ecs", "mobile"],
-    tagline: "DETERMINISTIC ACROSS PLATFORMS",
+
+{
+    id: "noodles",
+    title: "NOODLES",
+    subtitle: "MOBILE DAW",
+    lang: "JS/Tone.js",
+    color: "#e8b84b",
+    icon: "♬",
+    github: "https://github.com/ampactor-labs/noodles",
+    live: "https://ampactor.dev/noodles",
+    desc: "Noodles is a mobile-first browser DAW built in Ableton Live's idiom. It enforces scale-awareness across every surface: pick a key and scale and every note, chord, and bass line stays in key automatically. Harmony is stored as scale-degree indices so a key change transposes the whole song for free. Four tracks (harmony, drums, bass, melody) run through a Session clip grid and an Arrangement timeline with drag-move, edge-resize, split, and duplicate. The audio graph is Tone.js: detuned pads, filtered bass/lead synths, a synthesized drum kit, per-track channels with volume/pan/send, and a master limiter.",
+    tags: ["daw", "tone.js", "mobile", "scale-aware"],
+    tagline: "CAN'T PLAY A WRONG NOTE",
     outcome:
-      "Online multiplayer that stays perfectly in sync across phones. Deterministic rollback netcode.",
+      "A phone-sized DAW where the scale constraint makes everything sound musical, even on first touch.",
     highlights: [
-      "FIXED-POINT MATH THROUGHOUT",
-      "ROLLBACK NETCODE (bevy_ggrs)",
-      "CROSS-PLATFORM DETERMINISM MATRIX",
-      "REPLAY CODEC WITH SCRUB",
-      "18-PHASE BUILD PLAN",
-      "16-COLOR PALETTE DISCIPLINE",
+      "SESSION + ARRANGEMENT VIEWS",
+      "SCALE-AWARE: ALWAYS IN KEY",
+      "4-TRACK MIXER WITH LIVE METERS",
+      "CHORD / DRUM RACK / PIANO ROLL EDITORS",
+      "DRAG, RESIZE, SPLIT, DUPLICATE CLIPS",
+      "ONE-TAP TRANSFORMS (ARP/OCT/HUMANIZE)",
     ],
-    stack: ["Rust", "Bevy", "bevy_ggrs", "Matchbox"],
-    status: "active",
-    category: "systems",
+    stack: ["Vite", "Tone.js", "Vanilla DOM", "CSS"],
+    status: "deployed",
+    category: "creative",
     operatorNote:
-      "A determinism matrix in CI checks that every platform produces the identical simulation, bit for bit. Fixed-point math everywhere, because floats drift across architectures.",
+      "Targets a Galaxy A16 5G (entry-level MediaTek). The whole thing is four files: model (pure data + music theory), audio (Tone.js graph), main (all UI), and index.html (CSS shell). No framework, no React — vanilla DOM for performance on weak hardware.",
   },
-  {
-    id: "clob",
-    title: "CLOB",
-    subtitle: "TERNARY INTELLIGENCE KERNEL",
-    lang: "Rust",
-    color: "#00ff9c",
-    icon: "∴",
-    github: "https://github.com/ampactor-labs/clob",
-    desc: "Clob bets that intelligence is compression efficiency per joule. A ternary recurrent kernel streams text on a laptop CPU while a crystallization loop distills prediction errors into compiled ternary modules; the compile path lowers ternary matrices to native x86-64, with no GPU anywhere in the loop. Every run writes a manifest recording the seed, git commit, and input hashes, so every result is auditable. The core is still untrained; the first real run crystallized zero modules, so training the recurrent core is the current track.",
-    tags: ["ternary", "ml", "energy", "codegen"],
-    tagline: "JOULES PER NAT, DRIVEN DOWN",
-    outcome:
-      "A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU. In development.",
-    highlights: [
-      "TERNARY RECURRENT CORE",
-      "J/nat ENERGY OBJECTIVE",
-      "CRYSTALLIZATION LOOP",
-      "TERNARY → NATIVE x86-64 COMPILE",
-      "MANIFEST-AUDITED RUNS",
-      "NO GPU: LAPTOP CPU IS THE FLOOR",
-    ],
-    stack: ["Rust", "x86-64 codegen", "REINFORCE", "ternary DSL"],
-    status: "active",
-    category: "systems",
-    operatorNote:
-      "The J/nat number is the whole game: a change that makes the model smarter but hotter fails on its own terms. First real run crystallized zero modules; that is the honest baseline, and training the core comes first.",
-  },
-  {
+
+{
     id: "celezdial",
     title: "CELEZDIAL SELEKTA",
     subtitle: "ZODIAC-MAPPED SYNTHESIZER",
@@ -217,7 +224,8 @@ export const PROJECTS = [
     category: "creative",
     operatorNote:
       "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
-  },
+  }
+
 ];
 
 export const HIDDEN_PROJECTS = [
