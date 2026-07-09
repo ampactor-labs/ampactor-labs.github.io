@@ -20,11 +20,90 @@ export default function SelectScreen({
         behavior: "smooth",
       });
   }, [selectedIdx]);
-  return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+
+  useEffect(() => {
+    if (coinCount > 0 && listRef.current) {
+      setTimeout(() => {
+        if (listRef.current) {
+          listRef.current.scrollTo({
+            top: listRef.current.scrollHeight,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+  }, [coinCount]);
+
+  const metadataNode = (
+    <>
+      <div
+        style={{
+          fontSize: fs(10),
+          color: "var(--fg)",
+          letterSpacing: "0.12em",
+          marginTop: 6,
+        }}
+      >
+        MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER · RUST{" "}
+        <a
+          href={MAILTO}
+          style={{
+            color: "var(--color-amber)",
+            fontSize: fs(8),
+            letterSpacing: "0.1em",
+            textDecoration: "none",
+            border: "1px solid rgba(255,184,0,0.25)",
+            borderRadius: 3,
+            padding: "1px 6px",
+            marginLeft: 6,
+          }}
+        >
+          AVAILABLE FOR CONTRACT
+        </a>
+      </div>
       <div
         style={{
           display: "flex",
+          flexWrap: "wrap",
+          columnGap: 6,
+          fontSize: fs(11),
+          color: "var(--color-muted)",
+          letterSpacing: "0.08em",
+          marginTop: 2,
+        }}
+      >
+        <a
+          href={`mailto:${CONTACT.email}`}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          {CONTACT.email}
+        </a>
+        <a
+          href={`tel:${CONTACT.phoneTel}`}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          {CONTACT.phoneDisplay}
+        </a>
+      </div>
+      <div
+        style={{
+          fontSize: fs(11),
+          color: "var(--fg)",
+          marginTop: 5,
+          letterSpacing: "0.05em",
+        }}
+      >
+        {projects.length} CARTRIDGE{projects.length !== 1 ? "S" : ""} LOADED
+      </div>
+    </>
+  );
+
+  return (
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      {/* DESKTOP HEADER */}
+      <div
+        className="desktop-only-flex"
+        style={{
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: 12,
@@ -44,65 +123,7 @@ export default function SelectScreen({
           >
             SELECT PROGRAM
           </div>
-          <div
-            style={{
-              fontSize: fs(10),
-              color: "var(--fg)",
-              letterSpacing: "0.12em",
-              marginTop: 3,
-            }}
-          >
-            MORGAN ESPITIA {"\u00b7"} SYSTEMS ENGINEER · RUST{" "}
-            <a
-              href={MAILTO}
-              style={{
-                color: "var(--color-amber)",
-                fontSize: fs(8),
-                letterSpacing: "0.1em",
-                textDecoration: "none",
-                border: "1px solid rgba(255,184,0,0.25)",
-                borderRadius: 3,
-                padding: "1px 6px",
-                marginLeft: 6,
-              }}
-            >
-              AVAILABLE FOR CONTRACT
-            </a>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              columnGap: 6,
-              fontSize: fs(11),
-              color: "var(--color-muted)",
-              letterSpacing: "0.08em",
-              marginTop: 2,
-            }}
-          >
-            <a
-              href={`mailto:${CONTACT.email}`}
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              {CONTACT.email}
-            </a>
-            <a
-              href={`tel:${CONTACT.phoneTel}`}
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              {CONTACT.phoneDisplay}
-            </a>
-          </div>
-          <div
-            style={{
-              fontSize: fs(11),
-              color: "var(--fg)",
-              marginTop: 5,
-              letterSpacing: "0.05em",
-            }}
-          >
-            {projects.length} CARTRIDGE{projects.length !== 1 ? "S" : ""} LOADED
-          </div>
+          {metadataNode}
         </div>
         <div
           style={{
@@ -150,10 +171,84 @@ export default function SelectScreen({
           >
             LINKEDIN
           </a>
-          <br />
-          {/* {"\u25b2\u25bc"} NAV */}
-          <br />
-          {/* {"\u24b6"} SELECT */}
+        </div>
+      </div>
+
+      {/* MOBILE HEADER */}
+      <div
+        className="mobile-only-block"
+        style={{
+          marginBottom: 12,
+          paddingBottom: 10,
+          borderBottom: "1px solid rgba(0,229,255,0.1)",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <div
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: fs(16),
+              color: "#00E5FF",
+              textShadow: "0 0 12px rgba(0,229,255,0.4)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            SELECT
+          </div>
+          <a
+            href={CONTACT.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              color: "#00E5FF",
+              textDecoration: "none",
+              display: "inline-block",
+              fontSize: fs(8),
+              border: "1px solid rgba(0,229,255,0.35)",
+              borderRadius: 3,
+              background: "rgba(0,229,255,0.06)",
+              padding: "3px 7px",
+            }}
+          >
+            GITHUB
+          </a>
+        </div>
+        
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
+          <div
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: fs(16),
+              color: "#00E5FF",
+              textShadow: "0 0 12px rgba(0,229,255,0.4)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            PROGRAM
+          </div>
+          <a
+            href={CONTACT.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              color: "#00E5FF",
+              textDecoration: "none",
+              display: "inline-block",
+              fontSize: fs(8),
+              border: "1px solid rgba(0,229,255,0.35)",
+              borderRadius: 3,
+              background: "rgba(0,229,255,0.06)",
+              padding: "3px 7px",
+            }}
+          >
+            LINKEDIN
+          </a>
+        </div>
+
+        <div>
+          {metadataNode}
         </div>
       </div>
       <div
@@ -162,7 +257,8 @@ export default function SelectScreen({
         aria-label="Project list"
         style={{
           flex: 1,
-          overflow: "auto",
+          overflowY: "auto",
+          overflowX: "hidden",
           display: "flex",
           flexDirection: "column",
           gap: 3,
@@ -396,7 +492,7 @@ export default function SelectScreen({
           paddingTop: 8,
           borderTop: "1px solid rgba(0,229,255,0.06)",
           overflow: "hidden",
-          height: 16,
+          height: 24,
           position: "relative",
         }}
       >

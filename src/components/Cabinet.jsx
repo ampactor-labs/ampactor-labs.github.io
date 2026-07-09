@@ -311,7 +311,7 @@ export default function Cabinet({
                 letterSpacing: "0.12em",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
-                animation: "blink 1.2s step-end infinite",
+                animation: coinCount > 0 ? "none" : "blink 1.2s step-end infinite",
               }}
             >
               INSERT COIN

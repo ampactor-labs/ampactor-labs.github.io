@@ -62,8 +62,12 @@ export const crtStyles = `
   }
   /* Mobile: drop the continuous filter / box-shadow / blend effects that jank
      low-power GPUs. These repaint every frame; the static look is nearly identical. */
+  .desktop-only-flex { display: flex; }
+  .mobile-only-block { display: none; }
   @media (max-width: 600px) {
     .crt-screen, .btn-action, .coin-slot { animation: none !important; }
     .crt-noise, .cabinet-body::after { display: none !important; }
+    .desktop-only-flex { display: none !important; }
+    .mobile-only-block { display: block !important; }
   }
 `;
