@@ -1,0 +1,82 @@
+# TUNNEL_RUN global leaderboard — no server, no database.
+#
+# Players submit scores as GitHub issues titled "[tunnel-run] AAA 12345"
+# (the game prefills the URL). This workflow validates the title, merges the
+# score into public/tunnel-leaderboard.json, commits it, dispatches a Pages
+# deploy, and closes the issue with the verdict. Issue title and user land
+# in the script via env vars only — never interpolated into shell text.
+name: Tunnel Run Leaderboard
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+# Serialize score submissions so two issues can't race the board commit.
+concurrency:
+  group: tunnel-leaderboard
+
+jobs:
+  score:
+    if: startsWith(github.event.issue.title, '[tunnel-run]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Merge score into board
+        id: merge
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: |
+          RESULT=$(node scripts/merge-leaderboard.mjs)
+          echo "$RESULT"
+          echo "result=$RESULT" >> "$GITHUB_OUTPUT"
+
+      - name: Commit accepted score
+        if: fromJSON(steps.merge.outputs.result).accepted
+        env:
+          INITIALS: ${{ fromJSON(steps.merge.outputs.result).initials }}
+          SCORE: ${{ fromJSON(steps.merge.outputs.result).score }}
+          RANK: ${{ fromJSON(steps.merge.outputs.result).rank }}
+          ISSUE_NO: ${{ github.event.issue.number }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: |
+          git config user.name "tunnel-run-leaderboard"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/tunnel-leaderboard.json
+          git commit -m "leaderboard: $INITIALS $SCORE enters tunnel-run top 10" \
+            -m "Rank #$RANK, submitted via #$ISSUE_NO by @$ISSUE_USER."
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      # Pushes made with GITHUB_TOKEN don't fire `on: push` workflows (the
+      # recursion guard), so kick the Pages deploy explicitly.
+      - name: Trigger Pages deploy
+        if: fromJSON(steps.merge.outputs.result).accepted
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+
+      - name: Reply and close
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULT: ${{ steps.merge.outputs.result }}
+          ISSUE_NO: ${{ github.event.issue.number }}
+        run: |
+          ACCEPTED=$(jq -r .accepted <<<"$RESULT")
+          if [ "$ACCEPTED" = "true" ]; then
+            RANK=$(jq -r .rank <<<"$RESULT")
+            BODY="RANK #$RANK — on the board. The score is now a commit in this repo, and the cabinet shows it once the Pages deploy lands (about two minutes)."
+          else
+            REASON=$(jq -r .reason <<<"$RESULT")
+            BODY="Not accepted: $REASON. Play again at https://ampactor.dev — the game prefills a valid submission when a run qualifies."
+          fi
+          gh issue comment "$ISSUE_NO" --body "$BODY"
+          gh issue close "$ISSUE_NO"

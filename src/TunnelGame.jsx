@@ -8,6 +8,9 @@ import {
   qualifies,
   insertScore,
   dispChar,
+  fetchGlobalLeaderboard,
+  qualifiesGlobal,
+  buildScoreIssueUrl,
 } from "./tunnelLeaderboard";
 
 const AMBER = "#d8a657";
@@ -65,6 +68,11 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   // exist only so the overlay re-renders when the phase changes / on entry).
   const [uiPhase, setUiPhase] = useState("countdown");
   const [entry, setEntry] = useState(null); // { score, rank } when typing initials
+  const [globalOffer, setGlobalOffer] = useState(null); // { initials, score, rank } — global submit panel
+
+  // Global top-10 (public/tunnel-leaderboard.json). Fetched once; null while
+  // loading or offline, in which case everything falls back to the local board.
+  const globalBoardRef = useRef(null);
 
   // Refs that always point at the latest closures, so the mount effect can run
   // exactly ONCE and never tear the game down on a parent re-render. This is
@@ -77,6 +85,12 @@ export default function TunnelGame({ tunnelRef, onExit }) {
   /* ── init game state ── */
   const initState = useCallback(() => {
     const leaderboard = loadLeaderboard();
+    const globalBoard = globalBoardRef.current;
+    // The "reigning champion" line shows the score to beat — global champ
+    // when known and higher, otherwise the local best.
+    const champ = [globalBoard?.[0], leaderboard[0]]
+      .filter(Boolean)
+      .sort((a, b) => b.s - a.s)[0];
     return {
       phase: "countdown", // countdown | playing | paused | gameover
       countdownLeft: 3,
@@ -91,10 +105,13 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       combo: 1.0,
       comboTimer: 0,
       leaderboard,
-      hiScore: leaderboard[0]?.s || 0,
-      hiInitials: leaderboard[0]?.i || "",
+      globalBoard,
+      displayBoard: null, // { title, rows } chosen at game over
+      hiScore: champ?.s || 0,
+      hiInitials: champ?.i || "",
       newEntry: null, // reference to the freshly-inserted leaderboard row
       entering: false, // true while the initials modal is open
+      offering: false, // true while the global-submit panel is open
       gameoverAt: 0,
       spawnInterval: 1200,
       spawnTimer: 0,
@@ -119,10 +136,23 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         keysRef.current.right =
         keysRef.current.fire =
           false;
-      if (qualifies(gs.leaderboard, gs.score)) {
-        const rank = gs.leaderboard.filter((e) => e.s > gs.score).length + 1;
+      const localQ = qualifies(gs.leaderboard, gs.score);
+      const globalQ = qualifiesGlobal(gs.globalBoard, gs.score);
+      // Show the board this run is headed for; plain global (or local) view
+      // otherwise. The pending row is merged in at initials submit.
+      if (globalQ || (!localQ && gs.globalBoard)) {
+        gs.displayBoard = { title: "- GLOBAL TOP 10 -", rows: gs.globalBoard };
+      } else {
+        gs.displayBoard = {
+          title: gs.globalBoard ? "- LOCAL HIGH SCORES -" : "- HIGH SCORES -",
+          rows: gs.leaderboard,
+        };
+      }
+      if (localQ || globalQ) {
+        const board = globalQ ? gs.globalBoard : gs.leaderboard;
+        const rank = board.filter((e) => e.s > gs.score).length + 1;
         gs.entering = true;
-        setEntry({ score: gs.score, rank });
+        setEntry({ score: gs.score, rank, global: globalQ });
       } else {
         gs.entering = false;
       }
@@ -136,12 +166,36 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     (initials) => {
       const gs = stateRef.current;
       if (!gs || !gs.entering) return; // guard against a double-submit
-      const { list, row } = insertScore(gs.leaderboard, initials, gs.score);
-      gs.leaderboard = list;
-      saveLeaderboard(gs.leaderboard);
-      gs.newEntry = row;
-      gs.hiScore = gs.leaderboard[0].s;
-      gs.hiInitials = gs.leaderboard[0].i;
+      if (qualifies(gs.leaderboard, gs.score)) {
+        const { list, row } = insertScore(gs.leaderboard, initials, gs.score);
+        gs.leaderboard = list;
+        saveLeaderboard(gs.leaderboard);
+        gs.newEntry = row;
+        gs.displayBoard = {
+          title: gs.globalBoard ? "- LOCAL HIGH SCORES -" : "- HIGH SCORES -",
+          rows: gs.leaderboard,
+        };
+      }
+      // Global qualification wins the display: show the run merged into the
+      // global list (pending until the GitHub issue lands) and open the offer.
+      if (qualifiesGlobal(gs.globalBoard, gs.score)) {
+        const { list, row } = insertScore(gs.globalBoard, initials, gs.score);
+        gs.displayBoard = { title: "- GLOBAL TOP 10 -", rows: list };
+        gs.newEntry = row;
+        gs.offering = true;
+        setGlobalOffer({
+          initials,
+          score: gs.score,
+          rank: list.indexOf(row) + 1,
+        });
+      }
+      const champ = [gs.globalBoard?.[0], gs.leaderboard[0]]
+        .filter(Boolean)
+        .sort((a, b) => b.s - a.s)[0];
+      if (champ) {
+        gs.hiScore = champ.s;
+        gs.hiInitials = champ.i;
+      }
       gs.entering = false;
       gs.gameoverAt = gs.elapsed; // restart the "press any key" read buffer
       setEntry(null);
@@ -149,6 +203,45 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     },
     [audio],
   );
+
+  /* ── close the global-submit panel ── */
+  const dismissGlobalOffer = useCallback(() => {
+    const gs = stateRef.current;
+    if (gs) {
+      gs.offering = false;
+      gs.gameoverAt = gs.elapsed;
+    }
+    setGlobalOffer(null);
+  }, []);
+
+  /* ── load the global board once; fold it into live state when it lands ── */
+  useEffect(() => {
+    let alive = true;
+    fetchGlobalLeaderboard().then((board) => {
+      if (!alive || !board) return;
+      globalBoardRef.current = board;
+      const gs = stateRef.current;
+      if (!gs) return;
+      gs.globalBoard = board;
+      if (board[0] && board[0].s > gs.hiScore) {
+        gs.hiScore = board[0].s;
+        gs.hiInitials = board[0].i;
+      }
+      // Already on a plain game-over board (no fresh entry being shown)?
+      // Upgrade the view to the global list.
+      if (
+        gs.phase === "gameover" &&
+        !gs.entering &&
+        !gs.offering &&
+        !gs.newEntry
+      ) {
+        gs.displayBoard = { title: "- GLOBAL TOP 10 -", rows: board };
+      }
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   /* ── draw the A-mark ship ── */
   const drawShip = useCallback((ctx, cx, cy, size, alpha = 1, glow = true) => {
@@ -665,7 +758,8 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     // Keyboard — branches on the live phase from stateRef
     const onKeyDown = (e) => {
       const gs = stateRef.current;
-      if (!gs || gs.entering) return; // initials modal owns the keyboard
+      // Initials modal / global-submit panel own the keyboard while open
+      if (!gs || gs.entering || gs.offering) return;
       const k = e.key;
 
       if (gs.phase === "countdown") {
@@ -733,7 +827,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     (e) => {
       e.preventDefault();
       const gs = stateRef.current;
-      if (!gs || gs.entering) return;
+      if (!gs || gs.entering || gs.offering) return;
 
       if (gs.phase === "paused") {
         gs.phase = "playing";
@@ -917,9 +1011,15 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         <InitialsEntry
           score={entry.score}
           rank={entry.rank}
+          global={entry.global}
           color={AMBER}
           onSubmit={handleSubmitInitials}
         />
+      )}
+
+      {/* Global top-10 submission — hands the run to a prefilled GitHub issue */}
+      {globalOffer && (
+        <GlobalSubmitPanel offer={globalOffer} onDismiss={dismissGlobalOffer} />
       )}
     </>
   );
@@ -957,8 +1057,110 @@ function OverlayButton({ label, color, onPress }) {
   );
 }
 
+/* ── global submit panel — the score travels as a prefilled GitHub issue ── */
+function GlobalSubmitPanel({ offer, onDismiss }) {
+  const mobile = window.innerWidth <= 600;
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onDismiss();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onDismiss]);
+  return (
+    <div
+      style={{
+        position: "fixed",
+        left: "50%",
+        bottom: mobile ? 84 : 110,
+        transform: "translateX(-50%)",
+        zIndex: 20,
+        width: mobile ? "calc(100% - 32px)" : 470,
+        maxWidth: 470,
+        background: "rgba(10,12,10,0.94)",
+        border: `1.5px solid ${AMBER}88`,
+        borderRadius: 8,
+        boxShadow: `0 0 24px ${AMBER}33`,
+        padding: mobile ? "14px 14px" : "16px 20px",
+        textAlign: "center",
+        fontFamily: "'Press Start 2P', monospace",
+      }}
+    >
+      <div
+        style={{
+          fontSize: mobile ? 10 : 12,
+          color: AMBER,
+          letterSpacing: "0.08em",
+          textShadow: `0 0 12px ${AMBER}66`,
+        }}
+      >
+        GLOBAL RANK #{offer.rank}
+      </div>
+      <div
+        style={{
+          fontSize: mobile ? 6 : 7,
+          color: "#8fa0b3",
+          lineHeight: 2,
+          marginTop: 8,
+          letterSpacing: "0.06em",
+        }}
+      >
+        PUT IT ON THE PUBLIC BOARD — A GITHUB ISSUE CARRIES THE SCORE, A BOT
+        COMMITS IT TO THE REPO
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          justifyContent: "center",
+          marginTop: 12,
+        }}
+      >
+        <a
+          href={buildScoreIssueUrl(offer.initials, offer.score)}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: mobile ? 8 : 9,
+            fontFamily: "inherit",
+            color: "#1a1410",
+            background: AMBER,
+            borderRadius: 5,
+            padding: "10px 12px",
+            textDecoration: "none",
+            letterSpacing: "0.06em",
+            boxShadow: `0 0 14px ${AMBER}66`,
+          }}
+        >
+          SUBMIT VIA GITHUB
+        </a>
+        <button
+          type="button"
+          onClick={onDismiss}
+          style={{
+            fontSize: mobile ? 8 : 9,
+            fontFamily: "inherit",
+            color: "#8fa0b3",
+            background: "transparent",
+            border: "1.5px solid rgba(143,160,179,0.4)",
+            borderRadius: 5,
+            padding: "10px 12px",
+            cursor: "pointer",
+            letterSpacing: "0.06em",
+          }}
+        >
+          DISMISS
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /* ── Galaga-style initials entry modal (HTML; keyboard + tap) ── */
-function InitialsEntry({ score, rank, color, onSubmit }) {
+function InitialsEntry({ score, rank, global, color, onSubmit }) {
   const [chars, setChars] = useState([0, 0, 0]);
   const [slot, setSlot] = useState(0);
   const charsRef = useRef(chars);
@@ -1073,13 +1275,13 @@ function InitialsEntry({ score, rank, color, onSubmit }) {
           textShadow: `0 0 16px ${color}`,
         }}
       >
-        NEW HIGH SCORE
+        {global ? "GLOBAL TOP 10" : "NEW HIGH SCORE"}
       </div>
       <div style={{ color: "#00E5FF", fontSize: mobile ? 10 : 13 }}>
         SCORE {String(score).padStart(6, "0")}
       </div>
       <div style={{ color: "#778899", fontSize: mobile ? 8 : 10 }}>
-        RANK #{rank}
+        {global ? "GLOBAL RANK" : "RANK"} #{rank}
       </div>
 
       <div style={{ display: "flex", gap: mobile ? 12 : 18, marginTop: 4 }}>
@@ -1230,23 +1432,32 @@ function drawGameOver(ctx, gs, w, h, mobile) {
     goY + (mobile ? 22 : 34),
   );
 
-  // Leaderboard
+  // Leaderboard — the board chosen at game over (global when fetched, local
+  // otherwise); fall back to local for safety.
+  const board = gs.displayBoard || {
+    title: "- HIGH SCORES -",
+    rows: gs.leaderboard,
+  };
   const lbHeaderY = goY + (mobile ? 44 : 66);
   ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
   ctx.fillStyle = AMBER;
-  ctx.fillText("- HIGH SCORES -", cx, lbHeaderY);
+  ctx.fillText(board.title, cx, lbHeaderY);
 
   const rowH = mobile ? 15 : 20;
   const startY = lbHeaderY + (mobile ? 17 : 24);
   const bottomLimit = h - (mobile ? 24 : 36);
   const fit = Math.floor((bottomLimit - startY) / rowH);
-  const maxRows = Math.max(0, Math.min(gs.leaderboard.length, fit, LB_MAX));
+  const maxRows = Math.max(0, Math.min(board.rows.length, fit, LB_MAX));
 
   const bandW = mobile ? Math.min(w - 48, 220) : 300;
   const bx = cx - bandW / 2;
   ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
+  if (board.rows.length === 0) {
+    ctx.fillStyle = "#8fa0b3";
+    ctx.fillText("NO SCORES YET - BE FIRST", cx, startY);
+  }
   for (let i = 0; i < maxRows; i++) {
-    const e = gs.leaderboard[i];
+    const e = board.rows[i];
     const y = startY + i * rowH;
     const isNew = e === gs.newEntry;
     ctx.fillStyle = isNew ? AMBER : "#8fa0b3";

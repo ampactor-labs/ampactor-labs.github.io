@@ -82,3 +82,62 @@ export function dispChar(idx) {
   const c = LETTERS[idx];
   return c === " " ? "_" : c;
 }
+
+/* ── global top-10 board (no server) ────────────────────────
+ * The global board is public/tunnel-leaderboard.json, committed to the repo
+ * by .github/workflows/leaderboard.yml when a player submits a qualifying
+ * score as a GitHub issue. This module only reads the JSON and builds the
+ * prefilled issue URL; the write path lives entirely in the workflow.
+ */
+
+export const GLOBAL_LB_URL = "/tunnel-leaderboard.json";
+export const REPO_URL =
+  "https://github.com/ampactor-labs/ampactor-labs.github.io";
+export const GLOBAL_SCORE_CAP = 9999999; // 7 digits — matches the workflow regex
+
+// Fetch and normalize the global board. Returns a sorted entry list in the
+// local {i, s} shape, or null when unreachable (offline, dev without file).
+export async function fetchGlobalLeaderboard() {
+  try {
+    const res = await fetch(GLOBAL_LB_URL, { cache: "no-store" });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data || !Array.isArray(data.scores)) return null;
+    return data.scores
+      .filter((e) => e && typeof e.s === "number" && typeof e.i === "string")
+      .map((e) => ({
+        i: String(e.i).toUpperCase().slice(0, 3),
+        s: Math.max(0, Math.floor(e.s)),
+      }))
+      .sort((a, b) => b.s - a.s)
+      .slice(0, LB_MAX);
+  } catch {
+    return null;
+  }
+}
+
+// Same qualifying rule as the local board, but null-safe: no fetched board
+// means nothing to qualify for.
+export function qualifiesGlobal(globalList, score) {
+  if (!globalList) return false;
+  return qualifies(globalList, score);
+}
+
+// Prefilled GitHub issue URL — the title is the payload the workflow parses.
+// Spaces in initials travel as "_" so GitHub's title trimming can't eat them.
+export function buildScoreIssueUrl(initials, score) {
+  const wire = String(initials || "AAA")
+    .toUpperCase()
+    .slice(0, 3)
+    .replaceAll(" ", "_");
+  const capped = Math.min(Math.max(1, Math.floor(score)), GLOBAL_SCORE_CAP);
+  const title = `[tunnel-run] ${wire} ${capped}`;
+  const body = [
+    "TUNNEL_RUN score submission for the global top 10.",
+    "",
+    "The title is the payload — do not edit it. Just press Submit new issue.",
+    "A workflow validates the score, commits it to the board, and closes",
+    "this issue. Your initials appear in the cabinet after the next deploy.",
+  ].join("\n");
+  return `${REPO_URL}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}

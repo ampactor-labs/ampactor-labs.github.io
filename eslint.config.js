@@ -32,10 +32,13 @@ export default [
         AudioContext: "readonly",
         localStorage: "readonly",
         performance: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
         // Used by the jsdom test setup (src/test/setup.js)
         global: "readonly",
         HTMLCanvasElement: "readonly",
         Element: "readonly",
+        Event: "readonly",
       },
     },
     settings: {
@@ -49,6 +52,18 @@ export default [
       "jsx-a11y/anchor-has-content": "warn",
       "react-hooks/preserve-manual-memoization": "off",
       "react-hooks/refs": "off",
+    },
+  },
+  {
+    // Node scripts run by CI (the leaderboard workflow) and their tests.
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        process: "readonly",
+        console: "readonly",
+      },
     },
   },
 ];

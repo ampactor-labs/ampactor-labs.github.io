@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   LB_KEY,
   LEGACY_HI_KEY,
@@ -9,6 +9,11 @@ import {
   insertScore,
   dispChar,
   LETTERS,
+  qualifiesGlobal,
+  buildScoreIssueUrl,
+  fetchGlobalLeaderboard,
+  REPO_URL,
+  GLOBAL_SCORE_CAP,
 } from "../tunnelLeaderboard";
 
 beforeEach(() => {
@@ -123,5 +128,88 @@ describe("dispChar", () => {
     const spaceIdx = LETTERS.indexOf(" ");
     expect(dispChar(spaceIdx)).toBe("_");
     expect(dispChar(0)).toBe("A");
+  });
+});
+
+describe("qualifiesGlobal", () => {
+  it("never qualifies against a missing board", () => {
+    expect(qualifiesGlobal(null, 99999)).toBe(false);
+  });
+
+  it("applies the local qualifying rule to a fetched board", () => {
+    expect(qualifiesGlobal([], 1)).toBe(true);
+    const full = Array.from({ length: LB_MAX }, () => ({ i: "AAA", s: 500 }));
+    expect(qualifiesGlobal(full, 500)).toBe(false); // tie loses
+    expect(qualifiesGlobal(full, 501)).toBe(true);
+  });
+});
+
+describe("buildScoreIssueUrl", () => {
+  it("prefills a parseable title on the repo's new-issue page", () => {
+    const url = buildScoreIssueUrl("MOR", 48210);
+    expect(url.startsWith(`${REPO_URL}/issues/new?title=`)).toBe(true);
+    const title = new URL(url).searchParams.get("title");
+    expect(title).toBe("[tunnel-run] MOR 48210");
+  });
+
+  it("sends spaces as underscores so title trimming can't eat them", () => {
+    const title = new URL(
+      buildScoreIssueUrl("M R", 7),
+    ).searchParams.get("title");
+    expect(title).toBe("[tunnel-run] M_R 7");
+  });
+
+  it("floors and caps the score", () => {
+    const title = new URL(
+      buildScoreIssueUrl("MOR", 123456789.9),
+    ).searchParams.get("title");
+    expect(title).toBe(`[tunnel-run] MOR ${GLOBAL_SCORE_CAP}`);
+  });
+});
+
+describe("fetchGlobalLeaderboard", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const respond = (payload, ok = true) =>
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok, json: async () => payload })),
+    );
+
+  it("normalizes, sorts, and caps the fetched board", async () => {
+    respond({
+      scores: [
+        { i: "low", s: 10.9, user: "x" },
+        { i: "TOPPER", s: 900 },
+        { bogus: true },
+        ...Array.from({ length: 12 }, (_, n) => ({ i: "AAA", s: n + 100 })),
+      ],
+    });
+    const board = await fetchGlobalLeaderboard();
+    expect(board).toHaveLength(LB_MAX);
+    expect(board[0]).toEqual({ i: "TOP", s: 900 });
+    expect(board.every((e) => e.i.length <= 3)).toBe(true);
+  });
+
+  it("returns null on a non-OK response", async () => {
+    respond({ scores: [] }, false);
+    expect(await fetchGlobalLeaderboard()).toBeNull();
+  });
+
+  it("returns null on a malformed payload", async () => {
+    respond({ nope: 1 });
+    expect(await fetchGlobalLeaderboard()).toBeNull();
+  });
+
+  it("returns null when fetch throws (offline)", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new Error("offline");
+      }),
+    );
+    expect(await fetchGlobalLeaderboard()).toBeNull();
   });
 });
