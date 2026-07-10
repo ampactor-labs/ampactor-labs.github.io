@@ -123,6 +123,19 @@ export default function useTunnelGameAudio() {
   );
   const playGo = useCallback(() => tone(1320, "square", 0.15, 0.04), [tone]);
 
+  // Boss klaxon: three low sawtooth pulses (distinct from the descending
+  // game-over run). Boss down: a rising square fanfare.
+  const playBossAlert = useCallback(() => {
+    [0, 1, 2].forEach((i) => {
+      setTimeout(() => tone(196, "sawtooth", 0.14, 0.05), i * 190);
+    });
+  }, [tone]);
+  const playBossDown = useCallback(() => {
+    [660, 880, 1100, 1320].forEach((f, i) => {
+      setTimeout(() => tone(f, "square", 0.1, 0.04), i * 90);
+    });
+  }, [tone]);
+
   useEffect(() => {
     return () => {
       ctxRef.current?.close();
@@ -139,5 +152,7 @@ export default function useTunnelGameAudio() {
     playGameOver,
     playCountdown,
     playGo,
+    playBossAlert,
+    playBossDown,
   };
 }

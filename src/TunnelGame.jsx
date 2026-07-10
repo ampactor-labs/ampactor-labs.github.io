@@ -12,8 +12,34 @@ import {
   qualifiesGlobal,
   buildScoreIssueUrl,
 } from "./tunnelLeaderboard";
+import {
+  FIRST_BOSS_AT,
+  BOSS_DEPTH,
+  WARNING_MS,
+  ENTER_MS,
+  DYING_MS,
+  BOSS_WORLD_SIZE,
+  BOSS_WORLD_SIZE_MOBILE,
+  makeBoss,
+  bossFireInterval,
+  bossKillBonus,
+  nextBossScore,
+  bossLabel,
+  bossVolley,
+} from "./tunnelBoss";
 
 const AMBER = "#d8a657";
+
+// Debug hook: ?boss=<score> summons the first ANOMALY early. Used for
+// balance tuning and the headless E2E run; harmless in normal play.
+const DEBUG_BOSS_AT = (() => {
+  try {
+    const v = new URLSearchParams(window.location.search).get("boss");
+    return v ? Math.max(1, parseInt(v, 10) || 1) : null;
+  } catch {
+    return null;
+  }
+})();
 
 /* ── constants ──────────────────────────────────────────── */
 const FOV = 200;
@@ -107,6 +133,9 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       leaderboard,
       globalBoard,
       displayBoard: null, // { title, rows } chosen at game over
+      boss: null, // live ANOMALY state (see tunnelBoss.js)
+      bossesDown: 0,
+      nextBossAt: DEBUG_BOSS_AT ?? FIRST_BOSS_AT,
       hiScore: champ?.s || 0,
       hiInitials: champ?.i || "",
       newEntry: null, // reference to the freshly-inserted leaderboard row
@@ -432,22 +461,25 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         if (p.depth < 0.05) gs.projectiles.splice(i, 1);
       }
 
-      // Spawn obstacles
-      gs.spawnTimer += dt;
-      if (gs.spawnTimer >= gs.spawnInterval) {
-        gs.spawnTimer = 0;
-        const typeIdx = Math.floor(Math.random() * OBSTACLE_TYPES.length);
-        // Weight rarer types
-        const type = OBSTACLE_TYPES[typeIdx];
-        const xSpread = (Math.random() - 0.5) * w * 0.6;
-        gs.obstacles.push({
-          ...type,
-          x: xSpread,
-          depth: 0.0,
-          alive: true,
-          wavePhase: Math.random() * Math.PI * 2,
-          originalX: xSpread,
-        });
+      // Spawn obstacles — the ambient spawner yields while ANOMALY holds the
+      // tunnel; every threat during a boss comes from its volleys.
+      if (!gs.boss) {
+        gs.spawnTimer += dt;
+        if (gs.spawnTimer >= gs.spawnInterval) {
+          gs.spawnTimer = 0;
+          const typeIdx = Math.floor(Math.random() * OBSTACLE_TYPES.length);
+          // Weight rarer types
+          const type = OBSTACLE_TYPES[typeIdx];
+          const xSpread = (Math.random() - 0.5) * w * 0.6;
+          gs.obstacles.push({
+            ...type,
+            x: xSpread,
+            depth: 0.0,
+            alive: true,
+            wavePhase: Math.random() * Math.PI * 2,
+            originalX: xSpread,
+          });
+        }
       }
 
       // Difficulty ramp
@@ -459,6 +491,85 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         gs.combo += 0.1;
         gs.comboTimer = gs.elapsed;
         audio.playCombo();
+      }
+
+      // ── BOSS: ANOMALY ──
+      if (!gs.boss && gs.score >= gs.nextBossAt) {
+        gs.boss = makeBoss(gs.bossesDown + 1);
+        audio.playBossAlert();
+        // Tunnel surges while ANOMALY holds it (normal in-game speed 0.0008)
+        if (tunnelRef?.current) tunnelRef.current.setSpeed(0.0016);
+      }
+      if (gs.boss) {
+        const b = gs.boss;
+        b.timer += dt;
+        if (b.phase === "warning") {
+          if (b.timer >= WARNING_MS) {
+            b.phase = "enter";
+            b.timer = 0;
+          }
+        } else if (b.phase === "enter") {
+          b.depth = 0.05 + (BOSS_DEPTH - 0.05) * Math.min(1, b.timer / ENTER_MS);
+          if (b.timer >= ENTER_MS) {
+            b.phase = "fight";
+            b.timer = 0;
+            b.lastFire = gs.elapsed;
+          }
+        } else if (b.phase === "fight") {
+          b.x = Math.sin(gs.elapsed * 0.0007 + b.wobblePhase) * w * 0.22;
+          if (gs.elapsed - b.lastFire >= bossFireInterval(b.level)) {
+            b.lastFire = gs.elapsed;
+            gs.obstacles.push(
+              ...bossVolley(b.volleyIdx++, b.x, gs.player.x, w, b.level),
+            );
+            audio.playLaser();
+          }
+          // Projectiles vs the boss body
+          const bScale = depthScale(b.depth);
+          const bScreenX = cx + b.x * bScale;
+          const bScreenY = cy + (shipY - cy) * b.depth;
+          const bossSize = mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE;
+          const hitW = 0.6 * bossSize * bScale;
+          for (let j = gs.projectiles.length - 1; j >= 0; j--) {
+            const p = gs.projectiles[j];
+            if (Math.abs(p.depth - b.depth) < 0.06) {
+              const pScreenX = cx + p.x * depthScale(p.depth);
+              if (Math.abs(pScreenX - bScreenX) < hitW) {
+                gs.projectiles.splice(j, 1);
+                b.hp--;
+                b.hitFlash = gs.elapsed;
+                gs.score += Math.round(5 * gs.combo);
+                spawnExplosion(gs, pScreenX, bScreenY, "#ff2266", 4);
+                audio.playExplosion();
+                if (b.hp <= 0) {
+                  b.phase = "dying";
+                  b.timer = 0;
+                  audio.playBossDown();
+                }
+              }
+            }
+          }
+        } else if (b.phase === "dying") {
+          if (b.timer >= DYING_MS) {
+            const bScale = depthScale(b.depth);
+            spawnTextExplosion(
+              gs,
+              cx + b.x * bScale,
+              cy + (shipY - cy) * b.depth,
+              "SEGFAULT",
+              "#ff2266",
+            );
+            gs.score += bossKillBonus(b.level);
+            gs.bossesDown++;
+            gs.combo += 0.5;
+            gs.comboTimer = gs.elapsed;
+            gs.nextBossAt = nextBossScore(gs.score, b.level);
+            gs.shakeUntil = gs.elapsed + 500;
+            gs.shakeIntensity = 10;
+            gs.boss = null;
+            if (tunnelRef?.current) tunnelRef.current.setSpeed(0.0008);
+          }
+        }
       }
 
       // Update obstacles
@@ -480,8 +591,12 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
         const scale = depthScale(o.depth);
 
-        // Check if obstacle reached player plane
-        if (o.depth >= 1.0 && o.alive) {
+        // Check if obstacle reached player plane — exactly once per obstacle.
+        // A miss pays the dodge bonus here (the old code cleared `alive`
+        // unconditionally, so the bonus below 1.15 was unreachable) and the
+        // obstacle stays drawn while it flies past.
+        if (o.depth >= 1.0 && o.alive && !o.crossed) {
+          o.crossed = true;
           const obstacleScreenX = cx + o.x * scale;
           const obstacleW = (o.big ? 160 : 100) * scale;
 
@@ -499,21 +614,19 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             gs.shakeIntensity = 8;
             audio.playHit();
             spawnExplosion(gs, shipX, shipY, "#ff2222", 15);
+            o.alive = false;
 
             if (gs.lives <= 0) {
               endRun(gs);
             }
-          }
-
-          o.alive = false;
-        }
-
-        // Dodged (past player)
-        if (o.depth > 1.15) {
-          if (o.alive) {
+          } else {
             gs.score += Math.round((o.points || 100) * gs.combo * 0.5);
             audio.playDodge();
           }
+        }
+
+        // Past the player — retire it
+        if (o.depth > 1.15) {
           gs.obstacles.splice(i, 1);
           continue;
         }
@@ -562,6 +675,11 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       }
 
       // ── DRAW ──
+
+      // Draw ANOMALY (deepest layer — obstacles and shots overdraw it)
+      if (gs.boss) {
+        drawBoss(ctx, gs.boss, cx, cy, shipY, w, gs.elapsed, mobile);
+      }
 
       // Draw obstacles (depth-sorted, farthest first)
       const sortedObs = gs.obstacles
@@ -662,6 +780,38 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.fillStyle = "#00E5FF";
       ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
 
+      // ANOMALY health bar (fight + dying)
+      if (gs.boss && (gs.boss.phase === "fight" || gs.boss.phase === "dying")) {
+        const b = gs.boss;
+        const barW = mobile ? 150 : 240;
+        const barH = mobile ? 5 : 7;
+        const barY = mobile ? 42 : 52;
+        ctx.textAlign = "center";
+        ctx.font = `${mobile ? 7 : 9}px 'Press Start 2P', monospace`;
+        ctx.fillStyle = "#ff2266";
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(255,34,102,0.7)";
+        ctx.fillText(bossLabel(b.level), cx, barY - (mobile ? 12 : 16));
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = "rgba(255,34,102,0.5)";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(cx - barW / 2, barY, barW, barH);
+        const hpFrac = Math.max(0, b.hp / b.maxHp);
+        if (hpFrac > 0) {
+          ctx.fillStyle = "#ff2266";
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = "rgba(255,34,102,0.8)";
+          ctx.fillRect(
+            cx - barW / 2 + 1,
+            barY + 1,
+            (barW - 2) * hpFrac,
+            barH - 2,
+          );
+          ctx.shadowBlur = 0;
+        }
+        ctx.textAlign = "left";
+      }
+
       // Hi score (with the reigning champion's initials)
       ctx.textAlign = "right";
       ctx.fillStyle = "#778899";
@@ -709,7 +859,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.restore();
       ctx.restore(); // Pop shake transform
     },
-    [audio, drawShip, endRun],
+    [audio, drawShip, endRun, tunnelRef],
   );
   gameLoopRef.current = gameLoop;
 
@@ -1401,6 +1551,91 @@ function drawControlsLegend(ctx, cx, h, mobile) {
     cx,
     y + (mobile ? 15 : 20),
   );
+  ctx.restore();
+}
+
+/* ── ANOMALY renderer: the player's A-mark, inverted and corrupted ── */
+function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
+  // Warning phase: no body yet, just the klaxon text.
+  if (b.phase === "warning") {
+    if (Math.floor(elapsed / 180) % 2 === 0) {
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `${mobile ? 11 : 16}px 'Press Start 2P', monospace`;
+      ctx.fillStyle = "#ff2266";
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = "rgba(255,34,102,0.8)";
+      ctx.fillText("SIGNAL ANOMALY DETECTED", cx, cy - (mobile ? 60 : 90));
+      ctx.restore();
+    }
+    return;
+  }
+
+  const scale = depthScale(b.depth);
+  const bx = cx + b.x * scale;
+  const by = cy + (shipY - cy) * b.depth;
+  const s = (mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE) * scale * 0.31;
+
+  let alpha = 1;
+  if (b.phase === "enter") alpha = Math.min(1, b.timer / ENTER_MS);
+  if (b.phase === "dying") {
+    const fade = 1 - b.timer / DYING_MS;
+    alpha = (Math.floor(elapsed / 60) % 2 === 0 ? 0.25 : 0.9) * fade;
+  }
+
+  const agitated = b.phase === "dying" || elapsed - b.hitFlash < 120;
+  const jx = agitated ? (Math.random() - 0.5) * 6 : 0;
+  const jy = agitated ? (Math.random() - 0.5) * 6 : 0;
+
+  const trace = (sz) => {
+    for (const l of LOGO_LINES) {
+      ctx.beginPath();
+      ctx.moveTo(l.x1 * sz, l.y1 * sz);
+      ctx.lineTo(l.x2 * sz, l.y2 * sz);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    const steps = 20;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const x = (-0.344 + t * 0.688) * sz;
+      const y = Math.sin(t * Math.PI * 2.5) * 0.12 * sz;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  };
+
+  ctx.save();
+  ctx.translate(bx + jx, by + jy);
+  ctx.rotate(Math.PI); // the mark turned against you
+  ctx.globalAlpha = alpha;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  // Chromatic ghosts (echo of the cabinet logo's fringe)
+  ctx.lineWidth = 2.5;
+  ctx.globalAlpha = alpha * 0.35;
+  ctx.strokeStyle = "#d3869b";
+  ctx.save();
+  ctx.translate(-3, 0);
+  trace(s);
+  ctx.restore();
+  ctx.strokeStyle = "rgba(0,80,255,0.9)";
+  ctx.save();
+  ctx.translate(3, 0);
+  trace(s);
+  ctx.restore();
+
+  // Body
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = "#ff2266";
+  ctx.lineWidth = 3.5;
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = "rgba(255,34,102,0.7)";
+  trace(s);
+
   ctx.restore();
 }
 

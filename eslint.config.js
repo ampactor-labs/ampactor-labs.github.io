@@ -34,6 +34,7 @@ export default [
         performance: "readonly",
         fetch: "readonly",
         URL: "readonly",
+        URLSearchParams: "readonly",
         // Used by the jsdom test setup (src/test/setup.js)
         global: "readonly",
         HTMLCanvasElement: "readonly",
