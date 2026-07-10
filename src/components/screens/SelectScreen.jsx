@@ -1,6 +1,12 @@
 import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../data/profile";
 
+// Ticker copy — rendered twice back-to-back so the crawl loops seamlessly and
+// text is on screen from t=0 (a single copy started fully off-screen and left
+// the strip blank for the first ~30 seconds of a 90-second cycle).
+const MARQUEE_TEXT =
+  "MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com";
+
 export default function SelectScreen({
   projects,
   selectedIdx,
@@ -36,16 +42,17 @@ export default function SelectScreen({
 
   const metadataNode = (
     <>
-      <div
+      <h1
         style={{
           fontSize: fs(10),
+          fontWeight: 400,
           color: "var(--fg)",
           letterSpacing: "0.12em",
-          marginTop: 6,
+          margin: "6px 0 0",
         }}
       >
         MORGAN ESPITIA · SYSTEMS ENGINEER
-      </div>
+      </h1>
       <div
         style={{
           display: "flex",
@@ -58,7 +65,7 @@ export default function SelectScreen({
         }}
       >
         <a
-          href={`mailto:${CONTACT.email}`}
+          href={MAILTO}
           style={{ color: "inherit", textDecoration: "none" }}
         >
           {CONTACT.email}
@@ -472,22 +479,17 @@ export default function SelectScreen({
         }}
       >
         <div
+          className="marquee-track"
           style={{
-            position: "absolute",
-            whiteSpace: "nowrap",
             fontSize: fs(8),
             color: "var(--color-comment)",
             letterSpacing: "0.1em",
-            animation: "marquee 90s linear infinite",
           }}
         >
-          MORGAN ESPITIA {"\u00b7"} COMPILER {"\u00b7"} DSP {"\u00b7"} EMBEDDED{" "}
-          {"\u00b7"} SECURITY {"\u00b7"} RUST {"\u00b7"} WASM {"\u00b7"}{" "}
-          {"\u00b7"} github.com/ampactor-labs
-          {"\u00a0\u00a0\u00a0\u00b7\u00a0\u00a0\u00a0"}SELF-HOSTING COMPILER{" "}
-          {"\u00b7"} ZERO-HEAP DSP KERNEL {"\u00b7"} DETERMINISTIC NETCODE{" "}
-          {"\u00b7"} TERNARY ML ARCHITECTURE {"\u00b7"} AVAILABLE FOR CONTRACT{" "}
-          {"\u00b7"} ampactorlabs@gmail.com
+          <span style={{ paddingRight: 48 }}>{MARQUEE_TEXT}</span>
+          <span aria-hidden="true" style={{ paddingRight: 48 }}>
+            {MARQUEE_TEXT}
+          </span>
         </div>
       </div>
     </div>

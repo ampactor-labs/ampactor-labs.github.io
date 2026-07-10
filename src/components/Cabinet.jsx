@@ -230,14 +230,6 @@ export default function Cabinet({
           >
             SALT LAKE CITY {"\u00b7"} EST. 2018
           </div>
-          <div
-            style={{
-              fontSize: fs(6),
-              color: "var(--color-comment)",
-              letterSpacing: "0.12em",
-            }}
-          >
-          </div>
         </div>
         <div
           className="coin-slot"

@@ -98,17 +98,19 @@ export default function DetailScreen({
           {p.icon}
         </div>
         <div style={{ flex: 1 }}>
-          <div
+          <h2
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(12),
+              fontWeight: 400,
               color: p.color,
               textShadow: `0 0 10px ${p.color}44`,
               letterSpacing: "0.05em",
+              margin: 0,
             }}
           >
             {p.title}
-          </div>
+          </h2>
           <div
             style={{
               fontSize: fs(10),
