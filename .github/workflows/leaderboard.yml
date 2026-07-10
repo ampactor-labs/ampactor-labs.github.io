@@ -79,4 +79,5 @@ jobs:
             BODY="Not accepted: $REASON. Play again at https://ampactor.dev — the game prefills a valid submission when a run qualifies."
           fi
           gh issue comment "$ISSUE_NO" --body "$BODY"
+          gh issue edit "$ISSUE_NO" --add-label leaderboard || true
           gh issue close "$ISSUE_NO"

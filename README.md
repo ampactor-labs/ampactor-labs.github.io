@@ -50,3 +50,13 @@ into the JSON via `scripts/merge-leaderboard.mjs`, commits the file, closes
 the issue, and dispatches a Pages deploy. Every high score is a commit, so
 the board's history is the git log. Submitting requires a GitHub account;
 without one the board is read-only and scores stay in localStorage.
+
+The closed issues double as a visitor log: every submission (accepted or
+not) is labeled `leaderboard` and carries the player's GitHub handle.
+`gh issue list --label leaderboard --state closed` lists everyone who made
+it deep enough into the cabinet to post a score.
+
+At score 1500 the tunnel summons ANOMALY — the A-mark inverted — which
+pauses the ambient spawner and fires aimed volleys until its health bar is
+emptied. Each kill banks a bonus and schedules a stronger one. Debug:
+append `?boss=200` to fight it early.
