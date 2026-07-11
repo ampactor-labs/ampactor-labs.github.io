@@ -414,7 +414,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         />
       </div>
       <div
-        aria-label="PERRENIALS — PERMACULTURE FIELD GUIDE"
+        aria-label="PERRENIALS — CONSTRAINT-SPACE PLANT GUIDE"
         aria-selected="false"
         class="project-row"
         role="option"
@@ -448,7 +448,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
           <div
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            PERMACULTURE FIELD GUIDE
+            CONSTRAINT-SPACE PLANT GUIDE
           </div>
         </div>
       </div>
@@ -1096,7 +1096,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         />
       </div>
       <div
-        aria-label="PERRENIALS — PERMACULTURE FIELD GUIDE"
+        aria-label="PERRENIALS — CONSTRAINT-SPACE PLANT GUIDE"
         aria-selected="false"
         class="project-row"
         role="option"
@@ -1130,7 +1130,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           <div
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            PERMACULTURE FIELD GUIDE
+            CONSTRAINT-SPACE PLANT GUIDE
           </div>
         </div>
       </div>
