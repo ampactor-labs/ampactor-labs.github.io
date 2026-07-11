@@ -414,6 +414,47 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         />
       </div>
       <div
+        aria-label="PERRENIALS — PERMACULTURE FIELD GUIDE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(139, 191, 106); background: rgba(139, 191, 106, 0.067); border-radius: 5px; border: 1px solid rgba(139, 191, 106, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ❦
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              PERRENIALS
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              React/TS
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            PERMACULTURE FIELD GUIDE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
         aria-label="NOODLES — MOBILE DAW"
         aria-selected="false"
         class="project-row"
@@ -1054,6 +1095,47 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           style="flex: 1 1 0%; height: 1px; background: rgba(0, 229, 255, 0.08);"
         />
       </div>
+      <div
+        aria-label="PERRENIALS — PERMACULTURE FIELD GUIDE"
+        aria-selected="false"
+        class="project-row"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; height: 70%; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: rgb(139, 191, 106); background: rgba(139, 191, 106, 0.067); border-radius: 5px; border: 1px solid rgba(139, 191, 106, 0.133); text-shadow: none; flex-shrink: 0;"
+        >
+          ❦
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+            >
+              PERRENIALS
+            </span>
+            <span
+              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              React/TS
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+          >
+            PERMACULTURE FIELD GUIDE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
       <div
         aria-label="NOODLES — MOBILE DAW"
         aria-selected="false"

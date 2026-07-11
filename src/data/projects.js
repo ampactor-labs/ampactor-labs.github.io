@@ -169,6 +169,35 @@ export const PROJECTS = [
   },
 
 {
+    id: "perrenials",
+    title: "PERRENIALS",
+    subtitle: "PERMACULTURE FIELD GUIDE",
+    lang: "React/TS",
+    color: "#8bbf6a",
+    icon: "❦",
+    github: "https://github.com/ampactor-labs/perrenials",
+    live: "https://ampactor.dev/perrenials/",
+    desc: "Perrenials is a mobile-first, offline field guide to temperate perennials, its data model mirrored on the species-by-function and species-by-use tables in Edible Forest Gardens. Every plant is filterable by the aspects a gardener actually uses: bloom color, sun, soil moisture, height, hardiness zone, and wildlife value, and by permaculture function (nitrogen fixer, dynamic accumulator and which minerals, groundcover, insectary). Facets combine with live per-option counts, over a fuzzy MiniSearch index across names, Latin, and uses. Unknown fields are left blank and named rather than guessed, and hardiness is never invented. A garden view drops a filter's results onto a plot measured in feet, each footprint drawn at its true mature spread.",
+    tags: ["permaculture", "pwa", "offline", "field-guide"],
+    tagline: "ASK THE GARDEN WHAT GROWS HERE",
+    outcome:
+      "Search temperate perennials the way a gardener thinks, by bloom, light, moisture, and function, then sketch them onto a plot. Installs offline.",
+    highlights: [
+      "FACETED SEARCH WITH LIVE COUNTS",
+      "MODELED ON EDIBLE FOREST GARDENS v2",
+      "OFFLINE-FIRST INSTALLABLE PWA",
+      "PER-PLANT FIELD-GUIDE ENTRIES",
+      "GARDEN SKETCH IN TRUE FEET",
+      "COLOR ONLY EVER ENCODES DATA",
+    ],
+    stack: ["Vite", "React", "TypeScript", "MiniSearch"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Color is a rule, not a mood: saturated color only ever encodes plant data, so the chrome stays monochrome ink-on-paper. Unknowns show as unknown; hardiness is never guessed. 43 curated plants to start, a seed rather than a census.",
+  },
+
+{
     id: "noodles",
     title: "NOODLES",
     subtitle: "MOBILE DAW",
