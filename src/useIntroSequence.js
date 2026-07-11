@@ -82,39 +82,39 @@ export default function useIntroSequence(
       0.55,
     );
 
-    // 0.5–1.16s: CRT power-on — a bright scanline igniting and expanding. The
-    // brightness pop reads as a real tube firing instead of a hollow unfold.
-    tl.set(console_, { opacity: 1 }, 0.5);
+    // 0.5–1.27s: CRT power-on — a scanline igniting, then blooming open in
+    // one continuous tween. The old version stepped through four keyframe
+    // segments (velocity jumps at every boundary read as stutter) and peaked
+    // at brightness(6), which washed the whole console white. One expo.out
+    // for the aperture and a parallel decay from a gentler peak keep the
+    // tube-firing read without the flash or the seams.
+    tl.set(
+      console_,
+      {
+        opacity: 1,
+        clipPath: "inset(49.5% 0 49.5% 0 round 16px)",
+        filter: "brightness(2.4)",
+      },
+      0.5,
+    );
     tl.to(
       console_,
       {
-        keyframes: [
-          {
-            clipPath: "inset(49% 0 49% 0 round 16px)",
-            filter: "brightness(6)",
-            duration: 0,
-          },
-          {
-            clipPath: "inset(34% 0 34% 0 round 16px)",
-            filter: "brightness(3)",
-            duration: 0.14,
-          },
-          {
-            clipPath: "inset(8% 0 8% 0 round 16px)",
-            filter: "brightness(1.5)",
-            duration: 0.26,
-          },
-          {
-            clipPath: "inset(0% 0 0% 0 round 16px)",
-            filter: "brightness(1)",
-            duration: 0.26,
-            ease: "power2.out",
-          },
-        ],
-        ease: "none",
+        clipPath: "inset(0% 0 0% 0 round 16px)",
+        duration: 0.7,
+        ease: "expo.out",
+      },
+      0.52,
+    );
+    tl.to(
+      console_,
+      {
+        filter: "brightness(1)",
+        duration: 0.75,
+        ease: "power2.out",
         clearProps: "clipPath,filter",
       },
-      0.5,
+      0.52,
     );
 
     // 1.2s: Restart flicker animation
