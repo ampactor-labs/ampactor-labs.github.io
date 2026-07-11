@@ -58,5 +58,8 @@ it deep enough into the cabinet to post a score.
 
 At score 1500 the tunnel summons ANOMALY — the A-mark inverted — which
 pauses the ambient spawner and fires aimed volleys until its health bar is
-emptied. Each kill banks a bonus and schedules a stronger one. Debug:
-append `?boss=200` to fight it early.
+emptied. Below 30% health it enrages and fires nearly twice as fast. Each
+kill banks a bonus, then escalates the run: the next ANOMALY is bigger,
+tougher, and throws denser volleys, and the ambient game gets permanently
+faster with a lower spawn floor. Debug: append `?boss=200` to fight it
+early.

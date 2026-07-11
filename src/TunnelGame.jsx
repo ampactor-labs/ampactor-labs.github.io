@@ -18,9 +18,10 @@ import {
   WARNING_MS,
   ENTER_MS,
   DYING_MS,
-  BOSS_WORLD_SIZE,
-  BOSS_WORLD_SIZE_MOBILE,
+  ENRAGE_RATE,
   makeBoss,
+  bossSize,
+  bossEnraged,
   bossFireInterval,
   bossKillBonus,
   nextBossScore,
@@ -297,15 +298,16 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.stroke();
     }
 
-    // Draw sine wave crossbar
-    ctx.lineWidth = 1.8;
+    // Sine-wave crossbar, matched to the SVG mark: two full periods rising
+    // first, seated at y+0.172 (the logo's bar sits below center), amplitude
+    // 0.094, stroke 0.56× the beams (20/36 in the source mark).
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
-    // Simplified sine wave
-    const steps = 20;
+    const steps = 24;
     for (let i = 0; i <= steps; i++) {
       const t = i / steps;
       const x = (-0.344 + t * 0.688) * s;
-      const y = Math.sin(t * Math.PI * 2.5) * 0.12 * s;
+      const y = (0.172 - Math.sin(t * Math.PI * 4) * 0.094) * s;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
@@ -486,7 +488,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       gs.difficultyTick += dt;
       if (gs.difficultyTick >= 10000) {
         gs.difficultyTick -= 10000;
-        gs.spawnInterval = Math.max(350, gs.spawnInterval - 30);
+        // The spawn floor sinks with every ANOMALY killed — the ramp never
+        // fully flattens on a long run.
+        const spawnFloor = Math.max(220, 350 - 40 * gs.bossesDown);
+        gs.spawnInterval = Math.max(spawnFloor, gs.spawnInterval - 30);
         gs.baseSpeed += 0.08;
         gs.combo += 0.1;
         gs.comboTimer = gs.elapsed;
@@ -517,7 +522,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           }
         } else if (b.phase === "fight") {
           b.x = Math.sin(gs.elapsed * 0.0007 + b.wobblePhase) * w * 0.22;
-          if (gs.elapsed - b.lastFire >= bossFireInterval(b.level)) {
+          // Below 30% hp it enrages: faster volleys until it dies.
+          const interval =
+            bossFireInterval(b.level) * (bossEnraged(b) ? ENRAGE_RATE : 1);
+          if (gs.elapsed - b.lastFire >= interval) {
             b.lastFire = gs.elapsed;
             gs.obstacles.push(
               ...bossVolley(b.volleyIdx++, b.x, gs.player.x, w, b.level),
@@ -528,8 +536,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           const bScale = depthScale(b.depth);
           const bScreenX = cx + b.x * bScale;
           const bScreenY = cy + (shipY - cy) * b.depth;
-          const bossSize = mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE;
-          const hitW = 0.6 * bossSize * bScale;
+          const hitW = 0.6 * bossSize(b.level, mobile) * bScale;
           for (let j = gs.projectiles.length - 1; j >= 0; j--) {
             const p = gs.projectiles[j];
             if (Math.abs(p.depth - b.depth) < 0.06) {
@@ -564,6 +571,8 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             gs.combo += 0.5;
             gs.comboTimer = gs.elapsed;
             gs.nextBossAt = nextBossScore(gs.score, b.level);
+            // Every kill leaves the tunnel permanently meaner.
+            gs.baseSpeed += 0.15;
             gs.shakeUntil = gs.elapsed + 500;
             gs.shakeIntensity = 10;
             gs.boss = null;
@@ -780,25 +789,34 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.fillStyle = "#00E5FF";
       ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
 
-      // ANOMALY health bar (fight + dying)
+      // ANOMALY health bar (fight + dying); flashes orange while enraged
       if (gs.boss && (gs.boss.phase === "fight" || gs.boss.phase === "dying")) {
         const b = gs.boss;
+        const enraged = bossEnraged(b);
+        const barColor =
+          enraged && Math.floor(gs.elapsed / 150) % 2 === 0
+            ? "#ff6600"
+            : "#ff2266";
         const barW = mobile ? 150 : 240;
         const barH = mobile ? 5 : 7;
         const barY = mobile ? 42 : 52;
         ctx.textAlign = "center";
         ctx.font = `${mobile ? 7 : 9}px 'Press Start 2P', monospace`;
-        ctx.fillStyle = "#ff2266";
+        ctx.fillStyle = barColor;
         ctx.shadowBlur = 8;
         ctx.shadowColor = "rgba(255,34,102,0.7)";
-        ctx.fillText(bossLabel(b.level), cx, barY - (mobile ? 12 : 16));
+        ctx.fillText(
+          enraged ? `${bossLabel(b.level)} !!` : bossLabel(b.level),
+          cx,
+          barY - (mobile ? 12 : 16),
+        );
         ctx.shadowBlur = 0;
         ctx.strokeStyle = "rgba(255,34,102,0.5)";
         ctx.lineWidth = 1;
         ctx.strokeRect(cx - barW / 2, barY, barW, barH);
         const hpFrac = Math.max(0, b.hp / b.maxHp);
         if (hpFrac > 0) {
-          ctx.fillStyle = "#ff2266";
+          ctx.fillStyle = barColor;
           ctx.shadowBlur = 6;
           ctx.shadowColor = "rgba(255,34,102,0.8)";
           ctx.fillRect(
@@ -1575,7 +1593,7 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
   const scale = depthScale(b.depth);
   const bx = cx + b.x * scale;
   const by = cy + (shipY - cy) * b.depth;
-  const s = (mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE) * scale * 0.31;
+  const s = bossSize(b.level, mobile) * scale * 0.31;
 
   let alpha = 1;
   if (b.phase === "enter") alpha = Math.min(1, b.timer / ENTER_MS);
@@ -1584,7 +1602,8 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
     alpha = (Math.floor(elapsed / 60) % 2 === 0 ? 0.25 : 0.9) * fade;
   }
 
-  const agitated = b.phase === "dying" || elapsed - b.hitFlash < 120;
+  const agitated =
+    b.phase === "dying" || bossEnraged(b) || elapsed - b.hitFlash < 120;
   const jx = agitated ? (Math.random() - 0.5) * 6 : 0;
   const jy = agitated ? (Math.random() - 0.5) * 6 : 0;
 
@@ -1595,16 +1614,20 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
       ctx.lineTo(l.x2 * sz, l.y2 * sz);
       ctx.stroke();
     }
+    // Crossbar at the mark's true seat and weight (see drawShip)
+    const beamWidth = ctx.lineWidth;
+    ctx.lineWidth = beamWidth * 0.56;
     ctx.beginPath();
-    const steps = 20;
+    const steps = 24;
     for (let i = 0; i <= steps; i++) {
       const t = i / steps;
       const x = (-0.344 + t * 0.688) * sz;
-      const y = Math.sin(t * Math.PI * 2.5) * 0.12 * sz;
+      const y = (0.172 - Math.sin(t * Math.PI * 4) * 0.094) * sz;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
     ctx.stroke();
+    ctx.lineWidth = beamWidth;
   };
 
   ctx.save();

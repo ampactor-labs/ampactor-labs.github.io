@@ -2,8 +2,11 @@ import { describe, it, expect } from "vitest";
 import {
   FIRST_BOSS_AT,
   BOSS_DEPTH,
+  ENRAGE_HP_FRAC,
   makeBoss,
   bossHp,
+  bossSize,
+  bossEnraged,
   bossFireInterval,
   bossKillBonus,
   nextBossScore,
@@ -33,6 +36,21 @@ describe("boss scaling", () => {
   it("labels the first encounter plainly and later ones by level", () => {
     expect(bossLabel(1)).toBe("ANOMALY");
     expect(bossLabel(3)).toBe("ANOMALY LV.3");
+  });
+
+  it("grows per level but caps before filling the tunnel", () => {
+    expect(bossSize(2, false)).toBeGreaterThan(bossSize(1, false));
+    expect(bossSize(99, false)).toBe(bossSize(6, false)); // 1.6× cap
+    expect(bossSize(1, true)).toBeLessThan(bossSize(1, false));
+  });
+
+  it("enrages below the hp fraction and not above it", () => {
+    const b = makeBoss(1, () => 0.5);
+    expect(bossEnraged(b)).toBe(false);
+    b.hp = Math.floor(b.maxHp * ENRAGE_HP_FRAC);
+    expect(bossEnraged(b)).toBe(true);
+    b.hp = 0;
+    expect(bossEnraged(b)).toBe(false); // dead is dying, not enraged
   });
 });
 
@@ -72,5 +90,11 @@ describe("bossVolley", () => {
   it("cycles patterns by volley index", () => {
     const a = bossVolley(3, 0, 77, W, 1, () => 0.5);
     expect(a.map((o) => o.x)).toEqual([17, 77, 137]); // back to the aimed triple
+  });
+
+  it("densifies every pattern at higher levels", () => {
+    expect(bossVolley(0, 0, 0, W, 3, () => 0.5)).toHaveLength(5); // aimed burst
+    expect(bossVolley(1, 0, 0, W, 3, () => 0.5)).toHaveLength(5); // 6 lanes - gap
+    expect(bossVolley(2, 0, 0, W, 3, () => 0.5)).toHaveLength(3); // third weaver
   });
 });

@@ -13,6 +13,18 @@ export const ENTER_MS = 1200; // slide from tunnel mouth to BOSS_DEPTH
 export const DYING_MS = 1100; // glitch-out before the kill is banked
 export const BOSS_WORLD_SIZE = 680; // world units; ~210px on screen at depth
 export const BOSS_WORLD_SIZE_MOBILE = 480;
+export const ENRAGE_HP_FRAC = 0.3; // below this it goes berserk
+export const ENRAGE_RATE = 0.55; // fire-interval multiplier while enraged
+
+// Each encounter is physically bigger, capped so it never fills the tunnel.
+export function bossSize(level, mobile) {
+  const base = mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE;
+  return base * Math.min(1 + 0.12 * (level - 1), 1.6);
+}
+
+export function bossEnraged(boss) {
+  return boss.hp > 0 && boss.hp / boss.maxHp <= ENRAGE_HP_FRAC;
+}
 
 export function bossHp(level) {
   return 10 + level * 6; // L1 = 16 hits
@@ -73,12 +85,17 @@ export function bossVolley(volleyIdx, bossX, playerX, w, level, rand = Math.rand
     ...over,
   });
   switch (volleyIdx % 3) {
-    case 0:
-      // Aimed triple at the player's current lane — dodgeable by moving.
-      return [-60, 0, 60].map((off) => mk(playerX + off, { text: "TRAP" }));
+    case 0: {
+      // Aimed burst at the player's current lane — dodgeable by moving.
+      // Widens with level: 3 shots at L1, 4 at L2, 5 from L3 on.
+      const shots = 3 + Math.min(level - 1, 2);
+      return Array.from({ length: shots }, (_, i) =>
+        mk(playerX + (i - (shots - 1) / 2) * 60, { text: "TRAP" }),
+      );
+    }
     case 1: {
-      // Wall across the tunnel with one gap.
-      const lanes = 5;
+      // Wall across the tunnel with one gap; denser at L3 and L5.
+      const lanes = 5 + (level >= 3 ? 1 : 0) + (level >= 5 ? 1 : 0);
       const gap = Math.floor(rand() * lanes);
       const wall = [];
       for (let i = 0; i < lanes; i++) {
@@ -92,15 +109,17 @@ export function bossVolley(volleyIdx, bossX, playerX, w, level, rand = Math.rand
       }
       return wall;
     }
-    default:
-      // Weaving pair released from the boss's own position.
-      return [-40, 40].map((off, k) =>
-        mk(bossX + off, {
+    default: {
+      // Weavers released from the boss's own position; a third joins at L2.
+      const weavers = level >= 2 ? 3 : 2;
+      return Array.from({ length: weavers }, (_, k) =>
+        mk(bossX + (k - (weavers - 1) / 2) * 80, {
           text: "SIGKILL",
           wave: true,
-          wavePhase: k * Math.PI,
+          wavePhase: (k * 2 * Math.PI) / weavers,
           speed: speed * 1.15,
         }),
       );
+    }
   }
 }
