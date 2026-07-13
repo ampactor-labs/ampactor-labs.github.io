@@ -414,7 +414,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         />
       </div>
       <div
-        aria-label="PERRENIALS — CONSTRAINT-SPACE PLANT GUIDE"
+        aria-label="PERENNIALS — CONSTRAINT-SPACE FIELD GUIDE"
         aria-selected="false"
         class="project-row"
         role="option"
@@ -437,7 +437,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             <span
               style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
             >
-              PERRENIALS
+              PERENNIALS
             </span>
             <span
               style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
@@ -448,7 +448,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
           <div
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            CONSTRAINT-SPACE PLANT GUIDE
+            CONSTRAINT-SPACE FIELD GUIDE
           </div>
         </div>
       </div>
@@ -1096,7 +1096,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         />
       </div>
       <div
-        aria-label="PERRENIALS — CONSTRAINT-SPACE PLANT GUIDE"
+        aria-label="PERENNIALS — CONSTRAINT-SPACE FIELD GUIDE"
         aria-selected="false"
         class="project-row"
         role="option"
@@ -1119,7 +1119,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             <span
               style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
             >
-              PERRENIALS
+              PERENNIALS
             </span>
             <span
               style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
@@ -1130,7 +1130,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           <div
             style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
           >
-            CONSTRAINT-SPACE PLANT GUIDE
+            CONSTRAINT-SPACE FIELD GUIDE
           </div>
         </div>
       </div>
