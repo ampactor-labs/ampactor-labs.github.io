@@ -4,6 +4,20 @@ import useIntroSequence from "../useIntroSequence";
 import { PROJECTS, HIDDEN_PROJECTS } from "../data/projects";
 import { BOOT_LINES } from "../constants";
 
+// The detail screen's link rail, in focus order. Demo comes first when a project
+// has one, so A opens the running thing rather than the repo. DetailScreen renders
+// from this same list, so the rail's order and the focus index cannot drift apart.
+export function detailLinksOf(p) {
+  if (!p) return [];
+  const links = [];
+  if (p.live) links.push({ kind: "live", href: p.live });
+  if (p.github) links.push({ kind: "github", href: p.github });
+  return links;
+}
+
+// One d-pad press of scroll on the detail body.
+const SCROLL_STEP = 72;
+
 export default function useCabinetState(
   screenRef,
   tunnelRef,
@@ -26,8 +40,17 @@ export default function useCabinetState(
   const [glitching, setGlitching] = useState(false);
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const [gameHighlight, setGameHighlight] = useState(false);
+  const [linkIdx, setLinkIdx] = useState(0);
   const coinTimerRefs = useRef([]);
   const screenTransitionRef = useRef(0);
+  // The detail body (what up/down scrolls) and its anchors (what A clicks).
+  const detailBodyRef = useRef(null);
+  const linkRefs = useRef([]);
+  const scrollAnchor = useRef({ top: 0, at: 0 });
+  // activateLink runs from a window keydown closure that must not go stale
+  // between re-subscribes, so it reads the focused index from a ref.
+  const linkIdxRef = useRef(0);
+  linkIdxRef.current = linkIdx;
 
   const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum();
   const { introComplete, skipIntro } = useIntroSequence(
@@ -53,11 +76,48 @@ export default function useCabinetState(
     return result;
   }, [coinCount]);
 
+  const detailLinks = useMemo(() => detailLinksOf(detailProject), [detailProject]);
+
+  // A fresh project opens with the demo focused (or the source, when that is the
+  // only link), and the anchors from the last project must not linger.
+  useEffect(() => {
+    setLinkIdx(0);
+    linkRefs.current = [];
+    scrollAnchor.current = { top: 0, at: 0 };
+  }, [detailProject]);
+
   const fontScale = useMemo(
     () => Math.max(1, Math.min(1 + (dims.w - 300) / 700, 1.25)),
     [dims.w],
   );
   const fs = (size) => Math.round(size * fontScale);
+
+  // Chrome resolves a smooth scrollBy against the live, mid-animation offset, so
+  // mashing the d-pad swallows presses: two taps of ▼ scroll one step, not two.
+  // Accumulate against our own target while the last animation is plausibly still
+  // running, and otherwise trust the element, since the reader may have scrolled
+  // it by hand or by wheel in the meantime.
+  const scrollDetail = (dir) => {
+    const el = detailBodyRef.current;
+    if (!el) return;
+    const max = Math.max(0, el.scrollHeight - el.clientHeight);
+    const settled = Date.now() - scrollAnchor.current.at > 500;
+    const from = settled ? el.scrollTop : scrollAnchor.current.top;
+    const top = Math.min(Math.max(from + dir * SCROLL_STEP, 0), max);
+    scrollAnchor.current = { top, at: Date.now() };
+    el.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const moveLink = (delta) => {
+    if (detailLinks.length === 0) return false;
+    setLinkIdx((i) => Math.min(Math.max(i + delta, 0), detailLinks.length - 1));
+    playBlip();
+    return true;
+  };
+
+  const activateLink = () => {
+    linkRefs.current[linkIdxRef.current]?.click();
+  };
 
   // Boot phase 0: test pattern (800ms), then phase 1: text sequence
   useEffect(() => {
@@ -145,6 +205,25 @@ export default function useCabinetState(
           playBlip();
         }
       }
+      if (screen === "detail") {
+        // Arrows drive the same two things the d-pad does: up/down scroll the
+        // body, left/right walk the link rail. None of these are synth note
+        // keys, so they are safe even while the synth is being played.
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          scrollDetail(-1);
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          scrollDetail(1);
+        } else if (e.key === "ArrowLeft") {
+          moveLink(-1);
+        } else if (e.key === "ArrowRight") {
+          moveLink(1);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          activateLink();
+        }
+      }
       if (
         screen === "detail" &&
         !allProjects[selectedIdx]?.interactive?.includes("synth")
@@ -171,7 +250,7 @@ export default function useCabinetState(
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [screen, selectedIdx, bootLine, bootPhase, allProjects]);
+  }, [screen, selectedIdx, bootLine, bootPhase, allProjects, detailLinks]);
 
   // Fade console in/out for game mode
   useEffect(() => {
@@ -275,10 +354,16 @@ export default function useCabinetState(
     }
   };
 
-  // D-pad navigation
+  const isBootTransitioning = () =>
+    Date.now() - screenTransitionRef.current < 500;
+
+  // D-pad navigation. On select it walks the project list; on detail the same
+  // four buttons scroll the body and walk the link rail, because a d-pad that
+  // does nothing on the screen you just opened reads as broken.
   const navUp = () => {
     if (screen === "select")
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
+    else if (screen === "detail") scrollDetail(-1);
     else if (
       screen === "boot" &&
       bootPhase > 0 &&
@@ -290,10 +375,31 @@ export default function useCabinetState(
   const navDown = () => {
     if (screen === "select")
       setSelectedIdx((i) => (i + 1) % allProjects.length);
+    else if (screen === "detail") scrollDetail(1);
   };
 
-  const isBootTransitioning = () =>
-    Date.now() - screenTransitionRef.current < 500;
+  // Left falls through to Back when there is no rail to walk, so the hidden
+  // projects (no demo, no source) keep their escape hatch.
+  const navLeft = () => {
+    if (screen === "detail" && moveLink(-1)) return;
+    goBack();
+  };
+
+  const navRight = () => {
+    if (screen === "detail") {
+      moveLink(1);
+    } else if (screen === "select" && !isBootTransitioning()) {
+      openProject(selectedIdx);
+    }
+  };
+
+  // A: advance the boot, open the selected project, or open the focused link.
+  const pressA = () => {
+    if (screen === "boot") advanceBoot();
+    else if (screen === "select") {
+      if (!isBootTransitioning()) openProject(selectedIdx);
+    } else if (screen === "detail") activateLink();
+  };
 
   return {
     screen,
@@ -318,6 +424,13 @@ export default function useCabinetState(
     advanceBoot,
     navUp,
     navDown,
+    navLeft,
+    navRight,
+    pressA,
+    detailLinks,
+    linkIdx,
+    linkRefs,
+    detailBodyRef,
     playBlip,
     isBootTransitioning,
   };

@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { detailLinksOf } from "../../hooks/useCabinetState";
 
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
@@ -29,6 +30,9 @@ export default function DetailScreen({
   screenWidth,
   screenHeight,
   fs,
+  bodyRef,
+  linkRefs,
+  focusedLink = 0,
 }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
@@ -37,6 +41,12 @@ export default function DetailScreen({
   }, []);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
+  // Standalone render (tests, stories) still works: fall back to local refs.
+  const localBody = useRef(null);
+  const localLinks = useRef([]);
+  const body = bodyRef ?? localBody;
+  const links = linkRefs ?? localLinks;
+  const rail = detailLinksOf(p);
   const statusColor =
     p.status === "active"
       ? "var(--ui-signal-ok)"
@@ -122,7 +132,7 @@ export default function DetailScreen({
             {p.subtitle}
           </div>
         </div>
-        {(p.live || p.github) && (
+        {rail.length > 0 && (
           <div
             style={{
               display: "flex",
@@ -132,53 +142,50 @@ export default function DetailScreen({
               flexShrink: 0,
             }}
           >
-            {p.live && (
-              <a
-                href={p.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontSize: fs(10),
-                  color: "var(--color-void)",
-                  letterSpacing: "0.08em",
-                  textDecoration: "none",
-                  fontWeight: 700,
-                  padding: "5px 12px",
-                  borderRadius: 4,
-                  background: p.color,
-                  boxShadow: `0 0 14px ${p.color}66`,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {"\u25b8"} DEMO
-              </a>
-            )}
-            {p.github && (
-              <a
-                href={p.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontSize: fs(10),
-                  color: p.color,
-                  letterSpacing: "0.08em",
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  padding: "5px 12px",
-                  borderRadius: 4,
-                  background: `${p.color}11`,
-                  border: `1px solid ${p.color}55`,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {"\u203a"} SOURCE
-              </a>
-            )}
+            {rail.map((link, i) => {
+              const demo = link.kind === "live";
+              const focused = i === focusedLink;
+              return (
+                <a
+                  key={link.kind}
+                  ref={(el) => {
+                    links.current[i] = el;
+                  }}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-current={focused ? "true" : undefined}
+                  style={{
+                    fontSize: fs(10),
+                    letterSpacing: "0.08em",
+                    textDecoration: "none",
+                    padding: "5px 12px",
+                    borderRadius: 4,
+                    whiteSpace: "nowrap",
+                    fontWeight: demo ? 700 : 600,
+                    color: demo ? "var(--color-void)" : p.color,
+                    background: demo ? p.color : `${p.color}11`,
+                    border: demo
+                      ? "1px solid transparent"
+                      : `1px solid ${p.color}55`,
+                    // The focus ring is what tells you A will open this one.
+                    boxShadow: focused
+                      ? `0 0 0 2px var(--color-void), 0 0 0 4px ${p.color}, 0 0 18px ${p.color}99`
+                      : demo
+                        ? `0 0 14px ${p.color}66`
+                        : "none",
+                    transition: "box-shadow 0.15s ease",
+                  }}
+                >
+                  {demo ? "\u25b8 DEMO" : "\u203a SOURCE"}
+                </a>
+              );
+            })}
           </div>
         )}
       </div>
       {/* Body */}
-      <div style={{ flex: 1, overflow: "auto", position: "relative" }}>
+      <div ref={body} style={{ flex: 1, overflow: "auto", position: "relative" }}>
         {/* Tagline stencil — rotated 90deg, barely visible */}
         {p.tagline && (
           <span

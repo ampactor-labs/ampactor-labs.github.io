@@ -39,13 +39,13 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0;"
     >
       <a
+        aria-current="true"
         href="https://github.com/ampactor-labs/mentl"
         rel="noopener noreferrer"
-        style="font-size: 10px; color: rgb(224, 255, 0); letter-spacing: 0.08em; text-decoration: none; font-weight: 600; padding: 5px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); white-space: nowrap;"
+        style="font-size: 10px; letter-spacing: 0.08em; text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
         target="_blank"
       >
-        ›
-         SOURCE
+        › SOURCE
       </a>
     </div>
   </div>

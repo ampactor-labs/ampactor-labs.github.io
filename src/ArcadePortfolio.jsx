@@ -39,6 +39,12 @@ export default function ArcadePortfolio() {
     advanceBoot,
     navUp,
     navDown,
+    navLeft,
+    navRight,
+    pressA,
+    linkIdx,
+    linkRefs,
+    detailBodyRef,
     playBlip,
     isBootTransitioning,
   } = useCabinetState(screenRef, tunnelRef, logoRef, consoleRef);
@@ -292,6 +298,9 @@ export default function ArcadePortfolio() {
                   screenWidth={dims.w}
                   screenHeight={dims.h}
                   fs={fs}
+                  bodyRef={detailBodyRef}
+                  linkRefs={linkRefs}
+                  focusedLink={linkIdx}
                 />
               )}
             </div>
@@ -301,16 +310,15 @@ export default function ArcadePortfolio() {
         <Cabinet
           navUp={navUp}
           navDown={navDown}
+          navLeft={navLeft}
+          navRight={navRight}
+          pressA={pressA}
           goBack={goBack}
-          openProject={openProject}
-          advanceBoot={advanceBoot}
           insertCoin={insertCoin}
           screen={screen}
-          selectedIdx={selectedIdx}
           coinCount={coinCount}
           introComplete={introComplete}
           fs={fs}
-          isBootTransitioning={isBootTransitioning}
         />
       </div>
     </div>

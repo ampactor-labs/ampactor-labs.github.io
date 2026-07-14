@@ -1,16 +1,38 @@
+// Every d-pad key goes through here, so none of them can ship as a bare div with
+// no handler again — which is how ► stayed dead on every screen.
+function DpadButton({ label, glyph, onPress, style }) {
+  return (
+    <div
+      className="btn-cabinet"
+      role="button"
+      aria-label={label}
+      tabIndex={0}
+      onClick={onPress}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onPress();
+        }
+      }}
+      style={style}
+    >
+      {glyph}
+    </div>
+  );
+}
+
 export default function Cabinet({
   navUp,
   navDown,
+  navLeft,
+  navRight,
+  pressA,
   goBack,
-  openProject,
-  advanceBoot,
   insertCoin,
   screen,
-  selectedIdx,
   coinCount,
   introComplete,
   fs,
-  isBootTransitioning,
 }) {
   const dpadBtn = {
     width: 30,
@@ -61,39 +83,14 @@ export default function Cabinet({
           gap: 2,
         }}
       >
-        <div
-          className="btn-cabinet"
-          role="button"
-          aria-label="Navigate up"
-          tabIndex={0}
-          onClick={navUp}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              navUp();
-            }
-          }}
-          style={dpadBtn}
-        >
-          {"\u25b2"}
-        </div>
+        <DpadButton label="Navigate up" glyph={"\u25b2"} onPress={navUp} style={dpadBtn} />
         <div style={{ display: "flex", gap: 2 }}>
-          <div
-            className="btn-cabinet"
-            role="button"
-            aria-label="Go back"
-            tabIndex={0}
-            onClick={goBack}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                goBack();
-              }
-            }}
+          <DpadButton
+            label="Navigate left"
+            glyph={"\u25c4"}
+            onPress={navLeft}
             style={dpadBtn}
-          >
-            {"\u25c4"}
-          </div>
+          />
           <div
             style={{
               width: 30,
@@ -104,30 +101,19 @@ export default function Cabinet({
               boxShadow: "inset 0 2px 8px rgba(0,0,0,0.7)",
             }}
           />
-          <div
-            style={{
-              ...dpadBtn,
-            }}
-          >
-            {"\u25ba"}
-          </div>
+          <DpadButton
+            label="Navigate right"
+            glyph={"\u25ba"}
+            onPress={navRight}
+            style={dpadBtn}
+          />
         </div>
-        <div
-          className="btn-cabinet"
-          role="button"
-          aria-label="Navigate down"
-          tabIndex={0}
-          onClick={navDown}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              navDown();
-            }
-          }}
+        <DpadButton
+          label="Navigate down"
+          glyph={"\u25bc"}
+          onPress={navDown}
           style={dpadBtn}
-        >
-          {"\u25bc"}
-        </div>
+        />
       </div>
 
       {/* Center: logo, coin slot, CTA */}
@@ -394,21 +380,13 @@ export default function Cabinet({
           <div
             className="btn-action"
             role="button"
-            aria-label="Select"
+            aria-label={screen === "detail" ? "Open link" : "Select"}
             tabIndex={0}
-            onClick={() => {
-              if (screen === "boot") advanceBoot();
-              if (screen === "select") {
-                if (!isBootTransitioning()) openProject(selectedIdx);
-              }
-            }}
+            onClick={pressA}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                if (screen === "boot") advanceBoot();
-                if (screen === "select") {
-                  if (!isBootTransitioning()) openProject(selectedIdx);
-                }
+                pressA();
               }
             }}
             style={{
@@ -444,7 +422,7 @@ export default function Cabinet({
               userSelect: "none",
             }}
           >
-            SELECT
+            {screen === "detail" ? "OPEN" : "SELECT"}
           </div>
         </div>
       </div>
