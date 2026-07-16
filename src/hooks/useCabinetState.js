@@ -10,7 +10,9 @@ import { BOOT_LINES } from "../constants";
 export function detailLinksOf(p) {
   if (!p) return [];
   const links = [];
-  if (p.live) links.push({ kind: "live", href: p.live });
+  // liveLabel overrides the pill text for demos that aren't pages —
+  // 2-Top's slot serves an APK download, and the pill should say so.
+  if (p.live) links.push({ kind: "live", href: p.live, label: p.liveLabel });
   if (p.github) links.push({ kind: "github", href: p.github });
   return links;
 }

@@ -177,7 +177,7 @@ export default function DetailScreen({
                     transition: "box-shadow 0.15s ease",
                   }}
                 >
-                  {demo ? "\u25b8 DEMO" : "\u203a SOURCE"}
+                  {demo ? link.label || "\u25b8 DEMO" : "\u203a SOURCE"}
                 </a>
               );
             })}
