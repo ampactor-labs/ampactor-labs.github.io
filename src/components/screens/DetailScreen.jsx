@@ -145,6 +145,13 @@ export default function DetailScreen({
             {rail.map((link, i) => {
               const demo = link.kind === "live";
               const focused = i === focusedLink;
+              // A file download (the two-top APK) must NOT open in a new tab.
+              // The A button activates a link with a synthetic `el.click()`,
+              // and mobile browsers block a programmatic click that spawns a
+              // `target="_blank"` tab as a popup — so pressing A did nothing.
+              // A same-tab click on an attachment response downloads without
+              // navigating away, and no popup blocker is involved.
+              const download = /\.apk($|\?)/.test(link.href || "");
               return (
                 <a
                   key={link.kind}
@@ -152,8 +159,9 @@ export default function DetailScreen({
                     links.current[i] = el;
                   }}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={download ? undefined : "_blank"}
+                  rel={download ? undefined : "noopener noreferrer"}
+                  download={download || undefined}
                   aria-current={focused ? "true" : undefined}
                   style={{
                     fontSize: fs(10),
