@@ -90,9 +90,11 @@ export const PROJECTS = [
     lang: "Rust/Bevy",
     color: "#ff4466",
     icon: "⚔",
-    // The demo slot serves the sideloadable Android build: CI rebuilds it
-    // on every push to main and the release URL never changes.
-    live: "https://github.com/ampactor-labs/two-top/releases/download/apk-latest/two-top.apk",
+    // The demo slot points at the rolling release PAGE, not the raw .apk:
+    // the page shows what the build is before a stranger installs it, and
+    // CI republishes the same tag on every push to main so the URL never
+    // changes.
+    live: "https://github.com/ampactor-labs/two-top/releases/tag/apk-latest",
     liveLabel: "▸ APK",
     github: "https://github.com/ampactor-labs/two-top",
     desc: "2-Top uses rollback netcode to keep a mobile brawler synchronized across iOS, Android, and the web. Because floating-point math diverges across architectures, the engine relies strictly on fixed-point arithmetic. A continuous integration matrix tests this determinism across platforms, ensuring the simulation produces identical state everywhere. This stability allows the custom replay codec to scrub through matches frame by frame.",

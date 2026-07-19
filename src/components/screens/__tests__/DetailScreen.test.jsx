@@ -47,24 +47,27 @@ describe("DetailScreen", () => {
     expect(getByText(/source/i)).toBeTruthy();
   });
 
-  it("renders an APK download link that does not open a new tab", () => {
+  it("renders the APK release-page link same-tab", () => {
     // The A button activates a link with a synthetic el.click(); mobile
     // browsers block a programmatic click that spawns a target="_blank"
-    // popup, so an APK download must stay same-tab (and carry `download`).
-    const apkProject = PROJECTS.find((p) => p.live?.endsWith(".apk"));
-    expect(apkProject, "a project with an .apk demo link").toBeTruthy();
+    // popup, so the releases-page link must navigate same-tab. It is a
+    // page now, not a file, so it must NOT carry `download`.
+    const apkProject = PROJECTS.find((p) =>
+      /github\.com\/[^/]+\/[^/]+\/releases/.test(p.live || ""),
+    );
+    expect(apkProject, "a project with a releases-page demo link").toBeTruthy();
     const { getByText } = render(
       <DetailScreen {...baseProps} project={apkProject} />,
     );
     const pill = getByText(apkProject.liveLabel).closest("a");
     expect(pill.getAttribute("href")).toBe(apkProject.live);
     expect(pill.getAttribute("target")).toBeNull();
-    expect(pill.hasAttribute("download")).toBe(true);
+    expect(pill.hasAttribute("download")).toBe(false);
   });
 
   it("keeps a real web demo opening in a new tab", () => {
     const webDemo = PROJECTS.find(
-      (p) => p.live && !p.live.endsWith(".apk"),
+      (p) => p.live && !/github\.com\/[^/]+\/[^/]+\/releases/.test(p.live),
     );
     if (!webDemo) return; // no non-download demo in the roster; nothing to assert
     const { container } = render(
