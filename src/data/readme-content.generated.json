@@ -1,0 +1,20 @@
+{
+  "turbosort": {
+    "desc": "SIMD-accelerated radix sort for primitive types in Rust.",
+    "status": "shipping",
+    "statusNote": "SSE4.2 is unimplemented, so pre-AVX2 x86 falls back to scalar, and large random u64 loses to voracious (see Weak spots).",
+    "operatorNote": "Large random u64, i64, and f64 are the honest loss. Random 64-bit keys force eight byte passes; above 64K elements turbosort switches to 11-bit digits (six passes, measured faster than both 8-bit and 16-bit variants), which cut 1M-element time by 1.4x over the byte path, and voracious still wins by touching memory roughly half as much with its diverting MSD strategy. At 1M u64 it runs 0.77x against std and 0.67x against voracious. If your workload is dominated by large arrays of random 64-bit keys, use voracious. Keys with dead high bytes (timestamps, small IDs) are a different story: constant-digit passes are skipped outright, so real-world u64 often runs in two or three passes."
+  },
+  "landed": {
+    "desc": "Fail-closed Solana transaction execution: plan it, gate it, submit it by RPC or Jito bundle, and know what happened.",
+    "status": "working, API unstable",
+    "statusNote": "0.1.0 is on crates.io. Priority fees are not a gate input yet, and an Expired flight is the caller's to rebuild.",
+    "operatorNote": "The published latency table is a local validator, so it characterizes this crate and says nothing about a real cluster. Until someone posts devnet or mainnet numbers, treat the confirm row as a slot time rather than a network measurement."
+  },
+  "sonido": {
+    "desc": "An audio DSP kernel written once and run in three places: CLAP plugins in a DAW, a node-graph editor in the browser, and a guitar pedal built on the Electrosmith Daisy Seed (STM32H750, 480 MHz Cortex-M7). The distortion flashed to the pedal is the distortion shipped in the plugin.",
+    "status": "working, API unstable",
+    "statusNote": "Not published to crates.io, so the git dependency below is the only install. The desktop, plugin, and wasm paths are built and tested on every push; the ARM path is not, and is verified by flashing it by hand.",
+    "operatorNote": "The ARM numbers are estimates, and two effects do not fit. docs/BENCHMARKS.md derives Cortex-M7 cost by scaling desktop measurements 25×, from a 3.0/0.48 GHz clock ratio and a 4× architecture penalty, and states its own uncertainty at ±50%. Under that model the 3-band Eq lands at 110.4% of the 48 kHz budget and Vibrato at 110.8%: over. Treat every ARM performance statement here as a hypothesis until the on-device harness is run. [NEEDS RECEIPT: flash crates/sonido-daisy/examples/benchkernels.rs (DWT cycle counters) to the Hothouse and replace the estimate table.]"
+  }
+}

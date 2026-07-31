@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Card content is derived from each project's README at build time
+  # (scripts/sync-readmes.mjs), so a nightly rebuild keeps the site from
+  # drifting more than a day behind a repo even with no commits here.
+  schedule:
+    - cron: "17 9 * * *"
 
 permissions:
   contents: read

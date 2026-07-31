@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/sync-readmes.mjs && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -13,7 +13,9 @@
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write src/",
-    "format:check": "prettier --check src/"
+    "format:check": "prettier --check src/",
+    "sync:readmes": "node scripts/sync-readmes.mjs",
+    "sync:readmes:check": "node scripts/sync-readmes.mjs --check"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

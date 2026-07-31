@@ -1,4 +1,24 @@
-export const PROJECTS = [
+import README_CONTENT from "./readme-content.generated.json";
+
+// Content fields below (desc, operatorNote, status) are overridden at build
+// time by whatever the project's own README says, for the repos listed in
+// scripts/sync-readmes.mjs. Presentation fields (color, icon, category,
+// highlights, tagline) always win from this file: design does not go stale,
+// content does. Edit a README to change what a card claims; edit here to
+// change how it looks.
+const fromReadme = (project) => {
+  const c = README_CONTENT[project.id];
+  if (!c) return project;
+  return {
+    ...project,
+    desc: c.desc || project.desc,
+    operatorNote: c.operatorNote || project.operatorNote,
+    readmeStatus: c.status,
+    readmeStatusNote: c.statusNote,
+  };
+};
+
+const RAW_PROJECTS = [
 {
     id: "mentl",
     title: "MENTL",
@@ -35,15 +55,15 @@ export const PROJECTS = [
     icon: "♫",
     github: "https://github.com/ampactor-labs/sonido",
     live: "https://ampactor.dev/sonido",
-    desc: "Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 35 audio effects to compile directly to CLAP plugins or hardware firmware.",
+    desc: "Sonido runs the same DSP kernel on a desktop DAW and a 480 MHz Cortex-M7 microcontroller. To fit the bare-metal constraints, the architecture drops the heap and dynamic trait dispatch entirely. Audio routing happens through a DAG that analyzes buffer liveness at compile time, recycling memory in place. This strict no_std boundary allows 36 audio effects to compile directly to CLAP plugins or hardware firmware.",
     tags: ["dsp", "clap", "embedded", "no_std"],
     tagline: "DESKTOP AND BARE METAL. SAME CODE.",
     outcome:
-      "Write audio code once; run it unchanged on a desktop plugin and a $20 microcontroller.",
+      "Write audio code once; run it unchanged on a desktop plugin and a $30 microcontroller.",
     highlights: [
       "FLASHED TO REAL DAISY SEED HARDWARE",
-      "14 CRATES (6 no_std)",
-      "35 EFFECTS / 35 CLAP PLUGINS",
+      "14 CRATES (7 no_std)",
+      "36 EFFECTS / 21 CLAP PLUGINS",
       "ZERO-HEAP KERNEL ARCHITECTURE",
       "DAG AUDIO ROUTING",
       "from_knobs() ADC MAPPING",
@@ -290,6 +310,8 @@ export const PROJECTS = [
   }
 
 ];
+
+export const PROJECTS = RAW_PROJECTS.map(fromReadme);
 
 export const HIDDEN_PROJECTS = [
   {
