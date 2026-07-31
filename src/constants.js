@@ -15,6 +15,7 @@ export const BOOT_LINES = [
   "turbosort ...... benchmarking ........... OK",
   "clob ........... learning ............... OK",
   "tokensafe ...... scanning ............... OK",
+  "landed ......... gating ................. OK",
   "easter eggs .... hidden ................. OK",
   "",
   "DSP · EMBEDDED · SECURITY · COMPILERS ·  WEB3",
