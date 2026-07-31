@@ -19,7 +19,7 @@ const fromReadme = (project) => {
 };
 
 const RAW_PROJECTS = [
-{
+  {
     id: "mentl",
     title: "MENTL",
     subtitle: "SELF-HOSTING COMPILER",
@@ -46,7 +46,7 @@ const RAW_PROJECTS = [
       "Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.",
   },
 
-{
+  {
     id: "sonido",
     title: "SONIDO",
     subtitle: "CROSS-PLATFORM DSP KERNEL",
@@ -75,7 +75,7 @@ const RAW_PROJECTS = [
       "Identical Rust on a desktop DAW and a bare-metal Cortex-M7 at 480 MHz. The firmware runs on physical Daisy Seed hardware, not just a cross-compile target.",
   },
 
-{
+  {
     id: "turbosort",
     title: "TURBOSORT",
     subtitle: "SIMD-ACCELERATED RADIX SORT",
@@ -103,7 +103,7 @@ const RAW_PROJECTS = [
       "The benchmark tables publish where it loses: large random u64 goes to voracious. Trust a table that shows its losses over one that only shows wins. The profiling pass came later and moved a number the wrong way for comfort: at 1M keys the working set half-fits L3, so the honest floor is 2.2× at 10M, not the headline.",
   },
 
-{
+  {
     id: "landed",
     title: "LANDED",
     subtitle: "SOLANA EXECUTION GATEWAY",
@@ -131,7 +131,7 @@ const RAW_PROJECTS = [
       "The validator-in-CI earned its keep on the first run: Message::new leaves the blockhash zeroed, getFeeForMessage prices the bytes it is handed and returned null, and every gate correctly refused to submit. A mocked RPC would have returned a cheerful fee and shipped the bug. Extracted from flowpilot, a trading engine I retired when its edge stopped clearing fees; the strategy died on the evidence and the engineering outlived it.",
   },
 
-{
+  {
     id: "two-top",
     title: "2-TOP",
     subtitle: "ROLLBACK NETCODE BRAWLER",
@@ -165,7 +165,7 @@ const RAW_PROJECTS = [
       "A determinism matrix in CI checks that every platform produces the identical simulation, bit for bit. Fixed-point math everywhere, because floats drift across architectures.",
   },
 
-{
+  {
     id: "clob",
     title: "CLOB",
     subtitle: "TERNARY INTELLIGENCE KERNEL",
@@ -193,7 +193,7 @@ const RAW_PROJECTS = [
       "The J/nat number is the whole game: a change that makes the model smarter but hotter fails on its own terms. First real run crystallized zero modules; that is the honest baseline, and training the core comes first.",
   },
 
-{
+  {
     id: "tokensafe",
     title: "TOKENSAFE + SCRY",
     subtitle: "SOLANA SECURITY SCANNER",
@@ -222,7 +222,7 @@ const RAW_PROJECTS = [
       "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
   },
 
-{
+  {
     id: "perennials",
     title: "PERENNIALS",
     subtitle: "CONSTRAINT-SPACE FIELD GUIDE",
@@ -231,7 +231,7 @@ const RAW_PROJECTS = [
     icon: "❦",
     github: "https://github.com/ampactor-labs/perennials",
     live: "https://ampactor.dev/perennials/",
-    desc: "Perennials searches about 8,800 useful plants by constraint instead of by name. One omnibox speaks the whole grammar: type wet, clay, nitrogen, or zone 6 and it offers back the matching constraint with a live count of what that would still reach. Picked constraints stack into a collapse trail that makes the narrowing visible, 8,799 to Wet 860 to Full shade 58 to Edible 34, every step counted and removable, the whole set encoded in the URL so any search is a link. A spot saves a real place's light, water, and soil under a name like \"north bed\" and re-applies it in one tap; Guild view stacks the same results the way a forest garden does, canopy down to roots. Every record is community data from Permapeople, with flower visitors from GloBI and bloom color from USDA PLANTS. None of it is authored.",
+    desc: 'Perennials searches about 8,800 useful plants by constraint instead of by name. One omnibox speaks the whole grammar: type wet, clay, nitrogen, or zone 6 and it offers back the matching constraint with a live count of what that would still reach. Picked constraints stack into a collapse trail that makes the narrowing visible, 8,799 to Wet 860 to Full shade 58 to Edible 34, every step counted and removable, the whole set encoded in the URL so any search is a link. A spot saves a real place\'s light, water, and soil under a name like "north bed" and re-applies it in one tap; Guild view stacks the same results the way a forest garden does, canopy down to roots. Every record is community data from Permapeople, with flower visitors from GloBI and bloom color from USDA PLANTS. None of it is authored.',
     tags: ["permaculture", "constraint-search", "offline", "pwa"],
     tagline: "DESCRIBE THE SPOT, GET THE PLANTS",
     outcome:
@@ -251,7 +251,7 @@ const RAW_PROJECTS = [
       "Permapeople carries almost no pollinator data (under 60 plants with a visitor tag, 24 with a flower color), so the service enriches it: GloBI supplies recorded flower visitors grouped by insect family, USDA PLANTS supplies bloom color on exact binomial matches only, because taking the top search hit would paint the wrong plant. The honesty layer is the part I would defend hardest. Permapeople ships one shared placeholder image across 4,063 plants, so the transform detects it and nulls it rather than let a card pretend it has a photo, and results rank by how well documented a plant actually is.",
   },
 
-{
+  {
     id: "noodles",
     title: "NOODLES",
     subtitle: "MOBILE DAW",
@@ -280,7 +280,7 @@ const RAW_PROJECTS = [
       "Targets a Galaxy A16 5G (entry-level MediaTek). The whole thing is four files: model (pure data + music theory), audio (Tone.js graph), main (all UI), and index.html (CSS shell). No framework, no React — vanilla DOM for performance on weak hardware.",
   },
 
-{
+  {
     id: "celezdial",
     title: "CELEZDIAL SELEKTA",
     subtitle: "ZODIAC-MAPPED SYNTHESIZER",
@@ -307,8 +307,7 @@ const RAW_PROJECTS = [
     category: "creative",
     operatorNote:
       "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
-  }
-
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);

@@ -15,7 +15,9 @@
     "format": "prettier --write src/",
     "format:check": "prettier --check src/",
     "sync:readmes": "node scripts/sync-readmes.mjs",
-    "sync:readmes:check": "node scripts/sync-readmes.mjs --check"
+    "sync:readmes:check": "node scripts/sync-readmes.mjs --check",
+    "add:project": "node scripts/add-project.mjs",
+    "readmes:report": "node scripts/sync-readmes.mjs --report"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

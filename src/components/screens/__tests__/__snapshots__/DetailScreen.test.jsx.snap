@@ -85,7 +85,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.
+        Machines now write most new code, and nobody can read it all. Trust has to come from somewhere other than review. Mentl is a programming language whose compiler proves what your program does — and what it can never do — and teaches you, in words, as you write. Any intelligence may propose; nothing executes unproven; intent is never lost; capability is always bounded.
       </div>
     </div>
     <div
@@ -226,7 +226,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
+        The verifier is sound and incomplete by choice: what it cannot decide accrues as visible pending debt, never assumed true. The named frontier — the modal effect crown, information-flow control, durable execution as a handler swap, a native backend — is sequenced in PLAN.md §5, in positive form, never hidden. A claim you cannot re-derive from the board is a claim this project does not make.
       </div>
     </div>
     <div

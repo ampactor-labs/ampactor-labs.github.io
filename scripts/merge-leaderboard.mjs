@@ -49,7 +49,10 @@ export function mergeScore(scores, { initials, score, user, date }) {
   if (
     scores.some((e) => e.i === initials && e.s === score && e.user === user)
   ) {
-    return { accepted: false, reason: "this exact entry is already on the board" };
+    return {
+      accepted: false,
+      reason: "this exact entry is already on the board",
+    };
   }
   if (scores.length >= BOARD_MAX && score <= scores[scores.length - 1].s) {
     return {
@@ -58,9 +61,7 @@ export function mergeScore(scores, { initials, score, user, date }) {
     };
   }
   const row = { i: initials, s: score, user, date };
-  const next = [...scores, row]
-    .sort((a, b) => b.s - a.s)
-    .slice(0, BOARD_MAX);
+  const next = [...scores, row].sort((a, b) => b.s - a.s).slice(0, BOARD_MAX);
   return { accepted: true, rank: next.indexOf(row) + 1, scores: next };
 }
 
@@ -77,8 +78,7 @@ function main() {
     return;
   }
   const user = String(process.env.ISSUE_USER || "unknown");
-  const date =
-    process.env.RUN_DATE || new Date().toISOString().slice(0, 10);
+  const date = process.env.RUN_DATE || new Date().toISOString().slice(0, 10);
 
   let raw = "";
   try {
@@ -107,6 +107,9 @@ function main() {
 }
 
 // Only run the CLI when invoked directly (not when imported by tests).
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   main();
 }

@@ -1,4 +1,16 @@
 {
+  "mentl": {
+    "desc": "Machines now write most new code, and nobody can read it all. Trust has to come from somewhere other than review. Mentl is a programming language whose compiler proves what your program does — and what it can never do — and teaches you, in words, as you write. Any intelligence may propose; nothing executes unproven; intent is never lost; capability is always bounded.",
+    "status": "working, API unstable",
+    "statusNote": "The verifier is sound and deliberately incomplete; what it cannot decide accrues as visible pending debt rather than a silent pass. No license is chosen yet.",
+    "operatorNote": "The verifier is sound and incomplete by choice: what it cannot decide accrues as visible pending debt, never assumed true. The named frontier — the modal effect crown, information-flow control, durable execution as a handler swap, a native backend — is sequenced in PLAN.md §5, in positive form, never hidden. A claim you cannot re-derive from the board is a claim this project does not make."
+  },
+  "sonido": {
+    "desc": "An audio DSP kernel written once and run in three places: CLAP plugins in a DAW, a node-graph editor in the browser, and a guitar pedal built on the Electrosmith Daisy Seed (STM32H750, 480 MHz Cortex-M7). The distortion flashed to the pedal is the distortion shipped in the plugin.",
+    "status": "working, API unstable",
+    "statusNote": "Not published to crates.io, so the git dependency below is the only install. The desktop, plugin, and wasm paths are built and tested on every push; the ARM path is not, and is verified by flashing it by hand.",
+    "operatorNote": "The ARM numbers are estimates, and two effects do not fit. docs/BENCHMARKS.md derives Cortex-M7 cost by scaling desktop measurements 25×, from a 3.0/0.48 GHz clock ratio and a 4× architecture penalty, and states its own uncertainty at ±50%. Under that model the 3-band Eq lands at 110.4% of the 48 kHz budget and Vibrato at 110.8%: over. Treat every ARM performance statement here as a hypothesis until the on-device harness is run. [NEEDS RECEIPT: flash crates/sonido-daisy/examples/benchkernels.rs (DWT cycle counters) to the Hothouse and replace the estimate table.]"
+  },
   "turbosort": {
     "desc": "SIMD-accelerated radix sort for primitive types in Rust.",
     "status": "shipping",
@@ -11,10 +23,40 @@
     "statusNote": "0.1.0 is on crates.io. Priority fees are not a gate input yet, and an Expired flight is the caller's to rebuild.",
     "operatorNote": "The published latency table is a local validator, so it characterizes this crate and says nothing about a real cluster. Until someone posts devnet or mainnet numbers, treat the confirm row as a slot time rather than a network measurement."
   },
-  "sonido": {
-    "desc": "An audio DSP kernel written once and run in three places: CLAP plugins in a DAW, a node-graph editor in the browser, and a guitar pedal built on the Electrosmith Daisy Seed (STM32H750, 480 MHz Cortex-M7). The distortion flashed to the pedal is the distortion shipped in the plugin.",
+  "two-top": {
+    "desc": "A phone-vs-phone rollback brawler written in Rust on Bevy, bevyggrs, and Matchbox WebRTC. The gameplay borrows from Boomerang Fu: throw-and-recall, a dash with invincibility frames, one-hit kills, 30-second rounds, first to five. The interesting part is underneath. Every simulation tick has to produce bit-identical state on every platform, because two phones on opposite ends of a connection either agree exactly or the match desyncs. That one constraint shapes the whole codebase.",
+    "status": "shipping",
+    "statusNote": "The gameplay loop, netplay, seven arenas, signed results, replays, and the CI/APK/Pages pipelines are built and green. The two-phone cross-carrier field test has not been run.",
+    "operatorNote": "The relay path is verified server-side but has never been played on two phones on different carriers. Until that parking-lot test happens, cross-carrier NAT traversal is a deployment that looks correct rather than a match that worked."
+  },
+  "clob": {
+    "desc": "A ternary recurrent intelligence kernel in Rust. The floor hardware is a Lenovo T490 (i7-8550U, 16 GB RAM); if it doesn't run there, it doesn't count.",
+    "status": "prototype",
+    "statusNote": "The supporting machinery works. The central bet is unproven, and the first real run falsified the thing it was supposed to demonstrate.",
+    "operatorNote": "The core is still random and untrained, and the first real run crystallized zero modules. The reservoir probe found no contextual gain from frozen hidden states beyond a trained unigram null, which is the result the whole design was meant to beat."
+  },
+  "tokensafe": {
+    "desc": "Solana token safety scanner. Deterministic on-chain analysis, cryptographically signed, behind x402 micropayments.",
+    "status": "shipping",
+    "statusNote": "Live on mainnet behind x402 micropayments. No CI workflows in this repo; the deploy is Railway-side.",
+    "operatorNote": "This reads chain state, so it can only catch what chain state shows. A developer who simply sells, an off-chain social rug, or a compromised team wallet all produce a clean report right up until they do not. A SAFE verdict means the checks below found nothing, not that the token is safe."
+  },
+  "perennials": {
+    "desc": "A field guide to about 8,800 useful plants, searched by constraint. Say what your site is: the light, the moisture, the soil. Then say what you want from it, and watch the set collapse to what fits. Mobile-first, installs as an offline app, works in a garden with no signal.",
+    "status": "shipping",
+    "statusNote": "Live and installable offline. The plant data is community-sourced, not authored or verified here.",
+    "operatorNote": "None of the data is mine. Records come from Permapeople, flower visitors from GloBI, and bloom color from USDA PLANTS, and they vary in completeness plant by plant; a constraint search is only as good as the tags underneath it, so an unlabeled species is invisible to the filter that should have found it."
+  },
+  "noodles": {
+    "desc": "A phone-first music sketchpad. It borrows Ableton's interaction model (the clip grid, launch-and-loop, direct drag, scale-awareness, one-tap transforms) and almost none of its density. The bet: the instrument is the lesson. The affordances carry the theory, so the first pleasing sound is seconds away and the depth only shows up when you go looking for it.",
     "status": "working, API unstable",
-    "statusNote": "Not published to crates.io, so the git dependency below is the only install. The desktop, plugin, and wasm paths are built and tested on every push; the ARM path is not, and is verified by flashing it by hand.",
-    "operatorNote": "The ARM numbers are estimates, and two effects do not fit. docs/BENCHMARKS.md derives Cortex-M7 cost by scaling desktop measurements 25×, from a 3.0/0.48 GHz clock ratio and a 4× architecture penalty, and states its own uncertainty at ±50%. Under that model the 3-band Eq lands at 110.4% of the 48 kHz budget and Vibrato at 110.8%: over. Treat every ARM performance statement here as a hypothesis until the on-device harness is run. [NEEDS RECEIPT: flash crates/sonido-daisy/examples/benchkernels.rs (DWT cycle counters) to the Hothouse and replace the estimate table.]"
+    "statusNote": "Phone-first and playable; desktop is secondary and the audio timing is browser-dependent.",
+    "operatorNote": "Timing is at the mercy of the browser. Web Audio scheduling on mobile is not a real-time audio thread, so under load or with the screen asleep the grid can drift in ways a native sequencer would not."
+  },
+  "celezdial": {
+    "desc": "Polyphonic ambient synthesizer mapped to the zodiac. 12 voices toggle on a chromatic keyboard (C to B), shaped by a wall of parameter knobs across 8 FX chains you can swap live from the controls veil. Birth charts select the voices, aspects color them, and orbit mode breathes them on planetary periods. Built with React and Tone.js.",
+    "status": "shipping",
+    "statusNote": "Runs in the browser; twelve simultaneous voices are heavy on older phones.",
+    "operatorNote": "Twelve voices through eight FX chains is a lot to ask of Web Audio on a phone. On older hardware, voice count is the first thing to cut, and there is no automatic quality scaling to do it for you."
   }
 }
