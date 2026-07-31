@@ -1,0 +1,282 @@
+<!-- source of truth: ampactor-labs/marrow (private), site/index.html — edit there, copy here -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>marrow — seed run 01</title>
+<style>
+  :root {
+    --bg: #fbf1c7; --panel: #f2e5bc; --fg: #3c3836; --muted: #665c54;
+    --blue: #076678; --orange: #af3a03; --line: #d5c4a1;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#282828; --panel:#32302f; --fg:#ebdbb2; --muted:#a89984;
+            --blue:#83a598; --orange:#fe8019; --line:#504945; }
+  }
+  :root[data-theme="dark"]  { --bg:#282828; --panel:#32302f; --fg:#ebdbb2; --muted:#a89984;
+                              --blue:#83a598; --orange:#fe8019; --line:#504945; }
+  :root[data-theme="light"] { --bg:#fbf1c7; --panel:#f2e5bc; --fg:#3c3836; --muted:#665c54;
+                              --blue:#076678; --orange:#af3a03; --line:#d5c4a1; }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--serif);
+         font-size: 1.0625rem; line-height: 1.55; margin: 0; }
+  .wrap { max-width: 40rem; margin: 0 auto; padding: 1.25rem 1.1rem 4rem; }
+
+  header { border-bottom: 1px solid var(--line); padding: .75rem 0 1.1rem; margin-bottom: 1.5rem; }
+  .brand { font-family: var(--mono); font-size: 1.35rem; letter-spacing: .02em; }
+  .brand b { font-weight: 700; }
+  .sub { font-family: var(--mono); font-size: .78rem; color: var(--muted);
+         text-transform: uppercase; letter-spacing: .12em; margin-top: .3rem; }
+  .thesis { margin: .9rem 0 0; font-style: italic; color: var(--muted); }
+
+  h2 { font-family: var(--mono); font-size: .8rem; text-transform: uppercase;
+       letter-spacing: .14em; color: var(--blue); margin: 2.2rem 0 .8rem;
+       text-wrap: balance; }
+  p { margin: .65rem 0; }
+
+  ol.routine { margin: 0; padding-left: 1.2rem; }
+  ol.routine li { margin: .45rem 0; }
+  .routine .beat { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+
+  details { border-top: 1px solid var(--line); }
+  details:last-of-type { border-bottom: 1px solid var(--line); }
+  summary { display: flex; align-items: baseline; gap: .7rem; cursor: pointer;
+            padding: .8rem .2rem; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .day { font-family: var(--mono); font-size: .78rem; color: var(--blue);
+         min-width: 4.6rem; font-variant-numeric: tabular-nums; }
+  .ttl { flex: 1; font-weight: 600; }
+  button.done-box { background: none; border: none; padding: 0 .2rem;
+                    font-family: var(--mono); font-size: 1rem; color: var(--muted);
+                    cursor: pointer; }
+  button.done-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  details[data-done="1"] .ttl { color: var(--muted); text-decoration: line-through;
+                                text-decoration-thickness: 1px; }
+  details[data-done="1"] button.done-box { color: var(--blue); }
+  .card { padding: .1rem .2rem 1.1rem; }
+  .fld { margin: .55rem 0; }
+  .fld b { font-family: var(--mono); font-size: .72rem; text-transform: uppercase;
+           letter-spacing: .1em; color: var(--muted); display: block; margin-bottom: .1rem; }
+  .table-q { background: var(--panel); border-left: 3px solid var(--orange);
+             padding: .6rem .8rem; margin-top: .8rem; }
+  .table-q b { font-family: var(--mono); font-size: .72rem; text-transform: uppercase;
+               letter-spacing: .1em; color: var(--orange); display: block; }
+
+  .form { background: var(--panel); border: 1px solid var(--line); padding: .9rem 1rem;
+          font-family: var(--mono); font-size: .88rem; line-height: 1.7;
+          overflow-x: auto; }
+  .form .lbl { color: var(--blue); }
+  .warn { color: var(--orange); }
+
+  .closer { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+            font-style: italic; }
+  footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .78rem;
+           color: var(--muted); }
+  footer a, a { color: var(--blue); }
+  @media (prefers-reduced-motion: no-preference) {
+    summary { transition: color .15s ease; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="brand"><b>marrow</b> / seed run 01</div>
+  <div class="sub">how people change · 14 mornings · one dinner</div>
+  <p class="thesis">The room is won by what you metabolized, not what you can recite.</p>
+</header>
+
+<h2>This morning, three minutes</h2>
+<ol class="routine">
+  <li>Open today's card below. Read it once.</li>
+  <li><span class="beat">Say it back</span> — out loud, like you're at a table.</li>
+  <li><span class="beat">In LOG.md</span> — one line taking a side with a confidence number; one line hooking it to something you've seen. Then stop. The day's idea ends.</li>
+</ol>
+<p>Tap the circle when a day is done; it's remembered on this phone. Answers live in the repo's LOG.md, not here.</p>
+
+<h2>The cards</h2>
+
+<details id="d1"><summary><span class="day">day 01</span><span class="ttl">The end of history illusion</span><button class="done-box" aria-label="mark day 1 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>At every age you believe you've just now finished becoming yourself. You haven't.</div>
+  <div class="fld"><b>For</b>Quoidbach, Gilbert &amp; Wilson asked over 19,000 people to report the past decade's change and predict the next; every age group reported large past change and predicted almost none to come. The same people who laughed at their 25-year-old self were certain the 35-year-old was final.</div>
+  <div class="fld"><b>Against</b>The reported past change might be inflated storytelling; the illusion could live in the rearview mirror, not the windshield. Day 4 makes that case.</div>
+  <div class="fld"><b>Seen live</b>The band you swore by at 25. Signing a 30-year mortgage on the taste of your current self.</div>
+  <div class="fld"><b>Door</b>Quoidbach, Gilbert &amp; Wilson, "The End of History Illusion," Science, 2013. Two pages and a figure.</div>
+  <div class="table-q"><b>At the table</b>"What were you sure of ten years ago that's just gone now?"</div>
+</div></details>
+
+<details id="d2"><summary><span class="day">day 02</span><span class="ttl">You mature on schedule</span><button class="done-box" aria-label="mark day 2 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Personality keeps moving all life long, in a predictable direction: steadier, warmer, less anxious.</div>
+  <div class="fld"><b>For</b>Roberts, Walton &amp; Viechtbauer's meta-analysis of 92 longitudinal samples: conscientiousness and emotional stability climb through adulthood, steepest in the twenties and thirties. And it moves on demand: Hudson &amp; Fraley measured trait change inside 16 weeks, but only in people who did trait-consistent behaviors. Goals alone did nothing. Wanting isn't doing.</div>
+  <div class="fld"><b>Against</b>Rank-order stability is high. The anxious stay anxious relative to their peers; the tide lifts everyone, and your position in the fleet mostly holds.</div>
+  <div class="fld"><b>Seen live</b>The chaos friend who is now the one with the spreadsheet. On schedule, not a miracle.</div>
+  <div class="fld"><b>Door</b>Roberts, Walton &amp; Viechtbauer, Psychological Bulletin, 2006, the discussion section; Hudson &amp; Fraley, JPSP, 2015.</div>
+  <div class="table-q"><b>At the table</b>"Who do you know that changed the most since 25 — and did they do it, or did it happen to them?"</div>
+</div></details>
+
+<details id="d3"><summary><span class="day">day 03</span><span class="ttl">The baseline is rubber, not stone</span><button class="done-box" aria-label="mark day 3 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>You adapt back toward a set-point after most events; a few events bend the point itself.</div>
+  <div class="fld"><b>For</b>The lottery-and-accident study, read precisely: winners took less pleasure in ordinary life than controls, and paralyzed accident victims were far less unhappy than anyone predicted. Longitudinal work (Lucas) shows adaptation is real but incomplete: unemployment and widowhood leave lasting marks on the baseline.</div>
+  <div class="fld"><b>Against</b>Set-points are heritable, and heritable gets misread as immutable. Height is heritable and rose a foot with nutrition.</div>
+  <div class="fld"><b>Seen live</b>The raise that reorganized nothing by spring.</div>
+  <div class="fld"><b>Door</b>Lucas, "Adaptation and the Set-Point Model of Subjective Well-Being," Current Directions in Psychological Science, 2007. Four pages.</div>
+  <div class="table-q"><b>At the table</b>"What did you buy or win that you were sure would move the needle? Did it?"</div>
+</div></details>
+
+<details id="d4"><summary><span class="day">day 04</span><span class="ttl">You misremember who you were</span><button class="done-box" aria-label="mark day 4 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Memory redraws your past self downward so the present self feels like progress.</div>
+  <div class="fld"><b>For</b>Wilson &amp; Ross call it "from chump to champ": people derogate their past selves to experience improvement without changing, and the derogation grows with distance. Diaries disagree with the origin story.</div>
+  <div class="fld"><b>Against</b>McAdams' narrative-identity work: people who tell redemption stories score higher on generativity and well-being years later. The story isn't a lie about change; sometimes it's the engine of it. Day 13 collects this debt.</div>
+  <div class="fld"><b>Seen live</b>Everyone's "I used to be terrible at this" opener, delivered with visible pleasure.</div>
+  <div class="fld"><b>Door</b>Wilson &amp; Ross, "From Chump to Champ," JPSP, 2001.</div>
+  <div class="table-q"><b>At the table</b>"What's your origin story, and who'd dispute it?"</div>
+</div></details>
+
+<details id="d5"><summary><span class="day">day 05</span><span class="ttl">Insight doesn't change you; reps do</span><button class="done-box" aria-label="mark day 5 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Knowing better is a spectator sport. Behavior moves first; attitude follows it.</div>
+  <div class="fld"><b>For</b>Jacobson's dismantling study: behavioral activation alone, no cognitive work at all, matched full cognitive therapy for depression, and the result repeated a decade later at scale (Dimidjian). Bem's self-perception theory says why: we infer who we are from watching what we do, same as everyone else does.</div>
+  <div class="fld"><b>Against</b>Readiness is real; sometimes an insight is what unlocks the reps. And the single reorganizing insight exists; day 13 gives it its due.</div>
+  <div class="fld"><b>Seen live</b>The productivity book, reread. The mood that lifted the week the running started, not the week it was understood. Wanting isn't doing.</div>
+  <div class="fld"><b>Door</b>Jacobson et al., Journal of Consulting and Clinical Psychology, 1996.</div>
+  <div class="table-q"><b>At the table</b>"What did you understand for years before you did anything about it?"</div>
+</div></details>
+
+<details id="d6"><summary><span class="day">day 06</span><span class="ttl">Willpower is situation design</span><button class="done-box" aria-label="mark day 6 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>The disciplined don't resist more temptation. They arrange to meet less of it.</div>
+  <div class="fld"><b>For</b>Hofmann's experience-sampling study beeped people through their days: high trait self-control predicted reporting fewer temptations, not winning more battles. The marshmallow kids who lasted covered their eyes and sang; Watts' large replication found the test's predictive power mostly dissolves once family background is controlled. The skill was never gritting; it was staging.</div>
+  <div class="fld"><b>Against</b>You can't design away every room. Some frictions are structural, and at those margins raw persistence still earns its keep. Strategy is a skill with a ceiling.</div>
+  <div class="fld"><b>Seen live</b>No beer in the fridge beats iron will at 11pm. Deleting the app beats the screen-time dashboard.</div>
+  <div class="fld"><b>Door</b>Hofmann, Baumeister, Förster &amp; Vohs, JPSP, 2012.</div>
+  <div class="table-q"><b>At the table</b>"What have you only ever beaten by refusing to be in the room with it?"</div>
+</div></details>
+
+<details id="d7"><summary><span class="day">day 07</span><span class="ttl">Design for the unmotivated day</span><button class="done-box" aria-label="mark day 7 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Motivation is weather. If-then plans and tiny floors are what survive it.</div>
+  <div class="fld"><b>For</b>Gollwitzer &amp; Sheeran's meta-analysis, 94 tests: implementation intentions ("when X happens, I will Y") move goal attainment with d around .65, one of the largest well-replicated levers in the literature. Fogg's model says the same from the other side: when motivation drops, only behaviors small enough to clear the floor keep happening.</div>
+  <div class="fld"><b>Against</b>Floors set low can stay low; one sentence a day is a writing career on geological time. And some changes need the spike. Nobody tiny-habits their way into a resignation letter.</div>
+  <div class="fld"><b>Seen live</b>"After I pour coffee, one sentence." The gym bag packed the night before, by the door, like a fire drill. Wanting isn't doing.</div>
+  <div class="fld"><b>Door</b>Gollwitzer &amp; Sheeran, Advances in Experimental Social Psychology, 2006.</div>
+  <div class="table-q"><b>At the table</b>"What do you do daily that no longer requires a decision?"</div>
+</div></details>
+
+<details id="d8"><summary><span class="day">day 08</span><span class="ttl">Identity moves behavior</span><button class="done-box" aria-label="mark day 8 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Durable change usually rides a noun. "I'm a runner," not "I'm trying to run."</div>
+  <div class="fld"><b>For</b>Bryan, Walton, Rogers &amp; Dweck framed voting as "being a voter" versus "voting" and moved real turnout by double digits in two field experiments. AA runs on the inverse of the same engine: "I'm an alcoholic" is a permanent noun deployed as maintenance technology.</div>
+  <div class="fld"><b>Against</b>A later, larger replication (Gerber and colleagues) found no effect, so hold the effect size loosely even if the mechanism is sound. And a noun without reps is a costume; day 5 said which direction the arrow runs.</div>
+  <div class="fld"><b>Seen live</b>"I don't smoke" versus "I'm trying to quit," said at a party. One ends the conversation; the other invites the offer.</div>
+  <div class="fld"><b>Door</b>Bryan, Walton, Rogers &amp; Dweck, PNAS, 2011; then Gerber et al.'s null, 2016, because the pair is the lesson.</div>
+  <div class="table-q"><b>At the table</b>"What noun would you claim now that you couldn't have five years ago?"</div>
+</div></details>
+
+<details id="d9"><summary><span class="day">day 09</span><span class="ttl">Change sticks at the seams</span><button class="done-box" aria-label="mark day 9 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Habits die and form when context breaks: new city, new job, new decade.</div>
+  <div class="fld"><b>For</b>The fresh-start effect (Dai, Milkman &amp; Riis): aspirational behavior spikes at temporal landmarks, Mondays to birthdays to new years. Habit research says why the deeper version works: habits run on stable cues, so relocation genuinely deletes them, and interventions delivered right after a move outperform the same interventions mid-routine (Verplanken).</div>
+  <div class="fld"><b>Against</b>Seams cut both ways; the move that kills the commute also kills the reading habit that lived inside it. And most resolutions still die by February. A seam is an opening, not a change.</div>
+  <div class="fld"><b>Seen live</b>The gym habit that finally took, the month after moving. The one that died with the old commute.</div>
+  <div class="fld"><b>Door</b>Dai, Milkman &amp; Riis, "The Fresh Start Effect," Management Science, 2014.</div>
+  <div class="table-q"><b>At the table</b>"What habit did a move kill for you? What did it create?"</div>
+</div></details>
+
+<details id="d10"><summary><span class="day">day 10</span><span class="ttl">You become your five people</span><button class="done-box" aria-label="mark day 10 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Behavior travels through networks like weather.</div>
+  <div class="fld"><b>For</b>Christakis &amp; Fowler's Framingham analyses: if a friend became obese, your own risk rose 57%; smoking cessation moved through the network in cascades, whole clusters quitting together.</div>
+  <div class="fld"><b>Against</b>Shalizi &amp; Thomas showed contagion and homophily can't be cleanly separated in that data; maybe birds of a feather just flock. The prescription survives the critique either way: choosing rooms is choosing selves, whether the room infects you or reveals you.</div>
+  <div class="fld"><b>Seen live</b>The friend group that all got into climbing inside a year. Nobody decided; everybody decided.</div>
+  <div class="fld"><b>Door</b>Christakis &amp; Fowler, New England Journal of Medicine, 2007.</div>
+  <div class="table-q"><b>At the table</b>"Which of your habits is actually someone else's?"</div>
+</div></details>
+
+<details id="d11"><summary><span class="day">day 11</span><span class="ttl">Witnesses hold you in place</span><button class="done-box" aria-label="mark day 11 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>The people who knew the old you keep casting you in the role.</div>
+  <div class="fld"><b>For</b>Teacher-expectation effects are real (Rosenthal's Pygmalion), and the honest reading after four decades of fighting (Jussim &amp; Harber) is: modest on average, strongest on people already carrying a label. Which is exactly the family-table case; roles snap back where the casting is oldest.</div>
+  <div class="fld"><b>Against</b>Witnesses hold good identities too. The crew that knows you as the sober one is load-bearing, and commitment devices work partly because someone is watching.</div>
+  <div class="fld"><b>Seen live</b>Thirty-four years old, home for the holidays, seventeen by dinner.</div>
+  <div class="fld"><b>Door</b>Jussim &amp; Harber, Personality and Social Psychology Review, 2005.</div>
+  <div class="table-q"><b>At the table</b>"Around whom are you most stuck being who you used to be?"</div>
+</div></details>
+
+<details id="d12"><summary><span class="day">day 12</span><span class="ttl">Acceptance precedes change</span><button class="done-box" aria-label="mark day 12 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>People change when they're safe, not when they're shamed.</div>
+  <div class="fld"><b>For</b>Rogers said it as a paradox: "when I accept myself just as I am, then I can change." The therapy-outcome literature backs the shape; the alliance predicts outcomes across wildly different schools (Wampold), and the first stable partnership tracks falling neuroticism in longitudinal work (Neyer &amp; Asendorpf). Safety isn't the reward for change. It's the soil.</div>
+  <div class="fld"><b>Against</b>Safety can entrench; enabling has its own literature. And cold contingency works: contingency management, paying addicts for clean tests, outperforms most addiction treatments. Sometimes the soil is a consequence.</div>
+  <div class="fld"><b>Seen live</b>The person who got help after being loved through the worst year, not yelled through it.</div>
+  <div class="fld"><b>Door</b>Rogers, On Becoming a Person, 1961, chapter 1.</div>
+  <div class="table-q"><b>At the table</b>"Has anyone ever actually changed because you argued them into it?"</div>
+</div></details>
+
+<details id="d13"><summary><span class="day">day 13</span><span class="ttl">Rock bottom is mostly myth</span><button class="done-box" aria-label="mark day 13 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>Change is relapse-shaped. The epiphany is the exception that gets the memoir.</div>
+  <div class="fld"><b>For</b>The stages-of-change model was drawn as a spiral on purpose; relapse is inside the model, not a failure of it. One careful estimate puts the average number of quit attempts before a smoker succeeds around 30 (Chaiton); the exact number is contested, the shape isn't. And day 4 told you who writes the lightning-bolt versions.</div>
+  <div class="fld"><b>Against</b>Miller &amp; C'de Baca documented sudden transformations, interviewed the people, and followed up years later: the changes held. Rare isn't fake.</div>
+  <div class="fld"><b>Seen live</b>The quiet quit that took nine tries, next to the conversion story everyone retells.</div>
+  <div class="fld"><b>Door</b>Miller &amp; C'de Baca, Quantum Change, 2001, first chapter. Read the counterargument's own book; that's the habit this thread is for.</div>
+  <div class="table-q"><b>At the table</b>"Do you know anyone who changed overnight and stayed changed?"</div>
+</div></details>
+
+<details id="d14"><summary><span class="day">day 14</span><span class="ttl">Change is a settlement</span><button class="done-box" aria-label="mark day 14 done">○</button></summary><div class="card">
+  <div class="fld"><b>Claim</b>The old self isn't erased. It's rerouted around, and it waits in its old rooms.</div>
+  <div class="fld"><b>For</b>Bouton's relapse work: extinction doesn't unlearn the old response, it lays new learning over it, and the old response returns in the original context. That's renewal, and it's why ten years quit can crave one specific bar.</div>
+  <div class="fld"><b>Against</b>Day 8 praised the permanent noun; this card is where it bills you. "Once an addict" protects some people and leashes others, and some recovery frameworks drop the label for exactly that reason. Both effects are real. Which one, for whom, is judgment.</div>
+  <div class="fld"><b>Seen live</b>The hometown accent coming back at the airport gate.</div>
+  <div class="fld"><b>Door</b>Bouton, "Context, Ambiguity, and Unlearning," Biological Psychiatry, 2002; or Wood's Good Habits, Bad Habits, the context chapter.</div>
+  <div class="table-q"><b>At the table</b>"What part of an old you still lives in one specific place?"</div>
+</div></details>
+
+<h2>Pre-game — 90 seconds, before a dinner that counts</h2>
+<div class="form">
+  <span class="lbl">Three questions I could ask tonight:</span><br>
+  1. ____<br>2. ____<br>3. ____<br>
+  <span class="lbl">One story, adjacent to who's coming:</span> ____<br>
+  <span class="lbl">One live idea (the only one allowed in the door):</span> ____<br>
+  <span class="warn">Budget, filled in after: prepped items deployed = __ (two or more is overdrawn)</span>
+</div>
+
+<h2>Debrief — 60 seconds, after</h2>
+<div class="form">
+  <span class="lbl">Did anything land:</span> ____<br>
+  <span class="lbl">Did a question open someone up:</span> ____<br>
+  <span class="lbl">Came up with nothing for it (tomorrow's queue):</span> ____
+</div>
+<p>The third line is the point. What the room asked for and didn't get is the only feed algorithm this product believes in.</p>
+
+<h2>Table sessions</h2>
+<p>Twice during the run, paste a persona from the repo's TABLE.md into a fresh Claude session: the skeptic in week one, the tired date in week two. Ten minutes; the scorecard needs verbatim quotes to say yes.</p>
+
+<p class="closer">Day 1 says you believe you've just now finished becoming yourself. Fourteen days from now the claim is smaller and harder: you never finish becoming yourself; you resettle, room by room, in front of witnesses, on reps.</p>
+
+<footer>
+  answers live in <a href="https://github.com/ampactor-labs/marrow">ampactor-labs/marrow</a> · LOG.md · private while it is paper
+</footer>
+</div>
+
+<script>
+  const KEY = "marrow-seed-01";
+  const done = new Set(JSON.parse(localStorage.getItem(KEY) || "[]"));
+  const days = document.querySelectorAll("details[id]");
+  days.forEach(d => {
+    const box = d.querySelector(".done-box");
+    const mark = () => {
+      const on = done.has(d.id);
+      d.dataset.done = on ? "1" : "0";
+      box.textContent = on ? "●" : "○";
+    };
+    mark();
+    box.addEventListener("click", ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      done.has(d.id) ? done.delete(d.id) : done.add(d.id);
+      localStorage.setItem(KEY, JSON.stringify([...done]));
+      mark();
+    });
+  });
+  const next = [...days].find(d => !done.has(d.id));
+  if (next) next.open = true;
+</script>
+</body>
+</html>
