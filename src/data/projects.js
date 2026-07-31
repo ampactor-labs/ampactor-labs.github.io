@@ -308,6 +308,64 @@ const RAW_PROJECTS = [
     operatorNote:
       "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
   },
+
+  {
+    id: "copycats",
+    title: "COPYCATS",
+    subtitle: "REPLAY-GHOST PARTY RACER",
+    lang: "Godot 4.7",
+    color: "#fe8019",
+    icon: "🐾",
+    github: "https://github.com/ampactor-labs/copycats",
+    live: "https://ampactor.dev/copycats/",
+    desc: "Copycats is a party racer where every opponent is a replay: each run that reaches the dinner bowl comes back as a spectral copycat racing the next one. Each round you place one hazard, then run; swat your past selves with what you placed while still making dinner yourself. The simulation is pure integer math inside Godot — Q16.16 subunits, fixed 60 Hz ticks, its own RNG, no engine physics — so a replay is just an input log re-simulated bit for bit. COUCH mode passes one phone around 2-8 cats, then the whole round replays at once with swats credited by name. DESIGN.md aims it at async multiplayer for a group chat, built on deterministic replays instead of netcode.",
+    tags: ["godot", "determinism", "replays", "party-game"],
+    tagline: "RACE YOUR OWN PAST LIVES",
+    outcome:
+      "Async multiplayer without netcode: your past runs are the opponents. Phone, landscape, no install.",
+    highlights: [
+      "OPPONENTS ARE INPUT-LOG REPLAYS",
+      "Q16.16 INTEGER SIM, FIXED 60 Hz",
+      "4-PLATFORM DETERMINISM MATRIX",
+      "GOLDEN-CHECKSUM PINNED SIM",
+      "COUCH: 2-8 CATS, ONE PHONE",
+      "EVERY HOUSE SHIPS WITH A BOT PROOF",
+    ],
+    stack: ["Godot 4.7", "GDScript", "GitHub Pages"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The determinism matrix re-simulates canonical scenarios on linux x64, linux arm64, macOS arm64, and Windows and diffs per-tick checksum trails byte for byte. Every generated house ships with a proof: a chaos-bot run that genuinely reaches the bowl, found before the level is allowed to exist. Palette is gruvbox; meaning rides blue vs orange only and every hazard is shape-coded, safe for deuteranopia.",
+  },
+
+  {
+    id: "bits",
+    title: "BITS",
+    subtitle: "PUPPET-SHOW INSTRUMENT",
+    lang: "TS/React",
+    color: "#3a86ff",
+    icon: "✂",
+    github: "https://github.com/ampactor-labs/bits",
+    live: "https://ampactor.dev/bits/",
+    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs — drag one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
+    tags: ["animation", "webcodecs", "on-device", "pwa"],
+    tagline: "PUT ON THE SHOW",
+    outcome:
+      "Puppet shows made by performing: record the bit, cast puppets, overdub passes, share the file. All on-device.",
+    highlights: [
+      "PASSES OVERDUB LIKE AUDIO TRACKS",
+      "BIT-EXACT REPLAY: PREVIEW = RENDER",
+      "SPECTRAL VISEMES FROM RAW PCM",
+      "CUT PAPER OR BEND IT (MLS WARP)",
+      "BODY PASSES: WRISTS DRIVE PUPPETS",
+      "ON-DEVICE: NO UPLOADS, NO ACCOUNTS",
+    ],
+    stack: ["TypeScript", "React", "WebCodecs", "MediaPipe", "OPFS"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);
