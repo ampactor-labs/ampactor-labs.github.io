@@ -58,5 +58,17 @@
     "status": "shipping",
     "statusNote": "Runs in the browser; twelve simultaneous voices are heavy on older phones.",
     "operatorNote": "Twelve voices through eight FX chains is a lot to ask of Web Audio on a phone. On older hardware, voice count is the first thing to cut, and there is no automatic quality scaling to do it for you."
+  },
+  "copycats": {
+    "desc": "You're a cat. Every run that reaches the dinner bowl comes back as a copycat — a spectral replay of your own past life, racing you through the house. Each round you knock one thing over (a shelf, a cactus, a box fan, a cushion, a ball launcher), then run. Swat your copycats with what you placed while still making dinner yourself; if everyone lands on their feet, nobody scores. First to nine.",
+    "status": "shipping",
+    "statusNote": "Live at https://ampactor.dev/copycats/ — phone, landscape, no install; the async group-chat form DESIGN.md builds toward is designed, not built.",
+    "operatorNote": "Nothing crosses the network: matches never leave the phone, there is no relay, and racing a friend means handing them the screen. The full form — async multiplayer for a group chat, built on deterministic replays instead of netcode — lives in DESIGN.md as design, not code."
+  },
+  "bits": {
+    "desc": "A puppet-show instrument for phones. You don't animate a scene with timelines and keyframes; you put on the show. Record the bit first (the voices, the argument, the dumb song), cast puppets from photos of yourselves or finger doodles, then perform in passes like a musician overdubs tracks: hit record, drag one puppet while the audio and every earlier pass play back, stop, layer the next one. Spring physics is the inbetweener: you supply intent, the simulation supplies lag, lean, squash, and settle.",
+    "status": "shipping",
+    "statusNote": "Live at https://ampactor.dev/bits/; nothing named is left unbuilt — what's missing is mileage, and nothing merges across phones by design.",
+    "operatorNote": "Nothing merges. Two people editing the same bit on two phones produce two bits; the loop is pass-the-theater, deliberately. The append-only recipe would make merge tractable later if it ever earns its keep. A share-target route (opening a received bit straight from the share sheet) existed for the phase-0 deck and left with it; today the picker is the door."
   }
 }
