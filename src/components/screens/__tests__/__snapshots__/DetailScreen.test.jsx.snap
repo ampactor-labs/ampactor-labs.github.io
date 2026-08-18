@@ -85,7 +85,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        Machines now write most new code, and nobody can read it all. Trust has to come from somewhere other than review. Mentl is a programming language whose compiler proves what your program does — and what it can never do — and teaches you, in words, as you write. Any intelligence may propose; nothing executes unproven; intent is never lost; capability is always bounded.
+        Mentl is a programming language built on one bet: the medium itself — not a model, not a course, not a review queue — should be the best teacher and the best pair of hands a developer ever gets. You write what you mean; the compiler proves it, runs it, and answers what is true here, and why at any line of any file. Five verbs of flow draw the program's shape on the page. Types carry your real constraints — effects, bounds, ownership — and a refusal names the claim it could not discharge, at its own span. There is no separate curriculum: picking the language up is learning to program, because the compiler's answers are the course.
       </div>
     </div>
     <div

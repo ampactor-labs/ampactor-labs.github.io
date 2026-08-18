@@ -70,5 +70,11 @@
     "status": "shipping",
     "statusNote": "Live at https://ampactor.dev/bits/; nothing named is left unbuilt — what's missing is mileage, and nothing merges across phones by design.",
     "operatorNote": "Nothing merges. Two people editing the same bit on two phones produce two bits; the loop is pass-the-theater, deliberately. The append-only recipe would make merge tractable later if it ever earns its keep. A share-target route (opening a received bit straight from the share sheet) existed for the phase-0 deck and left with it; today the picker is the door."
+  },
+  "slot": {
+    "desc": "Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told \"low C♯ is sharp, kick the slide\" and not told how far, or why, or what it costs everywhere else.",
+    "status": "shipping",
+    "statusNote": "Nothing described here is unbuilt. What is missing is a measurement: every number comes from tube lengths and none of it has been checked against a real horn and a real tuner. See Weak spots for the experiment that would settle it.",
+    "operatorNote": "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn."
   }
 }

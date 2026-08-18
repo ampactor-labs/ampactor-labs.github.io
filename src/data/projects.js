@@ -366,6 +366,34 @@ const RAW_PROJECTS = [
     operatorNote:
       "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
   },
+  {
+    id: "slot",
+    title: "SLOT",
+    subtitle: "B♭ TRUMPET TUNING LATTICE",
+    lang: "JavaScript",
+    color: "#FFB000",
+    icon: "🎺",
+    github: "https://github.com/ampactor-labs/slot",
+    live: "https://ampactor.dev/slot/",
+    desc: 'Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told "low C♯ is sharp, kick the slide" and not told how far, or why, or what it costs everywhere else.',
+    tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
+    tagline: "49 CELLS, 9 EXACTLY TRUE",
+    outcome:
+      "Every fingering on a B♭ trumpet, with how sharp or flat it runs and how far to pull the slide to fix it — and a live mic mode to check yourself against it.",
+    highlights: [
+      "49-CELL LATTICE, 9 EXACTLY IN TUNE",
+      "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
+      "LIVE MIC PITCH DETECTION",
+      "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
+      "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
+      "ZERO DEPENDENCIES, ONE HTML FILE",
+    ],
+    stack: ["JavaScript", "Web Audio API", "Vanilla DOM"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);
