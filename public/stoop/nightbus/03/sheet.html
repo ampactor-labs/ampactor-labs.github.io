@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POWER CUTS №03 — one sheet, eight pages</title>
+<meta name="description" content="Issue №03 of Night Bus imposed on one letter sheet: eight pages, one cut, one fold.">
+<style>
+  :root{--night:#0e0e10;--soot:#1a1a1e;--bone:#ece7db;--ink:#141210;--orange:#ff5f1f;--blue:#5aa9d6;--grey:#8a8578}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--night);color:var(--bone);font-family:'Courier New',monospace;line-height:1.45}
+  ::selection{background:var(--orange);color:var(--night)}
+  a{color:var(--blue)}
+
+  header.chrome{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1rem;padding:.6rem 1rem;border-bottom:2px solid var(--bone)}
+  .wordmark{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-size:1.35rem;letter-spacing:.12em;color:var(--bone);text-decoration:none}
+  .wordmark b{color:var(--orange)}
+  .crumb{font-size:.75rem;color:var(--grey)}
+  nav{margin-left:auto;display:flex;gap:.15rem;flex-wrap:wrap}
+  nav a{font-size:.78rem;color:var(--blue);text-decoration:none;padding:.25rem .5rem;border:1px solid transparent}
+  nav a:hover{border-color:var(--blue)}
+  nav a.here{color:var(--night);background:var(--bone);border-color:var(--bone)}
+
+  .wrap{display:grid;grid-template-columns:280px 1fr;gap:1.2rem;padding:1.2rem;max-width:1400px;margin:0 auto}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}}
+  .box{border:1px solid var(--grey);padding:1rem;background:var(--soot)}
+  .box h2{font-family:Impact,'Arial Narrow Bold',sans-serif;letter-spacing:.08em;font-size:1.05rem;margin:.1rem 0 .6rem}
+  .box p,.box li{font-size:.8rem;margin:.4rem 0}
+  .box ol{padding-left:1.1rem}
+  .btn{font-family:'Courier New',monospace;font-size:.85rem;background:none;border:2px solid var(--orange);color:var(--orange);
+    padding:.5rem .9rem;cursor:pointer;letter-spacing:.05em;margin:.2rem .3rem .2rem 0}
+  .btn:hover{background:var(--orange);color:var(--night)}
+  .btn.quiet{border-color:var(--blue);color:var(--blue)}
+  .btn.quiet:hover{background:var(--blue);color:var(--night)}
+  .dim{color:var(--grey);font-size:.72rem;border-top:1px dashed var(--grey);padding-top:.6rem;margin-top:.6rem}
+
+  /* ---------- the sheet: 11 x 8.5in, eight panels, top row upside-down ---------- */
+  .sheetzone{min-width:0}
+  .sheetwrap{transform-origin:top left}
+  .sheet{width:11in;height:8.5in;background:#fff;color:var(--ink);display:flex;flex-wrap:wrap;
+    box-shadow:0 0 0 1px #000,8px 8px 0 rgba(0,0,0,.6)}
+  .panel{width:25%;height:50%;border:1px dashed #ccc;padding:.26in .28in;overflow:hidden;position:relative;background:#fff}
+  .panel.flip{transform:rotate(180deg)}
+  .panel h3{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-size:19px;letter-spacing:.03em;
+    margin:0 0 5px;text-transform:uppercase;line-height:1.02;text-wrap:balance}
+  .panel p{font-size:9.5px;line-height:1.42;margin:0 0 5px}
+  .panel .by{font-size:8.5px;color:#555;margin:-3px 0 5px;letter-spacing:.04em}
+  .panel .pgtag{position:absolute;bottom:3px;right:7px;font-size:8px;color:#bbb}
+  .panel svg{width:100%;display:block;border:1px solid var(--ink)}
+  .panel .cap{font-size:8px;color:#444;margin:2px 0 6px}
+  .frames{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .frames .cap{font-size:7.5px;line-height:1.25;margin:2px 0 0}
+  .trk{display:flex;justify-content:space-between;font-size:9px;border-bottom:1px dotted #999;padding:.5px 0}
+  .rule{border-top:2px solid var(--ink);margin:6px 0}
+
+  .cover{text-align:center}
+  .cover .kick{font-size:8px;letter-spacing:.08em;margin-bottom:4px}
+  .cover h3{font-size:34px;margin:2px 0 0}
+  .cover .no{font-family:Impact,'Arial Narrow Bold',sans-serif;font-size:52px;line-height:.95;margin:0}
+  .cover .foot{font-size:8.5px;margin-top:6px}
+  .back p{font-size:9px}
+
+  .testnum{display:none;position:absolute;inset:0;background:#fff;z-index:2;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+  .testnum b{font-family:Impact,'Arial Narrow Bold',sans-serif;font-size:140px}
+  .testnum small{font-size:11px;color:#666}
+  .testing .testnum{display:flex}
+
+  @media print{
+    @page{size:letter landscape;margin:0}
+    body{background:#fff}
+    header.chrome,.box,.pgtag{display:none!important}
+    .wrap{display:block;padding:0;max-width:none}
+    .sheetwrap{transform:none!important;height:auto!important}
+    .sheet{box-shadow:none}
+    .panel{border-color:#eee}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.1" fill="#141210"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="chrome">
+  <a class="wordmark" href="../../">STOO<b>P</b></a>
+  <span class="crumb">/stoop/nightbus/03/sheet</span>
+  <nav>
+    <a href="../">the stoop</a>
+    <a href="./">issue 03</a>
+    <a href="sheet.html" class="here">03 on paper</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <aside>
+    <div class="box">
+      <h2>PRINT IT</h2>
+      <p><button class="btn" id="printbtn">PRINT THE SHEET</button></p>
+      <p>letter &middot; landscape &middot; scale 100% &middot; margins none.</p>
+      <p><button class="btn quiet" id="testbtn">TEST SHEET: OFF</button>
+         <button class="btn quiet" id="swapbtn">SWAP LAYOUT (A)</button></p>
+      <p class="dim">honesty clause: printers and folding hands vary. print ONE test sheet, fold it, check the pages
+      read 1&rarr;8. wrong order? swap layout and reprint. then print the run.</p>
+    </div>
+
+    <div class="box" style="margin-top:1rem">
+      <h2>FOLD IT</h2>
+      <ol>
+        <li>Fold in half the long way. Crease hard. Unfold.</li>
+        <li>Fold in half the short way, then each end back to the middle. Unfold: eight panels.</li>
+        <li>Fold the long way again. Cut along the crease from the folded edge, across the middle two panels only.</li>
+        <li>Unfold. Fold the long way, slit on top. Push both ends toward the middle; four wings make a plus sign.</li>
+        <li>Collapse the wings around one panel and crease it into a book. The cover lands on front.</li>
+      </ol>
+      <p class="dim">the top row prints upside-down on purpose. that's not a bug, that's the fold.
+      staples optional, one in the spine if you're feeling official.</p>
+    </div>
+
+    <div class="box" style="margin-top:1rem">
+      <h2>SAME ISSUE</h2>
+      <p>this sheet and <a href="./">the reading view</a> are one issue rendered twice. neither is the real one.
+      nothing goes in an issue that can't survive a photocopier.</p>
+      <p class="dim">one letter sheet holds about twelve hundred words. that limit is an editor's best friend.</p>
+    </div>
+  </aside>
+
+  <main class="sheetzone">
+    <div class="sheetwrap" id="sheetwrap">
+      <div class="sheet" id="sheet">
+
+        <div class="panel cover" data-page="1">
+          <div class="testnum"><b>1</b><small>FRONT COVER</small></div>
+          <p class="kick">NIGHT BUS &middot; A ZINE BY A SCENE &middot; JULY 2026</p>
+          <h3>POWER<br>CUTS</h3>
+          <p class="no">&#8470;03</p>
+          <div class="rule"></div>
+          <svg viewBox="0 0 300 80" role="img" aria-label="pylons carrying a line">
+            <rect width="300" height="80" fill="#fff"/>
+            <path d="M40 80 L55 18 L70 80 M30 50 H80 M35 65 H75 M55 18 V8" stroke="#141210" stroke-width="4" fill="none"/>
+            <path d="M150 80 L165 24 L180 80 M140 54 H190 M145 68 H185" stroke="#141210" stroke-width="4" fill="none"/>
+            <path d="M255 80 L270 14 L285 80 M245 47 H295 M250 63 H290 M270 14 V5" stroke="#141210" stroke-width="4" fill="none"/>
+            <path d="M55 18 C 100 34, 125 36, 165 24 C 205 36, 230 30, 270 14" stroke="#141210" stroke-width="2" fill="none"/>
+          </svg>
+          <p class="foot">assembled by yuki &middot; given, not sold<br>print run: 40</p>
+          <span class="pgtag">front cover</span>
+        </div>
+
+        <div class="panel" data-page="2">
+          <div class="testnum"><b>2</b></div>
+          <h3>Editor's note</h3>
+          <p>the grid blinked twice this month and both times somebody's four-track kept rolling on batteries,
+          which felt like a lesson.</p>
+          <p>six pieces this cycle. i cut one (mine). read the whole thing, then go sign somebody's guestbook
+          about it; that's what the back page is for.</p>
+          <p>dee has the desk next cycle. be kind, submit early.</p>
+          <p>&mdash; y.</p>
+          <span class="pgtag">p.2</span>
+        </div>
+
+        <div class="panel" data-page="3">
+          <div class="testnum"><b>3</b></div>
+          <h3>Walking home from the substation show</h3>
+          <p class="by">essay &middot; moss</p>
+          <p>the sodium lamps on Halsey are being replaced by LEDs, block by block, and you can stand on the seam:
+          orange behind you, white ahead. after the show everyone walked the orange direction, no one deciding it
+          out loud.</p>
+          <p>vera says the hum is the same note as the substation, F, and that the band tuned to it on purpose.
+          i believe her lie completely.</p>
+          <p>a city is a scene that got too big to fit in a basement, and it forked, and forked again, and forgot
+          it ever had a commons.</p>
+          <span class="pgtag">p.3</span>
+        </div>
+
+        <div class="panel" data-page="4">
+          <div class="testnum"><b>4</b></div>
+          <h3>Four frames from the bike quest</h3>
+          <p class="by">photos &middot; colin &middot; garage sink</p>
+          <div class="frames">
+            <div>
+              <svg viewBox="0 0 300 200" role="img" aria-label="a bicycle wheel, spokes lit from behind">
+                <rect width="300" height="200" fill="#fff"/>
+                <circle cx="150" cy="100" r="72" stroke="#141210" stroke-width="6" fill="none"/>
+                <circle cx="150" cy="100" r="9" fill="#141210"/>
+                <path d="M150 28 V172 M78 100 H222 M99 49 L201 151 M201 49 L99 151" stroke="#141210" stroke-width="2.5"/>
+              </svg>
+              <p class="cap">wheel &#8470;7, before.<br>dee called it "a chandelier."</p>
+            </div>
+            <div>
+              <svg viewBox="0 0 300 200" role="img" aria-label="a workbench with a mug in frame">
+                <rect width="300" height="200" fill="#fff"/>
+                <rect x="30" y="120" width="240" height="60" fill="url(#dots)"/>
+                <circle cx="215" cy="70" r="34" stroke="#141210" stroke-width="7" fill="none"/>
+                <path d="M249 70 q22 0 19 22 q-3 16 -22 12" stroke="#141210" stroke-width="6" fill="none"/>
+              </svg>
+              <p class="cap">the work bench. the mug<br>stays in frame; load-bearing.</p>
+            </div>
+          </div>
+          <span class="pgtag">p.4</span>
+        </div>
+
+        <div class="panel" data-page="5">
+          <div class="testnum"><b>5</b></div>
+          <h3>Side A: power cuts</h3>
+          <p class="by">mix &middot; tam &middot; dubbed to tape</p>
+          <div class="trk"><span>1. volta column &mdash; pylon prayer</span><span>4:12</span></div>
+          <div class="trk"><span>2. substation &mdash; every exit counted</span><span>3:03</span></div>
+          <div class="trk"><span>3. wire mothers &mdash; plate glass</span><span>2:41</span></div>
+          <div class="trk"><span>4. sodium lamp &mdash; counting exits</span><span>3:47</span></div>
+          <div class="trk"><span>5. council flat &mdash; the reservoir</span><span>5:19</span></div>
+          <p class="cap" style="margin-top:6px">yes, track 4 is the one from moss's room. now you know, tam.</p>
+          <span class="pgtag">p.5</span>
+        </div>
+
+        <div class="panel" data-page="6">
+          <div class="testnum"><b>6</b></div>
+          <h3>Ten bikes: log</h3>
+          <p class="by">quest log &middot; dee &middot; weeks 3&ndash;4</p>
+          <p>&#8470;5 done (new chain, trued the rear). &#8470;6 done, that seatpost finally moved: penetrating oil
+          and a personal grudge. &#8470;7 is moss's if they claim it. found &#8470;8 in a skip, good frame under the rust.</p>
+          <p>two saturdays left. if you've never trued a wheel, come; it's meditation with consequences, and then
+          it goes in the ledger.</p>
+          <span class="pgtag">p.6</span>
+        </div>
+
+        <div class="panel" data-page="7">
+          <div class="testnum"><b>7</b></div>
+          <h3>Letters &amp; hardtack</h3>
+          <p class="by">from the guestbooks, with permission</p>
+          <p><b>vera @ wet cement:</b> your issue 02 made our scene start a soup quest. reporting for the record.</p>
+          <p><b>colin:</b> correction, issue 02 said the casserole was "unclaimed." it was mine. i stand by it.</p>
+          <div class="rule"></div>
+          <p><b>hardtack</b> (birdie): flour, water, salt, 375&deg; until it sounds hollow. survives a tour van
+          indefinitely. sell it next to ratbag's misprints.</p>
+          <span class="pgtag">p.7</span>
+        </div>
+
+        <div class="panel back" data-page="8">
+          <div class="testnum"><b>8</b><small>BACK COVER</small></div>
+          <h3>Colophon</h3>
+          <p>made by hand &middot; NIGHT BUS<br>no feed &middot; no metrics &middot; no lie</p>
+          <p>&#8470;04 drops friday 19:00. submissions close thursday. the bell rings once.</p>
+          <div class="rule"></div>
+          <p>this issue also lives at:<br><b>ampactor.dev/stoop/nightbus/03/</b></p>
+          <p>everything in here belongs to the people in it. copy this zine; that's what it's for.</p>
+          <p>knock at: ampactor.dev/stoop/nightbus/</p>
+          <span class="pgtag">back cover</span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  // slot order: 0-3 are the top row (printed upside-down), 4-7 the bottom row.
+  var presetA=[5,4,3,2, 6,7,8,1], presetB=[2,3,4,5, 1,8,7,6], current='A';
+  var sheet=document.getElementById('sheet');
+  function layout(){
+    (current==='A'?presetA:presetB).forEach(function(page,slot){
+      var p=sheet.querySelector('[data-page="'+page+'"]');
+      p.style.order=slot;
+      p.classList.toggle('flip',slot<4);
+    });
+  }
+  layout();
+
+  var swap=document.getElementById('swapbtn');
+  swap.addEventListener('click',function(){
+    current=current==='A'?'B':'A';
+    swap.textContent='SWAP LAYOUT ('+current+')';
+    layout();
+  });
+
+  var testing=false,tb=document.getElementById('testbtn');
+  tb.addEventListener('click',function(){
+    testing=!testing;
+    sheet.classList.toggle('testing',testing);
+    tb.textContent='TEST SHEET: '+(testing?'ON':'OFF');
+  });
+
+  document.getElementById('printbtn').addEventListener('click',function(){window.print();});
+
+  var wrap=document.getElementById('sheetwrap');
+  function scale(){
+    var w=wrap.parentElement.clientWidth, s=Math.min(1,w/(11*96));
+    wrap.style.transform='scale('+s+')';
+    wrap.style.height=(8.5*96*s)+'px';
+  }
+  window.addEventListener('resize',scale); scale();
+})();
+</script>
+</body>
+</html>

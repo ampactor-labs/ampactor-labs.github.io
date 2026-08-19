@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STOOP — scene host</title>
+<meta name="description" content="Folk media at scene scale. Scenes live at /stoop/<scene>/, issues at /stoop/<scene>/03/, and every issue prints.">
+<style>
+  :root{--night:#0e0e10;--soot:#1a1a1e;--bone:#ece7db;--ink:#141210;--orange:#ff5f1f;--blue:#5aa9d6;--grey:#8a8578;--paper:#e6e0d2}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--night);color:var(--bone);line-height:1.5;
+    font-family:ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+    background-image:repeating-linear-gradient(0deg,rgba(236,231,219,.028) 0 1px,transparent 1px 3px)}
+  ::selection{background:var(--orange);color:var(--night)}
+  a{color:var(--blue)}
+  h1,h2,h3{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;letter-spacing:.06em;line-height:1.05;margin:.4rem 0}
+  .mono{font-family:'Courier New',monospace}
+  header.chrome{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.55rem .9rem;border-bottom:2px solid var(--bone)}
+  .wordmark{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-size:1.35rem;letter-spacing:.12em;color:var(--bone);text-decoration:none}
+  .wordmark b{color:var(--orange)}
+  .crumb{font-family:'Courier New',monospace;font-size:.75rem;color:var(--grey)}
+  main{max-width:780px;margin:0 auto;padding:1.6rem .9rem 4rem}
+  .lede{font-family:'Courier New',monospace;color:var(--grey);font-size:.9rem}
+  .paper{background:var(--paper);color:var(--ink);padding:1.1rem 1.2rem;margin:1.2rem 0;border:2px solid var(--ink);
+    box-shadow:5px 5px 0 rgba(0,0,0,.55);
+    background-image:repeating-linear-gradient(115deg,rgba(20,18,16,.045) 0 2px,transparent 2px 7px)}
+  .paper h2,.paper h3{color:var(--ink)}
+  .paper a{color:#155d80;font-weight:bold}
+  .paper p,.paper li{font-family:'Courier New',monospace;font-size:.92rem}
+  .tilt-l{transform:rotate(-1deg)} .tilt-r{transform:rotate(.8deg)}
+  .addr{font-family:'Courier New',monospace;font-size:.8rem;color:var(--grey);border:1px dashed var(--grey);
+    padding:.7rem .8rem;margin:1.2rem 0;line-height:1.9;word-break:break-word}
+  .addr b{color:var(--bone);font-weight:normal}
+  .note{font-family:'Courier New',monospace;font-size:.78rem;color:var(--grey)}
+  .pill{display:inline-block;border:2px solid var(--orange);color:var(--orange);text-decoration:none;
+    font-family:'Courier New',monospace;font-size:.82rem;padding:.5rem .9rem;margin:.3rem .3rem .3rem 0}
+  .pill:hover{background:var(--orange);color:var(--night)}
+  .pill.quiet{border-color:var(--blue);color:var(--blue)}
+  .pill.quiet:hover{background:var(--blue);color:var(--night)}
+  .foot{font-family:'Courier New',monospace;font-size:.72rem;color:var(--grey);text-align:center;
+    margin-top:2.6rem;border-top:1px solid var(--soot);padding-top:1rem;line-height:1.8}
+</style>
+</head>
+<body>
+
+<header class="chrome">
+  <a class="wordmark" href="./">STOO<b>P</b></a>
+  <span class="crumb">/stoop/ &mdash; scene host</span>
+</header>
+
+<main>
+  <h1 style="font-size:2.6rem">YOUR GROUP CHAT DESERVES A ZINE.</h1>
+  <p class="lede">folk media at scene scale. mass media was made by industries for audiences; social media industrialized
+  us, one tiny broadcaster each. this is the third thing: made by the people in it, for the people in it, small like a
+  scene, periodic like a zine, pointed at the physical world.</p>
+  <p class="lede">there is no feed anywhere in this system. that is the load-bearing refusal.</p>
+
+  <div class="paper tilt-r">
+    <h2>TWO PEOPLE IS A SCENE</h2>
+    <p>there is no minimum size, and there never will be. you and one other person publishing on a rhythm is the whole
+    thing working: two people ship on a deadline, eight people with no habit miss the first bell. vouching scales down
+    to a founding pair, the editor's chair alternates instead of rotating, and a scene with no costs owes no dues.</p>
+    <p>add person three when person three can be handed a back issue. that is a completely different ask than joining
+    a blank thing.</p>
+  </div>
+
+  <h2 style="color:var(--orange);margin-top:2rem">EVERY ISSUE HAS AN ADDRESS</h2>
+  <p class="note">because a zine you can't hand to somebody isn't doing its job.</p>
+  <div class="addr">
+    <b>/stoop/&lt;scene&gt;/</b> &nbsp; the scene's public door, and its shelf<br>
+    <b>/stoop/&lt;scene&gt;/03/</b> &nbsp; issue &#8470;03, reading view<br>
+    <b>/stoop/&lt;scene&gt;/03/sheet</b> &nbsp; the same issue, imposed for a printer<br>
+    <b>/stoop/&lt;scene&gt;/latest/</b> &nbsp; alias for the newest one
+  </div>
+  <p class="note">numbers, not slugs: titles get argued about, the number is the spine. links inside a scene are relative,
+  so the whole directory copies to another host, a thumb drive, or a tarball and nothing breaks. this host is a mirror.
+  the scene's canonical form is its own repository, and the day a scene wants its own domain the move is a copy and a DNS record.</p>
+
+  <div class="paper">
+    <h2>LIVE HERE</h2>
+    <p><a href="nightbus/">night bus</a> &mdash; the model town. invented people, real structure. it stands until real
+    scenes move in, and it is the template anyone can copy.</p>
+    <p>read <a href="nightbus/03/">issue &#8470;03, "power cuts"</a>, then <a href="nightbus/03/sheet.html">fold the same
+    issue onto one sheet of paper</a>. same words, two substrates, neither one the real one.</p>
+  </div>
+
+  <div class="paper tilt-l">
+    <h2>START ONE</h2>
+    <p>stage 0 is paper and hand tools; no software gets built until somebody's issue &#8470;02 ships. that gate is the
+    whole growth policy.</p>
+    <p><a href="https://ampactor.github.io/stoop/press/">the press kit</a>: one letter sheet, eight pages, one cut,
+    with fold instructions and a test-sheet mode. print it, fill it, hand it to somebody.</p>
+    <p><a href="https://ampactor.github.io/stoop/">the build</a>: rooms, scenes, the desk, the rounds, the law &mdash;
+    sixteen views in one 55 KB file that makes zero requests to anybody.</p>
+    <p><a href="https://github.com/ampactor/stoop">the repo</a>: charter, design, the stage 1 spec.
+    AGPL and CC BY-SA. copy it; that's what it's for.</p>
+  </div>
+
+  <p style="margin-top:1.4rem">
+    <a class="pill" href="nightbus/03/">read an issue</a>
+    <a class="pill quiet" href="nightbus/03/sheet.html">print an issue</a>
+    <a class="pill quiet" href="nightbus/">knock at a scene</a>
+  </p>
+
+  <p class="foot">
+    no feed &middot; no metrics &middot; no ads &middot; no accounts &middot; no trackers &middot; nothing to sell<br>
+    pre-first-scene. the founding gate is publication continuity: does a scene ship issue &#8470;02.<br>
+    <a href="https://github.com/ampactor/stoop">github.com/ampactor/stoop</a>
+  </p>
+</main>
+</body>
+</html>
