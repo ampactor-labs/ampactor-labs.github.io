@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apapacho</title>
+<meta name="description" content="Daily reps: words, Mexican Spanish, ASL.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#efebde" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161b" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Apapacho">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+<style>
+  :root {
+    --paper: #efebde;
+    --card: #f7f4ea;
+    --ink: #211d16;
+    --muted: #6b6455;
+    --line: #d9d2bf;
+    --blue: #2f5d8a;
+    --blue-soft: #dfe7ee;
+    --orange: #b85c1e;
+    --orange-soft: #f0e2d2;
+    --stave: #c9c2ad;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14161b;
+      --card: #1c1f26;
+      --ink: #e9e6dc;
+      --muted: #9aa0a8;
+      --line: #2e323b;
+      --blue: #7ea8d4;
+      --blue-soft: #22303f;
+      --orange: #e08a4a;
+      --orange-soft: #3a2a1c;
+      --stave: #3a3f4a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14161b;
+    --card: #1c1f26;
+    --ink: #e9e6dc;
+    --muted: #9aa0a8;
+    --line: #2e323b;
+    --blue: #7ea8d4;
+    --blue-soft: #22303f;
+    --orange: #e08a4a;
+    --orange-soft: #3a2a1c;
+    --stave: #3a3f4a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding: 1rem 1rem 5.5rem; }
+  header.top { display: flex; align-items: baseline; justify-content: space-between; padding-top: .5rem; }
+  .wordmark {
+    font-family: "Iowan Old Style", "Palatino", "Book Antiqua", "URW Palladio L", P052, Georgia, serif;
+    font-size: 1.9rem; font-weight: 600; letter-spacing: .01em; margin: 0;
+  }
+  .wordmark .tail { color: var(--orange); }
+  .streak {
+    font-size: .8rem; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 999px; padding: .15rem .6rem; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .streak b { color: var(--orange); font-weight: 650; }
+  .stave {
+    height: 13px; margin: .7rem 0 1.1rem;
+    background: repeating-linear-gradient(to bottom, var(--stave) 0 1px, transparent 1px 4px);
+  }
+  .eyebrow {
+    font-size: .68rem; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--blue); font-weight: 650; margin: 0 0 .3rem;
+  }
+  .view { display: none; }
+  .view.active { display: block; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem 1.1rem; margin-bottom: 1rem;
+  }
+  .term {
+    font-family: "Iowan Old Style", "Palatino", "Book Antiqua", "URW Palladio L", P052, Georgia, serif;
+    font-size: 1.55rem; font-weight: 600; margin: 0 0 .1rem; text-wrap: balance;
+  }
+  .pos { font-size: .8rem; color: var(--muted); font-style: italic; margin-left: .35rem; font-family: system-ui, sans-serif; font-weight: 400; }
+  .def { margin: .25rem 0; }
+  .whenuse { color: var(--muted); font-size: .9rem; margin: .35rem 0; }
+  .whenuse b, .ex b { font-weight: 650; color: var(--ink); }
+  .ex { font-size: .95rem; margin: .45rem 0 0; padding-left: .75rem; border-left: 2px solid var(--blue); }
+  .syn { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+  .lit { color: var(--muted); font-size: .9rem; font-style: italic; }
+  .hook { font-size: .9rem; color: var(--muted); margin-top: .4rem; }
+  .hook::before { content: "◍ "; color: var(--orange); font-style: normal; }
+  .chip {
+    display: inline-block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
+    padding: .1rem .5rem; border-radius: 999px; background: var(--blue-soft); color: var(--blue);
+    font-weight: 650; vertical-align: middle;
+  }
+  .chip.warn { background: var(--orange-soft); color: var(--orange); }
+  .chip.mine { background: transparent; border: 1px solid var(--orange); color: var(--orange); }
+  .mini {
+    background: none; border: none; color: var(--orange); cursor: pointer;
+    font-size: .8rem; padding: .2rem 0; text-decoration: underline;
+  }
+  .mini:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .addform { display: grid; gap: .5rem; margin: .6rem 0 1rem; }
+  .addform input, .addform textarea {
+    padding: .5rem .8rem; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--card); color: var(--ink); font-size: .95rem; font-family: inherit;
+  }
+  .addform input:focus-visible, .addform textarea:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+  .add-toggle { margin: .8rem 0 0; }
+  .remote { margin-top: .8rem; }
+  .remote .status { font-size: .85rem; color: var(--muted); margin: .5rem 0; }
+  .backup-status { font-size: .85rem; color: var(--muted); min-height: 1.2em; margin-top: .5rem; }
+  details.row { border-bottom: 1px solid var(--line); }
+  details.row summary {
+    list-style: none; cursor: pointer; padding: .7rem .2rem;
+    display: flex; align-items: baseline; gap: .6rem;
+  }
+  details.row summary::-webkit-details-marker { display: none; }
+  details.row summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+  .row-term {
+    font-family: "Iowan Old Style", "Palatino", Georgia, serif;
+    font-size: 1.05rem; font-weight: 600; flex-shrink: 0;
+  }
+  .row-gloss { color: var(--muted); font-size: .85rem; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  details.row[open] .row-gloss { display: none; }
+  .row-body { padding: 0 .2rem 1rem; }
+  .star {
+    background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0 .2rem;
+    color: var(--line); flex-shrink: 0; line-height: 1;
+  }
+  .star.on { color: var(--orange); }
+  .star:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+  .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .8rem; align-items: center; }
+  .search {
+    flex: 1; min-width: 10rem; padding: .5rem .8rem; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--card); color: var(--ink); font-size: .95rem;
+  }
+  .search:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+  .filter {
+    background: var(--card); border: 1px solid var(--line); color: var(--muted);
+    border-radius: 999px; padding: .3rem .8rem; font-size: .8rem; cursor: pointer;
+  }
+  .filter.on { background: var(--blue-soft); color: var(--blue); border-color: var(--blue); font-weight: 650; }
+  .filter:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .note { font-size: .85rem; color: var(--muted); margin: 1.2rem 0; }
+  .note a { color: var(--blue); }
+  .tabs {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); border-top: 1px solid var(--line);
+    display: flex; justify-content: center; gap: .2rem;
+    padding: .4rem .4rem calc(.4rem + env(safe-area-inset-bottom));
+  }
+  .tab {
+    background: none; border: none; color: var(--muted); font-size: .8rem;
+    padding: .45rem .7rem; cursor: pointer; border-radius: 8px; font-weight: 550;
+  }
+  .tab.on { color: var(--blue); background: var(--blue-soft); font-weight: 700; }
+  .tab:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+  .btn {
+    background: var(--blue); color: var(--paper); border: none; border-radius: 8px;
+    padding: .6rem 1.2rem; font-size: .95rem; font-weight: 650; cursor: pointer;
+  }
+  .btn.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  .btn.orange { background: var(--orange); }
+  .btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .quiz-card { text-align: center; padding: 2rem 1.2rem; }
+  .quiz-front { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 1.7rem; font-weight: 600; }
+  .quiz-back { margin-top: 1rem; border-top: 1px dashed var(--line); padding-top: 1rem; text-align: left; }
+  .quiz-actions { display: flex; gap: .7rem; justify-content: center; margin-top: 1.3rem; flex-wrap: wrap; }
+  .dots { display: flex; gap: .3rem; justify-content: center; margin-bottom: .8rem; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+  .dot.done { background: var(--blue); }
+  .dot.now { background: var(--orange); }
+  .abc { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
+  .abc div { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .5rem .6rem; font-size: .8rem; color: var(--muted); }
+  .abc b { font-family: "Iowan Old Style", Georgia, serif; font-size: 1.15rem; color: var(--ink); display: block; }
+  .today-more { text-align: center; margin-top: .3rem; }
+  h2.sec {
+    font-family: "Iowan Old Style", "Palatino", Georgia, serif;
+    font-size: 1.15rem; margin: 1.6rem 0 .6rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    details.row .row-body { animation: fadein .18s ease; }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1 class="wordmark">Apapach<span class="tail">o</span></h1>
+    <span class="streak" id="streak">día <b>1</b></span>
+  </header>
+  <div class="stave" aria-hidden="true"></div>
+
+  <section class="view active" id="view-hoy" aria-label="Today"></section>
+
+  <section class="view" id="view-words" aria-label="Words">
+    <div class="toolbar">
+      <input class="search" id="q-words" type="search" placeholder="search words…" aria-label="Search words">
+      <button class="filter" data-cat="feel">Feel</button>
+      <button class="filter" data-cat="precision">Precision</button>
+      <button class="filter" data-cat="music">Music</button>
+      <button class="filter" data-cat="garden">Garden</button>
+      <button class="filter" data-cat="fav">★</button>
+      <button class="filter" data-cat="mine">Mías</button>
+    </div>
+    <div id="list-words"></div>
+    <div class="remote" id="remote-w"></div>
+    <button class="mini add-toggle" id="add-w-toggle">＋ agregar palabra mía</button>
+    <div class="addform" id="add-w" hidden>
+      <input id="add-w-term" placeholder="la palabra" aria-label="New word">
+      <input id="add-w-mean" placeholder="qué significa" aria-label="Meaning">
+      <input id="add-w-when" placeholder="cuándo usarla — tus palabras" aria-label="Use it when">
+      <input id="add-w-ex" placeholder="ejemplo (opcional)" aria-label="Example">
+      <div><button class="btn" id="add-w-save">Guardar</button></div>
+      <p class="backup-status" id="add-w-status"></p>
+    </div>
+    <p class="note">A word is yours when it leaves your mouth without a pause. The <b>use it when</b> line is the difference between owning a word and wearing it. Hear one in the wild? Look it up above, save it, and it joins your quiz.</p>
+  </section>
+
+  <section class="view" id="view-frases" aria-label="Spanish phrases">
+    <div class="toolbar">
+      <input class="search" id="q-frases" type="search" placeholder="buscar frases…" aria-label="Search phrases">
+      <button class="filter" data-reg="casa">Familia</button>
+      <button class="filter" data-reg="amor">Amor</button>
+      <button class="filter" data-reg="calle">Calle</button>
+      <button class="filter" data-reg="fav">★</button>
+      <button class="filter" data-reg="mine">Mías</button>
+    </div>
+    <div id="list-frases"></div>
+    <div class="remote" id="remote-f"></div>
+    <button class="mini add-toggle" id="add-f-toggle">＋ agregar frase mía</button>
+    <div class="addform" id="add-f" hidden>
+      <input id="add-f-term" placeholder="la frase" aria-label="New phrase">
+      <input id="add-f-mean" placeholder="qué significa" aria-label="Meaning">
+      <input id="add-f-ex" placeholder="ejemplo (opcional)" aria-label="Example">
+      <div><button class="btn" id="add-f-save">Guardar</button></div>
+      <p class="backup-status" id="add-f-status"></p>
+    </div>
+    <p class="note">Mexican register throughout, the Spanish your family actually speaks. Anything marked <span class="chip warn">aguas</span> is fine with friends and wrong in front of somebody's abuelita. For volume listening: <a href="https://www.dreaming.com/spanish">Dreaming Spanish</a> (comprehensible input, start at your level), then the <i>Andrea la Mexicana</i> podcast for pure Mexican ear.</p>
+  </section>
+
+  <section class="view" id="view-senas" aria-label="ASL signs">
+    <div id="list-senas"></div>
+    <h2 class="sec">The alphabet (fingerspelling)</h2>
+    <p class="note" style="margin-top:0">Drill until your hand stops thinking. Spell street signs, spell the grocery list, spell her name.</p>
+    <div class="abc" id="abc"></div>
+    <p class="note">Signs live in motion; these notes are memory aids, not the teacher. Learn each one from video at <a href="https://www.lifeprint.com/asl101/lessons/lessons.htm">Lifeprint / ASL University</a> (Dr. Bill Vicars, free, the standard) and keep <a href="https://www.signschool.com">SignSchool</a> on the phone for drills. One real thing to know early: in ASL your face is grammar, eyebrows up for yes/no questions, eyebrows down for wh-questions.</p>
+  </section>
+
+  <section class="view" id="view-practica" aria-label="Practice">
+    <div id="quiz-zone"></div>
+    <div class="card">
+      <p class="eyebrow">respaldo</p>
+      <p class="note" style="margin:.2rem 0 .8rem">Tu mazo vive en este dispositivo. Download a backup once in a while; restore it here or in your home copy of the app.</p>
+      <div class="quiz-actions" style="justify-content:flex-start; margin-top:0">
+        <button class="btn ghost" id="bk-save">Descargar respaldo</button>
+        <button class="btn ghost" id="bk-restore-toggle">Restaurar</button>
+      </div>
+      <div class="addform" id="bk-restore" hidden>
+        <textarea id="bk-json" rows="4" placeholder="pega aquí el JSON del respaldo" aria-label="Backup JSON"></textarea>
+        <div><button class="btn" id="bk-apply">Aplicar</button></div>
+      </div>
+      <p class="backup-status" id="bk-status"></p>
+    </div>
+  </section>
+</div>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-view="hoy">Hoy</button>
+  <button class="tab" data-view="words">Words</button>
+  <button class="tab" data-view="frases">Frases</button>
+  <button class="tab" data-view="senas">Señas</button>
+  <button class="tab" data-view="practica">Práctica</button>
+</nav>
+
+<script>
+// ---------- data ----------
+const WORDS = [
+ {w:"equanimity",pos:"n",cat:"feel",def:"Evenness of mind under stress; calm that is presence, not suppression.",when:"Naming the state you're building. Steadier than “calm,” which can mean checked-out.",ex:"I didn't win the argument; I kept my equanimity long enough to actually hear her.",syn:"composure (surface), equipoise (balance of forces), serenity (deeper, quieter)"},
+ {w:"attunement",pos:"n",cat:"feel",def:"Tuning yourself to another person's state until you respond to what's actually there.",when:"The Gottmans' own word. Use it about listening, never about fixing.",ex:"She didn't want a solution, she wanted attunement.",syn:"rapport (mutual), empathy (feeling-with), sensitivity (weaker)"},
+ {w:"wistful",pos:"adj",cat:"feel",def:"Longing tinged with gentle sadness, usually for something past or out of reach.",when:"Softer than sad, sweeter than nostalgic.",ex:"He got wistful about the desert every time rain hit the pavement.",syn:"nostalgic (past-bound), yearning (stronger), melancholy (heavier)"},
+ {w:"ardor",pos:"n",cat:"feel",def:"Burning warmth of feeling; passion with devotion inside it.",when:"Romantic register, slightly literary. Lands better in writing than out loud.",ex:"The letter had an ardor the texts never carried.",syn:"fervor (ideological), passion (broader), zeal (effortful)"},
+ {w:"solace",pos:"n",cat:"feel",def:"Comfort found in the middle of grief or distress.",when:"For the thing that holds you up, not the thing that cheers you up.",ex:"The garden was her solace the week everything else went sideways.",syn:"consolation (formal), comfort (plainer), balm (metaphorical)"},
+ {w:"levity",pos:"n",cat:"feel",def:"Lightness; humor that lifts a heavy moment.",when:"Also the word for humor arriving at the wrong moment, so aim it.",ex:"We needed levity, so I put on the song we can't not dance to.",syn:"mirth (older), playfulness (broader), jest (a single instance)"},
+ {w:"gravitas",pos:"n",cat:"feel",def:"Weight of presence; seriousness that commands a room without volume.",when:"High compliment. Works for musicians, teachers, grandmothers.",ex:"She plays alto with a gravitas the room notices before the solo is done.",syn:"dignity (moral), weight (plainer), authority (positional)"},
+ {w:"candor",pos:"n",cat:"feel",def:"Honesty with the face open; truth without spin.",when:"The trust word. Pairs with kindness or it's just bluntness.",ex:"Candor about money is harder than candor about feelings, and tonight is both.",syn:"frankness (blunter), openness (softer), transparency (systems-flavored)"},
+ {w:"steadfast",pos:"adj",cat:"feel",def:"Firmly loyal and unmoving, through difficulty, over time.",when:"The reliability word. Old, warm, unshowy; it can't be faked in a day.",ex:"Steadfast is boring on any single day and beautiful across a year.",syn:"staunch (fiercer), unwavering (dramatic), constant (quieter)"},
+ {w:"mercurial",pos:"adj",cat:"feel",def:"Quick and changeable in mood; brilliant but hard to predict.",when:"Careful aiming this at a person; it can be an accusation in a nice coat.",ex:"March here is mercurial; plant accordingly.",syn:"volatile (harsher), capricious (whimsical), fickle (petty)"},
+ {w:"magnanimous",pos:"adj",cat:"feel",def:"Big-hearted toward someone who wronged you or lost to you.",when:"For the moment after you were right. Nobody needs the scoreboard.",ex:"Be magnanimous in the repair; the win is the repair.",syn:"generous (broader), gracious (mannered), forbearing (enduring)"},
+ {w:"contrite",pos:"adj",cat:"feel",def:"Genuinely sorry, with the weight visible.",when:"Apology register: stronger than “sorry,” less theatrical than “devastated.”",ex:"He was contrite without groveling, which is the whole art.",syn:"remorseful (heavier), penitent (churchly), apologetic (surface)"},
+ {w:"reverie",pos:"n",cat:"feel",def:"A waking dream; attention gone somewhere sweeter than the room.",when:"For being caught mid-drift, fondly.",ex:"She caught me in a reverie halfway through the second set.",syn:"daydream (plainer), trance (deeper), musing (more deliberate)"},
+ {w:"smolder",pos:"v",cat:"feel",def:"To burn low and hot without open flame; anger or desire held under the surface.",when:"Music, glances, arguments postponed.",ex:"The song doesn't explode; it smolders.",syn:"simmer (kitchen-flavored), seethe (anger only), glow (gentler)"},
+ {w:"tremulous",pos:"adj",cat:"feel",def:"Trembling slightly, from feeling rather than cold.",when:"Literary. Save it for voices and hands.",ex:"Her voice went tremulous on the last verse and nobody breathed.",syn:"quavering (sound only), shaky (plain), quivering (visual)"},
+ {w:"saudade",pos:"n",cat:"feel",def:"Portuguese loan: the presence of an absence; missing something that may never return, sweetened by having had it.",when:"Music talk; fado and bossa are built from it.",ex:"That trumpet line is pure saudade.",syn:"longing (plainer), nostalgia (past-bound), yearning (forward-leaning)"},
+ {w:"duende",pos:"n",cat:"feel",def:"Spanish loan, Lorca's word: the dark, earthy spirit that possesses a true performance; soul past the edge of technique.",when:"The highest compliment you can pay a musician. She will know exactly what you mean.",ex:"Technique gets you through the chart; duende is why the room went quiet.",syn:"soul (plainer), fire (broader), presence (cooler)"},
+ {w:"querencia",pos:"n",cat:"feel",def:"Spanish loan: the spot in the arena where the bull is strongest; your home ground, the place you fight from.",when:"The word for having your own life and knowing where it lives.",ex:"The shed with the horn and the notebooks is my querencia.",syn:"refuge (hiding-flavored), home ground (plain), center (abstract)"},
+ {w:"forbearance",pos:"n",cat:"feel",def:"Patient restraint under provocation; mercy in slow motion.",when:"For teachers, partners, and anyone living with a beginner trumpeter.",ex:"Forbearance with the squeaks is love, and she has it.",syn:"patience (broader), restraint (colder), tolerance (thinner)"},
+ {w:"disquiet",pos:"n",cat:"feel",def:"Low unease that hums under the day without naming itself.",when:"Naming it out loud is half the repair.",ex:"I couldn't place the disquiet until I said the number out loud.",syn:"unease (plainer), foreboding (future-facing), agitation (louder)"},
+ {w:"ardent",pos:"adj",cat:"feel",def:"Burning with warmth or devotion; the adjective of ardor.",when:"Better for loyalties and enthusiasms than for people's faces.",ex:"She's an ardent defender of the local scene.",syn:"fervent (idea-flavored), passionate (broader), devoted (steadier)"},
+ {w:"beholden",pos:"adj",cat:"feel",def:"Owing; standing in someone's moral ledger.",when:"Money-talk word. Names the feeling nobody wants in a partnership.",ex:"I don't want to feel beholden; I want to feel like a partner. There's a difference and it's effort.",syn:"indebted (financial tint), obligated (colder), bound (heavier)"},
+ {w:"equipoise",pos:"n",cat:"feel",def:"Balance between opposing forces; stillness made out of tensions.",when:"Rarer, more physical than “balance.”",ex:"A good duet is equipoise, not surrender.",syn:"equilibrium (scientific), balance (plain), counterpoise (rarer)"},
+ {w:"quietude",pos:"n",cat:"feel",def:"Deep settled calm, of a place or a person.",when:"For dusk, gardens, and the hour after hard talks go well.",ex:"The garden at dusk has a quietude the house never manages.",syn:"stillness (plainer), tranquility (broader), hush (momentary)"},
+ {w:"petrichor",pos:"n",cat:"precision",def:"The smell of rain hitting dry earth.",when:"Desert people and gardeners both own this word.",ex:"Petrichor off the beds after the first monsoon cell; that's the whole reason to live out west.",syn:"no true synonym; that's the charm"},
+ {w:"susurrus",pos:"n",cat:"precision",def:"A whispering, rustling sound; wind in leaves, brushes on a snare.",when:"Sound-first word; use it where someone can hear the thing.",ex:"Under the melody there's this susurrus of brushes.",syn:"whisper (single voice), rustle (drier), murmur (voiced)"},
+ {w:"gloaming",pos:"n",cat:"precision",def:"Dusk; the blue hour between sundown and dark.",when:"Bat o'clock.",ex:"The bats come out in the gloaming, right on cue.",syn:"twilight (plainer), dusk (plainest), nightfall (later)"},
+ {w:"crepuscular",pos:"adj",cat:"precision",def:"Active at dawn and dusk.",when:"The biologically correct word for bats, deer, and certain musicians.",ex:"Bats are crepuscular, so time the Carlsbad flight for the gloaming.",syn:"twilight-active (clunky), vespertine (evening only)"},
+ {w:"vespertine",pos:"adj",cat:"precision",def:"Of the evening; blooming or waking as the light goes.",when:"For flowers that open at dusk, and people who do.",ex:"Vespertine flowers by the door: moonflower, evening primrose, four o'clocks.",syn:"evening (plain), nocturnal (all night)"},
+ {w:"patina",pos:"n",cat:"precision",def:"The surface that age earns; wear that adds worth instead of subtracting it.",when:"Instruments, leather, relationships that have been through something.",ex:"The lacquer's worn through in patches and I love the patina more than I'd love it new.",syn:"sheen (newer), weathering (harsher), finish (neutral)"},
+ {w:"lambent",pos:"adj",cat:"precision",def:"Light that plays softly over a surface without burning.",when:"Stage light, candle light, pilot-flame blue.",ex:"Lambent stage light on the bell of the horn.",syn:"glowing (plainer), luminous (stronger), flickering (less steady)"},
+ {w:"liminal",pos:"adj",cat:"precision",def:"On a threshold; between two states and belonging to neither.",when:"Everyone's using it lately; deploy once a season, precisely.",ex:"August is liminal, summer with one foot out the door.",syn:"transitional (plainer), in-between (plain), threshold (nounier)"},
+ {w:"verdant",pos:"adj",cat:"precision",def:"Lush with green growth.",when:"Earn it: only when the green is the first thing you see.",ex:"Two weeks of drip lines and the beds went verdant.",syn:"lush (broader), green (plain), luxuriant (heavier)"},
+ {w:"chiaroscuro",pos:"n",cat:"precision",def:"The drama of light against dark; a painting term that escaped the frame.",when:"Clubs, alleys, black-and-white films, her face in stage light.",ex:"That club is all chiaroscuro, faces swimming in and out of the dark.",syn:"contrast (plain), shadowplay (looser)"},
+ {w:"sotto voce",pos:"adv",cat:"precision",def:"“Under the voice”: said softly, half-private, meant for one listener.",when:"Music direction and intimacy register at once.",ex:"She said it sotto voce, mid-song, just for me.",syn:"whispered (plainer), murmured (softer), aside (theatrical)"},
+ {w:"palimpsest",pos:"n",cat:"precision",def:"A surface written over older writing that still shows through.",when:"Showy; deploy rarely and land it clean.",ex:"Her setlist is a palimpsest of every band she's ever played with.",syn:"layering (plain), overlay (technical)"},
+ {w:"rubato",pos:"n",cat:"music",def:"“Robbed time”: bending the tempo for feeling, then paying it back.",when:"Also a life philosophy for weeks that slip.",ex:"We're behind on the plan; call it rubato and pay it back this week.",syn:"give (looser), flexibility (plain)"},
+ {w:"appoggiatura",pos:"n",cat:"music",def:"The leaning note: a dissonance that resolves and takes your chest with it.",when:"The name for that ache in a melody. Ask her to play one; that's the point.",ex:"That catch in the chorus is an appoggiatura doing its one perfect job.",syn:"suspension (the held cousin), grace note (quicker, lighter)"},
+ {w:"fermata",pos:"n",cat:"music",def:"The hold: a note or a silence sustained past its written length, at the player's discretion.",when:"For moments that deserve to run long.",ex:"Put a fermata on this evening; nobody check the time.",syn:"hold (plain), pause (weaker)"},
+ {w:"ostinato",pos:"n",cat:"music",def:"A stubborn repeating figure the rest of the music builds over.",when:"Also what worry does at 3 a.m.; naming it helps.",ex:"Rent is the ostinato under every other thought this month.",syn:"loop (modern), riff (looser), groove (feel-flavored)"},
+ {w:"counterpoint",pos:"n",cat:"music",def:"Independent melodies sounding together: each line complete alone, better combined.",when:"The healthiest metaphor a duo can own.",ex:"I don't want to be her accompaniment; I want counterpoint, two whole lines.",syn:"polyphony (texture word), interplay (plainer)"},
+ {w:"obbligato",pos:"n",cat:"music",def:"An accompanying line so essential the score marks it obligatory; independent but devoted.",when:"For the part that isn't the melody and can't be cut.",ex:"The sax carries the tune; the trumpet obbligato is why you cry.",syn:"countermelody (plainer)"},
+ {w:"coda",pos:"n",cat:"music",def:"The tail: a closing section that tells you how to feel about everything before it.",when:"Apologies have codas. So do trips, sets, and seasons.",ex:"The apology was fine; the coda, coffee in bed, is what landed.",syn:"ending (plain), epilogue (literary), outro (studio)"},
+ {w:"cadence",pos:"n",cat:"music",def:"How a phrase lands; the punctuation of music and of speech.",when:"Compliment for how someone talks.",ex:"Her sentences have a cadence; you can hear the training.",syn:"lilt (lighter), rhythm (broader), resolution (harmonic sense)"},
+ {w:"hemiola",pos:"n",cat:"music",def:"Three against two: the meter tips its hat and briefly swaps.",when:"Say it near a keyboard and she'll demonstrate. That's the move.",ex:"The bridge does a hemiola; count it in three and it turns inside out.",syn:"cross-rhythm (broader)"},
+ {w:"glissando",pos:"n",cat:"music",def:"The slide between notes; all the in-between made audible.",when:"Trombones get it free; everyone else has to cheat.",ex:"She ended the phrase with a lazy glissando like the note melted.",syn:"slide (plain), portamento (the vocal/string cousin)"},
+ {w:"mycorrhizal",pos:"adj",cat:"garden",def:"Of the fungal web that links roots underground, trading sugar for minerals.",when:"The flirtiest word in soil science. The network is the point.",ex:"We're mycorrhizal at this point; nutrients move both directions underground.",syn:"symbiotic (broader)"},
+ {w:"phenology",pos:"n",cat:"garden",def:"The study of nature's timing: first bloom, last frost, bat emergence.",when:"For people who read the yard like a score.",ex:"Her planting calendar is pure phenology.",syn:"seasonality (plainer)"},
+ {w:"tilth",pos:"n",cat:"garden",def:"Soil worked to health; the fine crumb of ground that's ready to grow.",when:"Old farmer word; instant credibility in a garden.",ex:"Two seasons of compost and the beds finally have real tilth.",syn:"friability (technical), condition (plain)"},
+ {w:"understory",pos:"n",cat:"garden",def:"The layer that grows in the shade of the canopy.",when:"For quiet work and quiet people.",ex:"The understory does the quiet work; not everything worthy is tall.",syn:"undergrowth (wilder)"},
+ {w:"volunteer",pos:"n",cat:"garden",def:"A plant that shows up unplanted, from dropped or carried seed.",when:"Gardener's word for a good surprise.",ex:"Best tomato this year was a volunteer by the compost. Some gifts seed themselves.",syn:"self-sown (technical)"},
+ {w:"heirloom",pos:"n",cat:"garden",def:"A variety kept alive by hands, passed down outside industry.",when:"Seeds and songs survive the same way: somebody keeps choosing them.",ex:"Heirloom beans from her grandmother's line, three generations of somebody choosing them.",syn:"heritage (broader)"},
+ {w:"swale",pos:"n",cat:"garden",def:"A shallow ditch dug on contour to slow water and sink it into the ground.",when:"Permaculture's best metaphor: turn the storm into reserve.",ex:"The swale takes the cloudburst and banks it for July.",syn:"contour ditch (plain)"},
+ {w:"graft",pos:"n",cat:"garden",def:"Joining living tissue of two plants so they grow as one; also the seam where it took.",when:"For unions that hold because both sides stay alive.",ex:"A graft holds because both sides stay alive at the seam.",syn:"union (abstract), splice (rope-flavored)"}
+];
+
+const FRASES = [
+ {es:"¿Qué onda?",lit:"what wave?",mean:"What's up? The universal Mexican opener.",reg:"calle",ex:"¿Qué onda? ¿Cómo va todo?"},
+ {es:"la neta",lit:"the real truth",mean:"Honestly, the truth. “¿Neta?” alone = seriously?",reg:"calle",ex:"La neta, me asusté. (Honestly, I got scared.)"},
+ {es:"no manches",lit:"don't stain",mean:"No way, you're kidding. Safe everywhere.",reg:"calle",warn:false,ex:"¿Ganaron? ¡No manches!"},
+ {es:"no mames",lit:"—",mean:"Same feeling as no manches, but vulgar. Friends only, never family tables.",reg:"calle",warn:true,ex:"Among close friends only; “no manches” is the everywhere version."},
+ {es:"órale",lit:"—",mean:"Okay / let's go / whoa. Tone decides which one.",reg:"calle",ex:"¿Nos vamos? —Órale."},
+ {es:"ándale",lit:"—",mean:"That's it / exactly / hurry up. Context picks.",reg:"casa",ex:"Ándale, ya casi llegamos."},
+ {es:"híjole",lit:"—",mean:"Yikes, oof. Sympathy or dismay, gentle.",reg:"casa",ex:"Híjole, qué semana."},
+ {es:"ahorita",lit:"little now",mean:"Anywhere from “right now” to “eventually.” Elastic time; tone and context decide. Not a lie, a softness.",reg:"casa",ex:"Ahorita voy. (Coming... on Mexican time.)"},
+ {es:"luego luego",lit:"later later",mean:"Immediately. Yes, really; the doubling flips it.",reg:"casa",ex:"Llegando, luego luego te marco. (The moment I arrive, I'll call you.)"},
+ {es:"apapachar",lit:"Nahuatl root",mean:"To hold and soothe someone; folk-translated as “a hug with the soul.” This app's namesake.",reg:"amor",ex:"Ven, deja te apapacho. (Come here, let me hold you.)"},
+ {es:"te quiero / te amo",lit:"I want you / I love you",mean:"The two rungs of love. Quiero is deep and daily; amo is vowed and rare. Native speakers feel the rung, so climb deliberately.",reg:"amor",ex:"Te quiero is already real love; save te amo for when it's true and quiet."},
+ {es:"mi cielo",lit:"my sky",mean:"Sweetheart. Romantic or family, both safe.",reg:"amor",ex:"¿Cómo dormiste, mi cielo?"},
+ {es:"corazón",lit:"heart",mean:"Darling. Warm, safe everywhere.",reg:"amor",ex:"Corazón, ya está el café."},
+ {es:"chula / chulo",lit:"—",mean:"Gorgeous, cutie. Playful, very Mexican.",reg:"amor",ex:"¡Qué chula te ves hoy!"},
+ {es:"mija / mijo",lit:"mi hija / mi hijo",mean:"How elders claim you with affection. If the tías call you mijo, you're in.",reg:"casa",ex:"Siéntate, mijo, ¿ya comiste?"},
+ {es:"¿mande?",lit:"command me?",mean:"The Mexican polite “what? / say again?” Answering an elder with plain “¿qué?” reads rude in many families.",reg:"casa",ex:"—¡Morgan! —¿Mande?"},
+ {es:"consentir",lit:"to consent",mean:"To spoil someone with tenderness.",reg:"amor",ex:"Déjame consentirte hoy. (Let me spoil you today.)"},
+ {es:"echarle ganas",lit:"throw desire at it",mean:"To give it your real effort, with heart.",reg:"casa",ex:"Ando echándole ganas a la trompeta."},
+ {es:"sale",lit:"—",mean:"Deal, sounds good.",reg:"calle",ex:"¿Cine hoy? —Sale."},
+ {es:"va",lit:"goes",mean:"Okay, agreed. The shortest yes.",reg:"calle",ex:"Nos vemos a las ocho. —Va."},
+ {es:"¿te late?",lit:"does it beat for you?",mean:"Sound good? Are you feeling it? “Me late” = I like it / I've got a feeling.",reg:"calle",ex:"¿Te late un cafecito?"},
+ {es:"¡aguas!",lit:"waters!",mean:"Heads up, careful! (From the old cry before wash water hit the street.)",reg:"calle",ex:"¡Aguas con el escalón!"},
+ {es:"provecho",lit:"benefit",mean:"Said to anyone eating, even strangers; a small blessing on the meal.",reg:"casa",ex:"Pass a table mid-meal, nod: provecho."},
+ {es:"antojo",lit:"—",mean:"A craving with personality.",reg:"casa",ex:"Tengo antojo de tacos al pastor."},
+ {es:"cafecito, besito, ratito",lit:"little coffee, little kiss, little while",mean:"The diminutive as affection: smaller is sweeter in Mexican Spanish.",reg:"amor",ex:"Un ratito más lands softer than un rato más."},
+ {es:"estrenar",lit:"—",mean:"To wear or use something for the very first time. English has no word for it.",reg:"casa",ex:"Estoy estrenando camisa. (Say it when you dress up for her.)"},
+ {es:"sobremesa",lit:"over-table",mean:"The lingering talk after the meal ends; the best part of dinner, and it has a name.",reg:"casa",ex:"La sobremesa duró más que la cena."},
+ {es:"desvelarse",lit:"to un-veil oneself",mean:"To stay up past your own good.",reg:"casa",ex:"Nos desvelamos hablando. (The good kind.)"},
+ {es:"friolenta / friolento",lit:"—",mean:"Someone who is always cold. Tender, teasing.",reg:"amor",ex:"Ella es bien friolenta; llévale su suéter."},
+ {es:"empalagoso",lit:"—",mean:"Cloyingly sweet: desserts or affection.",reg:"amor",ex:"¿Muy empalagoso si te digo mi cielo dos veces en una hora?"},
+ {es:"cursi",lit:"—",mean:"Corny-romantic. Own it and it becomes charm.",reg:"amor",ex:"Voy a ser cursi tantito. (I'm going to be corny for a sec.)"},
+ {es:"chamba",lit:"—",mean:"Work, the gig, the hustle.",reg:"calle",ex:"Ando buscando chamba. (I'm out here job hunting.)"},
+ {es:"varo / lana / feria",lit:"— / wool / change",mean:"Money slang, three flavors. “Ando corto de varo” = I'm short on cash.",reg:"calle",ex:"Money-date vocabulary, calle edition."},
+ {es:"codo",lit:"elbow",mean:"Stingy. The money tease; use with a smile.",reg:"casa",ex:"No seas codo, deja la propina."},
+ {es:"ni modo",lit:"no way/mode",mean:"Oh well; nothing to be done. Acceptance with a shrug.",reg:"casa",ex:"Ni modo, será la próxima."},
+ {es:"de volada",lit:"on the fly",mean:"Right away, in a flash.",reg:"calle",ex:"Voy de volada."},
+ {es:"echar porras",lit:"throw cheers",mean:"To root for someone out loud.",reg:"casa",ex:"Échame porras hoy, tengo entrevista. (Cheer for me, I have an interview.)"},
+ {es:"tocada",lit:"—",mean:"A gig, a show. Scene word.",reg:"calle",ex:"¿Vamos a la tocada del viernes?"},
+ {es:"rola",lit:"—",mean:"A song, a track. What the scene actually says instead of canción.",reg:"calle",ex:"Esta rola me recuerda a ti."},
+ {es:"chido / chida",lit:"—",mean:"Cool, great. Casual everywhere in Mexico.",reg:"calle",ex:"Estuvo bien chido el show."},
+ {es:"qué padre / padrísimo",lit:"how father",mean:"How cool / the coolest. Slightly more family-safe than chido.",reg:"casa",ex:"¡Qué padre tu jardín!"},
+ {es:"sabroso / rico",lit:"tasty / rich",mean:"Delicious; also for grooves, weather, and moods.",reg:"calle",ex:"Ese groove está bien sabroso."},
+ {es:"tranqui",lit:"—",mean:"Easy, no stress, all good.",reg:"calle",ex:"Tranqui, yo me encargo."},
+ {es:"yo me encargo",lit:"I take charge of it",mean:"I've got this; consider it handled. The reliability sentence. Say it, then make it true.",reg:"amor",ex:"El jardín, yo me encargo."},
+ {es:"chingón / chingona",lit:"—",mean:"Badass, excellent. Vulgar root; affectionate among peers, not for abuelita.",reg:"calle",warn:true,ex:"Tu solo estuvo chingón."},
+ {es:"¿a poco?",lit:"to a little?",mean:"No way, really? Delighted disbelief.",reg:"casa",ex:"¿A poco tocaste con ellos?"},
+ {es:"n'ombre",lit:"no hombre",mean:"Nah, no way, friendly denial.",reg:"calle",ex:"¿Te molesta? —N'ombre, para nada."}
+];
+
+const SENAS = [
+ {s:"I-LOVE-YOU",d:"Pinky, index, and thumb out; middle and ring folded down. Palm faces out. One hand.",h:"It's the letters I, L, and Y living in one handshape."},
+ {s:"LOVE",d:"Cross both fists over your heart, arms hugging your chest.",h:"Hugging the thing you love to your chest."},
+ {s:"HUG",d:"Cross your arms, hands gripping opposite upper arms, and give a small squeeze.",h:"You're literally hugging yourself; add warmth in the face."},
+ {s:"MORE",d:"Flatten each hand into an O (fingertips together), then tap the two sets of fingertips against each other twice.",h:"Gathering crumbs together to make more."},
+ {s:"PLEASE",d:"Flat open hand on the center of your chest, rub a small clockwise circle.",h:"Rubbing the heart warm."},
+ {s:"THANK-YOU",d:"Flat hand, fingertips at your chin, arc the hand forward toward the person.",h:"Sending gratitude from the lips outward."},
+ {s:"SORRY",d:"Make a fist and circle it on your chest.",h:"Scrubbing the heart clean. The repair sign; learn it early."},
+ {s:"YES",d:"Make a fist and nod it up and down at the wrist.",h:"The fist is a little head nodding."},
+ {s:"NO",d:"Index and middle finger snap closed onto the thumb, once or twice.",h:"A tiny mouth saying no."},
+ {s:"HELP",d:"One fist, thumb up, sits on the other flat palm; both hands rise together.",h:"The palm lifts the fist: help lifts."},
+ {s:"WATER",d:"Make a W (three fingers up) and tap it against your chin twice.",h:"W at the mouth, where water goes."},
+ {s:"EAT",d:"Flatten the hand into an O and tap the fingertips to your lips. Double the motion for FOOD.",h:"Bringing a bite to the mouth."},
+ {s:"COFFEE",d:"Both hands in fists, one stacked on the other; the top fist circles like turning a crank.",h:"Grinding the beans by hand."},
+ {s:"MUSIC",d:"Non-dominant arm held like a page; dominant open hand sweeps rhythmically back and forth above the forearm without touching.",h:"Conducting over the staff. Sign it at her next show."},
+ {s:"DANCE",d:"Index and middle finger point down like little legs and swing side to side over the upturned palm.",h:"Legs swinging over the dance floor."},
+ {s:"HOME",d:"Flatten the hand into an O, touch fingertips near the corner of your mouth, then move up to touch your cheek.",h:"Where you eat and where you sleep, one word."},
+ {s:"WORK",d:"Both hands in fists; the dominant fist taps the back of the other wrist twice.",h:"Hammering at the anvil of the wrist."},
+ {s:"MONEY",d:"Flattened O (like holding folded bills) taps the upturned palm twice.",h:"Slapping the bills into the palm."},
+ {s:"LEARN",d:"Open fingertips touch the upturned palm, then lift to the forehead while closing.",h:"Picking knowledge off the page and filing it in the head."},
+ {s:"GROW",d:"Flattened O pushes up through the other hand's loose fist and blooms open.",h:"A sprout breaking soil. The garden sign."},
+ {s:"FLOWER",d:"Flattened O touches one side of the nose, then the other.",h:"Smelling the bloom, nostril to nostril."},
+ {s:"TREE",d:"Elbow of the dominant arm rests on the back of the other hand; forearm is the trunk, spread fingers the branches; twist the wrist.",h:"The leaves shimmer when the wrist twists."},
+ {s:"RAIN",d:"Both hands in loose claws drop downward twice.",h:"Fat drops falling. Sign it, then say petrichor."},
+ {s:"BEAUTIFUL",d:"Open hand circles the face, closing to fingertips at the chin, then blooms open.",h:"Gathering the beauty of a face and letting it burst. Aim it at her."}
+];
+
+const ABC = [
+ ["A","Fist, thumb resting alongside the fingers."],["B","Flat palm forward, fingers up, thumb folded across."],["C","Curve the whole hand like holding a cup."],["D","Index up; other fingertips touch the thumb."],["E","Fingertips curl down to rest on the thumb."],["F","Index and thumb make a circle; other three up."],["G","Index and thumb point sideways, parallel, hand flat."],["H","Index and middle point sideways together."],["I","Fist with pinky up."],["J","Pinky up, draw a J in the air."],["K","Index up, middle angled forward, thumb between them."],["L","Thumb and index at a right angle."],["M","Thumb tucked under first three fingers."],["N","Thumb tucked under first two fingers."],["O","All fingertips meet the thumb in a round O."],["P","A K pointing downward."],["Q","A G pointing downward."],["R","Index and middle crossed."],["S","Fist, thumb crossed in front of the fingers."],["T","Thumb tucked between index and middle."],["U","Index and middle together, pointing up."],["V","Index and middle apart: peace sign."],["W","Index, middle, ring up and spread."],["X","Index bent into a hook, fist."],["Y","Thumb and pinky out: hang loose."],["Z","Index finger draws a Z."]
+];
+
+// ---------- storage ----------
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("apapacho." + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("apapacho." + k, JSON.stringify(v)); } catch {} }
+};
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function stripTags(html) {
+  try { return new DOMParser().parseFromString(String(html), "text/html").body.textContent.trim(); }
+  catch { return String(html).replace(/<[^>]*>/g, "").trim(); }
+}
+function newId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+// words and frases Morgan adds himself; they outlive the seeded deck
+let MINE_W = store.get("mineW", []);
+let MINE_F = store.get("mineF", []);
+function saveMine() { store.set("mineW", MINE_W); store.set("mineF", MINE_F); }
+
+// ---------- theme override (?theme=dark|light) ----------
+const themeParam = new URLSearchParams(location.search).get("theme");
+if (themeParam === "dark" || themeParam === "light") document.documentElement.dataset.theme = themeParam;
+
+// ---------- streak ----------
+(function streak() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const t = today.getTime();
+  const last = store.get("lastDay", 0);
+  let n = store.get("streak", 0);
+  const DAY = 86400000;
+  if (last === t) { /* same day */ }
+  else if (t - last === DAY) { n += 1; store.set("lastDay", t); store.set("streak", n); }
+  else { n = 1; store.set("lastDay", t); store.set("streak", n); }
+  if (n === 0) { n = 1; store.set("streak", 1); store.set("lastDay", t); }
+  document.getElementById("streak").innerHTML = "día <b>" + n + "</b>";
+})();
+
+// ---------- favorites ----------
+let favs = new Set(store.get("favs", []));
+function favKey(kind, i) { return kind + ":" + i; }
+function toggleFav(kind, i, btn) {
+  const k = favKey(kind, i);
+  if (favs.has(k)) favs.delete(k); else favs.add(k);
+  store.set("favs", [...favs]);
+  btn.classList.toggle("on", favs.has(k));
+  btn.setAttribute("aria-pressed", favs.has(k));
+}
+function starBtn(kind, i) {
+  const on = favs.has(favKey(kind, i));
+  return '<button class="star' + (on ? " on" : "") + '" aria-pressed="' + on + '" aria-label="favorite" data-star="' + kind + ':' + i + '">★</button>';
+}
+
+// ---------- renderers ----------
+const CAT_LABEL = { feel: "Feel", precision: "Precision", music: "Music", garden: "Garden" };
+const REG_LABEL = { casa: "familia", amor: "amor", calle: "calle" };
+
+function wordBody(x) {
+  return '<p class="def">' + esc(x.def) + '</p>'
+    + (x.when ? '<p class="whenuse"><b>Use it when:</b> ' + esc(x.when) + '</p>' : '')
+    + (x.ex ? '<p class="ex">' + esc(x.ex) + '</p>' : '')
+    + (x.syn ? '<p class="syn"><b>Near it:</b> ' + esc(x.syn) + '</p>' : '');
+}
+function fraseBody(x) {
+  return (x.lit && x.lit !== "—" ? '<p class="lit">lit. ' + esc(x.lit) + '</p>' : '')
+    + '<p class="def">' + esc(x.mean) + '</p>'
+    + (x.ex ? '<p class="ex">' + esc(x.ex) + '</p>' : '');
+}
+function delBtn(kind, id) {
+  return '<p style="margin:.6rem 0 0"><button class="mini" data-del="' + kind + ':' + id + '">borrar</button></p>';
+}
+function senaBody(x) {
+  return '<p class="def">' + x.d + '</p><p class="hook">' + x.h + '</p>';
+}
+
+function renderWords() {
+  const q = document.getElementById("q-words").value.trim().toLowerCase();
+  const cat = document.querySelector('#view-words .filter.on');
+  const catv = cat ? cat.dataset.cat : null;
+  let html = "";
+  MINE_W.forEach(x => {
+    if (catv && catv !== "mine" && catv !== "fav") return;
+    if (catv === "fav" && !favs.has(favKey("mw", x.id))) return;
+    if (q && !(x.w + " " + x.def + " " + (x.ex || "")).toLowerCase().includes(q)) return;
+    html += '<details class="row"><summary><span class="row-term">' + esc(x.w) + '</span>'
+      + '<span class="row-gloss">' + esc(x.def) + '</span>'
+      + '<span class="chip mine">mía</span>' + starBtn("mw", x.id)
+      + '</summary><div class="row-body">' + wordBody(x) + delBtn("mw", x.id) + '</div></details>';
+  });
+  if (catv !== "mine") WORDS.forEach((x, i) => {
+    if (catv === "fav" && !favs.has(favKey("w", i))) return;
+    if (catv && catv !== "fav" && x.cat !== catv) return;
+    if (q && !(x.w + " " + x.def + " " + x.ex + " " + x.when).toLowerCase().includes(q)) return;
+    html += '<details class="row"><summary><span class="row-term">' + x.w + '</span>'
+      + '<span class="row-gloss">' + x.def + '</span>'
+      + '<span class="chip">' + CAT_LABEL[x.cat] + '</span>' + starBtn("w", i)
+      + '</summary><div class="row-body">' + wordBody(x) + '</div></details>';
+  });
+  document.getElementById("list-words").innerHTML = html
+    || '<p class="note">Nada aquí todavía' + (q ? ' para “' + esc(q) + '”' : '') + '.</p>';
+  renderRemoteOffer("w", q);
+}
+
+function renderFrases() {
+  const q = document.getElementById("q-frases").value.trim().toLowerCase();
+  const reg = document.querySelector('#view-frases .filter.on');
+  const regv = reg ? reg.dataset.reg : null;
+  let html = "";
+  MINE_F.forEach(x => {
+    if (regv && regv !== "mine" && regv !== "fav") return;
+    if (regv === "fav" && !favs.has(favKey("mf", x.id))) return;
+    if (q && !(x.es + " " + x.mean + " " + (x.ex || "")).toLowerCase().includes(q)) return;
+    html += '<details class="row"><summary><span class="row-term">' + esc(x.es) + '</span>'
+      + '<span class="row-gloss">' + esc(x.mean) + '</span>'
+      + '<span class="chip mine">mía</span>' + starBtn("mf", x.id)
+      + '</summary><div class="row-body">' + fraseBody(x) + delBtn("mf", x.id) + '</div></details>';
+  });
+  if (regv !== "mine") FRASES.forEach((x, i) => {
+    if (regv === "fav" && !favs.has(favKey("f", i))) return;
+    if (regv && regv !== "fav" && x.reg !== regv) return;
+    if (q && !(x.es + " " + x.mean + " " + x.ex).toLowerCase().includes(q)) return;
+    html += '<details class="row"><summary><span class="row-term">' + x.es + '</span>'
+      + '<span class="row-gloss">' + x.mean + '</span>'
+      + (x.warn ? '<span class="chip warn">aguas</span>' : '<span class="chip">' + REG_LABEL[x.reg] + '</span>')
+      + starBtn("f", i)
+      + '</summary><div class="row-body">' + fraseBody(x) + '</div></details>';
+  });
+  document.getElementById("list-frases").innerHTML = html
+    || '<p class="note">Nada por aquí' + (q ? ' para “' + esc(q) + '”' : '') + '.</p>';
+  renderRemoteOffer("f", q);
+}
+
+function renderSenas() {
+  let html = "";
+  SENAS.forEach((x, i) => {
+    html += '<details class="row"><summary><span class="row-term">' + x.s + '</span>'
+      + '<span class="row-gloss">' + x.d + '</span>' + starBtn("s", i)
+      + '</summary><div class="row-body">' + senaBody(x) + '</div></details>';
+  });
+  document.getElementById("list-senas").innerHTML = html;
+  document.getElementById("abc").innerHTML = ABC.map(a => "<div><b>" + a[0] + "</b>" + a[1] + "</div>").join("");
+}
+
+// ---------- today ----------
+function renderToday() {
+  const day = Math.floor(Date.now() / 86400000);
+  const w = WORDS[(day * 7) % WORDS.length];
+  const f = FRASES[(day * 11) % FRASES.length];
+  const s = SENAS[(day * 5) % SENAS.length];
+  document.getElementById("view-hoy").innerHTML =
+    '<div class="card"><p class="eyebrow">palabra</p><h2 class="term">' + w.w + '<span class="pos">' + w.pos + '</span></h2>' + wordBody(w) + '</div>'
+    + '<div class="card"><p class="eyebrow">frase</p><h2 class="term">' + f.es + '</h2>' + fraseBody(f) + '</div>'
+    + '<div class="card"><p class="eyebrow">seña</p><h2 class="term">' + s.s + '</h2>' + senaBody(s) + '</div>'
+    + '<p class="note today-more">One of each, every day. Say the word out loud once, use the frase before dinner, make the sign with your actual hand.</p>';
+}
+
+// ---------- quiz ----------
+let quiz = null;
+function quizPool() {
+  const pool = [];
+  MINE_W.forEach(x => pool.push({ id: "mw:" + x.id, front: esc(x.w), back: wordBody(x) }));
+  MINE_F.forEach(x => pool.push({ id: "mf:" + x.id, front: esc(x.es), back: fraseBody(x) }));
+  WORDS.forEach((x, i) => pool.push({ id: "w:" + i, front: x.w, back: '<p class="def">' + x.def + '</p><p class="ex">' + x.ex + '</p>' }));
+  FRASES.forEach((x, i) => pool.push({ id: "f:" + i, front: x.es, back: '<p class="def">' + x.mean + '</p><p class="ex">' + x.ex + '</p>' }));
+  return pool;
+}
+function startQuiz() {
+  const weights = store.get("weights", {});
+  const pool = quizPool();
+  const picked = [];
+  const bag = pool.slice();
+  for (let n = 0; n < 10 && bag.length; n++) {
+    let total = 0;
+    for (const c of bag) total += (weights[c.id] || 0) + 1;
+    let r = Math.random() * total;
+    let idx = 0;
+    for (let j = 0; j < bag.length; j++) { r -= (weights[bag[j].id] || 0) + 1; if (r <= 0) { idx = j; break; } }
+    picked.push(bag.splice(idx, 1)[0]);
+  }
+  quiz = { cards: picked, i: 0, shown: false, again: 0 };
+  renderQuiz();
+}
+function gradeQuiz(knewIt) {
+  const weights = store.get("weights", {});
+  const id = quiz.cards[quiz.i].id;
+  const w = weights[id] || 0;
+  weights[id] = knewIt ? Math.max(0, w - 1) : Math.min(8, w + 2);
+  store.set("weights", weights);
+  if (!knewIt) quiz.again++;
+  quiz.i++; quiz.shown = false;
+  renderQuiz();
+}
+function renderQuiz() {
+  const zone = document.getElementById("quiz-zone");
+  if (!quiz) {
+    zone.innerHTML = '<div class="card quiz-card"><p class="eyebrow">práctica</p>'
+      + '<p>Ten cards, words and frases mixed. See the front, say the meaning out loud, then check yourself. Honest grading is the whole game; the deck leans toward whatever you miss.</p>'
+      + '<div class="quiz-actions"><button class="btn" id="qz-start">Empezar</button></div></div>';
+    document.getElementById("qz-start").addEventListener("click", startQuiz);
+    return;
+  }
+  if (quiz.i >= quiz.cards.length) {
+    const got = quiz.cards.length - quiz.again;
+    zone.innerHTML = '<div class="card quiz-card"><p class="eyebrow">listo</p>'
+      + '<p class="quiz-front">' + got + ' / ' + quiz.cards.length + '</p>'
+      + '<p class="note">The missed ones come back sooner. Mañana, otra vez.</p>'
+      + '<div class="quiz-actions"><button class="btn" id="qz-again">Otra ronda</button></div></div>';
+    document.getElementById("qz-again").addEventListener("click", startQuiz);
+    return;
+  }
+  const c = quiz.cards[quiz.i];
+  let dots = "";
+  for (let j = 0; j < quiz.cards.length; j++)
+    dots += '<span class="dot' + (j < quiz.i ? " done" : j === quiz.i ? " now" : "") + '"></span>';
+  zone.innerHTML = '<div class="dots">' + dots + '</div>'
+    + '<div class="card quiz-card"><p class="quiz-front">' + c.front + '</p>'
+    + (quiz.shown
+        ? '<div class="quiz-back">' + c.back + '</div><div class="quiz-actions"><button class="btn ghost" id="qz-again2">Otra vez</button><button class="btn" id="qz-know">La sé</button></div>'
+        : '<div class="quiz-actions"><button class="btn orange" id="qz-show">Mostrar</button></div>')
+    + '</div>';
+  if (quiz.shown) {
+    document.getElementById("qz-again2").addEventListener("click", () => gradeQuiz(false));
+    document.getElementById("qz-know").addEventListener("click", () => gradeQuiz(true));
+  } else {
+    document.getElementById("qz-show").addEventListener("click", () => { quiz.shown = true; renderQuiz(); });
+  }
+}
+
+// ---------- live lookup ----------
+// The published artifact runs under a CSP that blocks every outside host, so these
+// fetches fail there by design and the UI says so. A copy served from a real origin
+// (localhost, or a domain) gets live definitions. The hand-written path always works.
+let netBlocked = false;
+let prefillSyn = "";
+
+async function getJSON(url, headers) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 8000);
+  try {
+    const r = await fetch(url, { signal: ctl.signal, headers: headers || {} });
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error("http " + r.status);
+    return await r.json();
+  } finally { clearTimeout(timer); }
+}
+
+async function lookupWord(term) {
+  const j = await getJSON("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(term));
+  if (!Array.isArray(j) || !j.length) return null;
+  const e = j[0];
+  const m = (e.meanings || [])[0] || {};
+  const d = (m.definitions || [])[0] || {};
+  let syn = (m.synonyms || []).slice(0, 6);
+  if (!syn.length) {
+    try {
+      let ds = await getJSON("https://api.datamuse.com/words?max=8&rel_syn=" + encodeURIComponent(term));
+      if (!ds || !ds.length) ds = await getJSON("https://api.datamuse.com/words?max=8&ml=" + encodeURIComponent(term));
+      syn = (ds || []).map(x => x.word);
+    } catch { /* synonyms are a bonus, not the point */ }
+  }
+  const seen = new Set(), uniq = [];
+  syn.forEach(s => { const k = s.toLowerCase(); if (k !== term.toLowerCase() && !seen.has(k)) { seen.add(k); uniq.push(s); } });
+  return { w: e.word || term, pos: m.partOfSpeech || "", phon: e.phonetic || "",
+           def: d.definition || "", ex: d.example || "", syn: uniq.slice(0, 6).join(", ") };
+}
+
+async function lookupFrase(term) {
+  const j = await getJSON(
+    "https://en.wiktionary.org/api/rest_v1/page/definition/" + encodeURIComponent(term.trim().replace(/\s+/g, "_")),
+    { "Api-User-Agent": "Apapacho/1.0 (personal vocabulary app)" });
+  if (!j) return null;
+  const rows = j.es || j.en || [];
+  if (!rows.length) return null;
+  // the first sense is often the dullest one, so carry the first few
+  const defs = (rows[0].definitions || []).slice(0, 3)
+    .map(d => stripTags(d.definition)).filter(Boolean);
+  if (!defs.length) return null;
+  return { es: term.trim(), pos: rows[0].partOfSpeech || "", mean: defs.join("; "), lang: j.es ? "es" : "en" };
+}
+
+function renderRemoteOffer(kind, q) {
+  const box = document.getElementById("remote-" + kind);
+  if (!box) return;
+  if (!q || q.length < 2) { box.innerHTML = ""; return; }
+  if (netBlocked) {
+    box.innerHTML = '<p class="status">Live lookup is blocked in this copy; write it by hand below and it works the same.</p>';
+    return;
+  }
+  box.innerHTML = '<button class="mini" data-lookup="' + kind + '">buscar “' + esc(q) + '” en '
+    + (kind === "w" ? "el diccionario" : "Wiktionary") + '</button>';
+}
+
+async function doLookup(kind) {
+  const box = document.getElementById("remote-" + kind);
+  const q = document.getElementById(kind === "w" ? "q-words" : "q-frases").value.trim();
+  if (!q) return;
+  box.innerHTML = '<p class="status">buscando…</p>';
+  try {
+    const hit = kind === "w" ? await lookupWord(q) : await lookupFrase(q);
+    if (!hit) {
+      box.innerHTML = '<p class="status">Sin resultados para “' + esc(q) + '”. Escríbela a mano abajo.</p>';
+      return;
+    }
+    if (kind === "w") {
+      prefillSyn = hit.syn;
+      box.innerHTML = '<div class="card"><p class="eyebrow">encontrada</p>'
+        + '<h2 class="term">' + esc(hit.w) + (hit.pos ? '<span class="pos">' + esc(hit.pos) + '</span>' : '') + '</h2>'
+        + (hit.phon ? '<p class="lit">' + esc(hit.phon) + '</p>' : '')
+        + '<p class="def">' + esc(hit.def) + '</p>'
+        + (hit.ex ? '<p class="ex">' + esc(hit.ex) + '</p>' : '')
+        + (hit.syn ? '<p class="syn"><b>Near it:</b> ' + esc(hit.syn) + '</p>' : '')
+        + '<p class="note" style="margin:.7rem 0 .5rem">A dictionary gives you the definition. Write the <b>use it when</b> line yourself; that’s the half that makes it yours.</p>'
+        + '<button class="btn" data-keep="w">Quedármela</button></div>';
+    } else {
+      box.innerHTML = '<div class="card"><p class="eyebrow">encontrada</p>'
+        + '<h2 class="term">' + esc(hit.es) + (hit.pos ? '<span class="pos">' + esc(hit.pos) + '</span>' : '') + '</h2>'
+        + '<p class="def">' + esc(hit.mean) + '</p>'
+        + (hit.lang === "en" ? '<p class="note">Wiktionary had no Spanish entry, so this is the English one.</p>' : '')
+        + '<p class="note" style="margin:.7rem 0 .5rem">Wiktionary is bookish. If the street says it differently, keep the street version.</p>'
+        + '<button class="btn" data-keep="f">Quedármela</button></div>';
+    }
+    window.__hit = hit;
+  } catch {
+    netBlocked = true;
+    box.innerHTML = '<p class="status">No outside network in this copy (the sandbox blocks it). Write it by hand below and it works the same.</p>';
+  }
+}
+
+function keepHit(kind) {
+  const hit = window.__hit;
+  if (!hit) return;
+  if (kind === "w") {
+    setVal("add-w-term", hit.w); setVal("add-w-mean", hit.def); setVal("add-w-ex", hit.ex); setVal("add-w-when", "");
+    document.getElementById("add-w").hidden = false;
+    document.getElementById("add-w-when").focus();
+  } else {
+    setVal("add-f-term", hit.es); setVal("add-f-mean", hit.mean); setVal("add-f-ex", "");
+    document.getElementById("add-f").hidden = false;
+    document.getElementById("add-f-ex").focus();
+  }
+}
+
+// ---------- my own entries ----------
+function val(id) { return document.getElementById(id).value.trim(); }
+function setVal(id, v) { document.getElementById(id).value = v || ""; }
+function bump(id) { const w = store.get("weights", {}); w[id] = 3; store.set("weights", w); }
+
+function saveMineWord() {
+  const st = document.getElementById("add-w-status");
+  const w = val("add-w-term"), def = val("add-w-mean");
+  if (!w || !def) { st.textContent = "Necesita la palabra y qué significa."; return; }
+  const id = newId();
+  MINE_W.unshift({ id, w, def, when: val("add-w-when"), ex: val("add-w-ex"), syn: prefillSyn });
+  prefillSyn = ""; saveMine(); bump("mw:" + id);
+  ["add-w-term", "add-w-mean", "add-w-when", "add-w-ex"].forEach(k => setVal(k, ""));
+  document.getElementById("q-words").value = "";
+  document.getElementById("remote-w").innerHTML = "";
+  st.textContent = "“" + w + "” es tuya. Ya entró al quiz.";
+  renderWords();
+}
+
+function saveMineFrase() {
+  const st = document.getElementById("add-f-status");
+  const es = val("add-f-term"), mean = val("add-f-mean");
+  if (!es || !mean) { st.textContent = "Necesita la frase y qué significa."; return; }
+  const id = newId();
+  MINE_F.unshift({ id, es, mean, ex: val("add-f-ex") });
+  saveMine(); bump("mf:" + id);
+  ["add-f-term", "add-f-mean", "add-f-ex"].forEach(k => setVal(k, ""));
+  document.getElementById("q-frases").value = "";
+  document.getElementById("remote-f").innerHTML = "";
+  st.textContent = "“" + es + "” es tuya. Ya entró al quiz.";
+  renderFrases();
+}
+
+function delMine(kind, id) {
+  if (kind === "mw") MINE_W = MINE_W.filter(x => x.id !== id);
+  else MINE_F = MINE_F.filter(x => x.id !== id);
+  saveMine(); renderWords(); renderFrases();
+}
+
+// ---------- backup ----------
+function backupJSON() {
+  return JSON.stringify({
+    app: "apapacho", v: 1, exported: new Date().toISOString(),
+    mineW: MINE_W, mineF: MINE_F, favs: [...favs],
+    weights: store.get("weights", {}), streak: store.get("streak", 0), lastDay: store.get("lastDay", 0)
+  }, null, 2);
+}
+async function doBackup() {
+  const st = document.getElementById("bk-status");
+  const data = backupJSON();
+  const name = "apapacho-" + new Date().toISOString().slice(0, 10) + ".json";
+  if (window.claude && window.claude.downloads) {
+    try { await window.claude.downloads.save({ filename: name, data }); st.textContent = "Guardado: " + name; }
+    catch (err) {
+      const code = err && err.code;
+      st.textContent = code === "declined" ? "Cancelado."
+        : code === "rate_limited" ? "Espera un momento y vuelve a intentar."
+        : "No se pudo guardar (" + (code || "error") + ").";
+    }
+    return;
+  }
+  try {
+    const url = URL.createObjectURL(new Blob([data], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    st.textContent = "Guardado: " + name;
+  } catch { st.textContent = "No se pudo guardar aquí."; }
+}
+function doRestore() {
+  const st = document.getElementById("bk-status");
+  let j;
+  try { j = JSON.parse(document.getElementById("bk-json").value); }
+  catch { st.textContent = "Ese JSON no se pudo leer."; return; }
+  if (Array.isArray(j.mineW)) MINE_W = j.mineW;
+  if (Array.isArray(j.mineF)) MINE_F = j.mineF;
+  if (Array.isArray(j.favs)) { favs = new Set(j.favs); store.set("favs", j.favs); }
+  if (j.weights && typeof j.weights === "object") store.set("weights", j.weights);
+  if (typeof j.streak === "number") store.set("streak", j.streak);
+  if (typeof j.lastDay === "number") store.set("lastDay", j.lastDay);
+  saveMine(); renderWords(); renderFrases(); renderQuiz();
+  st.textContent = "Restaurado: " + MINE_W.length + " palabras, " + MINE_F.length + " frases.";
+}
+
+// ---------- tabs & events ----------
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + t.dataset.view));
+  window.scrollTo({ top: 0 });
+}));
+document.querySelectorAll(".filter").forEach(f => f.addEventListener("click", () => {
+  const wasOn = f.classList.contains("on");
+  f.closest(".toolbar").querySelectorAll(".filter").forEach(x => x.classList.remove("on"));
+  if (!wasOn) f.classList.add("on");
+  renderWords(); renderFrases();
+}));
+document.getElementById("q-words").addEventListener("input", renderWords);
+document.getElementById("q-frases").addEventListener("input", renderFrases);
+document.addEventListener("click", e => {
+  const star = e.target.closest("[data-star]");
+  if (star) {
+    e.preventDefault(); e.stopPropagation();
+    const at = star.dataset.star.indexOf(":");
+    const kind = star.dataset.star.slice(0, at);
+    const raw = star.dataset.star.slice(at + 1);
+    toggleFav(kind, kind === "w" || kind === "f" || kind === "s" ? parseInt(raw, 10) : raw, star);
+    return;
+  }
+  const del = e.target.closest("[data-del]");
+  if (del) {
+    e.preventDefault(); e.stopPropagation();
+    const at = del.dataset.del.indexOf(":");
+    delMine(del.dataset.del.slice(0, at), del.dataset.del.slice(at + 1));
+    return;
+  }
+  const look = e.target.closest("[data-lookup]");
+  if (look) { e.preventDefault(); doLookup(look.dataset.lookup); return; }
+  const keep = e.target.closest("[data-keep]");
+  if (keep) { e.preventDefault(); keepHit(keep.dataset.keep); }
+});
+
+document.getElementById("add-w-toggle").addEventListener("click", () => {
+  const f = document.getElementById("add-w"); f.hidden = !f.hidden;
+  if (!f.hidden) document.getElementById("add-w-term").focus();
+});
+document.getElementById("add-f-toggle").addEventListener("click", () => {
+  const f = document.getElementById("add-f"); f.hidden = !f.hidden;
+  if (!f.hidden) document.getElementById("add-f-term").focus();
+});
+document.getElementById("add-w-save").addEventListener("click", saveMineWord);
+document.getElementById("add-f-save").addEventListener("click", saveMineFrase);
+document.getElementById("bk-save").addEventListener("click", doBackup);
+document.getElementById("bk-restore-toggle").addEventListener("click", () => {
+  const f = document.getElementById("bk-restore"); f.hidden = !f.hidden;
+});
+document.getElementById("bk-apply").addEventListener("click", doRestore);
+["add-w-ex", "add-w-when"].forEach(id =>
+  document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") saveMineWord(); }));
+document.getElementById("add-f-ex").addEventListener("keydown", e => { if (e.key === "Enter") saveMineFrase(); });
+
+renderToday(); renderWords(); renderFrases(); renderSenas(); renderQuiz();
+
+// One cheap probe decides whether the live-lookup UI is offered at all, so the
+// same file is honest in both homes: the artifact sandbox blocks outside hosts,
+// a copy served from a real origin doesn't.
+(async () => {
+  try { await getJSON("https://api.datamuse.com/words?sp=hola&max=1"); }
+  catch {
+    netBlocked = true;
+    renderRemoteOffer("w", document.getElementById("q-words").value.trim().toLowerCase());
+    renderRemoteOffer("f", document.getElementById("q-frases").value.trim().toLowerCase());
+  }
+})();
+
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
