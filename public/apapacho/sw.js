@@ -2,7 +2,7 @@
 // page is caching the whole app; dictionary calls always go to the network and
 // are never cached (a definition you looked up gets saved as your own entry,
 // which lives in localStorage, not here).
-const CACHE = "apapacho-202608130305";
+const CACHE = "apapacho-202609230614";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {

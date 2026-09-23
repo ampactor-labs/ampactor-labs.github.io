@@ -394,6 +394,128 @@ const RAW_PROJECTS = [
     operatorNote:
       "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
   },
+
+  {
+    id: "understory",
+    title: "UNDERSTORY",
+    subtitle: "LYRIC X-RAY",
+    lang: "JavaScript",
+    color: "#7DC59F",
+    icon: "⏚",
+    github: "https://github.com/ampactor-labs/understory",
+    live: "https://ampactor.dev/understory/",
+    desc: "Understory is a lyric x-ray for songwriters. Write or paste a lyric and it shows what is under the words: where the stresses fall, how each rhyme lands, how far each line floats from things you can touch, which of the seven senses it reaches, who is talking to whom, and which lines come back and what they land on each time. Below a ground line sits the understory, the one sentence the song never says, and its words light up if they surface in the lyric. There is no AI and no server: three public word lists and a page of rules run in the browser, and every mark opens a receipt showing exactly what it was computed from.",
+    tags: ["lyrics", "songwriting", "prosody", "rhyme"],
+    tagline: "WHAT A SONG NEVER SAYS",
+    outcome:
+      "Paste a lyric and see where its stresses fall, how its rhymes land, how concrete each line is, and whether the one thing the song never says has slipped in.",
+    highlights: [
+      "56K WORDS WITH STRESS, CONCRETENESS, SENSES",
+      "PATTISON'S RHYME LADDER, SIX RUNGS",
+      "SEVEN-SENSE METER FROM THE LANCASTER NORMS",
+      "73 ENGINE CHECKS GATE EVERY DEPLOY",
+      "NO AI, NO SERVER, WORKS OFFLINE",
+      "EVERY MARK OPENS ITS RECEIPT",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "CMUdict", "Service Worker"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
+  },
+
+  {
+    id: "freestyle-engine",
+    title: "FREESTYLE ENGINE",
+    subtitle: "FREESTYLE RAP PRACTICE",
+    lang: "TypeScript",
+    color: "#E9E7DC",
+    icon: "🎤",
+    github: "https://github.com/ampactor-labs/freestyle-engine",
+    live: "https://ampactor.dev/freestyle-engine/",
+    desc: "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
+    tags: ["freestyle", "rap", "practice", "phonology"],
+    tagline: "TRAIN THE MACHINERY, NOT THE BARS",
+    outcome:
+      "Freestyle over a beat in the browser and get the take measured (timing against the grid, rhyme chains, vocabulary), then a workout aimed at whatever the evidence says is holding you back.",
+    highlights: [
+      "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
+      "8-PART BASELINE BATTERY",
+      "EXACT · NEAR · ASSONANT · CONSONANT RHYME",
+      "TIMING MEASURED AGAINST THE BEAT GRID",
+      "RECORDINGS STAY IN INDEXEDDB",
+      "NO ACCOUNTS, NO GENERATED LYRICS",
+    ],
+    stack: [
+      "TypeScript",
+      "Vite",
+      "Web Audio API",
+      "IndexedDB",
+      "Web Speech API",
+    ],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Every score is a proxy. Rhyme, timing and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar was good.",
+  },
+
+  {
+    id: "stoop",
+    title: "STOOP",
+    subtitle: "A PRESS FOR A PERIODICAL",
+    lang: "JavaScript",
+    color: "#FF3FA4",
+    icon: "¶",
+    github: "https://github.com/ampactor-labs/stoop",
+    live: "https://ampactor.dev/stoop/",
+    desc: "Stoop is a press for a periodical: a zine for the few people who already write to each other. They submit pieces, whoever has the desk this cycle assembles an issue, and the press lays it out and imposes it for paper, as a folded sheet, a stapled signature, or an exact PDF for a copy shop. Every issue stays on the shelf, and the file it hands on is the issue and a working press in one. It is one HTML file with no server, no accounts and no feed.",
+    tags: ["zine", "print", "imposition", "local-first"],
+    tagline: "FOLD IT, LEAVE IT SOMEWHERE",
+    outcome:
+      "Gather pieces from the people you write with, lay out an issue, and print it as a folded zine or an exact PDF for a copy shop.",
+    highlights: [
+      "ONE FILE, ZERO REQUESTS, NO TRACKERS",
+      "IMPOSED FOR PAPER: 8, 12 OR 16 PAGES",
+      "EIGHT PAGES FROM ONE SHEET AND ONE CUT",
+      "EXACT PDF WITH ITS OWN TYPEFACE EMBEDDED",
+      "EVERY ISSUE CARRIES THE PRESS INSIDE IT",
+      "BACK ISSUES KEPT ON THE SHELF",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "Web Storage", "PDF"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Everything lives in the browser that made it. There is no server to fall back on and storage is per-origin, so a backup file is the only copy that outlives a cleared cache, and moving between a phone and a laptop means exporting and merging by hand.",
+  },
+
+  {
+    id: "apapacho",
+    title: "APAPACHO",
+    subtitle: "WORDS · FRASES · SEÑAS",
+    lang: "JavaScript",
+    color: "#E08A4A",
+    icon: "🫂",
+    github: null,
+    live: "https://ampactor.dev/apapacho/",
+    desc: 'Apapacho is a phone app for three small daily reps: an English word worth having, a Mexican Spanish phrase with the register it belongs in, and an ASL sign. Three cards a day, a quiz for when there are five minutes, and a dictionary lookup that makes adding your own words quick. It is named for apapachar, from a Nahuatl root, usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
+    tags: ["language", "spanish", "asl", "vocabulary"],
+    tagline: "THREE CARDS A DAY",
+    outcome:
+      "An English word worth having, a Mexican Spanish phrase with the room it belongs in, and an ASL sign, every day, on a phone, offline.",
+    highlights: [
+      "54 WORDS · 47 FRASES · 24 SIGNS",
+      "26 FINGERSPELLED LETTERS",
+      "EVERY WORD HAS A 'USE IT WHEN' LINE",
+      "EVERY FRASE CARRIES ITS REGISTER",
+      "INSTALLS AND WORKS OFFLINE",
+      "NO ACCOUNTS; YOUR DECK STAYS ON THE PHONE",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "Service Worker", "localStorage"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The Señas tab describes motion in words, which is the wrong medium for a moving language. It is a memory aid for signs learned from video, not a teacher; Lifeprint is the teacher.",
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);
