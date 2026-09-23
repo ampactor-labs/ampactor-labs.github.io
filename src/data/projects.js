@@ -423,6 +423,99 @@ const RAW_PROJECTS = [
     operatorNote:
       "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
   },
+
+  {
+    id: "freestyle-engine",
+    title: "FREESTYLE ENGINE",
+    subtitle: "FREESTYLE RAP PRACTICE",
+    lang: "TypeScript",
+    color: "#E9E7DC",
+    icon: "🎤",
+    github: "https://github.com/ampactor-labs/freestyle-engine",
+    live: "https://ampactor.dev/freestyle-engine/",
+    desc: "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
+    tags: ["freestyle", "rap", "practice", "phonology"],
+    tagline: "TRAIN THE MACHINERY, NOT THE BARS",
+    outcome:
+      "Freestyle over a beat in the browser and get the take measured (timing against the grid, rhyme chains, vocabulary), then a workout aimed at whatever the evidence says is holding you back.",
+    highlights: [
+      "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
+      "8-PART BASELINE BATTERY",
+      "EXACT · NEAR · ASSONANT · CONSONANT RHYME",
+      "TIMING MEASURED AGAINST THE BEAT GRID",
+      "RECORDINGS STAY IN INDEXEDDB",
+      "NO ACCOUNTS, NO GENERATED LYRICS",
+    ],
+    stack: [
+      "TypeScript",
+      "Vite",
+      "Web Audio API",
+      "IndexedDB",
+      "Web Speech API",
+    ],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Every score is a proxy. Rhyme, timing and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar was good.",
+  },
+
+  {
+    id: "stoop",
+    title: "STOOP",
+    subtitle: "A PRESS FOR A PERIODICAL",
+    lang: "JavaScript",
+    color: "#FF3FA4",
+    icon: "¶",
+    github: "https://github.com/ampactor-labs/stoop",
+    live: "https://ampactor.dev/stoop/",
+    desc: "A press for a periodical: submit pieces, assemble an issue at the desk, impose it for paper, and keep every back issue on the shelf. Each exported issue carries the press inside it. One file, local-first, no accounts, no server.",
+    tags: ["zine", "print", "imposition", "local-first"],
+    tagline: "FOLD IT, LEAVE IT SOMEWHERE",
+    outcome:
+      "Gather pieces from the people you write with, lay out an issue, and print it as a folded zine or an exact PDF for a copy shop.",
+    highlights: [
+      "ONE FILE, ZERO REQUESTS, NO TRACKERS",
+      "IMPOSED FOR PAPER: 8, 12 OR 16 PAGES",
+      "EIGHT PAGES FROM ONE SHEET AND ONE CUT",
+      "EXACT PDF WITH ITS OWN TYPEFACE EMBEDDED",
+      "EVERY ISSUE CARRIES THE PRESS INSIDE IT",
+      "BACK ISSUES KEPT ON THE SHELF",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "Web Storage", "PDF"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Everything lives in the browser that made it. A backup file is the only copy that outlives a cleared cache, and moving between devices means exporting and merging by hand. Printers differ, so the page asks for a test sheet before a print run.",
+  },
+
+  {
+    id: "apapacho",
+    title: "APAPACHO",
+    subtitle: "WORDS · FRASES · SEÑAS",
+    lang: "JavaScript",
+    color: "#E08A4A",
+    icon: "🫂",
+    github: null,
+    live: "https://ampactor.dev/apapacho/",
+    desc: 'Apapacho is a phone app for three small daily reps: an English word worth having, a Mexican Spanish phrase with the register it belongs in, and an ASL sign. Three cards a day, a quiz for when there are five minutes, and a dictionary lookup that makes adding your own words quick. It is named for apapachar, from a Nahuatl root, usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
+    tags: ["language", "spanish", "asl", "vocabulary"],
+    tagline: "THREE CARDS A DAY",
+    outcome:
+      "An English word worth having, a Mexican Spanish phrase with the room it belongs in, and an ASL sign, every day, on a phone, offline.",
+    highlights: [
+      "54 WORDS · 47 FRASES · 24 SIGNS",
+      "26 FINGERSPELLED LETTERS",
+      "EVERY WORD HAS A 'USE IT WHEN' LINE",
+      "EVERY FRASE CARRIES ITS REGISTER",
+      "INSTALLS AND WORKS OFFLINE",
+      "NO ACCOUNTS; YOUR DECK STAYS ON THE PHONE",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "Service Worker", "localStorage"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The Señas tab describes motion in words, which is the wrong medium for a moving language. It is a memory aid for signs learned from video, not a teacher; Lifeprint is the teacher.",
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);
