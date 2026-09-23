@@ -468,7 +468,7 @@ const RAW_PROJECTS = [
     icon: "¶",
     github: "https://github.com/ampactor-labs/stoop",
     live: "https://ampactor.dev/stoop/",
-    desc: "A press for a periodical: submit pieces, assemble an issue at the desk, impose it for paper, and keep every back issue on the shelf. Each exported issue carries the press inside it. One file, local-first, no accounts, no server.",
+    desc: "Stoop is a press for a periodical: a zine for the few people who already write to each other. They submit pieces, whoever has the desk this cycle assembles an issue, and the press lays it out and imposes it for paper, as a folded sheet, a stapled signature, or an exact PDF for a copy shop. Every issue stays on the shelf, and the file it hands on is the issue and a working press in one. It is one HTML file with no server, no accounts and no feed.",
     tags: ["zine", "print", "imposition", "local-first"],
     tagline: "FOLD IT, LEAVE IT SOMEWHERE",
     outcome:
@@ -485,7 +485,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "creative",
     operatorNote:
-      "Everything lives in the browser that made it. A backup file is the only copy that outlives a cleared cache, and moving between devices means exporting and merging by hand. Printers differ, so the page asks for a test sheet before a print run.",
+      "Everything lives in the browser that made it. There is no server to fall back on and storage is per-origin, so a backup file is the only copy that outlives a cleared cache, and moving between a phone and a laptop means exporting and merging by hand.",
   },
 
   {
