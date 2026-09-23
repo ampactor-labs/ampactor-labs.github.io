@@ -394,6 +394,35 @@ const RAW_PROJECTS = [
     operatorNote:
       "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
   },
+
+  {
+    id: "understory",
+    title: "UNDERSTORY",
+    subtitle: "LYRIC X-RAY",
+    lang: "JavaScript",
+    color: "#7DC59F",
+    icon: "⏚",
+    github: "https://github.com/ampactor-labs/understory",
+    live: "https://ampactor.dev/understory/",
+    desc: "Understory is a lyric x-ray for songwriters. Write or paste a lyric and it shows what is under the words: where the stresses fall, how each rhyme lands, how far each line floats from things you can touch, which of the seven senses it reaches, who is talking to whom, and which lines come back and what they land on each time. Below a ground line sits the understory, the one sentence the song never says, and its words light up if they surface in the lyric. There is no AI and no server: three public word lists and a page of rules run in the browser, and every mark opens a receipt showing exactly what it was computed from.",
+    tags: ["lyrics", "songwriting", "prosody", "rhyme"],
+    tagline: "WHAT A SONG NEVER SAYS",
+    outcome:
+      "Paste a lyric and see where its stresses fall, how its rhymes land, how concrete each line is, and whether the one thing the song never says has slipped in.",
+    highlights: [
+      "56K WORDS WITH STRESS, CONCRETENESS, SENSES",
+      "PATTISON'S RHYME LADDER, SIX RUNGS",
+      "SEVEN-SENSE METER FROM THE LANCASTER NORMS",
+      "73 ENGINE CHECKS GATE EVERY DEPLOY",
+      "NO AI, NO SERVER, WORKS OFFLINE",
+      "EVERY MARK OPENS ITS RECEIPT",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "CMUdict", "Service Worker"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
+  },
 ];
 
 export const PROJECTS = RAW_PROJECTS.map(fromReadme);
