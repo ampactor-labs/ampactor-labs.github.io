@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { CONTACT, MAILTO } from "../../data/profile";
+import { CONTACT, MAILTO } from "../../../data/profile";
 
 // Ticker copy — rendered twice back-to-back so the crawl loops seamlessly and
 // text is on screen from t=0 (a single copy started fully off-screen and left

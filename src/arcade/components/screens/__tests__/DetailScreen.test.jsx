@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import DetailScreen from "../DetailScreen";
-import { PROJECTS, HIDDEN_PROJECTS } from "../../../data/projects";
+import { PROJECTS, HIDDEN_PROJECTS } from "../../../../data/projects";
 
 const fs = (size) => size;
 const onBack = vi.fn();

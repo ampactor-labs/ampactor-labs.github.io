@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import useCabinetState from "../useCabinetState";
-import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
+import { PROJECTS, HIDDEN_PROJECTS } from "../../../data/projects";
 import { BOOT_LINES } from "../../constants";
 
 // Mock heavy dependencies

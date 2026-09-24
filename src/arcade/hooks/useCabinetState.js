@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import useAmbientHum from "../useAmbientHum";
 import useIntroSequence from "../useIntroSequence";
-import { PROJECTS, HIDDEN_PROJECTS } from "../data/projects";
+import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
 import { BOOT_LINES } from "../constants";
 
 // The detail screen's link rail, in focus order. Demo comes first when a project
