@@ -17,6 +17,10 @@ export default function Header({
         <span>AMPACTOR</span>
       </a>
       <nav className={styles.nav} aria-label="Site">
+        <a href="#work">WORK</a>
+        <a href="#how" className={styles.navWide}>
+          HOW I WORK
+        </a>
         <button type="button" className={styles.navButton} onClick={onEnterArcade}>
           ARCADE
         </button>

@@ -79,6 +79,12 @@
   color: var(--accent-text);
 }
 
+@media (max-width: 640px) {
+  .navWide {
+    display: none;
+  }
+}
+
 .main {
   max-width: var(--page-max);
   margin: 0 auto;

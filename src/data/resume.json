@@ -1,0 +1,141 @@
+{
+  "name": "Morgan Espitia",
+  "title": "Software Engineer",
+  "location": "Salt Lake City, UT",
+  "email": "ampactorlabs@gmail.com",
+  "phone": "+1 435-268-2446",
+  "site": "https://ampactor.dev",
+  "github": "https://github.com/ampactor-labs",
+  "linkedin": "https://www.linkedin.com/in/ampactor-labs/",
+  "summary": "Software engineer since 2017: six years employed full-stack — front-end, then back-end, then both; PHP, Node, React and TypeScript — for credit unions, a healthcare-benefits platform and enterprise dashboards, then a studio that ships in the open. Owns a UI end to end and the service behind it. Everything since 2023 has receipts: seventeen public products with their source, benchmarks and weak spots published.",
+  "skills": [
+    "TypeScript / JavaScript",
+    "React",
+    "Node.js",
+    "Vite",
+    "PHP",
+    "SQL / Postgres",
+    "Python",
+    "WebSockets",
+    "RabbitMQ",
+    "Docker",
+    "CI/CD",
+    "REST APIs",
+    "Rust",
+    "WebAssembly"
+  ],
+  "experience": [
+    {
+      "org": "Ampactor Labs",
+      "role": "Independent Software Engineer",
+      "location": "Salt Lake City, UT",
+      "start": 2018,
+      "end": null,
+      "note": "full-time since 2023",
+      "bullets": [
+        "Client and contract work under NDA: blockchain infrastructure and full-stack product work.",
+        "Built and operate TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request over x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker; Prometheus metrics and structured logs.",
+        "Built Perennials, an offline-first React/TypeScript app over a Node/PostgreSQL service that searches ~8,800 plants by the conditions you have; every search is a URL.",
+        "Ship and maintain the public work at ampactor.dev: a self-hosting compiler, a cross-platform DSP kernel flashed to real hardware, a SIMD sort on crates.io that publishes its losses, a Solana execution crate whose CI lands live transactions, and a dozen browser instruments and games.",
+        "Build and maintain production applications and integrations, including deployment, debugging and ongoing support."
+      ]
+    },
+    {
+      "org": "Perfect Afternoon",
+      "role": "Full Stack Developer",
+      "location": "Remote",
+      "start": 2022,
+      "end": 2023,
+      "bullets": [
+        "Built WordPress sites, custom business tooling, migration systems and automated recurring processes."
+      ]
+    },
+    {
+      "org": "CommandLink",
+      "role": "Full Stack Developer",
+      "location": "Remote",
+      "start": 2021,
+      "end": 2022,
+      "bullets": [
+        "Built and maintained the PHP dashboard enterprise IT teams use to manage and stream product-shipping data.",
+        "Maintained its asynchronous Node.js backend (WebSockets, RabbitMQ); overhauled CI/CD and onboarding, cutting build failures by about 30%."
+      ]
+    },
+    {
+      "org": "Planstin",
+      "role": "Back End Developer",
+      "location": "",
+      "start": 2019,
+      "end": 2021,
+      "bullets": [
+        "Engineered the PHP backend of a healthcare-benefits platform handling sensitive medical and financial data.",
+        "Built fault-tolerant synchronization pipelines with Salesforce and maintained high-throughput backend workflows."
+      ]
+    },
+    {
+      "org": "Balance of Nature",
+      "role": "Back End Developer",
+      "location": "",
+      "start": 2018,
+      "end": 2019,
+      "bullets": [
+        "Built and maintained the PHP ticket-management system used across the customer-service organization: messaging, escalation and workflow features."
+      ]
+    },
+    {
+      "org": "Tenth Muse Design",
+      "role": "Front End Developer",
+      "location": "",
+      "start": 2017,
+      "end": 2018,
+      "bullets": [
+        "Built and shipped PHP websites for credit unions and other clients, including OASCU and National Geographic's credit union."
+      ]
+    }
+  ],
+  "selectedWork": [
+    {
+      "id": "perennials",
+      "name": "Perennials",
+      "what": "Constraint search over ~8,800 plants; offline-first PWA, every search a URL.",
+      "stack": "React · TypeScript · Node · Postgres",
+      "url": "https://ampactor.dev/perennials/"
+    },
+    {
+      "id": "tokensafe",
+      "name": "TokenSafe + Scry",
+      "what": "Solana token risk scoring from on-chain data alone; live, paid per request over x402.",
+      "stack": "TypeScript · Express · React",
+      "url": "https://github.com/ampactor-labs/tokensafe"
+    },
+    {
+      "id": "site",
+      "name": "ampactor.dev",
+      "what": "This site: a typed React 19 + Vite floor around an arcade cabinet, unit and browser suites, CI.",
+      "stack": "React · TypeScript · Vite · Playwright",
+      "url": "https://github.com/ampactor-labs/ampactor-labs.github.io"
+    },
+    {
+      "id": "mentl",
+      "name": "Mentl",
+      "what": "A self-hosting compiler with an algebraic effect system; bit-identical bootstrap.",
+      "stack": "WebAssembly",
+      "url": "https://github.com/ampactor-labs/mentl"
+    },
+    {
+      "id": "sonido",
+      "name": "Sonido",
+      "what": "One DSP kernel for desktop plugins and a bare-metal Cortex-M7; flashed to real hardware.",
+      "stack": "Rust · no_std · CLAP",
+      "url": "https://github.com/ampactor-labs/sonido"
+    },
+    {
+      "id": "turbosort",
+      "name": "Turbosort",
+      "what": "SIMD radix sort on crates.io, 2.2–3.2× over std from 1M to 100M keys, losses published.",
+      "stack": "Rust · AVX2",
+      "url": "https://github.com/ampactor-labs/turbosort"
+    }
+  ],
+  "before": "Before software: ran a music studio and worked in film audio — the through-line to the DSP work."
+}

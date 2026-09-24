@@ -12,7 +12,7 @@ describe("scrollLock", () => {
     unlockScroll();
     document.body.removeAttribute("style");
     Object.defineProperty(window, "scrollY", { value: 0, writable: true });
-    Object.defineProperty(document.documentElement, "scrollHeight", {
+    Object.defineProperty(document.body, "scrollHeight", {
       value: 4000,
       configurable: true,
     });

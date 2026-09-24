@@ -1,20 +1,20 @@
 # Ampactor Labs — Design System
 
 **One canonical reference for the brand, the visual language, the components, and the
-voice.** This is the source you hand to a designer, paste into an AI design tool
-(Claude Design, etc.), or read before touching any UI in this repo.
+voice.** Read it before touching any UI in this repo; hand it to a designer or an AI
+design tool as the brand context.
 
 - **Token source of truth:** `public/tokens.css` (auto-generated from the upstream
   `ampactor-theme` repo — `tokens/*.yaml` → `export/to-css.sh`). _Never hand-edit
-  `tokens.css`; change the YAML upstream and rebuild._
-- **Copy source of truth:** `src/data/profile.js` (identity, positioning, proof) and
-  `src/data/projects.js` (the work). `public/resume.html` and `index.html` mirror this
-  copy **by hand** — keep all three in sync.
+  `tokens.css`; change the YAML upstream and rebuild._ The app's semantic layer on top of
+  it is `src/styles/theme.css`.
+- **Copy source of truth:** `src/data/profile.js` (identity, contact), `src/data/site.js`
+  (every page's `<head>` and the one line of range), `src/data/projects.js` (the work,
+  with content fields pulled from each project's README at build time) and
+  `src/data/resume.json` (the résumé, rendered to `public/resume.html` and drawn as the
+  timeline). Nothing is mirrored by hand any more.
 - **This doc** is the layer the tokens and code don't carry: the concept, the usage
   rules, the component vocabulary, and the voice.
-
-> **For an AI design tool:** jump to [§14 AI Handoff Brief](#14--ai-handoff-brief) —
-> it's a paste-ready, on-brand prompt block. Read §1–§6 first if you want the why.
 
 ---
 
@@ -22,277 +22,203 @@ voice.** This is the source you hand to a designer, paste into an AI design tool
 
 **"Patina Dark" — a worn arcade CRT, rendered with systems-engineer precision.**
 
-The portfolio is a working arcade cabinet: a `boot → select → detail/game` machine
-with a phosphor-glow CRT aesthetic, monospace type only, scanlines, and an
-insert-coin mechanic. The aesthetic is not nostalgia for its own sake — it's a
-**proof of craft**: every effect is hand-built (GSAP cinematics, canvas shaders, a
-Web Audio synth), signalling the same rigor the work itself claims.
+The site is one room with one machine in it. The **floor** is the room: a calm,
+readable page in the cabinet's own light, where the name, the line of range, the work,
+the way of working and the years are laid out to be read in under a minute. The
+**cabinet** stands in the room, running its attract loop. Walk up to it (click, Enter)
+and the camera dollies in: the same machine fills the screen, the tube fires, and the
+arcade is the arcade it always was — cartridges, coin slot, hidden programs. Step back
+(Escape, B, `‹ FLOOR`, the browser's Back) and it shrinks to where it stood.
 
-Two surfaces, one world:
+One universe, two depths. There is no "second portfolio": the console on the floor is
+the console in the arcade, laid out at its full size and scaled into its slot. The
+aesthetic is not nostalgia for its own sake — it is **proof of craft**: every effect is
+hand-built (GSAP, canvas, a Web Audio synth), and the floor around it is the product
+UI the same hands make.
 
 | Surface | Role | Feel |
 |---|---|---|
-| **Lobby** (`src/components/Lobby.jsx`) | The front desk. Fast, skimmable conversion surface. Paints instantly — no boot, no GSAP, no audio. | Same palette + fonts as the cabinet, but **calm**: light scanline, no overload, everything readable in ~10s. |
-| **Cabinet** (`src/ArcadePortfolio.jsx`) | The arcade floor. Opt-in depth: cinematic boot, cartridge select, detail readouts, hidden games. | Full CRT theatre: heavy glow, boot sequence, scanlines, ambient hum, easter eggs. |
+| **Floor** (`src/floor/`, `src/App.tsx`) | The room. Fast, skimmable, readable in ~60 s. Light or dark. | Same palette, the tube's glow pooling on the floor; prose in a reading face; signage in the arcade face, tiny. |
+| **Cabinet** (`src/arcade/`) | The machine. Opt-in depth: attract loop on the floor, cinematic boot when zoomed, cartridge select, readouts, hidden games. | Full CRT theatre: heavy glow, scanlines, ambient audio once entered. Always dark. |
 
-The Lobby converts; the Cabinet rewards. Design changes to one must not flatten the
-other. **The Lobby is where most design exploration belongs** — it's a conventional
-landing layout. The Cabinet is bespoke craft; don't let a generator re-skin it.
+The floor converts; the cabinet rewards. Design changes to one must not flatten the
+other. **The floor is where design exploration belongs.** The cabinet is bespoke craft;
+don't let a generator re-skin it.
 
 ---
 
 ## 2 · Voice
 
-**Confident, concrete, plain-spoken. Buyer-framed, never engineer-bragging.**
+**Confident, concrete, plain-spoken. Receipts over claims.**
 
+- **No title, one line of range.** The name is followed by what gets made, not a job
+  title or an industry: _"Compilers, synths, games, and the apps around them. Shipped,
+  with receipts."_ The site never pins its author to front-end, back-end, or a sector.
 - **Lead with the outcome a non-engineer can map to money or risk**, then back it with
-  the hard number. _"A live product that charges real money to tell you whether a
-  crypto token is a scam — shipped and earning."_ not _"9 deterministic on-chain
-  checks via Helius RPC."_ (The numbers live one layer deeper, in the cabinet readout.)
-- **Tiered net.** The hard systems work leads as the premium anchor and the wow; the
-  everyday web/API/dashboard work is stated plainly, same breath, same rigor. Never
-  anchor low; never hide the bread-and-butter.
-- **Terse, technical, lower-case-comfortable.** Mono fonts, `→` arrows, `·` separators,
-  `●` status dots. No marketing adjectives ("cutting-edge", "passionate"). Let the
-  artifacts carry the weight.
-- **Own the gap as a deliberate story**, never apologize for it (studio / audio
-  engineering / film → the through-line to DSP + embedded).
+  the hard number one layer deeper (the cabinet readout).
+- **Publish the losses.** Benchmarks show where they lose; READMEs carry a _Weak spots_
+  section; cards are generated from those READMEs so a claim cannot outrun its repo.
+- **Terse, technical, lower-case-comfortable.** Mono fonts for readouts, `→` arrows,
+  `·` separators, `●` status dots. No marketing adjectives. Let the artifacts carry it.
+- **Own the story as a story**: six years employed full-stack, then a studio. Rendered
+  as a timeline, not explained.
 
-**Three copy registers, by depth:**
+**Copy registers, by depth:**
 
-1. `outcome` — buyer-facing, one plain sentence (lobby cards, résumé). _"Write audio
-   code once; run it unchanged on a desktop plugin and a $20 microcontroller."_
-2. `tagline` — the arcade hook, ALL-CAPS, punchy. _"DESKTOP AND BARE METAL. SAME CODE."_
-3. `operatorNote` / `highlights` — the engineer's proof, numbers and internals.
+1. `range` (site.js) and `outcome` (projects.js) — floor, one plain sentence.
+2. `tagline` — the arcade hook, ALL-CAPS, punchy.
+3. `desc` / `highlights` / `operatorNote` — the engineer's proof, in the cabinet.
 
 ---
 
 ## 3 · Color
 
-> **Naming caution for designers/AI:** the hero accent is **electric cyan `#00E5FF`**
-> (token `--color-cyan` / `--highlight`). There is also a separate, muted **patina teal
-> `#7daea3`** (`--color-teal`) used as a syntax/role color — a different color entirely.
-> When this doc or the brand says "the cyan / the glow," it means `#00E5FF`. In code,
-> always reference `var(--color-cyan)`; never reintroduce a `TEAL` alias for it (that
-> misnomer was removed — cyan is not teal).
+> **Naming caution:** the hero accent is **electric cyan `#00E5FF`** (`--color-cyan`).
+> The muted **patina teal `#7daea3`** (`--color-teal`) is a different colour used as a
+> syntax/role colour. "The cyan / the glow" always means `#00E5FF`.
 
-### Core palette (Patina Dark — the canonical theme)
+### Core palette (Patina Dark)
 
 | Token | Hex | Role |
 |---|---|---|
-| `--color-cyan` / `--highlight` | `#00E5FF` | **Hero accent.** Glow, primary CTA, the glowing headline word ("Rust"), active focus. Use sparingly — it's the spotlight. |
-| `--color-amber` / `--ui-primary` | `#d8a657` | Secondary accent. The "everyday delivery" tier, cursor, caution. |
+| `--color-cyan` | `#00E5FF` | **Hero accent.** Glow, the active item, the cabinet's signage. Spend it like a spotlight. |
+| `--accent-text` | cyan / `#00708a` | The accent **as text on the page background**. Cyan in the dark theme; deepened in the light theme, where electric cyan has no contrast on parchment. Use this, not `--color-cyan`, for links, eyebrows, CTAs and the focus ring on the floor. |
+| `--color-amber` | `#d8a657` | Secondary accent: employment bars, INSERT COIN, caution. |
 | `--bg` / `--color-charcoal` | `#1d2021` | Page background (top of the radial). |
-| `--color-dim` | `#2a2826` | Mid background, panel fills. |
-| `--color-void` | `#0f0e0d` | Deepest background (bottom of the radial), insets. |
-| `--fg` / `--color-parchment` | `#d4be98` | **Primary text.** Warm parchment, not white. |
-| `--color-muted` | `#a89984` | Secondary text, labels, captions. |
-| `--color-comment` | `#5a524c` | Faint text, footer, disabled. |
-| `--color-umber` | `#45403d` | Selection background, borders. |
+| `--color-dim` | `#2a2826` | Mid background, the cabinet's chassis. |
+| `--color-void` | `#0f0e0d` | Deepest background, insets. |
+| `--fg` / `--color-parchment` | `#d4be98` | **Primary text.** Warm parchment, never white. |
+| `--fg-bright` | `#efe4cc` | Headlines, one step brighter than body. |
+| `--color-muted` / `--color-comment` | `#a89984` / `#5a524c` | Secondary and faint text. |
+| `--hairline`, `-strong`, `-faint` | `color-mix` of `--fg` | Borders and rules; derived, so right in both themes. |
+| `--surface`, `--surface-raised` | `color-mix` of `--fg` | Card fills. |
 
-### Accent set (used as per-project identity colors)
+### Per-project colour
 
-`#ea6962` coral · `#e78a4e` orange · `#d3869b` rose · `#89bfad` verdigris (signal-ok) ·
-`#7daea3` teal · `#6a95a8` steel. Plus the per-project brand colors in
-`projects.js` (electric yellow-green `#E0FF00`, magenta `#ff44aa`, etc.).
+Each project owns one neon in `projects.js`. In the **cabinet** it is used raw. On the
+**floor** it is muted toward the patina — `color-mix(in srgb, <color> 55%,
+var(--color-muted))` — for the card's icon, title and border-top, and the raw colour is
+spent only on the hover bloom, so seventeen hues read as one shelf.
 
-### Background treatment
+### Light theme — shipped
 
-```css
-background: radial-gradient(ellipse at 50% 40%, #1d2021 0%, #2a2826 50%, #0f0e0d 100%);
-```
-
-Fixed-attachment, like light pooling at the center of a dark screen. Never flat black,
-never pure white.
-
-### App-level semantic tokens (`src/styles/theme.css`)
-
-`tokens.css` is generated upstream, so the app owns a thin semantic layer on top of it.
-These exist so the Lobby carries **no theme-breaking color literals**, and they track
-the active theme automatically:
-
-| Token | Definition | Use |
-|---|---|---|
-| `--fg-bright` | `#efe4cc` dark / `#2e2016` light | Headlines — pushed past `--fg` for contrast (brighter on dark, deeper on light). |
-| `--hairline` | `color-mix(in srgb, var(--fg) 20%, transparent)` | Default hairline rules / faint borders. |
-| `--hairline-strong` | `…40%…` | Hover borders. |
-| `--hairline-faint` | `…8%…` | Footer / section dividers. |
-| `--scanline` | `rgba(0,0,0,0.06)` dark / `0.04` light | CRT scanline overlay tint. |
-
-The hairlines derive from `--fg` via `color-mix`, so one definition is correct in both
-themes — only `--fg-bright` and `--scanline` need a per-theme override.
-
-### Light theme — wired, not shipped
-
-`tokens.css` ships a full `[data-theme="patina-light"]` palette (parchment `#f2e5bc` bg,
-ink `#4f3829`, Gruvbox-light role colors). The **Lobby and the body background are now
-theme-ready**: every Lobby color resolves to a token, and the body gradient is
-token-driven, so setting `data-theme="patina-light"` on `<html>` renders the Lobby
-correctly in light. **The arcade cabinet is still dark-only** (it's bespoke CRT/canvas
-art — see §1), so light theme is currently a Lobby-only capability; don't ship a global
-theme toggle until the cabinet is themed (or scope the toggle to the lobby).
-
-Activation lives in `src/theme.js` (`applyTheme()`, called from `main.jsx`): it reads
-`localStorage["ampactor_theme"]` and applies the attribute; dark (no attribute) is the
-default. Nothing writes that key yet. **Preview light now:**
-`localStorage.setItem("ampactor_theme","patina-light"); location.reload()`.
-
-`resume.html` is its own separate light/print theme (white `#fff`, teal `#0089a3`),
-intentionally divorced from the CRT world for ATS + print.
+`tokens.css` ships `[data-theme="patina-light"]` (parchment `#f2e5bc`, ink `#4f3829`).
+The floor is fully themed; `src/lib/theme.ts` resolves stored choice > system
+preference, an inline pre-paint script in every `<head>` applies it before first
+paint, and the header's light switch stores `ampactor_theme`. **The cabinet is a
+physical object and stays dark in a lit room:** `.cabinet-scope` in `theme.css` pins
+every token the arcade reads to its dark value. When it zooms, its backdrop covers the
+room: the lights go off, the machine takes over.
 
 ### Usage rules
 
-- **One spotlight per view.** Cyan is the accent of last resort — CTA, the two glowing
-  hero words, the active item. If everything glows, nothing does.
-- **Text is parchment `#d4be98`, not white.** Headlines may go slightly brighter
-  (`#efe4cc`). Never `#fff` on the dark surfaces.
-- **Per-project color is identity:** each project owns one accent (card border-top,
-  icon, title). Derive tints with hex-alpha suffixes: `${color}08` fill, `${color}26`
-  border, `${color}66` hover-border, `${color}22` glow.
+- **One spotlight per view.** Cyan is the accent of last resort.
+- **Text is parchment, not white.** Never `#fff` on the dark surfaces.
+- **Never use `--color-cyan` for text on the page background** — use `--accent-text`.
 
 ---
 
 ## 4 · Typography
 
-**Three monospace faces, each with one job. No sans, no serif, anywhere in the app.**
+**Four faces, each with one job.**
 
 | Token | Font | Used for |
 |---|---|---|
-| `--font-arcade` | **Press Start 2P** | Section labels, wordmark, kicker eyebrows, cabinet chrome. ALL-CAPS, wide tracking, **tiny** (8–11px). Never body text. |
-| `--font-display` | **Share Tech Mono** | Headlines, project titles, CTAs, data readouts. The "voice" font. |
-| `--font-body` | **JetBrains Mono** | Prose, descriptions, nav, captions. The readable workhorse. |
+| `--font-arcade` | **Press Start 2P** | Signage: section eyebrows, the wordmark, the nav, the cabinet's chrome. ALL-CAPS, wide tracking, **tiny** (7–9 px on the floor). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
+| `--font-display` | **Share Tech Mono** | Card titles, CTAs, readouts, the timeline's names. Weight 400; size and glow carry emphasis. |
+| `--font-body` | **JetBrains Mono** | Labels, stack chips, status lines, numbers, the cabinet's prose. |
+| `--font-sans` | **Inter** | The floor's prose: the name, the line of range, outcomes, ledes. The reading face; tabular numerals for data. |
 
-### Scale (`tokens.css`)
-
-`xs 10` · `sm 11` · `base 13` · `md 14` · `lg 16` · `xl 20` · `xxl 24` (px). Headlines
-go responsive beyond the scale: hero is `clamp(30px, 6.5vw, 54px)`.
-
-### Tracking
-
-- Wordmark: `--tracking-brand-wordmark` `0.08em` (lobby pushes to `0.2em` for the
-  spaced-out arcade wordmark).
-- UI labels / section labels: `0.04em`–`0.3em` (the wider, the more "chrome").
-- Body / code: `0em`.
-
-### Rules
-
-- **Press Start 2P is decoration, never content.** It's 8–11px, all-caps, heavily
-  tracked. Reading more than ~3 words of it is a smell.
-- **Headlines are Share Tech Mono at `fontWeight: 400`** — the weight comes from size
-  and glow, not bold. The only "bold" moments are inline `fontWeight: 600` spans that
-  tint a lead-in phrase (e.g. "Hard systems —" in cyan).
-- **Body is JetBrains Mono, `line-height: 1.5–1.65`**, max line length ~580–70ch.
+Scale on the floor is by `clamp()`: the name `clamp(38px, 5.4vw, 60px)`, section titles
+`clamp(26px, 3.4vw, 36px)`, ledes `clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
 
 ---
 
 ## 5 · Motion & Glow
 
-### Durations & easing (`tokens.css`)
+### The zoom
 
-`instant 0` · `fast 150ms` · `normal 300ms` · `slow 600ms` · `crawl 1400ms`.
-Easings: `standard` `cubic-bezier(.4,0,.2,1)`, `enter`, `exit`, and `spring`
-`cubic-bezier(.34,1.56,.64,1)`.
+The cabinet is always laid out at its zoomed size (`min(900px, 100vw)` × `100dvh`,
+measured by a hidden probe) and scaled into its slot by CSS (`--k`). Entering is a
+single transform tween from the slot rect to identity (`0.55 s power3.inOut`), leaving
+is the reverse (`0.45 s`); nothing inside reflows, the CRT effects stay lit, and the
+type is identical at both depths. The dark backdrop fades in over `0.35 s`. CSS owns
+the resting transform, GSAP owns the transition, React owns `data-zoomed`.
 
-### Glow (the phosphor signature)
+### Attract, boot, power-on
 
-Pre-baked box-shadow tokens: `--glow-phosphor-tight/-wide`, `--glow-amber-*`,
-`--glow-verdigris-tight`, `--glow-coral-tight`. The cyan bloom is the brand's
-fingerprint — `text-shadow: 0 0 20px rgba(0,229,255,0.45)` on the hero words,
-`drop-shadow` on the A-mark, `box-shadow` blooms on hover.
+On the floor the tube runs an attract loop: test pattern → PRESS START → one cartridge
+at a time. Zoomed, a first visit fires the tube (the chassis is already there), then
+the boot roll; a returning visitor lands on the select screen. A hard load of
+`/arcade/` keeps the whole-console power-on: there was nothing on screen before it.
 
-### Interaction motion (Lobby)
+### Interaction motion (floor)
 
-- Links: color fade to cyan, `0.15s`.
-- CTA: bg + bloom + `translateY(-1px)` on hover, `0.18s`.
-- Cards: `translateY(-3px)` + colored bloom on hover.
-- Explore button: bg wash + **letter-spacing widens `0.18em → 0.24em`** on hover (the
-  machine "powering up").
+- Links: colour fade to the accent, `0.15 s`.
+- Primary CTA: bloom + `translateY(-1px)`, `0.18 s`.
+- Cards: `translateY(-3px)` + a bloom in the project's raw colour.
+- Walking up to the cabinet: the tube brightens a touch under the pointer.
 
 ### Reduced motion — non-negotiable
 
-Every animated surface honors it. The Lobby kills all transitions:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  .lobby *, .lobby-explore { transition: none !important; animation: none !important; }
-}
-```
-
-The cabinet's `useIntroSequence` supports skip; respect `prefers-reduced-motion` in any
-new motion.
+Every animated surface honours it: the zoom becomes a cut with a `150 ms` backdrop
+fade, the intro completes immediately, the attract loop holds on PRESS START, and every
+floor transition is off (`global.css`).
 
 ---
 
 ## 6 · Spacing & Layout
 
-- **Responsive by `clamp()`, not breakpoints.** Page padding
-  `clamp(20px, 5vw, 56px) clamp(20px, 5vw, 48px)`; section rhythm
-  `gap: clamp(36px, 6vw, 56px)`. The layout breathes with the viewport instead of
-  snapping at fixed widths.
-- **Single reading column, `max-width: 780px`, centered.** Everything important fits one
-  scannable column.
-- **Grids auto-fit:** `repeat(auto-fit, minmax(220–260px, 1fr))` for proof and cards —
-  reflow without media queries.
-- **The scroll-container pattern (load-bearing — the body is `overflow:hidden`):** a
-  full-screen surface must be its own scroller, or content below the fold is clipped.
-
-  ```css
-  height: 100dvh;           /* not min-height */
-  overflow-y: auto;
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: safe center;   /* centers short content, anchors top when it overflows */
-  /* inner wrapper: margin: 0; flex-shrink: 0; */
-  ```
-
-- **Radii:** 6px (buttons/CTAs), 8px (cards), 10px (the big explore panel).
-- **Borders are hairline + low-alpha:** `1px solid rgba(...,0.2–0.4)`, often with a
-  brighter `border-top` as a project's color accent.
+- **Responsive by `clamp()`, not breakpoints**, with three exceptions that are about
+  posture rather than size: the hero goes two-column at `960px`, the `‹ FLOOR` control
+  hangs from the top edge under `1000px` (no margin to sit in), and the hero hint hides
+  under `600px`.
+- **Single reading column, `--page-max: 1100px`, gutter `clamp(16px, 4vw, 40px)`.**
+- **Grids auto-fill:** `repeat(auto-fill, minmax(min(100%, 280px), 1fr))` for cards.
+- **The slot reserves the miniature's exact footprint** (`zoomW × k` by `zoomH × k`), so
+  the page never reflows when the stage leaves it to go full screen. The floor scale is
+  capped at `0.72` so a phone's cabinet is still a machine on the floor, not the arcade.
+- **No `transform`, `filter`, `backdrop-filter` or `contain` on the stage or any of its
+  ancestors.** The stage positions a fixed backdrop against the viewport; a transformed
+  ancestor would become its containing block. The header may blur: it is a sibling.
+- **Radii:** 4 px (chips), 6 px (buttons), 10 px (cards), 16 px (the cabinet).
 
 ---
 
 ## 7 · Iconography & Marks
 
-- **A-mark** (`AMark` in `Lobby.jsx`): an "A" drawn as two cyan strokes with a small
-  sine-wave squiggle through the crossbar and two serif feet — the "amp/wave" idea.
-  SVG, cyan, `drop-shadow` glow. The only logo.
-- **Wordmark:** `AMPACTOR` in Press Start 2P, cyan, `letter-spacing: 0.2em`, glow.
-- **Glyph language — Unicode symbols, not icon fonts.** Projects and proof points each
-  carry a single evocative glyph: `☀` (compiler/star), `♫` (DSP), `◈` (security),
-  `⚡` (perf/ML), `⚔` (netcode), `⚒` (forge), `⦾` (browser), `⬡` (trading), `∿` (synth),
-  `◎` (field), `▸` (run/enter). Keep new glyphs in this terse, mono-friendly register.
+- **A-mark** (`src/ui/AMark.tsx`): an "A" drawn as two cyan strokes with a sine-wave
+  squiggle through the crossbar and two serif feet — the amp and the wave. The only logo.
+- **Wordmark:** `AMPACTOR` in Press Start 2P, `letter-spacing: 0.2em`, the accent.
+- **Glyph language — Unicode symbols, not icon fonts:** `▸` (run/enter, in Share Tech
+  Mono or Inter, never Press Start), `◈`, `∿`, `☀`, `♫`, `⚡`, `⚔`, `●`.
 
 ---
 
 ## 8 · Components
 
-### Lobby (the conversion surface)
+### Floor
 
 | Component | Spec |
 |---|---|
-| **Header** | A-mark + `AMPACTOR` wordmark left; nav (`GITHUB · LINKEDIN · RÉSUMÉ · EMAIL`) right, Press-Start-tiny, muted → cyan on hover. |
-| **SectionLabel** | Press Start 2P 8px, `0.3em` tracking, `rgba(0,229,255,0.45)`, followed by a 1px hairline rule that fills remaining width. The repeating "chapter heading." |
-| **Hero** | Kicker (name, arcade font, muted) → `<h1>` Share Tech Mono `clamp(30,6.5vw,54)` with two glowing cyan words → subhead (body, parchment, max 580) → status line (`●` verdigris dot + text). |
-| **Primary CTA** | `Let's talk →` Share Tech Mono, cyan text on `rgba(0,229,255,0.07)`, `1px` cyan-40% border, soft bloom. Links to `MAILTO` (prefilled subject). |
-| **Ghost button** | Résumé / Book-a-call. Muted text, faint parchment border, no fill. (Book-a-call is hidden until `CONTACT.scheduler` is set.) |
-| **Proof item** | Cyan glyph + parchment line, in an auto-fit grid. Lead with the live/paying proof. |
-| **Tier paragraph** | "Hard systems —" (cyan 600) / "Everyday delivery —" (amber 600) + parchment body; italic muted note. |
-| **Flagship card** | `<a>` to `p.live` if set, else GitHub. `${color}08` fill, `${color}26` border, 2px `border-top`. The accent (icon, title, border-top, CTA) is **muted toward the patina** — `color-mix(in srgb, ${color} 55%, var(--color-muted))` — so the three flagship hues harmonize instead of clashing. CTA reads **"Try it live →"** for live products, else "View source →". Hover: lift + colored bloom (raw `${color}`). |
-| **ProductPreview** | A framed live-product screenshot (`SEE IT LIVE`) linking to the live product. Reveals itself only once `public/scry-preview.png` loads — hidden until the asset exists, so no broken image ships. |
-| **Explore panel** | Full-width button, `▸ EXPLORE THE FULL ARCADE` + meta line. Mounts the cabinet. Hover widens letter-spacing. |
-| **Footer** | Location left, email right, hairline top border, comment-color. |
-| **Scanline overlay** | Fixed, `pointer-events:none`, `opacity 0.4`, 2–3px repeating-linear-gradient. The calm version of the CRT texture. |
+| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · HOW I WORK · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Inert while the cabinet is zoomed. |
+| **Hero** | Eyebrow (`AMPACTOR LABS · SALT LAKE CITY`) → `<h1>` name in Inter 600 → the line of range → status line (`●` verdigris, "Available — full-time or contract · Salt Lake City, UT · remote") → `Email →` primary, `Résumé` and `Enter the arcade ▸` ghosts → a one-line hint. |
+| **Slot + stage** | The cabinet's footprint on the floor. The stage holds the console, the backdrop (tunnel, A-mark, game) and the two controls: the transparent **Enter the arcade** button over the whole machine (the only tab stop on the floor; the panel beneath is `inert`) and, when zoomed, **`‹ FLOOR`**. |
+| **SectionHeading** | Press Start eyebrow + hairline rule, Inter `<h2>`, optional lede. The repeating chapter heading. |
+| **Shelf / Cartridge** | One auto-fill grid of every project. Card: icon in the muted accent, `lang`, Share Tech Mono title, `CATEGORY · subtitle`, `outcome`, up to four stack chips, `Live →` / `Source →` / `▸ Cabinet` (zooms straight to that cartridge). |
+| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel. |
+| **Timeline** | SVG from `resume.json`: employment as amber bars, the studio faint until it became the whole job, then cyan. `<title>` and `<desc>` carry the data for screen readers. |
+| **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
 
-### Cabinet (the arcade — bespoke, change with care)
+### Cabinet (bespoke, change with care)
 
-- **Cartridge / program cards** in the `select` screen — the project grid as game
-  cartridges, each in its project color.
-- **SYS/READOUT detail panel** (`DetailScreen.jsx`) — `outcome` lead line (project
-  color, 600) above the engineer's readout (`highlights`, `operatorNote`, `stack`).
-- **Boot sequence** (`useIntroSequence`, GSAP) — cinematic power-on; skippable;
-  `localStorage 'ampactor_visited'` jumps returning visitors past it.
-- **Insert-coin mechanic**, **ambient hum** (`useAmbientHum`), **hidden games**
-  (`HIDDEN_PROJECTS`: synth, coherence field, tunnel shooter) — the reward layer.
-- **"‹ LOBBY" back control** — discreet, top-left, returns to the front desk.
+- **Attract screen** (`AttractScreen.jsx`) — the loop on the floor; the test pattern is
+  shared with the boot's phase 0 (`TestPattern.jsx`).
+- **Cartridge / program rows** in the select screen; **SYS/READOUT** detail panel
+  (`outcome` → `desc` → highlights → stack → operator notes); **boot sequence**
+  (`useIntroSequence`, two variants); **insert-coin mechanic**, **hidden programs**.
+- Zoomed, the console is `role="dialog" aria-modal="true" aria-label="Arcade"`, the
+  floor is `inert`, focus moves in and back out to the Enter control.
 
 ---
 
@@ -304,120 +230,123 @@ Each project (`src/data/projects.js`) is the real résumé unit:
 {
   id, title, subtitle,            // identity
   color, icon,                    // per-project visual identity
-  github, live, lang, stack, tags, // facts (live = deployed product URL, optional)
-  outcome,                        // §2 register 1 — buyer-facing, lobby + résumé
-  tagline,                        // §2 register 2 — ALL-CAPS arcade hook
-  desc, highlights, operatorNote, // §2 register 3 — engineer's proof (cabinet)
+  github, live, liveLabel,        // links (live = deployed product URL, optional)
+  lang, stack, tags,              // facts
+  outcome,                        // register 1 — floor card, résumé
+  tagline,                        // register 2 — ALL-CAPS arcade hook
+  desc, highlights, operatorNote, // register 3 — the cabinet readout (desc/operatorNote from the README)
   status, category,
 }
 ```
 
-- `FLAGSHIP_IDS` in `profile.js` picks the three lobby cards (currently
-  `tokensafe, mentl, sonido` — live/paying product first).
-- `HIDDEN_PROJECTS` are the easter-egg interactive toys, not part of the pitch.
+`src/data/resume.json` holds the résumé (roles with years, bullets, selected public
+work, skills); `src/data/site.js` holds the per-page `<head>` and the line of range.
 
 ---
 
 ## 10 · Information Architecture
 
 ```
-/                 → App → Lobby (default)   ⟶  "Explore" mounts the Cabinet
-/#arcade          → App → Cabinet (deep-link straight to the arcade)
-/resume.html      → standalone static, zero-JS, print/ATS theme
+/                 → the floor; the cabinet in attract mode
+/arcade/          → the cabinet, zoomed (a real static entry; Back returns to the floor)
+/arcade/#<id>     → a cartridge open in the cabinet (shareable)
+/resume.html      → static, zero-JS, print/ATS, generated from resume.json
 ```
 
-Returning visitors still land on the Lobby (fast); the cabinet's `ampactor_visited`
-flag only governs whether the boot sequence plays.
+The URL is the source of truth (`src/arcade/zoom/arcadeRoute.ts`). Entering from the
+floor pushes `/arcade/`; opening a cartridge pushes `/arcade/#id`; Back walks cartridge
+→ select → floor and Forward walks back in. A deep link gets a select entry laid down
+beneath it. Leaving a hard-loaded `/arcade/` gives the floor its own entry, so Back
+returns into the arcade. `ampactor_visited` only decides whether the boot plays.
 
 ---
 
 ## 11 · Accessibility
 
-- `prefers-reduced-motion` honored everywhere (§5).
-- `eslint-plugin-jsx-a11y` is in CI — alt text, anchor content, labels.
-- Decorative SVG/scanlines are `aria-hidden`; controls have `aria-label` (e.g. the
-  back-to-home button).
+- Every page passes axe in the browser suite (`e2e/floor.spec.ts`).
+- One focus ring everywhere (`:focus-visible`, `--accent-text`).
+- The floor's cabinet is one control with an accessible name and a description; its
+  panel is `inert`. Zoomed, it is a modal dialog and the rest of the page is `inert`.
+- Focus moves into the cabinet on zoom and back to the Enter control on exit; Escape
+  leaves; browser Back leaves.
+- Decorative SVG and glyphs are `aria-hidden`; the timeline SVG has `<title>`/`<desc>`.
 - External links: `target="_blank"` + `rel="noopener noreferrer"`.
-- Contrast: parchment-on-charcoal and cyan-on-charcoal both clear AA for the sizes used;
-  keep muted/comment text at ≥13px.
+- `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` is created by a
+  floor gesture; audio starts only once the arcade is entered.
+- Contrast: parchment on charcoal and the deepened accent on parchment both clear AA at
+  the sizes used; keep muted/comment text at ≥ 11 px mono / 12 px sans.
 
 ---
 
 ## 12 · Do / Don't
 
 **Do**
-- Lead with the buyer outcome; keep the numbers one layer deeper.
-- Spend cyan like spotlight — one focal glow per view.
-- Keep everything monospace; let type, glow, and spacing do the work.
-- Make every full-screen surface its own scroll container.
-- Honor reduced-motion in any new animation.
+- Lead with the outcome; keep the numbers one layer deeper.
+- Spend cyan like spotlight; use `--accent-text` for anything read on the page.
+- Keep the floor's prose in Inter, its readouts in mono, its signage in Press Start.
+- Honour reduced motion in any new animation.
+- Keep the slot and its ancestors free of transforms and filters.
 
 **Don't**
-- Don't introduce a sans/serif font, pure white text, or flat-black backgrounds.
-- Don't let a generator re-skin the bespoke cabinet (GSAP/canvas/audio) — explore the
-  Lobby instead.
-- Don't hand-edit `tokens.css` or let `profile.js` / `resume.html` / `index.html` drift
-  out of sync.
-- Don't anchor the pitch low or bury the "available now" status.
+- Don't introduce a second sans, pure white text, or flat-black backgrounds.
+- Don't let a generator re-skin the cabinet (GSAP/canvas/audio) — explore the floor.
+- Don't hand-edit `tokens.css`, `public/resume.html`, or any generated file.
+- Don't add a title or an industry under the name. Don't bury "Available".
+- Don't write `▸` or accented capitals in Press Start 2P.
 - Don't add marketing adjectives. Concrete nouns and numbers only.
 
 ---
 
 ## 13 · Changing the System
 
-- **Tokens** (color/type/motion): edit the upstream `ampactor-theme` YAML and re-run
-  `export/to-css.sh` → regenerates `public/tokens.css`. Never edit the CSS directly.
-- **App-level semantics / theming** (`src/styles/theme.css`): the hairline / bright-fg /
-  scanline tokens and the `[data-theme="patina-light"]` overrides. Add new semantic
-  colors here (derived from the generated palette), not as literals in components.
-  Activation seam is `src/theme.js`.
-- **Copy** (identity/positioning/proof): edit `src/data/profile.js`, then mirror the
-  same words into `public/resume.html` and `index.html` (`<title>`, meta, JSON-LD,
-  `<noscript>`). They cannot import JS — sync by hand.
-- **Work**: edit `src/data/projects.js`; pick lobby flagships via `FLAGSHIP_IDS`.
-- **Verify**: `npm run lint && npm test && npm run build` before deploy. CI publishes
-  `dist/` (including `public/`) on push to `main`.
+- **Tokens** (palette/type/motion): edit the upstream `ampactor-theme` YAML and re-run
+  `export/to-css.sh` → regenerates `public/tokens.css`.
+- **Semantic tokens and theming** (`src/styles/theme.css`): hairlines, surfaces,
+  `--accent-text`, the light overrides, the cabinet's dark island. Add new semantic
+  colours here, derived from the palette, not as literals in components.
+- **Heads and the line of range**: `src/data/site.js`. Rendered into every entry by
+  `vite.config.js`.
+- **Identity and contact**: `src/data/profile.js`.
+- **The work**: `src/data/projects.js`; content fields follow each README
+  (`npm run sync:readmes`).
+- **The résumé and the timeline**: `src/data/resume.json`; `npm run resume:build`.
+- **The social card**: `node scripts/render-og.mjs` against a running preview.
+- **Verify**: `npm run lint && npm run typecheck && npm test && npm run e2e && npm run build`.
+  CI runs the same on every push; `main` deploys.
 
 ---
 
 ## 14 · AI Handoff Brief
 
-_Paste this block into Claude Design (or any AI design tool) as the brand context.
-Scope any generation to **the Lobby / a landing surface** — not the bespoke arcade._
+_Paste this block into a design tool as the brand context. Scope any generation to
+**the floor** — not the bespoke arcade._
 
-> **Brand:** Ampactor Labs — portfolio of Morgan Espitia, systems engineer.
-> **Concept:** "Patina Dark" — a worn arcade CRT rendered with engineering precision.
-> Phosphor glow, scanlines, monospace-only, warm parchment text on a dark radial.
-> Confident, terse, buyer-framed voice; lead with outcomes, numbers one layer deeper.
+> **Brand:** Ampactor Labs — the portfolio of Morgan Espitia, a software engineer in
+> Salt Lake City who makes compilers, synths, games, and the apps around them.
+> **Concept:** "Patina Dark" — one room, one machine. A worn arcade CRT rendered with
+> engineering precision stands in a calm, readable page in its own light. Click it and
+> it fills the screen. Confident, terse, buyer-framed voice; receipts over claims.
 >
-> **Palette (dark only):** background radial `#1d2021 → #2a2826 → #0f0e0d`;
-> primary text parchment `#d4be98` (never white); hero accent **electric cyan
-> `#00E5FF`** (use as a single spotlight per view — glow, CTA, one or two hero words);
-> secondary accent amber `#d8a657`; muted text `#a89984`; faint `#5a524c`; borders
-> umber `#45403d`. Per-card identity colors allowed (magenta, yellow-green, coral).
+> **Palette:** dark radial `#1d2021 → #2a2826 → #0f0e0d` (light: parchment `#f2e5bc`,
+> ink `#4f3829`); primary text parchment `#d4be98` (never white); hero accent electric
+> cyan `#00E5FF` as a spotlight (as text on light backgrounds, deepen to `#00708a`);
+> secondary amber `#d8a657`; muted `#a89984`; faint `#5a524c`. Per-card project colours
+> muted 55% toward `#a89984`.
 >
-> **Type — three monospace faces, no sans/serif:** Press Start 2P (tiny 8–11px,
-> ALL-CAPS, wide-tracked labels/chrome only); Share Tech Mono (headlines, titles, CTAs,
-> data — weight 400, size+glow carry emphasis); JetBrains Mono (body/prose,
-> line-height 1.5–1.65).
+> **Type:** Inter for prose (name, one line of range, outcomes); Share Tech Mono for
+> titles, CTAs and readouts (weight 400); JetBrains Mono for labels, chips and numbers;
+> Press Start 2P only as tiny ALL-CAPS signage (eyebrows, nav, wordmark).
 >
-> **Layout:** single centered column, max-width 780px; responsive via `clamp()` not
-> breakpoints; auto-fit grids; radii 6/8/10px; hairline low-alpha borders, brighter
-> colored `border-top` accents. Soft cyan/amber glow on hover; honor
-> `prefers-reduced-motion`.
+> **Layout:** single column ≤ 1100 px, `clamp()` rhythm, auto-fill card grids, hairline
+> low-alpha borders with a coloured border-top, radii 6/10/16 px, soft blooms on hover,
+> reduced motion honoured. The cabinet's slot is a fixed footprint on the right of the
+> hero (stacked on phones), with the machine scaled to ~0.7.
 >
-> **Lobby sections, in order:** header (A-mark wordmark + nav) → hero (kicker name →
-> "Low-level Rust. Full-stack web." with "Rust" glowing cyan → tiered subhead →
-> `● Available now` status) → primary CTA "Let's talk →" + Résumé ghost button →
-> PROOF strip (4 outcome lines, live/paying first) → WHAT I TAKE ON (hard tier in cyan
-> + everyday tier in amber) → SELECTED WORK (3 flagship cards) → EXPLORE THE FULL ARCADE
-> panel → footer. Each section opens with a Press-Start-2P micro-label + hairline rule.
+> **Floor sections, in order:** header (A-mark wordmark, nav, light switch) → hero (name
+> → one line of range → `● Available` status → Email / Résumé / Enter the arcade → the
+> cabinet in attract mode) → THE WORK (17 cards) → HOW I WORK (three checkable claims) →
+> SINCE 2017 (employment timeline) → footer.
 >
-> **Goal:** a calm, ~10-second-skimmable conversion surface that gets a buyer/recruiter
-> from landing to "Let's talk" — distinctly of the CRT world but quieter than the
-> arcade. Don't redesign the arcade itself; don't add a sans-serif; don't use white
-> text; don't bury the "available now" status or the email CTA.
-
-When a direction is chosen, export it and bring it back to the repo for
-implementation against the real `tokens.css` / React components — the export is an
-*input to* implementation, not a drop-in replacement for the Vite/React app.
+> **Goal:** a page a hiring manager reads in a minute and a machine they want to touch.
+> Don't redesign the arcade; don't add a title or an industry under the name; don't use
+> white text; don't bury "Available" or the email.

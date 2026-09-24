@@ -13,6 +13,9 @@ import {
 import { usePrefersReducedMotion } from "./lib/usePrefersReducedMotion";
 import Header from "./floor/Header";
 import HeroText from "./floor/HeroText";
+import Shelf from "./floor/Shelf";
+import HowIWork from "./floor/HowIWork";
+import Timeline from "./floor/Timeline";
 import Footer from "./floor/Footer";
 import styles from "./floor/Floor.module.css";
 
@@ -102,6 +105,9 @@ export default function App() {
             </p>
           </div>
         </section>
+        <Shelf inert={inert} onOpen={(id) => enterArcade(id)} />
+        <HowIWork inert={inert} />
+        <Timeline inert={inert} />
       </main>
       <Footer inert={inert} />
     </>

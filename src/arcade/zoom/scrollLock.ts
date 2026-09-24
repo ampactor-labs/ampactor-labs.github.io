@@ -50,7 +50,9 @@ export function lockScroll(): void {
 // cabinet's slot into view before the cabinet shrinks back into it.
 export function setLockedScrollY(scrollY: number): void {
   if (!lock) return;
-  const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  // While the body is pinned it no longer contributes to the root's scroll
+  // height, so the page's real length is the body's own.
+  const max = Math.max(0, document.body.scrollHeight - window.innerHeight);
   lock.scrollY = Math.min(Math.max(0, scrollY), max);
   document.body.style.top = `${-lock.scrollY}px`;
 }

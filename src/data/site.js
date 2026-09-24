@@ -41,7 +41,8 @@ export const ENTRIES = {
     title: `${SITE.name} — ${SITE.jobTitle}, ${SITE.locality}`,
     description:
       "Software engineer in Salt Lake City. Compilers, synths, games, and the apps around them: six years employed full-stack, then a studio that ships in the open.",
-    image: "/og-cabinet.png",
+    // Rendered from the live hero by scripts/render-og.mjs.
+    image: "/og-floor.png",
     person: true,
   },
   "arcade/index.html": {
