@@ -1,6 +1,10 @@
 import { useRef, useCallback, useEffect } from "react";
 
-export default function useAmbientHum() {
+// Nav blips and stings on the Web Audio clock. `enabled` is false while the
+// cabinet stands on the floor in attract mode: no AudioContext is created by
+// a tap or keypress anywhere on the page until the visitor has entered the
+// arcade, and the context is suspended again when they leave.
+export default function useAmbientHum({ enabled = true } = {}) {
   const ctxRef = useRef(null);
 
   const getCtx = useCallback(() => {
@@ -141,8 +145,13 @@ export default function useAmbientHum() {
   // instant. A fresh AudioContext starts suspended; creating + resuming it
   // lazily inside the first playBlip added audible latency or dropped that blip
   // outright. One warm-up gesture is enough — afterwards the clock is live and
-  // the resume-guard above covers any later mobile re-suspend.
+  // the resume-guard above covers any later mobile re-suspend. Only while the
+  // arcade is live: a floor visitor who never enters never gets a context.
   useEffect(() => {
+    if (!enabled) {
+      ctxRef.current?.suspend?.().catch?.(() => {});
+      return;
+    }
     const warm = () => {
       try {
         const ctx = getCtx();
@@ -163,7 +172,7 @@ export default function useAmbientHum() {
       window.removeEventListener("keydown", warm);
       window.removeEventListener("touchstart", warm);
     };
-  }, [getCtx]);
+  }, [enabled, getCtx]);
 
   useEffect(() => {
     return () => {

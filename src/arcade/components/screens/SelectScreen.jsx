@@ -1,11 +1,6 @@
 import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
-
-// Ticker copy — rendered twice back-to-back so the crawl loops seamlessly and
-// text is on screen from t=0 (a single copy started fully off-screen and left
-// the strip blank for the first ~30 seconds of a 90-second cycle).
-const MARQUEE_TEXT =
-  "MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com";
+import { MARQUEE_TEXT } from "../../constants";
 
 export default function SelectScreen({
   projects,

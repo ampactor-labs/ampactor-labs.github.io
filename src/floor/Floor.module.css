@@ -1,0 +1,297 @@
+/* The floor: the room the cabinet stands in. A single reading column, rhythm
+   by clamp(), tokens only. Nothing here may carry a transform or a filter,
+   because the arcade stage inside the hero positions a fixed backdrop
+   against the viewport (see stage.module.css). The header may blur: it is a
+   sibling of the hero, never an ancestor of the stage. */
+
+/* Measures min(900px, 100vw) × 100dvh for useZoomMetrics; never painted. */
+.probe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(900px, 100vw);
+  height: 100vh;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@supports (height: 100dvh) {
+  .probe {
+    height: 100dvh;
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px var(--gutter);
+  background: color-mix(in srgb, var(--color-charcoal) 78%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hairline-faint);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-text);
+  text-decoration: none;
+  font-family: var(--font-arcade);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-shadow: var(--glow-text);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 22px);
+  font-family: var(--font-arcade);
+  font-size: 7px;
+  letter-spacing: 0.18em;
+}
+
+.nav a,
+.navButton {
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 8px 2px;
+  transition: color 0.15s ease;
+}
+
+.navButton {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.nav a:hover,
+.navButton:hover {
+  color: var(--accent-text);
+}
+
+.main {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* The room. Text on the left, the machine on the right; stacked on phones. */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 56px);
+  align-items: center;
+  padding: clamp(28px, 6vw, 72px) 0 clamp(36px, 7vw, 88px);
+  min-height: calc(100dvh - 56px);
+}
+
+@media (min-width: 960px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 640px);
+  }
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 560px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: color-mix(in srgb, var(--accent-text) 70%, transparent);
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+}
+
+.name {
+  margin: 0;
+  color: var(--fg-bright);
+  font-family: var(--font-sans);
+  font-size: clamp(38px, 5.4vw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+.range {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 2.1vw, 22px);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-verdigris);
+  box-shadow: var(--glow-verdigris-tight);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.primary,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.primary {
+  color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-text) 40%, transparent);
+  box-shadow: var(--glow-phosphor-tight);
+}
+
+.primary:hover {
+  background: color-mix(in srgb, var(--color-cyan) 14%, transparent);
+  box-shadow: var(--glow-phosphor-wide);
+  transform: translateY(-1px);
+}
+
+.ghost {
+  color: var(--fg);
+  border: 1px solid var(--hairline);
+  background: transparent;
+}
+
+.ghost:hover {
+  border-color: var(--hairline-strong);
+  transform: translateY(-1px);
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-comment);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* The slot reserves the miniature's exact footprint so the page never
+   reflows when the stage leaves it to go full-screen. */
+.slotWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Width and height are set inline from the zoomed layout × the floor scale;
+   this only keeps the slot from ever exceeding its column. */
+.slot {
+  position: relative;
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .hint {
+    display: none;
+  }
+  .hero {
+    padding-top: 20px;
+    gap: 22px;
+  }
+  .heroText {
+    gap: 14px;
+  }
+}
+
+.slotHint {
+  margin: 0;
+  color: var(--color-comment);
+  font-family: var(--font-arcade);
+  font-size: 7px;
+  letter-spacing: 0.24em;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  max-width: var(--page-max);
+  margin: var(--section-gap) auto 0;
+  padding: 28px var(--gutter) 40px;
+  border-top: 1px solid var(--hairline-faint);
+  color: var(--color-comment);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.footer a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer a:hover {
+  color: var(--accent-text);
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .ghost,
+  .nav a,
+  .navButton,
+  .footer a {
+    transition: none;
+  }
+  .primary:hover,
+  .ghost:hover {
+    transform: none;
+  }
+}

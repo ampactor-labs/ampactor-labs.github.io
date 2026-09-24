@@ -20,19 +20,47 @@ export function detailLinksOf(p) {
 // One d-pad press of scroll on the detail body.
 const SCROLL_STEP = 72;
 
-export default function useCabinetState(
+// B on the select screen leaves the arcade. A B that just closed a detail
+// screen must not also leave it when the button is mashed.
+const EXIT_SETTLE_MS = 400;
+
+const SELECT_ROUTE = Object.freeze({ view: "arcade", screen: "select" });
+
+// The cabinet's state machine. Two things it does not own any more:
+//
+//   * where it stands — `mode` is "attract" while it is a miniature on the
+//     floor (no listeners, no audio, the attract loop on the tube) and "live"
+//     once it has zoomed in;
+//   * the URL — `route` says which screen the address bar wants, and the
+//     cabinet asks for changes through `onNavigate` intents ("open", "back",
+//     "exit", "select") instead of touching history itself. Boot and attract
+//     are the machine's own business and are not routes.
+//
+// `animating` is true while the cabinet is mid-zoom; every input is ignored
+// until it lands.
+export default function useCabinetState({
   screenRef,
   tunnelRef,
   logoRef,
   consoleRef,
-) {
+  tubeRef = null,
+  mode = "live",
+  route = SELECT_ROUTE,
+  onNavigate = () => {},
+  animating = false,
+  introVariant = "console",
+}) {
+  const live = mode === "live";
+  const deepLinked = route.view === "arcade" && route.screen === "project";
+
   const hasVisited = useRef(
     typeof localStorage !== "undefined" &&
       !!localStorage.getItem("ampactor_visited"),
   );
-  const [screen, setScreen] = useState(() =>
-    hasVisited.current ? "select" : "boot",
-  );
+  const [screen, setScreen] = useState(() => {
+    if (!live) return "attract";
+    return hasVisited.current || deepLinked ? "select" : "boot";
+  });
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [detailProject, setDetailProject] = useState(null);
@@ -45,6 +73,7 @@ export default function useCabinetState(
   const [linkIdx, setLinkIdx] = useState(0);
   const coinTimerRefs = useRef([]);
   const screenTransitionRef = useRef(0);
+  const lastBackRef = useRef(0);
   // The detail body (what up/down scrolls) and its anchors (what A clicks).
   const detailBodyRef = useRef(null);
   const linkRefs = useRef([]);
@@ -54,13 +83,36 @@ export default function useCabinetState(
   const linkIdxRef = useRef(0);
   linkIdxRef.current = linkIdx;
 
-  const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum();
+  const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum({
+    enabled: live,
+  });
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
     tunnelRef,
     consoleRef,
-    hasVisited.current,
+    {
+      active: live,
+      // A deep link to a cartridge skips the boot, like a returning visitor.
+      skip: hasVisited.current || deepLinked,
+      variant: introVariant,
+      tubeRef,
+    },
   );
+
+  // Walking up to the machine or stepping away resets what the tube shows.
+  const prevModeRef = useRef(mode);
+  useEffect(() => {
+    if (prevModeRef.current === mode) return;
+    prevModeRef.current = mode;
+    if (live) {
+      setScreen(hasVisited.current || deepLinked ? "select" : "boot");
+    } else {
+      setScreen("attract");
+      setDetailProject(null);
+      setBootPhase(0);
+      setBootLine(0);
+    }
+  }, [mode, live, deepLinked]);
 
   // Write visited key on first boot → select transition
   useEffect(() => {
@@ -79,6 +131,33 @@ export default function useCabinetState(
   }, [coinCount]);
 
   const detailLinks = useMemo(() => detailLinksOf(detailProject), [detailProject]);
+
+  // The route decides between select, detail and game. A cartridge the
+  // machine does not have (a hidden program before the coin drops, a typo in
+  // the hash) is corrected to the select screen.
+  useEffect(() => {
+    if (!live || route.view !== "arcade") return;
+    if (route.screen === "project") {
+      const idx = allProjects.findIndex((p) => p.id === route.id);
+      if (idx === -1) {
+        onNavigate({ type: "select" });
+        return;
+      }
+      const project = allProjects[idx];
+      const target = project.interactive === "tunnelgame" ? "game" : "detail";
+      if (detailProject?.id === project.id && screen === target) return;
+      setSelectedIdx(idx);
+      setDetailProject(project);
+      setScreen(target);
+    } else if (screen === "detail" || screen === "game") {
+      setDetailProject(null);
+      setScreen("select");
+      playBack();
+    }
+    // playBack and onNavigate are stable enough; screen and detailProject are
+    // read to keep the effect idempotent, not to trigger it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [live, route, allProjects]);
 
   // A fresh project opens with the demo focused (or the source, when that is the
   // only link), and the anchors from the last project must not linger.
@@ -121,17 +200,17 @@ export default function useCabinetState(
     linkRefs.current[linkIdxRef.current]?.click();
   };
 
-  // Boot phase 0: test pattern (800ms), then phase 1: text sequence
+  // Boot phase 0: test pattern (450ms), then phase 1: text sequence
   useEffect(() => {
-    if (screen !== "boot" || !introComplete) return;
+    if (!live || screen !== "boot" || !introComplete) return;
     if (bootPhase === 0) {
       const t = setTimeout(() => setBootPhase(1), 450);
       return () => clearTimeout(t);
     }
-  }, [screen, bootPhase, introComplete]);
+  }, [live, screen, bootPhase, introComplete]);
 
   useEffect(() => {
-    if (screen !== "boot" || bootPhase < 1) return;
+    if (!live || screen !== "boot" || bootPhase < 1) return;
     const interval = setInterval(() => {
       setBootLine((prev) => {
         if (prev >= BOOT_LINES.length - 1) {
@@ -142,23 +221,32 @@ export default function useCabinetState(
       });
     }, 130);
     return () => clearInterval(interval);
-  }, [screen, bootPhase]);
+  }, [live, screen, bootPhase]);
 
+  // The screen's layout size drives the type scale. Layout size, not the
+  // bounding rect: on the floor the whole console is scaled down with a CSS
+  // transform, and the type must be laid out the same at both depths.
   useEffect(() => {
+    const el = screenRef.current;
+    if (!el) return;
     const measure = () => {
-      if (screenRef.current) {
-        const r = screenRef.current.getBoundingClientRect();
-        setDims({ w: r.width - 40, h: r.height - 32 });
-      }
+      const w = el.offsetWidth || el.getBoundingClientRect().width;
+      const h = el.offsetHeight || el.getBoundingClientRect().height;
+      setDims({ w: w - 40, h: h - 32 });
     };
     measure();
+    if (typeof ResizeObserver !== "undefined" && el instanceof Element) {
+      const observer = new ResizeObserver(measure);
+      observer.observe(el);
+      return () => observer.disconnect();
+    }
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+  }, [screenRef]);
 
   // Skip intro on any key or click
   useEffect(() => {
-    if (introComplete) return;
+    if (!live || animating || introComplete) return;
     const skip = () => skipIntro();
     window.addEventListener("keydown", skip);
     window.addEventListener("pointerdown", skip);
@@ -166,11 +254,11 @@ export default function useCabinetState(
       window.removeEventListener("keydown", skip);
       window.removeEventListener("pointerdown", skip);
     };
-  }, [introComplete, skipIntro]);
+  }, [live, animating, introComplete, skipIntro]);
 
   // Boot screen: any key OR click/tap advances
   useEffect(() => {
-    if (!introComplete || screen !== "boot") return;
+    if (!live || animating || !introComplete || screen !== "boot") return;
     const advance = () => {
       if (bootPhase === 0) {
         setBootPhase(1);
@@ -185,26 +273,54 @@ export default function useCabinetState(
       window.removeEventListener("keydown", advance);
       window.removeEventListener("pointerdown", advance);
     };
-  }, [introComplete, screen, bootPhase, bootLine]);
+  }, [live, animating, introComplete, screen, bootPhase, bootLine]);
 
-  useEffect(() => {
-    const handler = (e) => {
+  const isBootTransitioning = () =>
+    Date.now() - screenTransitionRef.current < 500;
+
+  const openProject = (idx) => {
+    const project = allProjects[idx];
+    if (!project) return;
+    setSelectedIdx(idx);
+    playEnter();
+    onNavigate({ type: "open", id: project.id });
+  };
+
+  const goBack = () => {
+    if (screen === "detail" || screen === "game") {
+      lastBackRef.current = Date.now();
+      onNavigate({ type: "back" });
+    } else if (screen === "select") {
+      if (Date.now() - lastBackRef.current < EXIT_SETTLE_MS) return;
+      onNavigate({ type: "exit" });
+    }
+  };
+
+  const exitArcade = () => onNavigate({ type: "exit" });
+
+  // The keyboard handler closes over this render's state and callbacks, so it
+  // is kept in a ref and the window listener, subscribed once per live/animating
+  // change, always calls the latest one.
+  const keyHandlerRef = useRef(null);
+  keyHandlerRef.current = (e) => {
       if (!introComplete) return;
       if (screen === "game") return;
       if (screen === "select") {
         if (e.key === "ArrowUp") {
+          e.preventDefault();
           setSelectedIdx(
             (i) => (i - 1 + allProjects.length) % allProjects.length,
           );
           playBlip();
         } else if (e.key === "ArrowDown") {
+          e.preventDefault();
           setSelectedIdx((i) => (i + 1) % allProjects.length);
           playBlip();
         } else if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          setDetailProject(allProjects[selectedIdx]);
-          setScreen("detail");
-          playBlip();
+          if (!isBootTransitioning()) openProject(selectedIdx);
+        } else if (e.key === "Escape") {
+          exitArcade();
         }
       }
       if (screen === "detail") {
@@ -226,33 +342,27 @@ export default function useCabinetState(
           activateLink();
         }
       }
-      if (
-        screen === "detail" &&
-        !allProjects[selectedIdx]?.interactive?.includes("synth")
-      ) {
-        if (
-          e.key === "Escape" ||
-          e.key === "Backspace" ||
-          e.key === "b" ||
-          e.key === "B"
-        ) {
-          window.history.back();
-        }
-      }
+      const isSynth = detailProject?.interactive === "synth";
       // Synth is keyboard-playable; "b" is not one of its note keys, so it is
-      // safe as a back shortcut here. Backspace is excluded to avoid surprises
-      // while playing.
+      // safe as a back shortcut there. Backspace is excluded while playing to
+      // avoid surprises.
       if (
         screen === "detail" &&
-        allProjects[selectedIdx]?.interactive === "synth" &&
-        (e.key === "Escape" || e.key === "b" || e.key === "B")
+        (e.key === "Escape" ||
+          e.key === "b" ||
+          e.key === "B" ||
+          (e.key === "Backspace" && !isSynth))
       ) {
-        window.history.back();
+        goBack();
       }
-    };
+  };
+
+  useEffect(() => {
+    if (!live || animating) return;
+    const handler = (e) => keyHandlerRef.current?.(e);
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [screen, selectedIdx, bootLine, bootPhase, allProjects, detailLinks]);
+  }, [live, animating]);
 
   // Fade console in/out for game mode
   useEffect(() => {
@@ -267,23 +377,7 @@ export default function useCabinetState(
       el.style.opacity = "1";
       el.style.pointerEvents = "";
     }
-  }, [screen, introComplete]);
-
-  // Handle popstate for Android back button
-  useEffect(() => {
-    const handlePopState = () => {
-      setScreen((prev) => {
-        if (prev === "detail" || prev === "game") {
-          setDetailProject(null);
-          playBack();
-          return "select";
-        }
-        return prev;
-      });
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, [playBack]);
+  }, [screen, introComplete, consoleRef]);
 
   // Cleanup coin timers on unmount
   useEffect(() => {
@@ -294,7 +388,7 @@ export default function useCabinetState(
   }, []);
 
   const insertCoin = () => {
-    if (!introComplete || screen === "boot" || coinCount >= 1) return;
+    if (!live || !introComplete || screen === "boot" || coinCount >= 1) return;
     setCoinCount(3);
     setGlitching(true);
     setAnnouncing(3);
@@ -311,39 +405,14 @@ export default function useCabinetState(
     coinTimerRefs.current.push(t1, t2, t3);
   };
 
-  const openProject = (idx) => {
-    setSelectedIdx(idx);
-    const project = allProjects[idx];
-    setDetailProject(project);
-    if (project?.interactive === "tunnelgame") {
-      setScreen("game");
-    } else {
-      setScreen("detail");
-    }
-    playEnter();
-    window.history.pushState({ screen: 'project' }, '');
-  };
-
-  const goBack = () => {
-    if (screen === "detail" || screen === "game") {
-      window.history.back();
-    } else {
-      setScreen("select");
-      setDetailProject(null);
-      playBack();
-    }
-  };
-
   const hoverSelect = (idx) => {
     setSelectedIdx(idx);
   };
 
   const exitGame = () => {
     if (screen === "game" || screen === "detail") {
-      window.history.back();
-    } else {
-      setScreen("select");
-      setDetailProject(null);
+      lastBackRef.current = Date.now();
+      onNavigate({ type: "back" });
     }
   };
 
@@ -356,13 +425,11 @@ export default function useCabinetState(
     }
   };
 
-  const isBootTransitioning = () =>
-    Date.now() - screenTransitionRef.current < 500;
-
   // D-pad navigation. On select it walks the project list; on detail the same
   // four buttons scroll the body and walk the link rail, because a d-pad that
   // does nothing on the screen you just opened reads as broken.
   const navUp = () => {
+    if (animating) return;
     if (screen === "select")
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
     else if (screen === "detail") scrollDetail(-1);
@@ -375,6 +442,7 @@ export default function useCabinetState(
   };
 
   const navDown = () => {
+    if (animating) return;
     if (screen === "select")
       setSelectedIdx((i) => (i + 1) % allProjects.length);
     else if (screen === "detail") scrollDetail(1);
@@ -383,11 +451,13 @@ export default function useCabinetState(
   // Left falls through to Back when there is no rail to walk, so the hidden
   // projects (no demo, no source) keep their escape hatch.
   const navLeft = () => {
+    if (animating) return;
     if (screen === "detail" && moveLink(-1)) return;
     goBack();
   };
 
   const navRight = () => {
+    if (animating) return;
     if (screen === "detail") {
       moveLink(1);
     } else if (screen === "select" && !isBootTransitioning()) {
@@ -397,6 +467,7 @@ export default function useCabinetState(
 
   // A: advance the boot, open the selected project, or open the focused link.
   const pressA = () => {
+    if (animating) return;
     if (screen === "boot") advanceBoot();
     else if (screen === "select") {
       if (!isBootTransitioning()) openProject(selectedIdx);
@@ -404,6 +475,7 @@ export default function useCabinetState(
   };
 
   return {
+    mode,
     screen,
     bootPhase,
     bootLine,
@@ -422,6 +494,7 @@ export default function useCabinetState(
     openProject,
     goBack,
     exitGame,
+    exitArcade,
     hoverSelect,
     advanceBoot,
     navUp,

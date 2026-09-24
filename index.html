@@ -10,21 +10,6 @@
          icons, the boot shim and fonts are rendered here from
          src/data/site.js by the site-head plugin in vite.config.js. -->
     <!-- site:head -->
-    <style>
-      /* The cabinet owns the viewport until the floor lands. */
-      body {
-        overflow: hidden;
-      }
-      .app-shell {
-        height: 100vh;
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-      @supports (height: 100dvh) {
-        .app-shell {
-          height: 100dvh;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- site:noscript -->

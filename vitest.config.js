@@ -7,5 +7,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/test/setup.js"],
     globals: true,
+    // Browser specs belong to Playwright (playwright.config.ts).
+    exclude: ["e2e/**", "node_modules/**", "dist/**"],
   },
 });

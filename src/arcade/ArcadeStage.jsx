@@ -1,20 +1,82 @@
-import { useRef, lazy, Suspense } from "react";
+import { useRef, useEffect, lazy, Suspense } from "react";
 const TunnelGame = lazy(() => import("./TunnelGame"));
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
 import { crtStyles } from "./styles/crtStyles";
+import styles from "./styles/stage.module.css";
 import { BOOT_LINES } from "./constants";
+import { PROJECTS } from "../data/projects";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
 import DetailScreen from "./components/screens/DetailScreen";
+import AttractScreen from "./components/screens/AttractScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
 
-export default function ArcadePortfolio() {
+// The A-mark that flickers in during the intro and then sits, nearly dark, in
+// the room behind the console. Moved here verbatim from the old root.
+function AMarkOverlay({ logoRef }) {
+  return (
+    <div
+      ref={logoRef}
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        pointerEvents: "none",
+        zIndex: 0,
+        opacity: 0,
+      }}
+    >
+      <svg
+        viewBox="0 0 512 512"
+        width="200"
+        height="200"
+        style={{ filter: "drop-shadow(0 0 20px rgba(0,229,255,0.3))" }}
+      >
+        <line x1="108" y1="408" x2="256" y2="104" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="404" y1="408" x2="256" y2="104" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+        <path
+          d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
+          stroke="#00E5FF"
+          strokeWidth="20"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <line x1="76" y1="408" x2="140" y2="408" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="372" y1="408" x2="436" y2="408" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+      </svg>
+    </div>
+  );
+}
+
+// The cabinet, at both depths. On the floor it is a miniature in attract mode
+// under a single "Enter the arcade" control; zoomed, it is the arcade exactly
+// as it always was. The same console element plays both parts; App decides
+// which with `zoomed`/`mode` and animates between them (useArcadeZoom).
+export default function ArcadeStage({
+  mode,
+  zoomed,
+  animating,
+  scale,
+  metrics,
+  route,
+  onNavigate,
+  onEnter,
+  introVariant,
+  reducedMotion = false,
+  consoleRef,
+  backdropRef,
+  enterButtonRef,
+  tunnelRef,
+}) {
+  const stageRef = useRef(null);
   const screenRef = useRef(null);
-  const tunnelRef = useRef(null);
+  const tubeRef = useRef(null);
   const logoRef = useRef(null);
-  const consoleRef = useRef(null);
 
   const {
     screen,
@@ -35,6 +97,7 @@ export default function ArcadePortfolio() {
     openProject,
     goBack,
     exitGame,
+    exitArcade,
     hoverSelect,
     advanceBoot,
     navUp,
@@ -47,118 +110,85 @@ export default function ArcadePortfolio() {
     detailBodyRef,
     playBlip,
     isBootTransitioning,
-  } = useCabinetState(screenRef, tunnelRef, logoRef, consoleRef);
+  } = useCabinetState({
+    screenRef,
+    tunnelRef,
+    logoRef,
+    consoleRef,
+    tubeRef,
+    mode,
+    route,
+    onNavigate,
+    animating,
+    introVariant,
+  });
+
+  const live = mode === "live";
+  // Inputs are for a zoomed, settled machine. Mid-zoom the panel is already
+  // un-inert in the DOM sense, so `animating` keeps it quiet.
+  const inert = !zoomed || animating;
+
+  // A cabinet scrolled out of view stops flickering: the CRT keyframes are
+  // paused through a class the stylesheet knows.
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el || zoomed || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => {
+      el.classList.toggle("arcade-offscreen", !entry.isIntersecting);
+    });
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      el.classList.remove("arcade-offscreen");
+    };
+  }, [zoomed]);
 
   return (
     <div
-      className="app-shell"
-      style={{
-        width: "100%",
-        background:
-          "radial-gradient(ellipse at 50% 40%, #1d2021 0%, #2a2826 50%, #0f0e0d 100%)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "stretch",
-        overflow: "hidden",
-        fontFamily: "'JetBrains Mono', monospace",
-        position: "relative",
-      }}
+      ref={stageRef}
+      className={styles.stage}
+      data-zoomed={zoomed ? "true" : "false"}
+      data-mode={mode}
     >
       <CrtSvgDefs />
       <style>{crtStyles}</style>
-      <TunnelCanvas ref={tunnelRef} />
-      {/* A-mark logo — intro entry point, then ambient background */}
-      <div
-        ref={logoRef}
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          pointerEvents: "none",
-          zIndex: 0,
-          opacity: 0,
-        }}
-      >
-        <svg
-          viewBox="0 0 512 512"
-          width="200"
-          height="200"
-          style={{ filter: "drop-shadow(0 0 20px rgba(0,229,255,0.3))" }}
+      {(zoomed || animating) && (
+        <div
+          ref={backdropRef}
+          className={styles.backdrop}
+          aria-hidden={zoomed ? undefined : "true"}
         >
-          <line
-            x1="108"
-            y1="408"
-            x2="256"
-            y2="104"
-            stroke="#00E5FF"
-            strokeWidth="36"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <line
-            x1="404"
-            y1="408"
-            x2="256"
-            y2="104"
-            stroke="#00E5FF"
-            strokeWidth="36"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
-            stroke="#00E5FF"
-            strokeWidth="20"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <line
-            x1="76"
-            y1="408"
-            x2="140"
-            y2="408"
-            stroke="#00E5FF"
-            strokeWidth="36"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <line
-            x1="372"
-            y1="408"
-            x2="436"
-            y2="408"
-            stroke="#00E5FF"
-            strokeWidth="36"
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
-      </div>
-      {screen === "game" && (
-        <Suspense fallback={null}>
-          <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
-        </Suspense>
+          <TunnelCanvas ref={tunnelRef} />
+          {zoomed && <AMarkOverlay logoRef={logoRef} />}
+          {zoomed && screen === "game" && (
+            <Suspense fallback={null}>
+              <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
+            </Suspense>
+          )}
+        </div>
       )}
       <div
         ref={consoleRef}
+        className={`${styles.console} cabinet-scope`}
+        data-zoomed={zoomed ? "true" : "false"}
+        tabIndex={-1}
+        role={zoomed ? "dialog" : undefined}
+        aria-modal={zoomed ? "true" : undefined}
+        aria-label={zoomed ? "Arcade" : undefined}
         style={{
-          maxWidth: 900,
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-          zIndex: 1,
-          background: "var(--color-dim)",
-          borderRadius: 16,
-          opacity: 0,
-          willChange: "opacity, clip-path, filter",
+          width: metrics.zoomW,
+          height: metrics.zoomH,
+          "--k": scale,
+          // The hard-loaded arcade materialises out of the dark, so it starts
+          // hidden and the intro brings it up. A constant, so React never
+          // re-applies it over the animation.
+          opacity: introVariant === "console" ? 0 : undefined,
         }}
       >
         <div
           ref={screenRef}
           className="crt-screen"
+          inert={inert || undefined}
           style={{
             flex: 1,
             margin: "10px 10px 0",
@@ -233,9 +263,12 @@ export default function ArcadePortfolio() {
               zIndex: 45,
             }}
           />
-          <div style={{ position: "relative", zIndex: 50, height: "100%" }}>
+          <div
+            ref={tubeRef}
+            style={{ position: "relative", zIndex: 50, height: "100%" }}
+          >
             {/* Faint skip hint during GSAP intro */}
-            {!introComplete && (
+            {live && !introComplete && (
               <div
                 onClick={skipIntro}
                 style={{
@@ -264,6 +297,13 @@ export default function ArcadePortfolio() {
                 overflow: "hidden",
               }}
             >
+              {screen === "attract" && (
+                <AttractScreen
+                  projects={PROJECTS}
+                  fs={fs}
+                  reducedMotion={reducedMotion}
+                />
+              )}
               {screen === "boot" && (
                 <BootScreen
                   lines={BOOT_LINES}
@@ -319,8 +359,35 @@ export default function ArcadePortfolio() {
           coinCount={coinCount}
           introComplete={introComplete}
           fs={fs}
+          attract={!live}
+          inert={inert}
         />
       </div>
+
+      {zoomed && screen !== "game" && (
+        <button
+          type="button"
+          className={styles.floorReturn}
+          onClick={exitArcade}
+          aria-label="Back to the floor"
+        >
+          ‹ FLOOR
+        </button>
+      )}
+      {!zoomed && (
+        // Mounted for the whole un-zoomed posture, including the shrink back
+        // into the slot, so focus has somewhere to land the moment it ends;
+        // pointer-inert until then.
+        <button
+          ref={enterButtonRef}
+          type="button"
+          className={styles.enter}
+          data-animating={animating || undefined}
+          onClick={() => onEnter()}
+          aria-label="Enter the arcade"
+          aria-describedby="arcade-enter-hint"
+        />
+      )}
     </div>
   );
 }

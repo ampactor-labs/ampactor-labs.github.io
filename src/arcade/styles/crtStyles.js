@@ -42,9 +42,12 @@ export const crtStyles = `
   .coin-slot:active{transform:scale(0.95)}
   .cabinet-body{box-shadow:0 20px 80px rgba(0,229,255,0.07),0 0 120px rgba(0,229,255,0.04),0 40px 60px rgba(0,0,0,0.5);position:relative}
   .cabinet-body::after{content:'';position:absolute;bottom:-40px;left:10%;right:10%;height:40px;background:radial-gradient(ellipse at center,rgba(0,229,255,0.08) 0%,transparent 70%);pointer-events:none;filter:blur(10px)}
-  ::-webkit-scrollbar{width:4px}
-  ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3)}
-  ::-webkit-scrollbar-thumb{background:rgba(0,229,255,0.2);border-radius:2px}
+  .crt-screen ::-webkit-scrollbar{width:4px}
+  .crt-screen ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3)}
+  .crt-screen ::-webkit-scrollbar-thumb{background:rgba(0,229,255,0.2);border-radius:2px}
+  /* A cabinet scrolled off the floor stops running its tube effects. */
+  .arcade-offscreen .crt-screen,.arcade-offscreen .scanline-bar,.arcade-offscreen .marquee-track,
+  .arcade-offscreen .coin-slot,.arcade-offscreen .btn-action{animation-play-state:paused!important}
   @keyframes synthEnter { 0%{transform:translateX(-6px);opacity:0;filter:hue-rotate(30deg) brightness(2)} 40%{transform:translateX(2px);opacity:0.8;filter:hue-rotate(-10deg) brightness(1.3)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes coherenceEnter { 0%{opacity:0;letter-spacing:0.4em;filter:blur(3px)} 60%{opacity:0.9;letter-spacing:0.05em;filter:blur(0.5px)} 100%{opacity:1;letter-spacing:inherit;filter:none} }
   @keyframes gameEnter { 0%{opacity:0;transform:scaleY(0.1)} 50%{opacity:0.7;transform:scaleY(1.05)} 100%{opacity:1;transform:scaleY(1)} }

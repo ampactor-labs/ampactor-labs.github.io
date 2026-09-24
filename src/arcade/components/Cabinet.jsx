@@ -33,7 +33,11 @@ export default function Cabinet({
   coinCount,
   introComplete,
   fs,
+  // On the floor the panel is decoration: it looks live but takes no input.
+  attract = false,
+  inert = false,
 }) {
+  const panelLive = attract || (introComplete && screen !== "boot");
   const dpadBtn = {
     width: 30,
     height: 30,
@@ -56,6 +60,7 @@ export default function Cabinet({
   return (
     <div
       className="cabinet-body"
+      inert={inert || undefined}
       style={{
         margin: "0 10px 10px",
         background:
@@ -251,9 +256,9 @@ export default function Cabinet({
                     "inset 0 2px 8px rgba(0,0,0,0.7)",
                     "0 1px 0 rgba(255,255,255,0.05)",
                   ].join(", "),
-            opacity: introComplete && screen !== "boot" ? 1 : 0.3,
-            pointerEvents: introComplete && screen !== "boot" ? "auto" : "none",
-            cursor: introComplete && screen !== "boot" ? "pointer" : "default",
+            opacity: panelLive ? 1 : 0.3,
+            pointerEvents: panelLive ? "auto" : "none",
+            cursor: panelLive ? "pointer" : "default",
           }}
         >
           <div
@@ -272,7 +277,7 @@ export default function Cabinet({
             }}
           />
         </div>
-        {introComplete && screen !== "boot" && (
+        {panelLive && (
           <div
             style={{
               display: "flex",

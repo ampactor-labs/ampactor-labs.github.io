@@ -18,7 +18,10 @@
   --surface-raised: color-mix(in srgb, var(--fg) 7%, transparent);
   --surface-sunken: color-mix(in srgb, var(--color-void) 60%, transparent);
 
-  /* The spotlight: one cyan bloom per view. */
+  /* The spotlight: one cyan bloom per view. `--accent-text` is the cyan as
+     text on the page background; electric cyan has no contrast on parchment,
+     so the light theme deepens it (the cabinet keeps the real thing). */
+  --accent-text: var(--color-cyan);
   --glow: 0 0 24px color-mix(in srgb, var(--color-cyan) 22%, transparent);
   --glow-text: 0 0 18px color-mix(in srgb, var(--color-cyan) 45%, transparent);
 
@@ -40,8 +43,10 @@
 [data-theme="patina-light"] {
   color-scheme: light;
   --fg-bright: #2e2016;
+  --accent-text: #00708a;
   --surface-sunken: color-mix(in srgb, var(--color-umber) 35%, transparent);
   --glow: 0 0 24px color-mix(in srgb, var(--color-cyan) 30%, transparent);
+  --glow-text: none;
   --scanline: rgba(0, 0, 0, 0.04);
 }
 

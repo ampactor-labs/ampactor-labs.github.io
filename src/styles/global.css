@@ -37,7 +37,7 @@ body {
 
 /* Every interactive element gets the same visible focus ring. */
 :focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--accent-text);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
