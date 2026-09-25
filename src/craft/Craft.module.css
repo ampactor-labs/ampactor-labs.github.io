@@ -1,0 +1,690 @@
+/* How this site is made. The same room as the floor and the ledger (tokens,
+   hairlines, one cyan accent, Press Start 2P only as signage), laid out as
+   a document: a head with the measured numbers, a contents rail that stays
+   in view on wide screens, and five chapters that each say what was hard,
+   what I chose, and how I know. */
+
+.main {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.main:focus {
+  outline: none;
+}
+
+.pageHead {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(28px, 5vw, 56px) 0 0;
+}
+
+.eyebrow {
+  margin: 0;
+  color: color-mix(in srgb, var(--accent-text) 70%, transparent);
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+}
+
+.h1 {
+  margin: 0;
+  color: var(--fg-bright);
+  font-family: var(--font-sans);
+  font-size: clamp(32px, 4.6vw, 50px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--fg-muted);
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.lede strong {
+  color: var(--fg-bright);
+  font-weight: 600;
+}
+
+.measured {
+  margin: 0;
+  color: var(--fg-faint);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+/* The stack, as one line a reader can scan for the names they know. */
+.stackLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--fg-muted);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.stackLine li:not(:last-child)::after {
+  content: "·";
+  margin: 0 9px;
+  color: var(--fg-faint);
+}
+
+/* ---- The numbers ------------------------------------------------------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 10px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 14px 16px 13px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.tileValue {
+  order: -1;
+  margin: 0;
+  color: var(--fg-bright);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 36px);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.tileLabel {
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.tileSub {
+  color: var(--fg-faint);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ---- Contents rail + chapters ----------------------------------------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  margin-top: clamp(36px, 6vw, 72px);
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: 184px minmax(0, 1fr);
+    gap: 56px;
+  }
+  .toc {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+  }
+}
+
+.toc {
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.tocTitle {
+  margin: 0 0 8px;
+  color: var(--fg-faint);
+  font-family: var(--font-arcade);
+  font-size: 7px;
+  letter-spacing: 0.26em;
+}
+
+.toc ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc a {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.toc a:hover {
+  color: var(--accent-text);
+}
+
+.tocNum {
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Narrow screens: the contents become one wrapped row between hairlines. */
+@media (max-width: 999px) {
+  .toc {
+    padding: 10px 0;
+    border-top: 1px solid var(--hairline-faint);
+    border-bottom: 1px solid var(--hairline-faint);
+  }
+  .toc ol {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 18px;
+  }
+}
+
+.chapters {
+  min-width: 0;
+}
+
+.chapter {
+  scroll-margin-top: 80px;
+}
+
+.chapter + .chapter {
+  margin-top: clamp(48px, 7vw, 88px);
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--hairline-faint);
+}
+
+.chapterHead {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.chapterNum {
+  margin: 0;
+  color: color-mix(in srgb, var(--accent-text) 70%, transparent);
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+}
+
+.h2 {
+  margin: 0;
+  color: var(--fg-bright);
+  font-family: var(--font-sans);
+  font-size: clamp(25px, 3.1vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.h3 {
+  margin: 30px 0 10px;
+  color: var(--fg-bright);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.prose p,
+.prose li {
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.prose p {
+  max-width: 68ch;
+  margin: 0 0 14px;
+}
+
+.prose strong {
+  color: var(--fg-bright);
+  font-weight: 600;
+}
+
+.prose a,
+.facts a,
+.links a,
+.measured a {
+  color: var(--accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--accent-text) 40%, transparent);
+}
+
+.prose a:hover,
+.facts a:hover,
+.links a:hover,
+.measured a:hover {
+  border-bottom-color: currentColor;
+}
+
+.code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--surface-raised);
+  color: var(--fg-bright);
+  font-family: var(--font-body);
+  font-size: 0.88em;
+  white-space: nowrap;
+}
+
+/* The case-study spine: the hard part, the choice, the proof. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 12px;
+  margin: 22px 0 8px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px 16px 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.fact dt {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--fg-bright);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.factGlyph {
+  color: var(--accent-text);
+  text-shadow: var(--glow-text);
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+.points {
+  display: grid;
+  gap: 12px;
+  max-width: 72ch;
+  margin: 16px 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.points li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.points li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent-text);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Tables ------------------------------------------------------------ */
+
+.tableWrap {
+  margin: 20px 0 8px;
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.tableWrap:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.table caption {
+  padding: 12px 14px 6px;
+  color: var(--fg-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  caption-side: top;
+}
+
+.table th,
+.table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--hairline-faint);
+  color: var(--fg);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Headers may wrap onto two lines; the values never do, so the columns
+   are as narrow as their numbers and the table fits the column. */
+.table thead th {
+  color: var(--fg-faint);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  vertical-align: bottom;
+  white-space: normal;
+}
+
+.table th:first-child {
+  text-align: left;
+}
+
+.table tbody th {
+  min-width: 9em;
+  color: var(--fg-bright);
+  font-weight: 400;
+  white-space: normal;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.was {
+  color: var(--fg-faint);
+}
+
+.now {
+  color: var(--fg-bright);
+}
+
+/* ---- The diagram ------------------------------------------------------- */
+
+.diagram {
+  margin: 26px 0 10px;
+}
+
+/* Two drawings with the arrow between them; on a phone they stack and the
+   arrow turns to point down. Labels are HTML, so they stay legible at any
+   width; the drawings carry no text. */
+.panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas:
+    "ta . tb"
+    "da ar db"
+    "la . lb";
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.areaTitleA {
+  grid-area: ta;
+}
+.areaDrawA {
+  grid-area: da;
+}
+.areaLabelsA {
+  grid-area: la;
+  align-self: start;
+}
+.panelArrow {
+  grid-area: ar;
+}
+.areaTitleB {
+  grid-area: tb;
+}
+.areaDrawB {
+  grid-area: db;
+}
+.areaLabelsB {
+  grid-area: lb;
+  align-self: start;
+}
+
+.panelTitle {
+  margin: 0;
+  color: var(--fg-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.panelLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.panelCode {
+  color: var(--accent-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.panelNote {
+  margin: 0;
+  color: var(--fg-faint);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.panelArrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--accent-text);
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-align: center;
+}
+
+.arrowAcross,
+.arrowDown {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arrowAcross {
+  width: 48px;
+  height: 12px;
+}
+
+.arrowDown {
+  display: none;
+  width: 12px;
+  height: 36px;
+}
+
+.caption {
+  max-width: 72ch;
+  margin: 14px 0 0;
+  color: var(--fg-muted);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* Phones: one column, the arrow pointing down. After the base rules on
+   purpose, so it wins. */
+@media (max-width: 640px) {
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "ta" "da" "la" "ar" "tb" "db" "lb";
+  }
+  .panelArrow {
+    flex-direction: row-reverse;
+    justify-self: start;
+    gap: 10px;
+    margin: 4px 0 4px 8px;
+  }
+  .arrowAcross {
+    display: none;
+  }
+  .arrowDown {
+    display: block;
+  }
+}
+
+/* The page, in the page's own tokens (it follows the theme). */
+.dPage {
+  fill: var(--surface);
+  stroke: var(--hairline-strong);
+}
+
+.dRule {
+  stroke: var(--hairline);
+}
+
+.dInk {
+  fill: var(--fg-bright);
+  opacity: 0.8;
+}
+
+.dFaintFill {
+  fill: var(--hairline-strong);
+}
+
+.dAccentFill {
+  fill: var(--accent-text);
+  opacity: 0.7;
+}
+
+.dOutline,
+.dOutlineAccent {
+  fill: none;
+  stroke-width: 0.8;
+}
+
+.dOutline {
+  stroke: var(--hairline-strong);
+}
+
+.dOutlineAccent {
+  stroke: var(--accent-text);
+}
+
+.dSlot {
+  fill: none;
+  stroke: var(--fg-faint);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 2;
+}
+
+/* The machine and its room, in the cabinet's own palette: these sit inside
+   .cabinet-scope groups, so they stay dark in the light theme too. */
+.dRoom {
+  fill: var(--color-void);
+  stroke: var(--hairline-strong);
+}
+
+.dBody {
+  fill: var(--color-dim);
+  stroke: var(--color-umber);
+  stroke-width: 0.8;
+}
+
+.dTube {
+  fill: var(--color-void);
+  stroke: color-mix(in srgb, var(--color-cyan) 45%, transparent);
+  stroke-width: 0.6;
+}
+
+.dAmber {
+  fill: var(--color-amber);
+}
+
+.dCyan {
+  fill: var(--color-cyan);
+}
+
+.dRow {
+  fill: var(--color-muted);
+  opacity: 0.55;
+}
+
+.dKnob {
+  fill: var(--color-umber);
+}
+
+.dStage {
+  fill: none;
+  stroke: var(--color-cyan);
+  stroke-width: 1;
+  stroke-dasharray: 3 2.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc a {
+    transition: none;
+  }
+}

@@ -76,6 +76,25 @@ function inlineCss() {
   };
 }
 
+// Every page loads the same shell as one file: React, the header and footer,
+// the theme, the formatters, the ledger's summary and the chart scale the
+// floor's teaser borrows. Left to the automatic splitter, a module that some
+// pages share but not all gets a chunk of its own, so adding a page can add a
+// request to the others: /craft/ once split the chart scale out and cost the
+// floor 160 ms of largest paint on a throttled phone.
+// (Rolldown's own runtime stays a separate 0.4 KB file whatever the groups
+// say, so every page loads three scripts: the runtime, the shell, its own.)
+const SHELL = [
+  // Vite's preload polyfill, which would otherwise be a tiny file of its own.
+  /modulepreload-polyfill/,
+  /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+  /[\\/]src[\\/](ui|styles)[\\/]/,
+  /[\\/]src[\\/]lib[\\/](format|theme)\.ts$/,
+  /[\\/]src[\\/]data[\\/](profile\.js|receiptsSummary\.ts|receipts\.summary\.json)$/,
+  /[\\/]src[\\/]floor[\\/](Header\.tsx|Footer\.tsx|Floor\.module\.css)$/,
+  /[\\/]src[\\/]receipts[\\/]charts[\\/]scale\.ts$/,
+];
+
 export default defineConfig({
   plugins: [siteHead(), react(), inlineCss()],
   base: "/",
@@ -90,6 +109,13 @@ export default defineConfig({
           resolve(root, file),
         ]),
       ),
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: "shell", test: (id) => SHELL.some((re) => re.test(id)) },
+          ],
+        },
+      },
     },
   },
 });

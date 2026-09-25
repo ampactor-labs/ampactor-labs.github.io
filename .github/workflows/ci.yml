@@ -38,7 +38,7 @@ jobs:
       - run: npm run build
       # Every entry in src/data/site.js must come out as a real file, because
       # GitHub Pages has no SPA fallback to hide a missing one.
-      - run: test -f dist/index.html && test -f dist/arcade/index.html && test -f dist/receipts/index.html
+      - run: test -f dist/index.html && test -f dist/arcade/index.html && test -f dist/receipts/index.html && test -f dist/craft/index.html
 
   e2e:
     runs-on: ubuntu-latest

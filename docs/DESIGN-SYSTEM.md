@@ -242,13 +242,13 @@ floor transition is off (`global.css`).
 
 | Component | Spec |
 |---|---|
-| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · RECEIPTS · HOW I WORK · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. Inert while the cabinet is zoomed. |
+| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · RECEIPTS · CRAFT · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page, which marks itself with `aria-current="page"`: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. On a phone it stays one line from 360 px: the brand is the A-mark alone and GITHUB drops under 480 px, WORK under 440 px (the work is the next thing below the hero), and the gap tightens under 380 px. Inert while the cabinet is zoomed. |
 | **Hero** | Eyebrow (`AMPACTOR LABS · SALT LAKE CITY`) → `<h1>` name in Inter 600 → the line of range → status line (`●` verdigris, "Available — full-time or contract · Salt Lake City, UT · remote") → `Email →` primary, `Résumé` and `Enter the arcade ▸` ghosts → a one-line hint. |
 | **Slot + stage** | The cabinet's footprint on the floor. The stage holds the console, the backdrop (tunnel, A-mark, game) and the two controls: the transparent **Enter the arcade** button over the whole machine (the only tab stop on the floor; the panel beneath is `inert`) and, when zoomed, **`‹ FLOOR`**. |
 | **SectionHeading** | Press Start eyebrow + hairline rule, Inter `<h2>`, optional lede. The repeating chapter heading. |
 | **Shelf / Cartridge** | One auto-fill grid of every project. Card: icon in the muted accent, `lang`, Share Tech Mono title, `CATEGORY · subtitle`, `outcome`, up to four stack chips, `Live →` / `Source →` / `▸ Cabinet` (zooms straight to that cartridge). |
 | **Ledger teaser** | The ledger's front step: `N commits, in the open`, three numbers and a nine-month strip from `receipts.summary.json`, `Open the ledger →`. |
-| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel, with the ledger's own count of commits that name Claude. |
+| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel, with the ledger's own count of commits that name Claude. Then one quiet hairline link into `/craft/`. |
 | **Timeline** | SVG from `resume.json`: employment as amber bars, the studio faint until it became the whole job, then cyan. `<title>` and `<desc>` carry the data for screen readers. |
 | **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
 
@@ -265,6 +265,24 @@ wherever a number sits, hairline cards, the cyan spent on the marks.
 | **LedgerTable** | TanStack Table for the column model and header state, TanStack Virtual for the rows, a real `<table>` with explicit roles because flex rows lose their semantics. Sortable headers with `aria-sort` (dates and numbers descend first; the sort lives in the URL and is applied once, so the export matches the screen). One tab stop per row; arrows, PageUp/Down, Home/End walk rows that may not be drawn yet. Badges: `merge`, `∿ claude`, `✓ checked`. Under 640 px each row is a card with labelled numbers. |
 | **CommitDrawer** | A native `<dialog>`: repo · sha (link), the subject as `<h2>`, date in the commit's own zone, author and co-authors, `+a −d · n files`, the message body from its shard reflowed into paragraphs (lists, indents and trailers keep their breaks), the `Checked:` paragraph set apart, `View on GitHub →`, `Only <repo>`. Escape, backdrop, focus trap and focus return are the browser's. |
 | **ExportForm** | zod over the raw form values, built against the slice (a row limit cannot exceed it): format, rows (commits / by month / by repository), line counts, file name (safe characters, auto-named after the slice until typed), optional row limit. Errors inline under the field via `aria-describedby` + `aria-invalid`, shown once a field is visited; the button is disabled until valid and names the file it will write. The preview is the real output's first lines with its size. The file is a Blob; a `role="status"` toast confirms it. |
+
+### Craft (`/craft/`)
+
+The case study, set as a document in the same room. Every number is read from
+`src/data/audit.json` (`npm run audit`) or the ledger's summary; the page types
+none of its own, except the "before" column, which quotes the commit that
+changed it.
+
+| Component | Spec |
+|---|---|
+| **Page head** | `CRAFT` eyebrow, Inter `<h1>`, the lede, the stack as one mono line with `·` separators, six measured tiles (a `<ul aria-label="Measured">`: value in Share Tech Mono on top, label, one line of source), then the measured line: date, tool, form factor, "median of 3 runs", a link to `scripts/audit.mjs`. |
+| **Contents rail** | `<nav aria-label="On this page">`, numbered `01`–`05`. A sticky column beside the chapters from 1000 px; below that, one wrapped row between hairlines. |
+| **Chapter** | A `<section>` with a numbered Press Start eyebrow (`01 · THE MACHINE`) and an Inter `<h2>`, hairline between chapters. |
+| **Fact cards** | The case-study spine in every chapter: a `<dl>` of three hairline cards, `▸ The hard part`, `◆ What I chose`, `✓ How I know`, glyphs decorative. |
+| **Points** | A `▸` list for decisions and costs: a bold lead-in, then one or two sentences. |
+| **Tables** | Captioned, mono, tabular numerals, right-aligned values, row headers that may wrap, column headers that may wrap onto two lines so the values set the width. A table wider than its column scrolls inside a labelled, focusable region. |
+| **Machine diagram** | Two panels drawn to scale for a 1280 × 800 screen, `On the floor` and `Zoomed`, each an `<svg role="img">` with its own label and no text inside; titles, the CSS each depth uses and a note are HTML beneath. The cabinet and its room sit in `.cabinet-scope` groups, so they stay dark in the light theme. Side by side with an arrow between; on a phone they stack and the arrow points down. |
+| **Links row** | Mono links to the files a chapter talks about, on `main`. |
 
 ### Cabinet (bespoke, change with care)
 
@@ -307,6 +325,7 @@ work, skills); `src/data/site.js` holds the per-page `<head>` and the line of ra
 /arcade/          → the cabinet, zoomed (a real static entry; Back returns to the floor)
 /arcade/#<id>     → a cartridge open in the cabinet (shareable)
 /receipts/        → the ledger; ?from=&to=&repo=&q=&merges=0&sort=-key is the whole view
+/craft/           → how this site is made; #machine #ledger #speed #proof #costs
 /resume.html      → static, zero-JS, print/ATS, generated from resume.json
 ```
 
@@ -324,7 +343,8 @@ returns into the arcade. `ampactor_visited` only decides whether the boot plays.
 
 ## 11 · Accessibility
 
-- Every page passes axe in the browser suite (`e2e/floor.spec.ts`).
+- The floor, the ledger and the case study pass axe in the browser suite, at desktop
+  and phone sizes, the ledger and the case study in both themes (`e2e/*.spec.ts`).
 - One focus ring everywhere (`:focus-visible`, `--accent-text`).
 - The floor's cabinet is one control with an accessible name and a description; its
   panel is `inert`. Zoomed, it is a modal dialog and the rest of the page is `inert`.

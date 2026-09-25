@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 // Every byte the pages need comes from the site itself: fonts included. A
 // first paint that waits on nobody else's server, and no visitor data handed
 // to one.
-for (const path of ["/", "/receipts/", "/arcade/"]) {
+for (const path of ["/", "/receipts/", "/arcade/", "/craft/"]) {
   test(`${path} loads nothing from another origin`, async ({
     page,
     baseURL,

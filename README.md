@@ -12,6 +12,8 @@ ledger of every public commit, how I work, and a timeline since 2017.
 - `/arcade/` — the cabinet, full screen; `/arcade/#<project id>` opens a cartridge
 - `/receipts/` — the ledger: every public commit, filterable, sortable, charted,
   exportable; the whole view lives in the query string, so any view is a link
+- `/craft/` — how this site is made: what was hard, what I chose, how I know,
+  with the numbers `npm run audit` measured on the build that ships
 - `/resume.html` — the résumé, static and printable, generated from one JSON file
 
 Click the coin slot on the cabinet to unlock three hidden programs. One of
@@ -22,14 +24,14 @@ runs with no server (see below).
 
 ```bash
 npm install --legacy-peer-deps
-npm run dev            # vite, multi-page: /, /arcade/, /receipts/
+npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
 npm test               # vitest (jsdom)
 npm run e2e            # playwright against the production build, desktop + phone
 npm run lint           # eslint: the JS arcade, the TS floor, scripts, e2e
 npm run typecheck      # tsc --noEmit
 npm run build          # sync READMEs, sync the ledger, render the résumé, vite build
 npm run sync:receipts  # rebuild the ledger from git (see Receipts below)
-npm run audit          # Lighthouse, mobile, on the build; writes src/data/audit.json
+npm run audit          # Lighthouse (median of 5), tests, weights on the build → src/data/audit.json
 ```
 
 CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build,
@@ -46,6 +48,7 @@ src/
     zoom/                  the URL scheme, history, scroll lock, the zoom itself
   receipts/                the ledger page: pure data model, URL state, charts,
                            the virtualised table, the drawer, the export form
+  craft/                   the case study page and its drawn-to-scale diagram
   ui/, lib/, styles/       shared primitives, theme, tokens, number formatting
   data/
     projects.js            every project: identity, copy, links
@@ -53,13 +56,14 @@ src/
     site.js                each page's <head>, rendered by vite.config.js
     resume.json            the résumé, rendered to public/resume.html
     receipts.summary.json  the ledger's totals and months, for the floor
+    audit.json             what npm run audit measured, quoted by /craft/
 scripts/
   sync-readmes.mjs         pulls card copy from each project's README
   sync-receipts.mjs        reads every public repository's git log into the ledger
   build-resume.mjs         resume.json → public/resume.html
   render-og.mjs            the social card, screenshotted from the live hero
   axe-report.mjs           prints axe violations for any page of a running build
-  lighthouse.mjs           npm run audit: Lighthouse on each page of the build
+  audit.mjs                npm run audit: Lighthouse, test counts and weights → src/data/audit.json
   merge-leaderboard.mjs    the TUNNEL_RUN leaderboard (see below)
 ```
 
@@ -69,6 +73,21 @@ the zoom is a single transform and nothing inside ever reflows. The URL is the
 source of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route,
 `useArcadeHistory` owns history, and the cabinet asks for navigation with
 intents instead of touching it. See `docs/DESIGN-SYSTEM.md` for the design.
+
+**One shell, every page.** Each page is its own HTML file (GitHub Pages has no
+SPA fallback), and all of them load the same `shell` chunk: React, the header
+and footer, the theme, the formatters. `vite.config.js` pins it with a
+Rolldown `codeSplitting` group, because the automatic splitter gives any
+module that some pages share, but not all, a chunk of its own: adding `/craft/`
+once cost the floor an extra request and 160 ms of largest paint on
+Lighthouse's phone.
+
+**Measured, not claimed.** `npm run audit` serves the build, runs Lighthouse
+(mobile, a fresh profile, so the floor is a first visit with its cold open)
+five times per page and keeps the median run, counts the unit tests and
+browser runs, and weighs what each page ships. It writes
+`src/data/audit.json`, and `/craft/` quotes it with the date it was taken.
+Run it last, after the tests are final, then rebuild.
 
 ## Receipts
 
@@ -84,7 +103,9 @@ in `npm run build`; when the network is unavailable it keeps the committed
 snapshot and the build goes on. `--strict` fails instead, `--report` prints
 per-repository counts.
 
-In the browser the page loads the JSON once and does everything else itself.
+In the browser the page paints its head from the summary, then loads the JSON
+once (after the fonts and the next frame, so the download never competes with
+the first paint: `src/receipts/useLedger.ts`) and does everything else itself.
 `src/receipts/ledger.ts` is the pure model (filter, aggregate, sort, total,
 CSV/JSON export), `urlState.ts` is the codec between the view and the query
 string (`?from=2026-03&to=2026-06&repo=mentl,sonido&q=bootstrap&merges=0&sort=-additions`),

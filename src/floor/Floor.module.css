@@ -106,9 +106,6 @@
 }
 
 @media (max-width: 640px) {
-  .navWide {
-    display: none;
-  }
   .header {
     align-items: flex-start;
   }
@@ -123,6 +120,20 @@
   .navPhoneHide,
   .brand span {
     display: none;
+  }
+}
+
+/* A narrow phone drops WORK too: on the floor the work is the next thing
+   below the hero, and from any other page the A-mark leads home. */
+@media (max-width: 440px) {
+  .navNarrowHide {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav {
+    column-gap: 8px;
   }
 }
 

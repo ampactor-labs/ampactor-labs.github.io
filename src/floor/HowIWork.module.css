@@ -31,7 +31,8 @@
 .item a {
   color: var(--accent-text);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent-text) 40%, transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--accent-text) 40%, transparent);
 }
 
 .itemTitle {
@@ -49,4 +50,35 @@
 .glyph {
   color: var(--accent-text);
   text-shadow: var(--glow-text);
+}
+
+/* The way into the case study: quiet, one hairline, the page's cyan kept
+   for the ledger's call to action above. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  margin-top: clamp(22px, 3vw, 32px);
+  padding: 10px 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  text-decoration: none;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.more:hover {
+  border-color: var(--hairline-strong);
+  color: var(--accent-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .more {
+    transition: none;
+  }
 }

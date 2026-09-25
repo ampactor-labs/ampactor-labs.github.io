@@ -112,6 +112,20 @@ describe("ReceiptsApp", () => {
     vi.unstubAllGlobals();
   });
 
+  it("paints the page before it asks for the ledger", async () => {
+    const fetchLedger = mockFetch(LEDGER);
+    vi.stubGlobal("fetch", fetchLedger);
+    render(<ReceiptsApp />);
+    // The head is on screen from the build's summary; the ledger waits for
+    // that frame, so it never competes with the first paint.
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(fetchLedger).not.toHaveBeenCalled();
+    await waitFor(() => expect(fetchLedger).toHaveBeenCalledTimes(1));
+    await waitFor(() =>
+      expect(screen.getByText(/Showing/)).toBeInTheDocument(),
+    );
+  });
+
   it("loads the ledger and answers the filter from the URL", async () => {
     vi.stubGlobal("fetch", mockFetch(LEDGER));
     window.history.replaceState(null, "", "/receipts/?repo=site&merges=0");

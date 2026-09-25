@@ -1,7 +1,7 @@
 // One source for every document head. vite.config.js renders these into each
-// HTML entry at dev and build time, so /, /arcade/ and /receipts/ cannot drift
-// apart the way three hand-kept <head>s would. Identity comes from profile.js;
-// the noscript project list comes from projects.js.
+// HTML entry at dev and build time, so /, /arcade/, /receipts/ and /craft/
+// cannot drift apart the way hand-kept <head>s would. Identity comes from
+// profile.js; the noscript project list comes from projects.js.
 import { CONTACT } from "./profile.js";
 import { PROJECTS } from "./projects.js";
 import receipts from "./receipts.summary.json" with { type: "json" };
@@ -79,6 +79,14 @@ export const ENTRIES = {
     // The numbers come from the ledger itself (src/data/receipts.summary.json,
     // written by scripts/sync-receipts.mjs at build), so they cannot go stale.
     description: `Every public commit since ${monthName(receipts.totals.first)} in one ledger: ${n(receipts.totals.commits)} commits across ${receipts.totals.repos} repositories, read straight from git. Filter, sort, chart, export.`,
+    image: "/og-floor.png",
+    person: false,
+  },
+  "craft/index.html": {
+    path: "/craft/",
+    title: `How this site is made — ${SITE.name}`,
+    description:
+      "The case study for this site: one machine at two depths, a ledger read from git, a fast page on a slow phone, and the tests that prove it. What was hard, what I chose, how I know. Measured, not claimed.",
     image: "/og-floor.png",
     person: false,
   },
@@ -200,7 +208,9 @@ export function renderNoscript(entry) {
       ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
       : entry.path === "/receipts/"
         ? `<p>The ledger needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
-        : "";
+        : entry.path === "/craft/"
+          ? `<p>How this site is made needs JavaScript for its measured numbers. The source and its full history are at <a href="${CONTACT.github}/ampactor-labs.github.io">GitHub</a>.</p>`
+          : "";
   return `<noscript>
       <div style="max-width: 760px; margin: 0 auto; padding: 40px 20px; font: 16px/1.6 system-ui, sans-serif">
         <h1 style="margin: 0 0 6px">${escapeHtml(SITE.name)}</h1>

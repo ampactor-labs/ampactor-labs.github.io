@@ -13,7 +13,7 @@ export default function Header({
 }: {
   inert?: boolean;
   onEnterArcade?: () => void;
-  current?: "floor" | "receipts";
+  current?: "floor" | "receipts" | "craft";
 }) {
   const home = current === "floor";
   const anchor = (id: string) => (home ? `#${id}` : `/#${id}`);
@@ -27,15 +27,20 @@ export default function Header({
         <span>AMPACTOR</span>
       </a>
       <nav className={styles.nav} aria-label="Site">
-        <a href={anchor("work")}>WORK</a>
+        <a href={anchor("work")} className={styles.navNarrowHide}>
+          WORK
+        </a>
         <a
           href="/receipts/"
           aria-current={current === "receipts" ? "page" : undefined}
         >
           RECEIPTS
         </a>
-        <a href={anchor("how")} className={styles.navWide}>
-          HOW I WORK
+        <a
+          href="/craft/"
+          aria-current={current === "craft" ? "page" : undefined}
+        >
+          CRAFT
         </a>
         {onEnterArcade ? (
           <button

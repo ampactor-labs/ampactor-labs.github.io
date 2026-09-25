@@ -75,6 +75,9 @@ export default function HowIWork({ inert }: { inert: boolean }) {
           </p>
         </article>
       </div>
+      <a className={`${styles.more} reveal`} href="/craft/">
+        How this site is made: what was hard, what I chose, how I know →
+      </a>
     </section>
   );
 }
