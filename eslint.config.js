@@ -121,6 +121,7 @@ export default [
         console: "readonly",
         fetch: "readonly",
         URL: "readonly",
+        URLSearchParams: "readonly",
         Buffer: "readonly",
         TextEncoder: "readonly",
         TextDecoder: "readonly",

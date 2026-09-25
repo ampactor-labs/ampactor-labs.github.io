@@ -89,7 +89,9 @@ don't let a generator re-skin it.
 | `--color-void` | `#0f0e0d` | Deepest background, insets. |
 | `--fg` / `--color-parchment` | `#d4be98` | **Primary text.** Warm parchment, never white. |
 | `--fg-bright` | `#efe4cc` | Headlines, one step brighter than body. |
-| `--color-muted` / `--color-comment` | `#a89984` / `#5a524c` | Secondary and faint text. |
+| `--fg-muted` / `--fg-faint` | `#a89984` / `#9a8e81` (light `#665a50` / `#6b5f54`) | Secondary and tertiary **text**. Both clear 4.5:1 on every surface the page paints in either theme; the palette's own `--color-muted` / `--color-comment` stay for fills and `color-mix` recipes, never for text. |
+| `--chart-1` | `#22c3dc` (light `#00708a`) | The one hue for magnitude in a chart: commits per month, commits by repository, the floor's strip. Validated with the dataviz palette checker against each theme's chart surface. |
+| `--chart-pos` / `--chart-neg` | `#3aa886` / `#e26a62` (light `#0a8f9c` / `#c14a4a`) | The diverging pair: lines added above the baseline, lines removed below it. The dark pair sits in the colour-blind floor band (ΔE 6.7), so sign is always also carried by position, a legend and direct labels. Text in a chart wears text tokens, never a series colour. |
 | `--hairline`, `-strong`, `-faint` | `color-mix` of `--fg` | Borders and rules; derived, so right in both themes. |
 | `--surface`, `--surface-raised` | `color-mix` of `--fg` | Card fills. |
 
@@ -201,14 +203,29 @@ floor transition is off (`global.css`).
 
 | Component | Spec |
 |---|---|
-| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · HOW I WORK · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Inert while the cabinet is zoomed. |
+| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · RECEIPTS · HOW I WORK · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. Inert while the cabinet is zoomed. |
 | **Hero** | Eyebrow (`AMPACTOR LABS · SALT LAKE CITY`) → `<h1>` name in Inter 600 → the line of range → status line (`●` verdigris, "Available — full-time or contract · Salt Lake City, UT · remote") → `Email →` primary, `Résumé` and `Enter the arcade ▸` ghosts → a one-line hint. |
 | **Slot + stage** | The cabinet's footprint on the floor. The stage holds the console, the backdrop (tunnel, A-mark, game) and the two controls: the transparent **Enter the arcade** button over the whole machine (the only tab stop on the floor; the panel beneath is `inert`) and, when zoomed, **`‹ FLOOR`**. |
 | **SectionHeading** | Press Start eyebrow + hairline rule, Inter `<h2>`, optional lede. The repeating chapter heading. |
 | **Shelf / Cartridge** | One auto-fill grid of every project. Card: icon in the muted accent, `lang`, Share Tech Mono title, `CATEGORY · subtitle`, `outcome`, up to four stack chips, `Live →` / `Source →` / `▸ Cabinet` (zooms straight to that cartridge). |
-| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel. |
+| **Ledger teaser** | The ledger's front step: `N commits, in the open`, three numbers and a nine-month strip from `receipts.summary.json`, `Open the ledger →`. |
+| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel, with the ledger's own count of commits that name Claude. |
 | **Timeline** | SVG from `resume.json`: employment as amber bars, the studio faint until it became the whole job, then cyan. `<title>` and `<desc>` carry the data for screen readers. |
 | **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
+
+### Receipts (`/receipts/`)
+
+The data surface. Same room, same tokens, working furniture: tabular numerals
+wherever a number sits, hairline cards, the cyan spent on the marks.
+
+| Component | Spec |
+|---|---|
+| **FilterBar** | One row: range presets (`All · 3 mo · 6 mo`, measured from the ledger's last month so a link means the same thing next week), From/To month selects, subject search (debounced 150 ms), `Include merges`, `Reset` when anything is set. Below it, every repository as an `aria-pressed` chip with a live count of what the other filters leave. Everything writes to the URL. |
+| **StatTiles** | Six answers to the filter: commits, repositories, lines added, lines removed, active days, with Claude. Value in Share Tech Mono, one line of context under it (`of 3,859`, `net +1.1M`, `4.8% as author or co-author`). |
+| **Charts** | Hand-rolled SVG, drawn at real pixel width (never a stretched viewBox). Every figure: title, unit line, `Chart | Table` switch, `<title>`/`<desc>`, a hover tooltip inside the figure, hit targets the height of the column. Commits per month (one hue, the highest month labelled, click narrows the range); lines added and removed (diverging, shared scale, legend + direct labels); commits by repository (ranked bars with values, click toggles the repository). Thin marks, rounded at the data end, square at the baseline; recessive grid. |
+| **LedgerTable** | TanStack Table for the column model and header state, TanStack Virtual for the rows, a real `<table>` with explicit roles because flex rows lose their semantics. Sortable headers with `aria-sort` (dates and numbers descend first; the sort lives in the URL and is applied once, so the export matches the screen). One tab stop per row; arrows, PageUp/Down, Home/End walk rows that may not be drawn yet. Badges: `merge`, `∿ claude`, `✓ checked`. Under 640 px each row is a card with labelled numbers. |
+| **CommitDrawer** | A native `<dialog>`: repo · sha (link), the subject as `<h2>`, date in the commit's own zone, author and co-authors, `+a −d · n files`, the message body from its shard reflowed into paragraphs (lists, indents and trailers keep their breaks), the `Checked:` paragraph set apart, `View on GitHub →`, `Only <repo>`. Escape, backdrop, focus trap and focus return are the browser's. |
+| **ExportForm** | zod over the raw form values, built against the slice (a row limit cannot exceed it): format, rows (commits / by month / by repository), line counts, file name (safe characters, auto-named after the slice until typed), optional row limit. Errors inline under the field via `aria-describedby` + `aria-invalid`, shown once a field is visited; the button is disabled until valid and names the file it will write. The preview is the real output's first lines with its size. The file is a Blob; a `role="status"` toast confirms it. |
 
 ### Cabinet (bespoke, change with care)
 
@@ -250,8 +267,13 @@ work, skills); `src/data/site.js` holds the per-page `<head>` and the line of ra
 /                 → the floor; the cabinet in attract mode
 /arcade/          → the cabinet, zoomed (a real static entry; Back returns to the floor)
 /arcade/#<id>     → a cartridge open in the cabinet (shareable)
+/receipts/        → the ledger; ?from=&to=&repo=&q=&merges=0&sort=-key is the whole view
 /resume.html      → static, zero-JS, print/ATS, generated from resume.json
 ```
+
+The ledger writes its view with `replaceState` (typing a search must not bury Back)
+and re-reads the address on `popstate`; defaults are omitted so the plain URL stays
+plain, and anything unparseable falls back to the default instead of breaking the page.
 
 The URL is the source of truth (`src/arcade/zoom/arcadeRoute.ts`). Entering from the
 floor pushes `/arcade/`; opening a cartridge pushes `/arcade/#id`; Back walks cartridge

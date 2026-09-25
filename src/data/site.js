@@ -4,6 +4,15 @@
 // the noscript project list comes from projects.js.
 import { CONTACT } from "./profile.js";
 import { PROJECTS } from "./projects.js";
+import receipts from "./receipts.summary.json" with { type: "json" };
+
+const n = (v) => Number(v).toLocaleString("en-US");
+const monthName = (iso) =>
+  new Date(`${String(iso).slice(0, 7)}-15T00:00:00Z`).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
 export const SITE = {
   origin: "https://ampactor.dev",
@@ -51,6 +60,15 @@ export const ENTRIES = {
     description:
       "The cabinet. Every project as a cartridge, three hidden programs behind the coin slot, and a vector shooter with a global top ten.",
     image: "/og-cabinet.png",
+    person: false,
+  },
+  "receipts/index.html": {
+    path: "/receipts/",
+    title: `Receipts — ${SITE.name}`,
+    // The numbers come from the ledger itself (src/data/receipts.summary.json,
+    // written by scripts/sync-receipts.mjs at build), so they cannot go stale.
+    description: `Every public commit since ${monthName(receipts.totals.first)} in one ledger: ${n(receipts.totals.commits)} commits across ${receipts.totals.repos} repositories, read straight from git. Filter, sort, chart, export.`,
+    image: "/og-floor.png",
     person: false,
   },
 };
@@ -152,7 +170,9 @@ export function renderNoscript(entry) {
   const arcadeNote =
     entry.path === "/arcade/"
       ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
-      : "";
+      : entry.path === "/receipts/"
+        ? `<p>The ledger needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
+        : "";
   return `<noscript>
       <div style="max-width: 760px; margin: 0 auto; padding: 40px 20px; font: 16px/1.6 system-ui, sans-serif">
         <h1 style="margin: 0 0 6px">${escapeHtml(SITE.name)}</h1>

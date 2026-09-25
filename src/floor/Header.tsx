@@ -3,13 +3,20 @@ import ThemeToggle from "../ui/ThemeToggle";
 import { CONTACT } from "../data/profile";
 import styles from "./Floor.module.css";
 
+// The same header on every page. On the floor the ARCADE control zooms the
+// cabinet in place; anywhere else it is a plain link to /arcade/, and the
+// section anchors point back at the floor.
 export default function Header({
-  inert,
+  inert = false,
   onEnterArcade,
+  current = "floor",
 }: {
-  inert: boolean;
-  onEnterArcade: () => void;
+  inert?: boolean;
+  onEnterArcade?: () => void;
+  current?: "floor" | "receipts";
 }) {
+  const home = current === "floor";
+  const anchor = (id: string) => (home ? `#${id}` : `/#${id}`);
   return (
     <header className={styles.header} inert={inert || undefined}>
       <a href="/" className={styles.brand} aria-label="Ampactor Labs, home">
@@ -17,13 +24,27 @@ export default function Header({
         <span>AMPACTOR</span>
       </a>
       <nav className={styles.nav} aria-label="Site">
-        <a href="#work">WORK</a>
-        <a href="#how" className={styles.navWide}>
+        <a href={anchor("work")}>WORK</a>
+        <a
+          href="/receipts/"
+          aria-current={current === "receipts" ? "page" : undefined}
+        >
+          RECEIPTS
+        </a>
+        <a href={anchor("how")} className={styles.navWide}>
           HOW I WORK
         </a>
-        <button type="button" className={styles.navButton} onClick={onEnterArcade}>
-          ARCADE
-        </button>
+        {onEnterArcade ? (
+          <button
+            type="button"
+            className={styles.navButton}
+            onClick={onEnterArcade}
+          >
+            ARCADE
+          </button>
+        ) : (
+          <a href="/arcade/">ARCADE</a>
+        )}
         {/* Press Start 2P has no accented capitals; the résumé keeps its accents everywhere else. */}
         <a href="/resume.html" aria-label="Résumé">
           RESUME

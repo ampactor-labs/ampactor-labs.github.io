@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/sync-readmes.mjs && node scripts/build-resume.mjs && vite build",
+    "build": "node scripts/sync-readmes.mjs && node scripts/sync-receipts.mjs && node scripts/build-resume.mjs && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -21,7 +21,9 @@
     "add:project": "node scripts/add-project.mjs",
     "readmes:report": "node scripts/sync-readmes.mjs --report",
     "resume:build": "node scripts/build-resume.mjs",
-    "resume:check": "node scripts/build-resume.mjs --check"
+    "resume:check": "node scripts/build-resume.mjs --check",
+    "sync:receipts": "node scripts/sync-receipts.mjs",
+    "sync:receipts:report": "node scripts/sync-receipts.mjs --report"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

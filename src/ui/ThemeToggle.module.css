@@ -6,7 +6,7 @@
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--color-muted);
+  color: var(--fg-muted);
   font-family: var(--font-arcade);
   font-size: 7px;
   letter-spacing: 0.18em;

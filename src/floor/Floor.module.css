@@ -51,8 +51,10 @@
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
-  gap: clamp(10px, 2vw, 22px);
+  gap: 6px clamp(10px, 2vw, 22px);
   font-family: var(--font-arcade);
   font-size: 7px;
   letter-spacing: 0.18em;
@@ -60,7 +62,7 @@
 
 .nav a,
 .navButton {
-  color: var(--color-muted);
+  color: var(--fg-muted);
   text-decoration: none;
   padding: 8px 2px;
   transition: color 0.15s ease;
@@ -75,13 +77,20 @@
 }
 
 .nav a:hover,
-.navButton:hover {
+.navButton:hover,
+.nav a[aria-current="page"] {
   color: var(--accent-text);
 }
 
 @media (max-width: 640px) {
   .navWide {
     display: none;
+  }
+  .header {
+    align-items: flex-start;
+  }
+  .brand {
+    padding-top: 4px;
   }
 }
 
@@ -147,7 +156,7 @@
   align-items: center;
   gap: 8px 12px;
   margin: 0;
-  color: var(--color-muted);
+  color: var(--fg-muted);
   font-family: var(--font-body);
   font-size: 12px;
   letter-spacing: 0.04em;
@@ -213,7 +222,7 @@
 
 .hint {
   margin: 0;
-  color: var(--color-comment);
+  color: var(--fg-faint);
   font-family: var(--font-body);
   font-size: 12px;
   letter-spacing: 0.04em;
@@ -250,7 +259,7 @@
 
 .slotHint {
   margin: 0;
-  color: var(--color-comment);
+  color: var(--fg-faint);
   font-family: var(--font-arcade);
   font-size: 7px;
   letter-spacing: 0.24em;
@@ -266,14 +275,14 @@
   margin: var(--section-gap) auto 0;
   padding: 28px var(--gutter) 40px;
   border-top: 1px solid var(--hairline-faint);
-  color: var(--color-comment);
+  color: var(--fg-faint);
   font-family: var(--font-body);
   font-size: 12px;
   letter-spacing: 0.03em;
 }
 
 .footer a {
-  color: var(--color-muted);
+  color: var(--fg-muted);
   text-decoration: none;
   transition: color 0.15s ease;
 }

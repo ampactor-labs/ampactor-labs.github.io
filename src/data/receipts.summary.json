@@ -1,0 +1,153 @@
+{
+  "generatedAt": "2026-09-25T00:08:51.394Z",
+  "totals": {
+    "commits": 3859,
+    "repos": 17,
+    "additions": 2401500,
+    "deletions": 1306867,
+    "first": "2026-01-25T00:58:13-07:00",
+    "last": "2026-09-24T08:31:29+00:00",
+    "withClaude": 185,
+    "checked": 2
+  },
+  "months": [
+    {
+      "month": "2026-01",
+      "commits": 9
+    },
+    {
+      "month": "2026-02",
+      "commits": 271
+    },
+    {
+      "month": "2026-03",
+      "commits": 548
+    },
+    {
+      "month": "2026-04",
+      "commits": 545
+    },
+    {
+      "month": "2026-05",
+      "commits": 390
+    },
+    {
+      "month": "2026-06",
+      "commits": 346
+    },
+    {
+      "month": "2026-07",
+      "commits": 1154
+    },
+    {
+      "month": "2026-08",
+      "commits": 393
+    },
+    {
+      "month": "2026-09",
+      "commits": 203
+    }
+  ],
+  "byRepo": [
+    {
+      "repo": "mentl",
+      "commits": 2387
+    },
+    {
+      "repo": "sonido",
+      "commits": 434
+    },
+    {
+      "repo": "noodles",
+      "commits": 204
+    },
+    {
+      "repo": "two-top",
+      "commits": 204
+    },
+    {
+      "repo": "tokensafe",
+      "commits": 154
+    },
+    {
+      "repo": "site",
+      "commits": 106
+    },
+    {
+      "repo": "perennials",
+      "commits": 97
+    },
+    {
+      "repo": "celezdial",
+      "commits": 78
+    },
+    {
+      "repo": "clob",
+      "commits": 54
+    },
+    {
+      "repo": "stoop",
+      "commits": 49
+    },
+    {
+      "repo": "bits",
+      "commits": 38
+    },
+    {
+      "repo": "turbosort",
+      "commits": 29
+    },
+    {
+      "repo": "copycats",
+      "commits": 11
+    },
+    {
+      "repo": "landed",
+      "commits": 5
+    },
+    {
+      "repo": "slot",
+      "commits": 4
+    },
+    {
+      "repo": "freestyle-engine",
+      "commits": 3
+    },
+    {
+      "repo": "understory",
+      "commits": 2
+    }
+  ],
+  "site": [
+    {
+      "sha": "9ab077f",
+      "date": "2026-09-23T06:37:22+00:00",
+      "subject": "site: drop the dead stoop copy and its Night Bus scene",
+      "checked": "vitest 128 passed, eslint 0 errors, vite build clean with no stoop directory in dist."
+    },
+    {
+      "sha": "7a129ea",
+      "date": "2026-09-23T06:28:34+00:00",
+      "subject": "site: cards for everything hosted here; apapacho's public copy is just the app",
+      "checked": "vitest 128 passed (the SelectScreen snapshot gains the three rows), eslint 0 errors, prettier clean, vite build clean, and the three detail screens open at 390x844 with the right demo and source links."
+    },
+    {
+      "sha": "01fd60f",
+      "date": "2026-09-23T05:43:34+00:00",
+      "subject": "site: add understory, the lyric x-ray at ampactor.dev/understory",
+      "checked": null
+    },
+    {
+      "sha": "d729728",
+      "date": "2026-08-19T02:28:22-06:00",
+      "subject": "deploy: host stoop at ampactor.dev/stoop",
+      "checked": null
+    },
+    {
+      "sha": "ed69d25",
+      "date": "2026-08-18T17:15:07-06:00",
+      "subject": "site: add slot, host the trumpet lattice at ampactor.dev/slot",
+      "checked": null
+    }
+  ]
+}

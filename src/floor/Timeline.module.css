@@ -25,7 +25,7 @@
 }
 
 .year {
-  fill: var(--color-comment);
+  fill: var(--fg-faint);
   font-size: 11px;
   letter-spacing: 0.06em;
 }
@@ -38,7 +38,7 @@
 }
 
 .roleText {
-  fill: var(--color-muted);
+  fill: var(--fg-muted);
   font-size: 10.5px;
   letter-spacing: 0.04em;
 }
@@ -63,7 +63,7 @@
 
 .caption {
   margin: 10px 0 0;
-  color: var(--color-comment);
+  color: var(--fg-faint);
   font-family: var(--font-body);
   font-size: 12px;
   letter-spacing: 0.02em;

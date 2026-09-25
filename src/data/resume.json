@@ -7,7 +7,7 @@
   "site": "https://ampactor.dev",
   "github": "https://github.com/ampactor-labs",
   "linkedin": "https://www.linkedin.com/in/ampactor-labs/",
-  "summary": "Software engineer since 2017: six years employed full-stack — front-end, then back-end, then both; PHP, Node, React and TypeScript — for credit unions, a healthcare-benefits platform and enterprise dashboards, then a studio that ships in the open. Owns a UI end to end and the service behind it. Everything since 2023 has receipts: seventeen public products with their source, benchmarks and weak spots published.",
+  "summary": "Software engineer since 2017: six years employed full-stack — front-end, then back-end, then both; PHP, Node, React and TypeScript — for credit unions, a healthcare-benefits platform and enterprise dashboards, then a studio that ships in the open. Owns a UI end to end and the service behind it. Everything public has receipts: seventeen products with their source, benchmarks and weak spots published, and every commit in a ledger anyone can read.",
   "skills": [
     "TypeScript / JavaScript",
     "React",
