@@ -90,6 +90,60 @@ svg {
   border: 0;
 }
 
+/* One site, not three documents. Moving between the floor, the ledger and
+   the arcade's own URL crossfades instead of cutting: the old page fades as
+   the new one rises into place, and the header (named in Floor.module.css)
+   holds still across the change. Both pages opt in; a browser without
+   cross-document view transitions gets the plain cut it always had. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: 160ms ease-out both page-out;
+  }
+
+  ::view-transition-new(root) {
+    animation: 240ms cubic-bezier(0.2, 0, 0, 1) both page-in;
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+/* Below the hero, each block settles into place as it scrolls into view,
+   driven by the scroll position itself (no script, off the main thread).
+   It moves with `translate`, not `transform`, so it composes with a card's
+   own hover lift. Never used on the hero or anything around the cabinet: a
+   transform there would re-parent its fixed backdrop. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

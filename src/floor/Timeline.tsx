@@ -51,7 +51,7 @@ export default function Timeline({ inert }: { inert: boolean }) {
           </>
         }
       />
-      <figure className={styles.figure}>
+      <figure className={`${styles.figure} reveal`}>
         {/* On narrow screens the drawing scrolls sideways, so the scroller
             itself is a focusable, named region: keyboard users can reach it
             and pan it with the arrow keys. */}

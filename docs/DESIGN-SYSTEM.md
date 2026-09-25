@@ -181,6 +181,17 @@ select screen. A machine that was already full-screen at load (a hard load of
 before it. The test card holds until the tube is fully lit, then fades into the boot
 roll.
 
+### Between pages, and down the page
+
+Moving between the floor, the ledger and `/arcade/` is a cross-document view
+transition: the old page fades (`160 ms`) as the new one rises `10 px` into place
+(`240 ms`), and the header (`view-transition-name: site-header`) holds still across
+the change. Below the hero, each block (section headings, cartridges, the ledger card,
+the how-I-work items, the timeline) settles `14 px` into place as it scrolls into view,
+driven by the scroll position itself (`animation-timeline: view()`, no script). It
+moves with `translate`, so a card's hover lift still composes, and it is never used on
+the hero or around the cabinet. Browsers without either feature get the plain page.
+
 ### Interaction motion (floor)
 
 - Links: colour fade to the accent, `0.15 s`.
@@ -192,7 +203,8 @@ roll.
 
 Every animated surface honours it: there is no cold open, the zoom becomes a cut with
 a `150 ms` backdrop fade, the intro completes immediately, the attract loop holds on
-PRESS START, and every floor transition is off (`global.css`).
+PRESS START, pages cut instead of crossfading, every block is simply there, and every
+floor transition is off (`global.css`).
 
 ---
 

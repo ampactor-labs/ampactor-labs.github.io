@@ -22,7 +22,7 @@ export default function HowIWork({ inert }: { inert: boolean }) {
         title="Receipts over claims"
       />
       <div className={styles.grid}>
-        <article className={styles.item}>
+        <article className={`${styles.item} reveal`}>
           <h3 className={styles.itemTitle}>
             <span className={styles.glyph} aria-hidden="true">
               ▸
@@ -37,7 +37,7 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             cabinet on a phone before anything ships.
           </p>
         </article>
-        <article className={styles.item}>
+        <article className={`${styles.item} reveal`}>
           <h3 className={styles.itemTitle}>
             <span className={styles.glyph} aria-hidden="true">
               ◈
@@ -50,7 +50,7 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             READMEs at build time, so a claim can&apos;t outrun its repository.
           </p>
         </article>
-        <article className={styles.item}>
+        <article className={`${styles.item} reveal`}>
           <h3 className={styles.itemTitle}>
             <span className={styles.glyph} aria-hidden="true">
               ∿

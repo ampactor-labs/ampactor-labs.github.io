@@ -48,7 +48,7 @@ export default function LedgerTeaser({ inert }: { inert: boolean }) {
           </>
         }
       />
-      <div className={styles.card}>
+      <div className={`${styles.card} reveal`}>
         <div className={styles.numbers}>
           <div>
             <span className={styles.big}>{int(totals.commits)}</span>

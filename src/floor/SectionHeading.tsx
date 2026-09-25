@@ -15,7 +15,7 @@ export default function SectionHeading({
   lede?: ReactNode;
 }) {
   return (
-    <div className={styles.heading}>
+    <div className={`${styles.heading} reveal`}>
       <p className={styles.eyebrow} aria-hidden="true">
         <span>{eyebrow}</span>
         <span className={styles.rule} />

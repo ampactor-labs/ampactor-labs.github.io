@@ -19,7 +19,8 @@ const projects = PROJECTS as Project[];
 
 // The per-project neon is the cabinet's; on the floor it is muted toward the
 // patina so seventeen hues read as one shelf (see docs/DESIGN-SYSTEM.md §3).
-const accent = (color: string) => `color-mix(in srgb, ${color} 55%, var(--color-muted))`;
+const accent = (color: string) =>
+  `color-mix(in srgb, ${color} 55%, var(--color-muted))`;
 
 function Cartridge({
   project: p,
@@ -31,7 +32,7 @@ function Cartridge({
   const live = p.live ? { href: p.live, label: p.liveLabel ?? "Live →" } : null;
   return (
     <article
-      className={styles.card}
+      className={`${styles.card} reveal`}
       style={{ "--accent": accent(p.color), "--raw": p.color } as CSSProperties}
       aria-labelledby={`work-${p.id}`}
     >
@@ -112,9 +113,9 @@ export default function Shelf({
         lede={
           <>
             Every project is a cartridge in the cabinet. Each card is generated
-            from the project&apos;s own README at build time, so a card can&apos;t
-            outrun its repo. Open one in the cabinet for the readout: what it
-            does, what it&apos;s made of, and where it&apos;s weak.
+            from the project&apos;s own README at build time, so a card
+            can&apos;t outrun its repo. Open one in the cabinet for the readout:
+            what it does, what it&apos;s made of, and where it&apos;s weak.
           </>
         }
       />
