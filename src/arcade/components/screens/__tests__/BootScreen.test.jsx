@@ -45,6 +45,16 @@ describe("BootScreen", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
+  it("holds the test card while the tube is still powering on", () => {
+    const props = { lines, currentLine: 0, bootPhase: 0, fs, onSkip };
+    const { container, rerender } = render(
+      <BootScreen {...props} introComplete={false} />,
+    );
+    expect(container.firstChild.style.animation).toBe("");
+    rerender(<BootScreen {...props} introComplete />);
+    expect(container.firstChild.style.animation).toMatch(/testPattern/);
+  });
+
   it("renders boot text in phase 1", () => {
     const { getByText } = render(
       <BootScreen

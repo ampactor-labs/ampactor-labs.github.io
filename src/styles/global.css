@@ -35,6 +35,20 @@ body {
   overflow-x: hidden;
 }
 
+/* A first visit opens inside the cabinet (src/arcade/zoom/coldOpen.ts): the
+   pre-paint script marks <html> and the room starts dark in either theme,
+   the same radial the cabinet's backdrop paints, so the first frame and the
+   machine's room are one. The mark comes off as the camera pulls back, and
+   the lights come on under the fading backdrop. */
+html[data-cold-open] body {
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    #1d2021 0%,
+    #2a2826 50%,
+    #0f0e0d 100%
+  );
+}
+
 /* Every interactive element gets the same visible focus ring. */
 :focus-visible {
   outline: 2px solid var(--accent-text);

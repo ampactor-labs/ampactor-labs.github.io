@@ -3,6 +3,7 @@ import useAmbientHum from "../useAmbientHum";
 import useIntroSequence from "../useIntroSequence";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
 import { BOOT_LINES } from "../constants";
+import { VISITED_KEY, hasVisited as readVisited } from "../zoom/coldOpen";
 
 // The detail screen's link rail, in focus order. Demo comes first when a project
 // has one, so A opens the running thing rather than the repo. DetailScreen renders
@@ -49,14 +50,17 @@ export default function useCabinetState({
   onNavigate = () => {},
   animating = false,
   introVariant = "console",
+  // The floor's first-visit show: the machine is powering on to be looked at,
+  // not played, so it makes no sound and takes no audio gesture.
+  coldOpen = false,
 }) {
   const live = mode === "live";
   const deepLinked = route.view === "arcade" && route.screen === "project";
 
-  const hasVisited = useRef(
-    typeof localStorage !== "undefined" &&
-      !!localStorage.getItem("ampactor_visited"),
-  );
+  // Whether the machine has booted for this visitor before. The floor's cold
+  // open marks it after this hook mounted, so it is read again until it holds.
+  const hasVisited = useRef(false);
+  if (!hasVisited.current) hasVisited.current = readVisited();
   const [screen, setScreen] = useState(() => {
     if (!live) return "attract";
     return hasVisited.current || deepLinked ? "select" : "boot";
@@ -84,7 +88,7 @@ export default function useCabinetState({
   linkIdxRef.current = linkIdx;
 
   const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum({
-    enabled: live,
+    enabled: live && !coldOpen,
   });
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
@@ -117,7 +121,11 @@ export default function useCabinetState({
   // Write visited key on first boot → select transition
   useEffect(() => {
     if (screen === "select" && !hasVisited.current) {
-      localStorage.setItem("ampactor_visited", "1");
+      try {
+        localStorage.setItem(VISITED_KEY, "1");
+      } catch {
+        // Blocked storage: the boot plays again next time.
+      }
       hasVisited.current = true;
     }
   }, [screen]);

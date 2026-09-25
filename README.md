@@ -3,9 +3,10 @@
 Morgan Espitia's portfolio. The home page is an arcade floor: the cabinet
 stands in its room in attract mode beside the name and one line of range;
 click it and it zooms in place to fill the screen, boots, and every project is
-a cartridge. Escape or Back shrinks it back to where it stood. Under the
-cabinet: the work as cards, a ledger of every public commit, how I work, and a
-timeline since 2017.
+a cartridge. Escape or Back shrinks it back to where it stood. A first visit
+starts the other way round: the page opens inside the machine as it powers on,
+and the camera pulls back to the room. Under the cabinet: the work as cards, a
+ledger of every public commit, how I work, and a timeline since 2017.
 
 - `/` — the floor (React 19 + TypeScript + Vite; light and dark)
 - `/arcade/` — the cabinet, full screen; `/arcade/#<project id>` opens a cartridge

@@ -7,11 +7,15 @@ export default function BootScreen({
   onSkip,
   fs,
   screenWidth = 400,
+  // The test card holds while the tube is still powering on and only starts
+  // to fade once it is fully lit; otherwise a machine that ignites from the
+  // dark (the cold open, a hard load of /arcade/) blooms onto an empty tube.
+  introComplete = true,
 }) {
   const bootColumnWidth = `${Math.max(1, ...lines.map((line) => line.length))}ch`;
 
   if (bootPhase === 0) {
-    return <TestPattern fs={fs} onSkip={onSkip} />;
+    return <TestPattern fs={fs} onSkip={onSkip} animate={introComplete} />;
   }
   return (
     <div

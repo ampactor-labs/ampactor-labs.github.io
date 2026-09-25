@@ -13,6 +13,13 @@
   height: 100%;
 }
 
+/* In flight the machine stays above the page, sticky header included: on the
+   way back to its slot the stage is already static, but the console is still
+   crossing the header and the room is still fading out over everything. */
+.stage[data-animating] {
+  z-index: 1000;
+}
+
 .stage[data-zoomed="true"] {
   position: fixed;
   inset: 0;

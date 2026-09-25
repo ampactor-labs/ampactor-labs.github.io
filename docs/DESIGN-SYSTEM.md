@@ -147,12 +147,29 @@ is the reverse (`0.45 s`); nothing inside reflows, the CRT effects stay lit, and
 type is identical at both depths. The dark backdrop fades in over `0.35 s`. CSS owns
 the resting transform, GSAP owns the transition, React owns `data-zoomed`.
 
+### The cold open (first visit)
+
+A first visit to `/` opens inside the machine, the way the site always used to: the
+dark room, the tunnel and the A-mark, the tube igniting onto the test card, the boot
+roll starting with `OPERATOR: MORGAN ESPITIA`, then at `2.3 s` the camera pulls back
+(`0.9 s power3.inOut`, the room's lights coming up over the first `0.54 s`) to the
+top of the page, where the same name is waiting. Any key, press, wheel or touch ends it
+at once; a Tab also moves focus as usual. It never runs for a returning visitor, a
+floor anchor, `/arcade/` or reduced motion, it never touches the URL or history, and
+while it runs the machine is a picture: hidden from assistive tech, its controls
+inert, the floor underneath readable. An inline pre-paint script decides (so the room
+is dark from the first frame in either theme); `src/arcade/zoom/coldOpen.ts` has the
+rules.
+
 ### Attract, boot, power-on
 
 On the floor the tube runs an attract loop: test pattern → PRESS START → one cartridge
-at a time. Zoomed, a first visit fires the tube (the chassis is already there), then
-the boot roll; a returning visitor lands on the select screen. A hard load of
-`/arcade/` keeps the whole-console power-on: there was nothing on screen before it.
+at a time. Zoomed, a first walk-up fires the tube (the chassis is already there), then
+the boot roll; a returning visitor, or anyone who saw the cold open, lands on the
+select screen. A machine that was already full-screen at load (a hard load of
+`/arcade/`, the cold open) gets the whole-console power-on: there was nothing on screen
+before it. The test card holds until the tube is fully lit, then fades into the boot
+roll.
 
 ### Interaction motion (floor)
 
@@ -163,9 +180,9 @@ the boot roll; a returning visitor lands on the select screen. A hard load of
 
 ### Reduced motion — non-negotiable
 
-Every animated surface honours it: the zoom becomes a cut with a `150 ms` backdrop
-fade, the intro completes immediately, the attract loop holds on PRESS START, and every
-floor transition is off (`global.css`).
+Every animated surface honours it: there is no cold open, the zoom becomes a cut with
+a `150 ms` backdrop fade, the intro completes immediately, the attract loop holds on
+PRESS START, and every floor transition is off (`global.css`).
 
 ---
 

@@ -57,6 +57,8 @@ export const ENTRIES = {
     // Rendered from the live hero by scripts/render-og.mjs.
     image: "/og-floor.png",
     person: true,
+    // A first visit opens inside the cabinet (src/arcade/zoom/coldOpen.ts).
+    coldOpen: true,
   },
   "arcade/index.html": {
     path: "/arcade/",
@@ -109,9 +111,11 @@ function personJsonLd() {
 }
 
 // Everything a <head> needs beyond charset and viewport. `prepaint` is the
-// theme script from src/lib/theme.ts and `bootShim` is src/head/boot-shim.js;
-// both are inlined so they run before any stylesheet or module.
-export function renderHead(entry, { prepaint, bootShim }) {
+// theme script from src/lib/theme.ts, `coldOpen` the first-visit script from
+// src/arcade/zoom/coldOpen.ts (floor only), and `bootShim` is
+// src/head/boot-shim.js; all are inlined so they run before any stylesheet or
+// module.
+export function renderHead(entry, { prepaint, coldOpen, bootShim }) {
   const url = `${SITE.origin}${entry.path}`;
   const image = `${SITE.origin}${entry.image}`;
   const title = escapeHtml(entry.title);
@@ -140,8 +144,9 @@ export function renderHead(entry, { prepaint, bootShim }) {
       `<script type="application/ld+json">${jsonForScript(personJsonLd())}</script>`,
     );
   }
+  lines.push(`<script>${prepaint}</script>`);
+  if (entry.coldOpen && coldOpen) lines.push(`<script>${coldOpen}</script>`);
   lines.push(
-    `<script>${prepaint}</script>`,
     `<link rel="stylesheet" href="/tokens.css" />`,
     `<link rel="icon" href="/favicon.ico" />`,
     `<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />`,

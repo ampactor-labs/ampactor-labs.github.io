@@ -45,14 +45,15 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
 
   // Normalise the entry we loaded on so every popstate sees our state. A
   // deep-linked cartridge gets a select entry beneath it so Back lands on the
-  // list rather than off the site.
+  // list rather than off the site. Any other entry keeps the address it was
+  // loaded with: /#work stays an anchor, and a query string stays put.
   useEffect(() => {
     const { history } = window;
     if (initialRoute.view === "arcade" && initialRoute.screen === "project") {
       history.replaceState(stateFor(SELECT_ROUTE), "", urlFor(SELECT_ROUTE));
       history.pushState(stateFor(initialRoute), "", urlFor(initialRoute));
     } else {
-      history.replaceState(stateFor(initialRoute), "", urlFor(initialRoute));
+      history.replaceState(stateFor(initialRoute), "");
     }
     // Mount only: the initial route is by definition the one we loaded with.
     // eslint-disable-next-line react-hooks/exhaustive-deps

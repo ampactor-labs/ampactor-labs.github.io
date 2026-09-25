@@ -2,6 +2,13 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 import App from "../App";
 
+// The cold open's clock is gsap.delayedCall; tests fire it by hand.
+const { delayed } = vi.hoisted(() => ({ delayed: [] as Array<() => void> }));
+
+function runClock() {
+  for (const fn of delayed.splice(0)) fn();
+}
+
 // The zoom is a GSAP tween; here it completes on the spot so the state
 // machine can be walked synchronously.
 vi.mock("gsap", () => {
@@ -15,6 +22,15 @@ vi.mock("gsap", () => {
         complete(to),
       to: (_el: unknown, vars: { onComplete?: () => void }) => complete(vars),
       set: () => {},
+      delayedCall: (_seconds: number, fn: () => void) => {
+        delayed.push(fn);
+        return {
+          kill: () => {
+            const i = delayed.indexOf(fn);
+            if (i >= 0) delayed.splice(i, 1);
+          },
+        };
+      },
       timeline: () => {
         const tl = {
           to: () => tl,
@@ -65,6 +81,8 @@ const FLOOR = { name: "Back to the floor" };
 describe("App", () => {
   beforeEach(() => {
     localStorage.clear();
+    delayed.length = 0;
+    document.documentElement.removeAttribute("data-cold-open");
     window.history.replaceState(null, "", "/");
     document.body.removeAttribute("style");
   });
@@ -168,5 +186,110 @@ describe("App", () => {
     expect(
       screen.getByRole("listbox", { name: /project list/i }),
     ).toBeInTheDocument();
+  });
+
+  it("goes to a floor anchor loaded from another page", () => {
+    window.history.replaceState(null, "", "/#how");
+    const spy = vi.spyOn(Element.prototype, "scrollIntoView");
+    render(<App />);
+    expect(spy.mock.contexts.map((el) => (el as Element).id)).toContain("how");
+    // The address keeps its anchor.
+    expect(window.location.hash).toBe("#how");
+    spy.mockRestore();
+  });
+
+  // The first visit's show. The pre-paint script (coldOpen.test.ts) has marked
+  // <html>; the app reads the mark.
+  describe("the cold open", () => {
+    beforeEach(() => {
+      document.documentElement.setAttribute("data-cold-open", "");
+    });
+
+    it("opens inside the machine, then pulls back to the floor without touching history", async () => {
+      const entries = window.history.length;
+      render(<App />);
+      // The machine fills the screen, but it is a picture: not a dialog, no
+      // way out but the show ending, and the floor stays readable.
+      expect(
+        document.querySelector('[data-zoomed="true"][data-cold-open]'),
+      ).not.toBeNull();
+      expect(screen.queryByRole("dialog")).toBeNull();
+      expect(screen.queryByRole("button", FLOOR)).toBeNull();
+      expect(screen.queryByRole("button", ENTER)).toBeNull();
+      expect(screen.getByRole("banner")).not.toHaveAttribute("inert");
+      expect(document.body.style.position).toBe("fixed");
+
+      await act(async () => runClock());
+
+      expect(document.documentElement).not.toHaveAttribute("data-cold-open");
+      expect(localStorage.getItem("ampactor_visited")).toBe("1");
+      expect(document.body.style.position).toBe("");
+      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
+      // Focus is left where the visitor would expect on a fresh page.
+      expect(document.activeElement).toBe(document.body);
+      expect(window.location.pathname).toBe("/");
+      expect(window.history.state).toEqual({ v: 1, view: "floor" });
+      expect(window.history.length).toBe(entries);
+    });
+
+    it("ends at the first key, and a shortcut is not a key", async () => {
+      render(<App />);
+      await act(async () => {
+        fireEvent.keyDown(window, { key: "Meta", metaKey: true });
+      });
+      expect(screen.queryByRole("button", ENTER)).toBeNull();
+      await act(async () => {
+        fireEvent.keyDown(window, { key: "Tab" });
+      });
+      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
+      expect(localStorage.getItem("ampactor_visited")).toBe("1");
+      expect(delayed).toHaveLength(0);
+    });
+
+    it("ends at a press anywhere", async () => {
+      render(<App />);
+      await act(async () => {
+        fireEvent.pointerDown(document.body);
+      });
+      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
+    });
+
+    it("leaves the machine booted: walking up afterwards cuts straight to the list", async () => {
+      render(<App />);
+      await act(async () => runClock());
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button", ENTER));
+      });
+      expect(
+        screen.getByRole("dialog", { name: "Arcade" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("listbox", { name: /project list/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("walking in during the show goes straight in", async () => {
+      render(<App />);
+      await act(async () => {
+        fireEvent.click(
+          screen.getByRole("button", { name: "Enter the arcade ▸" }),
+        );
+      });
+      expect(window.location.pathname).toBe("/arcade/");
+      expect(document.documentElement).not.toHaveAttribute("data-cold-open");
+      const dialog = screen.getByRole("dialog", { name: "Arcade" });
+      expect(document.activeElement).toBe(dialog);
+      expect(screen.getByRole("banner")).toHaveAttribute("inert");
+      expect(delayed).toHaveLength(0);
+    });
+
+    it("is ignored anywhere but the floor", () => {
+      window.history.replaceState(null, "", "/arcade/");
+      render(<App />);
+      expect(
+        screen.getByRole("dialog", { name: "Arcade" }),
+      ).toBeInTheDocument();
+      expect(delayed).toHaveLength(0);
+    });
   });
 });

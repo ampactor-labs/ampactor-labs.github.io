@@ -1,4 +1,4 @@
-import { useRef, useEffect, lazy, Suspense } from "react";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
 const TunnelGame = lazy(() => import("./TunnelGame"));
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
@@ -57,6 +57,11 @@ function AMarkOverlay({ logoRef }) {
 // under a single "Enter the arcade" control; zoomed, it is the arcade exactly
 // as it always was. The same console element plays both parts; App decides
 // which with `zoomed`/`mode` and animates between them (useArcadeZoom).
+//
+// `coldOpen` is the floor's first-visit show: the machine full-screen and
+// powering on before the camera pulls back. It is a picture, not a place to
+// be: hidden from assistive tech (the floor underneath stays readable), its
+// controls inert, and no way out but the show ending.
 export default function ArcadeStage({
   mode,
   zoomed,
@@ -67,6 +72,7 @@ export default function ArcadeStage({
   onNavigate,
   onEnter,
   introVariant,
+  coldOpen = false,
   reducedMotion = false,
   consoleRef,
   backdropRef,
@@ -77,6 +83,10 @@ export default function ArcadeStage({
   const screenRef = useRef(null);
   const tubeRef = useRef(null);
   const logoRef = useRef(null);
+  // A machine that powered on in the dark (a hard load of /arcade/, the cold
+  // open) starts with its console hidden and the intro brings it up. Decided
+  // once, so React never re-applies it over the animation.
+  const [darkStart] = useState(introVariant === "console");
 
   const {
     screen,
@@ -121,12 +131,14 @@ export default function ArcadeStage({
     onNavigate,
     animating,
     introVariant,
+    coldOpen,
   });
 
   const live = mode === "live";
   // Inputs are for a zoomed, settled machine. Mid-zoom the panel is already
   // un-inert in the DOM sense, so `animating` keeps it quiet.
-  const inert = !zoomed || animating;
+  const inert = !zoomed || animating || coldOpen;
+  const modal = zoomed && !coldOpen;
 
   // A cabinet scrolled out of view stops flickering: the CRT keyframes are
   // paused through a class the stylesheet knows.
@@ -149,6 +161,9 @@ export default function ArcadeStage({
       className={styles.stage}
       data-zoomed={zoomed ? "true" : "false"}
       data-mode={mode}
+      data-animating={animating || undefined}
+      data-cold-open={coldOpen || undefined}
+      aria-hidden={coldOpen || undefined}
     >
       <CrtSvgDefs />
       <style>{crtStyles}</style>
@@ -156,6 +171,7 @@ export default function ArcadeStage({
         <div
           ref={backdropRef}
           className={styles.backdrop}
+          data-backdrop=""
           aria-hidden={zoomed ? undefined : "true"}
         >
           <TunnelCanvas ref={tunnelRef} />
@@ -172,17 +188,14 @@ export default function ArcadeStage({
         className={`${styles.console} cabinet-scope`}
         data-zoomed={zoomed ? "true" : "false"}
         tabIndex={-1}
-        role={zoomed ? "dialog" : undefined}
-        aria-modal={zoomed ? "true" : undefined}
-        aria-label={zoomed ? "Arcade" : undefined}
+        role={modal ? "dialog" : undefined}
+        aria-modal={modal ? "true" : undefined}
+        aria-label={modal ? "Arcade" : undefined}
         style={{
           width: metrics.zoomW,
           height: metrics.zoomH,
           "--k": scale,
-          // The hard-loaded arcade materialises out of the dark, so it starts
-          // hidden and the intro brings it up. A constant, so React never
-          // re-applies it over the animation.
-          opacity: introVariant === "console" ? 0 : undefined,
+          opacity: darkStart ? 0 : undefined,
         }}
       >
         <div
@@ -312,6 +325,7 @@ export default function ArcadeStage({
                   fs={fs}
                   onSkip={advanceBoot}
                   screenWidth={dims.w}
+                  introComplete={introComplete}
                 />
               )}
               {screen === "select" && (
@@ -364,7 +378,7 @@ export default function ArcadeStage({
         />
       </div>
 
-      {zoomed && screen !== "game" && (
+      {modal && screen !== "game" && (
         <button
           type="button"
           className={styles.floorReturn}
