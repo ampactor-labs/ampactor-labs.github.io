@@ -35,17 +35,17 @@
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100,
-      "fcpMs": 1807,
-      "lcpMs": 2110,
-      "tbtMs": 4,
+      "fcpMs": 1605,
+      "lcpMs": 2111,
+      "tbtMs": 37,
       "cls": 0,
-      "speedIndexMs": 1807,
+      "speedIndexMs": 1605,
       "htmlGzipKb": 10.1,
       "jsGzipKb": 69.8
     }
   },
   "tests": {
-    "unit": 239,
+    "unit": 243,
     "browserRuns": 68,
     "browserFiles": 6
   },

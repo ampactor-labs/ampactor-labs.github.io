@@ -125,7 +125,8 @@ Add an entry to `PROJECTS` in `src/data/projects.js` (see
 `docs/ADDING-A-PROJECT.md`). Presentation fields stay there; content comes
 from the project's README at build time, field by field, when that field
 passes `docs/README-STANDARD.md`, the one README format every project follows.
-`npm run readmes:report` shows how each repository measures up. The home
+`npm run readmes:report` shows how each repository measures up, and
+`npm run readme:check -- <path>` checks a draft before it is pushed. The home
 page's project list, the cabinet's menu, and the no-JavaScript fallback all
 render from the same array.
 

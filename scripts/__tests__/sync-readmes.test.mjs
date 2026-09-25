@@ -1,4 +1,8 @@
 import { describe, it, expect } from "vitest";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
   checkReadme,
   extract,
@@ -133,9 +137,63 @@ describe("the README standard", () => {
     );
     const check = checkReadme(extra);
     expect(check.warnings).toContain(
-      'extra section "One bet, read aloud": move it under How it works or into docs/',
+      'extra section "One bet, read aloud": make it a ### under the section it belongs to, or move it to docs/',
     );
     expect(check.meetsStandard).toBe(true);
+  });
+
+  it("wants Limitations to open with a paragraph the site can show alone", () => {
+    const listFirst = GOOD.replace(
+      "HEIC files without EXIF data keep their names.",
+      "- HEIC files keep their names.\n- RAW files are skipped.\n\nFiles without metadata keep their names.",
+    );
+    expect(checkReadme(listFirst).errors).toContain(
+      "Limitations does not open with a paragraph (the site shows its first paragraph on its own)",
+    );
+    // The site never shows the list as a run of dashes.
+    expect(extract(listFirst).operatorNote).toBe(
+      "Files without metadata keep their names.",
+    );
+  });
+
+  it("warns when the card line repeats the name shown above it", () => {
+    const named = GOOD.replace(
+      "A command-line tool that renames",
+      "Widget is a command-line tool that renames",
+    );
+    const check = checkReadme(named);
+    expect(check.warnings).toContain(
+      'first sentence starts with the name: start with what it is ("A …"), since the site shows it under the name',
+    );
+    expect(check.meetsStandard).toBe(true);
+    expect(checkReadme(GOOD).warnings).toEqual([]);
+  });
+});
+
+describe("checking a draft from the command line", () => {
+  // Vitest runs from the project root; under jsdom import.meta.url is not a
+  // file URL.
+  const cli = join(process.cwd(), "scripts", "check-readme.mjs");
+  const run = (md) => {
+    const file = join(mkdtempSync(join(tmpdir(), "readme-")), "README.md");
+    writeFileSync(file, md);
+    return spawnSync(process.execPath, [cli, file], { encoding: "utf8" });
+  };
+
+  it("prints the card line and exits 0 for a README that meets the standard", () => {
+    const { status, stdout } = run(GOOD);
+    expect(stdout).toContain(
+      "card     A command-line tool that renames photos by the date they were taken.",
+    );
+    expect(stdout).toContain("meets the standard, 0 warnings");
+    expect(status).toBe(0);
+  });
+
+  it("lists every problem and exits 1 for one that does not", () => {
+    const { status, stdout } = run(GOOD.replace("## Testing", "## Tests"));
+    expect(stdout).toContain('rename   section "Tests": rename to "Testing"');
+    expect(stdout).toContain("does not meet the standard: 0 errors, 1 rename");
+    expect(status).toBe(1);
   });
 });
 

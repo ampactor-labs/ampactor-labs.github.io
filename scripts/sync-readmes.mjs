@@ -87,6 +87,13 @@ const stripMd = (s) =>
     .replace(/\s+/g, " ")
     .trim();
 
+// A block the site can show as a sentence: not a list, table, heading, code
+// fence, quote or image, which would reach the page as stray markup.
+const isProse = (block) => {
+  const b = block.trim();
+  return b !== "" && !/^([-*+]\s|\d+[.)]\s|\||#|```|>|!\[)/.test(b);
+};
+
 export function sectionBody(md, name) {
   const m = md.match(new RegExp(`^##\\s+${name}\\s*$`, "im"));
   if (!m) return "";
@@ -143,13 +150,14 @@ export const WEAK_SECTION_ALIASES = [
   "Known limitations",
 ];
 
+const limitationsOf = (md) =>
+  WEAK_SECTION_ALIASES.map((n) => sectionBody(md, n)).find(Boolean) || "";
+
 export function operatorNoteOf(md) {
-  const body =
-    WEAK_SECTION_ALIASES.map((n) => sectionBody(md, n)).find(Boolean) || "";
-  if (!body) return "";
-  const first = body
+  const first = limitationsOf(md)
+    .replace(/```[\s\S]*?```/g, "")
     .split(/\n{2,}/)
-    .find((p) => p.trim() && !p.trim().startsWith("|"));
+    .find(isProse);
   return first ? stripMd(first) : "";
 }
 
@@ -271,6 +279,15 @@ export function checkReadme(md) {
       errors.push(
         `first sentence is ${sentences[0].length} characters (at most 160)`,
       );
+    // The card shows the name above this sentence.
+    const title = stripMd(md.match(/^#\s+(.+?)\s*$/m)?.[1] ?? "");
+    if (
+      title &&
+      sentences[0]?.toLowerCase().startsWith(`${title.toLowerCase()} `)
+    )
+      warnings.push(
+        'first sentence starts with the name: start with what it is ("A …"), since the site shows it under the name',
+      );
   }
 
   const status = statusOf(md);
@@ -295,7 +312,7 @@ export function checkReadme(md) {
     const c = canonicalSection(h);
     if (!c) {
       warnings.push(
-        `extra section "${h}": move it under How it works or into docs/`,
+        `extra section "${h}": make it a ### under the section it belongs to, or move it to docs/`,
       );
       continue;
     }
@@ -313,6 +330,10 @@ export function checkReadme(md) {
   for (const names of REQUIRED_SECTIONS)
     if (!names.some((n) => found.has(n)))
       errors.push(`no "${names.join('" or "')}" section`);
+  if (found.has("Limitations") && !isProse(limitationsOf(md)))
+    errors.push(
+      "Limitations does not open with a paragraph (the site shows its first paragraph on its own)",
+    );
 
   errors.push(...writingErrors(md.replace(/```[\s\S]*?```/g, "")));
   const contrasts = md.match(CONTRAST) || [];

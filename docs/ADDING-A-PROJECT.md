@@ -25,15 +25,17 @@ things from it:
    sentence becomes the project's card once the README meets the standard.
 2. The `**Status: <label>.**` line, with a label from `shipping`, `working`,
    `prototype`, `paused` or `retired`, then one sentence of caveats.
-3. The `## Limitations` section, stating at least one real limitation. The
-   older names (`Weak spots`, `What is honestly unfinished`, `Where it
+3. The `## Limitations` section, stating at least one real limitation in an
+   opening paragraph that makes sense on its own. The older names (`Weak spots`, `What is honestly unfinished`, `Where it
 loses`, `What this is not`, `Known limitations`) still count while
    repositories move over.
 
 A field that does not pass the standard's writing rules keeps the prose in
-`projects.js`, and nothing breaks. Check where every repository stands:
+`projects.js`, and nothing breaks. Check a draft before you push it, and see
+where every repository stands:
 
 ```sh
+npm run readme:check -- ~/Projects/<repo>/README.md
 npm run readmes:report
 ```
 
@@ -51,7 +53,7 @@ findings exit 1. For sentences, `sloplint` is the other half.
 ## Why the split
 
 Content lives in the repo; presentation lives here. Every stale thing this
-site has ever shipped was content — turbosort's card describing a version it
+site has ever shipped was content: turbosort's card describing a version it
 had outgrown, landed missing for a day, sonido advertising 35 effects against
 a repo with 36. No color or icon has ever gone wrong.
 

@@ -20,6 +20,7 @@
     "sync:readmes:check": "node scripts/sync-readmes.mjs --check",
     "add:project": "node scripts/add-project.mjs",
     "readmes:report": "node scripts/sync-readmes.mjs --report",
+    "readme:check": "node scripts/check-readme.mjs",
     "resume:build": "node scripts/build-resume.mjs",
     "resume:check": "node scripts/build-resume.mjs --check",
     "sync:receipts": "node scripts/sync-receipts.mjs",
