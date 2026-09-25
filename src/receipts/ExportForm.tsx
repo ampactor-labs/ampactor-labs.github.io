@@ -117,11 +117,12 @@ export default function ExportForm({
           EXPORT
         </p>
         <h2 id={`${uid}-heading`} className={styles.h2}>
-          Take it with you
+          Export
         </h2>
         <p className={styles.lede}>
-          The current slice, <strong>{int(commits.length)} commits</strong>, as
-          a file built in your browser. Nothing leaves the page.
+          Download the current selection,{" "}
+          <strong>{int(commits.length)} commits</strong>, as CSV or JSON. The
+          file is built in your browser; nothing is uploaded.
         </p>
       </div>
       <div className={styles.exportGrid}>

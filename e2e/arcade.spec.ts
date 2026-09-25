@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// The cabinet, played by keyboard, exactly as before the floor existed.
+// The cabinet at /arcade/, driven from the keyboard.
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem("ampactor_visited", "1"));
 });

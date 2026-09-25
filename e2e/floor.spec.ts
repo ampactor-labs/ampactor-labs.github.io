@@ -237,7 +237,7 @@ test.describe("the first visit", () => {
     await expect(page.locator("html")).not.toHaveAttribute("data-cold-open");
     await expect(page).toHaveURL(/\/#how$/);
     await expect(
-      page.getByRole("heading", { level: 2, name: "Receipts over claims" }),
+      page.getByRole("heading", { level: 2, name: "How I work" }),
     ).toBeInViewport();
   });
 

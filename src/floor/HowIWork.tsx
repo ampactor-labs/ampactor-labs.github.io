@@ -7,7 +7,7 @@ import styles from "./HowIWork.module.css";
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 const { totals } = summary;
 
-// Three claims a reader can check against this repository.
+// Three habits, each one checkable against this repository.
 export default function HowIWork({ inert }: { inert: boolean }) {
   return (
     <section
@@ -16,11 +16,7 @@ export default function HowIWork({ inert }: { inert: boolean }) {
       aria-labelledby="how-heading"
       inert={inert || undefined}
     >
-      <SectionHeading
-        id="how-heading"
-        eyebrow="HOW I WORK"
-        title="Receipts over claims"
-      />
+      <SectionHeading id="how-heading" eyebrow="PROCESS" title="How I work" />
       <div className={styles.grid}>
         <article className={`${styles.item} reveal`}>
           <h3 className={styles.itemTitle}>
@@ -30,11 +26,10 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             End to end
           </h3>
           <p>
-            Every project here is one person&apos;s: the design, the code, the
-            tests, the deploy, and the README that says where it&apos;s weak.
-            This site is a typed React&nbsp;19 + Vite floor around an arcade
-            cabinet, with a unit suite and a browser suite that plays the
-            cabinet on a phone before anything ships.
+            I take projects from design to deployment on my own: the interface,
+            the backend, the tests, CI and the documentation. This site is React
+            19 and TypeScript on Vite, with unit tests and browser tests that
+            run on every pull request.
           </p>
         </article>
         <article className={`${styles.item} reveal`}>
@@ -42,12 +37,13 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             <span className={styles.glyph} aria-hidden="true">
               ◈
             </span>
-            Published losses
+            Documented limits
           </h3>
           <p>
-            Benchmarks show where they lose. READMEs carry a <em>Weak spots</em>{" "}
-            section, and the cards on this floor are generated from those
-            READMEs at build time, so a claim can&apos;t outrun its repository.
+            Most of my READMEs have a section on known weaknesses, and where I
+            publish benchmarks, they include the cases I lose. The arcade&apos;s
+            project pages are generated from those READMEs, so the site and the
+            repositories say the same thing.
           </p>
         </article>
         <article className={`${styles.item} reveal`}>
@@ -55,28 +51,27 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             <span className={styles.glyph} aria-hidden="true">
               ∿
             </span>
-            AI in the loop, hands on the wheel
+            Working with AI
           </h3>
           <p>
-            I use Claude Code every day and treat it like a fast colleague with
-            no memory: I read every diff, run the checks myself, and on this
-            site the commit message ends with what was checked. Of the{" "}
-            {int(totals.commits)} public commits in{" "}
-            <a href="/receipts/">the ledger</a>, {int(totals.withClaude)} name
-            Claude as author or co-author, and{" "}
+            I use Claude Code daily as a pair programmer. I review every diff
+            and run the checks myself, and on this site every commit since the
+            rebuild ends with what I checked. Of the {int(totals.commits)}{" "}
+            commits in <a href="/receipts/">my commit log</a>,{" "}
+            {int(totals.withClaude)} list Claude as author or co-author, and{" "}
             <a
               href={`${REPO}/commits`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              this site&apos;s own history
+              this site&apos;s history
             </a>{" "}
-            is the record.
+            is public.
           </p>
         </article>
       </div>
       <a className={`${styles.more} reveal`} href="/craft/">
-        How this site is made: what was hard, what I chose, how I know →
+        How this site is built →
       </a>
     </section>
   );

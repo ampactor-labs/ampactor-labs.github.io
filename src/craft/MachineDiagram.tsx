@@ -1,9 +1,9 @@
 import styles from "./Craft.module.css";
 
-// The mechanism at two depths, drawn to scale for a 1280 × 800 screen. The
-// console is laid out at min(900px, 100vw) × 100dvh = 900 × 800 in both;
-// on the floor it is scale(k) in a 640-wide slot, zoomed it is translated
-// to cover the viewport, and its stage stays pinned at the slot. Every
+// The zoom in both states, drawn to scale for a 1280 × 800 screen. The
+// cabinet is laid out at min(900px, 100vw) × 100dvh = 900 × 800 in both. On
+// the page it is scale(k) in a 640 px wide slot; open, it is translated to
+// cover the viewport while its container stays fixed at the slot. Every
 // length below is a real pixel value times S.
 const S = 260 / 1280;
 const VIEW = { w: 1280 * S, h: 800 * S };
@@ -107,7 +107,7 @@ function Floor() {
       viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
       className={styles.dSvg}
       role="img"
-      aria-label="On the floor: the page, with its text on the left and the console scaled down into its slot on the right."
+      aria-label="On the page: the text on the left and the cabinet scaled down into its slot on the right."
     >
       <rect
         x={0.5}
@@ -207,7 +207,7 @@ function Zoomed() {
       viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
       className={styles.dSvg}
       role="img"
-      aria-label="Zoomed: the room is dark, and the same console fills the screen at full size. Its stage is still pinned where the slot is."
+      aria-label="Open: the background is dark and the same cabinet fills the screen at full size. Its container is still fixed where the slot is."
     >
       <g className="cabinet-scope">
         <rect
@@ -239,7 +239,7 @@ export default function MachineDiagram() {
     <figure className={styles.diagram}>
       <div className={styles.panels}>
         <p className={`${styles.panelTitle} ${styles.areaTitleA}`}>
-          On the floor
+          On the page
         </p>
         <div className={styles.areaDrawA}>
           <Floor />
@@ -247,8 +247,8 @@ export default function MachineDiagram() {
         <div className={`${styles.panelLabels} ${styles.areaLabelsA}`}>
           <code className={styles.panelCode}>transform: scale(k)</code>
           <p className={styles.panelNote}>
-            k is the slot&apos;s width over the layout&apos;s: {K.toFixed(2)}{" "}
-            here.
+            k is the slot width divided by the layout width: {K.toFixed(2)} at
+            this size.
           </p>
         </div>
         <p className={styles.panelArrow} aria-hidden="true">
@@ -262,23 +262,23 @@ export default function MachineDiagram() {
             <path d="M1.5 25 L6 34 L10.5 25" />
           </svg>
         </p>
-        <p className={`${styles.panelTitle} ${styles.areaTitleB}`}>Zoomed</p>
+        <p className={`${styles.panelTitle} ${styles.areaTitleB}`}>Open</p>
         <div className={styles.areaDrawB}>
           <Zoomed />
         </div>
         <div className={`${styles.panelLabels} ${styles.areaLabelsB}`}>
           <code className={styles.panelCode}>transform: translate(cover)</code>
           <p className={styles.panelNote}>
-            The stage stays pinned at the slot (dashed); the console is moved
-            from there to fill the screen.
+            The container stays fixed at the slot (dashed line), and the cabinet
+            is translated from there to fill the screen.
           </p>
         </div>
       </div>
       <figcaption className={styles.caption}>
-        Drawn to scale for a 1280 × 800 screen. The console is laid out at its
-        full-screen size at both depths, as wide as the viewport up to 900
-        pixels and as tall. Only its transform changes, so nothing inside
-        reflows and no box on the page moves.
+        Drawn to scale for a 1280 × 800 screen. The cabinet has the same layout
+        in both states: as wide as the viewport up to 900 pixels, and as tall.
+        Only its transform changes, so nothing inside it is laid out again and
+        nothing else on the page moves.
       </figcaption>
     </figure>
   );

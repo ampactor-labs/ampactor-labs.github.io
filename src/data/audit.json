@@ -5,43 +5,43 @@
   "runs": 5,
   "pages": {
     "/": {
-      "performance": 95,
+      "performance": 96,
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100,
-      "fcpMs": 1861,
-      "lcpMs": 2513,
-      "tbtMs": 104,
+      "fcpMs": 1958,
+      "lcpMs": 2360,
+      "tbtMs": 100,
       "cls": 0,
-      "speedIndexMs": 1967,
-      "htmlGzipKb": 10.4,
-      "jsGzipKb": 130.7
+      "speedIndexMs": 2014,
+      "htmlGzipKb": 10.5,
+      "jsGzipKb": 130.6
     },
     "/receipts/": {
-      "performance": 97,
+      "performance": 96,
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100,
-      "fcpMs": 1805,
-      "lcpMs": 2266,
-      "tbtMs": 123,
+      "fcpMs": 1813,
+      "lcpMs": 2273,
+      "tbtMs": 149,
       "cls": 0,
-      "speedIndexMs": 1805,
+      "speedIndexMs": 1813,
       "htmlGzipKb": 11.9,
-      "jsGzipKb": 116.9
+      "jsGzipKb": 116.8
     },
     "/craft/": {
       "performance": 98,
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100,
-      "fcpMs": 1808,
-      "lcpMs": 2111,
-      "tbtMs": 3,
+      "fcpMs": 1806,
+      "lcpMs": 2108,
+      "tbtMs": 5,
       "cls": 0,
-      "speedIndexMs": 1808,
+      "speedIndexMs": 1806,
       "htmlGzipKb": 10.1,
-      "jsGzipKb": 69.7
+      "jsGzipKb": 69.8
     }
   },
   "tests": {

@@ -34,9 +34,9 @@ const SYNC_SCRIPT =
   "https://github.com/ampactor-labs/ampactor-labs.github.io/blob/main/scripts/sync-receipts.mjs";
 
 // Every public commit, read from git by scripts/sync-receipts.mjs at build
-// time, served as one JSON file and worked entirely in the browser. The URL
-// is the state; the tiles, charts, table and export all read one filtered
-// slice, so they can never disagree.
+// time and served as one JSON file; filtering, charts and export run in the
+// browser. The view is stored in the URL, and the tiles, charts, table and
+// export all read the same filtered list, so they always agree.
 export default function ReceiptsApp() {
   const { status, retry } = useLedger();
   const { view, setFilter, setSort, reset } = useViewState();
@@ -47,15 +47,15 @@ export default function ReceiptsApp() {
       <main id="main" className={styles.main} tabIndex={-1}>
         <header className={styles.pageHead}>
           <p className={styles.eyebrow} aria-hidden="true">
-            RECEIPTS
+            COMMITS
           </p>
-          <h1 className={styles.h1}>Every public commit, in one ledger</h1>
+          <h1 className={styles.h1}>Every public commit</h1>
           <Lede />
         </header>
         {status.state === "loading" ? <Loading /> : null}
         {status.state === "error" ? (
           <div className={styles.errorBox} role="alert">
-            <p>The ledger did not load. {status.message}</p>
+            <p>The commit data did not load. {status.message}</p>
             <button
               type="button"
               className={styles.primaryButton}
@@ -89,17 +89,17 @@ function Lede() {
     <>
       <p className={styles.lede}>
         <strong>{int(all.commits)} commits</strong> across {int(all.repos)}{" "}
-        repositories since{" "}
+        public repositories since{" "}
         {all.first ? monthLabel(all.first.slice(0, 7), "long") : "the start"},
-        read straight from git by{" "}
+        read from git by{" "}
         <a href={SYNC_SCRIPT} target="_blank" rel="noopener noreferrer">
           a build script
-        </a>{" "}
-        and worked here, in your browser. Filter it, sort it, chart it, take it
-        with you. Every view is a link.
+        </a>
+        . Filtering, sorting and charts run in your browser, and the URL keeps
+        the current view, so any view can be shared as a link.
       </p>
       <p className={styles.generated}>
-        Ledger generated {shortDate(generatedAt)} ·{" "}
+        Data from {shortDate(generatedAt)} ·{" "}
         <a href="/receipts/data.json">data.json</a>
       </p>
     </>
@@ -109,7 +109,7 @@ function Lede() {
 function Loading() {
   return (
     <div className={styles.loading} role="status" aria-live="polite">
-      <p>Reading the ledger…</p>
+      <p>Loading commits…</p>
       <div className={styles.skeletonTiles} aria-hidden="true">
         {Array.from({ length: 6 }, (_, i) => (
           <div key={i} className={styles.skeleton} />
@@ -205,7 +205,7 @@ function LedgerView({
   if (!span) {
     return (
       <p className={styles.errorBox} role="status">
-        The ledger is empty.
+        No commits to show.
       </p>
     );
   }

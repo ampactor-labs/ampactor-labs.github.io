@@ -17,13 +17,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SYSTEMS ENGINEER
+        MORGAN ESPITIA · SOFTWARE ENGINEER
       </h1>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
-          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          href="mailto:ampactorlabs@gmail.com"
           style="color: inherit; text-decoration: none;"
         >
           ampactorlabs@gmail.com
@@ -100,13 +100,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SYSTEMS ENGINEER
+        MORGAN ESPITIA · SOFTWARE ENGINEER
       </h1>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
-          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          href="mailto:ampactorlabs@gmail.com"
           style="color: inherit; text-decoration: none;"
         >
           ampactorlabs@gmail.com
@@ -1051,13 +1051,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SYSTEMS ENGINEER
+        MORGAN ESPITIA · SOFTWARE ENGINEER
       </h1>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
-          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          href="mailto:ampactorlabs@gmail.com"
           style="color: inherit; text-decoration: none;"
         >
           ampactorlabs@gmail.com
@@ -1134,13 +1134,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SYSTEMS ENGINEER
+        MORGAN ESPITIA · SOFTWARE ENGINEER
       </h1>
       <div
         style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
-          href="mailto:ampactorlabs@gmail.com?subject=Project%20inquiry"
+          href="mailto:ampactorlabs@gmail.com"
           style="color: inherit; text-decoration: none;"
         >
           ampactorlabs@gmail.com

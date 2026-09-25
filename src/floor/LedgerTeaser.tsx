@@ -1,13 +1,12 @@
 import { summary } from "../data/receiptsSummary";
 import SectionHeading from "./SectionHeading";
-import { compact, int, monthLabel } from "../lib/format";
+import { int, monthLabel } from "../lib/format";
 import { roundedTop, ticks } from "../receipts/charts/scale";
 import section from "./Section.module.css";
 import styles from "./LedgerTeaser.module.css";
 
-// The ledger's front step on the floor: the headline numbers and the months
-// as a strip, drawn from the same summary the build wrote. The page itself
-// is one click away.
+// The commit log's summary on the home page: two totals and commits per
+// month, from the summary the build writes. The full page is one click away.
 export default function LedgerTeaser({ inert }: { inert: boolean }) {
   const { totals, months } = summary;
   const since = totals.first
@@ -36,15 +35,17 @@ export default function LedgerTeaser({ inert }: { inert: boolean }) {
     >
       <SectionHeading
         id="receipts-heading"
-        eyebrow="RECEIPTS"
-        title={`${int(totals.commits)} commits, in the open`}
+        eyebrow="COMMITS"
+        title={
+          since
+            ? `${int(totals.commits)} commits since ${since}`
+            : `${int(totals.commits)} public commits`
+        }
         lede={
           <>
-            Every public commit{since ? ` since ${since}` : ""}, read from git
-            when this site is built: {int(totals.repos)} repositories,{" "}
-            {compact(totals.additions)} lines added, {int(totals.withClaude)}{" "}
-            commits with Claude as author or co-author. The ledger filters,
-            sorts, charts and exports, and every view of it is a link.
+            Every commit in my public repositories, read from git each time this
+            site is built. The commit log lets you filter, sort and chart them,
+            or export them as CSV or JSON.
           </>
         }
       />
@@ -56,14 +57,10 @@ export default function LedgerTeaser({ inert }: { inert: boolean }) {
           </div>
           <div>
             <span className={styles.big}>{int(totals.repos)}</span>
-            <span className={styles.label}>repositories</span>
-          </div>
-          <div>
-            <span className={styles.big}>+{compact(totals.additions)}</span>
-            <span className={styles.label}>lines added</span>
+            <span className={styles.label}>public repositories</span>
           </div>
           <a className={styles.link} href="/receipts/">
-            Open the ledger →
+            Open the commit log →
           </a>
         </div>
         <figure className={styles.figure}>

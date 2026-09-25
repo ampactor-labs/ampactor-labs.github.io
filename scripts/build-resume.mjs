@@ -36,7 +36,7 @@ export function render(r) {
       (role) => `
       <article class="job">
         <div class="head">
-          <span class="name">${esc(role.org)} — ${esc(role.role)}</span>
+          <span class="name">${esc(role.role)}, ${esc(role.org)}</span>
           <span class="when">${[role.location, span(role)].filter(Boolean).map(esc).join(" · ")}</span>
         </div>
         <ul>
@@ -65,7 +65,7 @@ export function render(r) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${esc(r.name)} — Résumé | ${esc(r.title)}</title>
+  <title>Résumé · ${esc(r.name)}, ${esc(r.title)}</title>
   <meta name="description" content="${esc(r.summary)}" />
   <link rel="canonical" href="${esc(r.site)}/resume.html" />
   <link rel="icon" href="/favicon.ico" />
@@ -163,12 +163,12 @@ export function render(r) {
     </section>
 
     <section>
-      <h2>Before</h2>
+      <h2>Background</h2>
       <p class="before">${esc(r.before)}</p>
     </section>
 
     <footer>
-      References, code and demos on request — or walk the floor at <a href="/">ampactor.dev</a>.
+      References on request. Code and live projects are at <a href="/">ampactor.dev</a>.
     </footer>
   </div>
 </body>

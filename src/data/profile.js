@@ -21,7 +21,7 @@ const PHONE_DIGITS = [
 
 export const CONTACT = {
   name: "MORGAN ESPITIA",
-  role: "SYSTEMS ENGINEER",
+  role: "SOFTWARE ENGINEER",
   email: "ampactorlabs@gmail.com",
   location: "Salt Lake City, UT",
   github: "https://github.com/ampactor-labs",
@@ -36,7 +36,6 @@ export const CONTACT = {
   ).join("")}-${PHONE_DIGITS.slice(8).join("")}`,
 };
 
-// mailto with a prefilled subject — lowest-friction primary CTA.
-export const MAILTO = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
-  "Project inquiry",
-)}`;
+// The primary call to action. No prefilled subject: whoever writes knows
+// better than a default what the email is about.
+export const MAILTO = `mailto:${CONTACT.email}`;

@@ -28,7 +28,7 @@ export default function StatTiles({
       {
         label: "Repositories",
         value: int(totals.repos),
-        sub: filtered ? `of ${int(all.repos)}` : "public, in the open",
+        sub: filtered ? `of ${int(all.repos)}` : "all public",
       },
       {
         label: "Lines added",

@@ -26,7 +26,7 @@ test("moving between the floor and the ledger is one place, not a cut", async ({
 }) => {
   await recordArrival(page);
   await page.goto("/");
-  await page.getByRole("link", { name: "RECEIPTS", exact: true }).click();
+  await page.getByRole("link", { name: "COMMITS", exact: true }).click();
   await expect(page).toHaveURL(/\/receipts\/$/);
   await expect.poll(() => arrivedByTransition(page)).toBe(true);
 
@@ -41,7 +41,7 @@ test("with reduced motion the pages cut, as they always did", async ({
   await page.emulateMedia({ reducedMotion: "reduce" });
   await recordArrival(page);
   await page.goto("/");
-  await page.getByRole("link", { name: "RECEIPTS", exact: true }).click();
+  await page.getByRole("link", { name: "COMMITS", exact: true }).click();
   await expect(page).toHaveURL(/\/receipts\/$/);
   await expect.poll(() => arrivedByTransition(page)).toBe(false);
 });

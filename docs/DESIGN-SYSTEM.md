@@ -49,25 +49,30 @@ don't let a generator re-skin it.
 
 ## 2 · Voice
 
-**Confident, concrete, plain-spoken. Receipts over claims.**
+**Plain, specific, checkable.** Write the way a senior engineer writes a design doc.
 
-- **No title, one line of range.** The name is followed by what gets made, not a job
-  title or an industry: _"Compilers, synths, games, and the apps around them. Shipped,
-  with receipts."_ The site never pins its author to front-end, back-end, or a sector.
-- **Lead with the outcome a non-engineer can map to money or risk**, then back it with
-  the hard number one layer deeper (the cabinet readout).
-- **Publish the losses.** Benchmarks show where they lose; READMEs carry a _Weak spots_
-  section; cards are generated from those READMEs so a claim cannot outrun its repo.
-- **Terse, technical, lower-case-comfortable.** Mono fonts for readouts, `→` arrows,
-  `·` separators, `●` status dots. No marketing adjectives. Let the artifacts carry it.
-- **Own the story as a story**: six years employed full-stack, then a studio. Rendered
-  as a timeline, not explained.
+- **Say what things are.** Headings name the section ("How I work", "The commit log"),
+  never a slogan. The line under the name states the role and the range:
+  _"Full-stack software engineer since 2017, building web apps, APIs, compilers, audio
+  software and games."_ It does not pin the author to front-end, back-end or one
+  industry.
+- **Every claim can be checked**: a number, a link, a test. Qualify what is only mostly
+  true ("most of my READMEs"); never round a claim up.
+- **No slogans or aphorisms, no "X, not Y" contrasts, no lists of three for rhythm, no
+  em dashes, no metaphors in page copy.** The cabinet's in-world text (taglines, boot
+  lines, `PRESS START`) is the one place for a game voice.
+- **First person, active voice, short sentences.** Mono for readouts, `→` on links that
+  leave the page, `·` separators, `●` status dots. No marketing adjectives.
+- **Lead with what a non-engineer can map to value**, then the technical detail one layer
+  deeper (the cabinet readout, the case study).
+- **Publish limits.** READMEs have a known-weaknesses section; benchmarks include the
+  cases they lose.
 
 **Copy registers, by depth:**
 
-1. `range` (site.js) and `outcome` (projects.js) — floor, one plain sentence.
-2. `tagline` — the arcade hook, ALL-CAPS, punchy.
-3. `desc` / `highlights` / `operatorNote` — the engineer's proof, in the cabinet.
+1. `range` (site.js) and `outcome` (projects.js): the home page, plain sentences.
+2. `tagline`: the arcade hook, ALL-CAPS, in-world.
+3. `desc` / `highlights` / `operatorNote`: the technical detail, in the cabinet.
 
 ---
 
@@ -242,13 +247,13 @@ floor transition is off (`global.css`).
 
 | Component | Spec |
 |---|---|
-| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · RECEIPTS · CRAFT · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page, which marks itself with `aria-current="page"`: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. On a phone it stays one line from 360 px: the brand is the A-mark alone and GITHUB drops under 480 px, WORK under 440 px (the work is the next thing below the hero), and the gap tightens under 380 px. Inert while the cabinet is zoomed. |
+| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · COMMITS · CRAFT · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page, which marks itself with `aria-current="page"`: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. On a phone it stays one line from 360 px: the brand is the A-mark alone and GITHUB drops under 480 px, WORK under 440 px (the work is the next thing below the hero), and the gap tightens under 380 px. Inert while the cabinet is zoomed. |
 | **Hero** | Eyebrow (`AMPACTOR LABS · SALT LAKE CITY`) → `<h1>` name in Inter 600 → the line of range → status line (`●` verdigris, "Available — full-time or contract · Salt Lake City, UT · remote") → `Email →` primary, `Résumé` and `Enter the arcade ▸` ghosts → a one-line hint. |
 | **Slot + stage** | The cabinet's footprint on the floor. The stage holds the console, the backdrop (tunnel, A-mark, game) and the two controls: the transparent **Enter the arcade** button over the whole machine (the only tab stop on the floor; the panel beneath is `inert`) and, when zoomed, **`‹ FLOOR`**. |
 | **SectionHeading** | Press Start eyebrow + hairline rule, Inter `<h2>`, optional lede. The repeating chapter heading. |
 | **Shelf / Cartridge** | One auto-fill grid of every project. Card: icon in the muted accent, `lang`, Share Tech Mono title, `CATEGORY · subtitle`, `outcome`, up to four stack chips, `Live →` / `Source →` / `▸ Cabinet` (zooms straight to that cartridge). |
-| **Ledger teaser** | The ledger's front step: `N commits, in the open`, three numbers and a nine-month strip from `receipts.summary.json`, `Open the ledger →`. |
-| **How I work** | Three claims a reader can check against this repository: end to end; published losses; AI in the loop, hands on the wheel, with the ledger's own count of commits that name Claude. Then one quiet hairline link into `/craft/`. |
+| **Commits summary** | `N commits since <month>`, two numbers (commits, public repositories) and the commits-per-month strip from `receipts.summary.json`, then `Open the commit log →`. Line counts stay on the commit log page, where they sit in context. |
+| **How I work** | Three habits a reader can check against this repository: end to end; documented limits; working with AI, with the commit log's count of commits that name Claude. Then one quiet hairline link, `How this site is built →`. |
 | **Timeline** | SVG from `resume.json`: employment as amber bars, the studio faint until it became the whole job, then cyan. `<title>` and `<desc>` carry the data for screen readers. |
 | **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
 
@@ -278,10 +283,10 @@ changed it.
 | **Page head** | `CRAFT` eyebrow, Inter `<h1>`, the lede, the stack as one mono line with `·` separators, six measured tiles (a `<ul aria-label="Measured">`: value in Share Tech Mono on top, label, one line of source), then the measured line: date, tool, form factor, "median of 3 runs", a link to `scripts/audit.mjs`. |
 | **Contents rail** | `<nav aria-label="On this page">`, numbered `01`–`05`. A sticky column beside the chapters from 1000 px; below that, one wrapped row between hairlines. |
 | **Chapter** | A `<section>` with a numbered Press Start eyebrow (`01 · THE MACHINE`) and an Inter `<h2>`, hairline between chapters. |
-| **Fact cards** | The case-study spine in every chapter: a `<dl>` of three hairline cards, `▸ The hard part`, `◆ What I chose`, `✓ How I know`, glyphs decorative. |
-| **Points** | A `▸` list for decisions and costs: a bold lead-in, then one or two sentences. |
+| **Fact cards** | The same three parts in every chapter: a `<dl>` of three hairline cards, `▸ Problem`, `◆ Approach`, `✓ Verification`, glyphs decorative. |
+| **Points** | A `▸` list for decisions and tradeoffs, one or two plain sentences each. |
 | **Tables** | Captioned, mono, tabular numerals, right-aligned values, row headers that may wrap, column headers that may wrap onto two lines so the values set the width. A table wider than its column scrolls inside a labelled, focusable region. |
-| **Machine diagram** | Two panels drawn to scale for a 1280 × 800 screen, `On the floor` and `Zoomed`, each an `<svg role="img">` with its own label and no text inside; titles, the CSS each depth uses and a note are HTML beneath. The cabinet and its room sit in `.cabinet-scope` groups, so they stay dark in the light theme. Side by side with an arrow between; on a phone they stack and the arrow points down. |
+| **Machine diagram** | Two panels drawn to scale for a 1280 × 800 screen, `On the page` and `Open`, each an `<svg role="img">` with its own label and no text inside; titles, the CSS each depth uses and a note are HTML beneath. The cabinet and its room sit in `.cabinet-scope` groups, so they stay dark in the light theme. Side by side with an arrow between; on a phone they stack and the arrow points down. |
 | **Links row** | Mono links to the files a chapter talks about, on `main`. |
 
 ### Cabinet (bespoke, change with care)
@@ -325,7 +330,7 @@ work, skills); `src/data/site.js` holds the per-page `<head>` and the line of ra
 /arcade/          → the cabinet, zoomed (a real static entry; Back returns to the floor)
 /arcade/#<id>     → a cartridge open in the cabinet (shareable)
 /receipts/        → the ledger; ?from=&to=&repo=&q=&merges=0&sort=-key is the whole view
-/craft/           → how this site is made; #machine #ledger #speed #proof #costs
+/craft/           → how this site is built; #zoom #commits #performance #testing #tradeoffs
 /resume.html      → static, zero-JS, print/ATS, generated from resume.json
 ```
 

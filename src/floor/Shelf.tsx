@@ -108,14 +108,13 @@ export default function Shelf({
     >
       <SectionHeading
         id="work-heading"
-        eyebrow="THE WORK"
-        title={`${projects.length} cartridges, all shipped`}
+        eyebrow="WORK"
+        title={`${projects.length} public projects`}
         lede={
           <>
-            Every project is a cartridge in the cabinet. Each card is generated
-            from the project&apos;s own README at build time, so a card
-            can&apos;t outrun its repo. Open one in the cabinet for the readout:
-            what it does, what it&apos;s made of, and where it&apos;s weak.
+            Each card links to the live project and its source where there is
+            one. Open a project in the arcade cabinet for a longer write-up,
+            mostly generated from its README when the site is built.
           </>
         }
       />

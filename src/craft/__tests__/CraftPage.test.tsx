@@ -37,14 +37,14 @@ describe("CraftPage", () => {
         .getAllByRole("listitem")
         .find((li) => li.textContent?.includes(label));
     expect(tile("Unit tests")?.textContent).toContain(n(audit.tests.unit));
-    expect(tile("Browser runs")?.textContent).toContain(
+    expect(tile("Browser test runs")?.textContent).toContain(
       n(audit.tests.browserRuns ?? 0),
     );
     const floor = audit.pages["/"];
     if (floor) {
       const rows = screen.getAllByRole("row");
       const floorRow = rows.find(
-        (r) => within(r).queryByRole("rowheader")?.textContent === "The floor",
+        (r) => within(r).queryByRole("rowheader")?.textContent === "Home",
       );
       expect(floorRow?.textContent).toContain(String(floor.performance));
     }
@@ -63,7 +63,7 @@ describe("CraftPage", () => {
     ).toBe("page");
     expect(
       within(site)
-        .getByRole("link", { name: "RECEIPTS" })
+        .getByRole("link", { name: "COMMITS" })
         .getAttribute("aria-current"),
     ).toBeNull();
   });

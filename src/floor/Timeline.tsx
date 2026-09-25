@@ -6,9 +6,9 @@ import styles from "./Timeline.module.css";
 
 const resume = resumeData as Resume;
 
-// The years since 2017, drawn. Employment as solid bars; the studio as a bar
-// that starts faint (a side practice) and goes solid the year it became the
-// whole job. No gap to explain when it is a picture.
+// The years since 2017 as a chart. Jobs are solid bars; Ampactor Labs is a
+// bar that starts faint (a side business) and turns solid in the year it
+// became full-time.
 export function timelineSpan(
   roles: ResumeRole[],
   now = new Date().getFullYear(),
@@ -39,15 +39,16 @@ export default function Timeline({ inert }: { inert: boolean }) {
     >
       <SectionHeading
         id="since-heading"
-        eyebrow="SINCE 2017"
-        title="Six years employed, then a studio"
+        eyebrow="EXPERIENCE"
+        title="Six years at companies, then independent"
         lede={
           <>
-            Front-end, then back-end, then both — PHP, Node, React and
-            TypeScript — for credit unions, a healthcare-benefits platform and
-            enterprise dashboards. Then Ampactor Labs, full-time since 2023:
-            client work under NDA and <a href="#work">the public work above</a>.{" "}
-            <a href="/resume.html">The résumé</a> has the dates and the details.
+            Front-end, back-end and full-stack roles in PHP, Node, React and
+            TypeScript, building for credit unions, a healthcare-benefits
+            platform and an enterprise shipping-data dashboard. Independent
+            since 2023 as Ampactor Labs: client work under NDA and{" "}
+            <a href="#work">the projects above</a>. Dates and details are in{" "}
+            <a href="/resume.html">the résumé</a>.
           </>
         }
       />
@@ -145,8 +146,8 @@ export default function Timeline({ inert }: { inert: boolean }) {
           </svg>
         </div>
         <figcaption className={styles.caption}>
-          Solid bars are employment; the faint run is the studio as a side
-          practice before it became the whole job in 2023.
+          Solid bars are jobs. The faint bar is Ampactor Labs as a side
+          business, before it became full-time in 2023.
         </figcaption>
       </figure>
     </section>

@@ -37,13 +37,14 @@ interface ZoomOptions {
 }
 
 export interface ZoomOutOptions {
-  // Seconds for the shrink. The cold open pulls back slower than an exit.
+  // Seconds for the zoom out. The first-visit animation uses a slower one.
   duration?: number;
   // Bring the slot under the viewport first when it is mostly out of view.
   // The cold open keeps the top of the page, where the name is.
   recentre?: boolean;
-  // Hand focus to the "Enter the arcade" control when the shrink lands. The
-  // cold open leaves focus where the visitor put it: they never walked up.
+  // Move focus to the "Enter the arcade" control when the zoom out ends. The
+  // first-visit animation leaves focus alone, since the visitor never opened
+  // the cabinet themselves.
   restoreFocus?: boolean;
 }
 
@@ -86,13 +87,12 @@ function pin(slot: HTMLElement, console_: HTMLElement): Cover {
   return cover;
 }
 
-// The camera dolly. The console is laid out at its zoomed size at all times
-// and scaled down into its slot by CSS (`--k`). Off the floor its stage is
-// pinned in place of the slot and the console is translated to cover the
-// viewport, so a zoom animates one transform and no box on the page ever
-// moves: nothing inside reflows or pops, and nothing counts as a layout
-// shift, even when the move is not a response to input (the cold open's
-// pull-back).
+// The zoom. The console is laid out at its full-screen size at all times and
+// scaled down into its slot by CSS (`--k`). While it is open, its stage is
+// fixed at the slot's position and the console is translated to cover the
+// viewport, so a zoom animates one transform and no box on the page moves.
+// Nothing inside re-lays out, and nothing counts as a layout shift, even
+// when the zoom is not a response to input (the first-visit animation).
 //
 //   in:  lock the page → pin the stage where the slot is → tween the console
 //        from scale(k) to the cover → the cabinet goes live and takes focus.
@@ -172,9 +172,9 @@ export function useArcadeZoom(options: ZoomOptions): {
     setZoomed(false);
   }, []);
 
-  // A cabinet that mounts zoomed (a hard load of /arcade/, the floor's cold
-  // open) starts in the posture a zoom-in would have left it in: the page
-  // pinned behind it, the stage pinned in its slot, the room opaque.
+  // A cabinet that mounts open (a direct load of /arcade/, or the first-visit
+  // animation) starts in the state a zoom-in would leave: the page locked
+  // behind it, the stage fixed at its slot, the backdrop opaque.
   useLayoutEffect(() => {
     const { initialZoomed, slotRef, consoleRef, backdropRef } =
       optionsRef.current;

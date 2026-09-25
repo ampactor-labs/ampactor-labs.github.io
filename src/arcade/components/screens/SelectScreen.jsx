@@ -46,7 +46,7 @@ export default function SelectScreen({
           margin: "6px 0 0",
         }}
       >
-        MORGAN ESPITIA · SYSTEMS ENGINEER
+        MORGAN ESPITIA · SOFTWARE ENGINEER
       </h1>
       <div
         style={{

@@ -1,20 +1,21 @@
 # ampactor.dev
 
-Morgan Espitia's portfolio. The home page is an arcade floor: the cabinet
-stands in its room in attract mode beside the name and one line of range;
-click it and it zooms in place to fill the screen, boots, and every project is
-a cartridge. Escape or Back shrinks it back to where it stood. A first visit
-starts the other way round: the page opens inside the machine as it powers on,
-and the camera pulls back to the room. Under the cabinet: the work as cards, a
-ledger of every public commit, how I work, and a timeline since 2017.
+Source for Morgan Espitia's portfolio site, live at https://ampactor.dev.
 
-- `/` — the floor (React 19 + TypeScript + Vite; light and dark)
-- `/arcade/` — the cabinet, full screen; `/arcade/#<project id>` opens a cartridge
-- `/receipts/` — the ledger: every public commit, filterable, sortable, charted,
-  exportable; the whole view lives in the query string, so any view is a link
-- `/craft/` — how this site is made: what was hard, what I chose, how I know,
-  with the numbers `npm run audit` measured on the build that ships
-- `/resume.html` — the résumé, static and printable, generated from one JSON file
+The home page shows an arcade cabinet next to the introduction. Clicking the
+cabinet zooms it to full screen, where each project can be opened from a menu;
+Escape or the browser's Back button returns to the page. On a first visit the
+page opens with the cabinet at full screen and zooms out after a few seconds.
+Below the cabinet are the projects, a summary of the commit log, a short
+section on how I work, and a timeline since 2017.
+
+- `/`: the home page (React 19, TypeScript and Vite; light and dark themes)
+- `/arcade/`: the cabinet at full screen; `/arcade/#<project id>` opens a project
+- `/receipts/`: the commit log, every public commit with filters, charts and
+  CSV/JSON export; the view is stored in the query string, so any view can be linked
+- `/craft/`: how the site is built, with numbers that `npm run audit` measures
+  on the production build
+- `/resume.html`: the résumé, a static printable page generated from one JSON file
 
 Click the coin slot on the cabinet to unlock three hidden programs. One of
 them is TUNNEL_RUN, a vector shooter with a global top-10 leaderboard that
@@ -27,26 +28,28 @@ npm install --legacy-peer-deps
 npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
 npm test               # vitest (jsdom)
 npm run e2e            # playwright against the production build, desktop + phone
-npm run lint           # eslint: the JS arcade, the TS floor, scripts, e2e
+npm run lint           # eslint: the JS arcade, the TS pages, scripts, e2e
 npm run typecheck      # tsc --noEmit
-npm run build          # sync READMEs, sync the ledger, render the résumé, vite build
-npm run sync:receipts  # rebuild the ledger from git (see Receipts below)
+npm run build          # sync READMEs, sync the commit data, render the résumé, vite build
+npm run sync:receipts  # rebuild the commit data from git (see Commit log below)
 npm run audit          # Lighthouse (median of 5), tests, weights on the build → src/data/audit.json
 ```
 
-CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build,
-and the browser suite on every push and pull request. Pushes to `main` deploy
-to GitHub Pages (`deploy.yml`), which runs the same checks first.
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build
+and the browser tests on every pull request and on pushes to other branches.
+Pushes to `main` deploy to GitHub Pages (`deploy.yml`) after lint, typecheck
+and the unit tests pass.
 
-## How it is put together
+## Structure
 
 ```
 src/
-  main.tsx, App.tsx        the floor, the zoom, the router
-  floor/                   header, hero, shelf, ledger teaser, how-I-work, timeline, footer
+  main.tsx, App.tsx        the home page, the zoom, the router
+  floor/                   the home page ("the floor" the cabinet stands on): header,
+                           hero, projects, commit summary, how I work, timeline, footer
   arcade/                  the cabinet, as it always was (JavaScript)
     zoom/                  the URL scheme, history, scroll lock, the zoom itself
-  receipts/                the ledger page: pure data model, URL state, charts,
+  receipts/                the commit log page: pure data model, URL state, charts,
                            the virtualised table, the drawer, the export form
   craft/                   the case study page and its drawn-to-scale diagram
   ui/, lib/, styles/       shared primitives, theme, tokens, number formatting
@@ -55,63 +58,65 @@ src/
     profile.js             identity and contact
     site.js                each page's <head>, rendered by vite.config.js
     resume.json            the résumé, rendered to public/resume.html
-    receipts.summary.json  the ledger's totals and months, for the floor
+    receipts.summary.json  commit totals and months, for the home page
     audit.json             what npm run audit measured, quoted by /craft/
 scripts/
   sync-readmes.mjs         pulls card copy from each project's README
-  sync-receipts.mjs        reads every public repository's git log into the ledger
+  sync-receipts.mjs        reads every public repository's git log into the commit data
   build-resume.mjs         resume.json → public/resume.html
-  render-og.mjs            the social card, screenshotted from the live hero
+  render-og.mjs            the social card, a screenshot of the home page's hero
   axe-report.mjs           prints axe violations for any page of a running build
   audit.mjs                npm run audit: Lighthouse, test counts and weights → src/data/audit.json
   merge-leaderboard.mjs    the TUNNEL_RUN leaderboard (see below)
 ```
 
-**One console, two depths.** The cabinet is always laid out at its zoomed size
-(`min(900px, 100vw)` × `100dvh`) and CSS-scaled into its slot on the floor, so
-the zoom is a single transform and nothing inside ever reflows. The URL is the
-source of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route,
-`useArcadeHistory` owns history, and the cabinet asks for navigation with
-intents instead of touching it. See `docs/DESIGN-SYSTEM.md` for the design.
+**The zoom.** The cabinet is always laid out at its full-screen size
+(`min(900px, 100vw)` × `100dvh`) and scaled into its slot with CSS on the home
+page, so the zoom animates a single transform and nothing inside is laid out
+again. The URL is the source of truth: `src/arcade/zoom/arcadeRoute.ts`
+resolves the route, `useArcadeHistory` owns the History API, and the cabinet
+requests navigation instead of calling it directly. `docs/DESIGN-SYSTEM.md`
+covers the design.
 
-**One shell, every page.** Each page is its own HTML file (GitHub Pages has no
-SPA fallback), and all of them load the same `shell` chunk: React, the header
-and footer, the theme, the formatters. `vite.config.js` pins it with a
-Rolldown `codeSplitting` group, because the automatic splitter gives any
-module that some pages share, but not all, a chunk of its own: adding `/craft/`
-once cost the floor an extra request and 160 ms of largest paint on
-Lighthouse's phone.
+**Shared code.** Each page is its own HTML file, because GitHub Pages has no
+SPA fallback, and all of them load the same `shell` chunk: React, the header
+and footer, the theme and the formatters. `vite.config.js` defines it with a
+Rolldown `codeSplitting` group. Without it, the automatic splitter gives any
+module shared by some pages but not all a chunk of its own; adding `/craft/`
+once added a request to the home page and 160 ms to its largest paint on
+Lighthouse's simulated phone.
 
-**Measured, not claimed.** `npm run audit` serves the build, runs Lighthouse
-(mobile, a fresh profile, so the floor is a first visit with its cold open)
-five times per page and keeps the median run, counts the unit tests and
-browser runs, and weighs what each page ships. It writes
-`src/data/audit.json`, and `/craft/` quotes it with the date it was taken.
-Run it last, after the tests are final, then rebuild.
+**Measurements.** `npm run audit` serves the build and runs Lighthouse five
+times per page, each in a fresh profile, so the home page is measured as a
+first visit including its opening animation. It keeps the median run, counts
+the unit tests and browser test runs, and measures what each page ships, then
+writes `src/data/audit.json`, which `/craft/` displays with the date. Run it
+after the tests are final, then rebuild.
 
-## Receipts
+## Commit log (`/receipts/`)
 
-`/receipts/` is a small data product on the site's own history. The source is
+`/receipts/` is a small data app over the commit history of my public
+repositories. The source is
 git, not the GitHub API: `scripts/sync-receipts.mjs` clones every public
 repository in `projects.js` (plus this one) bare into `.cache/receipts/` and
 reads `git log --shortstat`, which gives exact additions, deletions and file
 counts for every commit with no token and no rate limit. It writes
 `public/receipts/data.json` (repos and every commit, about 1 MB), 256 small
 shards of message bodies under `public/receipts/bodies/` (one is fetched when a
-commit is opened), and `src/data/receipts.summary.json` for the floor. It runs
+commit is opened), and `src/data/receipts.summary.json` for the home page. It runs
 in `npm run build`; when the network is unavailable it keeps the committed
 snapshot and the build goes on. `--strict` fails instead, `--report` prints
 per-repository counts.
 
-In the browser the page paints its head from the summary, then loads the JSON
+In the browser the page renders its header from the summary, then loads the JSON
 once (after the fonts and the next frame, so the download never competes with
 the first paint: `src/receipts/useLedger.ts`) and does everything else itself.
 `src/receipts/ledger.ts` is the pure model (filter, aggregate, sort, total,
 CSV/JSON export), `urlState.ts` is the codec between the view and the query
 string (`?from=2026-03&to=2026-06&repo=mentl,sonido&q=bootstrap&merges=0&sort=-additions`),
-and the tiles, the three SVG charts, the TanStack table (virtualised with
+and the tiles, the three SVG charts, the TanStack table (virtualized with
 TanStack Virtual, sorted by the URL) and the export form all read one filtered
-slice, so they cannot disagree. The export form is a zod schema over the raw
+list, so they always agree. The export form is a zod schema over the raw
 form values with a live preview of the real output.
 
 ## Add a project
@@ -119,14 +124,14 @@ form values with a live preview of the real output.
 Add an entry to `PROJECTS` in `src/data/projects.js` (see
 `docs/ADDING-A-PROJECT.md`). Content fields (`desc`, `operatorNote`, status)
 are pulled from the project's README at build time; presentation fields stay
-here. The floor's shelf, the cabinet's list, and the no-JavaScript fallback all
+here. The home page's project list, the cabinet's menu, and the no-JavaScript fallback all
 render from the same array.
 
 ## Résumé
 
 Edit `src/data/resume.json`; `npm run resume:build` renders
 `public/resume.html`, and `npm run build` does it for you. The timeline on the
-floor is drawn from the same file.
+home page is drawn from the same file.
 
 ## Global leaderboard, no server
 
@@ -144,7 +149,7 @@ not) is labeled `leaderboard` and carries the player's GitHub handle.
 `gh issue list --label leaderboard --state closed` lists everyone who made
 it deep enough into the cabinet to post a score.
 
-At score 1500 the tunnel summons ANOMALY — the A-mark inverted — which
+At score 1500 the tunnel summons ANOMALY, an inverted A-mark, which
 pauses the ambient spawner and fires aimed volleys until its health bar is
 emptied. Below 30% health it enrages and fires nearly twice as fast. Each
 kill banks a bonus, then escalates the run: the next ANOMALY is bigger,

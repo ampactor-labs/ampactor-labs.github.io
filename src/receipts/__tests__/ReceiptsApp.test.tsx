@@ -130,7 +130,7 @@ describe("ReceiptsApp", () => {
     vi.stubGlobal("fetch", mockFetch(LEDGER));
     window.history.replaceState(null, "", "/receipts/?repo=site&merges=0");
     render(<ReceiptsApp />);
-    expect(screen.getByRole("status")).toHaveTextContent("Reading the ledger");
+    expect(screen.getByRole("status")).toHaveTextContent("Loading commits");
     await waitFor(() =>
       expect(screen.getByText(/Showing/)).toBeInTheDocument(),
     );

@@ -10,7 +10,7 @@ test("the case study is accessible and quotes the measured numbers", async ({
 }) => {
   await page.goto("/craft/");
   await expect(
-    page.getByRole("heading", { level: 1, name: "How this site is made" }),
+    page.getByRole("heading", { level: 1, name: "How this site is built" }),
   ).toBeVisible();
   await expect(
     page
@@ -23,13 +23,11 @@ test("the case study is accessible and quotes the measured numbers", async ({
     tiles.getByRole("listitem").filter({ hasText: "Unit tests" }),
   ).toContainText(n(audit.tests.unit));
   await expect(
-    tiles.getByRole("listitem").filter({ hasText: "Browser runs" }),
+    tiles.getByRole("listitem").filter({ hasText: "Browser test runs" }),
   ).toContainText(n(audit.tests.browserRuns));
   const figure = page.getByRole("figure");
-  await expect(
-    figure.getByRole("img", { name: /^On the floor/ }),
-  ).toBeVisible();
-  await expect(figure.getByRole("img", { name: /^Zoomed/ })).toBeVisible();
+  await expect(figure.getByRole("img", { name: /^On the page/ })).toBeVisible();
+  await expect(figure.getByRole("img", { name: /^Open:/ })).toBeVisible();
 
   const results = await new AxeBuilder({ page }).analyze();
   expect(
@@ -51,7 +49,7 @@ test("with the lights on, the case study still passes axe", async ({
   );
   // Past every reveal, so each block is at full opacity when checked.
   await page
-    .getByRole("heading", { name: "What it costs" })
+    .getByRole("heading", { name: "Tradeoffs and next steps" })
     .scrollIntoViewIfNeeded();
   const results = await new AxeBuilder({ page }).analyze();
   expect(
@@ -65,18 +63,18 @@ test("the contents go to each chapter, and the floor links here", async ({
 }) => {
   await page.addInitScript(() => localStorage.setItem("ampactor_visited", "1"));
   await page.goto("/");
-  await page.getByRole("link", { name: /^How this site is made/ }).click();
+  await page.getByRole("link", { name: /^How this site is built/ }).click();
   await expect(page).toHaveURL(/\/craft\/$/);
 
   await page
     .getByRole("navigation", { name: "On this page" })
-    .getByRole("link", { name: /The ledger/ })
+    .getByRole("link", { name: /The commit log/ })
     .click();
-  await expect(page).toHaveURL(/#ledger$/);
+  await expect(page).toHaveURL(/#commits$/);
   await expect(
     page.getByRole("heading", {
       level: 2,
-      name: "Every commit, as a data product",
+      name: "The commit log",
     }),
   ).toBeInViewport();
 });

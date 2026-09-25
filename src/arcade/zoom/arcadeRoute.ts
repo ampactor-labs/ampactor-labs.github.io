@@ -1,5 +1,6 @@
-// The arcade's URL scheme, as pure functions. The floor is "/", the cabinet
-// is "/arcade/", and an open cartridge is "/arcade/#<project id>". History
+// The arcade's URL scheme, as pure functions. The home page ("the floor" in
+// this codebase) is "/", the open cabinet is "/arcade/", and an open project
+// is "/arcade/#<project id>". History
 // entries carry a small state object so popstate can route without parsing,
 // but a null state (a hard load, a hand-edited hash) still resolves from the
 // URL alone.
@@ -76,7 +77,8 @@ export function stateFor(
 
 export function urlFor(route: ArcadeRoute): string {
   if (route.view === "floor") return "/";
-  if (route.screen === "project") return `/arcade/#${encodeURIComponent(route.id)}`;
+  if (route.screen === "project")
+    return `/arcade/#${encodeURIComponent(route.id)}`;
   return "/arcade/";
 }
 
@@ -84,5 +86,7 @@ export function sameRoute(a: ArcadeRoute, b: ArcadeRoute): boolean {
   if (a.view !== b.view) return false;
   if (a.view === "floor" || b.view === "floor") return true;
   if (a.screen !== b.screen) return false;
-  return a.screen === "project" && b.screen === "project" ? a.id === b.id : true;
+  return a.screen === "project" && b.screen === "project"
+    ? a.id === b.id
+    : true;
 }

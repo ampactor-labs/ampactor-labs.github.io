@@ -87,7 +87,7 @@ const RAW_PROJECTS = [
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
     outcome:
-      "A SIMD sort 2.2–3.2× faster than std, measured from 1M to 100M keys and widest at 100M. On crates.io, with the flamegraph, the cache-miss story, and the win-and-loss tables in the README.",
+      "A Rust sort that runs 2.2–3.2× faster than the standard library from 1M to 100M keys, using SIMD and radix sorting. Published on crates.io; the README includes the flamegraphs and the benchmarks it loses.",
     highlights: [
       "3.2× OVER STD (SERIAL, f32 @ 1M)",
       "3.7× OVER STD (PARALLEL @ 10M)",
@@ -115,7 +115,7 @@ const RAW_PROJECTS = [
     tags: ["solana", "jito", "execution", "latency"],
     tagline: "UNKNOWN IS NOT SAFE",
     outcome:
-      "A published execution crate whose CI starts a real validator and lands live transactions on every push. That design caught its own first bug before release.",
+      "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
     highlights: [
       "RPC AND JITO BUNDLE ROUTES",
       "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
@@ -149,7 +149,7 @@ const RAW_PROJECTS = [
     tags: ["netcode", "determinism", "ecs", "mobile"],
     tagline: "DETERMINISTIC ACROSS PLATFORMS",
     outcome:
-      "Online multiplayer that stays perfectly in sync across phones. Deterministic rollback netcode.",
+      "An online fighting game that stays in sync across phones, using deterministic rollback netcode.",
     highlights: [
       "FIXED-POINT MATH THROUGHOUT",
       "ROLLBACK NETCODE (bevy_ggrs)",
@@ -206,7 +206,7 @@ const RAW_PROJECTS = [
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
-      "Scores how likely a Solana token is a rug, from on-chain data alone. Live, and it charges for it (x402 micropayments).",
+      "Scores Solana tokens for rug-pull risk from on-chain data. Live in production and paid per request with x402 micropayments.",
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
@@ -235,7 +235,7 @@ const RAW_PROJECTS = [
     tags: ["permaculture", "constraint-search", "offline", "pwa"],
     tagline: "DESCRIBE THE SPOT, GET THE PLANTS",
     outcome:
-      "Search 8,800 plants by the conditions you actually have: wet, shady, zone 6, edible. Installs and works offline.",
+      "Search 8,800 plants by growing conditions, such as wet soil, shade, zone 6 or edible. Installs as an app and works offline.",
     highlights: [
       "~8,800 PLANTS, NOTHING AUTHORED",
       "ONE OMNIBOX, THE WHOLE GRAMMAR",
@@ -264,7 +264,7 @@ const RAW_PROJECTS = [
     tags: ["daw", "tone.js", "mobile", "scale-aware"],
     tagline: "CAN'T PLAY A WRONG NOTE",
     outcome:
-      "A phone-sized DAW where the scale constraint makes everything sound musical, even on first touch.",
+      "A music-making app for phones that keeps every note in key, so whatever you play sounds musical.",
     highlights: [
       "SESSION + ARRANGEMENT VIEWS",
       "SCALE-AWARE: ALWAYS IN KEY",
@@ -277,7 +277,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "creative",
     operatorNote:
-      "Targets a Galaxy A16 5G (entry-level MediaTek). The whole thing is four files: model (pure data + music theory), audio (Tone.js graph), main (all UI), and index.html (CSS shell). No framework, no React — vanilla DOM for performance on weak hardware.",
+      "Targets a Galaxy A16 5G (entry-level MediaTek). The whole thing is four files: model (pure data + music theory), audio (Tone.js graph), main (all UI), and index.html (CSS shell). No framework and no React: vanilla DOM, for performance on weak hardware.",
   },
 
   {
@@ -318,11 +318,11 @@ const RAW_PROJECTS = [
     icon: "🐾",
     github: "https://github.com/ampactor-labs/copycats",
     live: "https://ampactor.dev/copycats/",
-    desc: "Copycats is a party racer where every opponent is a replay: each run that reaches the dinner bowl comes back as a spectral copycat racing the next one. Each round you place one hazard, then run; swat your past selves with what you placed while still making dinner yourself. The simulation is pure integer math inside Godot — Q16.16 subunits, fixed 60 Hz ticks, its own RNG, no engine physics — so a replay is just an input log re-simulated bit for bit. COUCH mode passes one phone around 2-8 cats, then the whole round replays at once with swats credited by name. DESIGN.md aims it at async multiplayer for a group chat, built on deterministic replays instead of netcode.",
+    desc: "Copycats is a party racer where every opponent is a replay: each run that reaches the dinner bowl comes back as a spectral copycat racing the next one. Each round you place one hazard, then run; swat your past selves with what you placed while still making dinner yourself. The simulation is pure integer math inside Godot: Q16.16 subunits, fixed 60 Hz ticks, its own RNG and no engine physics, so a replay is just an input log re-simulated bit for bit. COUCH mode passes one phone around 2-8 cats, then the whole round replays at once with swats credited by name. DESIGN.md aims it at async multiplayer for a group chat, built on deterministic replays instead of netcode.",
     tags: ["godot", "determinism", "replays", "party-game"],
     tagline: "RACE YOUR OWN PAST LIVES",
     outcome:
-      "Async multiplayer without netcode: your past runs are the opponents. Phone, landscape, no install.",
+      "Asynchronous multiplayer racing with no netcode: you race recordings of earlier runs. Plays in a phone browser with no install.",
     highlights: [
       "OPPONENTS ARE INPUT-LOG REPLAYS",
       "Q16.16 INTEGER SIM, FIXED 60 Hz",
@@ -347,11 +347,11 @@ const RAW_PROJECTS = [
     icon: "✂",
     github: "https://github.com/ampactor-labs/bits",
     live: "https://ampactor.dev/bits/",
-    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs — drag one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
+    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs, dragging one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
     tags: ["animation", "webcodecs", "on-device", "pwa"],
     tagline: "PUT ON THE SHOW",
     outcome:
-      "Puppet shows made by performing: record the bit, cast puppets, overdub passes, share the file. All on-device.",
+      "Make puppet shows on a phone by performing them: record the audio, add puppets, animate them in layers and export the result. Everything runs on the device.",
     highlights: [
       "PASSES OVERDUB LIKE AUDIO TRACKS",
       "BIT-EXACT REPLAY: PREVIEW = RENDER",
@@ -379,7 +379,7 @@ const RAW_PROJECTS = [
     tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
     tagline: "49 CELLS, 9 EXACTLY TRUE",
     outcome:
-      "Every fingering on a B♭ trumpet, with how sharp or flat it runs and how far to pull the slide to fix it — and a live mic mode to check yourself against it.",
+      "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
     highlights: [
       "49-CELL LATTICE, 9 EXACTLY IN TUNE",
       "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
@@ -408,7 +408,7 @@ const RAW_PROJECTS = [
     tags: ["lyrics", "songwriting", "prosody", "rhyme"],
     tagline: "WHAT A SONG NEVER SAYS",
     outcome:
-      "Paste a lyric and see where its stresses fall, how its rhymes land, how concrete each line is, and whether the one thing the song never says has slipped in.",
+      "Paste song lyrics to see the stress patterns, rhymes and how concrete each line is, and whether the song names the subject it means to leave unsaid.",
     highlights: [
       "56K WORDS WITH STRESS, CONCRETENESS, SENSES",
       "PATTISON'S RHYME LADDER, SIX RUNGS",
@@ -437,7 +437,7 @@ const RAW_PROJECTS = [
     tags: ["freestyle", "rap", "practice", "phonology"],
     tagline: "TRAIN THE MACHINERY, NOT THE BARS",
     outcome:
-      "Freestyle over a beat in the browser and get the take measured (timing against the grid, rhyme chains, vocabulary), then a workout aimed at whatever the evidence says is holding you back.",
+      "Freestyle rap over a beat in the browser. It measures each take for timing, rhyme chains and vocabulary, then suggests drills for the weakest area.",
     highlights: [
       "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
       "8-PART BASELINE BATTERY",
@@ -501,7 +501,7 @@ const RAW_PROJECTS = [
     tags: ["language", "spanish", "asl", "vocabulary"],
     tagline: "THREE CARDS A DAY",
     outcome:
-      "An English word worth having, a Mexican Spanish phrase with the room it belongs in, and an ASL sign, every day, on a phone, offline.",
+      "A daily English word, Mexican Spanish phrase and ASL sign, each with notes on when to use it. Works offline on a phone.",
     highlights: [
       "54 WORDS · 47 FRASES · 24 SIGNS",
       "26 FINGERSPELLED LETTERS",

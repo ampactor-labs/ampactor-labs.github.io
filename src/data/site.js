@@ -21,9 +21,9 @@ export const SITE = {
   origin: "https://ampactor.dev",
   name: "Morgan Espitia",
   jobTitle: "Software Engineer",
-  // The one line of range under the name. No title, no industry.
+  // The line under the name on the home page, and the Person description.
   range:
-    "Compilers, synths, games, and the apps around them. Shipped, with receipts.",
+    "Full-stack software engineer since 2017, building web apps, APIs, compilers, audio software and games.",
   locality: "Salt Lake City",
   region: "UT",
   // Self-hosted (public/fonts, src/styles/fonts.css). The two that paint
@@ -56,9 +56,9 @@ export const SITE = {
 export const ENTRIES = {
   "index.html": {
     path: "/",
-    title: `${SITE.name} — ${SITE.jobTitle}, ${SITE.locality}`,
+    title: `${SITE.name} · ${SITE.jobTitle}, ${SITE.locality}`,
     description:
-      "Software engineer in Salt Lake City. Compilers, synths, games, and the apps around them: six years employed full-stack, then a studio that ships in the open.",
+      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub.",
     // Rendered from the live hero by scripts/render-og.mjs.
     image: "/og-floor.png",
     person: true,
@@ -67,26 +67,26 @@ export const ENTRIES = {
   },
   "arcade/index.html": {
     path: "/arcade/",
-    title: `Arcade — ${SITE.name}`,
+    title: `Arcade · ${SITE.name}`,
     description:
-      "The cabinet. Every project as a cartridge, three hidden programs behind the coin slot, and a vector shooter with a global top ten.",
+      "My projects as an arcade cabinet: pick one to read about it, or insert a coin for three hidden programs, including a vector shooter with a global leaderboard.",
     image: "/og-cabinet.png",
     person: false,
   },
   "receipts/index.html": {
     path: "/receipts/",
-    title: `Receipts — ${SITE.name}`,
+    title: `Commits · ${SITE.name}`,
     // The numbers come from the ledger itself (src/data/receipts.summary.json,
     // written by scripts/sync-receipts.mjs at build), so they cannot go stale.
-    description: `Every public commit since ${monthName(receipts.totals.first)} in one ledger: ${n(receipts.totals.commits)} commits across ${receipts.totals.repos} repositories, read straight from git. Filter, sort, chart, export.`,
+    description: `${n(receipts.totals.commits)} commits across ${receipts.totals.repos} public repositories since ${monthName(receipts.totals.first)}, read from git when the site is built. Filter, sort, chart and export them in the browser.`,
     image: "/og-floor.png",
     person: false,
   },
   "craft/index.html": {
     path: "/craft/",
-    title: `How this site is made — ${SITE.name}`,
+    title: `How this site is built · ${SITE.name}`,
     description:
-      "The case study for this site: one machine at two depths, a ledger read from git, a fast page on a slow phone, and the tests that prove it. What was hard, what I chose, how I know. Measured, not claimed.",
+      "A case study of this site: the cabinet zoom, the commit log built from git, performance on a slow phone, and how it is tested. Numbers are measured on the production build.",
     image: "/og-floor.png",
     person: false,
   },
@@ -207,9 +207,9 @@ export function renderNoscript(entry) {
     entry.path === "/arcade/"
       ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
       : entry.path === "/receipts/"
-        ? `<p>The ledger needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
+        ? `<p>The commit log needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
         : entry.path === "/craft/"
-          ? `<p>How this site is made needs JavaScript for its measured numbers. The source and its full history are at <a href="${CONTACT.github}/ampactor-labs.github.io">GitHub</a>.</p>`
+          ? `<p>This page needs JavaScript to show its measurements. The source and its full history are on <a href="${CONTACT.github}/ampactor-labs.github.io">GitHub</a>.</p>`
           : "";
   return `<noscript>
       <div style="max-width: 760px; margin: 0 auto; padding: 40px 20px; font: 16px/1.6 system-ui, sans-serif">

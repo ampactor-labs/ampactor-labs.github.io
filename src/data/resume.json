@@ -7,7 +7,7 @@
   "site": "https://ampactor.dev",
   "github": "https://github.com/ampactor-labs",
   "linkedin": "https://www.linkedin.com/in/ampactor-labs/",
-  "summary": "Software engineer since 2017: six years employed full-stack — front-end, then back-end, then both; PHP, Node, React and TypeScript — for credit unions, a healthcare-benefits platform and enterprise dashboards, then a studio that ships in the open. Owns a UI end to end and the service behind it. Everything public has receipts: seventeen products with their source, benchmarks and weak spots published, and every commit in a ledger anyone can read.",
+  "summary": "Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it.",
   "skills": [
     "TypeScript / JavaScript",
     "React",
@@ -33,11 +33,10 @@
       "end": null,
       "note": "full-time since 2023",
       "bullets": [
-        "Client and contract work under NDA: blockchain infrastructure and full-stack product work.",
-        "Built and operate TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request over x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker; Prometheus metrics and structured logs.",
-        "Built Perennials, an offline-first React/TypeScript app over a Node/PostgreSQL service that searches ~8,800 plants by the conditions you have; every search is a URL.",
-        "Ship and maintain the public work at ampactor.dev: a self-hosting compiler, a cross-platform DSP kernel flashed to real hardware, a SIMD sort on crates.io that publishes its losses, a Solana execution crate whose CI lands live transactions, and a dozen browser instruments and games.",
-        "Build and maintain production applications and integrations, including deployment, debugging and ongoing support."
+        "Client and contract work under NDA: blockchain infrastructure and full-stack product work, including deployment, debugging and ongoing support.",
+        "Built and run TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request with x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.",
+        "Built Perennials, an offline-first React/TypeScript app backed by a Node/PostgreSQL service that searches about 8,800 plants by growing conditions; every search is a shareable URL.",
+        "Maintain the public projects at ampactor.dev, including a self-hosting compiler, a DSP library that runs both as a desktop plugin and on a Cortex-M7 microcontroller, a SIMD sort published on crates.io, a Solana transaction crate whose CI sends live transactions, and a dozen browser apps and games."
       ]
     },
     {
@@ -97,21 +96,21 @@
     {
       "id": "perennials",
       "name": "Perennials",
-      "what": "Constraint search over ~8,800 plants; offline-first PWA, every search a URL.",
+      "what": "Search over about 8,800 plants by growing conditions; an offline-first PWA where every search is a URL.",
       "stack": "React · TypeScript · Node · Postgres",
       "url": "https://ampactor.dev/perennials/"
     },
     {
       "id": "tokensafe",
       "name": "TokenSafe + Scry",
-      "what": "Solana token risk scoring from on-chain data alone; live, paid per request over x402.",
+      "what": "Solana token risk scoring from on-chain data; live in production, paid per request over x402.",
       "stack": "TypeScript · Express · React",
       "url": "https://github.com/ampactor-labs/tokensafe"
     },
     {
       "id": "site",
       "name": "ampactor.dev",
-      "what": "This site: a typed React 19 + Vite floor around an arcade cabinet, unit and browser suites, CI.",
+      "what": "This site: React 19 and TypeScript on Vite, an arcade-cabinet interface, a commit log built from git, and unit and browser tests in CI.",
       "stack": "React · TypeScript · Vite · Playwright",
       "url": "https://github.com/ampactor-labs/ampactor-labs.github.io"
     },
@@ -125,17 +124,17 @@
     {
       "id": "sonido",
       "name": "Sonido",
-      "what": "One DSP kernel for desktop plugins and a bare-metal Cortex-M7; flashed to real hardware.",
+      "what": "One DSP codebase for desktop audio plugins and a bare-metal Cortex-M7 microcontroller, tested on real hardware.",
       "stack": "Rust · no_std · CLAP",
       "url": "https://github.com/ampactor-labs/sonido"
     },
     {
       "id": "turbosort",
       "name": "Turbosort",
-      "what": "SIMD radix sort on crates.io, 2.2–3.2× over std from 1M to 100M keys, losses published.",
+      "what": "SIMD radix sort on crates.io, 2.2–3.2× faster than the standard library from 1M to 100M keys, with the cases where it is slower documented.",
       "stack": "Rust · AVX2",
       "url": "https://github.com/ampactor-labs/turbosort"
     }
   ],
-  "before": "Before software: ran a music studio and worked in film audio — the through-line to the DSP work."
+  "before": "Before software, I ran a music studio and worked in film audio, which led to the audio and DSP projects."
 }

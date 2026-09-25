@@ -34,7 +34,7 @@ export default function Header({
           href="/receipts/"
           aria-current={current === "receipts" ? "page" : undefined}
         >
-          RECEIPTS
+          COMMITS
         </a>
         <a
           href="/craft/"

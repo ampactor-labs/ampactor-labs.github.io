@@ -1,18 +1,19 @@
-// The first visit to the floor opens inside the cabinet: the machine powers
-// on in the dark, starts to boot, and the camera pulls back to the room. Once.
+// The first-visit animation ("cold open"): on a first visit to the home page,
+// the page opens with the cabinet full screen as it powers on and starts to
+// boot, then zooms out to the page. It runs once per browser.
 //
-// Whether it runs is decided before first paint by COLD_OPEN_SCRIPT (inlined
-// into the floor's <head> by vite.config.js). It marks <html> with
-// `data-cold-open`, so the room is already dark in either theme when the page
-// first paints (global.css), and the app reads that mark instead of deciding
-// again. It never runs for a returning visitor, a floor anchor (/#work is a
-// destination), the arcade's own URL, or under reduced motion.
+// Whether it runs is decided before first paint by COLD_OPEN_SCRIPT, which
+// vite.config.js inlines into the home page's <head>. It marks <html> with
+// `data-cold-open`, so the background is already dark in either theme on the
+// first paint (global.css), and the app reads that mark instead of deciding
+// again. It never runs for a returning visitor, a link to a section of the
+// home page (such as /#work), the /arcade/ URL, or under reduced motion.
 
 export const VISITED_KEY = "ampactor_visited";
 export const COLD_OPEN_ATTRIBUTE = "data-cold-open";
 
-// Power-on (about 1.3 s), the test pattern, the first boot lines; then the
-// camera pulls back, slower than an ordinary exit.
+// Power-on (about 1.3 s), the test pattern and the first boot lines, then
+// the zoom out, which is slower than an ordinary exit.
 export const COLD_OPEN_SECONDS = 2.3;
 export const PULLBACK_SECONDS = 0.9;
 
@@ -25,7 +26,7 @@ export function isColdOpenPending(): boolean {
   );
 }
 
-// The lights come back on: the room drops the dark it was held in.
+// Ends the animation's dark background.
 export function clearColdOpen(): void {
   document.documentElement.removeAttribute(COLD_OPEN_ATTRIBUTE);
 }
