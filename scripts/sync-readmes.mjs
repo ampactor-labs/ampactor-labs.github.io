@@ -47,18 +47,35 @@ export function projectRepos(source) {
   return out;
 }
 
-async function fetchReadme(repo) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// One README, from the default branch. A dropped connection is retried with
+// backoff; if the network stays down the result says so, and the caller keeps
+// the last synced content, so a build never fails for want of the network
+// (sync-receipts.mjs does the same for the commit log).
+export async function fetchReadme(
+  repo,
+  { get = fetch, tries = 3, delayMs = 500 } = {},
+) {
   if (OFFLINE) {
     const p = join(homedir(), "Projects", repo, "README.md");
-    return existsSync(p) ? readFileSync(p, "utf8") : null;
+    return existsSync(p) ? { md: readFileSync(p, "utf8") } : { md: null };
   }
   for (const branch of ["master", "main"]) {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/ampactor-labs/${repo}/${branch}/README.md`,
-    );
-    if (res.ok) return res.text();
+    const url = `https://raw.githubusercontent.com/ampactor-labs/${repo}/${branch}/README.md`;
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const res = await get(url);
+        if (res.ok) return { md: await res.text() };
+        if (res.status === 404) break; // not on this branch: try the other
+        throw new Error(`HTTP ${res.status}`);
+      } catch (err) {
+        if (attempt >= tries) return { md: null, networkError: err };
+        await sleep(delayMs * 2 ** (attempt - 1));
+      }
+    }
   }
-  return null;
+  return { md: null };
 }
 
 const stripMd = (s) =>
@@ -338,12 +355,23 @@ if (process.argv[1]?.endsWith("sync-readmes.mjs")) {
   const source = readFileSync(PROJECTS, "utf8");
   const projects = projectRepos(source);
   const content = {};
+  // The last synced content, kept for any README the network will not give us.
+  const previous = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : {};
   const report = [];
 
   for (const { id, repo } of projects) {
-    const md = await fetchReadme(repo);
+    const { md, networkError } = await fetchReadme(repo);
     if (!md) {
-      report.push({ id, repo, state: "unreachable", missing: [] });
+      if (networkError && previous[id]) content[id] = previous[id];
+      report.push({
+        id,
+        repo,
+        state: networkError
+          ? `network error (${networkError.cause?.code ?? networkError.message}); ` +
+            (previous[id] ? "kept the last synced content" : "nothing to keep")
+          : "unreachable",
+        missing: [],
+      });
       continue;
     }
     const { desc, status, operatorNote, summary, check, missing } = extract(md);
@@ -423,9 +451,13 @@ if (process.argv[1]?.endsWith("sync-readmes.mjs")) {
     console.log("sync-readmes: up to date");
   } else {
     writeFileSync(OUT, json);
+    const kept = report.filter((r) => r.state.includes("kept the last")).length;
+    const other = report.length - synced.length - kept;
     console.log(
-      `sync-readmes: ${synced.length}/${report.length} projects synced from README ` +
-        `(${report.length - synced.length} hand-written; --report says why)`,
+      `sync-readmes: ${synced.length}/${report.length} projects synced from README` +
+        (kept ? `, ${kept} kept from the last sync (network error)` : "") +
+        (other ? `, ${other} hand-written` : "") +
+        "; --report says why",
     );
   }
 }

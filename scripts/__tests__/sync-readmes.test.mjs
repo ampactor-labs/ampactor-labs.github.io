@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   checkReadme,
   extract,
+  fetchReadme,
   sentencesOf,
   summaryOf,
   writingErrors,
@@ -135,5 +136,47 @@ describe("the README standard", () => {
       'extra section "One bet, read aloud": move it under How it works or into docs/',
     );
     expect(check.meetsStandard).toBe(true);
+  });
+});
+
+describe("fetching a README", () => {
+  const ok = (text) => ({ ok: true, status: 200, text: async () => text });
+  const missing = { ok: false, status: 404, text: async () => "" };
+  const reset = () => {
+    throw Object.assign(new Error("fetch failed"), {
+      cause: { code: "ECONNRESET" },
+    });
+  };
+
+  it("retries a dropped connection, then succeeds", async () => {
+    let calls = 0;
+    const get = async () => (++calls < 3 ? reset() : ok("# repo"));
+    expect(await fetchReadme("repo", { get, delayMs: 0 })).toEqual({
+      md: "# repo",
+    });
+    expect(calls).toBe(3);
+  });
+
+  it("reports a network that stays down instead of throwing", async () => {
+    const result = await fetchReadme("repo", { get: reset, delayMs: 0 });
+    expect(result.md).toBeNull();
+    expect(result.networkError.cause.code).toBe("ECONNRESET");
+  });
+
+  it("falls through a 404 on one branch to the other", async () => {
+    const get = async (url) =>
+      url.includes("/master/") ? missing : ok("# on main");
+    expect(await fetchReadme("repo", { get, delayMs: 0 })).toEqual({
+      md: "# on main",
+    });
+  });
+
+  it("retries a server error like a dropped connection", async () => {
+    let calls = 0;
+    const get = async () =>
+      ++calls === 1 ? { ok: false, status: 503 } : ok("# back");
+    expect(await fetchReadme("repo", { get, delayMs: 0 })).toEqual({
+      md: "# back",
+    });
   });
 });
