@@ -82,10 +82,13 @@
 
 /* ---- Loading / error ---------------------------------------------------- */
 
+/* Holds the page open until the ledger arrives, so the footer is already
+   below the fold and nothing it pushes is on screen when the data lands. */
 .loading {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-height: 100vh;
   color: var(--fg-muted);
   font-family: var(--font-body);
   font-size: 13px;

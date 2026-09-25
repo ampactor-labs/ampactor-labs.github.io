@@ -1,15 +1,11 @@
-import summaryData from "../data/receipts.summary.json";
+import { summary } from "../data/receiptsSummary";
 import { int } from "../lib/format";
 import SectionHeading from "./SectionHeading";
 import section from "./Section.module.css";
 import styles from "./HowIWork.module.css";
 
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
-const totals = (
-  summaryData as {
-    totals: { commits: number; withClaude: number; repos: number };
-  }
-).totals;
+const { totals } = summary;
 
 // Three claims a reader can check against this repository.
 export default function HowIWork({ inert }: { inert: boolean }) {

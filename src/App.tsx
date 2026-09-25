@@ -65,6 +65,7 @@ export default function App() {
   const zoom = useArcadeZoom({
     initialZoomed: mountedZoomed,
     scale,
+    layoutKey: `${metrics.zoomW}x${metrics.zoomH}`,
     consoleRef,
     backdropRef,
     slotRef,

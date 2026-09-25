@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "../styles/fonts.css";
 import "../styles/theme.css";
 import "../styles/global.css";
 import { applyTheme, resolveTheme } from "../lib/theme";

@@ -23,7 +23,8 @@
     "resume:build": "node scripts/build-resume.mjs",
     "resume:check": "node scripts/build-resume.mjs --check",
     "sync:receipts": "node scripts/sync-receipts.mjs",
-    "sync:receipts:report": "node scripts/sync-receipts.mjs --report"
+    "sync:receipts:report": "node scripts/sync-receipts.mjs --report",
+    "audit": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -54,10 +54,15 @@ export default function BootScreen({
           width: bootColumnWidth,
         }}
       >
-        {lines.slice(0, currentLine + 1).map((line, i) => (
+        {/* Every line is laid out from the start and the ones still to come
+            are hidden, so the column has its final height at once: it prints
+            top to bottom like a terminal instead of re-centring (and moving
+            every printed line) each time one is added. */}
+        {lines.map((line, i) => (
           <div
             key={i}
             style={{
+              visibility: i > currentLine ? "hidden" : undefined,
               color:
                 i === 0
                   ? "#00E5FF"

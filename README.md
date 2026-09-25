@@ -29,6 +29,7 @@ npm run lint           # eslint: the JS arcade, the TS floor, scripts, e2e
 npm run typecheck      # tsc --noEmit
 npm run build          # sync READMEs, sync the ledger, render the résumé, vite build
 npm run sync:receipts  # rebuild the ledger from git (see Receipts below)
+npm run audit          # Lighthouse, mobile, on the build; writes src/data/audit.json
 ```
 
 CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build,
@@ -58,6 +59,7 @@ scripts/
   build-resume.mjs         resume.json → public/resume.html
   render-og.mjs            the social card, screenshotted from the live hero
   axe-report.mjs           prints axe violations for any page of a running build
+  lighthouse.mjs           npm run audit: Lighthouse on each page of the build
   merge-leaderboard.mjs    the TUNNEL_RUN leaderboard (see below)
 ```
 

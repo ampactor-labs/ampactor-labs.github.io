@@ -185,6 +185,37 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
         █
       </span>
     </div>
+    <div
+      style="visibility: hidden; color: var(--color-teal);"
+    >
+      Linking x402 payment layer..... OK
+    </div>
+    <div
+      style="visibility: hidden; color: var(--color-teal);"
+    >
+      Scanning 9 security verticals.. OK
+    </div>
+    <div
+      style="visibility: hidden; color: var(--color-teal);"
+    >
+      Phase coupling established..... OK
+    </div>
+    <div
+      style="visibility: hidden; color: var(--color-muted);"
+    />
+    <div
+      style="visibility: hidden; color: rgb(0, 229, 255);"
+    >
+      ALL SYSTEMS NOMINAL
+    </div>
+    <div
+      style="visibility: hidden; color: var(--color-muted);"
+    />
+    <div
+      style="visibility: hidden; color: var(--color-amber); font-family: "Press Start 2P", monospace; font-size: 13px; text-align: center; margin-top: 8px;"
+    >
+      PRESS ANY KEY
+    </div>
   </div>
 </div>
 `;

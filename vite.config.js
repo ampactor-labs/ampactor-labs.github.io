@@ -14,6 +14,7 @@ import { COLD_OPEN_SCRIPT } from "./src/arcade/zoom/coldOpen.ts";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const bootShim = readFileSync(resolve(root, "src/head/boot-shim.js"), "utf8");
+const tokens = readFileSync(resolve(root, "public/tokens.css"), "utf8");
 
 // Renders each entry's <head> and <noscript> from src/data/site.js. The HTML
 // files carry two placeholder comments and nothing else that could drift.
@@ -42,6 +43,7 @@ function siteHead() {
               prepaint: PREPAINT_SCRIPT,
               coldOpen: COLD_OPEN_SCRIPT,
               bootShim,
+              tokens,
             }),
           )
           .replace("<!-- site:noscript -->", renderNoscript(entry));
@@ -50,8 +52,32 @@ function siteHead() {
   };
 }
 
+// In the build, each page's stylesheets go inline into its <head>: the first
+// paint then waits on the HTML alone, not on two more requests for 5 KB of
+// gzipped CSS. The files stay in dist for anything that links them.
+function inlineCss() {
+  const LINK =
+    /<link rel="stylesheet"(?: crossorigin)? href="\/(assets\/[^"]+\.css)">/g;
+  return {
+    name: "ampactor:inline-css",
+    apply: "build",
+    enforce: "post",
+    transformIndexHtml: {
+      order: "post",
+      handler(html, ctx) {
+        if (!ctx.bundle) return html;
+        return html.replace(LINK, (tag, file) => {
+          const asset = ctx.bundle[file];
+          if (!asset || asset.type !== "asset") return tag;
+          return `<style>${String(asset.source)}</style>`;
+        });
+      },
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [siteHead(), react()],
+  plugins: [siteHead(), react(), inlineCss()],
   base: "/",
   // GitHub Pages serves real files with no SPA fallback; the dev server
   // should fail in the same places.

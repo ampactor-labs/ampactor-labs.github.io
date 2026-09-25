@@ -161,7 +161,7 @@ export default function ArcadeStage({
       className={styles.stage}
       data-zoomed={zoomed ? "true" : "false"}
       data-mode={mode}
-      data-animating={animating || undefined}
+      data-pinned={zoomed || animating || undefined}
       data-cold-open={coldOpen || undefined}
       aria-hidden={coldOpen || undefined}
     >

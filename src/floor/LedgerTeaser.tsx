@@ -1,27 +1,9 @@
-import summaryData from "../data/receipts.summary.json";
+import { summary } from "../data/receiptsSummary";
 import SectionHeading from "./SectionHeading";
 import { compact, int, monthLabel } from "../lib/format";
 import { roundedTop, ticks } from "../receipts/charts/scale";
 import section from "./Section.module.css";
 import styles from "./LedgerTeaser.module.css";
-
-interface Summary {
-  generatedAt: string;
-  totals: {
-    commits: number;
-    repos: number;
-    additions: number;
-    deletions: number;
-    first: string | null;
-    last: string | null;
-    withClaude: number;
-    checked: number;
-  };
-  months: { month: string; commits: number }[];
-  byRepo: { repo: string; commits: number }[];
-}
-
-const summary = summaryData as Summary;
 
 // The ledger's front step on the floor: the headline numbers and the months
 // as a strip, drawn from the same summary the build wrote. The page itself

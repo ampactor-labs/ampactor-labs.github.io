@@ -26,8 +26,13 @@ export const SITE = {
     "Compilers, synths, games, and the apps around them. Shipped, with receipts.",
   locality: "Salt Lake City",
   region: "UT",
-  fonts:
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@300;400;600&family=Press+Start+2P&family=Share+Tech+Mono&display=swap",
+  // Self-hosted (public/fonts, src/styles/fonts.css). The two that paint
+  // first are fetched from the head, before any script has rendered text:
+  // Inter for the name and the line of range, Press Start 2P for the signage.
+  preloadFonts: [
+    "/fonts/inter-latin-wght-normal.woff2",
+    "/fonts/press-start-2p-latin-400-normal.woff2",
+  ],
   knowsAbout: [
     "TypeScript",
     "React",
@@ -114,8 +119,9 @@ function personJsonLd() {
 // theme script from src/lib/theme.ts, `coldOpen` the first-visit script from
 // src/arcade/zoom/coldOpen.ts (floor only), and `bootShim` is
 // src/head/boot-shim.js; all are inlined so they run before any stylesheet or
-// module.
-export function renderHead(entry, { prepaint, coldOpen, bootShim }) {
+// module. `tokens` is public/tokens.css, inlined so the palette costs no
+// render-blocking request (the file stays for the pages that link it).
+export function renderHead(entry, { prepaint, coldOpen, bootShim, tokens }) {
   const url = `${SITE.origin}${entry.path}`;
   const image = `${SITE.origin}${entry.image}`;
   const title = escapeHtml(entry.title);
@@ -147,14 +153,17 @@ export function renderHead(entry, { prepaint, coldOpen, bootShim }) {
   lines.push(`<script>${prepaint}</script>`);
   if (entry.coldOpen && coldOpen) lines.push(`<script>${coldOpen}</script>`);
   lines.push(
-    `<link rel="stylesheet" href="/tokens.css" />`,
+    tokens
+      ? `<style>${tokens.trim()}</style>`
+      : `<link rel="stylesheet" href="/tokens.css" />`,
+    ...SITE.preloadFonts.map(
+      (href) =>
+        `<link rel="preload" href="${href}" as="font" type="font/woff2" crossorigin />`,
+    ),
     `<link rel="icon" href="/favicon.ico" />`,
     `<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />`,
     `<link rel="apple-touch-icon" href="/logo-192.png" />`,
     `<script>${bootShim}</script>`,
-    `<link rel="preconnect" href="https://fonts.googleapis.com" />`,
-    `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />`,
-    `<link href="${SITE.fonts}" rel="stylesheet" />`,
   );
   return lines.join("\n    ");
 }

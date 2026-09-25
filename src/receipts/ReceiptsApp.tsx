@@ -27,6 +27,7 @@ import MonthDiverging, { DivergingLegend } from "./charts/MonthDiverging";
 import RepoBars from "./charts/RepoBars";
 import { MonthTable, RepoTable } from "./charts/ChartTables";
 import { int, monthLabel, shortDate } from "../lib/format";
+import { summary } from "../data/receiptsSummary";
 import styles from "./Receipts.module.css";
 
 const SYNC_SCRIPT =
@@ -49,14 +50,7 @@ export default function ReceiptsApp() {
             RECEIPTS
           </p>
           <h1 className={styles.h1}>Every public commit, in one ledger</h1>
-          {status.state === "ready" ? (
-            <Lede ledger={status.ledger} />
-          ) : (
-            <p className={styles.lede}>
-              Read straight from git at build time, then filtered, sorted,
-              charted and exported here, in your browser. Every view is a link.
-            </p>
-          )}
+          <Lede />
         </header>
         {status.state === "loading" ? <Loading /> : null}
         {status.state === "error" ? (
@@ -86,8 +80,11 @@ export default function ReceiptsApp() {
   );
 }
 
-function Lede({ ledger }: { ledger: Ledger }) {
-  const all = useMemo(() => totals(ledger.commits), [ledger]);
+// Read from the summary the same build wrote beside the ledger, so the line
+// is on screen from the first paint and does not change when the ledger
+// itself arrives.
+function Lede() {
+  const { totals: all, generatedAt } = summary;
   return (
     <>
       <p className={styles.lede}>
@@ -102,7 +99,7 @@ function Lede({ ledger }: { ledger: Ledger }) {
         with you. Every view is a link.
       </p>
       <p className={styles.generated}>
-        Ledger generated {shortDate(ledger.generatedAt)} ·{" "}
+        Ledger generated {shortDate(generatedAt)} ·{" "}
         <a href="/receipts/data.json">data.json</a>
       </p>
     </>

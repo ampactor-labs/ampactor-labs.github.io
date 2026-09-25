@@ -25,6 +25,9 @@ interface ZoomOptions {
   initialZoomed: boolean;
   // The floor scale: slot width over the zoomed layout width.
   scale: number;
+  // Changes whenever the console's layout size does (the viewport changed),
+  // so a zoomed machine is re-pinned to cover the new viewport.
+  layoutKey?: string;
   consoleRef: RefObject<HTMLElement | null>;
   backdropRef: RefObject<HTMLElement | null>;
   slotRef: RefObject<HTMLElement | null>;
@@ -44,9 +47,16 @@ export interface ZoomOutOptions {
   restoreFocus?: boolean;
 }
 
+// The translation that carries the console from its slot to the middle of
+// the viewport, at full size.
+interface Cover {
+  x: number;
+  y: number;
+}
+
 interface Pending {
   dir: "in" | "out";
-  from: DOMRect;
+  cover: Cover;
   duration: number;
   restoreFocus: boolean;
 }
@@ -54,20 +64,44 @@ interface Pending {
 export const ZOOM_IN_SECONDS = 0.55;
 export const ZOOM_OUT_SECONDS = 0.45;
 
+// Pins the stage where its slot is and aims the console at the viewport. The
+// stage becomes fixed at exactly the slot's box, so pinning moves nothing;
+// from there the console is translated to the top of the viewport, centred,
+// at full size. Written as custom properties on the slot, which the stage and
+// the console inherit (stage.module.css).
+function pin(slot: HTMLElement, console_: HTMLElement): Cover {
+  const box = slot.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth;
+  const cover = {
+    x: (viewportWidth - console_.offsetWidth) / 2 - box.left,
+    y: -box.top,
+  };
+  const style = slot.style;
+  style.setProperty("--pin-x", `${box.left}px`);
+  style.setProperty("--pin-y", `${box.top}px`);
+  style.setProperty("--pin-w", `${box.width}px`);
+  style.setProperty("--pin-h", `${box.height}px`);
+  style.setProperty("--cover-x", `${cover.x}px`);
+  style.setProperty("--cover-y", `${cover.y}px`);
+  return cover;
+}
+
 // The camera dolly. The console is laid out at its zoomed size at all times
-// and scaled down into its slot by CSS (`--k`); zooming animates only a
-// transform between the two rects, so nothing inside reflows or pops.
+// and scaled down into its slot by CSS (`--k`). Off the floor its stage is
+// pinned in place of the slot and the console is translated to cover the
+// viewport, so a zoom animates one transform and no box on the page ever
+// moves: nothing inside reflows or pops, and nothing counts as a layout
+// shift, even when the move is not a response to input (the cold open's
+// pull-back).
 //
-//   in:  lock the page → remember the miniature's rect → let React lay the
-//        stage out fixed and full-screen → tween the transform from that rect
-//        to identity → the cabinet goes live and takes focus.
-//   out: bring the slot under the locked viewport if it isn't → remember the
-//        full-screen rect → let React put the stage back in the slot → tween
-//        from that rect to the CSS scale → unlock, back to attract, focus
-//        returns to the "Enter the arcade" control.
+//   in:  lock the page → pin the stage where the slot is → tween the console
+//        from scale(k) to the cover → the cabinet goes live and takes focus.
+//   out: bring the slot under the locked viewport if it isn't → re-pin there
+//        (the console keeps covering the viewport) → tween back to scale(k)
+//        → unpin, unlock, back to attract, focus returns to "Enter".
 //
-// CSS owns the resting transform, GSAP owns the transition, React owns the
-// data-zoomed attribute; nobody writes another's property.
+// CSS owns both resting transforms, GSAP owns the transition, React owns the
+// data-zoomed / data-pinned attributes; nobody writes another's property.
 export function useArcadeZoom(options: ZoomOptions): {
   zoomed: boolean;
   animating: boolean;
@@ -87,12 +121,14 @@ export function useArcadeZoom(options: ZoomOptions): {
   optionsRef.current = options;
 
   const zoomIn = useCallback(() => {
-    const el = optionsRef.current.consoleRef.current;
-    if (!el || pendingRef.current || zoomedRef.current) return;
+    const { consoleRef, slotRef } = optionsRef.current;
+    const el = consoleRef.current;
+    const slot = slotRef.current;
+    if (!el || !slot || pendingRef.current || zoomedRef.current) return;
     lockScroll();
     pendingRef.current = {
       dir: "in",
-      from: el.getBoundingClientRect(),
+      cover: pin(slot, el),
       duration: ZOOM_IN_SECONDS,
       restoreFocus: true,
     };
@@ -106,14 +142,15 @@ export function useArcadeZoom(options: ZoomOptions): {
       recentre = true,
       restoreFocus = true,
     } = out;
-    const el = optionsRef.current.consoleRef.current;
-    if (!el || pendingRef.current || !zoomedRef.current) return;
+    const { consoleRef, slotRef } = optionsRef.current;
+    const el = consoleRef.current;
+    const slot = slotRef.current;
+    if (!el || !slot || pendingRef.current || !zoomedRef.current) return;
     // The visitor may have entered from far down the page. If the slot is
     // mostly out of view, move the pinned body so it sits mid-viewport before
     // the machine shrinks into it; a slot that is mostly visible (a phone
     // cabinet whose bottom runs past the fold) is left exactly where it was.
-    const slot = optionsRef.current.slotRef.current;
-    if (slot && recentre) {
+    if (recentre) {
       const rect = slot.getBoundingClientRect();
       const vh = window.innerHeight;
       const visible =
@@ -126,7 +163,8 @@ export function useArcadeZoom(options: ZoomOptions): {
     }
     pendingRef.current = {
       dir: "out",
-      from: el.getBoundingClientRect(),
+      // Wherever the slot is now; the console still covers the viewport.
+      cover: pin(slot, el),
       duration,
       restoreFocus,
     };
@@ -136,14 +174,42 @@ export function useArcadeZoom(options: ZoomOptions): {
 
   // A cabinet that mounts zoomed (a hard load of /arcade/, the floor's cold
   // open) starts in the posture a zoom-in would have left it in: the page
-  // pinned behind it and the dark room opaque. Without this the room stays
-  // see-through, and the floor shows around the machine.
+  // pinned behind it, the stage pinned in its slot, the room opaque.
   useLayoutEffect(() => {
-    if (!optionsRef.current.initialZoomed) return;
+    const { initialZoomed, slotRef, consoleRef, backdropRef } =
+      optionsRef.current;
+    if (!initialZoomed) return;
     lockScroll();
-    const backdrop = optionsRef.current.backdropRef.current;
+    if (slotRef.current && consoleRef.current) {
+      pin(slotRef.current, consoleRef.current);
+    }
+    const backdrop = backdropRef.current;
     if (backdrop) gsap.set(backdrop, { opacity: 1 });
   }, []);
+
+  // A zoomed machine follows the viewport: a resize, a rotation, a new
+  // layout size re-pin it so it still covers the screen.
+  const { layoutKey, scale } = options;
+  useLayoutEffect(() => {
+    if (!zoomed || pendingRef.current) return;
+    const { slotRef, consoleRef } = optionsRef.current;
+    if (slotRef.current && consoleRef.current) {
+      pin(slotRef.current, consoleRef.current);
+    }
+  }, [zoomed, layoutKey, scale]);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const onResize = () => {
+      if (pendingRef.current) return;
+      const { slotRef, consoleRef } = optionsRef.current;
+      if (slotRef.current && consoleRef.current) {
+        pin(slotRef.current, consoleRef.current);
+      }
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [zoomed]);
 
   // Nothing stays pinned once the cabinet is gone.
   useEffect(() => () => unlockScroll(), []);
@@ -154,12 +220,13 @@ export function useArcadeZoom(options: ZoomOptions): {
     if (!pending || !el) return;
     const { scale, backdropRef, enterButtonRef, tunnelRef, reducedMotion } =
       optionsRef.current;
-    const to = el.getBoundingClientRect();
     const backdrop = backdropRef.current;
+    const { cover } = pending;
 
     const finish = () => {
       pendingRef.current = null;
-      // Hand the transform back to CSS: none when zoomed, scale(var(--k)) in the slot.
+      // Hand the transform back to CSS: the cover when zoomed, scale(var(--k))
+      // in the slot.
       gsap.set(el, { clearProps: "transform" });
       if (pending.dir === "in") {
         setMode("live");
@@ -175,31 +242,30 @@ export function useArcadeZoom(options: ZoomOptions): {
     };
 
     if (reducedMotion) {
-      if (backdrop)
+      if (backdrop) {
         gsap.set(backdrop, { opacity: pending.dir === "in" ? 1 : 0 });
+      }
       tunnelRef?.current?.setRevealRadius(pending.dir === "in" ? 9999 : 0);
       finish();
       return;
     }
 
-    const dx = pending.from.left - to.left;
-    const dy = pending.from.top - to.top;
-
     if (pending.dir === "in") {
       gsap.fromTo(
         el,
-        { x: dx, y: dy, scale, transformOrigin: "0 0" },
+        { x: 0, y: 0, scale, transformOrigin: "0 0" },
         {
-          x: 0,
-          y: 0,
+          x: cover.x,
+          y: cover.y,
           scale: 1,
           duration: pending.duration,
           ease: "power3.inOut",
           onComplete: finish,
         },
       );
-      if (backdrop)
+      if (backdrop) {
         gsap.fromTo(backdrop, { opacity: 0 }, { opacity: 1, duration: 0.35 });
+      }
       // The tunnel opens behind the machine as it arrives; the intro's own
       // reveal then has nothing left to do and skips itself.
       const tunnel = tunnelRef?.current;
@@ -209,7 +275,7 @@ export function useArcadeZoom(options: ZoomOptions): {
         const proxy = { r: 0 };
         gsap.to(proxy, {
           r: rMax,
-          duration: ZOOM_IN_SECONDS,
+          duration: pending.duration,
           ease: "power2.out",
           onUpdate: () => tunnel.setRevealRadius(proxy.r),
         });
@@ -217,7 +283,7 @@ export function useArcadeZoom(options: ZoomOptions): {
     } else {
       gsap.fromTo(
         el,
-        { x: dx, y: dy, scale: 1, transformOrigin: "0 0" },
+        { x: cover.x, y: cover.y, scale: 1, transformOrigin: "0 0" },
         {
           x: 0,
           y: 0,

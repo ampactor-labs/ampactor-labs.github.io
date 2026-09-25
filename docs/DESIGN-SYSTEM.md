@@ -134,6 +134,16 @@ room: the lights go off, the machine takes over.
 Scale on the floor is by `clamp()`: the name `clamp(38px, 5.4vw, 60px)`, section titles
 `clamp(26px, 3.4vw, 36px)`, ledes `clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
 
+**Self-hosted, and nothing moves when they arrive.** The latin subsets live in
+`public/fonts/` (all four under the OFL; `public/fonts/README.md`), declared in
+`src/styles/fonts.css`. Inter and Press Start 2P are preloaded from the head, the
+two faces that paint first. Each family is followed in its stack by a fallback face
+sized to it from the real metrics (`size-adjust` for the mean advance, ascent and
+descent overrides for the line box): Arial or its metric twins for Inter, a 0.6 em
+monospace for the other three. Text laid out before a font arrives takes the same room
+after, and the pages measure CLS 0. No page requests anything from another origin
+(`e2e/network.spec.ts`).
+
 ---
 
 ## 5 · Motion & Glow
