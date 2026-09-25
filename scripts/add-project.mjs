@@ -9,9 +9,9 @@
 // entry for you.
 //
 // Content in the printed entry is a starting point, not the live value. Once
-// the README follows the house spec, sync-readmes.mjs overrides desc,
-// operatorNote, and status at build time, and editing the README is what
-// changes the card.
+// the README follows docs/README-STANDARD.md, sync-readmes.mjs overrides
+// desc, operatorNote and the card line at build time, and editing the README
+// is what changes the card.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
@@ -100,7 +100,7 @@ const entry = `
     stack: ["TODO"],
     status: "active",
     category: "systems",
-    operatorNote: ${q(operatorNote || "TODO: add a `## Weak spots` section to the README")},
+    operatorNote: ${q(operatorNote || "TODO: add a `## Limitations` section to the README")},
   },`;
 
 console.log(entry);

@@ -122,9 +122,11 @@ form values with a live preview of the real output.
 ## Add a project
 
 Add an entry to `PROJECTS` in `src/data/projects.js` (see
-`docs/ADDING-A-PROJECT.md`). Content fields (`desc`, `operatorNote`, status)
-are pulled from the project's README at build time; presentation fields stay
-here. The home page's project list, the cabinet's menu, and the no-JavaScript fallback all
+`docs/ADDING-A-PROJECT.md`). Presentation fields stay there; content comes
+from the project's README at build time, field by field, when that field
+passes `docs/README-STANDARD.md`, the one README format every project follows.
+`npm run readmes:report` shows how each repository measures up. The home
+page's project list, the cabinet's menu, and the no-JavaScript fallback all
 render from the same array.
 
 ## Résumé

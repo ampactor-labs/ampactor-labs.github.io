@@ -1,16 +1,18 @@
 import README_CONTENT from "./readme-content.generated.json";
 
-// Content fields below (desc, operatorNote, status) are overridden at build
-// time by whatever the project's own README says, for the repos listed in
-// scripts/sync-readmes.mjs. Presentation fields (color, icon, category,
-// highlights, tagline) always win from this file: design does not go stale,
-// content does. Edit a README to change what a card claims; edit here to
-// change how it looks.
+// Content fields below (outcome, desc, operatorNote, status) are overridden
+// at build time by the project's own README, field by field, when that field
+// passes docs/README-STANDARD.md (scripts/sync-readmes.mjs decides; the card
+// line waits for the whole README to meet the standard). Presentation fields
+// (color, icon, category, highlights, tagline) always come from this file.
+// Edit a README to change what a project claims; edit here to change how it
+// looks, or to hold a fallback until its README is updated.
 const fromReadme = (project) => {
   const c = README_CONTENT[project.id];
   if (!c) return project;
   return {
     ...project,
+    outcome: c.summary || project.outcome,
     desc: c.desc || project.desc,
     operatorNote: c.operatorNote || project.operatorNote,
     readmeStatus: c.status,

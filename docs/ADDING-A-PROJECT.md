@@ -11,25 +11,27 @@ Then fill in the `TODO` fields. Those are presentation and only you can pick
 them: `subtitle`, `tagline`, `icon`, `tags`, `stack`, `category`, and
 `highlights` (short claims with numbers, written for a card).
 
-Everything else takes care of itself. `desc`, `operatorNote`, and the status
-come from the repo's README at build time, so once the entry exists you never
-edit prose here again; you edit the README and the card follows.
+Everything else takes care of itself. `desc`, `operatorNote` and, once the
+README meets the standard, the card line (`outcome`) come from the repo's
+README at build time, so once the entry exists you edit the README and the
+card follows.
 
-## What makes a README sync
+## What the README needs
 
-Three things, all from the house spec (`~/.claude/skills/prose/readme-architecture.md`):
+The format is [README-STANDARD.md](README-STANDARD.md). The site reads three
+things from it:
 
-1. A lead paragraph under the H1 saying what it is and who it is for, before
-   any badge.
-2. A `**Status:** ...` line, from the vocabulary `Shipping`, `Working, API
-   unstable`, `Prototype`, or `Retired <date>`, followed by a clause naming
-   what is not done.
-3. A `## Weak spots` section stating at least one real limitation. The
-   headings `What is honestly unfinished`, `Where it loses`, `What this is
-   not`, and `Known limitations` count too.
+1. The lead paragraph under the H1: what it is and what it does. Its first
+   sentence becomes the project's card once the README meets the standard.
+2. The `**Status: <label>.**` line, with a label from `shipping`, `working`,
+   `prototype`, `paused` or `retired`, then one sentence of caveats.
+3. The `## Limitations` section, stating at least one real limitation. The
+   older names (`Weak spots`, `What is honestly unfinished`, `Where it
+loses`, `What this is not`, `Known limitations`) still count while
+   repositories move over.
 
-A README missing any of those keeps whatever prose is already in
-`projects.js`, and nothing breaks. Check where things stand:
+A field that does not pass the standard's writing rules keeps the prose in
+`projects.js`, and nothing breaks. Check where every repository stands:
 
 ```sh
 npm run readmes:report
