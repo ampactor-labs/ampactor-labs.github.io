@@ -1,0 +1,56 @@
+{
+  "measuredAt": "2026-09-25",
+  "tool": "Lighthouse 12.8.2",
+  "formFactor": "mobile, simulated throttling",
+  "runs": 5,
+  "pages": {
+    "/": {
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcpMs": 1959,
+      "lcpMs": 2355,
+      "tbtMs": 83,
+      "cls": 0,
+      "speedIndexMs": 1993,
+      "htmlGzipKb": 10.5,
+      "jsGzipKb": 130.1
+    },
+    "/receipts/": {
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcpMs": 1806,
+      "lcpMs": 2256,
+      "tbtMs": 133,
+      "cls": 0,
+      "speedIndexMs": 1806,
+      "htmlGzipKb": 11.9,
+      "jsGzipKb": 116.8
+    },
+    "/craft/": {
+      "performance": 98,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcpMs": 1605,
+      "lcpMs": 2111,
+      "tbtMs": 37,
+      "cls": 0,
+      "speedIndexMs": 1605,
+      "htmlGzipKb": 10.1,
+      "jsGzipKb": 69.8
+    }
+  },
+  "tests": {
+    "unit": 243,
+    "browserRuns": 68,
+    "browserFiles": 6
+  },
+  "assets": {
+    "ledgerGzipKb": 185.9,
+    "fontsKb": 112
+  }
+}

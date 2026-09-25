@@ -1,80 +1,93 @@
 {
   "mentl": {
-    "desc": "Mentl is a programming language built on one bet: the medium itself — not a model, not a course, not a review queue — should be the best teacher and the best pair of hands a developer ever gets. You write what you mean; the compiler proves it, runs it, and answers what is true here, and why at any line of any file. Five verbs of flow draw the program's shape on the page. Types carry your real constraints — effects, bounds, ownership — and a refusal names the claim it could not discharge, at its own span. There is no separate curriculum: picking the language up is learning to program, because the compiler's answers are the course.",
     "status": "working, API unstable",
-    "statusNote": "The verifier is sound and deliberately incomplete; what it cannot decide accrues as visible pending debt rather than a silent pass. No license is chosen yet.",
-    "operatorNote": "The verifier is sound and incomplete by choice: what it cannot decide accrues as visible pending debt, never assumed true. The named frontier — the modal effect crown, information-flow control, durable execution as a handler swap, a native backend — is sequenced in PLAN.md §5, in positive form, never hidden. A claim you cannot re-derive from the board is a claim this project does not make."
+    "statusNote": "The verifier is sound and deliberately incomplete; what it cannot decide accrues as visible pending debt rather than a silent pass. No license is chosen yet."
   },
   "sonido": {
-    "desc": "An audio DSP kernel written once and run in three places: CLAP plugins in a DAW, a node-graph editor in the browser, and a guitar pedal built on the Electrosmith Daisy Seed (STM32H750, 480 MHz Cortex-M7). The distortion flashed to the pedal is the distortion shipped in the plugin.",
     "status": "working, API unstable",
     "statusNote": "Not published to crates.io, so the git dependency below is the only install. The desktop, plugin, and wasm paths are built and tested on every push; the ARM path is not, and is verified by flashing it by hand.",
+    "desc": "An audio DSP kernel written once and run in three places: CLAP plugins in a DAW, a node-graph editor in the browser, and a guitar pedal built on the Electrosmith Daisy Seed (STM32H750, 480 MHz Cortex-M7). The distortion flashed to the pedal is the distortion shipped in the plugin.",
     "operatorNote": "The ARM numbers are estimates, and two effects do not fit. docs/BENCHMARKS.md derives Cortex-M7 cost by scaling desktop measurements 25×, from a 3.0/0.48 GHz clock ratio and a 4× architecture penalty, and states its own uncertainty at ±50%. Under that model the 3-band Eq lands at 110.4% of the 48 kHz budget and Vibrato at 110.8%: over. Treat every ARM performance statement here as a hypothesis until the on-device harness is run. [NEEDS RECEIPT: flash crates/sonido-daisy/examples/benchkernels.rs (DWT cycle counters) to the Hothouse and replace the estimate table.]"
   },
   "turbosort": {
-    "desc": "SIMD-accelerated radix sort for primitive types in Rust.",
     "status": "shipping",
     "statusNote": "SSE4.2 is unimplemented, so pre-AVX2 x86 falls back to scalar, and large random u64 loses to voracious (see Weak spots).",
-    "operatorNote": "Large random u64, i64, and f64 are the honest loss. Random 64-bit keys force eight byte passes; above 64K elements turbosort switches to 11-bit digits (six passes, measured faster than both 8-bit and 16-bit variants), which cut 1M-element time by 1.4x over the byte path, and voracious still wins by touching memory roughly half as much with its diverting MSD strategy. At 1M u64 it runs 0.77x against std and 0.67x against voracious. If your workload is dominated by large arrays of random 64-bit keys, use voracious. Keys with dead high bytes (timestamps, small IDs) are a different story: constant-digit passes are skipped outright, so real-world u64 often runs in two or three passes."
+    "desc": "SIMD-accelerated radix sort for primitive types in Rust."
   },
   "landed": {
-    "desc": "Fail-closed Solana transaction execution: plan it, gate it, submit it by RPC or Jito bundle, and know what happened.",
     "status": "working, API unstable",
     "statusNote": "0.1.0 is on crates.io. Priority fees are not a gate input yet, and an Expired flight is the caller's to rebuild.",
+    "desc": "Fail-closed Solana transaction execution: plan it, gate it, submit it by RPC or Jito bundle, and know what happened.",
     "operatorNote": "The published latency table is a local validator, so it characterizes this crate and says nothing about a real cluster. Until someone posts devnet or mainnet numbers, treat the confirm row as a slot time rather than a network measurement."
   },
   "two-top": {
-    "desc": "A phone-vs-phone rollback brawler written in Rust on Bevy, bevyggrs, and Matchbox WebRTC. The gameplay borrows from Boomerang Fu: throw-and-recall, a dash with invincibility frames, one-hit kills, 30-second rounds, first to five. The interesting part is underneath. Every simulation tick has to produce bit-identical state on every platform, because two phones on opposite ends of a connection either agree exactly or the match desyncs. That one constraint shapes the whole codebase.",
     "status": "shipping",
-    "statusNote": "The gameplay loop, netplay, seven arenas, signed results, replays, and the CI/APK/Pages pipelines are built and green. The two-phone cross-carrier field test has not been run.",
+    "statusNote": "The gameplay loop, netplay, seven arenas, signed results, replays, and the CI/APK/Pages pipelines are built and green. The two-phone cross-carrier field test (Wi-Fi against mobile data) was run and passed at an earlier revision; it has not been re-run since, and the netplay layer has changed substantially since then — see docs/ROLEPLAYAUDIT.md § Status. Treat the online path as verified-then-drifted, not verified.",
+    "desc": "A phone-vs-phone rollback brawler written in Rust on Bevy, bevyggrs, and Matchbox WebRTC. The gameplay borrows from Boomerang Fu: throw-and-recall, a dash with invincibility frames, one-hit kills, 30-second rounds, first to five. The interesting part is underneath. Every simulation tick has to produce bit-identical state on every platform, because two phones on opposite ends of a connection either agree exactly or the match desyncs. That one constraint shapes the whole codebase.",
     "operatorNote": "The relay path is verified server-side but has never been played on two phones on different carriers. Until that parking-lot test happens, cross-carrier NAT traversal is a deployment that looks correct rather than a match that worked."
   },
   "clob": {
-    "desc": "A ternary recurrent intelligence kernel in Rust. The floor hardware is a Lenovo T490 (i7-8550U, 16 GB RAM); if it doesn't run there, it doesn't count.",
     "status": "prototype",
     "statusNote": "The supporting machinery works. The central bet is unproven, and the first real run falsified the thing it was supposed to demonstrate.",
+    "desc": "A ternary recurrent intelligence kernel in Rust. The floor hardware is a Lenovo T490 (i7-8550U, 16 GB RAM); if it doesn't run there, it doesn't count.",
     "operatorNote": "The core is still random and untrained, and the first real run crystallized zero modules. The reservoir probe found no contextual gain from frozen hidden states beyond a trained unigram null, which is the result the whole design was meant to beat."
   },
   "tokensafe": {
-    "desc": "Solana token safety scanner. Deterministic on-chain analysis, cryptographically signed, behind x402 micropayments.",
     "status": "shipping",
     "statusNote": "Live on mainnet behind x402 micropayments. No CI workflows in this repo; the deploy is Railway-side.",
+    "desc": "Solana token safety scanner. Deterministic on-chain analysis, cryptographically signed, behind x402 micropayments.",
     "operatorNote": "This reads chain state, so it can only catch what chain state shows. A developer who simply sells, an off-chain social rug, or a compromised team wallet all produce a clean report right up until they do not. A SAFE verdict means the checks below found nothing, not that the token is safe."
   },
   "perennials": {
-    "desc": "A field guide to about 8,800 useful plants, searched by constraint. Say what your site is: the light, the moisture, the soil. Then say what you want from it, and watch the set collapse to what fits. Mobile-first, installs as an offline app, works in a garden with no signal.",
     "status": "shipping",
     "statusNote": "Live and installable offline. The plant data is community-sourced, not authored or verified here.",
+    "desc": "A field guide to about 8,800 useful plants, searched by constraint. Say what your site is: the light, the moisture, the soil. Then say what you want from it, and watch the set collapse to what fits. Mobile-first, installs as an offline app, works in a garden with no signal.",
     "operatorNote": "None of the data is mine. Records come from Permapeople, flower visitors from GloBI, and bloom color from USDA PLANTS, and they vary in completeness plant by plant; a constraint search is only as good as the tags underneath it, so an unlabeled species is invisible to the filter that should have found it."
   },
   "noodles": {
-    "desc": "A phone-first music sketchpad. It borrows Ableton's interaction model (the clip grid, launch-and-loop, direct drag, scale-awareness, one-tap transforms) and almost none of its density. The bet: the instrument is the lesson. The affordances carry the theory, so the first pleasing sound is seconds away and the depth only shows up when you go looking for it.",
     "status": "working, API unstable",
     "statusNote": "Phone-first and playable; desktop is secondary and the audio timing is browser-dependent.",
+    "desc": "A phone-first music sketchpad. It borrows Ableton's interaction model (the clip grid, launch-and-loop, direct drag, scale-awareness, one-tap transforms) and almost none of its density. The bet: the instrument is the lesson. The affordances carry the theory, so the first pleasing sound is seconds away and the depth only shows up when you go looking for it.",
     "operatorNote": "Timing is at the mercy of the browser. Web Audio scheduling on mobile is not a real-time audio thread, so under load or with the screen asleep the grid can drift in ways a native sequencer would not."
   },
   "celezdial": {
-    "desc": "Polyphonic ambient synthesizer mapped to the zodiac. 12 voices toggle on a chromatic keyboard (C to B), shaped by a wall of parameter knobs across 8 FX chains you can swap live from the controls veil. Birth charts select the voices, aspects color them, and orbit mode breathes them on planetary periods. Built with React and Tone.js.",
     "status": "shipping",
     "statusNote": "Runs in the browser; twelve simultaneous voices are heavy on older phones.",
+    "desc": "Polyphonic ambient synthesizer mapped to the zodiac. 12 voices toggle on a chromatic keyboard (C to B), shaped by a wall of parameter knobs across 8 FX chains you can swap live from the controls veil. Birth charts select the voices, aspects color them, and orbit mode breathes them on planetary periods. Built with React and Tone.js.",
     "operatorNote": "Twelve voices through eight FX chains is a lot to ask of Web Audio on a phone. On older hardware, voice count is the first thing to cut, and there is no automatic quality scaling to do it for you."
   },
   "copycats": {
-    "desc": "You're a cat. Every run that reaches the dinner bowl comes back as a copycat — a spectral replay of your own past life, racing you through the house. Each round you knock one thing over (a shelf, a cactus, a box fan, a cushion, a ball launcher), then run. Swat your copycats with what you placed while still making dinner yourself; if everyone lands on their feet, nobody scores. First to nine.",
     "status": "shipping",
-    "statusNote": "Live at https://ampactor.dev/copycats/ — phone, landscape, no install; the async group-chat form DESIGN.md builds toward is designed, not built.",
-    "operatorNote": "Nothing crosses the network: matches never leave the phone, there is no relay, and racing a friend means handing them the screen. The full form — async multiplayer for a group chat, built on deterministic replays instead of netcode — lives in DESIGN.md as design, not code."
+    "statusNote": "Live at https://ampactor.dev/copycats/ — phone, landscape, no install; the async group-chat form DESIGN.md builds toward is designed, not built."
   },
   "bits": {
-    "desc": "A puppet-show instrument for phones. You don't animate a scene with timelines and keyframes; you put on the show. Record the bit first (the voices, the argument, the dumb song), cast puppets from photos of yourselves or finger doodles, then perform in passes like a musician overdubs tracks: hit record, drag one puppet while the audio and every earlier pass play back, stop, layer the next one. Spring physics is the inbetweener: you supply intent, the simulation supplies lag, lean, squash, and settle.",
     "status": "shipping",
     "statusNote": "Live at https://ampactor.dev/bits/; nothing named is left unbuilt — what's missing is mileage, and nothing merges across phones by design.",
+    "desc": "A puppet-show instrument for phones. You don't animate a scene with timelines and keyframes; you put on the show. Record the bit first (the voices, the argument, the dumb song), cast puppets from photos of yourselves or finger doodles, then perform in passes like a musician overdubs tracks: hit record, drag one puppet while the audio and every earlier pass play back, stop, layer the next one. Spring physics is the inbetweener: you supply intent, the simulation supplies lag, lean, squash, and settle.",
     "operatorNote": "Nothing merges. Two people editing the same bit on two phones produce two bits; the loop is pass-the-theater, deliberately. The append-only recipe would make merge tractable later if it ever earns its keep. A share-target route (opening a received bit straight from the share sheet) existed for the phase-0 deck and left with it; today the picker is the door."
   },
   "slot": {
-    "desc": "Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told \"low C♯ is sharp, kick the slide\" and not told how far, or why, or what it costs everywhere else.",
     "status": "shipping",
     "statusNote": "Nothing described here is unbuilt. What is missing is a measurement: every number comes from tube lengths and none of it has been checked against a real horn and a real tuner. See Weak spots for the experiment that would settle it.",
+    "desc": "Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told \"low C♯ is sharp, kick the slide\" and not told how far, or why, or what it costs everywhere else.",
     "operatorNote": "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn."
+  },
+  "understory": {
+    "status": "Prototype",
+    "statusNote": "The x-ray works on any lyric; it reads how a line is spoken, not how it is sung, and pages are saved only in the browser that wrote them.",
+    "desc": "Understory is a lyric x-ray for songwriters. Write or paste a lyric and it shows what is under the words: where the stresses fall, how each rhyme lands, how far each line floats from things you can touch, which of the seven senses it reaches, who is talking to whom, and which lines come back and what they land on each time. Below a ground line sits the understory, the one sentence the song never says, and its words light up if they surface in the lyric. There is no AI and no server: three public word lists and a page of rules run in the browser, and every mark opens a receipt showing exactly what it was computed from.",
+    "operatorNote": "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have."
+  },
+  "freestyle-engine": {
+    "status": "Prototype",
+    "statusNote": "Calibration, the beat, recording, review and the adaptive plan all run; every score is a proxy, and live transcription exists only where the browser provides speech recognition.",
+    "desc": "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
+    "operatorNote": "Every score is a proxy. Rhyme, timing and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar was good."
+  },
+  "stoop": {
+    "status": "Shipping",
+    "statusNote": "Live at ampactor.dev/stoop, and everything PLAN.md calls for is built. What is missing is the one measure this project keeps: a scene it did not found shipping its Issue #2.",
+    "desc": "Stoop is a press for a periodical: a zine for the few people who already write to each other. They submit pieces, whoever has the desk this cycle assembles an issue, and the press lays it out and imposes it for paper, as a folded sheet, a stapled signature, or an exact PDF for a copy shop. Every issue stays on the shelf, and the file it hands on is the issue and a working press in one. It is one HTML file with no server, no accounts and no feed.",
+    "operatorNote": "Everything lives in the browser that made it. There is no server to fall back on and storage is per-origin, so a backup file is the only copy that outlives a cleared cache, and moving between a phone and a laptop means exporting and merging by hand."
   }
 }

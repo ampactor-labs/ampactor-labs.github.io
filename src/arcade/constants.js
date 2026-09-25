@@ -1,0 +1,29 @@
+// Ticker copy for the select screen and the attract loop — rendered twice
+// back-to-back so the crawl loops seamlessly and text is on screen from t=0.
+export const MARQUEE_TEXT =
+  "MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com";
+
+// Boot log discipline: every project line is a claim that stays literally
+// true (the cartridge and README carry the receipts). Lines are dot-aligned
+// at 44 chars, the widest that ships on mobile. BootScreen colors any line
+// containing "OK" as a pass.
+export const BOOT_LINES = [
+
+  "OPERATOR: MORGAN ESPITIA",
+  "",
+  "AMPACTOR BIOS v7.7.7",
+  "systems ........ distributed ............ OK",
+  "mentl .......... compiling .............. OK",
+  "sonido ......... processing ............. OK",
+  "noodles ........ sequencing ............. OK",
+  "2-top .......... synchronizing .......... OK",
+  "turbosort ...... benchmarking ........... OK",
+  "clob ........... learning ............... OK",
+  "tokensafe ...... scanning ............... OK",
+  "landed ......... gating ................. OK",
+  "easter eggs .... hidden ................. OK",
+  "",
+  "DSP · EMBEDDED · SECURITY · COMPILERS ·  WEB3",
+  "",
+  "PRESS ANY KEY",
+];

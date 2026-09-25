@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      # The ledger reads bare clones of every public repository
+      # (scripts/sync-receipts.mjs). Kept between runs so a build only
+      # fetches what changed instead of cloning ~200 MB each time.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/receipts
+          key: receipts-git-${{ github.run_id }}
+          restore-keys: |
+            receipts-git-
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      # Every entry in src/data/site.js must come out as a real file, because
+      # GitHub Pages has no SPA fallback to hide a missing one.
+      - run: test -f dist/index.html && test -f dist/arcade/index.html && test -f dist/receipts/index.html && test -f dist/craft/index.html
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          CI: "true"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

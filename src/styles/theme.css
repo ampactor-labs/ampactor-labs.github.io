@@ -1,0 +1,92 @@
+/* App-level semantic tokens, layered on the generated palette in
+   public/tokens.css (never hand-edit that file; it comes from the
+   ampactor-theme repo). Everything here derives from the palette so one
+   definition is right in both themes; only the handful of values that
+   cannot be derived get a per-theme override below. */
+
+:root {
+  color-scheme: dark;
+
+  /* Headlines sit a step brighter than body text; secondary and tertiary
+     text sit below it but never under 4.5:1 on the darkest surface the page
+     paints (#2a2826 dark, the fg-tinted parchment light). The palette's own
+     --color-muted / --color-comment stay for fills and mixes. */
+  --fg-bright: #efe4cc;
+  --fg-muted: #a89984;
+  --fg-faint: #9a8e81;
+
+  /* Hairlines and fills derive from the text color so they track the theme. */
+  --hairline: color-mix(in srgb, var(--fg) 18%, transparent);
+  --hairline-strong: color-mix(in srgb, var(--fg) 38%, transparent);
+  --hairline-faint: color-mix(in srgb, var(--fg) 8%, transparent);
+  --surface: color-mix(in srgb, var(--fg) 4%, transparent);
+  --surface-raised: color-mix(in srgb, var(--fg) 7%, transparent);
+  --surface-sunken: color-mix(in srgb, var(--color-void) 60%, transparent);
+
+  /* The spotlight: one cyan bloom per view. `--accent-text` is the cyan as
+     text on the page background; electric cyan has no contrast on parchment,
+     so the light theme deepens it (the cabinet keeps the real thing). */
+  --accent-text: var(--color-cyan);
+  --glow: 0 0 24px color-mix(in srgb, var(--color-cyan) 22%, transparent);
+  --glow-text: 0 0 18px color-mix(in srgb, var(--color-cyan) 45%, transparent);
+
+  /* Type roles: Press Start 2P is signage, mono is readouts, Inter is prose.
+     The --font-* stacks, with their size-matched fallbacks, are in fonts.css. */
+
+  --scanline: rgba(0, 0, 0, 0.06);
+
+  /* Chart marks, validated with the dataviz palette checker against each
+     theme's chart surface (#2a2826 dark, #f2e5bc light): one hue for
+     magnitude, a teal/red pair for added-versus-removed. The dark pair sits
+     in the CVD floor band (ΔE 6.7), so every chart that uses it also
+     encodes the sign by position and carries a legend and direct labels. */
+  --chart-1: #22c3dc;
+  --chart-pos: #3aa886;
+  --chart-neg: #e26a62;
+  --chart-grid: var(--hairline-faint);
+  --chart-surface: var(--surface);
+
+  /* Layout rhythm. */
+  --page-max: 1100px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --section-gap: clamp(56px, 9vw, 120px);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+[data-theme="patina-light"] {
+  color-scheme: light;
+  --fg-bright: #2e2016;
+  --fg-muted: #665a50;
+  --fg-faint: #6b5f54;
+  --accent-text: #00708a;
+  --surface-sunken: color-mix(in srgb, var(--color-umber) 35%, transparent);
+  --glow: 0 0 24px color-mix(in srgb, var(--color-cyan) 30%, transparent);
+  --glow-text: none;
+  --scanline: rgba(0, 0, 0, 0.04);
+  --chart-1: #00708a;
+  --chart-pos: #0a8f9c;
+  --chart-neg: #c14a4a;
+}
+
+/* The cabinet is a physical object. In a lit room it keeps its own dark
+   palette, so every token the arcade reads is pinned here to its dark
+   value (the list is the output of grepping `var(--` across src/arcade). */
+.cabinet-scope {
+  color-scheme: dark;
+  --fg: #d4be98;
+  --color-muted: #a89984;
+  --color-comment: #5a524c;
+  --color-umber: #45403d;
+  --color-amber: #d8a657;
+  --color-teal: #7daea3;
+  --color-void: #0f0e0d;
+  --color-dim: #2a2826;
+  --color-charcoal: #1d2021;
+  --color-steel: #6a95a8;
+  --color-verdigris: #89bfad;
+  --color-cyan: #00e5ff;
+  --ui-danger: #ea6962;
+  --ui-signal-ok: #89bfad;
+}

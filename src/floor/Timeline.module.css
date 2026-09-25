@@ -1,0 +1,70 @@
+.figure {
+  margin: 0;
+  padding: clamp(14px, 2vw, 22px) clamp(14px, 2vw, 22px) 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.scroller {
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  height: auto;
+  font-family: var(--font-body);
+}
+
+.gridline {
+  stroke: var(--hairline-faint);
+  stroke-width: 1;
+}
+
+.year {
+  fill: var(--fg-faint);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.label {
+  fill: var(--fg-bright);
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.roleText {
+  fill: var(--fg-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+.bar {
+  fill: color-mix(in srgb, var(--color-amber) 70%, var(--color-muted));
+}
+
+.barFaint {
+  fill: color-mix(in srgb, var(--color-cyan) 22%, transparent);
+}
+
+.barStudio {
+  fill: var(--color-cyan);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-cyan) 45%, transparent));
+}
+
+[data-theme="patina-light"] .barStudio {
+  fill: #00708a;
+  filter: none;
+}
+
+.caption {
+  margin: 10px 0 0;
+  color: var(--fg-faint);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}

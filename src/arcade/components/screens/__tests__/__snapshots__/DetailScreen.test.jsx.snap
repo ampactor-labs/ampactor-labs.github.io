@@ -1,0 +1,538 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DetailScreen > matches snapshot for regular project 1`] = `
+<div
+  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+>
+  <div
+    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
+  >
+    <div
+      aria-label="Back to project list"
+      class="btn-cabinet"
+      role="button"
+      style="font-size: 12px; color: var(--fg); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      tabindex="0"
+    >
+      ◄
+    </div>
+    <div
+      style="font-size: 20px; color: rgb(224, 255, 0); text-shadow: 0 0 12px #E0FF0044;"
+    >
+      ☀
+    </div>
+    <div
+      style="flex: 1 1 0%;"
+    >
+      <h2
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(224, 255, 0); text-shadow: 0 0 10px #E0FF0044; letter-spacing: 0.05em; margin: 0px;"
+      >
+        MENTL
+      </h2>
+      <div
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
+      >
+        SELF-HOSTING COMPILER
+      </div>
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0;"
+    >
+      <a
+        aria-current="true"
+        href="https://github.com/ampactor-labs/mentl"
+        rel="noopener noreferrer"
+        style="font-size: 10px; letter-spacing: 0.08em; text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
+        target="_blank"
+      >
+        › SOURCE
+      </a>
+    </div>
+  </div>
+  <div
+    aria-label="Readout"
+    role="region"
+    style="flex: 1 1 0%; overflow: auto; position: relative;"
+    tabindex="0"
+  >
+    <span
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
+    >
+      THE COMPILER BOOTSTRAPS ITSELF
+    </span>
+    <div
+      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #E0FF0022;"
+    >
+      A programming language that compiles itself.
+    </div>
+    <div
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          SYS/READOUT
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 11px; line-height: 1.75; color: var(--fg); max-width: 520px;"
+      >
+        <span
+          style="color: rgb(224, 255, 0);"
+        >
+          &gt; 
+        </span>
+        Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.
+      </div>
+    </div>
+    <div
+      style="display: flex; flex-direction: row; gap: 14px; margin-bottom: 14px;"
+    >
+      <div
+        style="flex: 1 1 0%;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            SPECIFICATIONS
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          BIT-IDENTICAL L1 BOOTSTRAP
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          FULL EFFECT ALGEBRA (+, -, !, Pure)
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          SELF-HOSTED: MENTL COMPILES MENTL
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          GRAPH-NATIVE IR (NOT AST-WALKING)
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          ROW-POLYMORPHIC TYPE SYSTEM
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(224, 255, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          WASM CODEGEN + MEMORY ARENAS
+        </div>
+      </div>
+      <div
+        style="min-width: 90px;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            STACK
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="display: flex; flex-wrap: wrap; gap: 4px;"
+        >
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            WASM
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            WAT
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            Hindley-Milner
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            row polymorphism
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          OPERATOR NOTES
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
+      >
+        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
+      </div>
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
+    >
+      <span
+        style="font-size: 10px; color: var(--ui-signal-ok);"
+      >
+        ●
+         
+        ACTIVE
+      </span>
+      <span
+        style="color: var(--color-comment); font-size: 10px;"
+      >
+        │
+      </span>
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 4px;"
+      >
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          compiler
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          effects
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          self-hosting
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          wasm
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
+  >
+    <span>
+      [ 
+      Ⓑ
+       BACK ]
+    </span>
+    <a
+      href="https://github.com/ampactor-labs/mentl"
+      rel="noopener noreferrer"
+      style="color: rgba(224, 255, 0, 0.667); text-decoration: underline; text-underline-offset: 3px;"
+      target="_blank"
+    >
+      ampactor-labs/mentl
+    </a>
+  </div>
+</div>
+`;
+
+exports[`DetailScreen > matches snapshot for synth project 1`] = `
+<div
+  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+>
+  <div
+    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 184, 0, 0.133);"
+  >
+    <div
+      aria-label="Back to project list"
+      class="btn-cabinet"
+      role="button"
+      style="font-size: 12px; color: var(--fg); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      tabindex="0"
+    >
+      ◄
+    </div>
+    <div
+      style="font-size: 20px; color: rgb(255, 184, 0); text-shadow: 0 0 12px #FFB80044;"
+    >
+      ∿
+    </div>
+    <div
+      style="flex: 1 1 0%;"
+    >
+      <h2
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(255, 184, 0); text-shadow: 0 0 10px #FFB80044; letter-spacing: 0.05em; margin: 0px;"
+      >
+        SYS/RESONANCE
+      </h2>
+      <div
+        style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
+      >
+        SUBTRACTIVE SYNTH
+      </div>
+    </div>
+  </div>
+  <div
+    aria-label="Readout"
+    role="region"
+    style="flex: 1 1 0%; overflow: auto; position: relative;"
+    tabindex="0"
+  >
+    <span
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"
+    >
+      THE CHAIN SPEAKS
+    </span>
+    <div
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(255, 184, 0, 0.02); border: 1px solid rgba(255, 184, 0, 0.04);"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+      >
+        <span
+          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+        >
+          SYS/READOUT
+        </span>
+        <div
+          style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+        />
+      </div>
+      <div
+        style="font-size: 11px; line-height: 1.75; color: var(--fg); max-width: 520px;"
+      >
+        <span
+          style="color: rgb(255, 184, 0);"
+        >
+          &gt; 
+        </span>
+        Playable single-voice subtractive synthesizer. Oscillator → Filter → Amp → Delay. Keyboard-mapped. The signal chain, alive in the browser.
+      </div>
+    </div>
+    <div
+      style="display: flex; flex-direction: row; gap: 14px; margin-bottom: 14px;"
+    >
+      <div
+        style="flex: 1 1 0%;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            SPECIFICATIONS
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          OSC → FILTER → AMP → DELAY
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          KEYBOARD MAPPED
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          REAL-TIME PARAMETER CONTROL
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          WEB AUDIO SYNTHESIS
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          SUBTRACTIVE SIGNAL CHAIN
+        </div>
+        <div
+          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+        >
+          <span
+            style="color: rgba(255, 184, 0, 0.533);"
+          >
+            &gt;&gt; 
+          </span>
+          PLAYABLE IN BROWSER
+        </div>
+      </div>
+      <div
+        style="min-width: 90px;"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        >
+          <span
+            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+          >
+            STACK
+          </span>
+          <div
+            style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+          />
+        </div>
+        <div
+          style="display: flex; flex-wrap: wrap; gap: 4px;"
+        >
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            Web Audio API
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            React
+          </span>
+          <span
+            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+          >
+            keyboard events
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
+    >
+      <span
+        style="font-size: 10px; color: var(--color-steel);"
+      >
+        ●
+         
+        INTERACTIVE
+      </span>
+      <span
+        style="color: var(--color-comment); font-size: 10px;"
+      >
+        │
+      </span>
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 4px;"
+      >
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          oscillator
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          filter
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          envelope
+        </span>
+        <span
+          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+        >
+          delay
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style="padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
+  >
+    <span>
+      [ 
+      Ⓑ
+       BACK ]
+    </span>
+    <span>
+      resonance
+    </span>
+  </div>
+</div>
+`;

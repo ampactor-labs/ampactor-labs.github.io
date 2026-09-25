@@ -80,7 +80,7 @@ function main() {
   const user = String(process.env.ISSUE_USER || "unknown");
   const date = process.env.RUN_DATE || new Date().toISOString().slice(0, 10);
 
-  let raw = "";
+  let raw;
   try {
     raw = readFileSync(BOARD_PATH, "utf8");
   } catch {

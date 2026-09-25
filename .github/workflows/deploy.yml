@@ -29,9 +29,21 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm ci --legacy-peer-deps
+      # The ledger reads bare clones of every public repository
+      # (scripts/sync-receipts.mjs). Kept between runs so a build only
+      # fetches what changed instead of cloning ~200 MB each time.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/receipts
+          key: receipts-git-${{ github.run_id }}
+          restore-keys: |
+            receipts-git-
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

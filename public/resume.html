@@ -1,12 +1,11 @@
 <!doctype html>
+<!-- Generated from src/data/resume.json by scripts/build-resume.mjs. Edit the JSON. -->
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morgan Espitia — Résumé | Systems Engineer</title>
-  <meta name="description"
-    content="Morgan Espitia — systems engineer. Self-hosting compiler, zero-heap DSP kernel, rollback netcode, a ternary AI kernel, a production security product. Rust + full-stack web. Available for contract or full-time." />
+  <title>Résumé · Morgan Espitia, Software Engineer</title>
+  <meta name="description" content="Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it." />
   <link rel="canonical" href="https://ampactor.dev/resume.html" />
   <link rel="icon" href="/favicon.ico" />
   <style>
@@ -14,427 +13,213 @@
       --ink: #1a1a1a;
       --muted: #555;
       --faint: #888;
-      --teal: #0089a3;
+      --teal: #00708a;
       --rule: #e2e2e2;
       --bg: #ffffff;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family:
-        "Helvetica Neue", Helvetica, Arial, "Segoe UI", system-ui, sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", system-ui, sans-serif;
       line-height: 1.5;
       font-size: 14px;
       -webkit-font-smoothing: antialiased;
     }
-
-    .sheet {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 48px 40px 64px;
-    }
-
-    a {
-      color: var(--teal);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .topbar {
-      font-size: 12px;
-      margin-bottom: 28px;
-    }
-
-    .topbar a {
-      color: var(--faint);
-    }
-
-    .printlink {
-      appearance: none;
-      border: none;
-      background: none;
-      color: var(--faint);
-      font: inherit;
-      cursor: pointer;
-      padding: 0;
-      text-decoration: none;
-    }
-
-    .printlink:hover {
-      text-decoration: underline;
-    }
-
-    header h1 {
-      font-size: 30px;
-      letter-spacing: 0.01em;
-      font-weight: 700;
-    }
-
-    header .role {
-      color: var(--teal);
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      margin-top: 4px;
-    }
-
-    header .contact {
-      color: var(--muted);
-      font-size: 12.5px;
-      margin-top: 8px;
-      line-height: 1.7;
-    }
-
-    header .contact a {
-      color: var(--muted);
-    }
-
-    .summary {
-      margin-top: 18px;
-      font-size: 14.5px;
-      color: #2a2a2a;
-      max-width: 70ch;
-    }
-
-    section {
-      margin-top: 30px;
-    }
-
+    .sheet { max-width: 800px; margin: 0 auto; padding: 48px 40px 64px; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar { font-size: 12px; margin-bottom: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .topbar a, .printlink { color: var(--faint); }
+    .printlink { appearance: none; border: 0; background: none; font: inherit; cursor: pointer; padding: 0; }
+    .printlink:hover { text-decoration: underline; }
+    header h1 { font-size: 30px; letter-spacing: 0.01em; font-weight: 700; }
+    header .role { color: var(--teal); font-weight: 600; font-size: 14px; letter-spacing: 0.02em; margin-top: 4px; }
+    header .contact { color: var(--muted); font-size: 12.5px; margin-top: 8px; line-height: 1.7; }
+    header .contact a { color: var(--muted); }
+    .summary { margin-top: 18px; font-size: 14.5px; color: #2a2a2a; max-width: 72ch; }
+    section { margin-top: 30px; }
     h2 {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--teal);
-      border-bottom: 2px solid var(--rule);
-      padding-bottom: 6px;
-      margin-bottom: 14px;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      border-bottom: 2px solid var(--rule); padding-bottom: 6px; margin-bottom: 14px;
     }
-
-    .job {
-      margin-bottom: 16px;
-    }
-
-    .job .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .job .name {
-      font-weight: 700;
-      font-size: 14.5px;
-    }
-
-    .job .stack {
-      color: var(--faint);
-      font-size: 11.5px;
-      white-space: nowrap;
-    }
-
-    .job .outcome {
-      color: var(--teal);
-      font-weight: 600;
-      font-size: 13px;
-      margin: 2px 0 3px;
-    }
-
-    .job .detail {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .caps {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .caps .tier .label {
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .caps .tier .body {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .bg-item {
-      margin-bottom: 12px;
-    }
-
-    .bg-item .label {
-      font-weight: 700;
-      font-size: 13.5px;
-    }
-
-    .bg-item .body {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    footer {
-      margin-top: 36px;
-      padding-top: 14px;
-      border-top: 1px solid var(--rule);
-      font-size: 11px;
-      color: var(--faint);
-    }
-
+    .skills { color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .job { margin-bottom: 16px; }
+    .job .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .job .name { font-weight: 700; font-size: 14.5px; }
+    .job .when, .job .stack { color: var(--faint); font-size: 11.5px; white-space: nowrap; }
+    .job ul { margin: 4px 0 0 18px; color: var(--muted); font-size: 13px; }
+    .job li { margin: 2px 0; }
+    .job .detail { color: var(--muted); font-size: 13px; margin-top: 2px; }
+    .before { color: var(--muted); font-size: 13px; }
+    footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 11px; color: var(--faint); }
     @media print {
-      @page {
-        margin: 14mm;
-      }
-
-      body {
-        font-size: 11pt;
-      }
-
-      .sheet {
-        padding: 0;
-        max-width: none;
-      }
-
-      .topbar,
-      .print-hide {
-        display: none;
-      }
-
-      a {
-        color: var(--ink);
-      }
-
-      section {
-        page-break-inside: avoid;
-      }
+      @page { margin: 14mm; }
+      body { font-size: 11pt; }
+      .sheet { padding: 0; max-width: none; }
+      .topbar, .print-hide { display: none; }
+      a { color: var(--ink); }
+      section { page-break-inside: avoid; }
     }
   </style>
 </head>
-
 <body>
   <div class="sheet">
     <div class="topbar print-hide">
-      <a href="/">&larr; ampactor.dev</a> &nbsp;·&nbsp;
-      <button type="button" class="printlink" onclick="window.print()">
-        Print / Save as PDF
-      </button>
+      <a href="/">&larr; ampactor.dev</a>
+      <a href="/arcade/">the arcade</a>
+      <button type="button" class="printlink" onclick="window.print()">Print / Save as PDF</button>
     </div>
 
     <header>
       <h1>Morgan Espitia</h1>
-      <div class="role">
-        Systems Engineer — Rust · DSP · Embedded · Compilers · Security ·
-        Full-Stack
-      </div>
+      <div class="role">Software Engineer</div>
       <div class="contact">
         Salt Lake City, UT &nbsp;·&nbsp;
         <a href="mailto:ampactorlabs@gmail.com">ampactorlabs@gmail.com</a>
-        &nbsp;·&nbsp; +1 435-268-2446<br />
+        &nbsp;·&nbsp; +1 435-268-2446 &nbsp;·&nbsp;
+        <a href="https://ampactor.dev">ampactor.dev</a><br />
         <a href="https://github.com/ampactor-labs">github.com/ampactor-labs</a>
         &nbsp;·&nbsp;
-        <a href="https://www.linkedin.com/in/ampactor-labs/">linkedin.com/in/ampactor-labs</a>
+        <a href="https://www.linkedin.com/in/ampactor-labs/">www.linkedin.com/in/ampactor-labs</a>
       </div>
-      <p class="summary">
-        Systems engineer who works low-level — compilers, real-time DSP,
-        deterministic netcode, and from-scratch ML in Rust — plus full-stack
-        web, APIs, and dashboards. Available for contract, fractional, or
-        full-time work.
-      </p>
+      <p class="summary">Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it.</p>
     </header>
 
     <section>
-      <h2>Selected Work</h2>
+      <h2>Skills</h2>
+      <p class="skills">TypeScript / JavaScript · React · Node.js · Vite · PHP · SQL / Postgres · Python · WebSockets · RabbitMQ · Docker · CI/CD · REST APIs · Rust · WebAssembly</p>
+    </section>
 
-      <div class="job">
+    <section>
+      <h2>Experience</h2>
+      
+      <article class="job">
         <div class="head">
-          <span class="name">MENTL — Self-Hosting Compiler</span>
-          <span class="stack">Mentl · WASM</span>
+          <span class="name">Independent Software Engineer, Ampactor Labs</span>
+          <span class="when">Salt Lake City, UT · 2018–present (full-time since 2023)</span>
         </div>
-        <div class="outcome">
-          A programming language that compiles itself.
-        </div>
-        <div class="detail">
-          Full Hindley-Milner type inference with row-polymorphic effect
-          algebra; one mechanism (handle/resume) replaces exceptions,
-          generators, async, DI, and mocking. L1 bootstrap produces
-          bit-identical WASM across generations. Graph-native IR.
-        </div>
-      </div>
+        <ul>
+          <li>Client and contract work under NDA: blockchain infrastructure and full-stack product work, including deployment, debugging and ongoing support.</li>
+          <li>Built and run TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request with x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.</li>
+          <li>Built Perennials, an offline-first React/TypeScript app backed by a Node/PostgreSQL service that searches about 8,800 plants by growing conditions; every search is a shareable URL.</li>
+          <li>Maintain the public projects at ampactor.dev, including a self-hosting compiler, a DSP library that runs both as a desktop plugin and on a Cortex-M7 microcontroller, a SIMD sort published on crates.io, a Solana transaction crate whose CI sends live transactions, and a dozen browser apps and games.</li>
+        </ul>
+      </article>
 
-      <div class="job">
+      <article class="job">
         <div class="head">
-          <span class="name">SONIDO — Cross-Platform DSP Kernel</span>
-          <span class="stack">Rust · CLAP · no_std</span>
+          <span class="name">Full Stack Developer, Perfect Afternoon</span>
+          <span class="when">Remote · 2022–2023</span>
         </div>
-        <div class="outcome">
-          Write audio code once; run it unchanged on a desktop plugin and a
-          $20 microcontroller.
-        </div>
-        <div class="detail">
-          Three-layer kernel architecture: identical Rust on desktop CLAP
-          plugins and bare-metal ARM (Cortex-M7 @ 480 MHz). 14 crates,
-          zero-heap, zero-trait-dispatch. Firmware flashed to physical
-          Daisy Seed hardware.
-        </div>
-      </div>
+        <ul>
+          <li>Built WordPress sites, custom business tooling, migration systems and automated recurring processes.</li>
+        </ul>
+      </article>
 
-      <div class="job">
+      <article class="job">
         <div class="head">
-          <span class="name">TOKENSAFE + SCRY — Solana Security Scanner</span>
-          <span class="stack">TypeScript · Rust</span>
+          <span class="name">Full Stack Developer, CommandLink</span>
+          <span class="when">Remote · 2021–2022</span>
         </div>
-        <div class="outcome">
-          A security product that charges real money to tell you whether a
-          crypto token is a scam — shipped to production.
-        </div>
-        <div class="detail">
-          Nine deterministic on-chain checks; no ML, no third-party oracles.
-          Paid via x402 micropayments ($0.008/request — payment is
-          authentication). Web UI + Telegram bot; free MCP tool.
-        </div>
-      </div>
+        <ul>
+          <li>Built and maintained the PHP dashboard enterprise IT teams use to manage and stream product-shipping data.</li>
+          <li>Maintained its asynchronous Node.js backend (WebSockets, RabbitMQ); overhauled CI/CD and onboarding, cutting build failures by about 30%.</li>
+        </ul>
+      </article>
 
-      <div class="job">
+      <article class="job">
         <div class="head">
-          <span class="name">2-TOP — Rollback Netcode Brawler</span>
-          <span class="stack">Rust · Bevy</span>
+          <span class="name">Back End Developer, Planstin</span>
+          <span class="when">2019–2021</span>
         </div>
-        <div class="outcome">
-          Online multiplayer that stays perfectly in sync across phones —
-          deterministic rollback netcode.
-        </div>
-        <div class="detail">
-          Provably deterministic cross-platform simulation, fixed-point math,
-          replay codec with frame-accurate scrub, bevy_ggrs + Matchbox WebRTC.
-          A cross-platform determinism matrix in CI checks every target
-          produces the identical simulation.
-        </div>
-      </div>
+        <ul>
+          <li>Engineered the PHP backend of a healthcare-benefits platform handling sensitive medical and financial data.</li>
+          <li>Built fault-tolerant synchronization pipelines with Salesforce and maintained high-throughput backend workflows.</li>
+        </ul>
+      </article>
 
-      <div class="job">
+      <article class="job">
         <div class="head">
-          <span class="name">CLOB — Ternary Intelligence Kernel</span>
-          <span class="stack">Rust</span>
+          <span class="name">Back End Developer, Balance of Nature</span>
+          <span class="when">2018–2019</span>
         </div>
-        <div class="outcome">
-          A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU.
-        </div>
-        <div class="detail">
-          Ternary recurrent kernel. The objective is energy: joules per nat, driven down. A crystallization loop turns
-          prediction errors into compiled ternary modules. The compile path lowers a ternary matrix to native x86-64.
-          Targets a laptop CPU, no GPU. In development.
-        </div>
-      </div>
+        <ul>
+          <li>Built and maintained the PHP ticket-management system used across the customer-service organization: messaging, escalation and workflow features.</li>
+        </ul>
+      </article>
 
-      <div class="job">
+      <article class="job">
         <div class="head">
-          <span class="name">TURBOSORT — SIMD Sort Library</span>
+          <span class="name">Front End Developer, Tenth Muse Design</span>
+          <span class="when">2017–2018</span>
+        </div>
+        <ul>
+          <li>Built and shipped PHP websites for credit unions and other clients, including OASCU and National Geographic's credit union.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <h2>Selected public work</h2>
+      
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://ampactor.dev/perennials/">Perennials</a></span>
+          <span class="stack">React · TypeScript · Node · Postgres</span>
+        </div>
+        <div class="detail">Search over about 8,800 plants by growing conditions; an offline-first PWA where every search is a URL.</div>
+      </article>
+
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://github.com/ampactor-labs/tokensafe">TokenSafe + Scry</a></span>
+          <span class="stack">TypeScript · Express · React</span>
+        </div>
+        <div class="detail">Solana token risk scoring from on-chain data; live in production, paid per request over x402.</div>
+      </article>
+
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://github.com/ampactor-labs/ampactor-labs.github.io">ampactor.dev</a></span>
+          <span class="stack">React · TypeScript · Vite · Playwright</span>
+        </div>
+        <div class="detail">This site: React 19 and TypeScript on Vite, an arcade-cabinet interface, a commit log built from git, and unit and browser tests in CI.</div>
+      </article>
+
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://github.com/ampactor-labs/mentl">Mentl</a></span>
+          <span class="stack">WebAssembly</span>
+        </div>
+        <div class="detail">A self-hosting compiler with an algebraic effect system; bit-identical bootstrap.</div>
+      </article>
+
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://github.com/ampactor-labs/sonido">Sonido</a></span>
+          <span class="stack">Rust · no_std · CLAP</span>
+        </div>
+        <div class="detail">One DSP codebase for desktop audio plugins and a bare-metal Cortex-M7 microcontroller, tested on real hardware.</div>
+      </article>
+
+      <article class="job">
+        <div class="head">
+          <span class="name"><a href="https://github.com/ampactor-labs/turbosort">Turbosort</a></span>
           <span class="stack">Rust · AVX2</span>
         </div>
-        <div class="outcome">
-          A SIMD sort on crates.io, up to 2.9× faster than std single-threaded
-          and 3.1× parallel.
-        </div>
-        <div class="detail">
-          All 10 primitive numeric types. AVX2 sorting networks for small
-          arrays, LSD radix sort for large, runtime CPUID dispatch. No unsafe
-          trait impls, no FFI, no nightly; full no_std. Benchmarked against
-          std and voracious, with the losses published alongside the wins.
-        </div>
-      </div>
-
-      <div class="job">
-        <div class="head">
-          <span class="name">BROWSORE — Browser Automation MCP</span>
-          <span class="stack">TypeScript · Playwright</span>
-        </div>
-        <div class="outcome">
-          Lets an AI agent drive a real browser. 40 tools, and it respects robots.txt and rate limits.
-        </div>
-        <div class="detail">
-          Robots.txt compliance (RFC 9309), per-domain rate limiting,
-          exponential backoff, prompt-injection detection. 40 MCP tools, CLI,
-          programmatic API, and autonomous agent loop.
-        </div>
-      </div>
-
-      <div class="job">
-        <div class="head">
-          <span class="name">FLOWPILOT — Algorithmic Trading Engine</span>
-          <span class="stack">Rust</span>
-        </div>
-        <div class="outcome">
-          A 13-crate Solana trading engine. The strategy can't beat institutional order flow, so it doesn't make money.
-        </div>
-        <div class="detail">
-          Discovers trending Solana tokens, filters through a 4-layer safety
-          gate, executes via Jupiter with graduated take-profit and on-chain
-          trailing stop-loss. 13-crate workspace; paper mode default.
-        </div>
-      </div>
+        <div class="detail">SIMD radix sort on crates.io, 2.2–3.2× faster than the standard library from 1M to 100M keys, with the cases where it is slower documented.</div>
+      </article>
     </section>
 
-    <section>
-      <h2>Capabilities</h2>
-      <div class="caps">
-        <div class="tier">
-          <span class="label">Hard systems — </span>
-          <span class="body">Real-time audio &amp; DSP, embedded / bare-metal, compilers &amp;
-            DSLs, performance-critical Rust, on-chain security, AI-agent
-            tooling.</span>
-        </div>
-        <div class="tier">
-          <span class="label">Everyday delivery — </span>
-          <span class="body">Full-stack web apps, REST/GraphQL APIs, dashboards, integrations,
-            backend services — PHP / TypeScript / Rust. Years of production
-            experience.</span>
-        </div>
-      </div>
-    </section>
-
-    <!--
-        REVIEW BEFORE PUBLISHING: the Background section owns the employment gap
-        as a deliberate story. Add concrete years / studio name / film credits
-        where you want them, or trim. Nothing here is invented dates.
-      -->
     <section>
       <h2>Background</h2>
-      <div class="bg-item">
-        <span class="label">Independent systems R&amp;D — </span>
-        <span class="body">Designed and built the body of work above solo: a self-hosting
-          compiler, a production DSP framework, deterministic netcode, an
-          original ML architecture, and a revenue-generating security
-          product shipped to production.</span>
-      </div>
-      <div class="bg-item">
-        <span class="label">Audio engineering &amp; film — </span>
-        <span class="body">Ran a music studio and worked in film production (audio
-          engineering). Deep, hands-on work with sound — the through-line to
-          the DSP and embedded systems above.</span>
-      </div>
-      <div class="bg-item">
-        <span class="label">Earlier production experience — </span>
-        <span class="body">Full-stack web development: PHP dashboards, web portals, REST APIs,
-          and internal tooling.</span>
-      </div>
+      <p class="before">Before software, I ran a music studio and worked in film audio, which led to the audio and DSP projects.</p>
     </section>
 
     <footer>
-      References, code, and demos available on request — or explore the
-      interactive portfolio at <a href="/">ampactor.dev</a>.
+      References on request. Code and live projects are at <a href="/">ampactor.dev</a>.
     </footer>
   </div>
 </body>
-
 </html>
