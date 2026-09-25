@@ -37,6 +37,27 @@
   border-bottom: 1px solid var(--hairline-faint);
 }
 
+/* Keyboard users get straight to the page; the link shows only on focus. */
+.skip {
+  position: absolute;
+  top: -100px;
+  left: var(--gutter);
+  z-index: 40;
+  padding: 8px 12px;
+  border: 1px solid var(--accent-text);
+  border-radius: var(--radius-sm);
+  background: var(--color-charcoal);
+  color: var(--accent-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -92,6 +113,19 @@
   .brand {
     padding-top: 4px;
   }
+}
+
+/* On a phone the GitHub link lives in the footer and the brand is the
+   A-mark alone (the link keeps its name), so the nav fits one line. */
+@media (max-width: 480px) {
+  .navPhoneHide,
+  .brand span {
+    display: none;
+  }
+}
+
+.main:focus {
+  outline: none;
 }
 
 .main {

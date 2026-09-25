@@ -8,6 +8,10 @@
   padding: 0 var(--gutter) var(--section-gap);
 }
 
+.main:focus {
+  outline: none;
+}
+
 .pageHead {
   display: flex;
   flex-direction: column;

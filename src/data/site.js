@@ -8,18 +8,22 @@ import receipts from "./receipts.summary.json" with { type: "json" };
 
 const n = (v) => Number(v).toLocaleString("en-US");
 const monthName = (iso) =>
-  new Date(`${String(iso).slice(0, 7)}-15T00:00:00Z`).toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
+  new Date(`${String(iso).slice(0, 7)}-15T00:00:00Z`).toLocaleDateString(
+    "en-US",
+    {
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    },
+  );
 
 export const SITE = {
   origin: "https://ampactor.dev",
   name: "Morgan Espitia",
   jobTitle: "Software Engineer",
   // The one line of range under the name. No title, no industry.
-  range: "Compilers, synths, games, and the apps around them. Shipped, with receipts.",
+  range:
+    "Compilers, synths, games, and the apps around them. Shipped, with receipts.",
   locality: "Salt Lake City",
   region: "UT",
   fonts:
@@ -148,6 +152,16 @@ export function renderHead(entry, { prepaint, bootShim }) {
     `<link href="${SITE.fonts}" rel="stylesheet" />`,
   );
   return lines.join("\n    ");
+}
+
+// One <url> per entry plus the static résumé, from the same table, so the
+// sitemap and the pages cannot disagree. Emitted by vite.config.js at build.
+export function renderSitemap() {
+  const paths = [...Object.values(ENTRIES).map((e) => e.path), "/resume.html"];
+  const urls = paths
+    .map((path) => `  <url><loc>${SITE.origin}${path}</loc></url>`)
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 
 // The page as a reader without JavaScript (or a crawler) sees it: the same

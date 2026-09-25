@@ -50,7 +50,10 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     </div>
   </div>
   <div
+    aria-label="Readout"
+    role="region"
     style="flex: 1 1 0%; overflow: auto; position: relative;"
+    tabindex="0"
   >
     <span
       style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
@@ -327,7 +330,10 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     </div>
   </div>
   <div
+    aria-label="Readout"
+    role="region"
     style="flex: 1 1 0%; overflow: auto; position: relative;"
+    tabindex="0"
   >
     <span
       style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"

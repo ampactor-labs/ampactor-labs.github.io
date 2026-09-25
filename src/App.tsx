@@ -72,7 +72,7 @@ export default function App() {
     <>
       <div ref={probeRef} className={styles.probe} aria-hidden="true" />
       <Header inert={inert} onEnterArcade={() => enterArcade()} />
-      <main id="main" className={styles.main}>
+      <main id="main" className={styles.main} tabIndex={-1}>
         <section className={styles.hero} aria-labelledby="hero-name">
           <HeroText inert={inert} onEnterArcade={() => enterArcade()} />
           <div className={styles.slotWrap}>

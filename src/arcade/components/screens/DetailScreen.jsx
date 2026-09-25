@@ -195,7 +195,15 @@ export default function DetailScreen({
         )}
       </div>
       {/* Body */}
-      <div ref={body} style={{ flex: 1, overflow: "auto", position: "relative" }}>
+      {/* The readout scrolls, so it is a focusable, named region: keyboard
+          users can reach it and pan it with the arrow keys. */}
+      <div
+        ref={body}
+        style={{ flex: 1, overflow: "auto", position: "relative" }}
+        tabIndex={0}
+        role="region"
+        aria-label="Readout"
+      >
         {/* Tagline stencil — rotated 90deg, barely visible */}
         {p.tagline && (
           <span

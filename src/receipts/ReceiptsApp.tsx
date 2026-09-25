@@ -43,7 +43,7 @@ export default function ReceiptsApp() {
   return (
     <>
       <Header current="receipts" />
-      <main id="main" className={styles.main}>
+      <main id="main" className={styles.main} tabIndex={-1}>
         <header className={styles.pageHead}>
           <p className={styles.eyebrow} aria-hidden="true">
             RECEIPTS

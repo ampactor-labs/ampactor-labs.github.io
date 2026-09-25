@@ -19,6 +19,9 @@ export default function Header({
   const anchor = (id: string) => (home ? `#${id}` : `/#${id}`);
   return (
     <header className={styles.header} inert={inert || undefined}>
+      <a href="#main" className={styles.skip}>
+        Skip to content
+      </a>
       <a href="/" className={styles.brand} aria-label="Ampactor Labs, home">
         <AMark size={22} />
         <span>AMPACTOR</span>
@@ -49,7 +52,12 @@ export default function Header({
         <a href="/resume.html" aria-label="Résumé">
           RESUME
         </a>
-        <a href={CONTACT.github} target="_blank" rel="noopener noreferrer">
+        <a
+          href={CONTACT.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.navPhoneHide}
+        >
           GITHUB
         </a>
         <ThemeToggle />
