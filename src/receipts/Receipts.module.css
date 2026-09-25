@@ -655,7 +655,7 @@
   .tbody .numCell::before {
     content: attr(data-label) " ";
     color: var(--fg-faint);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -1110,5 +1110,34 @@
   .chip,
   .toast {
     transition: none;
+  }
+}
+
+/* On a phone nothing a reader needs is set below 12px: labels, hints,
+   badges, the preview. The dense desktop sizes stay where the screen is
+   big enough to carry them; the pixel signage stays signage. */
+@media (max-width: 640px) {
+  .tileLabel,
+  .tileSub,
+  .chipCount,
+  .hint,
+  .error,
+  .badge,
+  .fieldset legend,
+  .fieldBlock label,
+  .optional,
+  .previewBody,
+  .previewTitle,
+  .drawerMeta dt,
+  .drawerH3,
+  .th,
+  .summary,
+  .generated,
+  .quiet,
+  .radio,
+  .check,
+  .tbody .td,
+  .tbody .numCell::before {
+    font-size: 12px;
   }
 }

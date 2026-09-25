@@ -157,12 +157,16 @@ export default function FilterBar({
               type="button"
               className={`${styles.chip} ${count === 0 && !pressed ? styles.chipZero : ""}`}
               aria-pressed={pressed}
-              aria-label={`${r.id}: ${int(count)} ${count === 1 ? "commit" : "commits"}`}
               onClick={() => toggleRepo(r.id)}
             >
-              <span aria-hidden="true">{r.id}</span>
-              <span className={styles.chipCount} aria-hidden="true">
-                {int(count)}
+              {/* The name is what is on the chip, plus the unit a listener
+                  needs: "mentl 2,387 commits". */}
+              <span>{r.id}</span>{" "}
+              <span className={styles.chipCount}>
+                {int(count)}{" "}
+                <span className="visually-hidden">
+                  {count === 1 ? "commit" : "commits"}
+                </span>
               </span>
             </button>
           );

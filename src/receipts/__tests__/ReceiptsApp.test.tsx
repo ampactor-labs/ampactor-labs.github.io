@@ -124,7 +124,7 @@ describe("ReceiptsApp", () => {
       "Showing 1 of 4 commits",
     );
     expect(
-      screen.getByRole("button", { name: "site: 1 commit" }),
+      screen.getByRole("button", { name: "site 1 commit" }),
     ).toHaveAttribute("aria-pressed", "true");
     expect(
       screen.getByRole("checkbox", { name: "Include merges" }),
@@ -142,7 +142,7 @@ describe("ReceiptsApp", () => {
     );
     expect(window.location.search).toBe("");
 
-    fireEvent.click(screen.getByRole("button", { name: "mentl: 2 commits" }));
+    fireEvent.click(screen.getByRole("button", { name: "mentl 2 commits" }));
     expect(window.location.search).toBe("?repo=mentl");
     expect(screen.getByText(/Showing/)).toHaveTextContent("Showing 2 of 4");
 

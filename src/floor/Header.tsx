@@ -48,10 +48,10 @@ export default function Header({
         ) : (
           <a href="/arcade/">ARCADE</a>
         )}
-        {/* Press Start 2P has no accented capitals; the résumé keeps its accents everywhere else. */}
-        <a href="/resume.html" aria-label="Résumé">
-          RESUME
-        </a>
+        {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
+            that is also its name: what a voice-control user says is what is
+            on screen. The résumé keeps its accents everywhere else. */}
+        <a href="/resume.html">RESUME</a>
         <a
           href={CONTACT.github}
           target="_blank"

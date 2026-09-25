@@ -275,6 +275,20 @@
   overflow: auto;
 }
 
+/* On a phone the chart's words and numbers come up to 12px too. */
+@media (max-width: 640px) {
+  .subtitle,
+  .legend,
+  .seg button,
+  .tick,
+  .axis,
+  .value,
+  .table th,
+  .tooltip {
+    font-size: 12px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bar,
   .barPos,

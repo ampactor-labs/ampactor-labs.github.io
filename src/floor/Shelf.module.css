@@ -137,6 +137,15 @@
   color: var(--fg-bright);
 }
 
+/* On a phone the cartridge's small print comes up to 12px. */
+@media (max-width: 640px) {
+  .lang,
+  .subtitle,
+  .stack li {
+    font-size: 12px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card,
   .action,
