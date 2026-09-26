@@ -204,7 +204,7 @@ const RAW_PROJECTS = [
     icon: "◈",
     github: "https://github.com/ampactor-labs/tokensafe",
     live: "https://scry-production.up.railway.app",
-    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.008 transaction serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
+    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments: a full check costs $0.02, and the payment itself replaces an API key. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
@@ -212,7 +212,7 @@ const RAW_PROJECTS = [
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
-      "$0.008/REQUEST",
+      "$0.02 PER CHECK",
       "WEB UI + TELEGRAM BOT",
       "DELTA DETECTION",
       "Ed25519 SIGNED RESPONSES",
@@ -221,7 +221,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "security",
     operatorNote:
-      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
+      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.02 a check over x402, where the payment is the auth, so no signup or API key.",
   },
 
   {
