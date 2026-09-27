@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Résumé · Morgan Espitia, Software Engineer</title>
-  <meta name="description" content="Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it." />
+  <meta name="description" content="Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 18 projects at ampactor.dev, from web apps and APIs to a self-hosting compiler and audio software that runs on a microcontroller. I own features end to end, from the interface to the service behind it." />
   <link rel="canonical" href="https://ampactor.dev/resume.html" />
   <link rel="icon" href="/favicon.ico" />
   <style>
@@ -83,12 +83,12 @@
         &nbsp;·&nbsp;
         <a href="https://www.linkedin.com/in/ampactor-labs/">www.linkedin.com/in/ampactor-labs</a>
       </div>
-      <p class="summary">Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it.</p>
+      <p class="summary">Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 18 projects at ampactor.dev, from web apps and APIs to a self-hosting compiler and audio software that runs on a microcontroller. I own features end to end, from the interface to the service behind it.</p>
     </header>
 
     <section>
       <h2>Skills</h2>
-      <p class="skills">TypeScript / JavaScript · React · Node.js · Vite · PHP · SQL / Postgres · Python · WebSockets · RabbitMQ · Docker · CI/CD · REST APIs · Rust · WebAssembly</p>
+      <p class="skills">TypeScript / JavaScript · React · Node.js · Vite · PHP · SQL / Postgres · Python · WebSockets · RabbitMQ · Docker · CI/CD · REST APIs · Rust · WebAssembly · Solana</p>
     </section>
 
     <section>
@@ -103,7 +103,8 @@
           <li>Client and contract work under NDA: blockchain infrastructure and full-stack product work, including deployment, debugging and ongoing support.</li>
           <li>Built and run TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request with x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.</li>
           <li>Built Perennials, an offline-first React/TypeScript app backed by a Node/PostgreSQL service that searches about 8,800 plants by growing conditions; every search is a shareable URL.</li>
-          <li>Maintain the public projects at ampactor.dev, including a self-hosting compiler, a DSP library that runs both as a desktop plugin and on a Cortex-M7 microcontroller, a SIMD sort published on crates.io, a Solana transaction crate whose CI sends live transactions, and a dozen browser apps and games.</li>
+          <li>Maintain the projects at ampactor.dev, including a self-hosting compiler, a Rust DSP framework whose kernels run in desktop plugins and on a Cortex-M7 guitar pedal, a SIMD sort published on crates.io, a Solana transaction crate whose CI runs it against a real validator, and a dozen browser apps and games.</li>
+          <li>Every project's README follows one written standard, with a Limitations section and benchmarks that include the cases it loses, and the site generates each project's card from it at build time.</li>
         </ul>
       </article>
 
@@ -176,7 +177,7 @@
           <span class="name"><a href="https://github.com/ampactor-labs/tokensafe">TokenSafe + Scry</a></span>
           <span class="stack">TypeScript · Express · React</span>
         </div>
-        <div class="detail">Solana token risk scoring from on-chain data; live in production, paid per request over x402.</div>
+        <div class="detail">Solana token risk scoring from on-chain data; live in production, paid $0.02 per check over x402 micropayments.</div>
       </article>
 
       <article class="job">
@@ -190,17 +191,17 @@
       <article class="job">
         <div class="head">
           <span class="name"><a href="https://github.com/ampactor-labs/mentl">Mentl</a></span>
-          <span class="stack">WebAssembly</span>
+          <span class="stack">Mentl · WebAssembly</span>
         </div>
-        <div class="detail">A self-hosting compiler with an algebraic effect system; bit-identical bootstrap.</div>
+        <div class="detail">A programming language and self-hosting compiler with an algebraic effect system; the compiler reproduces itself byte for byte.</div>
       </article>
 
       <article class="job">
         <div class="head">
           <span class="name"><a href="https://github.com/ampactor-labs/sonido">Sonido</a></span>
-          <span class="stack">Rust · no_std · CLAP</span>
+          <span class="stack">Rust · no_std · CLAP · Cortex-M7</span>
         </div>
-        <div class="detail">One DSP codebase for desktop audio plugins and a bare-metal Cortex-M7 microcontroller, tested on real hardware.</div>
+        <div class="detail">One Rust DSP framework whose effect kernels run unchanged in CLAP plugins, a browser editor and guitar-pedal firmware on a Cortex-M7.</div>
       </article>
 
       <article class="job">
