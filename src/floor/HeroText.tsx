@@ -35,6 +35,11 @@ export default function HeroText({
         Click the cabinet to browse the projects as an arcade game. Press Escape
         to leave.
       </p>
+      <p className={styles.play}>
+        <a href="/arcade/#tunnel-run">
+          Or skip the tour and play the game inside it ▸
+        </a>
+      </p>
     </div>
   );
 }

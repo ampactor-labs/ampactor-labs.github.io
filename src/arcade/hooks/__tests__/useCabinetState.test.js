@@ -247,11 +247,23 @@ describe("useCabinetState", () => {
       expect(result.current.screen).toBe("select");
     });
 
-    it("keeps a hidden program locked behind the coin slot", () => {
+    // The floor links straight to the game, so a hidden program named in
+    // the URL drops the coin for the visitor instead of refusing them.
+    it("opens a hidden program named in the URL by dropping the coin", () => {
       const { result, intents } = renderCabinet({
         initialRoute: project(HIDDEN_PROJECTS[0].id),
       });
+      expect(result.current.coinCount).toBe(3);
+      expect(intents).not.toContainEqual({ type: "select" });
+      expect(result.current.detailProject?.id).toBe(HIDDEN_PROJECTS[0].id);
+    });
+
+    it("still corrects a cartridge that does not exist to the select screen", () => {
+      const { result, intents } = renderCabinet({
+        initialRoute: project("no-such-cartridge"),
+      });
       expect(intents).toContainEqual({ type: "select" });
+      expect(result.current.coinCount).toBe(0);
       expect(result.current.screen).toBe("select");
     });
   });
