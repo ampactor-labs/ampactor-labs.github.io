@@ -35,7 +35,7 @@
       "note": "full-time since 2023",
       "bullets": [
         "Client and contract work under NDA: blockchain infrastructure and full-stack product work, including deployment, debugging and ongoing support.",
-        "Built and run TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request with x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.",
+        "Built and deployed TokenSafe, a Node/TypeScript API that scores Solana tokens from on-chain data and prices each check at $0.02 through x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.",
         "Built Perennials, an offline-first React/TypeScript app backed by a Node/PostgreSQL service that searches about 8,800 plants by growing conditions; every search is a shareable URL.",
         "Maintain the projects at ampactor.dev, including a self-hosting compiler, a Rust DSP framework whose kernels run in desktop plugins and on a Cortex-M7 guitar pedal, a SIMD sort published on crates.io, a Solana transaction crate whose CI runs it against a real validator, and a dozen browser apps and games.",
         "Every project's README follows one written standard, with a Limitations section and benchmarks that include the cases it loses, and the site generates each project's card from it at build time."
@@ -105,7 +105,7 @@
     {
       "id": "tokensafe",
       "name": "TokenSafe + Scry",
-      "what": "Solana token risk scoring from on-chain data; live in production, paid $0.02 per check over x402 micropayments.",
+      "what": "Solana token risk scoring from on-chain data; deployed, with each check priced at $0.02 over x402 micropayments.",
       "stack": "TypeScript · Express · React",
       "url": "https://github.com/ampactor-labs/tokensafe"
     },

@@ -45,6 +45,10 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      # The résumé as a PDF (dist/resume.pdf), rendered from the page just
+      # built so the two never disagree; fails past two pages.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run resume:pdf
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

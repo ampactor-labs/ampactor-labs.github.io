@@ -114,13 +114,21 @@ export function render(r) {
     .job .detail { color: var(--muted); font-size: 13px; margin-top: 2px; }
     .before { color: var(--muted); font-size: 13px; }
     footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 11px; color: var(--faint); }
+    /* Printed, it fits two Letter or A4 pages: tighter type and spacing,
+       and a job is never split across the page break. */
     @media print {
-      @page { margin: 14mm; }
-      body { font-size: 11pt; }
+      @page { margin: 12mm 14mm; }
+      body { font-size: 10pt; line-height: 1.42; }
       .sheet { padding: 0; max-width: none; }
       .topbar, .print-hide { display: none; }
       a { color: var(--ink); }
-      section { page-break-inside: avoid; }
+      header h1 { font-size: 22pt; }
+      .summary { font-size: 10pt; margin-top: 10px; }
+      section { margin-top: 16px; }
+      h2 { margin-bottom: 8px; padding-bottom: 4px; }
+      .skills, .job ul, .job .detail, .before { font-size: 9.5pt; }
+      .job { margin-bottom: 9px; break-inside: avoid; }
+      footer { margin-top: 18px; }
     }
   </style>
 </head>
@@ -129,7 +137,8 @@ export function render(r) {
     <div class="topbar print-hide">
       <a href="/">&larr; ampactor.dev</a>
       <a href="/arcade/">the arcade</a>
-      <button type="button" class="printlink" onclick="window.print()">Print / Save as PDF</button>
+      <a href="/resume.pdf" download="Morgan-Espitia-Resume.pdf">Download PDF</a>
+      <button type="button" class="printlink" onclick="window.print()">Print</button>
     </div>
 
     <header>
