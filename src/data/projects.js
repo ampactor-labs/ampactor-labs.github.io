@@ -34,12 +34,12 @@ const RAW_PROJECTS = [
     tagline: "THE COMPILER BOOTSTRAPS ITSELF",
     outcome: "A programming language that compiles itself.",
     highlights: [
-      "BIT-IDENTICAL L1 BOOTSTRAP",
-      "FULL EFFECT ALGEBRA (+, -, !, Pure)",
+      "BYTE-IDENTICAL SELF-COMPILE, EVERY PIN",
+      "FULL EFFECT ALGEBRA (+, -, &, !, Pure)",
       "SELF-HOSTED: MENTL COMPILES MENTL",
-      "GRAPH-NATIVE IR (NOT AST-WALKING)",
+      "ONE GRAPH, ONE WRITER: INFERENCE",
       "ROW-POLYMORPHIC TYPE SYSTEM",
-      "WASM CODEGEN + MEMORY ARENAS",
+      "WASM CODEGEN · 149 MICROS · 62 CRUCIBLES",
     ],
     stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
     status: "active",
@@ -176,7 +176,7 @@ const RAW_PROJECTS = [
     icon: "◈",
     github: "https://github.com/ampactor-labs/tokensafe",
     live: "https://scry-production.up.railway.app",
-    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.008 transaction serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
+    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.02 payment serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
@@ -184,7 +184,7 @@ const RAW_PROJECTS = [
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
-      "$0.008/REQUEST",
+      "$0.02 A CHECK, PAID IN USDC",
       "WEB UI + TELEGRAM BOT",
       "DELTA DETECTION",
       "Ed25519 SIGNED RESPONSES",
@@ -193,7 +193,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "security",
     operatorNote:
-      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
+      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.02 a check over x402, where the payment is the auth, so no signup or API key.",
   },
 
   {
@@ -213,7 +213,7 @@ const RAW_PROJECTS = [
       "RPC AND JITO BUNDLE ROUTES",
       "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
       "PER-STAGE LATENCY PERCENTILES",
-      "REAL VALIDATOR IN CI, EVERY PUSH",
+      "REAL VALIDATOR IN CI, EVERY PULL REQUEST",
       "~1 ms PIPELINE OVERHEAD (p50)",
       "NO solana-client DEPENDENCY",
     ],
@@ -244,7 +244,7 @@ const RAW_PROJECTS = [
       "COLLAPSE TRAIL, EVERY STEP COUNTED",
       "SPOTS: SAVE A SITE, RECALL IN ONE TAP",
       "GUILD VIEW: CANOPY DOWN TO ROOTS",
-      "FLOWER VISITORS FOR 3,900 PLANTS",
+      "FLOWER VISITORS FOR 3,787 PLANTS (43%)",
     ],
     stack: ["React", "TypeScript", "MiniSearch", "Node + Postgres", "Railway"],
     status: "deployed",
@@ -384,7 +384,7 @@ const RAW_PROJECTS = [
     outcome:
       "Paste song lyrics to see the stress patterns, rhymes and how concrete each line is, and whether the song names the subject it means to leave unsaid.",
     highlights: [
-      "56K WORDS WITH STRESS, CONCRETENESS, SENSES",
+      "55,755 WORDS; 45,985 RATED FOR STRESS, CONCRETENESS, SENSES",
       "PATTISON'S RHYME LADDER, SIX RUNGS",
       "SEVEN-SENSE METER FROM THE LANCASTER NORMS",
       "73 ENGINE CHECKS GATE EVERY DEPLOY",
@@ -414,7 +414,7 @@ const RAW_PROJECTS = [
       "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
     highlights: [
       "12 VOICES, ONE PER ZODIAC SIGN",
-      "8 SWAPPABLE FX CHAINS",
+      "7 SWAPPABLE FX CHAINS",
       "COUSTO PLANETARY MICROTUNING",
       "SUM-BEFORE-SATURATION CHEBYSHEV",
       "DUAL NATAL-CHART MODE",
@@ -443,10 +443,10 @@ const RAW_PROJECTS = [
       "Freestyle rap over a beat in the browser. It measures each take for timing, rhyme chains and vocabulary, then suggests drills for the weakest area.",
     highlights: [
       "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
-      "8-PART BASELINE BATTERY",
-      "EXACT · NEAR · ASSONANT · CONSONANT RHYME",
-      "TIMING MEASURED AGAINST THE BEAT GRID",
-      "RECORDINGS STAY IN INDEXEDDB",
+      "12 DRILLS AND AN 8-TASK BASELINE",
+      "PERFECT · MULTI · NEAR · ASSONANCE · CONSONANCE",
+      "A SIX-BLOCK DAILY PLAN PICKED BY LEVERAGE",
+      "PROFILE AND SESSIONS STAY IN THE BROWSER",
       "NO ACCOUNTS, NO GENERATED LYRICS",
     ],
     stack: [
@@ -478,7 +478,7 @@ const RAW_PROJECTS = [
       "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
     highlights: [
       "49-CELL LATTICE, 9 EXACTLY IN TUNE",
-      "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
+      "TWO PROGRAMS, NO SHARED CODE, ONE ANSWER",
       "LIVE MIC PITCH DETECTION",
       "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
       "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
@@ -489,6 +489,39 @@ const RAW_PROJECTS = [
     category: "creative",
     operatorNote:
       "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
+  },
+
+  {
+    id: "comma",
+    title: "COMMA",
+    subtitle: "THE PYTHAGOREAN COMMA, PLAYED",
+    lang: "JavaScript",
+    color: "#63C4E0",
+    icon: "≋",
+    // The repository is private, so the sync cannot read its README; the
+    // content fields below are copied from it by hand (the lead, its first
+    // sentence, the first paragraph of Limitations). Add the github URL once
+    // the repository is public and the sync takes over.
+    github: null,
+    live: "https://ampactor.dev/comma/",
+    desc: "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register. Twelve pure fifths overshoot seven octaves by 23.46 cents; the piano's tuning spreads that gap and leaves every interval but the octave slightly off. Eleven oscillators run at those errors, 0.37 to 8.63 Hz, and only a linear readout is trained, which makes them a reservoir computer. It is one HTML file with no dependencies; a Node script reruns its simulation to check 14 claims.",
+    tags: ["tuning", "oscillators", "reservoir", "web-audio"],
+    tagline: "TWELVE FIFTHS, ONE LEFTOVER",
+    outcome:
+      "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register.",
+    highlights: [
+      "ELEVEN OSCILLATORS AT THE PIANO'S ERRORS",
+      "0.37 TO 8.63 Hz: THE COMMA, SPREAD OUT",
+      "READ FAST: A RESERVOIR COMPUTER",
+      "READ SLOW: A 50-BIT STORAGE REGISTER",
+      "CAPACITY 9.69, OR 1.08 WITH THE ERRORS ZEROED",
+      "14 CLAIMS RE-MEASURED BY ONE SCRIPT",
+    ],
+    stack: ["JavaScript", "Web Audio API", "Canvas 2D", "Vanilla DOM"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The oscillator bank is a demonstration and a weak computer: even at the strongest coupling its readout scores 0.115 out of 1 on a simple nonlinear task, and it uses under 60% of the memory its 34 readout numbers allow. Only the simulation is checked. A Node script reruns the page's simulation code, but nothing tests the page itself in a browser, and no listening test backs what the page says you will hear.",
   },
 
   {

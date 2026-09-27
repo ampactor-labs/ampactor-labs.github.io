@@ -1,0 +1,2347 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Comma</title>
+<style>
+  :root {
+    --ground: #0a0f1c;
+    --panel: #101728;
+    --panel-2: #16203a;
+    --rule: #1f2c46;
+    --ink: #f0ece4;
+    --dim: #808ea8;
+    --just: #63c4e0;
+    --temper: #e8963c;
+    --just-soft: rgba(99, 196, 224, 0.14);
+    --temper-soft: rgba(232, 150, 60, 0.14);
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+
+    --measure: 34rem;
+    --step: clamp(1.05rem, 0.98rem + 0.3vw, 1.16rem);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground: #edf0f6;
+      --panel: #ffffff;
+      --panel-2: #f4f6fb;
+      --rule: #c9d3e3;
+      --ink: #121a2b;
+      --dim: #55637c;
+      --just: #16708e;
+      --temper: #a95a13;
+      --just-soft: rgba(22, 112, 142, 0.10);
+      --temper-soft: rgba(169, 90, 19, 0.10);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0a0f1c;
+    --panel: #101728;
+    --panel-2: #16203a;
+    --rule: #1f2c46;
+    --ink: #f0ece4;
+    --dim: #808ea8;
+    --just: #63c4e0;
+    --temper: #e8963c;
+    --just-soft: rgba(99, 196, 224, 0.14);
+    --temper-soft: rgba(232, 150, 60, 0.14);
+  }
+
+  :root[data-theme="light"] {
+    --ground: #edf0f6;
+    --panel: #ffffff;
+    --panel-2: #f4f6fb;
+    --rule: #c9d3e3;
+    --ink: #121a2b;
+    --dim: #55637c;
+    --just: #16708e;
+    --temper: #a95a13;
+    --just-soft: rgba(22, 112, 142, 0.10);
+    --temper-soft: rgba(169, 90, 19, 0.10);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 6rem;
+  }
+
+  /* ── type ───────────────────────────────────────────────── */
+
+  h1, h2, h3, .eyebrow, .num, button, label, table, .readout {
+    font-family: var(--mono);
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 1.4rem + 4.4vw, 4.6rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin: 0 0 1.2rem;
+    text-wrap: balance;
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 1.1rem + 1vw, 1.7rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0 0 0.35rem;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 0 0 0.9rem;
+  }
+
+  .eyebrow {
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 1.4rem;
+  }
+
+  p { max-width: var(--measure); margin: 0 0 1.1rem; }
+  p.wide { max-width: 46rem; }
+
+  .lede {
+    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.42rem);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+
+  .just-t { color: var(--just); }
+  .temp-t { color: var(--temper); }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  .poem {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--dim);
+    border-left: 2px solid var(--rule);
+    padding-left: 1.2rem;
+    margin: 2rem 0;
+    max-width: 32rem;
+  }
+
+  /* ── structure ──────────────────────────────────────────── */
+
+  header.hero {
+    padding: clamp(4rem, 12vh, 8rem) 0 3rem;
+  }
+
+  section {
+    border-top: 1px solid var(--rule);
+    padding: 3.4rem 0 0;
+    margin-bottom: 3.4rem;
+  }
+
+  .sec-head {
+    display: flex;
+    gap: 1.4rem;
+    align-items: baseline;
+    margin-bottom: 1.6rem;
+  }
+
+  .sec-mark {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    color: var(--temper);
+    white-space: nowrap;
+    padding-top: 0.35rem;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.4rem;
+    margin: 1.8rem 0;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  @media (min-width: 54rem) {
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── strobe band ────────────────────────────────────────── */
+
+  .strobe {
+    height: 34px;
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    position: relative;
+    background: var(--panel-2);
+  }
+  .strobe-inner {
+    position: absolute;
+    inset: 0;
+    width: 300%;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--temper) 0px, var(--temper) 9px,
+      transparent 9px, transparent 22px
+    );
+    opacity: 0.5;
+    animation: drift 4s linear infinite;
+    animation-duration: var(--drift, 4s);
+    animation-play-state: var(--drift-state, running);
+  }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-22px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .strobe-inner { animation: none; }
+  }
+
+  .strobe-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  /* ── controls ───────────────────────────────────────────── */
+
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.1rem 0;
+  }
+
+  button {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    padding: 0.6rem 1rem;
+    background: var(--panel-2);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.14s, background 0.14s;
+  }
+  button:hover { border-color: var(--dim); }
+  button:focus-visible { outline: 2px solid var(--temper); outline-offset: 2px; }
+  button[data-tone="just"] { border-color: var(--just); color: var(--just); background: var(--just-soft); }
+  button[data-tone="temper"] { border-color: var(--temper); color: var(--temper); background: var(--temper-soft); }
+  button[aria-pressed="true"] { background: var(--temper); color: var(--ground); border-color: var(--temper); }
+  button:disabled { opacity: 0.45; cursor: default; }
+
+  /* sound control — always reachable, never in the way */
+  .sound-bar {
+    position: fixed;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.35rem;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
+  }
+  .sound-bar button { font-size: 0.72rem; padding: 0.42rem 0.62rem; }
+  .sound-dot {
+    width: 7px; height: 7px; flex: none;
+    margin-left: 0.25rem;
+    border-radius: 50%;
+    background: var(--rule);
+    transition: background 0.2s;
+  }
+  .sound-bar.live .sound-dot {
+    background: var(--just);
+    animation: sound-pulse 1.1s ease-in-out infinite;
+  }
+  @keyframes sound-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+  @media (prefers-reduced-motion: reduce) {
+    .sound-bar.live .sound-dot { animation: none; }
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .slider-row label {
+    font-size: 0.76rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--dim);
+    min-width: 9rem;
+  }
+  input[type="range"] {
+    flex: 1 1 12rem;
+    accent-color: var(--temper);
+    min-width: 10rem;
+  }
+  input[type="text"] {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    padding: 0.55rem 0.7rem;
+    background: var(--panel-2);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 22rem;
+    text-transform: uppercase;
+  }
+  input:focus-visible { outline: 2px solid var(--temper); outline-offset: 1px; }
+
+  .readout {
+    font-size: 0.82rem;
+    color: var(--dim);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.7;
+  }
+  .readout b { color: var(--ink); font-weight: 500; }
+
+  /* ── canvas ─────────────────────────────────────────────── */
+
+  canvas { display: block; width: 100%; border-radius: 2px; }
+
+  /* ── table ──────────────────────────────────────────────── */
+
+  .table-scroll { overflow-x: auto; margin: 1.4rem 0; }
+  table {
+    border-collapse: collapse;
+    font-size: 0.79rem;
+    font-variant-numeric: tabular-nums;
+    width: 100%;
+    min-width: 34rem;
+  }
+  th {
+    text-align: right;
+    font-weight: 500;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  th:first-child, td:first-child { text-align: left; }
+  td {
+    text-align: right;
+    padding: 0.42rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  tbody tr:hover { background: var(--panel-2); }
+  .bar-cell { position: relative; min-width: 8rem; }
+
+  /* on a handset, drop the reference columns and grow the tap target */
+  @media (max-width: 40rem) {
+    table { min-width: 0; font-size: 0.82rem; }
+    .opt { display: none; }
+    td { padding: 0.72rem 0.5rem; }
+    th { padding: 0.5rem 0.5rem; }
+    .bar-cell { min-width: 4rem; }
+    .slot { width: auto; flex: 1 1 0; min-width: 1.9rem; }
+    .btn-row { gap: 0.45rem; }
+    button { padding: 0.66rem 0.85rem; }
+    input[type="range"] { min-width: 100%; }
+    .slider-row label { min-width: 100%; }
+  }
+  .bar {
+    display: inline-block;
+    height: 8px;
+    background: var(--temper);
+    border-radius: 1px;
+    vertical-align: middle;
+  }
+
+  /* ── message slots ──────────────────────────────────────── */
+
+  .slots {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    margin: 1.1rem 0;
+  }
+  .slot {
+    width: 2.6rem;
+    height: 3.2rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--panel-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    gap: 0.15rem;
+  }
+  .slot .ch { font-size: 1.1rem; line-height: 1; }
+  .slot .hz { font-size: 0.58rem; color: var(--dim); }
+  .slot.ok { border-color: var(--just); }
+  .slot.ok .ch { color: var(--just); }
+  .slot.bad { border-color: var(--temper); }
+  .slot.bad .ch { color: var(--temper); }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding-top: 2.4rem;
+    color: var(--dim);
+    font-size: 0.92rem;
+  }
+  .sig {
+    font-family: var(--mono);
+    letter-spacing: 0.2em;
+    font-size: 0.78rem;
+    color: var(--temper);
+    margin-top: 2rem;
+  }
+
+  .note {
+    font-size: 0.86rem;
+    color: var(--dim);
+    max-width: 40rem;
+  }
+  .note code { font-family: var(--mono); font-size: 0.92em; color: var(--ink); }
+</style>
+
+<div class="sound-bar" id="sound-bar" role="group" aria-label="Sound controls">
+  <span class="sound-dot" aria-hidden="true"></span>
+  <button id="s-mute" aria-pressed="false" title="Mute the whole page">Sound on</button>
+  <button id="s-stop" disabled>Stop</button>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">Tuning &middot; Memory &middot; Machines</span>
+  <h1>The piano is<br>lying to you.</h1>
+  <p class="lede">Every note on it is slightly wrong, on purpose, and has been for three hundred years. This page is about that lie: how to hear it, why we agreed to it, and what you can build out of the leftover.</p>
+  <p>Press a button. You'll need sound. Anything that holds a note keeps holding it until you press the same button again, and the control in the corner stops everything at once.</p>
+
+  <div class="panel">
+    <h3>Two fifths</h3>
+    <p style="max-width:40rem">A fifth is C up to G. There are two ways to tune it: the way the string wants, and the way your piano does. They are not the same interval.</p>
+    <div class="btn-row">
+      <button data-tone="just" id="b-just">Play the true fifth</button>
+      <button data-tone="temper" id="b-temp">Play the piano's fifth</button>
+      <button id="b-both">Play them back to back</button>
+    </div>
+    <div class="btn-row" role="group" aria-label="Playback register">
+      <button id="oct-hi" aria-pressed="true">Phone speaker</button>
+      <button id="oct-lo" aria-pressed="false">Headphones</button>
+    </div>
+    <p class="note" style="margin:0 0 1rem">
+      Phone speakers can't reproduce anything below about 500&nbsp;Hz, so the low setting is silent-ish on one. The high setting moves everything up two octaves; same intervals, same errors, beats twice as fast and clearly audible on a handset.
+    </p>
+    <div class="strobe"><div class="strobe-inner" id="strobe-1"></div></div>
+    <span class="strobe-label" id="strobe-1-label">Stripes stand still when the interval is pure. They crawl when it isn't.</span>
+  </div>
+
+  <p>The true fifth sits perfectly still. The piano's fifth <em>wobbles</em>: a steady pulse you can count, and the band above tells you its exact speed at the register you're hearing. That pulse is two notes disagreeing about where they are. Once you hear it you can't unhear it, and I'm sorry.</p>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">01</span>
+    <div>
+      <h2>Twelve fifths should come home. They don't.</h2>
+    </div>
+  </div>
+
+  <p>Stack fifths and you eventually name every note: C, G, D, A, E, B, F&sharp;, C&sharp;, G&sharp;, D&sharp;, A&sharp;, E&sharp;. And E&sharp; is spelled the same as F, one more fifth lands on B&sharp;, and B&sharp; is spelled the same as C. Twelve fifths, and you're home.</p>
+
+  <p>Except you aren't. Twelve pure fifths land <em>past</em> the octave. Not by a rounding error you can wave away; by a gap you can hear across a room.</p>
+
+  <div class="panel">
+    <h3>The stack</h3>
+    <div class="btn-row">
+      <button data-tone="just" id="b-stack-just">Climb twelve true fifths</button>
+      <button data-tone="temper" id="b-stack-temp">Climb twelve piano fifths</button>
+    </div>
+    <canvas id="spiral" height="380" aria-label="Spiral of twelve fifths showing the gap where it fails to close"></canvas>
+    <div class="readout" id="spiral-read">Twelve pure fifths overshoot home by <b class="temp-t">23.46 cents</b>, about a quarter of a semitone. The piano's fifths land exactly on it, because each one was shaved.</div>
+  </div>
+
+  <p>That overshoot has a name: the <strong>Pythagorean comma</strong>. And it isn't a mistake anyone made. It's arithmetic. A fifth is a 3:2 ratio; an octave is 2:1; and no number of 3s ever equals a number of 2s. The spiral is guaranteed never to close, forever, for the same reason 1/3 never finishes in decimal.</p>
+
+  <div class="poem">
+    &ldquo;Any point at which one might first settle down is arbitrary. There is no end or beginning, twelve fifths overshoot home and miss forever. As every note carries its octave within, the nature of the space is to fold, but never close.&rdquo;
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">02</span>
+    <div>
+      <h2>So we cheated, and we called it fair.</h2>
+    </div>
+  </div>
+
+  <p>Equal temperament is the treaty. Take the gap, cut it into twelve equal pieces, and shave one piece off every fifth. Now the spiral closes. Every key works. Nothing is in tune, and nothing is more out of tune than anything else.</p>
+
+  <p>It is the most successful compromise in the history of music, and it is a compromise. Your piano cannot play a pure major third. It has never played one. It plays something <span class="temp-t">14 cents</span> sharp of one and we've agreed to call that a third.</p>
+
+  <div class="panel">
+    <h3>How wrong, exactly</h3>
+    <p style="max-width:40rem">Here's the part that matters later. The piano isn't wrong by <em>one</em> amount. Every interval is wrong by its <em>own</em> amount, and they're wildly different.</p>
+    <div class="table-scroll">
+      <table id="err-table">
+        <thead>
+          <tr>
+            <th>Interval</th>
+            <th>Pure</th>
+            <th>Piano</th>
+            <th>Off by</th>
+            <th class="bar-cell">Wrongness</th>
+            <th>Beat rate</th>
+          </tr>
+        </thead>
+        <tbody id="err-body"></tbody>
+      </table>
+    </div>
+    <div class="readout" id="beat-note">
+      Beat rate is how fast the two versions pulse against each other, at the register you're listening at. Right now it runs from a lazy <b class="just-t"><span id="beat-lo">0.37</span> per second</b> to a nervous <b class="temp-t"><span id="beat-hi">8.63</span> per second</b>, a <span id="beat-x">23</span>-fold spread.
+    </div>
+  </div>
+
+  <p class="wide">Look at that last column for a second longer than feels necessary. Those are <em>speeds</em>. The piano's mistakes aren't a flat tax; they're a fan of different clocks, spread across more than an order of magnitude, and no two of them are simple multiples of each other.</p>
+
+  <p><strong>A fan of incommensurate clocks is the most useful thing you can hand a physicist.</strong> That's the turn. Everything after this is what happens when you stop apologising for the errors and start using them.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">03</span>
+    <div>
+      <h2>Build the thing out of the errors.</h2>
+    </div>
+  </div>
+
+  <p class="wide">Here is one machine. Eleven oscillators &mdash; eleven tuning forks, if you like &mdash; each one a pure interval from the table above. Each is detuned from the piano's version of itself by exactly the amount the piano gets it wrong. They're weakly coupled, so they can pull on each other.</p>
+
+  <p>Play it. It's a chord made of everything the piano can't say.</p>
+
+  <div class="panel">
+    <h3>The bank</h3>
+    <div class="btn-row">
+      <button id="b-bank" data-tone="just">Play the bank</button>
+    </div>
+    <canvas id="phase" height="300" aria-label="Phase portrait of eleven coupled oscillators"></canvas>
+    <div class="readout" id="phase-read">Each dot is one oscillator's phase. They drift apart at their own rate; that spreading is the machine thinking.</div>
+    <div class="slider-row">
+      <label for="coupling">Coupling</label>
+      <input type="range" id="coupling" min="0" max="800" value="12">
+      <span class="readout num" id="coupling-val">K = 0.12</span>
+    </div>
+    <div class="readout">Turn coupling up and the oscillators start listening to each other. Turn it far enough and anything held in their differences is erased in seconds. This knob comes back twice more below; it is the same knob each time, driving the same bank.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">04</span>
+    <div>
+      <h2>Read it fast: it listens.</h2>
+    </div>
+  </div>
+
+  <p class="wide">Feed a random signal into the bank and watch what sticks. Because the oscillators run at different speeds, each one holds a different slice of the recent past; the slow ones hold further back, the fast ones hold sharper. Train a readout on top and you can ask the bank questions about what it just heard. How well it answers is a number, and the number is measurable.</p>
+
+  <p>The technique is called <strong>reservoir computing</strong>. You don't train the bank. You only train one linear layer that reads it. Everything hard is done by physics.</p>
+
+  <div class="panel">
+    <h3>Live measurement</h3>
+    <p class="note" style="margin-bottom:1rem">Your browser integrates the bank and fits the readout; every number below comes out of that fit. Give it a second.</p>
+    <div class="btn-row">
+      <button id="b-run">Run the experiment</button>
+      <button id="b-sweep">Sweep the coupling</button>
+      <button id="b-think" disabled title="Run the experiment first">Hear it think</button>
+    </div>
+    <div class="grid-2">
+      <div>
+        <canvas id="mc" height="240" aria-label="Memory capacity by delay; tap a bar to inspect that delay"></canvas>
+        <div class="readout" style="margin-top:0.5rem">How much of the input from <span class="num">k</span> steps ago is still recoverable, one fit at a time. When the bars run out, the probe keeps going until the memory actually dies.</div>
+      </div>
+      <div>
+        <canvas id="tradeoff" height="240" aria-label="Memory versus nonlinear capacity as coupling varies"></canvas>
+        <div class="readout" style="margin-top:0.5rem">Reach against mixing, as coupling rises. These two cross.</div>
+      </div>
+    </div>
+    <canvas id="recon" height="200" style="margin-top:1.2rem" aria-label="Input signal versus what the readout reconstructs at the selected delay"></canvas>
+    <div class="readout" id="recon-read" style="margin-top:0.5rem">After a run, this shows the readout remembering: the input as it actually was <span class="num">k</span> steps ago against what the bank reconstructs from its present state. Tap a bar above to change <span class="num">k</span>.</div>
+    <div class="readout" id="run-read" style="margin-top:1rem">Not run yet.</div>
+  </div>
+
+  <p class="wide">A bank like this can remember or it can mix, and it can't do both. Turn the coupling up and the oscillators start agreeing with each other. Agreement is what mixing is made of, and mixing is what lets a readout answer questions harder than <em>what did you hear twenty steps ago</em>. Sweep it and watch what that buys, and what it costs.</p>
+
+  <p class="wide">Uncoupled, the bank can be read almost three seconds back. At the top of the sweep it reaches one second, and mixing has gone up close to eightfold. The exchange lives in <em>reach</em>, not in any single capacity number, and that's worth knowing before you measure one: count only the first thirty delays and you're looking through a six-tenths-of-a-second window at a memory nearly three seconds long. The window hides the whole effect.</p>
+
+  <p class="wide">One number stays stubborn through all of it. Capacity never gets near thirty-four, which is its own ceiling: thirty-four numbers the readout sees, and never more than half of them in use. The rest exist on paper and hold nothing new, because <strong>the oscillators are very nearly the same oscillator.</strong> Their frequencies differ by between 0.37 and 8.63 Hz out of 220.</p>
+
+  <p class="wide">Which is the comma again, wearing a different hat. The intervals are nearly right; that's the whole reason a piano nearly works. But nearly-right oscillators are nearly-redundant oscillators, and a bank of them holds far less than its size promises. The shortfall is the smallness of the error, measured this time in units of memory.</p>
+
+  <p>The comma isn't noise in this machine. It's the budget.</p>
+
+  <div class="panel">
+    <h3>Shrink the comma</h3>
+    <p style="max-width:40rem">That's a claim you can test. This slider scales the piano's errors — all eleven detunings together — from nothing up to half again their real size. Shrink them to zero and the bank becomes eleven copies of one tuning fork; measure it and watch the memory go with them.</p>
+    <div class="slider-row">
+      <label for="spread">Size of the errors</label>
+      <input type="range" id="spread" min="0" max="150" value="100">
+      <span class="readout num" id="spread-val">&times;1.00 &middot; widest detuning 8.63 Hz</span>
+    </div>
+    <div class="btn-row">
+      <button id="b-spread">Measure at this size</button>
+    </div>
+    <canvas id="budget" height="220" aria-label="Capacity as a function of how large the tuning errors are"></canvas>
+    <div class="readout" id="spread-read" style="margin-top:0.5rem">Each measurement adds a point: capacity against the size of the error fan. The curve that appears is the budget line.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">05</span>
+    <div>
+      <h2>Read it slow: it remembers.</h2>
+    </div>
+  </div>
+
+  <p class="wide">Now the same bank, read on a different clock. Instead of the instantaneous state, look at how far each oscillator has <em>slipped</em> from where it should be by now. That slippage is a number. Nudge it deliberately and it's a number you chose, which makes it storage.</p>
+
+  <p>Ten oscillator pairs, thirty-two possible positions each. Write something.</p>
+
+  <div class="panel">
+    <h3>Write into the drift</h3>
+    <div class="slider-row" style="margin-bottom:0.4rem">
+      <label for="msg">Message</label>
+      <input type="text" id="msg" value="I LOVE YOU" maxlength="10" spellcheck="false">
+    </div>
+    <div class="btn-row">
+      <button id="b-write" data-tone="just">Write it in</button>
+      <button id="b-listen" data-tone="just">Read it back, out loud</button>
+      <button id="b-decay">Let it decay</button>
+      <button id="b-reset">Reset</button>
+    </div>
+    <div class="slots" id="slots"></div>
+    <div class="readout" id="store-read">Ten characters, held as phase offsets between eleven oscillators.</div>
+    <div class="slider-row">
+      <label for="leak">Coupling &mdash; same knob</label>
+      <input type="range" id="leak" min="0" max="800" value="12">
+      <span class="readout num" id="leak-val">K = 0.12</span>
+    </div>
+  </div>
+
+  <p class="wide">You can't hear a phase; the ear is nearly phase-deaf for steady tones, which Helmholtz worked out in the 1860s. So the register is read the way every tuner reads one: play it against a reference standing exactly where you wrote it. Matched slots reinforce and ring out. Drifted slots cancel themselves toward silence. <strong>Interference turns phase into loudness</strong>, and loudness the ear is extremely good at.</p>
+
+  <p class="wide">Leave the coupling at its default whisper and the message very nearly keeps: four and a half minutes pass before the first slot slips, and the slot that slips is held by one of the most in-tune intervals on the page. Turn the knob up and the oscillators start persuading each other, and as they agree, the differences the message was written in get pulled apart, and it dissolves letter by letter. Read it back as it goes and <strong>you hear voices drop out one at a time.</strong></p>
+
+  <p><strong>Watch which letters die first.</strong> The ones held by nearly-in-tune pairs go immediately; they had the least disagreement to spend. The ones held by the <em>worst</em> intervals, the ones the piano gets most catastrophically wrong, are the last to go. The more wrong the interval, the longer it can keep a secret.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-mark">06</span>
+    <div>
+      <h2>One stone.</h2>
+    </div>
+  </div>
+
+  <p class="wide">That was one machine the whole time. The fast reading listens; the slow reading remembers; and they are the same eleven oscillators, running at once, not interfering with each other, because they live on different clocks.</p>
+
+  <p class="wide">Which puts both readings on one knob, and on this page it is literally one knob: every coupling slider above is the same control, driving the same bank. Turn it up and the bank mixes harder, close to eightfold across the sweep. Turn the coupling up and both of its memories go: the fast reading's reach falls from three seconds to under one, and the slow reading dissolves letter by letter as the oscillators talk themselves into agreement. <strong>The same agreement that makes the bank a better computer makes it a worse witness</strong>, on both clocks at once. There is no setting where you get everything, and the exchange rate is fixed by how badly the intervals disagree.</p>
+
+  <p class="wide">The error is not the price of the machine. <strong>The error is the machine.</strong> A bank of oscillators in perfect agreement is a single tuning fork: it computes nothing, remembers nothing, and has nothing to say. Everything it can do, it can do because it can't close.</p>
+
+  <div class="poem">
+    &ldquo;Harmony cultivates wanting by metabolizing our error as remainder. A music with no remainder leaves nothing to want in a world where wanting is the product.&rdquo;
+  </div>
+
+  <p class="wide">Which is also the whole of information theory, arrived at from the other side. A perfect prediction transmits nothing. A codec with no error tells you nothing about the world it was fitted to. The leftover is not what's <em>left</em> after the meaningful part; the leftover is the only part that was ever about anything.</p>
+
+  <p class="wide">Three hundred years ago some very practical people looked at a gap that could never be closed, split the difference twelve ways, and called it home. They thought they were papering over a flaw. They were building the only kind of instrument that can hold a thought.</p>
+
+  <div class="foot">
+    <p class="note">
+      <strong>Where the numbers come from.</strong> The audio is additive synthesis at the stated frequencies; the beat rates you hear are the frequency differences themselves, and they scale with the playback register, which is why the table's last column changes when you switch it. The reservoir is a bank of coupled damped resonators integrated live in your browser, with a ridge-regression readout fit on the spot; the capacity numbers come out of that fit, and its detunings stay pinned to concert pitch regardless of what you're listening at. Capacity is scored on 3,500 samples the readout never saw, fit on a different 3,500; with thirty-four features, in-sample scores carry a floor near 0.01 per task from fitting noise alone, which is enough to invent a result that isn't there. Reach is found by scanning past the edge of the chart until the held-out score dies, so it's a property of the bank rather than of the window. The budget panel reruns the entire measurement with every detuning multiplied by one factor; at zero the bank is eleven copies of one tuning fork and holds 1.08 of its ceiling of 34. The oscillators are damped rather than self-sustaining, so what they hold is what you put in, and the linear part of each step is solved exactly instead of stepped, which is what keeps the fastest detunings stable. The storage register holds phase deviation from free-running, quantised to thirty-two levels per pair, and the read is interference in the audio graph &mdash; two oscillators per slot, one at the current phase and one at the written phase, summing to 2&middot;|cos(&Delta;/2)|. Its decay is the same mean-field coupling, integrated while you watch. Nothing schedules which letter dies; the detunings decide.
+    </p>
+    <p class="note" style="margin-top:1rem">
+      <strong>The size of the claim.</strong> This is not a better computer than the one you're reading it on. It's a demonstration that a physical system's <em>imperfections</em> can be its computational substrate, and that in this particular system the imperfection has a name musicians have used since Pythagoras.
+    </p>
+    <div class="sig">JJ + MO &middot; 4EVA</div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ══════════════════════════════════════════════════════════
+  //  THE INTERVALS — eleven just intervals and how far 12-TET
+  //  misses each one. Errors in cents = just − nearest tempered.
+  // ══════════════════════════════════════════════════════════
+
+  // [verify:intervals] begin
+  var REF = 220; // A3
+
+  function cents(ratio) { return 1200 * Math.log2(ratio); }
+
+  var RAW = [
+    { n: 3,  ratio: 3 / 2,   name: "fifth"        },
+    { n: 5,  ratio: 5 / 4,   name: "major third"  },
+    { n: 7,  ratio: 7 / 4,   name: "harmonic 7th" },
+    { n: 9,  ratio: 9 / 8,   name: "major second" },
+    { n: 11, ratio: 11 / 8,  name: "11th harmonic"},
+    { n: 13, ratio: 13 / 8,  name: "13th harmonic"},
+    { n: 15, ratio: 15 / 8,  name: "major seventh"},
+    { n: 17, ratio: 17 / 16, name: "17th harmonic"},
+    { n: 19, ratio: 19 / 16, name: "19th harmonic"},
+    { n: 21, ratio: 21 / 16, name: "21st harmonic"},
+    { n: 23, ratio: 23 / 16, name: "23rd harmonic"}
+  ];
+
+  var IV = RAW.map(function (r) {
+    var c = cents(r.ratio);
+    var edo = Math.round(c / 100) * 100;
+    var err = c - edo;
+    var fJust = REF * r.ratio;
+    var fTemp = REF * Math.pow(2, edo / 1200);
+    return {
+      n: r.n, name: r.name, ratio: r.ratio,
+      cents: c, edo: edo, err: err,
+      fJust: fJust, fTemp: fTemp,
+      beat: Math.abs(fJust - fTemp)
+    };
+  });
+
+  var N = IV.length;                     // 11 oscillators
+  var OMEGA = IV.map(function (v) {      // detuning, rad/s
+    return 2 * Math.PI * (v.fJust - v.fTemp);
+  });
+  // [verify:intervals] end
+
+  // ══════════════════════════════════════════════════════════
+  //  AUDIO
+  // ══════════════════════════════════════════════════════════
+
+  var ac = null;
+  var bankNodes = null;
+
+  // Playback register. Phone speakers roll off hard below ~500 Hz, so the
+  // default lifts everything two octaves. Intervals and cent-errors are
+  // pitch-invariant; beat rates scale with pitch, and the table follows.
+  var OCT = 4;
+
+  // ── master bus, mute, and a registry so every sound can be stopped ──
+  var MASTER = null;
+  var muted = false;
+  var ACTIVE = {};        // id → { gain, oscs }
+  var TIMERS = [];        // pending scheduled follow-ups
+
+  function audio() {
+    if (!ac) {
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      MASTER = ac.createGain();
+      MASTER.gain.value = muted ? 0 : 1;
+      // a gentle limiter so coherent phase stacks (the register read) can't clip
+      var comp = ac.createDynamicsCompressor();
+      comp.threshold.value = -12; comp.knee.value = 24; comp.ratio.value = 6;
+      comp.attack.value = 0.004; comp.release.value = 0.18;
+      MASTER.connect(comp);
+      comp.connect(ac.destination);
+    }
+    if (ac.state === "suspended") ac.resume();
+    return ac;
+  }
+
+  function bus() { audio(); return MASTER; }
+
+  function later(fn, ms) {
+    var h = setTimeout(function () {
+      TIMERS.splice(TIMERS.indexOf(h), 1);
+      fn();
+    }, ms);
+    TIMERS.push(h);
+    return h;
+  }
+
+  function register(id, gainNode, oscs) {
+    if (ACTIVE[id]) stopSound(id);
+    ACTIVE[id] = { gain: gainNode, oscs: oscs || [] };
+    syncSound();
+  }
+
+  function stopSound(id) {
+    var v = ACTIVE[id];
+    if (!v) return;
+    delete ACTIVE[id];
+    var c = audio(), t = c.currentTime;
+    try {
+      v.gain.gain.cancelScheduledValues(t);
+      v.gain.gain.setValueAtTime(v.gain.gain.value, t);
+      v.gain.gain.linearRampToValueAtTime(0, t + 0.08);
+    } catch (e) {}
+    v.oscs.forEach(function (o) { try { o.stop(t + 0.12); } catch (e) {} });
+    syncSound();
+  }
+
+  function playing(id) { return !!ACTIVE[id]; }
+
+  function stopAllSound() {
+    TIMERS.forEach(clearTimeout); TIMERS = [];
+    Object.keys(ACTIVE).forEach(stopSound);
+    stopBank();
+    syncSound();
+  }
+
+  function anySound() { return Object.keys(ACTIVE).length > 0 || !!bankNodes; }
+
+  // Additive voice with harmonics so coincident partials actually beat.
+  // dur === null holds the note until something stops it.
+  function voice(freq, t0, dur, gain, partials, id, busNode) {
+    var c = audio();
+    var out = c.createGain();
+    var held = (dur === null || dur === undefined);
+    out.gain.value = 0;
+    out.connect(busNode || bus());
+    if (held) dur = 1e6;
+    var np = partials || 4;
+    var oscs = [];
+    for (var h = 1; h <= np; h++) {
+      var o = c.createOscillator();
+      o.type = "sine";
+      o.frequency.value = freq * h;
+      var g = c.createGain();
+      g.gain.value = (gain || 0.16) / (h * 1.5);
+      o.connect(g); g.connect(out);
+      o.start(t0);
+      if (!held) o.stop(t0 + dur + 0.1);
+      oscs.push(o);
+    }
+    out.gain.setValueAtTime(0, t0);
+    out.gain.linearRampToValueAtTime(1, t0 + 0.02);
+    if (!held) {
+      out.gain.setValueAtTime(1, t0 + dur - 0.12);
+      out.gain.linearRampToValueAtTime(0, t0 + dur);
+    }
+    if (id) register(id, out, oscs);
+    return { out: out, oscs: oscs };
+  }
+
+  // Two tones held until stopped, registered under one id so the
+  // button that started them can also end them.
+  function dyad(fa, fb, dur, id) {
+    var c = audio();
+    var t = c.currentTime + 0.05;
+    if (id) {
+      var out = c.createGain();
+      out.gain.value = 0;
+      out.connect(bus());
+      out.gain.linearRampToValueAtTime(1, t + 0.03);
+      var oscs = [];
+      [fa, fb].forEach(function (f) {
+        for (var h = 1; h <= 4; h++) {
+          var o = c.createOscillator();
+          o.type = "sine";
+          o.frequency.value = f * h;
+          var g = c.createGain();
+          g.gain.value = 0.16 / (h * 1.5);
+          o.connect(g); g.connect(out);
+          o.start(t);
+          oscs.push(o);
+        }
+      });
+      register(id, out, oscs);
+      if (dur) {
+        out.gain.setValueAtTime(1, t + dur - 0.12);
+        out.gain.linearRampToValueAtTime(0, t + dur);
+        oscs.forEach(function (o) { try { o.stop(t + dur + 0.1); } catch (e) {} });
+        later(function () { if (playing(id)) stopSound(id); }, (dur + 0.25) * 1000);
+      }
+      return;
+    }
+    voice(fa, t, dur);
+    voice(fb, t, dur);
+  }
+
+  // ── strobe band: speed tracks a beat rate in Hz ──
+  var strobe = document.getElementById("strobe-1");
+  var strobeLabel = document.getElementById("strobe-1-label");
+
+  function setStrobe(beatHz, text) {
+    if (beatHz < 0.02) {
+      strobe.style.setProperty("--drift-state", "paused");
+    } else {
+      strobe.style.setProperty("--drift-state", "running");
+      strobe.style.setProperty("--drift", (1 / beatHz).toFixed(3) + "s");
+    }
+    if (text) strobeLabel.textContent = text;
+  }
+
+  var C_BASE = 261.626;
+  function cRoot()  { return C_BASE * OCT; }
+  function gJust()  { return cRoot() * 1.5; }
+  function gTemp()  { return cRoot() * Math.pow(2, 7 / 12); }
+  // the two coincident partials — C's 3rd against G's 2nd — are what beat
+  function beatFifth() { return Math.abs(3 * cRoot() - 2 * gTemp()); }
+
+  // ── these two hold until you press them again ──
+  var bJust = document.getElementById("b-just");
+  var bTemp = document.getElementById("b-temp");
+  bJust.dataset.sound = "just";  bJust.dataset.on = "Stop the true fifth";
+  bTemp.dataset.sound = "temp";  bTemp.dataset.on = "Stop the piano's fifth";
+
+  bJust.addEventListener("click", function () {
+    if (playing("just")) { stopSound("just"); return; }
+    stopSound("temp");
+    dyad(cRoot(), gJust(), null, "just");
+    setStrobe(0, "Perfectly still, and it will stay still as long as you let it. The third harmonic of C and the second of G are the exact same note.");
+  });
+
+  bTemp.addEventListener("click", function () {
+    if (playing("temp")) { stopSound("temp"); return; }
+    stopSound("just");
+    var b = beatFifth();
+    dyad(cRoot(), gTemp(), null, "temp");
+    setStrobe(b, "Crawling at " + b.toFixed(2) + " beats per second, and it never settles. That's the shave.");
+  });
+
+  document.getElementById("b-both").addEventListener("click", function () {
+    stopAllSound();
+    var c = audio();
+    var t = c.currentTime + 0.05;
+    var b = beatFifth();
+    var out = c.createGain();
+    out.gain.value = 1;
+    out.connect(bus());
+    var oscs = [];
+    [[cRoot(), t], [gJust(), t], [cRoot(), t + 3.0], [gTemp(), t + 3.0]].forEach(function (p) {
+      voice(p[0], p[1], 2.6, null, null, null, out).oscs.forEach(function (o) { oscs.push(o); });
+    });
+    register("both", out, oscs);
+    later(function () { if (playing("both")) stopSound("both"); }, 6000);
+    setStrobe(0, "Pure first, then the piano's. Listen for the wobble arriving.");
+    later(function () {
+      setStrobe(b, "There it is, " + b.toFixed(2) + " wobbles a second.");
+    }, 3000);
+  });
+
+  // ── register toggle ──
+  var octHi = document.getElementById("oct-hi");
+  var octLo = document.getElementById("oct-lo");
+  function setOct(v) {
+    OCT = v;
+    octHi.setAttribute("aria-pressed", v === 4 ? "true" : "false");
+    octLo.setAttribute("aria-pressed", v === 1 ? "true" : "false");
+    stopBank();
+    buildTable();
+    setStrobe(0,
+      v === 4 ? "Lifted two octaves. Everything sits where a small speaker can actually produce it."
+              : "Down at concert pitch. Richer, but you'll want headphones.");
+  }
+  octHi.addEventListener("click", function () { setOct(4); });
+  octLo.addEventListener("click", function () { setOct(1); });
+
+  // ── the twelve-fifth climb ──
+  function climb(pure) {
+    var c = audio();
+    var t = c.currentTime + 0.05;
+    var out = c.createGain();
+    out.gain.value = 1;
+    out.connect(bus());
+    var oscs = [];
+    function cv(freq, at, dur, g, np) {
+      voice(freq, at, dur, g, np, null, out).oscs.forEach(function (o) { oscs.push(o); });
+    }
+    var root = cRoot();
+    var step = pure ? 1.5 : Math.pow(2, 7 / 12);
+    var f = root;
+    for (var i = 0; i < 13; i++) {
+      var fold = f;
+      while (fold > root * 2) fold /= 2;
+      cv(fold, t + i * 0.30, 0.42, 0.13, 3);
+      f *= step;
+    }
+    var landing = root * Math.pow(step, 12);
+    while (landing > root * 2) landing /= 2;
+    var t2 = t + 13 * 0.30 + 0.35;
+    cv(root, t2, 3.2, 0.17, 4);
+    cv(landing, t2, 3.2, 0.17, 4);
+    register("climb", out, oscs);
+    var b = Math.abs(landing - root);
+    later(function () {
+      if (pure) {
+        setStrobe(b, "Landed " + b.toFixed(2) + " Hz off home. Twelve pure fifths do not come home.");
+      } else {
+        setStrobe(0, "Dead silent. Twelve shaved fifths land exactly on home, because we made them.");
+      }
+    }, (13 * 0.30 + 0.35) * 1000);
+    later(function () { if (playing("climb")) stopSound("climb"); }, (13 * 0.30 + 0.35 + 3.5) * 1000);
+    return b;
+  }
+
+  document.getElementById("b-stack-just").addEventListener("click", function () { climb(true); });
+  document.getElementById("b-stack-temp").addEventListener("click", function () { climb(false); });
+
+  // ── the bank ──
+  function startBank(phases) {
+    stopBank();
+    var c = audio();
+    var t = c.currentTime + 0.05;
+    var master = c.createGain();
+    master.gain.value = 0;
+    master.connect(bus());
+    master.gain.linearRampToValueAtTime(0.9, t + 0.4);
+
+    var oscs = [];
+    for (var i = 0; i < N; i++) {
+      var fi = IV[i].fJust * OCT;
+      var o = c.createOscillator();
+      o.type = "sine";
+      o.frequency.value = fi;
+      var g = c.createGain();
+      g.gain.value = 0.055;
+      o.connect(g); g.connect(master);
+      // a start-time offset IS a phase offset
+      var off = phases ? (phases[i] % (2 * Math.PI)) / (2 * Math.PI) / fi : 0;
+      o.start(t + (off > 0 ? off : 0));
+      oscs.push(o);
+    }
+    var root = c.createOscillator();
+    root.type = "sine";
+    root.frequency.value = REF * OCT;
+    var rg = c.createGain(); rg.gain.value = 0.07;
+    root.connect(rg); rg.connect(master);
+    root.start(t);
+    oscs.push(root);
+
+    bankNodes = { oscs: oscs, master: master };
+    syncSound();
+  }
+
+  function stopBank() {
+    if (!bankNodes) return;
+    var c = audio();
+    var t = c.currentTime;
+    bankNodes.master.gain.cancelScheduledValues(t);
+    bankNodes.master.gain.setValueAtTime(bankNodes.master.gain.value, t);
+    bankNodes.master.gain.linearRampToValueAtTime(0, t + 0.35);
+    bankNodes.oscs.forEach(function (o) { try { o.stop(t + 0.45); } catch (e) {} });
+    bankNodes = null;
+    syncSound();
+  }
+
+  var bBank = document.getElementById("b-bank");
+  bBank.addEventListener("click", function () {
+    if (bankNodes) stopBank(); else startBank(null);
+  });
+
+  // ══════════════════════════════════════════════════════════
+  //  SOUND CONTROL — one mute for the page, one stop for right now
+  // ══════════════════════════════════════════════════════════
+
+  var AUDIO_BTNS = ["b-just", "b-temp", "b-both", "b-stack-just",
+                    "b-stack-temp", "b-bank", "b-listen", "b-think"];
+
+  function syncSound() {
+    document.querySelectorAll("[data-sound]").forEach(function (el) {
+      var on = playing(el.dataset.sound);
+      if (!el.dataset.off) el.dataset.off = el.textContent;
+      el.textContent = on ? el.dataset.on : el.dataset.off;
+      el.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (bBank) {
+      bBank.textContent = bankNodes ? "Stop the bank" : "Play the bank";
+      bBank.setAttribute("aria-pressed", bankNodes ? "true" : "false");
+    }
+    var bar = document.getElementById("sound-bar");
+    if (bar) bar.classList.toggle("live", anySound());
+    var st = document.getElementById("s-stop");
+    if (st) st.disabled = !anySound();
+    // nothing that makes sound stays pressable while the page is muted
+    AUDIO_BTNS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.disabled = muted;
+    });
+  }
+
+  function setMuted(v) {
+    muted = v;
+    var btn = document.getElementById("s-mute");
+    btn.setAttribute("aria-pressed", muted ? "true" : "false");
+    btn.textContent = muted ? "Sound off" : "Sound on";
+    btn.title = muted ? "Nothing will play until you turn this back on" : "Mute the whole page";
+    if (muted) stopAllSound();
+    if (MASTER) MASTER.gain.value = muted ? 0 : 1;
+    syncSound();
+  }
+
+  document.getElementById("s-mute").addEventListener("click", function () { setMuted(!muted); });
+  document.getElementById("s-stop").addEventListener("click", stopAllSound);
+
+  // escape kills everything, the way a stop button should
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") stopAllSound();
+  });
+
+  syncSound();
+
+  // ══════════════════════════════════════════════════════════
+  //  CANVAS PLUMBING
+  // ══════════════════════════════════════════════════════════
+
+  function fit(cv) {
+    var dpr = window.devicePixelRatio || 1;
+    var w = cv.clientWidth;
+    var h = parseInt(cv.getAttribute("height"), 10);
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    cv.style.height = h + "px";
+    var g = cv.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { g: g, w: w, h: h };
+  }
+
+  function css(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  // ══════════════════════════════════════════════════════════
+  //  SPIRAL
+  // ══════════════════════════════════════════════════════════
+
+  var spiralCv = document.getElementById("spiral");
+
+  function drawSpiral() {
+    var f = fit(spiralCv), g = f.g, w = f.w, h = f.h;
+    var cx = w / 2, cy = h / 2;
+    var r0 = Math.min(w, h) * 0.16, r1 = Math.min(w, h) * 0.42;
+
+    g.clearRect(0, 0, w, h);
+
+    var justC = css("--just"), tempC = css("--temper"), dim = css("--dim"), rule = css("--rule");
+
+    // guide circle
+    g.strokeStyle = rule; g.lineWidth = 1;
+    g.beginPath(); g.arc(cx, cy, r1, 0, Math.PI * 2); g.stroke();
+
+    // twelve tempered stops
+    for (var k = 0; k < 12; k++) {
+      var a = -Math.PI / 2 + (k * 7 / 12) * Math.PI * 2;
+      g.fillStyle = dim;
+      g.beginPath(); g.arc(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1, 2.2, 0, Math.PI * 2); g.fill();
+    }
+
+    function path(stepCents, color, width) {
+      g.strokeStyle = color; g.lineWidth = width; g.beginPath();
+      for (var i = 0; i <= 12; i++) {
+        var frac = (i * stepCents) / 1200;
+        var ang = -Math.PI / 2 + frac * Math.PI * 2;
+        var rad = r0 + (r1 - r0) * (i / 12);
+        var x = cx + Math.cos(ang) * rad, y = cy + Math.sin(ang) * rad;
+        if (i === 0) g.moveTo(x, y); else g.lineTo(x, y);
+      }
+      g.stroke();
+      // endpoint
+      var fe = (12 * stepCents) / 1200;
+      var ae = -Math.PI / 2 + fe * Math.PI * 2;
+      g.fillStyle = color;
+      g.beginPath(); g.arc(cx + Math.cos(ae) * r1, cy + Math.sin(ae) * r1, 4.5, 0, Math.PI * 2); g.fill();
+    }
+
+    path(700, tempC, 1.4);
+    path(701.955, justC, 2.2);
+
+    // the gap arc
+    var aT = -Math.PI / 2 + (12 * 700 / 1200) * Math.PI * 2;
+    var aJ = -Math.PI / 2 + (12 * 701.955 / 1200) * Math.PI * 2;
+    g.strokeStyle = tempC; g.lineWidth = 6; g.globalAlpha = 0.55;
+    g.beginPath(); g.arc(cx, cy, r1 + 13, aT, aJ); g.stroke();
+    g.globalAlpha = 1;
+
+    g.fillStyle = tempC;
+    g.font = "500 12px " + css("--mono");
+    g.textAlign = "center";
+    var am = (aT + aJ) / 2;
+    g.fillText("23.46¢", cx + Math.cos(am) * (r1 + 34), cy + Math.sin(am) * (r1 + 34) + 4);
+
+    g.fillStyle = css("--ink");
+    g.font = "500 11px " + css("--mono");
+    g.textAlign = "left";
+    g.fillText("HOME", cx + 8, cy - r1 - 8);
+
+    g.fillStyle = justC; g.fillRect(14, h - 34, 18, 2.4);
+    g.fillStyle = css("--dim"); g.font = "10px " + css("--mono");
+    g.fillText("pure fifths, overshoots", 38, h - 30);
+    g.fillStyle = tempC; g.fillRect(14, h - 16, 18, 1.6);
+    g.fillStyle = css("--dim");
+    g.fillText("tempered fifths, closes exactly", 38, h - 12);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  //  TABLE
+  // ══════════════════════════════════════════════════════════
+
+  function buildTable() {
+    var body = document.getElementById("err-body");
+    body.innerHTML = "";
+    var maxErr = Math.max.apply(null, IV.map(function (v) { return Math.abs(v.err); }));
+    var frag = document.createDocumentFragment();
+    IV.forEach(function (v) {
+      var tr = document.createElement("tr");
+      var pct = (Math.abs(v.err) / maxErr) * 100;
+      var sign = v.err >= 0 ? "+" : "−";
+      var beat = v.beat * OCT;
+      var den = Math.round(v.n / v.ratio);
+      tr.innerHTML =
+        "<td>" + v.name + " <span style='color:var(--dim)'>(" + v.n + ":" + den + ")</span></td>" +
+        "<td class='num opt'>" + v.cents.toFixed(1) + "¢</td>" +
+        "<td class='num opt' style='color:var(--dim)'>" + v.edo + "¢</td>" +
+        "<td class='num' style='color:var(--temper)'>" + sign + Math.abs(v.err).toFixed(2) + "¢</td>" +
+        "<td class='bar-cell'><span class='bar' style='width:" + pct.toFixed(1) + "%'></span></td>" +
+        "<td class='num'>" + beat.toFixed(2) + "/s</td>";
+      tr.style.cursor = "pointer";
+      tr.title = "Tap to play this interval, pure against tempered";
+      tr.addEventListener("click", function () {
+        if (muted) return;
+        dyad(v.fJust * OCT, v.fTemp * OCT, 3.2, "row");
+        setStrobe(beat, v.name + ": pure and tempered together, beating " + beat.toFixed(2) + " times a second.");
+      });
+      frag.appendChild(tr);
+    });
+    body.appendChild(frag);
+    var bLo = document.getElementById("beat-lo");
+    if (bLo) {
+      var beats = IV.map(function (v) { return v.beat * OCT; });
+      var mn = Math.min.apply(null, beats), mx = Math.max.apply(null, beats);
+      bLo.textContent = mn.toFixed(2);
+      document.getElementById("beat-hi").textContent = mx.toFixed(2);
+      document.getElementById("beat-x").textContent = String(Math.round(mx / mn));
+    }
+  }
+  buildTable();
+
+  // ══════════════════════════════════════════════════════════
+  //  THE RESERVOIR
+  //  Damped resonators at the detuned frequencies:
+  //    dz_j/dt = (−γ − |z_j|² + i·ω_j)·z_j
+  //              + K·(z̄ − z_j)
+  //              + b_j·u(t)
+  //  ω_j are the detunings above. Three constraints hold this together:
+  //
+  //  Integrate the linear part exactly (rotate by ω·DT, scale by
+  //  exp(−γ·DT)). Explicit Euler is unstable here: the fastest detuning
+  //  is ω·DT ≈ 1.08 rad/step, which Euler amplifies by √(1+(ωΔt)²) ≈
+  //  1.47 per step. A magnitude clamp turns that into pinned
+  //  oscillators rather than a visible blowup, so it fails quietly.
+  //
+  //  Keep γ > 0. A self-sustaining limit cycle at amplitude ~1 against
+  //  an input contribution ~0.016 is an SNR of 3e-4; the bank then
+  //  holds its own oscillation instead of the signal.
+  //
+  //  Read power as well as amplitude. A bank of linear filters read
+  //  linearly is still a linear filter, so |z|² is what carries any
+  //  nonlinear capacity at all. It's also the observable an ear has:
+  //  the cochlea is a filter bank followed by a detector, and the beat
+  //  you hear in §03 is that square.
+  //
+  //  The fitting below runs in frame-sized slices so the page stays
+  //  live and the chart fills in as each readout lands. tools/verify.mjs
+  //  extracts the [verify:*] blocks and re-checks every number the
+  //  prose claims.
+  // ══════════════════════════════════════════════════════════
+
+  // [verify:core] begin
+  var DT = 0.02;          // 50 Hz
+  var GAMMA = 0.6;        // damping — memory time constant 1/γ ≈ 1.7 s
+  var IN_GAIN = 0.30;
+  var SEED = 12345;
+  var WASH = 500, TRAIN = 3500, TESTN = 3500;
+  var NF = 3 * N + 1;     // readout width: Re, Im, |z|² per oscillator, plus bias
+  var LEN = WASH + TRAIN + TESTN;
+  var DRIVE = [];
+  for (var d = 0; d < N; d++) DRIVE.push(0.55 + 0.45 * ((d * 7) % 11) / 10);
+  var DECAY = Math.exp(-GAMMA * DT);
+
+  // seeded PRNG with a 2^32 state cycle; the naive LCG this replaced
+  // lost low bits past 2^53 and cycled after 10,466 draws
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeInput(T) {
+    var u = new Float64Array(T);
+    var rng = mulberry32(SEED);
+    for (var t = 0; t < T; t++) u[t] = (rng() * 2 - 1) * 0.8;
+    return u;
+  }
+
+  // progressive simulator: step(n) advances n steps, returns true when done.
+  // scale multiplies every detuning — ×1 is the piano, ×0 is no errors at all.
+  function makeSim(K, scale) {
+    var s = (scale === undefined ? 1 : scale);
+    var rotC = [], rotS = [];
+    for (var j0 = 0; j0 < N; j0++) {
+      var w0 = OMEGA[j0] * s;
+      rotC.push(Math.cos(w0 * DT));
+      rotS.push(Math.sin(w0 * DT));
+    }
+    var re = new Float64Array(N), im = new Float64Array(N);
+    var nre = new Float64Array(N), nim = new Float64Array(N);
+    var X = new Float64Array(LEN * NF);
+    var u = makeInput(LEN);
+    var t = 0;
+    function step(n) {
+      var end = Math.min(LEN, t + n);
+      for (; t < end; t++) {
+        var mr = 0, mi = 0;
+        for (var q = 0; q < N; q++) { mr += re[q]; mi += im[q]; }
+        mr /= N; mi /= N;
+        for (var j = 0; j < N; j++) {
+          var r = re[j], m = im[j];
+          var amp2 = r * r + m * m;
+          // exact rotation + decay for the linear part
+          var xr = DECAY * (r * rotC[j] - m * rotS[j]);
+          var xi = DECAY * (r * rotS[j] + m * rotC[j]);
+          // saturating nonlinearity, coupling, drive
+          xr -= DT * amp2 * r;          xi -= DT * amp2 * m;
+          xr += DT * K * (mr - r);      xi += DT * K * (mi - m);
+          xr += DRIVE[j] * u[t] * IN_GAIN;
+          var mag = Math.sqrt(xr * xr + xi * xi);
+          if (mag > 6) { xr *= 6 / mag; xi *= 6 / mag; }
+          nre[j] = xr; nim[j] = xi;
+        }
+        for (var k2 = 0; k2 < N; k2++) { re[k2] = nre[k2]; im[k2] = nim[k2]; }
+        var base = t * NF;
+        for (var f2 = 0; f2 < N; f2++) {
+          X[base + f2] = re[f2];
+          X[base + N + f2] = im[f2];
+          X[base + 2 * N + f2] = re[f2] * re[f2] + im[f2] * im[f2];
+        }
+        X[base + 3 * N] = 1;
+      }
+      return t >= LEN;
+    }
+    return { X: X, u: u, step: step };
+  }
+
+  // ── ridge regression via normal equations + LU ──
+  function xtxAccumulate(X, XtX, t0, t1) {
+    for (var t = t0; t < t1; t++) {
+      var b = t * NF;
+      for (var a = 0; a < NF; a++) {
+        var xa = X[b + a];
+        for (var c = a; c < NF; c++) XtX[a * NF + c] += xa * X[b + c];
+      }
+    }
+  }
+  function xtxFinish(XtX) {
+    for (var a = 0; a < NF; a++)
+      for (var c = 0; c < a; c++) XtX[a * NF + c] = XtX[c * NF + a];
+    for (var d2 = 0; d2 < NF; d2++) XtX[d2 * NF + d2] += 1e-6 * TRAIN;
+  }
+
+  function luFactor(A, n) {
+    var piv = new Int32Array(n);
+    for (var i = 0; i < n; i++) piv[i] = i;
+    for (var c = 0; c < n; c++) {
+      var best = c, bv = Math.abs(A[c * n + c]);
+      for (var r = c + 1; r < n; r++) {
+        var v = Math.abs(A[r * n + c]);
+        if (v > bv) { bv = v; best = r; }
+      }
+      if (best !== c) {
+        for (var q = 0; q < n; q++) {
+          var tmp = A[c * n + q]; A[c * n + q] = A[best * n + q]; A[best * n + q] = tmp;
+        }
+        var tp = piv[c]; piv[c] = piv[best]; piv[best] = tp;
+      }
+      var dd = A[c * n + c];
+      if (Math.abs(dd) < 1e-12) dd = 1e-12;
+      for (var rr = c + 1; rr < n; rr++) {
+        var f = A[rr * n + c] / dd;
+        A[rr * n + c] = f;
+        for (var cc = c + 1; cc < n; cc++) A[rr * n + cc] -= f * A[c * n + cc];
+      }
+    }
+    return piv;
+  }
+  function luSolve(A, piv, b, n) {
+    var y = new Float64Array(n);
+    for (var i = 0; i < n; i++) {
+      var s = b[piv[i]];
+      for (var j = 0; j < i; j++) s -= A[i * n + j] * y[j];
+      y[i] = s;
+    }
+    var x = new Float64Array(n);
+    for (var k = n - 1; k >= 0; k--) {
+      var t = y[k];
+      for (var m = k + 1; m < n; m++) t -= A[k * n + m] * x[m];
+      var dd = A[k * n + k];
+      x[k] = t / (Math.abs(dd) < 1e-12 ? 1e-12 : dd);
+    }
+    return x;
+  }
+
+  function fitTarget(X, A, piv, target) {
+    var Xty = new Float64Array(NF);
+    for (var t = WASH; t < WASH + TRAIN; t++) {
+      var b = t * NF, yv = target[t];
+      for (var a = 0; a < NF; a++) Xty[a] += X[b + a] * yv;
+    }
+    return luSolve(A, piv, Xty, NF);
+  }
+
+  // squared correlation between prediction and target over [lo, hi) —
+  // score on data the readout never saw. With 34 features and 3,500
+  // training samples, in-sample scores carry a floor near NF/TRAIN ≈ 0.01
+  // per task from fitting noise alone, enough to invent a memory tail
+  // that isn't there.
+  function scoreRange(X, w, target, lo, hi) {
+    var sy = 0, syy = 0, sp = 0, spp = 0, syp = 0, n = 0;
+    for (var t = lo; t < hi; t++) {
+      var b = t * NF, p = 0;
+      for (var a = 0; a < NF; a++) p += w[a] * X[b + a];
+      var yy = target[t];
+      sy += yy; syy += yy * yy; sp += p; spp += p * p; syp += yy * p; n++;
+    }
+    var cov = syp / n - (sy / n) * (sp / n);
+    var vy = syy / n - (sy / n) * (sy / n);
+    var vp = spp / n - (sp / n) * (sp / n);
+    if (vy < 1e-12 || vp < 1e-12) return 0;
+    var r = cov / Math.sqrt(vy * vp);
+    return Math.max(0, Math.min(1, r * r));
+  }
+
+  function delayTarget(u, k) {
+    var tgt = new Float64Array(LEN);
+    for (var t = k; t < LEN; t++) tgt[t] = u[t - k];
+    return tgt;
+  }
+  function nlTarget(u) {
+    var tgt = new Float64Array(LEN);
+    for (var t = 4; t < LEN; t++) tgt[t] = u[t - 1] * u[t - 3];
+    return tgt;
+  }
+  // [verify:core] end
+
+  // ══════════════════════════════════════════════════════════
+  //  JOB QUEUE — heavy math in frame-sized slices; "paced" jobs
+  //  run at most one per frame so the chart fills visibly
+  // ══════════════════════════════════════════════════════════
+
+  var JOBS = [];
+  var jobsRunning = false;
+  function job(fn, paced) {
+    JOBS.push({ fn: fn, paced: !!paced });
+    if (!jobsRunning) { jobsRunning = true; requestAnimationFrame(drainJobs); }
+  }
+  function drainJobs() {
+    var stop = performance.now() + 12;
+    var pacedDone = false;
+    while (JOBS.length) {
+      if (JOBS[0].paced && pacedDone) break;
+      if (performance.now() >= stop) break;
+      var j = JOBS.shift();
+      if (j.paced) pacedDone = true;
+      j.fn();
+    }
+    if (JOBS.length) requestAnimationFrame(drainJobs);
+    else jobsRunning = false;
+  }
+  function jobsBusy() { return jobsRunning || JOBS.length > 0; }
+
+  // ══════════════════════════════════════════════════════════
+  //  THE EXPERIMENT — progressive: simulate, factor, then one
+  //  readout per frame; then probe past the chart until memory dies
+  // ══════════════════════════════════════════════════════════
+
+  var lastRun = null;    // { res, sim, done } — feeds the charts and the ear
+  var lastSweep = null;
+  var mcSel = 10;        // which delay the reconstruction panel shows
+
+  function runExperiment(opts) {
+    var sim = makeSim(opts.K, opts.scale);
+    var XtX = new Float64Array(NF * NF);
+    var A = null, piv = null;
+    var res = {
+      K: opts.K, scale: opts.scale === undefined ? 1 : opts.scale,
+      mc: [], W: [], probes: [], reach: 30, reachSec: 30 * DT,
+      nl: 0, total: 0, ceiling: NF
+    };
+    if (opts.commit) {
+      lastRun = { res: res, sim: sim, done: false };
+      mcSel = 10;
+      drawMC(); drawRecon();
+    }
+    var c;
+    for (c = 0; c < 5; c++) job(function () { sim.step(1500); });
+    for (c = 0; c < 4; c++) (function (i) {
+      job(function () {
+        var a = WASH + Math.floor(i * TRAIN / 4);
+        var b = WASH + Math.floor((i + 1) * TRAIN / 4);
+        xtxAccumulate(sim.X, XtX, a, b);
+      });
+    })(c);
+    job(function () {
+      xtxFinish(XtX);
+      A = Float64Array.from(XtX);
+      piv = luFactor(A, NF);
+    });
+    for (c = 0; c <= 30; c++) (function (k) {
+      job(function () {
+        var tgt = delayTarget(sim.u, k);
+        var w = fitTarget(sim.X, A, piv, tgt);
+        res.W.push(w);
+        res.mc.push(scoreRange(sim.X, w, tgt, WASH + TRAIN, LEN));
+        if (opts.commit) drawMC();
+      }, true);
+    })(c);
+    job(function () { probeStep(40); }, true);
+
+    function probeStep(k) {
+      var tgt = delayTarget(sim.u, k);
+      var w = fitTarget(sim.X, A, piv, tgt);
+      var sc = scoreRange(sim.X, w, tgt, WASH + TRAIN, LEN);
+      res.probes.push({ k: k, sc: sc });
+      if (opts.commit) drawMC();
+      if (sc >= 0.01) {
+        res.reach = k;
+        res.reachSec = k * DT;
+        if (k < 260) { job(function () { probeStep(k + 10); }, true); return; }
+      }
+      finishRun();
+    }
+    function finishRun() {
+      job(function () {
+        var tgt = nlTarget(sim.u);
+        var w = fitTarget(sim.X, A, piv, tgt);
+        res.nl = scoreRange(sim.X, w, tgt, WASH + TRAIN, LEN);
+        res.total = 0;
+        for (var i = 0; i < res.mc.length; i++) res.total += res.mc[i];
+        if (opts.commit) { lastRun.done = true; drawMC(); drawRecon(); }
+        if (opts.onDone) opts.onDone(res);
+      });
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════
+  //  CHARTS
+  // ══════════════════════════════════════════════════════════
+
+  var mcCv = document.getElementById("mc");
+  var trCv = document.getElementById("tradeoff");
+  var reconCv = document.getElementById("recon");
+  var budgetCv = document.getElementById("budget");
+
+  function mcGeom(w) {
+    var pad = { l: 34, r: 10, t: 16, b: 26 };
+    var res = lastRun ? lastRun.res : null;
+    var lastProbe = (res && res.probes.length) ? res.probes[res.probes.length - 1].k : 30;
+    var xmax = Math.max(31, lastProbe + 10);
+    return { pad: pad, pw: w - pad.l - pad.r, xmax: xmax };
+  }
+
+  function drawMC() {
+    var f = fit(mcCv), g = f.g, w = f.w, h = f.h;
+    g.clearRect(0, 0, w, h);
+    var gm = mcGeom(w), pad = gm.pad, pw = gm.pw, ph = h - pad.t - pad.b;
+
+    g.strokeStyle = css("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(pad.l, pad.t); g.lineTo(pad.l, pad.t + ph); g.lineTo(pad.l + pw, pad.t + ph); g.stroke();
+
+    g.fillStyle = css("--dim"); g.font = "9px " + css("--mono"); g.textAlign = "right";
+    [0, 0.5, 1].forEach(function (v) {
+      var y = pad.t + ph * (1 - v);
+      g.fillText(v.toFixed(1), pad.l - 5, y + 3);
+      g.strokeStyle = css("--rule"); g.globalAlpha = 0.5;
+      g.beginPath(); g.moveTo(pad.l, y); g.lineTo(pad.l + pw, y); g.stroke(); g.globalAlpha = 1;
+    });
+
+    if (!lastRun) {
+      g.fillStyle = css("--dim"); g.textAlign = "center"; g.font = "10px " + css("--mono");
+      g.fillText("run the experiment", pad.l + pw / 2, pad.t + ph / 2);
+      return;
+    }
+
+    var res = lastRun.res;
+    var xw = pw / gm.xmax;
+
+    for (var i = 0; i < res.mc.length; i++) {
+      var v = res.mc[i];
+      var bh = ph * v;
+      g.fillStyle = i === 0 ? css("--just") : css("--temper");
+      g.globalAlpha = i === 0 ? 0.95 : 0.34 + 0.5 * v;
+      g.fillRect(pad.l + i * xw + 0.5, pad.t + ph - bh, Math.max(1, xw - 1), bh);
+      g.globalAlpha = 1;
+      if (lastRun.done && i === mcSel) {
+        g.strokeStyle = css("--ink"); g.lineWidth = 1.2;
+        g.strokeRect(pad.l + i * xw + 0.5, pad.t + ph - Math.max(bh, 3), Math.max(1, xw - 1), Math.max(bh, 3));
+      }
+    }
+
+    if (res.probes.length) {
+      // the chart had to be widened to hold the memory: mark its old edge
+      var xEdge = pad.l + 31 * xw;
+      g.strokeStyle = css("--dim"); g.globalAlpha = 0.6; g.setLineDash([3, 3]);
+      g.beginPath(); g.moveTo(xEdge, pad.t); g.lineTo(xEdge, pad.t + ph); g.stroke();
+      g.setLineDash([]); g.globalAlpha = 1;
+      g.fillStyle = css("--dim"); g.font = "9px " + css("--mono"); g.textAlign = "left";
+      g.fillText("the old edge", xEdge + 4, pad.t + 10);
+
+      g.strokeStyle = css("--just"); g.lineWidth = 1.4; g.beginPath();
+      res.probes.forEach(function (p, pi) {
+        var x = pad.l + (p.k + 0.5) * xw;
+        var y = pad.t + ph * (1 - Math.min(1, p.sc));
+        if (pi === 0) g.moveTo(x, y); else g.lineTo(x, y);
+      });
+      g.stroke();
+      res.probes.forEach(function (p) {
+        var x = pad.l + (p.k + 0.5) * xw;
+        var y = pad.t + ph * (1 - Math.min(1, p.sc));
+        g.fillStyle = p.sc >= 0.01 ? css("--just") : css("--temper");
+        g.beginPath(); g.arc(x, y, 2.6, 0, Math.PI * 2); g.fill();
+      });
+      // threshold line the probe has to die under
+      var yThr = pad.t + ph * (1 - 0.01);
+      g.strokeStyle = css("--temper"); g.globalAlpha = 0.4; g.setLineDash([2, 4]);
+      g.beginPath(); g.moveTo(pad.l + 31 * xw, yThr); g.lineTo(pad.l + pw, yThr); g.stroke();
+      g.setLineDash([]); g.globalAlpha = 1;
+    }
+
+    g.fillStyle = css("--dim"); g.textAlign = "center"; g.font = "9px " + css("--mono");
+    g.fillText("0", pad.l + xw / 2, h - 8);
+    g.fillText("delay k  (steps into the past)", pad.l + pw / 2, h - 8);
+    g.textAlign = "right";
+    g.fillText(String(gm.xmax - 1), pad.l + pw, h - 8);
+    if (lastRun.done) {
+      g.textAlign = "left"; g.fillStyle = css("--just");
+      g.fillText("readable to " + res.reach + " (" + res.reachSec.toFixed(1) + " s)", pad.l + 4, pad.t + 10);
+    }
+  }
+
+  mcCv.addEventListener("click", function (ev) {
+    if (!lastRun || !lastRun.done) return;
+    var rect = mcCv.getBoundingClientRect();
+    var gm = mcGeom(mcCv.clientWidth);
+    var k = Math.floor((ev.clientX - rect.left - gm.pad.l) / (gm.pw / gm.xmax));
+    if (k >= 0 && k <= 30) { mcSel = k; drawMC(); drawRecon(); }
+  });
+
+  function drawRecon() {
+    var f = fit(reconCv), g = f.g, w = f.w, h = f.h;
+    g.clearRect(0, 0, w, h);
+    var pad = { l: 34, r: 10, t: 16, b: 8 };
+    var pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
+    var mid = pad.t + ph / 2;
+
+    g.strokeStyle = css("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(pad.l, mid); g.lineTo(pad.l + pw, mid); g.stroke();
+
+    if (!lastRun || !lastRun.done || !lastRun.res.W[mcSel]) {
+      g.fillStyle = css("--dim"); g.textAlign = "center"; g.font = "10px " + css("--mono");
+      g.fillText("run the experiment, then tap a bar", pad.l + pw / 2, mid - 8);
+      return;
+    }
+
+    var res = lastRun.res, sim = lastRun.sim;
+    var k = mcSel, wv = res.W[k];
+    var t0 = WASH + TRAIN + 40, T2 = 150;
+    var half = ph / 2 / 1.1;
+
+    function yOf(v) { return mid - Math.max(-1.05, Math.min(1.05, v)) * half; }
+
+    g.strokeStyle = css("--just"); g.lineWidth = 2; g.beginPath();
+    for (var t = 0; t < T2; t++) {
+      var x = pad.l + (t / (T2 - 1)) * pw;
+      var y = yOf(sim.u[t0 + t - k]);
+      if (t === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    }
+    g.stroke();
+
+    g.strokeStyle = css("--temper"); g.lineWidth = 1.4; g.beginPath();
+    for (var t2 = 0; t2 < T2; t2++) {
+      var b = (t0 + t2) * NF, p = 0;
+      for (var a = 0; a < NF; a++) p += wv[a] * sim.X[b + a];
+      var x2 = pad.l + (t2 / (T2 - 1)) * pw;
+      var y2 = yOf(p);
+      if (t2 === 0) g.moveTo(x2, y2); else g.lineTo(x2, y2);
+    }
+    g.stroke();
+
+    g.font = "9px " + css("--mono"); g.textAlign = "left";
+    g.fillStyle = css("--just");
+    g.fillText("what it heard, " + k + " steps ago", pad.l + 4, pad.t + 2);
+    g.fillStyle = css("--temper");
+    g.fillText("what it remembers now", pad.l + 4, pad.t + 14);
+    g.fillStyle = css("--dim"); g.textAlign = "right";
+    g.fillText("delay " + k + " = " + (k * DT).toFixed(2) + " s ago · held-out R² " +
+      (res.mc[k] !== undefined ? res.mc[k].toFixed(2) : "—"), pad.l + pw, pad.t + 2);
+  }
+
+  function drawSweep() {
+    var f = fit(trCv), g = f.g, w = f.w, h = f.h;
+    g.clearRect(0, 0, w, h);
+    var pad = { l: 34, r: 34, t: 16, b: 26 };
+    var pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
+
+    g.strokeStyle = css("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(pad.l, pad.t); g.lineTo(pad.l, pad.t + ph); g.lineTo(pad.l + pw, pad.t + ph); g.stroke();
+
+    if (!lastSweep || lastSweep.length < 2) {
+      g.fillStyle = css("--dim"); g.textAlign = "center"; g.font = "10px " + css("--mono");
+      g.fillText("sweep the coupling", pad.l + pw / 2, pad.t + ph / 2);
+      return;
+    }
+
+    var pts = lastSweep;
+    // reach against mixing — the two things that genuinely pull apart.
+    // Each is drawn against its own maximum; the endpoints are labelled
+    // in real units below, because the shape is the claim, not the scale.
+    var maxM = Math.max.apply(null, pts.map(function (p) { return p.reach; })) || 1;
+    var maxN = Math.max.apply(null, pts.map(function (p) { return p.nl; })) || 1;
+
+    function line(get, max, color, wid) {
+      g.strokeStyle = color; g.lineWidth = wid; g.beginPath();
+      pts.forEach(function (p, i) {
+        var x = pad.l + (i / (pts.length - 1)) * pw;
+        var y = pad.t + ph * (1 - get(p) / max);
+        if (i === 0) g.moveTo(x, y); else g.lineTo(x, y);
+      });
+      g.stroke();
+      pts.forEach(function (p, i) {
+        var x = pad.l + (i / (pts.length - 1)) * pw;
+        var y = pad.t + ph * (1 - get(p) / max);
+        g.fillStyle = color;
+        g.beginPath(); g.arc(x, y, 2.4, 0, Math.PI * 2); g.fill();
+      });
+    }
+
+    line(function (p) { return p.reach; }, maxM, css("--just"), 2);
+    line(function (p) { return p.nl; }, maxN, css("--temper"), 2);
+
+    var a = pts[0], z = pts[pts.length - 1];
+    g.font = "9px " + css("--mono"); g.textAlign = "left";
+    g.fillStyle = css("--just"); g.fillText("how far back it reaches", pad.l + 4, pad.t + 12);
+    g.fillStyle = css("--temper"); g.fillText("how hard it mixes", pad.l + 4, pad.t + 24);
+
+    g.textAlign = "left"; g.fillStyle = css("--just");
+    g.fillText(a.reachSec.toFixed(1) + "s", pad.l + 2, pad.t + ph * (1 - a.reach / maxM) - 6);
+    g.textAlign = "right";
+    g.fillText(z.reachSec.toFixed(1) + "s", pad.l + pw - 2, pad.t + ph * (1 - z.reach / maxM) - 6);
+    g.fillStyle = css("--temper");
+    g.fillText((z.nl * 100).toFixed(1) + "%", pad.l + pw - 2, pad.t + ph * (1 - z.nl / maxN) + 14);
+
+    g.fillStyle = css("--dim"); g.textAlign = "center";
+    g.fillText("coupling K  →", pad.l + pw / 2, h - 8);
+  }
+
+  // ── the budget curve: capacity against the size of the error fan ──
+  var spreadPts = [];
+  var SPREAD_K = 0.12;   // fixed so the curve varies one thing only
+  var MAX_BEAT = Math.max.apply(null, IV.map(function (v) { return v.beat; }));
+
+  function drawBudget() {
+    var f = fit(budgetCv), g = f.g, w = f.w, h = f.h;
+    g.clearRect(0, 0, w, h);
+    var pad = { l: 34, r: 12, t: 16, b: 26 };
+    var pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
+    var YMAX = 17;
+
+    g.strokeStyle = css("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(pad.l, pad.t); g.lineTo(pad.l, pad.t + ph); g.lineTo(pad.l + pw, pad.t + ph); g.stroke();
+
+    g.fillStyle = css("--dim"); g.font = "9px " + css("--mono"); g.textAlign = "right";
+    [0, 5, 10, 15].forEach(function (v) {
+      var y = pad.t + ph * (1 - v / YMAX);
+      g.fillText(String(v), pad.l - 5, y + 3);
+      g.strokeStyle = css("--rule"); g.globalAlpha = 0.4;
+      g.beginPath(); g.moveTo(pad.l, y); g.lineTo(pad.l + pw, y); g.stroke(); g.globalAlpha = 1;
+    });
+
+    // half the ceiling, which nothing measured here has ever crossed
+    var yHalf = pad.t + ph * (1 - 17 / YMAX);
+    g.strokeStyle = css("--temper"); g.globalAlpha = 0.5; g.setLineDash([3, 4]);
+    g.beginPath(); g.moveTo(pad.l, yHalf); g.lineTo(pad.l + pw, yHalf); g.stroke();
+    g.setLineDash([]); g.globalAlpha = 1;
+    g.fillStyle = css("--temper"); g.textAlign = "left";
+    g.fillText("half the ceiling (17 of 34)", pad.l + 4, yHalf + 10);
+
+    var xPiano = pad.l + (1 / 1.5) * pw;
+    g.strokeStyle = css("--dim"); g.globalAlpha = 0.5; g.setLineDash([2, 3]);
+    g.beginPath(); g.moveTo(xPiano, pad.t + ph * 0.25); g.lineTo(xPiano, pad.t + ph); g.stroke();
+    g.setLineDash([]); g.globalAlpha = 1;
+    g.fillStyle = css("--dim"); g.textAlign = "center";
+    g.fillText("the piano", xPiano, pad.t + ph * 0.25 - 4);
+
+    g.fillStyle = css("--dim"); g.textAlign = "center";
+    g.fillText("size of the errors  ×the piano's  →", pad.l + pw / 2, h - 8);
+
+    if (!spreadPts.length) {
+      g.fillStyle = css("--dim"); g.font = "10px " + css("--mono");
+      g.fillText("measure at a few sizes and the budget line appears", pad.l + pw / 2, pad.t + ph / 2);
+      return;
+    }
+
+    g.strokeStyle = css("--just"); g.lineWidth = 2; g.beginPath();
+    spreadPts.forEach(function (p, i) {
+      var x = pad.l + (p.scale / 1.5) * pw;
+      var y = pad.t + ph * (1 - Math.min(YMAX, p.total) / YMAX);
+      if (i === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    });
+    if (spreadPts.length > 1) g.stroke();
+    spreadPts.forEach(function (p) {
+      var x = pad.l + (p.scale / 1.5) * pw;
+      var y = pad.t + ph * (1 - Math.min(YMAX, p.total) / YMAX);
+      g.fillStyle = css("--just");
+      g.beginPath(); g.arc(x, y, 3, 0, Math.PI * 2); g.fill();
+      g.fillStyle = css("--ink"); g.font = "9px " + css("--mono"); g.textAlign = "center";
+      g.fillText(p.total.toFixed(1), x, y - 7);
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════
+  //  BUTTONS — run, sweep, spread; all share the job queue
+  // ══════════════════════════════════════════════════════════
+
+  var bRun = document.getElementById("b-run");
+  var bSweep = document.getElementById("b-sweep");
+  var bSpread = document.getElementById("b-spread");
+  var bThink = document.getElementById("b-think");
+  var bThinkReady = false;
+
+  function setBusy(busy) {
+    bRun.disabled = busy; bSweep.disabled = busy; bSpread.disabled = busy;
+  }
+
+  bRun.addEventListener("click", function () {
+    if (jobsBusy()) return;
+    setBusy(true);
+    bRun.textContent = "Measuring…";
+    var read = document.getElementById("run-read");
+    var K = sharedK;
+    read.textContent = "Integrating 7,500 steps, then fitting the readout one delay at a time. Watch the bars land.";
+    runExperiment({ K: K, commit: true, onDone: function (res) {
+      read.innerHTML =
+        "At <b>K = " + K.toFixed(2) + "</b>: capacity <b class='just-t'>" +
+        res.total.toFixed(2) + "</b> in the first 31 delays, against a ceiling of <b>" +
+        NF + "</b> &nbsp;·&nbsp; nonlinear task (u<sub>t−1</sub>·u<sub>t−3</sub>) at <b class='temp-t'>" +
+        (res.nl * 100).toFixed(1) + "%</b> &nbsp;·&nbsp; memory still readable <b>" +
+        res.reach + " steps</b> back (" + res.reachSec.toFixed(1) + " s)" +
+        (res.reach > 30 ? ", past where the chart used to end." : ".") +
+        "<br>" + NF + " features, fit on 3,500 samples and <b>scored on 3,500 it never saw</b>. " +
+        "The gap between " + res.total.toFixed(2) + " and " + NF +
+        " is redundancy: near-identical oscillators holding near-identical things. " +
+        "Tap a bar to watch the readout remember that delay.";
+      bThinkReady = true;
+      bThink.title = "Replay eight seconds of the bank's state as sound";
+      bRun.textContent = "Run the experiment";
+      setBusy(false);
+      syncSound();
+    } });
+  });
+
+  bSweep.addEventListener("click", function () {
+    if (jobsBusy()) return;
+    setBusy(true);
+    bSweep.textContent = "Sweeping…";
+    var read = document.getElementById("run-read");
+    var Ks = [0, 0.12, 0.45, 1.0, 2.0, 4.0, 6.0, 8.0];
+    var out = [];
+    read.textContent = "Sweeping coupling — eight full experiments, measured as they land…";
+    function runNext(i) {
+      if (i >= Ks.length) {
+        var lo = out[0], hi = out[out.length - 1];
+        read.innerHTML =
+          "Across the sweep, mixing climbs <b class='temp-t'>" + (lo.nl * 100).toFixed(1) + "% → " +
+          (hi.nl * 100).toFixed(1) + "%</b> while reach collapses <b class='just-t'>" +
+          lo.reachSec.toFixed(1) + " s → " + hi.reachSec.toFixed(1) + " s</b> (" +
+          lo.reach + " steps down to " + hi.reach + "). That's the exchange, measured on held-out data: " +
+          "<b>coupling buys mixing and pays for it in reach.</b><br>" +
+          "Capacity counted only over the first 31 delays goes the <em>other</em> way, " +
+          lo.total.toFixed(2) + " → " + hi.total.toFixed(2) +
+          ", because that window is too short to contain what's being lost. " +
+          "Neither number ever approaches the ceiling of " + hi.ceiling + ", and that shortfall is the redundancy: " +
+          "eleven oscillators this close together are close to being one oscillator.";
+        bSweep.textContent = "Sweep the coupling";
+        setBusy(false);
+        return;
+      }
+      runExperiment({ K: Ks[i], commit: false, onDone: function (res) {
+        out.push({ K: Ks[i], total: res.total, nl: res.nl, ceiling: res.ceiling,
+                   reach: res.reach, reachSec: res.reachSec });
+        lastSweep = out;
+        drawSweep();
+        runNext(i + 1);
+      } });
+    }
+    runNext(0);
+  });
+
+  var spreadSlider = document.getElementById("spread");
+  var spreadVal = document.getElementById("spread-val");
+  spreadSlider.addEventListener("input", function () {
+    var s = parseInt(this.value, 10) / 100;
+    spreadVal.innerHTML = "&times;" + s.toFixed(2) + " &middot; widest detuning " +
+      (MAX_BEAT * s).toFixed(2) + " Hz";
+  });
+
+  bSpread.addEventListener("click", function () {
+    if (jobsBusy()) return;
+    setBusy(true);
+    bSpread.textContent = "Measuring…";
+    var s = parseInt(spreadSlider.value, 10) / 100;
+    var read = document.getElementById("spread-read");
+    read.textContent = "Same experiment, errors at ×" + s.toFixed(2) + "…";
+    runExperiment({ K: SPREAD_K, scale: s, commit: false, onDone: function (res) {
+      var replaced = false;
+      for (var i = 0; i < spreadPts.length; i++) {
+        if (Math.abs(spreadPts[i].scale - s) < 0.005) { spreadPts[i] = { scale: s, total: res.total, reach: res.reach, reachSec: res.reachSec }; replaced = true; }
+      }
+      if (!replaced) spreadPts.push({ scale: s, total: res.total, reach: res.reach, reachSec: res.reachSec });
+      spreadPts.sort(function (a, b) { return a.scale - b.scale; });
+      drawBudget();
+      read.innerHTML = "At <b>&times;" + s.toFixed(2) + "</b>: capacity <b class='just-t'>" +
+        res.total.toFixed(2) + "</b> of 34, readable <b>" + res.reachSec.toFixed(1) +
+        " s</b> back, at K = " + SPREAD_K.toFixed(2) + " on held-out data." +
+        (s === 0 ? " Eleven identical oscillators hold about one oscillator's worth: the whole bank collapses to a single tuning fork." : "") +
+        " Measure a few sizes and compare against the piano's ×1.00.";
+      bSpread.textContent = "Measure at this size";
+      setBusy(false);
+    } });
+  });
+
+  // ── hear it think: replay the bank's measured envelopes as sound ──
+  bThink.dataset.sound = "think";
+  bThink.dataset.on = "Stop listening";
+  bThink.addEventListener("click", function () {
+    if (playing("think")) { stopSound("think"); return; }
+    if (!lastRun || !lastRun.done) return;
+    var c = audio();
+    var t = c.currentTime + 0.1;
+    var durS = 8, STEPS = 400;
+    var base = WASH + TRAIN;
+    var master = c.createGain();
+    master.gain.value = 0.9;
+    master.connect(bus());
+    var oscs = [];
+
+    // the input, as a loudness contour on filtered noise
+    var nbuf = c.createBuffer(1, Math.ceil(c.sampleRate * durS), c.sampleRate);
+    var nd = nbuf.getChannelData(0);
+    for (var i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+    var nsrc = c.createBufferSource(); nsrc.buffer = nbuf;
+    var nfil = c.createBiquadFilter(); nfil.type = "lowpass"; nfil.frequency.value = 1100;
+    var ng = c.createGain(); ng.gain.value = 0;
+    nsrc.connect(nfil); nfil.connect(ng); ng.connect(master);
+    var ncurve = new Float32Array(STEPS);
+    for (var s2 = 0; s2 < STEPS; s2++)
+      ncurve[s2] = 0.012 + 0.05 * Math.abs(lastRun.sim.u[base + s2]) / 0.8;
+    ng.gain.setValueCurveAtTime(ncurve, t, durS);
+    nsrc.start(t); nsrc.stop(t + durS + 0.05);
+    oscs.push(nsrc);
+
+    // eleven voices, each gain following its oscillator's measured |z|
+    var amax = 1e-9;
+    var amps = [];
+    for (var j = 0; j < N; j++) {
+      var arr = new Float32Array(STEPS);
+      for (var s3 = 0; s3 < STEPS; s3++) {
+        var p = lastRun.sim.X[(base + s3) * NF + 2 * N + j];
+        var av = Math.sqrt(p > 0 ? p : 0);
+        arr[s3] = av;
+        if (av > amax) amax = av;
+      }
+      amps.push(arr);
+    }
+    for (var j2 = 0; j2 < N; j2++) {
+      var o = c.createOscillator();
+      o.type = "sine";
+      o.frequency.value = IV[j2].fJust * OCT;
+      var gg = c.createGain(); gg.gain.value = 0;
+      var curve = new Float32Array(STEPS);
+      for (var s4 = 0; s4 < STEPS; s4++) curve[s4] = 0.085 * (amps[j2][s4] / amax);
+      gg.gain.setValueCurveAtTime(curve, t, durS);
+      o.connect(gg); gg.connect(master);
+      o.start(t); o.stop(t + durS + 0.05);
+      oscs.push(o);
+    }
+    register("think", master, oscs);
+    later(function () { if (playing("think")) stopSound("think"); }, (durS + 0.4) * 1000);
+    document.getElementById("run-read").innerHTML =
+      "Eight seconds of the bank thinking: the hiss is the input it was given; the eleven voices swell " +
+      "as their oscillators catch it. What you're hearing is the state the readout reads.";
+  });
+
+  // keep "hear it think" locked until there's a run to hear
+  var syncSoundBase = syncSound;
+  syncSound = function () {
+    syncSoundBase();
+    if (!bThinkReady) bThink.disabled = true;
+  };
+
+  // ══════════════════════════════════════════════════════════
+  //  ONE BANK — eleven phases at the true detunings, integrated
+  //  live. The portrait draws them; the register reads them. The
+  //  coupling knob below and the ones above are the same knob.
+  // ══════════════════════════════════════════════════════════
+
+  // [verify:bank] begin
+  var TWO_PI = Math.PI * 2;
+  function bankStepPure(phase, dev, K, dtReal) {
+    var h = 0.002;
+    var n = Math.max(1, Math.min(40, Math.round(dtReal / h)));
+    var hh = dtReal / n;
+    for (var s = 0; s < n; s++) {
+      var mr = 0, mi = 0;
+      for (var i = 0; i < phase.length; i++) { mr += Math.cos(phase[i]); mi += Math.sin(phase[i]); }
+      mr /= phase.length; mi /= phase.length;
+      var R = Math.sqrt(mr * mr + mi * mi);
+      var psiM = Math.atan2(mi, mr);
+      for (var j = 0; j < phase.length; j++) {
+        var pull = K * R * Math.sin(psiM - phase[j]) * hh;
+        phase[j] = (phase[j] + OMEGA[j] * hh + pull) % TWO_PI;
+        dev[j] += pull;
+      }
+    }
+    return { R: Math.sqrt(Math.pow(avgCos(phase), 2) + Math.pow(avgSin(phase), 2)) };
+  }
+  function avgCos(ph) { var s = 0; for (var i = 0; i < ph.length; i++) s += Math.cos(ph[i]); return s / ph.length; }
+  function avgSin(ph) { var s = 0; for (var i = 0; i < ph.length; i++) s += Math.sin(ph[i]); return s / ph.length; }
+  // [verify:bank] end
+
+  var bank = {
+    phase: new Float64Array(N),
+    dev: new Float64Array(N),
+    stored: new Float64Array(N),
+    written: false
+  };
+  for (var bi = 0; bi < N; bi++) bank.phase[bi] = (bi * TWO_PI) / N;
+
+  var sharedK = 0.12;
+  var phaseCv = document.getElementById("phase");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var kSliderA = document.getElementById("coupling");
+  var kSliderB = document.getElementById("leak");
+  var kValA = document.getElementById("coupling-val");
+  var kValB = document.getElementById("leak-val");
+
+  function setK(v) {
+    sharedK = Math.max(0, Math.min(8, v));
+    var sv = String(Math.round(sharedK * 100));
+    kSliderA.value = sv; kSliderB.value = sv;
+    kValA.textContent = "K = " + sharedK.toFixed(2);
+    kValB.textContent = "K = " + sharedK.toFixed(2);
+    document.getElementById("phase-read").textContent = sharedK < 0.3
+      ? "A whisper. Each oscillator keeps its own time, and anything written into their differences stays put. This is where the memory lives."
+      : sharedK < 2
+        ? "Enough to talk. The nearly-in-tune oscillators lock together first and give up what they held; the worst intervals hold out longest."
+        : "Strong. Written differences are erased in seconds, the in-tune first, the most wrong last.";
+  }
+  kSliderA.addEventListener("input", function () { setK(parseInt(this.value, 10) / 100); });
+  kSliderB.addEventListener("input", function () { setK(parseInt(this.value, 10) / 100); });
+
+  // trails so the fast clocks read as orbits instead of flicker
+  var TRAIL = 22;
+  var phHist = [];
+  for (var pj = 0; pj < N; pj++) phHist.push([]);
+
+  function drawPhase() {
+    var f = fit(phaseCv), g = f.g, w = f.w, h = f.h;
+    g.clearRect(0, 0, w, h);
+    var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.36;
+
+    g.strokeStyle = css("--rule"); g.lineWidth = 1;
+    g.beginPath(); g.arc(cx, cy, R, 0, Math.PI * 2); g.stroke();
+
+    var mr = avgCos(bank.phase), mi = avgSin(bank.phase);
+    var order = Math.sqrt(mr * mr + mi * mi);
+
+    g.strokeStyle = css("--temper"); g.lineWidth = 2; g.globalAlpha = 0.7;
+    g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + mr * R, cy + mi * R); g.stroke();
+    g.globalAlpha = 1;
+
+    var maxErr = Math.max.apply(null, IV.map(function (v) { return Math.abs(v.err); }));
+    for (var j = 0; j < N; j++) {
+      var wrongness = Math.abs(IV[j].err) / maxErr;
+      var hist = phHist[j];
+      for (var q = 0; q < hist.length; q++) {
+        var ah = hist[q];
+        g.fillStyle = css("--just");
+        g.globalAlpha = 0.05 + 0.25 * (q / hist.length) * (0.35 + 0.65 * wrongness);
+        g.beginPath();
+        g.arc(cx + Math.cos(ah) * R, cy + Math.sin(ah) * R, 1.6 + 2 * wrongness, 0, Math.PI * 2);
+        g.fill();
+      }
+      var a = bank.phase[j];
+      g.fillStyle = css("--just");
+      g.globalAlpha = 0.35 + 0.65 * wrongness;
+      g.beginPath();
+      g.arc(cx + Math.cos(a) * R, cy + Math.sin(a) * R, 3 + 4 * wrongness, 0, Math.PI * 2);
+      g.fill();
+      g.globalAlpha = 1;
+    }
+
+    g.fillStyle = css("--dim"); g.font = "9px " + css("--mono"); g.textAlign = "center";
+    g.fillText("agreement " + (order * 100).toFixed(0) + "%", cx, cy + R + 20);
+    g.textAlign = "left";
+    g.fillText("eleven clocks at their true speeds", 10, 14);
+    g.fillText("dot size = how wrong that interval is on a piano", 10, 26);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  //  STORAGE — the register is the same bank read slowly: write
+  //  phase kicks, then let the real coupling argue them away
+  // ══════════════════════════════════════════════════════════
+
+  var ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ .,!?'";
+  var SLOTS = N - 1; // 10 slots on oscillators 1..10; oscillator 0 is the anchor
+
+  function buildSlots() {
+    var host = document.getElementById("slots");
+    host.innerHTML = "";
+    for (var i = 0; i < SLOTS; i++) {
+      var el = document.createElement("div");
+      el.className = "slot";
+      el.innerHTML = "<span class='ch'>·</span><span class='hz'>" +
+        Math.abs(IV[i + 1].err).toFixed(0) + "¢</span>";
+      el.title = IV[i + 1].name + ", off by " + IV[i + 1].err.toFixed(2) + " cents";
+      host.appendChild(el);
+    }
+  }
+  buildSlots();
+
+  function readBack() {
+    var out = "";
+    var slots = document.getElementById("slots").children;
+    var intact = 0;
+    for (var i = 0; i < SLOTS; i++) {
+      var idx = Math.round((bank.dev[i + 1] / TWO_PI) * 32);
+      idx = ((idx % 32) + 32) % 32;
+      var ch = ALPHA[idx];
+      var want = Math.round((bank.stored[i + 1] / TWO_PI) * 32);
+      want = ((want % 32) + 32) % 32;
+      var ok = bank.written && idx === want;
+      if (ok) intact++;
+      out += ch;
+      var el = slots[i];
+      el.querySelector(".ch").textContent = ch === " " ? "␣" : ch;
+      el.className = "slot " + (bank.written ? (ok ? "ok" : "bad") : "");
+    }
+    return { text: out, intact: intact };
+  }
+
+  function writeMessage(txt) {
+    var s = (txt || "").toUpperCase();
+    for (var i = 0; i < SLOTS; i++) {
+      var ch = i < s.length ? s[i] : " ";
+      var idx = ALPHA.indexOf(ch);
+      if (idx < 0) idx = ALPHA.indexOf(" ");
+      var phi = (idx / 32) * TWO_PI;
+      // writing is a physical act: kick the oscillator's phase by the
+      // difference between where its deviation is and where we want it
+      bank.phase[i + 1] = (bank.phase[i + 1] + (phi - bank.dev[i + 1])) % TWO_PI;
+      bank.dev[i + 1] = phi;
+      bank.stored[i + 1] = phi;
+    }
+    bank.written = true;
+    var r = readBack();
+    document.getElementById("store-read").innerHTML =
+      "Written. Held as <b>" + SLOTS + "</b> phase offsets, <b>" + (SLOTS * 5) +
+      " bits</b>, living in the disagreement between oscillators. Reads back as <b class='just-t'>" +
+      r.text.replace(/ /g, "␣") + "</b>.";
+  }
+
+  var lastStoreText = "";
+  function updateStoreRead() {
+    var r = readBack();
+    var html = "Reading back: <b class='" + (r.intact === SLOTS ? "just-t" : "temp-t") + "'>" +
+      r.text.replace(/ /g, "␣") + "</b>, <b>" + r.intact + " of " + SLOTS +
+      "</b> characters still intact" +
+      (sharedK < 0.3 ? ". At this whisper of coupling they'll outlast your patience."
+                     : sharedK < 2 ? ". Coupling is arguing them away, nearly-in-tune first."
+                                   : ". At this coupling the register empties in seconds.");
+    if (html !== lastStoreText) {
+      lastStoreText = html;
+      document.getElementById("store-read").innerHTML = html;
+    }
+  }
+
+  document.getElementById("b-write").addEventListener("click", function () {
+    writeMessage(document.getElementById("msg").value);
+  });
+
+  // ── the physical read ──
+  // You cannot hear a phase. The ear is phase-deaf for steady tones
+  // (Helmholtz). So the register is read the way every tuner and every
+  // lock-in amplifier reads one: beat it against a reference standing
+  // where you wrote it. Matched slots reinforce and ring; drifted slots
+  // cancel toward silence. Interference converts phase into loudness,
+  // and loudness is something the ear is very good at.
+  function playVerify() {
+    if (!bank.written) writeMessage(document.getElementById("msg").value);
+    stopBank();
+    var c = audio();
+    var t = c.currentTime + 0.08;
+    var dur = 3.6;
+
+    var master = c.createGain();
+    master.gain.value = 0;
+    master.connect(bus());
+    master.gain.linearRampToValueAtTime(0.85, t + 0.25);
+    master.gain.setValueAtTime(0.85, t + dur - 0.45);
+    master.gain.linearRampToValueAtTime(0, t + dur);
+
+    var oscs = [];
+    var ringing = 0;
+    for (var i = 0; i < SLOTS; i++) {
+      var fq = IV[i + 1].fJust * OCT;
+      var period = 1 / fq;
+      var pReg = ((bank.dev[i + 1] % TWO_PI) + TWO_PI) % TWO_PI;
+      var pRef = ((bank.stored[i + 1] % TWO_PI) + TWO_PI) % TWO_PI;
+      // interference amplitude 2|cos(Δ/2)| happens in the graph, not here;
+      // this is only for the readout line
+      var delta = Math.abs(pReg - pRef);
+      if (delta > Math.PI) delta = TWO_PI - delta;
+      if (Math.cos(delta / 2) > 0.55) ringing++;
+
+      [pReg, pRef].forEach(function (ph) {
+        var o = c.createOscillator();
+        o.type = "sine";
+        o.frequency.value = fq;
+        var g = c.createGain();
+        g.gain.value = 0.075;
+        o.connect(g); g.connect(master);
+        o.start(t + (ph / TWO_PI) * period);
+        o.stop(t + dur + 0.1);
+        oscs.push(o);
+      });
+    }
+    bankNodes = { oscs: oscs, master: master };
+    syncSound();
+    later(function () { if (bankNodes && bankNodes.master === master) { bankNodes = null; syncSound(); } },
+          (dur + 0.3) * 1000);
+
+    readBack();
+    document.getElementById("store-read").innerHTML =
+      "Beating the register against a reference standing where you wrote it. <b class='" +
+      (ringing === SLOTS ? "just-t" : "temp-t") + "'>" + ringing + " of " + SLOTS +
+      "</b> voices ringing; a drifted slot cancels toward silence, so what you hear is the message checking out.";
+  }
+
+  document.getElementById("b-listen").addEventListener("click", playVerify);
+
+  var bDecay = document.getElementById("b-decay");
+  bDecay.addEventListener("click", function () {
+    var on = bDecay.getAttribute("aria-pressed") === "true";
+    if (on) {
+      bDecay.setAttribute("aria-pressed", "false");
+      bDecay.textContent = "Let it decay";
+      setK(0.12);
+      return;
+    }
+    if (!bank.written) writeMessage(document.getElementById("msg").value);
+    bDecay.setAttribute("aria-pressed", "true");
+    bDecay.textContent = "Ease it back";
+    setK(2.0);
+  });
+
+  document.getElementById("b-reset").addEventListener("click", function () {
+    bank.written = false;
+    for (var i = 0; i < N; i++) { bank.dev[i] = 0; bank.stored[i] = 0; }
+    bDecay.setAttribute("aria-pressed", "false");
+    bDecay.textContent = "Let it decay";
+    setK(0.12);
+    buildSlots();
+    lastStoreText = "";
+    document.getElementById("store-read").textContent =
+      "Ten characters, held as phase offsets between eleven oscillators.";
+    stopBank();
+  });
+
+  // ══════════════════════════════════════════════════════════
+  //  BOOT
+  // ══════════════════════════════════════════════════════════
+
+  var lastT = performance.now();
+  var storeSync = 0, portraitSync = 0;
+  function tick(now) {
+    var dt = Math.min(0.05, (now - lastT) / 1000);
+    lastT = now;
+    bankStepPure(bank.phase, bank.dev, sharedK, dt);
+    if (!reduced) {
+      for (var j = 0; j < N; j++) {
+        phHist[j].push(bank.phase[j]);
+        if (phHist[j].length > TRAIL) phHist[j].shift();
+      }
+      drawPhase();
+    } else if (now - portraitSync > 200) {
+      portraitSync = now;
+      drawPhase();
+    }
+    if (bank.written && now - storeSync > 250) {
+      storeSync = now;
+      updateStoreRead();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function redrawAll() { drawSpiral(); drawMC(); drawSweep(); drawRecon(); drawBudget(); drawPhase(); }
+  window.addEventListener("resize", redrawAll);
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", redrawAll);
+  new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  setK(0.12);
+  redrawAll();
+  requestAnimationFrame(tick);
+  setStrobe(0, "Stripes stand still when the interval is pure. They crawl when it isn't.");
+})();
+</script>
