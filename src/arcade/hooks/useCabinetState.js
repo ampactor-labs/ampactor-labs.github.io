@@ -2,14 +2,17 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import useAmbientHum from "../useAmbientHum";
 import useIntroSequence from "../useIntroSequence";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
+import { SYSTEM_PROGRAMS, isSystemProgram } from "../../data/programs";
 import { BOOT_LINES } from "../constants";
-import { VISITED_KEY, hasVisited as readVisited } from "../zoom/coldOpen";
+import { hasVisited as readVisited, markVisited } from "../visited";
 
 // The detail screen's link rail, in focus order. Demo comes first when a project
 // has one, so A opens the running thing rather than the repo. DetailScreen renders
 // from this same list, so the rail's order and the focus index cannot drift apart.
+// An operator program declares its rail outright.
 export function detailLinksOf(p) {
   if (!p) return [];
+  if (p.links) return p.links;
   const links = [];
   // liveLabel overrides the pill text for demos that aren't pages —
   // 2-Top's slot serves an APK download, and the pill should say so.
@@ -21,49 +24,40 @@ export function detailLinksOf(p) {
 // One d-pad press of scroll on the detail body.
 const SCROLL_STEP = 72;
 
-// B on the select screen leaves the arcade. A B that just closed a detail
-// screen must not also leave it when the button is mashed.
+// B on the select screen steps back to the title card. A B that just closed a
+// detail screen must not also leave when the button is mashed.
 const EXIT_SETTLE_MS = 400;
 
 const SELECT_ROUTE = Object.freeze({ view: "arcade", screen: "select" });
 
-// The cabinet's state machine. Two things it does not own any more:
-//
-//   * where it stands — `mode` is "attract" while it is a miniature on the
-//     floor (no listeners, no audio, the attract loop on the tube) and "live"
-//     once it has zoomed in;
-//   * the URL — `route` says which screen the address bar wants, and the
-//     cabinet asks for changes through `onNavigate` intents ("open", "back",
-//     "exit", "select") instead of touching history itself. Boot and attract
-//     are the machine's own business and are not routes.
-//
-// `animating` is true while the cabinet is mid-zoom; every input is ignored
-// until it lands.
+// Which screen a cartridge or program opens on.
+const screenFor = (p) =>
+  p.interactive === "tunnelgame" ? "game" : isSystemProgram(p) ? "system" : "detail";
+
+// The cabinet's state machine. The machine is the whole page: the URL says
+// which screen the address bar wants (`route`), and the cabinet asks for
+// changes through `onNavigate` intents ("enter", "open", "back", "exit",
+// "select") instead of touching history itself. The boot is the machine's
+// own business and is not a route; the title card (attract mode) is home.
 export default function useCabinetState({
   screenRef,
   tunnelRef,
   logoRef,
   consoleRef,
   tubeRef = null,
-  mode = "live",
   route = SELECT_ROUTE,
   onNavigate = () => {},
-  animating = false,
-  introVariant = "console",
-  // The floor's first-visit show: the machine is powering on to be looked at,
-  // not played, so it makes no sound and takes no audio gesture.
-  coldOpen = false,
 }) {
-  const live = mode === "live";
+  const atHome = route.view === "home";
   const deepLinked = route.view === "arcade" && route.screen === "project";
 
-  // Whether the machine has booted for this visitor before. The floor's cold
-  // open marks it after this hook mounted, so it is read again until it holds.
-  const hasVisited = useRef(false);
-  if (!hasVisited.current) hasVisited.current = readVisited();
+  // Whether the machine has booted for this visitor before. A first visit
+  // powers on and prints the BIOS lines; after that it lands where the URL
+  // points. A deep link to a cartridge never boots either.
+  const hasVisited = useRef(readVisited());
   const [screen, setScreen] = useState(() => {
-    if (!live) return "attract";
-    return hasVisited.current || deepLinked ? "select" : "boot";
+    if (hasVisited.current || deepLinked) return atHome ? "attract" : "select";
+    return "boot";
   });
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -75,6 +69,9 @@ export default function useCabinetState({
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const [gameHighlight, setGameHighlight] = useState(false);
   const [linkIdx, setLinkIdx] = useState(0);
+  // The d-pad stepping the attract loop: a counter and a direction the
+  // attract screen reacts to.
+  const [attractNudge, setAttractNudge] = useState({ n: 0, dir: 1 });
   const coinTimerRefs = useRef([]);
   const screenTransitionRef = useRef(0);
   const lastBackRef = useRef(0);
@@ -86,52 +83,39 @@ export default function useCabinetState({
   // between re-subscribes, so it reads the focused index from a ref.
   const linkIdxRef = useRef(0);
   linkIdxRef.current = linkIdx;
+  const screenRefState = useRef(screen);
+  screenRefState.current = screen;
 
+  // No AudioContext for a visitor who only looks at the title card.
   const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum({
-    enabled: live && !coldOpen,
+    enabled: screen !== "attract",
   });
   const { introComplete, skipIntro } = useIntroSequence(
     logoRef,
     tunnelRef,
     consoleRef,
     {
-      active: live,
-      // A deep link to a cartridge skips the boot, like a returning visitor.
+      active: true,
+      // Only a first visit powers the machine on out of the dark.
       skip: hasVisited.current || deepLinked,
-      variant: introVariant,
+      variant: "console",
       tubeRef,
     },
   );
 
-  // Walking up to the machine or stepping away resets what the tube shows.
-  const prevModeRef = useRef(mode);
-  useEffect(() => {
-    if (prevModeRef.current === mode) return;
-    prevModeRef.current = mode;
-    if (live) {
-      setScreen(hasVisited.current || deepLinked ? "select" : "boot");
-    } else {
-      setScreen("attract");
-      setDetailProject(null);
-      setBootPhase(0);
-      setBootLine(0);
-    }
-  }, [mode, live, deepLinked]);
+  // Where the boot lands: the title card at home, the list anywhere else.
+  const afterBoot = atHome ? "attract" : "select";
 
-  // Write visited key on first boot → select transition
+  // Once the machine has booted for this visitor, remember it.
   useEffect(() => {
-    if (screen === "select" && !hasVisited.current) {
-      try {
-        localStorage.setItem(VISITED_KEY, "1");
-      } catch {
-        // Blocked storage: the boot plays again next time.
-      }
+    if (screen !== "boot" && !hasVisited.current) {
+      markVisited();
       hasVisited.current = true;
     }
   }, [screen]);
 
   const allProjects = useMemo(() => {
-    let result = [...PROJECTS];
+    let result = [...PROJECTS, ...SYSTEM_PROGRAMS];
     if (coinCount >= 1) result = [...result, HIDDEN_PROJECTS[0]];
     if (coinCount >= 2) result = [...result, HIDDEN_PROJECTS[1]];
     if (coinCount >= 3) result = [...result, HIDDEN_PROJECTS[2]];
@@ -140,16 +124,25 @@ export default function useCabinetState({
 
   const detailLinks = useMemo(() => detailLinksOf(detailProject), [detailProject]);
 
-  // The route decides between select, detail and game. A cartridge the
-  // machine does not have (a hidden program before the coin drops, a typo in
-  // the hash) is corrected to the select screen.
+  // The route decides between the title card, select, detail, system and
+  // game. A cartridge the machine does not have (a hidden program before the
+  // coin drops, a typo in the hash) is corrected to the select screen. The
+  // boot always finishes first.
   useEffect(() => {
-    if (!live || route.view !== "arcade") return;
+    if (screen === "boot") return;
+    if (route.view === "home") {
+      if (screen !== "attract") {
+        setDetailProject(null);
+        setScreen("attract");
+        if (screen !== "select") playBack();
+      }
+      return;
+    }
     if (route.screen === "project") {
       const idx = allProjects.findIndex((p) => p.id === route.id);
       if (idx === -1) {
-        // A link straight to a hidden program (/arcade/#tunnel-run from the
-        // floor) drops the coin for the visitor instead of refusing them.
+        // A link straight to a hidden program drops the coin for the
+        // visitor instead of refusing them.
         if (coinCount === 0 && HIDDEN_PROJECTS.some((p) => p.id === route.id)) {
           setCoinCount(3);
           return;
@@ -158,20 +151,21 @@ export default function useCabinetState({
         return;
       }
       const project = allProjects[idx];
-      const target = project.interactive === "tunnelgame" ? "game" : "detail";
+      const target = screenFor(project);
       if (detailProject?.id === project.id && screen === target) return;
       setSelectedIdx(idx);
       setDetailProject(project);
       setScreen(target);
-    } else if (screen === "detail" || screen === "game") {
+    } else if (screen !== "select") {
+      const wasOpen = screen === "detail" || screen === "game" || screen === "system";
       setDetailProject(null);
       setScreen("select");
-      playBack();
+      if (wasOpen) playBack();
     }
     // playBack and onNavigate are stable enough; screen and detailProject are
     // read to keep the effect idempotent, not to trigger it.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [live, route, allProjects]);
+  }, [route, allProjects]);
 
   // A fresh project opens with the demo focused (or the source, when that is the
   // only link), and the anchors from the last project must not linger.
@@ -216,15 +210,15 @@ export default function useCabinetState({
 
   // Boot phase 0: test pattern (450ms), then phase 1: text sequence
   useEffect(() => {
-    if (!live || screen !== "boot" || !introComplete) return;
+    if (screen !== "boot" || !introComplete) return;
     if (bootPhase === 0) {
       const t = setTimeout(() => setBootPhase(1), 450);
       return () => clearTimeout(t);
     }
-  }, [live, screen, bootPhase, introComplete]);
+  }, [screen, bootPhase, introComplete]);
 
   useEffect(() => {
-    if (!live || screen !== "boot" || bootPhase < 1) return;
+    if (screen !== "boot" || bootPhase < 1) return;
     const interval = setInterval(() => {
       setBootLine((prev) => {
         if (prev >= BOOT_LINES.length - 1) {
@@ -235,11 +229,9 @@ export default function useCabinetState({
       });
     }, 130);
     return () => clearInterval(interval);
-  }, [live, screen, bootPhase]);
+  }, [screen, bootPhase]);
 
-  // The screen's layout size drives the type scale. Layout size, not the
-  // bounding rect: on the floor the whole console is scaled down with a CSS
-  // transform, and the type must be laid out the same at both depths.
+  // The screen's layout size drives the type scale.
   useEffect(() => {
     const el = screenRef.current;
     if (!el) return;
@@ -260,7 +252,7 @@ export default function useCabinetState({
 
   // Skip intro on any key or click
   useEffect(() => {
-    if (!live || animating || introComplete) return;
+    if (introComplete) return;
     const skip = () => skipIntro();
     window.addEventListener("keydown", skip);
     window.addEventListener("pointerdown", skip);
@@ -268,17 +260,21 @@ export default function useCabinetState({
       window.removeEventListener("keydown", skip);
       window.removeEventListener("pointerdown", skip);
     };
-  }, [live, animating, introComplete, skipIntro]);
+  }, [introComplete, skipIntro]);
+
+  const finishBoot = () => {
+    screenTransitionRef.current = Date.now();
+    setScreen(afterBoot);
+  };
 
   // Boot screen: any key OR click/tap advances
   useEffect(() => {
-    if (!live || animating || !introComplete || screen !== "boot") return;
+    if (!introComplete || screen !== "boot") return;
     const advance = () => {
       if (bootPhase === 0) {
         setBootPhase(1);
       } else if (bootLine >= BOOT_LINES.length - 1) {
-        screenTransitionRef.current = Date.now();
-        setScreen("select");
+        finishBoot();
       }
     };
     window.addEventListener("keydown", advance);
@@ -287,10 +283,31 @@ export default function useCabinetState({
       window.removeEventListener("keydown", advance);
       window.removeEventListener("pointerdown", advance);
     };
-  }, [live, animating, introComplete, screen, bootPhase, bootLine]);
+    // finishBoot reads the route through afterBoot at call time.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [introComplete, screen, bootPhase, bootLine, afterBoot]);
+
+  // The last BIOS line printed, the machine moves on by itself after a beat.
+  useEffect(() => {
+    if (screen !== "boot" || bootPhase < 1 || bootLine < BOOT_LINES.length - 1)
+      return;
+    const t = setTimeout(finishBoot, 1400);
+    return () => clearTimeout(t);
+    // finishBoot reads the route through afterBoot at call time.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen, bootPhase, bootLine, afterBoot]);
 
   const isBootTransitioning = () =>
     Date.now() - screenTransitionRef.current < 500;
+
+  // START on the title card: the list, with the sting. No settle guard here:
+  // START is a deliberate control, not the any-key that ends the boot, so the
+  // next press on the list is meant.
+  const start = () => {
+    if (screenRefState.current !== "attract") return;
+    playEnter();
+    onNavigate({ type: "enter" });
+  };
 
   const openProject = (idx) => {
     const project = allProjects[idx];
@@ -300,8 +317,10 @@ export default function useCabinetState({
     onNavigate({ type: "open", id: project.id });
   };
 
+  const isOpen = (s) => s === "detail" || s === "game" || s === "system";
+
   const goBack = () => {
-    if (screen === "detail" || screen === "game") {
+    if (isOpen(screen)) {
       lastBackRef.current = Date.now();
       onNavigate({ type: "back" });
     } else if (screen === "select") {
@@ -313,70 +332,82 @@ export default function useCabinetState({
   const exitArcade = () => onNavigate({ type: "exit" });
 
   // The keyboard handler closes over this render's state and callbacks, so it
-  // is kept in a ref and the window listener, subscribed once per live/animating
-  // change, always calls the latest one.
+  // is kept in a ref and the window listener, subscribed once, always calls
+  // the latest one.
   const keyHandlerRef = useRef(null);
   keyHandlerRef.current = (e) => {
-      if (!introComplete) return;
-      if (screen === "game") return;
-      if (screen === "select") {
-        if (e.key === "ArrowUp") {
-          e.preventDefault();
-          setSelectedIdx(
-            (i) => (i - 1 + allProjects.length) % allProjects.length,
-          );
-          playBlip();
-        } else if (e.key === "ArrowDown") {
-          e.preventDefault();
-          setSelectedIdx((i) => (i + 1) % allProjects.length);
-          playBlip();
-        } else if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          if (!isBootTransitioning()) openProject(selectedIdx);
-        } else if (e.key === "Escape") {
-          exitArcade();
-        }
+    if (!introComplete) return;
+    if (screen === "game" || screen === "boot") return;
+    if (screen === "attract") {
+      // A link on the title card keeps its own Enter.
+      if (e.target instanceof HTMLElement && e.target.closest("a")) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        start();
+      } else if (e.key === "ArrowRight") {
+        setAttractNudge((v) => ({ n: v.n + 1, dir: 1 }));
+      } else if (e.key === "ArrowLeft") {
+        setAttractNudge((v) => ({ n: v.n + 1, dir: -1 }));
       }
-      if (screen === "detail") {
-        // Arrows drive the same two things the d-pad does: up/down scroll the
-        // body, left/right walk the link rail. None of these are synth note
-        // keys, so they are safe even while the synth is being played.
-        if (e.key === "ArrowUp") {
-          e.preventDefault();
-          scrollDetail(-1);
-        } else if (e.key === "ArrowDown") {
-          e.preventDefault();
-          scrollDetail(1);
-        } else if (e.key === "ArrowLeft") {
-          moveLink(-1);
-        } else if (e.key === "ArrowRight") {
-          moveLink(1);
-        } else if (e.key === "Enter") {
-          e.preventDefault();
-          activateLink();
-        }
+      return;
+    }
+    if (screen === "select") {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelectedIdx(
+          (i) => (i - 1 + allProjects.length) % allProjects.length,
+        );
+        playBlip();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSelectedIdx((i) => (i + 1) % allProjects.length);
+        playBlip();
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (!isBootTransitioning()) openProject(selectedIdx);
+      } else if (e.key === "Escape") {
+        exitArcade();
       }
-      const isSynth = detailProject?.interactive === "synth";
-      // Synth is keyboard-playable; "b" is not one of its note keys, so it is
-      // safe as a back shortcut there. Backspace is excluded while playing to
-      // avoid surprises.
-      if (
-        screen === "detail" &&
-        (e.key === "Escape" ||
-          e.key === "b" ||
-          e.key === "B" ||
-          (e.key === "Backspace" && !isSynth))
-      ) {
-        goBack();
+    }
+    if (screen === "detail" || screen === "system") {
+      // Arrows drive the same two things the d-pad does: up/down scroll the
+      // body, left/right walk the link rail. None of these are synth note
+      // keys, so they are safe even while the synth is being played.
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        scrollDetail(-1);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        scrollDetail(1);
+      } else if (e.key === "ArrowLeft") {
+        moveLink(-1);
+      } else if (e.key === "ArrowRight") {
+        moveLink(1);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        activateLink();
       }
+    }
+    const isSynth = detailProject?.interactive === "synth";
+    // Synth is keyboard-playable; "b" is not one of its note keys, so it is
+    // safe as a back shortcut there. Backspace is excluded while playing to
+    // avoid surprises.
+    if (
+      (screen === "detail" || screen === "system") &&
+      (e.key === "Escape" ||
+        e.key === "b" ||
+        e.key === "B" ||
+        (e.key === "Backspace" && !isSynth))
+    ) {
+      goBack();
+    }
   };
 
   useEffect(() => {
-    if (!live || animating) return;
     const handler = (e) => keyHandlerRef.current?.(e);
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [live, animating]);
+  }, []);
 
   // Fade console in/out for game mode
   useEffect(() => {
@@ -401,8 +432,10 @@ export default function useCabinetState({
     };
   }, []);
 
+  // The coin: credit accepted, three programs unlocked, the last one lit.
+  // Dropped on the title card it also starts the machine, as a coin would.
   const insertCoin = () => {
-    if (!live || !introComplete || screen === "boot" || coinCount >= 1) return;
+    if (!introComplete || screen === "boot" || coinCount >= 1) return;
     setCoinCount(3);
     setGlitching(true);
     setAnnouncing(3);
@@ -410,13 +443,15 @@ export default function useCabinetState({
     const t2 = setTimeout(() => setAnnouncing(null), 2800);
     playInsertSting(3);
     const t3 = setTimeout(() => {
-      const gameIdx = PROJECTS.length + HIDDEN_PROJECTS.length - 1;
+      const gameIdx =
+        PROJECTS.length + SYSTEM_PROGRAMS.length + HIDDEN_PROJECTS.length - 1;
       setSelectedIdx(gameIdx);
       setGameHighlight(true);
       const t4 = setTimeout(() => setGameHighlight(false), 2000);
       coinTimerRefs.current.push(t4);
     }, 3000);
     coinTimerRefs.current.push(t1, t2, t3);
+    if (screen === "attract") onNavigate({ type: "enter" });
   };
 
   const hoverSelect = (idx) => {
@@ -430,66 +465,66 @@ export default function useCabinetState({
     }
   };
 
-  // Boot advancement: phase 0 → 1 → select
+  // Boot advancement: phase 0 → 1 → where the URL points
   const advanceBoot = () => {
     if (bootPhase === 0) setBootPhase(1);
-    else if (bootLine >= BOOT_LINES.length - 1) {
-      screenTransitionRef.current = Date.now();
-      setScreen("select");
-    }
+    else if (bootLine >= BOOT_LINES.length - 1) finishBoot();
   };
 
   // D-pad navigation. On select it walks the project list; on detail the same
   // four buttons scroll the body and walk the link rail, because a d-pad that
-  // does nothing on the screen you just opened reads as broken.
+  // does nothing on the screen you just opened reads as broken. On the title
+  // card left and right step the attract loop.
   const navUp = () => {
-    if (animating) return;
     if (screen === "select")
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
-    else if (screen === "detail") scrollDetail(-1);
+    else if (screen === "detail" || screen === "system") scrollDetail(-1);
     else if (
       screen === "boot" &&
       bootPhase > 0 &&
       bootLine >= BOOT_LINES.length - 1
     )
-      setScreen("select");
+      finishBoot();
   };
 
   const navDown = () => {
-    if (animating) return;
     if (screen === "select")
       setSelectedIdx((i) => (i + 1) % allProjects.length);
-    else if (screen === "detail") scrollDetail(1);
+    else if (screen === "detail" || screen === "system") scrollDetail(1);
   };
 
   // Left falls through to Back when there is no rail to walk, so the hidden
   // projects (no demo, no source) keep their escape hatch.
   const navLeft = () => {
-    if (animating) return;
-    if (screen === "detail" && moveLink(-1)) return;
+    if (screen === "attract") {
+      setAttractNudge((v) => ({ n: v.n + 1, dir: -1 }));
+      return;
+    }
+    if ((screen === "detail" || screen === "system") && moveLink(-1)) return;
     goBack();
   };
 
   const navRight = () => {
-    if (animating) return;
-    if (screen === "detail") {
+    if (screen === "attract") {
+      setAttractNudge((v) => ({ n: v.n + 1, dir: 1 }));
+    } else if (screen === "detail" || screen === "system") {
       moveLink(1);
     } else if (screen === "select" && !isBootTransitioning()) {
       openProject(selectedIdx);
     }
   };
 
-  // A: advance the boot, open the selected project, or open the focused link.
+  // A: start the machine, advance the boot, open the selected program, or
+  // open the focused link.
   const pressA = () => {
-    if (animating) return;
-    if (screen === "boot") advanceBoot();
+    if (screen === "attract") start();
+    else if (screen === "boot") advanceBoot();
     else if (screen === "select") {
       if (!isBootTransitioning()) openProject(selectedIdx);
-    } else if (screen === "detail") activateLink();
+    } else if (screen === "detail" || screen === "system") activateLink();
   };
 
   return {
-    mode,
     screen,
     bootPhase,
     bootLine,
@@ -501,10 +536,12 @@ export default function useCabinetState({
     dims,
     gameHighlight,
     allProjects,
+    attractNudge,
     fs,
     introComplete,
     skipIntro,
     insertCoin,
+    start,
     openProject,
     goBack,
     exitGame,

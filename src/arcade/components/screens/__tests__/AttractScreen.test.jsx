@@ -1,10 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, fireEvent } from "@testing-library/react";
 import AttractScreen, {
+  FRAMES,
+  FEATURED,
   frameDuration,
   nextFrame,
+  topScores,
 } from "../AttractScreen";
 import { PROJECTS } from "../../../../data/projects";
+import { summary } from "../../../../data/receiptsSummary";
 
 const fs = (n) => n;
 
@@ -16,42 +20,83 @@ describe("AttractScreen", () => {
     vi.useRealTimers();
   });
 
-  it("cycles test pattern → PRESS START → each cartridge → round again", () => {
-    const three = PROJECTS.slice(0, 3);
-    render(<AttractScreen projects={three} fs={fs} />);
-    const el = screen.getByTestId("attract-screen");
-    expect(el.dataset.frame).toBe("0");
-
-    act(() => vi.advanceTimersByTime(frameDuration(0)));
-    expect(el.dataset.frame).toBe("1");
-    expect(screen.getByText("PRESS START")).toBeInTheDocument();
-
-    act(() => vi.advanceTimersByTime(frameDuration(1)));
-    expect(el.dataset.frame).toBe("2");
-    expect(screen.getByText(three[0].title)).toBeInTheDocument();
-
-    act(() => vi.advanceTimersByTime(frameDuration(2)));
-    expect(screen.getByText(three[1].title)).toBeInTheDocument();
-    act(() => vi.advanceTimersByTime(frameDuration(3)));
-    expect(screen.getByText(three[2].title)).toBeInTheDocument();
-
-    act(() => vi.advanceTimersByTime(frameDuration(4)));
-    expect(el.dataset.frame).toBe("0");
+  it("opens on the title card, with the name as the page's heading", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} />);
+    expect(screen.getByTestId("attract-screen").dataset.frame).toBe("title");
+    expect(
+      screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
+    ).toBeVisible();
+    expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "ampactorlabs@gmail.com" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
   });
 
-  it("holds a static PRESS START under reduced motion", () => {
+  it("cycles title → how to play → four cartridges → high scores → round again", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} />);
+    const el = screen.getByTestId("attract-screen");
+    let frame = 0;
+    const advance = () => {
+      act(() => vi.advanceTimersByTime(frameDuration(frame)));
+      frame = nextFrame(frame);
+    };
+    advance();
+    expect(el.dataset.frame).toBe("howto");
+    expect(screen.getByText("DOCUMENTED LIMITS")).toBeInTheDocument();
+    for (let i = 0; i < FEATURED; i++) {
+      advance();
+      expect(el.dataset.frame).toBe("show");
+      expect(screen.getByText(PROJECTS[i].title)).toBeInTheDocument();
+    }
+    advance();
+    expect(el.dataset.frame).toBe("scores");
+    expect(screen.getByText(topScores(1)[0].repo, { exact: false })).toBeInTheDocument();
+    advance();
+    expect(el.dataset.frame).toBe("title");
+    // The heading is in the document on every frame, shown only on the title.
+    expect(screen.getByRole("heading", { level: 1 })).toBeVisible();
+    // The next pass shows the next cartridges.
+    for (let i = 0; i < 2; i++) advance();
+    expect(screen.getByText(PROJECTS[FEATURED].title)).toBeInTheDocument();
+  });
+
+  it("holds the title card under reduced motion, with a static PRESS START", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} reducedMotion />);
     const el = screen.getByTestId("attract-screen");
-    expect(el.dataset.frame).toBe("1");
-    act(() => vi.advanceTimersByTime(20000));
-    expect(el.dataset.frame).toBe("1");
-    expect(screen.getByText("PRESS START").style.animation).toBe("");
+    act(() => vi.advanceTimersByTime(60000));
+    expect(el.dataset.frame).toBe("title");
+    expect(screen.getByRole("button", { name: "PRESS START" }).style.animation).toBe("");
   });
 
-  it("nextFrame wraps after the last cartridge", () => {
-    expect(nextFrame(0, 3)).toBe(1);
-    expect(nextFrame(1, 3)).toBe(2);
-    expect(nextFrame(4, 3)).toBe(0);
-    expect(nextFrame(1, 0)).toBe(0);
+  it("starts on the button, on the tube, but not on the email link", () => {
+    const onStart = vi.fn();
+    render(<AttractScreen projects={PROJECTS} fs={fs} onStart={onStart} />);
+    fireEvent.click(screen.getByRole("button", { name: "PRESS START" }));
+    expect(onStart).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByText("SOFTWARE ENGINEER"));
+    expect(onStart).toHaveBeenCalledTimes(2);
+    fireEvent.click(screen.getByRole("link", { name: "ampactorlabs@gmail.com" }));
+    expect(onStart).toHaveBeenCalledTimes(2);
+  });
+
+  it("steps the loop either way when nudged", () => {
+    const { rerender } = render(
+      <AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 0, dir: 1 }} />,
+    );
+    const el = screen.getByTestId("attract-screen");
+    rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 1, dir: 1 }} />);
+    expect(el.dataset.frame).toBe("howto");
+    rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 2, dir: -1 }} />);
+    expect(el.dataset.frame).toBe("title");
+    rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 3, dir: -1 }} />);
+    expect(el.dataset.frame).toBe(FRAMES[FRAMES.length - 1]);
+  });
+
+  it("nextFrame wraps, and the high scores are the ledger's top repositories", () => {
+    expect(nextFrame(0)).toBe(1);
+    expect(nextFrame(FRAMES.length - 1)).toBe(0);
+    const top = topScores(3);
+    expect(top).toHaveLength(3);
+    expect(top[0].commits).toBeGreaterThanOrEqual(top[1].commits);
+    expect(summary.byRepo.some((r) => r.repo === top[0].repo)).toBe(true);
   });
 });

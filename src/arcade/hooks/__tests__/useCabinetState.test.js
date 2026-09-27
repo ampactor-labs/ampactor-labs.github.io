@@ -3,6 +3,7 @@ import { useState } from "react";
 import { renderHook, act } from "@testing-library/react";
 import useCabinetState from "../useCabinetState";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../../data/projects";
+import { SYSTEM_PROGRAMS } from "../../../data/programs";
 import { BOOT_LINES } from "../../constants";
 
 // Mock heavy dependencies
@@ -23,7 +24,7 @@ vi.mock("../../useIntroSequence", () => ({
 }));
 
 const SELECT = { view: "arcade", screen: "select" };
-const FLOOR = { view: "floor" };
+const HOME = { view: "home" };
 const project = (id) => ({ view: "arcade", screen: "project", id });
 
 function makeRef(value = null) {
@@ -60,7 +61,8 @@ describe("useCabinetState", () => {
         if (intent.type === "open") setRoute(project(intent.id));
         else if (intent.type === "back" || intent.type === "select")
           setRoute(SELECT);
-        else if (intent.type === "exit") setRoute(FLOOR);
+        else if (intent.type === "exit") setRoute(HOME);
+        else if (intent.type === "enter") setRoute(SELECT);
       };
       const state = useCabinetState({
         screenRef,
@@ -98,9 +100,11 @@ describe("useCabinetState", () => {
     expect(result.current.coinCount).toBe(0);
   });
 
-  it("starts with only PROJECTS visible (no coins)", () => {
+  it("starts with the cartridges and the operator programs, no hidden ones", () => {
     const { result } = renderCabinet();
-    expect(result.current.allProjects.length).toBe(PROJECTS.length);
+    expect(result.current.allProjects.length).toBe(
+      PROJECTS.length + SYSTEM_PROGRAMS.length,
+    );
   });
 
   it("insertCoin unlocks all 3 hidden projects", () => {
@@ -111,7 +115,7 @@ describe("useCabinetState", () => {
     });
     expect(result.current.coinCount).toBe(3);
     expect(result.current.allProjects.length).toBe(
-      PROJECTS.length + HIDDEN_PROJECTS.length,
+      PROJECTS.length + SYSTEM_PROGRAMS.length + HIDDEN_PROJECTS.length,
     );
   });
 
@@ -190,7 +194,7 @@ describe("useCabinetState", () => {
         window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
       });
       expect(intents.at(-1)).toEqual({ type: "exit" });
-      expect(result.current.route).toEqual(FLOOR);
+      expect(result.current.route).toEqual(HOME);
     });
 
     it("B on the select screen leaves, but not right after closing a detail", () => {
@@ -268,64 +272,82 @@ describe("useCabinetState", () => {
     });
   });
 
-  describe("attract mode", () => {
-    it("shows the attract loop and takes no input", () => {
-      const { result, intents } = renderCabinet({
-        mode: "attract",
-        initialRoute: FLOOR,
-      });
+  describe("the title card", () => {
+    // A returning visitor: the machine has booted for them before, so it
+    // lands where the URL points.
+    beforeEach(() => localStorage.setItem("ampactor_visited", "1"));
+
+    it("is home: Enter, A and a tap start the machine", () => {
+      const { result, intents } = renderCabinet({ initialRoute: HOME });
       expect(result.current.screen).toBe("attract");
       act(() => {
-        window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
         window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
       });
-      expect(result.current.selectedIdx).toBe(0);
-      expect(intents).toEqual([]);
-      act(() => {
-        result.current.insertCoin();
-        result.current.pressA();
-        result.current.navDown();
-      });
-      expect(result.current.coinCount).toBe(0);
-      expect(result.current.selectedIdx).toBe(0);
+      expect(intents).toEqual([{ type: "enter" }]);
+      expect(result.current.screen).toBe("select");
     });
 
-    it("boots when it goes live, and returns to attract when it leaves", () => {
-      const { result, rerender } = renderHook(
-        ({ mode }) =>
-          useCabinetState({
-            screenRef,
-            tunnelRef,
-            logoRef,
-            consoleRef,
-            mode,
-            route: mode === "live" ? SELECT : FLOOR,
-          }),
-        { initialProps: { mode: "attract" } },
-      );
+    it("A on the panel starts it too", () => {
+      const { result, intents } = renderCabinet({ initialRoute: HOME });
+      act(() => result.current.pressA());
+      expect(intents).toEqual([{ type: "enter" }]);
+    });
+
+    it("left and right step the attract loop instead of the list", () => {
+      const { result, intents } = renderCabinet({ initialRoute: HOME });
+      act(() => {
+        result.current.navRight();
+        result.current.navLeft();
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
+      });
+      expect(result.current.attractNudge).toEqual({ n: 3, dir: 1 });
+      expect(result.current.selectedIdx).toBe(0);
+      expect(intents).toEqual([]);
+    });
+
+    it("a coin on the title card is credit accepted and the machine starts", () => {
+      const { result, intents } = renderCabinet({ initialRoute: HOME });
+      act(() => result.current.insertCoin());
+      expect(result.current.coinCount).toBe(3);
+      expect(intents).toEqual([{ type: "enter" }]);
+      expect(result.current.allProjects.map((p) => p.id)).toContain("tunnel-run");
+    });
+
+    it("B on the list steps back to the title card", () => {
+      const { result, intents } = renderCabinet({ initialRoute: HOME });
+      act(() => result.current.pressA());
+      expect(result.current.screen).toBe("select");
+      act(() => result.current.goBack());
+      expect(intents.at(-1)).toEqual({ type: "exit" });
       expect(result.current.screen).toBe("attract");
-      rerender({ mode: "live" });
+    });
+
+    it("a first visit boots, then lands on the title card at home", () => {
+      localStorage.clear();
+      const { result } = renderCabinet({ initialRoute: HOME });
       expect(result.current.screen).toBe("boot");
       bootToSelect(result);
-      expect(result.current.screen).toBe("select");
-      expect(localStorage.getItem("ampactor_visited")).toBe("1");
-      rerender({ mode: "attract" });
       expect(result.current.screen).toBe("attract");
-      rerender({ mode: "live" });
-      // A visitor who has already booted once is not made to sit through it again.
-      expect(result.current.screen).toBe("select");
+      expect(localStorage.getItem("ampactor_visited")).toBe("1");
     });
 
-    it("ignores the controls while the zoom is animating", () => {
-      const { result, intents } = renderCabinet({ animating: true });
-      bootToSelect(result);
+    // Each act() flushes the state the timers queued, so the BIOS lines, the
+    // beat after the last one, and the landing are three separate advances.
+    it("the boot moves on by itself after the last line", () => {
+      localStorage.clear();
+      const { result } = renderCabinet({ initialRoute: SELECT });
+      expect(result.current.screen).toBe("boot");
       act(() => {
-        result.current.pressA();
-        result.current.navDown();
-        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+        vi.advanceTimersByTime(900); // test pattern → the first BIOS line
       });
-      expect(intents).toEqual([]);
-      expect(result.current.selectedIdx).toBe(0);
+      act(() => {
+        vi.advanceTimersByTime((BOOT_LINES.length - 1) * 130 + 50); // every line printed
+      });
+      expect(result.current.screen).toBe("boot");
+      act(() => {
+        vi.advanceTimersByTime(1500); // the beat after READY.
+      });
+      expect(result.current.screen).toBe("select");
     });
   });
 

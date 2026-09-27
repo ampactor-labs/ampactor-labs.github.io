@@ -25,10 +25,6 @@ test("the case study is accessible and quotes the measured numbers", async ({
   await expect(
     tiles.getByRole("listitem").filter({ hasText: "Browser test runs" }),
   ).toContainText(n(audit.tests.browserRuns));
-  const figure = page.getByRole("figure");
-  await expect(figure.getByRole("img", { name: /^On the page/ })).toBeVisible();
-  await expect(figure.getByRole("img", { name: /^Open:/ })).toBeVisible();
-
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -58,12 +54,15 @@ test("with the lights on, the case study still passes axe", async ({
   ).toEqual([]);
 });
 
-test("the contents go to each chapter, and the floor links here", async ({
+test("the contents go to each chapter, and HOW TO PLAY links here", async ({
   page,
 }) => {
   await page.addInitScript(() => localStorage.setItem("ampactor_visited", "1"));
-  await page.goto("/");
-  await page.getByRole("link", { name: /^How this site is built/ }).click();
+  await page.goto("/arcade/#how-to-play");
+  await expect(
+    page.getByRole("heading", { level: 2, name: "HOW TO PLAY" }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: /HOW THIS CABINET IS BUILT/ }).click();
   await expect(page).toHaveURL(/\/craft\/$/);
 
   await page

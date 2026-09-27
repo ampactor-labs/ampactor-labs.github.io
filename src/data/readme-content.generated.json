@@ -99,7 +99,7 @@
   },
   "freestyle-engine": {
     "status": "prototype",
-    "statusNote": "The baseline, the drills, transcript scoring and the daily plan run end to end, but saved recordings cannot be decoded, so the audio analysis and playback do not work yet.",
+    "statusNote": "The baseline, the drills, transcript and audio scoring, playback and the daily plan run end to end, but the timing measure has gaps and parts of the planner do not work as designed (see Limitations).",
     "desc": "A browser app for practising freestyle rap over a beat that scores each take for rhyme and vocabulary and plans the next drills from a 21-skill profile. It is built for deliberate practice, which means training one named weakness at a time with feedback on every attempt. It runs in the browser without an account, and its scores come from hand-written rules. It is written in TypeScript with a plain DOM interface over the browser's Web Audio, MediaRecorder, Web Speech and IndexedDB APIs.",
     "operatorNote": "Every score is a proxy: a number that stands in for a quality the engine cannot judge. Rhyme, vocabulary and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar, one line of a verse, was good.",
     "summary": "A browser app for practising freestyle rap over a beat that scores each take for rhyme and vocabulary and plans the next drills from a 21-skill profile."

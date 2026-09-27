@@ -1,4 +1,4 @@
-/* Page-level base styles for every entry (the floor, the arcade, Receipts).
+/* Page-level base styles for every entry (the cabinet, Receipts, Craft).
    Tokens come from public/tokens.css and src/styles/theme.css. */
 
 *,
@@ -8,8 +8,8 @@
 }
 
 html {
-  /* Reserve the scrollbar's gutter so locking scroll (the zoomed cabinet)
-     never shifts the layout underneath. */
+  /* Reserve the scrollbar's gutter so a page's scrollbar never shifts its
+     layout. */
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
@@ -35,12 +35,10 @@ body {
   overflow-x: hidden;
 }
 
-/* A first visit opens inside the cabinet (src/arcade/zoom/coldOpen.ts): the
-   pre-paint script marks <html> and the room starts dark in either theme,
-   the same radial the cabinet's backdrop paints, so the first frame and the
-   machine's room are one. The mark comes off as the camera pulls back, and
-   the lights come on under the fading backdrop. */
-html[data-cold-open] body {
+/* The cabinet's pages (src/data/site.js marks them `stage`): the room is
+   dark from the first paint in either theme, the same radial the stage's
+   backdrop paints, so the first frame and the machine's room are one. */
+html[data-stage] body {
   background: radial-gradient(
     ellipse at 50% 40%,
     #1d2021 0%,
@@ -90,8 +88,8 @@ svg {
   border: 0;
 }
 
-/* One site, not three documents. Moving between the floor, the ledger and
-   the arcade's own URL crossfades instead of cutting: the old page fades as
+/* One site, not three documents. Moving between the cabinet, the ledger and
+   the case study crossfades instead of cutting: the old page fades as
    the new one rises into place, and the header (named in Floor.module.css)
    holds still across the change. Both pages opt in; a browser without
    cross-document view transitions gets the plain cut it always had. */
@@ -122,11 +120,11 @@ svg {
   }
 }
 
-/* Below the hero, each block settles into place as it scrolls into view,
+/* On the flat pages, each block settles into place as it scrolls into view,
    driven by the scroll position itself (no script, off the main thread).
    It moves with `translate`, not `transform`, so it composes with a card's
-   own hover lift. Never used on the hero or anything around the cabinet: a
-   transform there would re-parent its fixed backdrop. */
+   own hover lift. Never used inside the cabinet: a transform there would
+   re-parent the game's fixed overlays. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .reveal {

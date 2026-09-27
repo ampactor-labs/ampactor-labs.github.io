@@ -10,7 +10,6 @@ import {
   renderSitemap,
 } from "./src/data/site.js";
 import { PREPAINT_SCRIPT } from "./src/lib/theme.ts";
-import { COLD_OPEN_SCRIPT } from "./src/arcade/zoom/coldOpen.ts";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const bootShim = readFileSync(resolve(root, "src/head/boot-shim.js"), "utf8");
@@ -41,7 +40,6 @@ function siteHead() {
             "<!-- site:head -->",
             renderHead(entry, {
               prepaint: PREPAINT_SCRIPT,
-              coldOpen: COLD_OPEN_SCRIPT,
               bootShim,
               tokens,
             }),

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-27T00:47:02.222Z",
+  "generatedAt": "2026-09-27T15:06:05.371Z",
   "totals": {
-    "commits": 3912,
+    "commits": 3932,
     "repos": 17,
-    "additions": 2424521,
-    "deletions": 1311813,
+    "additions": 2428459,
+    "deletions": 1312703,
     "first": "2026-01-25T00:58:13-07:00",
-    "last": "2026-09-27T00:43:21+00:00",
-    "withClaude": 219,
-    "checked": 15
+    "last": "2026-09-27T14:05:21+00:00",
+    "withClaude": 235,
+    "checked": 28
   },
   "months": [
     {
@@ -45,7 +45,7 @@
     },
     {
       "month": "2026-09",
-      "commits": 256
+      "commits": 276
     }
   ],
   "byRepo": [
@@ -71,7 +71,7 @@
     },
     {
       "repo": "site",
-      "commits": 124
+      "commits": 142
     },
     {
       "repo": "perennials",
@@ -102,6 +102,10 @@
       "commits": 13
     },
     {
+      "repo": "freestyle-engine",
+      "commits": 7
+    },
+    {
       "repo": "landed",
       "commits": 7
     },
@@ -110,43 +114,39 @@
       "commits": 6
     },
     {
-      "repo": "freestyle-engine",
-      "commits": 5
-    },
-    {
       "repo": "understory",
       "commits": 4
     }
   ],
   "site": [
     {
-      "sha": "4f7144d",
-      "date": "2026-09-25T21:58:55+00:00",
-      "subject": "readmes: a checker for one README file, and the steps for moving one",
-      "checked": "vitest 243/243 (4 new); sync-readmes --check: card content unchanged against the live READMEs; the CLI exits 1 with 4 renames on landed's README and 0 on a README that meets the standard; lint 0 errors; tsc clean; build; Playwright 68/68; /craft/ 98 (median of 5)."
+      "sha": "b8376c8",
+      "date": "2026-09-27T14:05:21+00:00",
+      "subject": "scripts: repo-metadata.mjs sets GitHub descriptions, homepages and topics from the READMEs",
+      "checked": "node scripts/repo-metadata.mjs prints 18 commands; eslint clean."
     },
     {
-      "sha": "9891e04",
-      "date": "2026-09-25T21:11:45+00:00",
-      "subject": "readmes: survive a dropped connection instead of failing the build",
-      "checked": "reproduced the failure by preloading a fetch that always throws ECONNRESET: the previous script dies with \"TypeError: fetch failed\", this one exits 0 with the generated file byte-identical and \"16 kept from the last sync (network error)\". vitest 239 passed (new: retry then success, a network that stays down, a 404 falling through to the other branch, a 503 retried), eslint 0 errors (4 pre-existing arcade warnings), tsc clean, Playwright 68 passed on desktop 1280x800 and Pixel 7, and npm run audit on this build (median of 5): / 96, /receipts/ 96, /craft/ 98, accessibility, best practices and SEO 100, CLS 0."
+      "sha": "71bf3d9",
+      "date": "2026-09-27T14:04:00+00:00",
+      "subject": "floor: a direct way to the game, and 44px touch targets on phones",
+      "checked": "lint, typecheck, vitest 252/252, Playwright 68/68 on desktop and phone; in headless Chromium at the iPhone 13 profile the link is 44.6px tall and opens the game from the floor and from a cold load."
     },
     {
-      "sha": "a516e7a",
-      "date": "2026-09-25T21:01:47+00:00",
-      "subject": "readmes: one README standard for every project, checked at build",
-      "checked": "vitest 235 passed (new: 8 tests for the checker, the rename tier, Usage standing in for Quick start, code blocks ignored; the DetailScreen snapshot changes only mentl's description and note), eslint 0 errors (4 pre-existing arcade warnings), tsc clean, Playwright 68 passed on desktop 1280x800 and Pixel 7, readmes:report run against all 16 repositories (0 meet the standard, 16 sync at least their status), and npm run audit on this build (median of 5): / 96, /receipts/ 97, /craft/ 98, accessibility, best practices and SEO 100, CLS 0."
+      "sha": "5eba71c",
+      "date": "2026-09-27T14:04:00+00:00",
+      "subject": "résumé: a PDF to attach, two printed pages, and TokenSafe claims only what is true",
+      "checked": "npm run build then npm run resume:pdf reports 2 pages; resume:check up to date; vitest 252/252."
     },
     {
-      "sha": "6cbf520",
-      "date": "2026-09-25T20:22:04+00:00",
-      "subject": "copy: plain, checkable wording across the site, résumé and README",
-      "checked": "vitest 227 passed (the SelectScreen snapshot changes only the title and the mailto link), eslint 0 errors (4 pre-existing arcade warnings), tsc clean, résumé regenerated and --check clean, Playwright 68 passed on desktop 1280x800 and Pixel 7, npm run audit on this build (median of 5): / 96, /receipts/ 96, /craft/ 98, with accessibility, best practices and SEO 100 and CLS 0 on all three. The home, commits and craft pages"
+      "sha": "c638192",
+      "date": "2026-09-27T14:03:44+00:00",
+      "subject": "404: the cabinet's cartridge-not-found screen, with the way back",
+      "checked": "rendered in headless Chromium at the iPhone 13 profile in both themes."
     },
     {
-      "sha": "d856ab1",
-      "date": "2026-09-25T19:40:23+00:00",
-      "subject": "craft: how this site is made, measured by the build that ships it",
+      "sha": "baa5f2c",
+      "date": "2026-09-27T05:02:14+00:00",
+      "subject": "comma: copy the canvas-height fix so the page stops growing on phones",
       "checked": null
     }
   ]

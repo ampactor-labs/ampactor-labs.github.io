@@ -3,22 +3,16 @@ import ThemeToggle from "../ui/ThemeToggle";
 import { CONTACT } from "../data/profile";
 import styles from "./Floor.module.css";
 
-// The same header on every page. On the floor the ARCADE control zooms the
-// cabinet in place; anywhere else it is a plain link to /arcade/, and the
-// section anchors point back at the floor.
+// The same header on every flat page (the ledger, the case study). The
+// cabinet itself has no header: it is the page, and the A-mark here leads
+// back to it.
 export default function Header({
-  inert = false,
-  onEnterArcade,
-  current = "floor",
+  current,
 }: {
-  inert?: boolean;
-  onEnterArcade?: () => void;
-  current?: "floor" | "receipts" | "craft";
+  current: "receipts" | "craft";
 }) {
-  const home = current === "floor";
-  const anchor = (id: string) => (home ? `#${id}` : `/#${id}`);
   return (
-    <header className={styles.header} inert={inert || undefined}>
+    <header className={styles.header}>
       <a href="#main" className={styles.skip}>
         Skip to content
       </a>
@@ -27,9 +21,7 @@ export default function Header({
         <span>AMPACTOR</span>
       </a>
       <nav className={styles.nav} aria-label="Site">
-        <a href={anchor("work")} className={styles.navNarrowHide}>
-          WORK
-        </a>
+        <a href="/arcade/">ARCADE</a>
         <a
           href="/receipts/"
           aria-current={current === "receipts" ? "page" : undefined}
@@ -42,17 +34,6 @@ export default function Header({
         >
           CRAFT
         </a>
-        {onEnterArcade ? (
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={onEnterArcade}
-          >
-            ARCADE
-          </button>
-        ) : (
-          <a href="/arcade/">ARCADE</a>
-        )}
         {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
             that is also its name: what a voice-control user says is what is
             on screen. The résumé keeps its accents everywhere else. */}

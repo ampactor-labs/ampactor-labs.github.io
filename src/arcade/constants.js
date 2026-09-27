@@ -1,7 +1,7 @@
 // Ticker copy for the select screen and the attract loop — rendered twice
 // back-to-back so the crawl loops seamlessly and text is on screen from t=0.
 export const MARQUEE_TEXT =
-  "MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com";
+  "MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML EXPERIMENT · AVAILABLE FOR FULL-TIME OR CONTRACT · ampactorlabs@gmail.com";
 
 // Boot log discipline: every project line is a claim that stays literally
 // true (the cartridge and README carry the receipts). Lines are dot-aligned
@@ -25,5 +25,5 @@ export const BOOT_LINES = [
   "",
   "DSP · EMBEDDED · SECURITY · COMPILERS ·  WEB3",
   "",
-  "PRESS ANY KEY",
+  "READY.",
 ];

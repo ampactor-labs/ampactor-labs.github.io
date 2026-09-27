@@ -22,6 +22,12 @@ export default function SelectScreen({
       });
   }, [selectedIdx]);
 
+  // The list is the screen's one control, so it takes focus when the screen
+  // comes up: the arrow keys land, and a screen reader hears the active row.
+  useEffect(() => {
+    listRef.current?.focus({ preventScroll: true });
+  }, []);
+
   useEffect(() => {
     if (coinCount > 0 && listRef.current) {
       setTimeout(() => {
@@ -35,64 +41,43 @@ export default function SelectScreen({
     }
   }, [coinCount]);
 
-  const metadataNode = (
-    <>
-      <h1
-        style={{
-          fontSize: fs(10),
-          fontWeight: 400,
-          color: "var(--fg)",
-          letterSpacing: "0.12em",
-          margin: "6px 0 0",
-        }}
-      >
-        MORGAN ESPITIA · SOFTWARE ENGINEER
-      </h1>
+  const pill = {
+    fontFamily: "'Press Start 2P', monospace",
+    color: "#00E5FF",
+    textDecoration: "none",
+    display: "inline-block",
+    fontSize: fs(8),
+    lineHeight: 1,
+    border: "1px solid rgba(0,229,255,0.35)",
+    borderRadius: 3,
+    background: "rgba(0,229,255,0.06)",
+    padding: "7px 8px",
+    letterSpacing: "0.06em",
+    whiteSpace: "nowrap",
+  };
+
+  return (
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      {/* The operator's sticker: who runs this machine and how to reach
+          them, beside the three places a hiring manager goes next. */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
-          columnGap: 6,
-          fontSize: fs(11),
-          color: "var(--color-muted)",
-          letterSpacing: "0.08em",
-          marginTop: 2,
-        }}
-      >
-        <a
-          href={MAILTO}
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-          {CONTACT.email}
-        </a>
-        <a
-          href={`tel:${CONTACT.phoneTel}`}
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-          {CONTACT.phoneDisplay}
-        </a>
-      </div>
-    </>
-  );
-
-  return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      {/* DESKTOP HEADER */}
-      <div
-        className="desktop-only-flex"
-        style={{
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: "flex-start",
+          gap: "10px 16px",
           marginBottom: 12,
           paddingBottom: 10,
           borderBottom: "1px solid rgba(0,229,255,0.1)",
         }}
       >
-        <div>
+        <div style={{ flex: "1 1 260px", minWidth: 0 }}>
           <div
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(16),
+              lineHeight: 1.5,
               color: "#00E5FF",
               textShadow: "0 0 12px rgba(0,229,255,0.4)",
               letterSpacing: "0.1em",
@@ -100,138 +85,64 @@ export default function SelectScreen({
           >
             SELECT PROGRAM
           </div>
-          {metadataNode}
+          <h1
+            style={{
+              fontSize: fs(10),
+              fontWeight: 400,
+              color: "var(--fg)",
+              letterSpacing: "0.12em",
+              margin: "6px 0 0",
+            }}
+          >
+            {CONTACT.name} · {CONTACT.role}
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              columnGap: 10,
+              fontSize: fs(11),
+              color: "var(--color-muted)",
+              letterSpacing: "0.08em",
+              marginTop: 2,
+            }}
+          >
+            <a href={MAILTO} style={{ color: "inherit", textDecoration: "none" }}>
+              {CONTACT.email}
+            </a>
+            <a
+              href={`tel:${CONTACT.phoneTel}`}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              {CONTACT.phoneDisplay}
+            </a>
+          </div>
         </div>
-        <div
-          style={{
-            fontFamily: "'Press Start 2P', monospace",
-            fontSize: fs(8),
-            color: "var(--color-muted)",
-            textAlign: "right",
-            lineHeight: 2.0,
-          }}
+        <nav
+          aria-label="Operator"
+          style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}
         >
-          <a
-            href={CONTACT.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#00E5FF",
-              textDecoration: "none",
-              display: "inline-block",
-              fontSize: fs(8),
-              border: "1px solid rgba(0,229,255,0.35)",
-              borderRadius: 3,
-              background: "rgba(0,229,255,0.06)",
-              padding: "3px 7px",
-              marginBottom: 5,
-            }}
-          >
+          {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
+              that is also its name for a voice-control user. */}
+          <a href="/resume.html" style={pill}>
+            RESUME
+          </a>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" style={pill}>
             GITHUB
           </a>
-          <br />
-          <a
-            href={CONTACT.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#00E5FF",
-              textDecoration: "none",
-              display: "inline-block",
-              fontSize: fs(8),
-              border: "1px solid rgba(0,229,255,0.35)",
-              borderRadius: 3,
-              background: "rgba(0,229,255,0.06)",
-              padding: "3px 7px",
-              marginBottom: 5,
-            }}
-          >
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" style={pill}>
             LINKEDIN
           </a>
-        </div>
-      </div>
-
-      {/* MOBILE HEADER */}
-      <div
-        className="mobile-only-block"
-        style={{
-          marginBottom: 12,
-          paddingBottom: 10,
-          borderBottom: "1px solid rgba(0,229,255,0.1)",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-          <div
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(16),
-              color: "#00E5FF",
-              textShadow: "0 0 12px rgba(0,229,255,0.4)",
-              letterSpacing: "0.1em",
-            }}
-          >
-            SELECT
-          </div>
-          <a
-            href={CONTACT.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              color: "#00E5FF",
-              textDecoration: "none",
-              display: "inline-block",
-              fontSize: fs(8),
-              border: "1px solid rgba(0,229,255,0.35)",
-              borderRadius: 3,
-              background: "rgba(0,229,255,0.06)",
-              padding: "3px 7px",
-            }}
-          >
-            GITHUB
-          </a>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-          <div
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(16),
-              color: "#00E5FF",
-              textShadow: "0 0 12px rgba(0,229,255,0.4)",
-              letterSpacing: "0.1em",
-            }}
-          >
-            PROGRAM
-          </div>
-          <a
-            href={CONTACT.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              color: "#00E5FF",
-              textDecoration: "none",
-              display: "inline-block",
-              fontSize: fs(8),
-              border: "1px solid rgba(0,229,255,0.35)",
-              borderRadius: 3,
-              background: "rgba(0,229,255,0.06)",
-              padding: "3px 7px",
-            }}
-          >
-            LINKEDIN
-          </a>
-        </div>
-
-        <div>
-          {metadataNode}
-        </div>
+        </nav>
       </div>
       <div
         ref={listRef}
         role="listbox"
         aria-label="Project list"
+        tabIndex={0}
+        aria-activedescendant={
+          projects[selectedIdx] ? `program-${projects[selectedIdx].id}` : undefined
+        }
         style={{
           flex: 1,
           overflowY: "auto",
@@ -239,6 +150,8 @@ export default function SelectScreen({
           display: "flex",
           flexDirection: "column",
           gap: 3,
+          // The lit row is the focus indicator, as in a listbox.
+          outline: "none",
         }}
       >
         {projects.map((p, i) => {
@@ -251,9 +164,9 @@ export default function SelectScreen({
           const CATEGORY_LABELS = {
             systems: "SYSTEMS",
             security: "SECURITY",
-            defi: "DEFI",
-            tooling: "TOOLING",
+            web3: "WEB3",
             creative: "CREATIVE",
+            operator: "OPERATOR",
           };
           return (
             <div key={p.id}>
@@ -289,6 +202,7 @@ export default function SelectScreen({
               )}
               <div
                 key={`row-${p.id}`}
+                id={`program-${p.id}`}
                 role="option"
                 aria-selected={active}
                 aria-label={`${p.title} — ${p.subtitle}`}

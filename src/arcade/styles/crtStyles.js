@@ -4,6 +4,8 @@ export const crtStyles = `
   @keyframes flicker { 0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:0.8} 94%{opacity:1} 96%{opacity:0.9} 97%{opacity:1} }
   @keyframes scanmove { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes startBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .attract-start:hover, .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
   @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
   @keyframes glitchIn { 0%{transform:translateX(-8px) skewX(-5deg);opacity:0;filter:hue-rotate(90deg)} 30%{transform:translateX(4px) skewX(2deg);opacity:0.7;filter:hue-rotate(-30deg)} 60%{transform:translateX(-2px) skewX(-1deg);opacity:0.9;filter:hue-rotate(10deg)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes glitchFlash { 0%{background:transparent} 10%{background:rgba(0,229,255,0.08)} 20%{background:rgba(255,0,100,0.05)} 30%{background:transparent} 40%{background:rgba(0,100,255,0.06)} 50%,100%{background:transparent} }
@@ -63,7 +65,7 @@ export const crtStyles = `
   @media (prefers-reduced-motion: reduce) {
     .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot, .btn-action,
     .glitch-enter, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,
-    .marquee-track { animation: none !important; }
+    .marquee-track, .attract-start { animation: none !important; }
   }
   /* Mobile: drop the continuous filter / box-shadow / blend effects that jank
      low-power GPUs. These repaint every frame; the static look is nearly identical. */
