@@ -117,7 +117,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          BIT-IDENTICAL L1 BOOTSTRAP
+          BYTE-IDENTICAL SELF-COMPILE, EVERY PIN
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -127,7 +127,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          FULL EFFECT ALGEBRA (+, -, !, Pure)
+          FULL EFFECT ALGEBRA (+, -, &, !, Pure)
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -147,7 +147,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          GRAPH-NATIVE IR (NOT AST-WALKING)
+          ONE GRAPH, ONE WRITER: INFERENCE
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -167,7 +167,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          WASM CODEGEN + MEMORY ARENAS
+          WASM CODEGEN · 149 MICROS · 62 CRUCIBLES
         </div>
       </div>
       <div

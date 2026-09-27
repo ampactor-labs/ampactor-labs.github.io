@@ -533,11 +533,14 @@ const RAW_PROJECTS = [
     icon: "🫂",
     github: null,
     live: "https://ampactor.dev/apapacho/",
-    desc: 'Apapacho is a phone app for three small daily reps: an English word worth having, a Mexican Spanish phrase with the register it belongs in, and an ASL sign. Three cards a day, a quiz for when there are five minutes, and a dictionary lookup that makes adding your own words quick. It is named for apapachar, from a Nahuatl root, usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
+    // The repository is private, so the sync cannot read its README; the
+    // content fields below are copied from it by hand (the lead, its first
+    // sentence, the first paragraph of Limitations).
+    desc: 'A phone app that gives you three small daily reps: an English word, a Mexican Spanish phrase with its register, and a sign in American Sign Language (ASL). Register is the setting a phrase suits, from a family meal to the street. The app is one HTML file of plain JavaScript with the deck inlined; it installs to a home screen and works offline. It is named for apapachar, from a root in Nahuatl (the Aztec language), usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
     tags: ["language", "spanish", "asl", "vocabulary"],
     tagline: "THREE CARDS A DAY",
     outcome:
-      "A daily English word, Mexican Spanish phrase and ASL sign, each with notes on when to use it. Works offline on a phone.",
+      "A phone app that gives you three small daily reps: an English word, a Mexican Spanish phrase with its register, and a sign in American Sign Language (ASL).",
     highlights: [
       "54 WORDS · 47 FRASES · 24 SIGNS",
       "26 FINGERSPELLED LETTERS",
@@ -550,7 +553,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "creative",
     operatorNote:
-      "The Señas tab describes motion in words, which is the wrong medium for a moving language. It is a memory aid for signs learned from video, not a teacher; Lifeprint is the teacher.",
+      "The Señas (signs) tab describes each sign's motion in words, and words are the wrong medium for a moving language. The cards work as memory aids for signs learned from video; Lifeprint, a free online ASL course, is the teacher.",
   },
 ];
 
