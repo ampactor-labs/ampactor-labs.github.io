@@ -41,10 +41,12 @@ describe("DetailScreen", () => {
 
   it("renders source link when github present", () => {
     const project = PROJECTS.find((p) => p.github);
-    const { getByText } = render(
+    // By role, not by text: a README-derived description may contain the
+    // word "source" too (mentl's does), and the link is what is asserted.
+    const { getByRole } = render(
       <DetailScreen {...baseProps} project={project} />,
     );
-    expect(getByText(/source/i)).toBeTruthy();
+    expect(getByRole("link", { name: /source/i })).toBeTruthy();
   });
 
   it("renders the APK release-page link same-tab", () => {
