@@ -106,34 +106,6 @@ const RAW_PROJECTS = [
   },
 
   {
-    id: "landed",
-    title: "LANDED",
-    subtitle: "SOLANA EXECUTION GATEWAY",
-    lang: "Rust",
-    color: "#14F195",
-    icon: "🛬",
-    github: "https://github.com/ampactor-labs/landed",
-    desc: "Landed runs one Solana transaction at a time through four timed stages: assemble a message on a fresh blockhash, gate it, submit it by plain RPC or as a Jito bundle, then track it to a landed slot. What comes back says which of those happened and where the milliseconds went. The law is fail-closed. Gates read evidence gathered from live chain state, and if any of that evidence cannot be fetched, the transaction is rejected rather than submitted with the check skipped; the compute gate refuses even when the node simply declines to report consumption, because 'it fits the budget' and 'nobody told me' are different facts. It speaks JSON-RPC directly instead of depending on solana-client, which drags the whole RPC stack in to send one transaction and, in the stable 4.x line, resolves against a wincode version that will not compile with the one solana-sdk's own types implement.",
-    tags: ["solana", "jito", "execution", "latency"],
-    tagline: "UNKNOWN IS NOT SAFE",
-    outcome:
-      "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
-    highlights: [
-      "RPC AND JITO BUNDLE ROUTES",
-      "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
-      "PER-STAGE LATENCY PERCENTILES",
-      "REAL VALIDATOR IN CI, EVERY PUSH",
-      "~1 ms PIPELINE OVERHEAD (p50)",
-      "NO solana-client DEPENDENCY",
-    ],
-    stack: ["Rust", "Solana", "Jito", "tokio"],
-    status: "active",
-    category: "web3",
-    operatorNote:
-      "The validator-in-CI earned its keep on the first run: Message::new leaves the blockhash zeroed, getFeeForMessage prices the bytes it is handed and returned null, and every gate correctly refused to submit. A mocked RPC would have returned a cheerful fee and shipped the bug. Extracted from flowpilot, a trading engine I retired when its edge stopped clearing fees; the strategy died on the evidence and the engineering outlived it.",
-  },
-
-  {
     id: "two-top",
     title: "2-TOP",
     subtitle: "ROLLBACK NETCODE BRAWLER",
@@ -225,6 +197,34 @@ const RAW_PROJECTS = [
   },
 
   {
+    id: "landed",
+    title: "LANDED",
+    subtitle: "SOLANA EXECUTION GATEWAY",
+    lang: "Rust",
+    color: "#14F195",
+    icon: "🛬",
+    github: "https://github.com/ampactor-labs/landed",
+    desc: "Landed runs one Solana transaction at a time through four timed stages: assemble a message on a fresh blockhash, gate it, submit it by plain RPC or as a Jito bundle, then track it to a landed slot. What comes back says which of those happened and where the milliseconds went. The law is fail-closed. Gates read evidence gathered from live chain state, and if any of that evidence cannot be fetched, the transaction is rejected rather than submitted with the check skipped; the compute gate refuses even when the node simply declines to report consumption, because 'it fits the budget' and 'nobody told me' are different facts. It speaks JSON-RPC directly instead of depending on solana-client, which drags the whole RPC stack in to send one transaction and, in the stable 4.x line, resolves against a wincode version that will not compile with the one solana-sdk's own types implement.",
+    tags: ["solana", "jito", "execution", "latency"],
+    tagline: "UNKNOWN IS NOT SAFE",
+    outcome:
+      "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
+    highlights: [
+      "RPC AND JITO BUNDLE ROUTES",
+      "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
+      "PER-STAGE LATENCY PERCENTILES",
+      "REAL VALIDATOR IN CI, EVERY PUSH",
+      "~1 ms PIPELINE OVERHEAD (p50)",
+      "NO solana-client DEPENDENCY",
+    ],
+    stack: ["Rust", "Solana", "Jito", "tokio"],
+    status: "active",
+    category: "web3",
+    operatorNote:
+      "The validator-in-CI earned its keep on the first run: Message::new leaves the blockhash zeroed, getFeeForMessage prices the bytes it is handed and returned null, and every gate correctly refused to submit. A mocked RPC would have returned a cheerful fee and shipped the bug. Extracted from flowpilot, a trading engine I retired when its edge stopped clearing fees; the strategy died on the evidence and the engineering outlived it.",
+  },
+
+  {
     id: "perennials",
     title: "PERENNIALS",
     subtitle: "CONSTRAINT-SPACE FIELD GUIDE",
@@ -251,6 +251,35 @@ const RAW_PROJECTS = [
     category: "creative",
     operatorNote:
       "Permapeople carries almost no pollinator data (under 60 plants with a visitor tag, 24 with a flower color), so the service enriches it: GloBI supplies recorded flower visitors grouped by insect family, USDA PLANTS supplies bloom color on exact binomial matches only, because taking the top search hit would paint the wrong plant. The honesty layer is the part I would defend hardest. Permapeople ships one shared placeholder image across 4,063 plants, so the transform detects it and nulls it rather than let a card pretend it has a photo, and results rank by how well documented a plant actually is.",
+  },
+
+  {
+    id: "bits",
+    title: "BITS",
+    subtitle: "PUPPET-SHOW INSTRUMENT",
+    lang: "TS/React",
+    color: "#3a86ff",
+    icon: "✂",
+    github: "https://github.com/ampactor-labs/bits",
+    live: "https://ampactor.dev/bits/",
+    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs, dragging one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
+    tags: ["animation", "webcodecs", "on-device", "pwa"],
+    tagline: "PUT ON THE SHOW",
+    outcome:
+      "Make puppet shows on a phone by performing them: record the audio, add puppets, animate them in layers and export the result. Everything runs on the device.",
+    highlights: [
+      "PASSES OVERDUB LIKE AUDIO TRACKS",
+      "BIT-EXACT REPLAY: PREVIEW = RENDER",
+      "SPECTRAL VISEMES FROM RAW PCM",
+      "CUT PAPER OR BEND IT (MLS WARP)",
+      "BODY PASSES: WRISTS DRIVE PUPPETS",
+      "ON-DEVICE: NO UPLOADS, NO ACCOUNTS",
+    ],
+    stack: ["TypeScript", "React", "WebCodecs", "MediaPipe", "OPFS"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
   },
 
   {
@@ -283,35 +312,6 @@ const RAW_PROJECTS = [
   },
 
   {
-    id: "celezdial",
-    title: "CELEZDIAL SELEKTA",
-    subtitle: "ZODIAC-MAPPED SYNTHESIZER",
-    lang: "React/Tone.js",
-    color: "#9d7bff",
-    icon: "☽",
-    github: "https://github.com/ampactor-labs/celezdial-selekta",
-    live: "https://ampactor.dev/celezdial-selekta/",
-    desc: "Celezdial Selekta maps the twelve zodiac signs to twelve voices on a chromatic keyboard. Each sign's pitch class comes from a chromatic-calendar scheme, and its microtuning follows Hans Cousto's planetary octave, detuning the voice by its ruling planet's deviation from 12-TET. The voices sum before a Chebyshev waveshaper, so the distortion generates sum and difference tones across the whole mix instead of per voice. A natal-chart mode reads two birth charts at once and sounds whichever signs each chart owns, so a sign both charts share plays its two tunings together.",
-    tags: ["synthesis", "tone.js", "microtuning", "generative"],
-    tagline: "TWELVE SIGNS, TWELVE VOICES",
-    outcome:
-      "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
-    highlights: [
-      "12 VOICES, ONE PER ZODIAC SIGN",
-      "8 SWAPPABLE FX CHAINS",
-      "COUSTO PLANETARY MICROTUNING",
-      "SUM-BEFORE-SATURATION CHEBYSHEV",
-      "DUAL NATAL-CHART MODE",
-      "DIM7 OCTAVE PARTITIONING",
-    ],
-    stack: ["React", "Tone.js", "Web Audio", "circular-natal-horoscope-js"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
-  },
-
-  {
     id: "copycats",
     title: "COPYCATS",
     subtitle: "REPLAY-GHOST PARTY RACER",
@@ -341,60 +341,32 @@ const RAW_PROJECTS = [
   },
 
   {
-    id: "bits",
-    title: "BITS",
-    subtitle: "PUPPET-SHOW INSTRUMENT",
-    lang: "TS/React",
-    color: "#3a86ff",
-    icon: "✂",
-    github: "https://github.com/ampactor-labs/bits",
-    live: "https://ampactor.dev/bits/",
-    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs, dragging one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
-    tags: ["animation", "webcodecs", "on-device", "pwa"],
-    tagline: "PUT ON THE SHOW",
-    outcome:
-      "Make puppet shows on a phone by performing them: record the audio, add puppets, animate them in layers and export the result. Everything runs on the device.",
-    highlights: [
-      "PASSES OVERDUB LIKE AUDIO TRACKS",
-      "BIT-EXACT REPLAY: PREVIEW = RENDER",
-      "SPECTRAL VISEMES FROM RAW PCM",
-      "CUT PAPER OR BEND IT (MLS WARP)",
-      "BODY PASSES: WRISTS DRIVE PUPPETS",
-      "ON-DEVICE: NO UPLOADS, NO ACCOUNTS",
-    ],
-    stack: ["TypeScript", "React", "WebCodecs", "MediaPipe", "OPFS"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
-  },
-  {
-    id: "slot",
-    title: "SLOT",
-    subtitle: "B♭ TRUMPET TUNING LATTICE",
+    id: "stoop",
+    title: "STOOP",
+    subtitle: "A PRESS FOR A PERIODICAL",
     lang: "JavaScript",
-    color: "#FFB000",
-    icon: "🎺",
-    github: "https://github.com/ampactor-labs/slot",
-    live: "https://ampactor.dev/slot/",
-    desc: 'Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told "low C♯ is sharp, kick the slide" and not told how far, or why, or what it costs everywhere else.',
-    tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
-    tagline: "49 CELLS, 9 EXACTLY TRUE",
+    color: "#FF3FA4",
+    icon: "¶",
+    github: "https://github.com/ampactor-labs/stoop",
+    live: "https://ampactor.dev/stoop/",
+    desc: "Stoop is a press for a periodical: a zine for the few people who already write to each other. They submit pieces, whoever has the desk this cycle assembles an issue, and the press lays it out and imposes it for paper, as a folded sheet, a stapled signature, or an exact PDF for a copy shop. Every issue stays on the shelf, and the file it hands on is the issue and a working press in one. It is one HTML file with no server, no accounts and no feed.",
+    tags: ["zine", "print", "imposition", "local-first"],
+    tagline: "FOLD IT, LEAVE IT SOMEWHERE",
     outcome:
-      "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
+      "Gather pieces from the people you write with, lay out an issue, and print it as a folded zine or an exact PDF for a copy shop.",
     highlights: [
-      "49-CELL LATTICE, 9 EXACTLY IN TUNE",
-      "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
-      "LIVE MIC PITCH DETECTION",
-      "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
-      "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
-      "ZERO DEPENDENCIES, ONE HTML FILE",
+      "ONE FILE, ZERO REQUESTS, NO TRACKERS",
+      "IMPOSED FOR PAPER: 8, 12 OR 16 PAGES",
+      "EIGHT PAGES FROM ONE SHEET AND ONE CUT",
+      "EXACT PDF WITH ITS OWN TYPEFACE EMBEDDED",
+      "EVERY ISSUE CARRIES THE PRESS INSIDE IT",
+      "BACK ISSUES KEPT ON THE SHELF",
     ],
-    stack: ["JavaScript", "Web Audio API", "Vanilla DOM"],
+    stack: ["JavaScript", "Vanilla DOM", "Web Storage", "PDF"],
     status: "deployed",
     category: "creative",
     operatorNote:
-      "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
+      "Everything lives in the browser that made it. There is no server to fall back on and storage is per-origin, so a backup file is the only copy that outlives a cleared cache, and moving between a phone and a laptop means exporting and merging by hand.",
   },
 
   {
@@ -424,6 +396,35 @@ const RAW_PROJECTS = [
     category: "creative",
     operatorNote:
       "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
+  },
+
+  {
+    id: "celezdial",
+    title: "CELEZDIAL SELEKTA",
+    subtitle: "ZODIAC-MAPPED SYNTHESIZER",
+    lang: "React/Tone.js",
+    color: "#9d7bff",
+    icon: "☽",
+    github: "https://github.com/ampactor-labs/celezdial-selekta",
+    live: "https://ampactor.dev/celezdial-selekta/",
+    desc: "Celezdial Selekta maps the twelve zodiac signs to twelve voices on a chromatic keyboard. Each sign's pitch class comes from a chromatic-calendar scheme, and its microtuning follows Hans Cousto's planetary octave, detuning the voice by its ruling planet's deviation from 12-TET. The voices sum before a Chebyshev waveshaper, so the distortion generates sum and difference tones across the whole mix instead of per voice. A natal-chart mode reads two birth charts at once and sounds whichever signs each chart owns, so a sign both charts share plays its two tunings together.",
+    tags: ["synthesis", "tone.js", "microtuning", "generative"],
+    tagline: "TWELVE SIGNS, TWELVE VOICES",
+    outcome:
+      "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
+    highlights: [
+      "12 VOICES, ONE PER ZODIAC SIGN",
+      "8 SWAPPABLE FX CHAINS",
+      "COUSTO PLANETARY MICROTUNING",
+      "SUM-BEFORE-SATURATION CHEBYSHEV",
+      "DUAL NATAL-CHART MODE",
+      "DIM7 OCTAVE PARTITIONING",
+    ],
+    stack: ["React", "Tone.js", "Web Audio", "circular-natal-horoscope-js"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
   },
 
   {
@@ -462,32 +463,32 @@ const RAW_PROJECTS = [
   },
 
   {
-    id: "stoop",
-    title: "STOOP",
-    subtitle: "A PRESS FOR A PERIODICAL",
+    id: "slot",
+    title: "SLOT",
+    subtitle: "B♭ TRUMPET TUNING LATTICE",
     lang: "JavaScript",
-    color: "#FF3FA4",
-    icon: "¶",
-    github: "https://github.com/ampactor-labs/stoop",
-    live: "https://ampactor.dev/stoop/",
-    desc: "Stoop is a press for a periodical: a zine for the few people who already write to each other. They submit pieces, whoever has the desk this cycle assembles an issue, and the press lays it out and imposes it for paper, as a folded sheet, a stapled signature, or an exact PDF for a copy shop. Every issue stays on the shelf, and the file it hands on is the issue and a working press in one. It is one HTML file with no server, no accounts and no feed.",
-    tags: ["zine", "print", "imposition", "local-first"],
-    tagline: "FOLD IT, LEAVE IT SOMEWHERE",
+    color: "#FFB000",
+    icon: "🎺",
+    github: "https://github.com/ampactor-labs/slot",
+    live: "https://ampactor.dev/slot/",
+    desc: 'Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told "low C♯ is sharp, kick the slide" and not told how far, or why, or what it costs everywhere else.',
+    tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
+    tagline: "49 CELLS, 9 EXACTLY TRUE",
     outcome:
-      "Gather pieces from the people you write with, lay out an issue, and print it as a folded zine or an exact PDF for a copy shop.",
+      "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
     highlights: [
-      "ONE FILE, ZERO REQUESTS, NO TRACKERS",
-      "IMPOSED FOR PAPER: 8, 12 OR 16 PAGES",
-      "EIGHT PAGES FROM ONE SHEET AND ONE CUT",
-      "EXACT PDF WITH ITS OWN TYPEFACE EMBEDDED",
-      "EVERY ISSUE CARRIES THE PRESS INSIDE IT",
-      "BACK ISSUES KEPT ON THE SHELF",
+      "49-CELL LATTICE, 9 EXACTLY IN TUNE",
+      "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
+      "LIVE MIC PITCH DETECTION",
+      "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
+      "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
+      "ZERO DEPENDENCIES, ONE HTML FILE",
     ],
-    stack: ["JavaScript", "Vanilla DOM", "Web Storage", "PDF"],
+    stack: ["JavaScript", "Web Audio API", "Vanilla DOM"],
     status: "deployed",
     category: "creative",
     operatorNote:
-      "Everything lives in the browser that made it. There is no server to fall back on and storage is per-origin, so a backup file is the only copy that outlives a cleared cache, and moving between a phone and a laptop means exporting and merging by hand.",
+      "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
   },
 
   {

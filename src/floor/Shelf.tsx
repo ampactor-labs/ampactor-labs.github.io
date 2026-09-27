@@ -109,7 +109,7 @@ export default function Shelf({
       <SectionHeading
         id="work-heading"
         eyebrow="WORK"
-        title={`${projects.length} public projects`}
+        title={`${projects.length} projects`}
         lede={
           <>
             Each card links to the live project and its source where there is
