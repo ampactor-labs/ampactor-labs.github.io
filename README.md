@@ -1,161 +1,208 @@
 # ampactor.dev
 
-Source for Morgan Espitia's portfolio site, live at https://ampactor.dev.
+A portfolio site that shows Morgan Espitia's projects as an arcade cabinet and generates each project's page from its README. It is a multi-page React 19 and TypeScript app on Vite, deployed to GitHub Pages, with a commit log built from git, a case-study page measured on the production build, and a printable résumé rendered from one JSON file.
+
+**Status: shipping.** Live at https://ampactor.dev; the Lighthouse numbers on `/craft/` date from the last `npm run audit`, which is run by hand.
+
+Live: https://ampactor.dev
+
+## Quick start
+
+```bash
+npm install --legacy-peer-deps
+npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
+```
 
 The home page shows an arcade cabinet next to the introduction. Clicking the
 cabinet zooms it to full screen, where each project can be opened from a menu;
 Escape or the browser's Back button returns to the page. On a first visit the
 page opens with the cabinet at full screen and zooms out after a few seconds.
-Below the cabinet are the projects, a summary of the commit log, a short
-section on how I work, and a timeline since 2017.
+Click the coin slot on the cabinet to unlock three hidden programs. One of them
+is TUNNEL_RUN, a vector shooter with a global top-10 leaderboard that runs with
+no server.
 
-- `/`: the home page (React 19, TypeScript and Vite; light and dark themes)
+The other commands:
+
+```bash
+npm run build          # sync READMEs, sync the commit data, render the résumé, vite build
+npm run sync:readmes   # rebuild src/data/readme-content.generated.json from the projects' READMEs
+npm run readmes:report # how each project's README measures against docs/README-STANDARD.md
+npm run readme:check -- path/to/README.md   # check one README before it is pushed
+npm run sync:receipts  # rebuild the commit data from git
+npm run resume:build   # src/data/resume.json → public/resume.html
+npm run audit          # Lighthouse (median of 5), test counts and weights → src/data/audit.json
+```
+
+## How it works
+
+The pages:
+
+- `/`: the home page: hero, projects, a summary of the commit log, how I work,
+  and a timeline since 2017, in light and dark themes
 - `/arcade/`: the cabinet at full screen; `/arcade/#<project id>` opens a project
 - `/receipts/`: the commit log, every public commit with filters, charts and
   CSV/JSON export; the view is stored in the query string, so any view can be linked
 - `/craft/`: how the site is built, with numbers that `npm run audit` measures
   on the production build
 - `/resume.html`: the résumé, a static printable page generated from one JSON file
+- `/comma/`, `/slot/`, `/apapacho/`: small apps served from `public/`; the
+  other hosted projects deploy from their own repositories to `ampactor.dev/<repo>/`
 
-Click the coin slot on the cabinet to unlock three hidden programs. One of
-them is TUNNEL_RUN, a vector shooter with a global top-10 leaderboard that
-runs with no server (see below).
+### The zoom
 
-## Dev
+The cabinet is always laid out at its full-screen size (`min(900px, 100vw)` ×
+`100dvh`) and scaled into its slot with CSS on the home page, so the zoom
+animates a single transform and nothing inside is laid out again. The URL is
+the source of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route,
+`useArcadeHistory` owns the History API, and the cabinet requests navigation
+instead of calling it directly. `docs/DESIGN-SYSTEM.md` covers the design.
 
-```bash
-npm install --legacy-peer-deps
-npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
-npm test               # vitest (jsdom)
-npm run e2e            # playwright against the production build, desktop + phone
-npm run lint           # eslint: the JS arcade, the TS pages, scripts, e2e
-npm run typecheck      # tsc --noEmit
-npm run build          # sync READMEs, sync the commit data, render the résumé, vite build
-npm run sync:receipts  # rebuild the commit data from git (see Commit log below)
-npm run audit          # Lighthouse (median of 5), tests, weights on the build → src/data/audit.json
-```
+### Shared code
 
-CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build
-and the browser tests on every pull request and on pushes to other branches.
-Pushes to `main` deploy to GitHub Pages (`deploy.yml`) after lint, typecheck
-and the unit tests pass.
+Each page is its own HTML file, because GitHub Pages has no SPA fallback, and
+all of them load the same `shell` chunk: React, the header and footer, the
+theme and the formatters. `vite.config.js` defines it with a Rolldown
+`codeSplitting` group. Without it, the automatic splitter gives any module
+shared by some pages but not all a chunk of its own; adding `/craft/` once
+added a request to the home page and 160 ms to its largest paint on
+Lighthouse's simulated phone.
 
-## Structure
+### Project cards from READMEs
+
+Presentation fields (color, icon, subtitle, highlights) live in
+`src/data/projects.js`. Content comes from each project's README at build
+time, field by field, when that field passes `docs/README-STANDARD.md`: the
+first sentence of the lead becomes the card, the lead becomes the cabinet
+page, and the status line and the first paragraph of Limitations become the
+status and the known-limitations note. `scripts/sync-readmes.mjs` fetches the
+READMEs from GitHub without credentials; when the network is down it keeps the
+last synced content. A project whose source is private (`github: null`) keeps
+its hand-written text. `docs/ADDING-A-PROJECT.md` has the two commands for
+adding a project.
+
+### The commit log
+
+`/receipts/` is a small data app over the commit history of the public
+repositories. `scripts/sync-receipts.mjs` clones every public repository in
+`projects.js` (plus this one) bare into `.cache/receipts/` and reads
+`git log --shortstat`, which gives exact additions, deletions and file counts
+for every commit with no token and no rate limit. It writes
+`public/receipts/data.json` (about 1 MB), 256 small shards of message bodies
+under `public/receipts/bodies/` (one is fetched when a commit is opened), and
+`src/data/receipts.summary.json` for the home page. When the network is
+unavailable it keeps the committed snapshot; `--strict` fails instead, and
+`--report` prints per-repository counts. In the browser,
+`src/receipts/ledger.ts` is the pure model (filter, aggregate, sort, total,
+CSV/JSON export), `urlState.ts` is the codec between the view and the query
+string, and the tiles, the three SVG charts, the virtualized TanStack table and
+the export form all read one filtered list, so they always agree.
+
+### The leaderboard, with no server
+
+`public/tunnel-leaderboard.json` is the entire database. When a run qualifies
+for the global top 10, the game links to a prefilled GitHub issue titled
+`[tunnel-run] AAA 12345`. A workflow (`.github/workflows/leaderboard.yml`)
+validates the title, merges the score into the JSON with
+`scripts/merge-leaderboard.mjs`, commits the file, closes the issue, and
+dispatches a Pages deploy, so every high score is a commit. Submitting needs a
+GitHub account; without one the board is read-only and scores stay in
+localStorage. The closed issues double as a visitor log: every submission is
+labeled `leaderboard` and carries the player's GitHub handle. At score 1500
+the tunnel summons ANOMALY, a boss that escalates each run it loses; append
+`?boss=200` to `/arcade/` to fight it early.
+
+### The résumé
+
+Edit `src/data/resume.json`; `npm run resume:build` renders
+`public/resume.html`, and `npm run build` does it too. The timeline on the
+home page reads the same file.
+
+## Benchmarks
+
+`npm run audit` serves the build and runs Lighthouse 12.8 five times per page,
+each in a fresh profile with mobile simulated throttling, so the home page is
+measured as a first visit including its opening animation. It keeps the median
+run, counts the unit tests and browser test runs, measures what each page
+ships, and writes `src/data/audit.json`, which `/craft/` displays with the
+date. The last run, 2026-09-25, on one laptop:
+
+| Page         | Performance | Accessibility, best practices, SEO | Largest paint | CLS | JS (gzip) |
+| ------------ | ----------- | ---------------------------------- | ------------- | --- | --------- |
+| `/`          | 96          | 100 / 100 / 100                    | 2.4 s         | 0   | 130 KB    |
+| `/receipts/` | 96          | 100 / 100 / 100                    | 2.3 s         | 0   | 117 KB    |
+| `/craft/`    | 98          | 100 / 100 / 100                    | 2.1 s         | 0   | 70 KB     |
+
+The cost is the cabinet: the home page ships the most JavaScript and paints
+its largest element last, because the first visit boots the machine before
+pulling back to the page.
+
+## Project layout
 
 ```
 src/
   main.tsx, App.tsx        the home page, the zoom, the router
-  floor/                   the home page ("the floor" the cabinet stands on): header,
-                           hero, projects, commit summary, how I work, timeline, footer
-  arcade/                  the cabinet, as it always was (JavaScript)
-    zoom/                  the URL scheme, history, scroll lock, the zoom itself
+  floor/                   the home page: header, hero, projects, commit summary,
+                           how I work, timeline, footer
+  arcade/                  the cabinet (JavaScript); zoom/ holds the URL scheme,
+                           history, scroll lock and the zoom itself
   receipts/                the commit log page: pure data model, URL state, charts,
-                           the virtualised table, the drawer, the export form
+                           the virtualized table, the drawer, the export form
   craft/                   the case study page and its drawn-to-scale diagram
   ui/, lib/, styles/       shared primitives, theme, tokens, number formatting
-  data/
-    projects.js            every project: identity, copy, links
-    profile.js             identity and contact
-    site.js                each page's <head>, rendered by vite.config.js
-    resume.json            the résumé, rendered to public/resume.html
-    receipts.summary.json  commit totals and months, for the home page
-    audit.json             what npm run audit measured, quoted by /craft/
-scripts/
-  sync-readmes.mjs         pulls card copy from each project's README
-  sync-receipts.mjs        reads every public repository's git log into the commit data
-  build-resume.mjs         resume.json → public/resume.html
-  render-og.mjs            the social card, a screenshot of the home page's hero
-  axe-report.mjs           prints axe violations for any page of a running build
-  audit.mjs                npm run audit: Lighthouse, test counts and weights → src/data/audit.json
-  merge-leaderboard.mjs    the TUNNEL_RUN leaderboard (see below)
+  data/                    projects.js, profile.js, site.js (each page's <head>),
+                           resume.json, receipts.summary.json, audit.json,
+                           readme-content.generated.json
+scripts/                   sync-readmes, check-readme, add-project, sync-receipts,
+                           build-resume, render-og, axe-report, audit, merge-leaderboard
+docs/                      README-STANDARD.md, ADDING-A-PROJECT.md, DESIGN-SYSTEM.md
+public/                    static files, the hosted apps, the leaderboard, the résumé
+e2e/                       the Playwright specs
 ```
 
-**The zoom.** The cabinet is always laid out at its full-screen size
-(`min(900px, 100vw)` × `100dvh`) and scaled into its slot with CSS on the home
-page, so the zoom animates a single transform and nothing inside is laid out
-again. The URL is the source of truth: `src/arcade/zoom/arcadeRoute.ts`
-resolves the route, `useArcadeHistory` owns the History API, and the cabinet
-requests navigation instead of calling it directly. `docs/DESIGN-SYSTEM.md`
-covers the design.
+## Deploy
 
-**Shared code.** Each page is its own HTML file, because GitHub Pages has no
-SPA fallback, and all of them load the same `shell` chunk: React, the header
-and footer, the theme and the formatters. `vite.config.js` defines it with a
-Rolldown `codeSplitting` group. Without it, the automatic splitter gives any
-module shared by some pages but not all a chunk of its own; adding `/craft/`
-once added a request to the home page and 160 ms to its largest paint on
-Lighthouse's simulated phone.
+GitHub Pages. A push to `main` deploys through `.github/workflows/deploy.yml`
+after lint, typecheck and the unit tests pass, and the same workflow runs
+every night at 09:17 UTC, so the cards never drift more than a day behind a
+project's README. Projects that deploy from their own repositories are served
+at `ampactor.dev/<repo>/` by GitHub Pages under the organization's custom
+domain.
 
-**Measurements.** `npm run audit` serves the build and runs Lighthouse five
-times per page, each in a fresh profile, so the home page is measured as a
-first visit including its opening animation. It keeps the median run, counts
-the unit tests and browser test runs, and measures what each page ships, then
-writes `src/data/audit.json`, which `/craft/` displays with the date. Run it
-after the tests are final, then rebuild.
+## Testing
 
-## Commit log (`/receipts/`)
+```bash
+npm test               # vitest (jsdom)
+npm run e2e            # playwright against the production build, desktop + phone
+npm run lint           # eslint: the JS arcade, the TS pages, scripts, e2e
+npm run typecheck      # tsc --noEmit
+```
 
-`/receipts/` is a small data app over the commit history of my public
-repositories. The source is
-git, not the GitHub API: `scripts/sync-receipts.mjs` clones every public
-repository in `projects.js` (plus this one) bare into `.cache/receipts/` and
-reads `git log --shortstat`, which gives exact additions, deletions and file
-counts for every commit with no token and no rate limit. It writes
-`public/receipts/data.json` (repos and every commit, about 1 MB), 256 small
-shards of message bodies under `public/receipts/bodies/` (one is fetched when a
-commit is opened), and `src/data/receipts.summary.json` for the home page. It runs
-in `npm run build`; when the network is unavailable it keeps the committed
-snapshot and the build goes on. `--strict` fails instead, `--report` prints
-per-repository counts.
+The unit tests cover the commit log's model, URL codec, chart scale and
+export schema, the project data, the arcade's route, cold open, scroll lock,
+cabinet state, screens and boss, the formatters and the theme, and the pages'
+rendering. The browser tests cover the floor, the zoom and its history, the
+cabinet, the commit log, the craft page, continuity between pages and
+behaviour on a slow network, on a desktop and a phone profile, with an axe
+accessibility scan. `npm run audit` counted 243 unit tests and 68 browser
+test runs on 2026-09-25. CI (`.github/workflows/ci.yml`) runs lint, typecheck,
+the unit tests, the build and the browser tests on every pull request and on
+pushes to other branches. Not tested: the Lighthouse numbers (measured by hand
+with `npm run audit`), the leaderboard workflow (exercised only by real
+submissions), and the README sync against the live repositories (the build
+keeps the last synced content when a fetch fails).
 
-In the browser the page renders its header from the summary, then loads the JSON
-once (after the fonts and the next frame, so the download never competes with
-the first paint: `src/receipts/useLedger.ts`) and does everything else itself.
-`src/receipts/ledger.ts` is the pure model (filter, aggregate, sort, total,
-CSV/JSON export), `urlState.ts` is the codec between the view and the query
-string (`?from=2026-03&to=2026-06&repo=mentl,sonido&q=bootstrap&merges=0&sort=-additions`),
-and the tiles, the three SVG charts, the TanStack table (virtualized with
-TanStack Virtual, sorted by the URL) and the export form all read one filtered
-list, so they always agree. The export form is a zod schema over the raw
-form values with a live preview of the real output.
+## Limitations
 
-## Add a project
+The site is only as current as its last build: project cards come from the
+READMEs at build time, so a README change appears after the next push to
+`main` or the nightly deploy, and a project whose repository is private keeps
+its hand-written card because the sync fetches READMEs without credentials.
+GitHub Pages has no server, so every page is its own HTML file, the commit log
+is a 1 MB JSON download that the browser filters itself, and the leaderboard
+accepts scores only through GitHub issues. The Lighthouse numbers on `/craft/`
+are a snapshot from the date shown, measured on one laptop's simulated phone
+profile.
 
-Add an entry to `PROJECTS` in `src/data/projects.js` (see
-`docs/ADDING-A-PROJECT.md`). Presentation fields stay there; content comes
-from the project's README at build time, field by field, when that field
-passes `docs/README-STANDARD.md`, the one README format every project follows.
-`npm run readmes:report` shows how each repository measures up, and
-`npm run readme:check -- <path>` checks a draft before it is pushed. The home
-page's project list, the cabinet's menu, and the no-JavaScript fallback all
-render from the same array.
+## License
 
-## Résumé
-
-Edit `src/data/resume.json`; `npm run resume:build` renders
-`public/resume.html`, and `npm run build` does it for you. The timeline on the
-home page is drawn from the same file.
-
-## Global leaderboard, no server
-
-`public/tunnel-leaderboard.json` is the entire database. When a run
-qualifies for the global top 10, the game links to a prefilled GitHub issue
-titled `[tunnel-run] AAA 12345`. A workflow
-(`.github/workflows/leaderboard.yml`) validates the title, merges the score
-into the JSON via `scripts/merge-leaderboard.mjs`, commits the file, closes
-the issue, and dispatches a Pages deploy. Every high score is a commit, so
-the board's history is the git log. Submitting requires a GitHub account;
-without one the board is read-only and scores stay in localStorage.
-
-The closed issues double as a visitor log: every submission (accepted or
-not) is labeled `leaderboard` and carries the player's GitHub handle.
-`gh issue list --label leaderboard --state closed` lists everyone who made
-it deep enough into the cabinet to post a score.
-
-At score 1500 the tunnel summons ANOMALY, an inverted A-mark, which
-pauses the ambient spawner and fires aimed volleys until its health bar is
-emptied. Below 30% health it enrages and fires nearly twice as fast. Each
-kill banks a bonus, then escalates the run: the next ANOMALY is bigger,
-tougher, and throws denser volleys, and the ambient game gets permanently
-faster with a lower spawn floor. Debug: append `?boss=200` to
-`/arcade/` to fight it early.
+No license chosen yet.

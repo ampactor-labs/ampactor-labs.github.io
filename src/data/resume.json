@@ -7,7 +7,7 @@
   "site": "https://ampactor.dev",
   "github": "https://github.com/ampactor-labs",
   "linkedin": "https://www.linkedin.com/in/ampactor-labs/",
-  "summary": "Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 17 public projects, from web apps and APIs to a compiler and audio software. I own features end to end, from the interface to the service behind it.",
+  "summary": "Software engineer since 2017, with six years of full-stack experience in PHP, Node, React and TypeScript: websites for credit unions, the backend of a healthcare-benefits platform handling medical and financial data, and an enterprise shipping-data dashboard. Independent since 2023, with client work under NDA and 18 projects at ampactor.dev, from web apps and APIs to a self-hosting compiler and audio software that runs on a microcontroller. I own features end to end, from the interface to the service behind it.",
   "skills": [
     "TypeScript / JavaScript",
     "React",
@@ -22,7 +22,8 @@
     "CI/CD",
     "REST APIs",
     "Rust",
-    "WebAssembly"
+    "WebAssembly",
+    "Solana"
   ],
   "experience": [
     {
@@ -36,7 +37,8 @@
         "Client and contract work under NDA: blockchain infrastructure and full-stack product work, including deployment, debugging and ongoing support.",
         "Built and run TokenSafe, a production Node/TypeScript API that scores Solana tokens from on-chain data and charges per request with x402 micropayments, and Scry, its React web UI and Telegram bot. Deployed with Docker, with Prometheus metrics and structured logs.",
         "Built Perennials, an offline-first React/TypeScript app backed by a Node/PostgreSQL service that searches about 8,800 plants by growing conditions; every search is a shareable URL.",
-        "Maintain the public projects at ampactor.dev, including a self-hosting compiler, a DSP library that runs both as a desktop plugin and on a Cortex-M7 microcontroller, a SIMD sort published on crates.io, a Solana transaction crate whose CI sends live transactions, and a dozen browser apps and games."
+        "Maintain the projects at ampactor.dev, including a self-hosting compiler, a Rust DSP framework whose kernels run in desktop plugins and on a Cortex-M7 guitar pedal, a SIMD sort published on crates.io, a Solana transaction crate whose CI runs it against a real validator, and a dozen browser apps and games.",
+        "Every project's README follows one written standard, with a Limitations section and benchmarks that include the cases it loses, and the site generates each project's card from it at build time."
       ]
     },
     {
@@ -103,7 +105,7 @@
     {
       "id": "tokensafe",
       "name": "TokenSafe + Scry",
-      "what": "Solana token risk scoring from on-chain data; live in production, paid per request over x402.",
+      "what": "Solana token risk scoring from on-chain data; live in production, paid $0.02 per check over x402 micropayments.",
       "stack": "TypeScript · Express · React",
       "url": "https://github.com/ampactor-labs/tokensafe"
     },
@@ -117,21 +119,21 @@
     {
       "id": "mentl",
       "name": "Mentl",
-      "what": "A self-hosting compiler with an algebraic effect system; bit-identical bootstrap.",
-      "stack": "WebAssembly",
+      "what": "A programming language and self-hosting compiler with an algebraic effect system; the compiler reproduces itself byte for byte.",
+      "stack": "Mentl · WebAssembly",
       "url": "https://github.com/ampactor-labs/mentl"
     },
     {
       "id": "sonido",
       "name": "Sonido",
-      "what": "One DSP codebase for desktop audio plugins and a bare-metal Cortex-M7 microcontroller, tested on real hardware.",
-      "stack": "Rust · no_std · CLAP",
+      "what": "One Rust DSP framework whose effect kernels run unchanged in CLAP plugins, a browser editor and guitar-pedal firmware on a Cortex-M7.",
+      "stack": "Rust · no_std · CLAP · Cortex-M7",
       "url": "https://github.com/ampactor-labs/sonido"
     },
     {
       "id": "turbosort",
       "name": "Turbosort",
-      "what": "SIMD radix sort on crates.io, 2.2–3.2× faster than the standard library from 1M to 100M keys, with the cases where it is slower documented.",
+      "what": "SIMD radix sort on crates.io: 2.2 to 3.2 times as fast as the standard library on random 32-bit keys from 1M to 100M on one laptop, with the losses (64-bit keys, a second machine) documented.",
       "stack": "Rust · AVX2",
       "url": "https://github.com/ampactor-labs/turbosort"
     }

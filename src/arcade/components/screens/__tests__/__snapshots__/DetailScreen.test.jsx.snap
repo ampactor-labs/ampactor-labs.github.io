@@ -63,7 +63,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     <div
       style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #E0FF0022;"
     >
-      A programming language that compiles itself.
+      A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly.
     </div>
     <div
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
@@ -88,7 +88,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.
+        A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly. An effect is something a function does besides return a value, such as allocating or printing, and each function's type lists them. A negated effect such as !Network is a claim the compiler proves through every call, or it refuses to build. The compiler is written in Mentl: the pinned binary in boot/ compiles src/ and lib/ into a compiler that reproduces it byte for byte, and that fixed point is the release.
       </div>
     </div>
     <div
@@ -117,7 +117,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          BIT-IDENTICAL L1 BOOTSTRAP
+          BYTE-IDENTICAL SELF-COMPILE, EVERY PIN
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -127,7 +127,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          FULL EFFECT ALGEBRA (+, -, !, Pure)
+          FULL EFFECT ALGEBRA (+, -, &, !, Pure)
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -147,7 +147,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          GRAPH-NATIVE IR (NOT AST-WALKING)
+          ONE GRAPH, ONE WRITER: INFERENCE
         </div>
         <div
           style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
@@ -167,7 +167,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           >
             &gt;&gt; 
           </span>
-          WASM CODEGEN + MEMORY ARENAS
+          WASM CODEGEN · 149 MICROS · 62 CRUCIBLES
         </div>
       </div>
       <div
@@ -229,7 +229,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
       >
-        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
+        The verifier is sound and incomplete: a claim it cannot decide is recorded as pending debt, reported at compile time, and the program still builds. The absence proof !E is keyed by effect name, its soundness under polymorphism is an open item (PLAN.md §4③), and on the compiler's own source an effect operation with no handler installed anywhere still compiled with zero diagnostics (PLAN.md §7). The compiler emits WebAssembly only and runs through the bundled Rust host; there is no published package, and no CI service runs the gates.
       </div>
     </div>
     <div

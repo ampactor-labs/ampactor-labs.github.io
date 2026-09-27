@@ -34,12 +34,12 @@ const RAW_PROJECTS = [
     tagline: "THE COMPILER BOOTSTRAPS ITSELF",
     outcome: "A programming language that compiles itself.",
     highlights: [
-      "BIT-IDENTICAL L1 BOOTSTRAP",
-      "FULL EFFECT ALGEBRA (+, -, !, Pure)",
+      "BYTE-IDENTICAL SELF-COMPILE, EVERY PIN",
+      "FULL EFFECT ALGEBRA (+, -, &, !, Pure)",
       "SELF-HOSTED: MENTL COMPILES MENTL",
-      "GRAPH-NATIVE IR (NOT AST-WALKING)",
+      "ONE GRAPH, ONE WRITER: INFERENCE",
       "ROW-POLYMORPHIC TYPE SYSTEM",
-      "WASM CODEGEN + MEMORY ARENAS",
+      "WASM CODEGEN · 149 MICROS · 62 CRUCIBLES",
     ],
     stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
     status: "active",
@@ -85,7 +85,7 @@ const RAW_PROJECTS = [
     color: "#FF6B35",
     icon: "⚡",
     github: "https://github.com/ampactor-labs/turbosort",
-    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types in a strict no_std environment without relying on FFI or the nightly compiler. Benchmarked against std and voracious with full criterion runs: 3.2× over std on f32 at 1M elements, 3.7× with the parallel feature at 10M. A perf sweep out to 100M keys shows the lead widening rather than collapsing, because radix holds a flat instruction count per key while pdqsort's grows with log n. The README publishes the losses too; large random u64 still goes to voracious.",
+    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types, builds without the standard library (AVX2 detection needs the std feature), and uses no FFI and no nightly compiler. Benchmarked against std and voracious with full criterion runs: 3.2× over std on f32 at 1M elements, 3.7× with the parallel feature at 10M. A perf sweep out to 100M keys shows the lead widening rather than collapsing, because radix holds a flat instruction count per key while pdqsort's grows with log n. The README publishes the losses too; large random u64 still goes to voracious.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
     outcome:
@@ -96,41 +96,13 @@ const RAW_PROJECTS = [
       "2.2–3.2× HELD OUT TO 100M KEYS",
       "73% OF CYCLES IN THE SCATTER PASS",
       "AVX2 NETWORKS · LSD RADIX · CPUID DISPATCH",
-      "MIRI-CHECKED UNSAFE CORE, EVERY PUSH",
+      "MIRI-CHECKED UNSAFE CORE IN CI",
     ],
     stack: ["Rust", "AVX2", "NEON", "rayon", "perf"],
     status: "active",
     category: "systems",
     operatorNote:
       "The benchmark tables publish where it loses: large random u64 goes to voracious. Trust a table that shows its losses over one that only shows wins. The profiling pass came later and moved a number the wrong way for comfort: at 1M keys the working set half-fits L3, so the honest floor is 2.2× at 10M, not the headline.",
-  },
-
-  {
-    id: "landed",
-    title: "LANDED",
-    subtitle: "SOLANA EXECUTION GATEWAY",
-    lang: "Rust",
-    color: "#14F195",
-    icon: "🛬",
-    github: "https://github.com/ampactor-labs/landed",
-    desc: "Landed runs one Solana transaction at a time through four timed stages: assemble a message on a fresh blockhash, gate it, submit it by plain RPC or as a Jito bundle, then track it to a landed slot. What comes back says which of those happened and where the milliseconds went. The law is fail-closed. Gates read evidence gathered from live chain state, and if any of that evidence cannot be fetched, the transaction is rejected rather than submitted with the check skipped; the compute gate refuses even when the node simply declines to report consumption, because 'it fits the budget' and 'nobody told me' are different facts. It speaks JSON-RPC directly instead of depending on solana-client, which drags the whole RPC stack in to send one transaction and, in the stable 4.x line, resolves against a wincode version that will not compile with the one solana-sdk's own types implement.",
-    tags: ["solana", "jito", "execution", "latency"],
-    tagline: "UNKNOWN IS NOT SAFE",
-    outcome:
-      "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
-    highlights: [
-      "RPC AND JITO BUNDLE ROUTES",
-      "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
-      "PER-STAGE LATENCY PERCENTILES",
-      "REAL VALIDATOR IN CI, EVERY PUSH",
-      "~1 ms PIPELINE OVERHEAD (p50)",
-      "NO solana-client DEPENDENCY",
-    ],
-    stack: ["Rust", "Solana", "Jito", "tokio"],
-    status: "active",
-    category: "web3",
-    operatorNote:
-      "The validator-in-CI earned its keep on the first run: Message::new leaves the blockhash zeroed, getFeeForMessage prices the bytes it is handed and returned null, and every gate correctly refused to submit. A mocked RPC would have returned a cheerful fee and shipped the bug. Extracted from flowpilot, a trading engine I retired when its edge stopped clearing fees; the strategy died on the evidence and the engineering outlived it.",
   },
 
   {
@@ -204,7 +176,7 @@ const RAW_PROJECTS = [
     icon: "◈",
     github: "https://github.com/ampactor-labs/tokensafe",
     live: "https://scry-production.up.railway.app",
-    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.008 transaction serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
+    desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.02 payment serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
     tags: ["solana", "security", "deployed", "x402"],
     tagline: "SHIPPED. ON-CHAIN. PAID.",
     outcome:
@@ -212,7 +184,7 @@ const RAW_PROJECTS = [
     highlights: [
       "9 ON-CHAIN CHECKS",
       "x402 MICROPAYMENTS",
-      "$0.008/REQUEST",
+      "$0.02 A CHECK, PAID IN USDC",
       "WEB UI + TELEGRAM BOT",
       "DELTA DETECTION",
       "Ed25519 SIGNED RESPONSES",
@@ -221,7 +193,35 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "security",
     operatorNote:
-      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.008 a request over x402, where the payment is the auth, so no signup or API key.",
+      "Shipped. TokenSafe is the API; Scry is the web frontend and Telegram bot. $0.02 a check over x402, where the payment is the auth, so no signup or API key.",
+  },
+
+  {
+    id: "landed",
+    title: "LANDED",
+    subtitle: "SOLANA EXECUTION GATEWAY",
+    lang: "Rust",
+    color: "#14F195",
+    icon: "🛬",
+    github: "https://github.com/ampactor-labs/landed",
+    desc: "Landed runs one Solana transaction at a time through four timed stages: assemble a message on a fresh blockhash, gate it, submit it by plain RPC or as a Jito bundle, then track it to a landed slot. What comes back says which of those happened and where the milliseconds went. The law is fail-closed. Gates read evidence gathered from live chain state, and if any of that evidence cannot be fetched, the transaction is rejected rather than submitted with the check skipped; the compute gate refuses even when the node simply declines to report consumption, because 'it fits the budget' and 'nobody told me' are different facts. It speaks JSON-RPC directly instead of depending on solana-client, which drags the whole RPC stack in to send one transaction and, in the stable 4.x line, resolves against a wincode version that will not compile with the one solana-sdk's own types implement.",
+    tags: ["solana", "jito", "execution", "latency"],
+    tagline: "UNKNOWN IS NOT SAFE",
+    outcome:
+      "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
+    highlights: [
+      "RPC AND JITO BUNDLE ROUTES",
+      "FAIL-CLOSED GATES, NO SKIPPED CHECKS",
+      "PER-STAGE LATENCY PERCENTILES",
+      "REAL VALIDATOR IN CI, EVERY PULL REQUEST",
+      "~1 ms PIPELINE OVERHEAD (p50)",
+      "NO solana-client DEPENDENCY",
+    ],
+    stack: ["Rust", "Solana", "Jito", "tokio"],
+    status: "active",
+    category: "web3",
+    operatorNote:
+      "The validator-in-CI earned its keep on the first run: Message::new leaves the blockhash zeroed, getFeeForMessage prices the bytes it is handed and returned null, and every gate correctly refused to submit. A mocked RPC would have returned a cheerful fee and shipped the bug. Extracted from flowpilot, a trading engine I retired when its edge stopped clearing fees; the strategy died on the evidence and the engineering outlived it.",
   },
 
   {
@@ -244,13 +244,42 @@ const RAW_PROJECTS = [
       "COLLAPSE TRAIL, EVERY STEP COUNTED",
       "SPOTS: SAVE A SITE, RECALL IN ONE TAP",
       "GUILD VIEW: CANOPY DOWN TO ROOTS",
-      "FLOWER VISITORS FOR 3,900 PLANTS",
+      "FLOWER VISITORS FOR 3,787 PLANTS (43%)",
     ],
     stack: ["React", "TypeScript", "MiniSearch", "Node + Postgres", "Railway"],
     status: "deployed",
     category: "creative",
     operatorNote:
       "Permapeople carries almost no pollinator data (under 60 plants with a visitor tag, 24 with a flower color), so the service enriches it: GloBI supplies recorded flower visitors grouped by insect family, USDA PLANTS supplies bloom color on exact binomial matches only, because taking the top search hit would paint the wrong plant. The honesty layer is the part I would defend hardest. Permapeople ships one shared placeholder image across 4,063 plants, so the transform detects it and nulls it rather than let a card pretend it has a photo, and results rank by how well documented a plant actually is.",
+  },
+
+  {
+    id: "bits",
+    title: "BITS",
+    subtitle: "PUPPET-SHOW INSTRUMENT",
+    lang: "TS/React",
+    color: "#3a86ff",
+    icon: "✂",
+    github: "https://github.com/ampactor-labs/bits",
+    live: "https://ampactor.dev/bits/",
+    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs, dragging one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
+    tags: ["animation", "webcodecs", "on-device", "pwa"],
+    tagline: "PUT ON THE SHOW",
+    outcome:
+      "Make puppet shows on a phone by performing them: record the audio, add puppets, animate them in layers and export the result. Everything runs on the device.",
+    highlights: [
+      "PASSES OVERDUB LIKE AUDIO TRACKS",
+      "BIT-EXACT REPLAY: PREVIEW = RENDER",
+      "SPECTRAL VISEMES FROM RAW PCM",
+      "CUT PAPER OR BEND IT (MLS WARP)",
+      "BODY PASSES: WRISTS DRIVE PUPPETS",
+      "ON-DEVICE: NO UPLOADS, NO ACCOUNTS",
+    ],
+    stack: ["TypeScript", "React", "WebCodecs", "MediaPipe", "OPFS"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
   },
 
   {
@@ -283,35 +312,6 @@ const RAW_PROJECTS = [
   },
 
   {
-    id: "celezdial",
-    title: "CELEZDIAL SELEKTA",
-    subtitle: "ZODIAC-MAPPED SYNTHESIZER",
-    lang: "React/Tone.js",
-    color: "#9d7bff",
-    icon: "☽",
-    github: "https://github.com/ampactor-labs/celezdial-selekta",
-    live: "https://ampactor.dev/celezdial-selekta/",
-    desc: "Celezdial Selekta maps the twelve zodiac signs to twelve voices on a chromatic keyboard. Each sign's pitch class comes from a chromatic-calendar scheme, and its microtuning follows Hans Cousto's planetary octave, detuning the voice by its ruling planet's deviation from 12-TET. The voices sum before a Chebyshev waveshaper, so the distortion generates sum and difference tones across the whole mix instead of per voice. A natal-chart mode reads two birth charts at once and sounds whichever signs each chart owns, so a sign both charts share plays its two tunings together.",
-    tags: ["synthesis", "tone.js", "microtuning", "generative"],
-    tagline: "TWELVE SIGNS, TWELVE VOICES",
-    outcome:
-      "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
-    highlights: [
-      "12 VOICES, ONE PER ZODIAC SIGN",
-      "8 SWAPPABLE FX CHAINS",
-      "COUSTO PLANETARY MICROTUNING",
-      "SUM-BEFORE-SATURATION CHEBYSHEV",
-      "DUAL NATAL-CHART MODE",
-      "DIM7 OCTAVE PARTITIONING",
-    ],
-    stack: ["React", "Tone.js", "Web Audio", "circular-natal-horoscope-js"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
-  },
-
-  {
     id: "copycats",
     title: "COPYCATS",
     subtitle: "REPLAY-GHOST PARTY RACER",
@@ -338,127 +338,6 @@ const RAW_PROJECTS = [
     category: "creative",
     operatorNote:
       "The determinism matrix re-simulates canonical scenarios on linux x64, linux arm64, macOS arm64, and Windows and diffs per-tick checksum trails byte for byte. Every generated house ships with a proof: a chaos-bot run that genuinely reaches the bowl, found before the level is allowed to exist. Palette is gruvbox; meaning rides blue vs orange only and every hazard is shape-coded, safe for deuteranopia.",
-  },
-
-  {
-    id: "bits",
-    title: "BITS",
-    subtitle: "PUPPET-SHOW INSTRUMENT",
-    lang: "TS/React",
-    color: "#3a86ff",
-    icon: "✂",
-    github: "https://github.com/ampactor-labs/bits",
-    live: "https://ampactor.dev/bits/",
-    desc: "BITS is a puppet-show instrument for phones: record the audio first, cast puppets from photos or finger doodles, then perform in passes the way a musician overdubs, dragging one puppet while the audio and every earlier pass play back. Spring physics is the inbetweener; scissors split a puppet where you cut; a pinned mouth flaps with the voice track in spectral visemes classified straight from the PCM. Body passes drive puppets with your wrists via pose tracking. Every action lands in an append-only recipe that simulates bit-exact on a fixed-step grid, so preview and render agree. Everything runs on-device: WebCodecs encode, OPFS storage, no uploads, no accounts, no generated pixels.",
-    tags: ["animation", "webcodecs", "on-device", "pwa"],
-    tagline: "PUT ON THE SHOW",
-    outcome:
-      "Make puppet shows on a phone by performing them: record the audio, add puppets, animate them in layers and export the result. Everything runs on the device.",
-    highlights: [
-      "PASSES OVERDUB LIKE AUDIO TRACKS",
-      "BIT-EXACT REPLAY: PREVIEW = RENDER",
-      "SPECTRAL VISEMES FROM RAW PCM",
-      "CUT PAPER OR BEND IT (MLS WARP)",
-      "BODY PASSES: WRISTS DRIVE PUPPETS",
-      "ON-DEVICE: NO UPLOADS, NO ACCOUNTS",
-    ],
-    stack: ["TypeScript", "React", "WebCodecs", "MediaPipe", "OPFS"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "There is no server, deliberately: on one phone it is already multiplayer (pass the theater; whoever holds the puppet is the one speaking), and across phones the unit is a .bit.json bundle that re-opens as the working instrument, not a flattened video. Corpse mode is the party game: perform your pass blind, meet the whole show on playback.",
-  },
-  {
-    id: "slot",
-    title: "SLOT",
-    subtitle: "B♭ TRUMPET TUNING LATTICE",
-    lang: "JavaScript",
-    color: "#FFB000",
-    icon: "🎺",
-    github: "https://github.com/ampactor-labs/slot",
-    live: "https://ampactor.dev/slot/",
-    desc: 'Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told "low C♯ is sharp, kick the slide" and not told how far, or why, or what it costs everywhere else.',
-    tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
-    tagline: "49 CELLS, 9 EXACTLY TRUE",
-    outcome:
-      "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
-    highlights: [
-      "49-CELL LATTICE, 9 EXACTLY IN TUNE",
-      "TWO INDEPENDENT DERIVATIONS AGREE TO 10⁻¹² CENTS",
-      "LIVE MIC PITCH DETECTION",
-      "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
-      "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
-      "ZERO DEPENDENCIES, ONE HTML FILE",
-    ],
-    stack: ["JavaScript", "Web Audio API", "Vanilla DOM"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
-  },
-
-  {
-    id: "understory",
-    title: "UNDERSTORY",
-    subtitle: "LYRIC X-RAY",
-    lang: "JavaScript",
-    color: "#7DC59F",
-    icon: "⏚",
-    github: "https://github.com/ampactor-labs/understory",
-    live: "https://ampactor.dev/understory/",
-    desc: "Understory is a lyric x-ray for songwriters. Write or paste a lyric and it shows what is under the words: where the stresses fall, how each rhyme lands, how far each line floats from things you can touch, which of the seven senses it reaches, who is talking to whom, and which lines come back and what they land on each time. Below a ground line sits the understory, the one sentence the song never says, and its words light up if they surface in the lyric. There is no AI and no server: three public word lists and a page of rules run in the browser, and every mark opens a receipt showing exactly what it was computed from.",
-    tags: ["lyrics", "songwriting", "prosody", "rhyme"],
-    tagline: "WHAT A SONG NEVER SAYS",
-    outcome:
-      "Paste song lyrics to see the stress patterns, rhymes and how concrete each line is, and whether the song names the subject it means to leave unsaid.",
-    highlights: [
-      "56K WORDS WITH STRESS, CONCRETENESS, SENSES",
-      "PATTISON'S RHYME LADDER, SIX RUNGS",
-      "SEVEN-SENSE METER FROM THE LANCASTER NORMS",
-      "73 ENGINE CHECKS GATE EVERY DEPLOY",
-      "NO AI, NO SERVER, WORKS OFFLINE",
-      "EVERY MARK OPENS ITS RECEIPT",
-    ],
-    stack: ["JavaScript", "Vanilla DOM", "CMUdict", "Service Worker"],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
-  },
-
-  {
-    id: "freestyle-engine",
-    title: "FREESTYLE ENGINE",
-    subtitle: "FREESTYLE RAP PRACTICE",
-    lang: "TypeScript",
-    color: "#E9E7DC",
-    icon: "🎤",
-    github: "https://github.com/ampactor-labs/freestyle-engine",
-    live: "https://ampactor.dev/freestyle-engine/",
-    desc: "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
-    tags: ["freestyle", "rap", "practice", "phonology"],
-    tagline: "TRAIN THE MACHINERY, NOT THE BARS",
-    outcome:
-      "Freestyle rap over a beat in the browser. It measures each take for timing, rhyme chains and vocabulary, then suggests drills for the weakest area.",
-    highlights: [
-      "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
-      "8-PART BASELINE BATTERY",
-      "EXACT · NEAR · ASSONANT · CONSONANT RHYME",
-      "TIMING MEASURED AGAINST THE BEAT GRID",
-      "RECORDINGS STAY IN INDEXEDDB",
-      "NO ACCOUNTS, NO GENERATED LYRICS",
-    ],
-    stack: [
-      "TypeScript",
-      "Vite",
-      "Web Audio API",
-      "IndexedDB",
-      "Web Speech API",
-    ],
-    status: "deployed",
-    category: "creative",
-    operatorNote:
-      "Every score is a proxy. Rhyme, timing and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar was good.",
   },
 
   {
@@ -491,6 +370,161 @@ const RAW_PROJECTS = [
   },
 
   {
+    id: "understory",
+    title: "UNDERSTORY",
+    subtitle: "LYRIC X-RAY",
+    lang: "JavaScript",
+    color: "#7DC59F",
+    icon: "⏚",
+    github: "https://github.com/ampactor-labs/understory",
+    live: "https://ampactor.dev/understory/",
+    desc: "Understory is a lyric x-ray for songwriters. Write or paste a lyric and it shows what is under the words: where the stresses fall, how each rhyme lands, how far each line floats from things you can touch, which of the seven senses it reaches, who is talking to whom, and which lines come back and what they land on each time. Below a ground line sits the understory, the one sentence the song never says, and its words light up if they surface in the lyric. There is no AI and no server: three public word lists and a page of rules run in the browser, and every mark opens a receipt showing exactly what it was computed from.",
+    tags: ["lyrics", "songwriting", "prosody", "rhyme"],
+    tagline: "WHAT A SONG NEVER SAYS",
+    outcome:
+      "Paste song lyrics to see the stress patterns, rhymes and how concrete each line is, and whether the song names the subject it means to leave unsaid.",
+    highlights: [
+      "55,755 WORDS; 45,985 RATED FOR STRESS, CONCRETENESS, SENSES",
+      "PATTISON'S RHYME LADDER, SIX RUNGS",
+      "SEVEN-SENSE METER FROM THE LANCASTER NORMS",
+      "73 ENGINE CHECKS GATE EVERY DEPLOY",
+      "NO AI, NO SERVER, WORKS OFFLINE",
+      "EVERY MARK OPENS ITS RECEIPT",
+    ],
+    stack: ["JavaScript", "Vanilla DOM", "CMUdict", "Service Worker"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "It reads words, not songs. The stress lane shows how a line is spoken; where a melody puts the stress is the real prosody, and that needs a musical grid this doesn't have.",
+  },
+
+  {
+    id: "celezdial",
+    title: "CELEZDIAL SELEKTA",
+    subtitle: "ZODIAC-MAPPED SYNTHESIZER",
+    lang: "React/Tone.js",
+    color: "#9d7bff",
+    icon: "☽",
+    github: "https://github.com/ampactor-labs/celezdial-selekta",
+    live: "https://ampactor.dev/celezdial-selekta/",
+    desc: "Celezdial Selekta maps the twelve zodiac signs to twelve voices on a chromatic keyboard. Each sign's pitch class comes from a chromatic-calendar scheme, and its microtuning follows Hans Cousto's planetary octave, detuning the voice by its ruling planet's deviation from 12-TET. The voices sum before a Chebyshev waveshaper, so the distortion generates sum and difference tones across the whole mix instead of per voice. A natal-chart mode reads two birth charts at once and sounds whichever signs each chart owns, so a sign both charts share plays its two tunings together.",
+    tags: ["synthesis", "tone.js", "microtuning", "generative"],
+    tagline: "TWELVE SIGNS, TWELVE VOICES",
+    outcome:
+      "An ambient synth you play by toggling zodiac signs, or by loading a birth chart and listening to it.",
+    highlights: [
+      "12 VOICES, ONE PER ZODIAC SIGN",
+      "7 SWAPPABLE FX CHAINS",
+      "COUSTO PLANETARY MICROTUNING",
+      "SUM-BEFORE-SATURATION CHEBYSHEV",
+      "DUAL NATAL-CHART MODE",
+      "DIM7 OCTAVE PARTITIONING",
+    ],
+    stack: ["React", "Tone.js", "Web Audio", "circular-natal-horoscope-js"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "More control than it lets on: the FX chains, listen presets, and a full snapshot export all sit behind 'Look Within'. Summing the twelve voices before the Chebyshev waveshaper is the whole trick, since the polyphony then generates its own sum and difference tones.",
+  },
+
+  {
+    id: "freestyle-engine",
+    title: "FREESTYLE ENGINE",
+    subtitle: "FREESTYLE RAP PRACTICE",
+    lang: "TypeScript",
+    color: "#E9E7DC",
+    icon: "🎤",
+    github: "https://github.com/ampactor-labs/freestyle-engine",
+    live: "https://ampactor.dev/freestyle-engine/",
+    desc: "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
+    tags: ["freestyle", "rap", "practice", "phonology"],
+    tagline: "TRAIN THE MACHINERY, NOT THE BARS",
+    outcome:
+      "Freestyle rap over a beat in the browser. It measures each take for timing, rhyme chains and vocabulary, then suggests drills for the weakest area.",
+    highlights: [
+      "21-SKILL PROFILE, EVERY SCORE WITH A RECEIPT",
+      "12 DRILLS AND AN 8-TASK BASELINE",
+      "PERFECT · MULTI · NEAR · ASSONANCE · CONSONANCE",
+      "A SIX-BLOCK DAILY PLAN PICKED BY LEVERAGE",
+      "PROFILE AND SESSIONS STAY IN THE BROWSER",
+      "NO ACCOUNTS, NO GENERATED LYRICS",
+    ],
+    stack: [
+      "TypeScript",
+      "Vite",
+      "Web Audio API",
+      "IndexedDB",
+      "Web Speech API",
+    ],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Every score is a proxy. Rhyme, timing and filler counts come from a speech transcript and from pronunciations that are looked up online or guessed from spelling offline. Nothing in the engine can tell whether a bar was good.",
+  },
+
+  {
+    id: "slot",
+    title: "SLOT",
+    subtitle: "B♭ TRUMPET TUNING LATTICE",
+    lang: "JavaScript",
+    color: "#FFB000",
+    icon: "🎺",
+    github: "https://github.com/ampactor-labs/slot",
+    live: "https://ampactor.dev/slot/",
+    desc: 'Every note a B♭ trumpet can play, laid out as the seven-by-seven table it actually is, with the two independent errors that add up inside each cell. Built for someone a week into a horn who has been told "low C♯ is sharp, kick the slide" and not told how far, or why, or what it costs everywhere else.',
+    tags: ["trumpet", "intonation", "tuning", "fingering-chart"],
+    tagline: "49 CELLS, 9 EXACTLY TRUE",
+    outcome:
+      "Every fingering on a B♭ trumpet, how sharp or flat each one plays, and how far to move the slide to correct it. A live microphone mode checks your playing.",
+    highlights: [
+      "49-CELL LATTICE, 9 EXACTLY IN TUNE",
+      "TWO PROGRAMS, NO SHARED CODE, ONE ANSWER",
+      "LIVE MIC PITCH DETECTION",
+      "SLIDE THROWS DERIVED FROM TUBE LENGTH ALONE",
+      "IDEAL CUT / MAKER'S COMPROMISE, ONE TOGGLE",
+      "ZERO DEPENDENCIES, ONE HTML FILE",
+    ],
+    stack: ["JavaScript", "Web Audio API", "Vanilla DOM"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
+  },
+
+  {
+    id: "comma",
+    title: "COMMA",
+    subtitle: "THE PYTHAGOREAN COMMA, PLAYED",
+    lang: "JavaScript",
+    color: "#63C4E0",
+    icon: "≋",
+    // The repository is private, so the sync cannot read its README; the
+    // content fields below are copied from it by hand (the lead, its first
+    // sentence, the first paragraph of Limitations). Add the github URL once
+    // the repository is public and the sync takes over.
+    github: null,
+    live: "https://ampactor.dev/comma/",
+    desc: "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register. Twelve pure fifths overshoot seven octaves by 23.46 cents; the piano's tuning spreads that gap and leaves every interval but the octave slightly off. Eleven oscillators run at those errors, 0.37 to 8.63 Hz, and only a linear readout is trained, which makes them a reservoir computer. It is one HTML file with no dependencies; a Node script reruns its simulation to check 14 claims.",
+    tags: ["tuning", "oscillators", "reservoir", "web-audio"],
+    tagline: "TWELVE FIFTHS, ONE LEFTOVER",
+    outcome:
+      "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register.",
+    highlights: [
+      "ELEVEN OSCILLATORS AT THE PIANO'S ERRORS",
+      "0.37 TO 8.63 Hz: THE COMMA, SPREAD OUT",
+      "READ FAST: A RESERVOIR COMPUTER",
+      "READ SLOW: A 50-BIT STORAGE REGISTER",
+      "CAPACITY 9.69, OR 1.08 WITH THE ERRORS ZEROED",
+      "14 CLAIMS RE-MEASURED BY ONE SCRIPT",
+    ],
+    stack: ["JavaScript", "Web Audio API", "Canvas 2D", "Vanilla DOM"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The oscillator bank is a demonstration and a weak computer: even at the strongest coupling its readout scores 0.115 out of 1 on a simple nonlinear task, and it uses under 60% of the memory its 34 readout numbers allow. Only the simulation is checked. A Node script reruns the page's simulation code, but nothing tests the page itself in a browser, and no listening test backs what the page says you will hear.",
+  },
+
+  {
     id: "apapacho",
     title: "APAPACHO",
     subtitle: "WORDS · FRASES · SEÑAS",
@@ -499,11 +533,14 @@ const RAW_PROJECTS = [
     icon: "🫂",
     github: null,
     live: "https://ampactor.dev/apapacho/",
-    desc: 'Apapacho is a phone app for three small daily reps: an English word worth having, a Mexican Spanish phrase with the register it belongs in, and an ASL sign. Three cards a day, a quiz for when there are five minutes, and a dictionary lookup that makes adding your own words quick. It is named for apapachar, from a Nahuatl root, usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
+    // The repository is private, so the sync cannot read its README; the
+    // content fields below are copied from it by hand (the lead, its first
+    // sentence, the first paragraph of Limitations).
+    desc: 'A phone app that gives you three small daily reps: an English word, a Mexican Spanish phrase with its register, and a sign in American Sign Language (ASL). Register is the setting a phrase suits, from a family meal to the street. The app is one HTML file of plain JavaScript with the deck inlined; it installs to a home screen and works offline. It is named for apapachar, from a root in Nahuatl (the Aztec language), usually glossed "to cuddle" and folk-translated as "a hug with the soul."',
     tags: ["language", "spanish", "asl", "vocabulary"],
     tagline: "THREE CARDS A DAY",
     outcome:
-      "A daily English word, Mexican Spanish phrase and ASL sign, each with notes on when to use it. Works offline on a phone.",
+      "A phone app that gives you three small daily reps: an English word, a Mexican Spanish phrase with its register, and a sign in American Sign Language (ASL).",
     highlights: [
       "54 WORDS · 47 FRASES · 24 SIGNS",
       "26 FINGERSPELLED LETTERS",
@@ -516,7 +553,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "creative",
     operatorNote:
-      "The Señas tab describes motion in words, which is the wrong medium for a moving language. It is a memory aid for signs learned from video, not a teacher; Lifeprint is the teacher.",
+      "The Señas (signs) tab describes each sign's motion in words, and words are the wrong medium for a moving language. The cards work as memory aids for signs learned from video; Lifeprint, a free online ASL course, is the teacher.",
   },
 ];
 

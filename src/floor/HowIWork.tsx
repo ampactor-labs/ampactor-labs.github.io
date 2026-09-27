@@ -40,10 +40,19 @@ export default function HowIWork({ inert }: { inert: boolean }) {
             Documented limits
           </h3>
           <p>
-            Most of my READMEs have a section on known weaknesses, and where I
-            publish benchmarks, they include the cases I lose. The arcade&apos;s
-            project pages are generated from those READMEs, so the site and the
-            repositories say the same thing.
+            Every project&apos;s README follows{" "}
+            <a
+              href={`${REPO}/blob/main/docs/README-STANDARD.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              one written standard
+            </a>
+            : what it is, whether it works, how to run and test it, and a
+            Limitations section on what does not work yet. Benchmarks include
+            the cases I lose. The site reads each project&apos;s card, its
+            cabinet page and its known-limitations note from that README when it
+            is built, so the site and the repositories cannot disagree.
           </p>
         </article>
         <article className={`${styles.item} reveal`}>
