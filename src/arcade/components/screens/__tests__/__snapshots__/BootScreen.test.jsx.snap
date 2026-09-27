@@ -212,7 +212,7 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
       style="visibility: hidden; color: var(--color-muted);"
     />
     <div
-      style="visibility: hidden; color: var(--color-amber); font-family: "Press Start 2P", monospace; font-size: 13px; text-align: center; margin-top: 8px;"
+      style="visibility: hidden; color: var(--color-amber); font-family: "Press Start 2P", monospace; font-size: 12px; margin-top: 8px;"
     >
       PRESS ANY KEY
     </div>

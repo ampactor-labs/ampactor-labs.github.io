@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { createRef } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import ArcadeStage from "../ArcadeStage";
+import { SYSTEM_PROGRAMS } from "../../data/programs";
 
 // Mock heavy hooks
 vi.mock("../useIntroSequence", () => ({
@@ -20,118 +21,64 @@ vi.mock("../useAmbientHum", () => ({
   }),
 }));
 
+const HOME = { view: "home" };
 const SELECT = { view: "arcade", screen: "select" };
-const FLOOR = { view: "floor" };
-const METRICS = { zoomW: 900, zoomH: 800 };
+const project = (id) => ({ view: "arcade", screen: "project", id });
 
-function renderStage(props = {}) {
+function renderStage(route = HOME) {
+  localStorage.setItem("ampactor_visited", "1");
   const consoleRef = createRef();
-  const backdropRef = createRef();
-  const enterButtonRef = createRef();
   const tunnelRef = createRef();
   const onNavigate = vi.fn();
-  const onEnter = vi.fn();
   const utils = render(
     <ArcadeStage
-      mode="live"
-      zoomed
-      animating={false}
-      scale={1}
-      metrics={METRICS}
-      route={SELECT}
+      route={route}
       onNavigate={onNavigate}
-      onEnter={onEnter}
-      introVariant="console"
       consoleRef={consoleRef}
-      backdropRef={backdropRef}
-      enterButtonRef={enterButtonRef}
       tunnelRef={tunnelRef}
-      {...props}
     />,
   );
-  return { ...utils, consoleRef, enterButtonRef, onNavigate, onEnter };
+  return { ...utils, consoleRef, onNavigate };
 }
 
 describe("ArcadeStage", () => {
-  it("renders the zoomed cabinet as a dialog with live controls", () => {
-    const { container, consoleRef } = renderStage();
-    expect(container.firstChild).toBeTruthy();
-    expect(screen.getByRole("dialog", { name: "Arcade" })).toBe(
-      consoleRef.current,
-    );
-    expect(screen.getByText("AMPACTOR")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /insert coin/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /navigate up/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /navigate down/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /back to the floor/i })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /enter the arcade/i })).toBeNull();
-    expect(container.querySelector(".crt-screen")).not.toHaveAttribute("inert");
+  it("at home shows the title card with the name, and START asks to enter", () => {
+    const { onNavigate } = renderStage(HOME);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "PRESS START" }));
+    expect(onNavigate).toHaveBeenCalledWith({ type: "enter" });
   });
 
-  it("‹ FLOOR asks the router to leave", () => {
-    const { onNavigate } = renderStage();
-    screen.getByRole("button", { name: /back to the floor/i }).click();
-    expect(onNavigate).toHaveBeenCalledWith({ type: "exit" });
+  it("the panel is live on the title card: A starts, the coin starts with credit", () => {
+    const { onNavigate } = renderStage(HOME);
+    fireEvent.click(screen.getByRole("button", { name: "Select" }));
+    expect(onNavigate).toHaveBeenCalledWith({ type: "enter" });
+    fireEvent.click(screen.getByRole("button", { name: "Insert coin" }));
+    expect(onNavigate).toHaveBeenCalledTimes(2);
   });
 
-  it("on the floor it is a miniature under one control, with the panel inert", () => {
-    const { container, consoleRef, enterButtonRef, onEnter } = renderStage({
-      mode: "attract",
-      zoomed: false,
-      scale: 0.71,
-      route: FLOOR,
-      introVariant: "screen",
-    });
-    const enter = screen.getByRole("button", { name: /enter the arcade/i });
-    expect(enter).toBe(enterButtonRef.current);
+  it("at the select route lists the cartridges and the operator programs", () => {
+    renderStage(SELECT);
+    const list = screen.getByRole("listbox", { name: "Project list" });
+    expect(list).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: /MENTL/ })).toBeInTheDocument();
+    for (const p of SYSTEM_PROGRAMS)
+      expect(screen.getByRole("option", { name: new RegExp(p.title) })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute("href", "/resume.html");
     expect(screen.queryByRole("dialog")).toBeNull();
-    expect(consoleRef.current.getAttribute("data-zoomed")).toBe("false");
-    expect(consoleRef.current.style.getPropertyValue("--k")).toBe("0.71");
-    // RTL's role queries ignore `inert`, so the attribute itself is asserted.
-    expect(container.querySelector(".crt-screen")).toHaveAttribute("inert");
-    expect(container.querySelector(".cabinet-body")).toHaveAttribute("inert");
-    expect(screen.getByTestId("attract-screen")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /back to the floor/i })).toBeNull();
-    enter.click();
-    expect(onEnter).toHaveBeenCalledTimes(1);
   });
 
-  it("lays the console out at the zoomed size at both depths", () => {
-    const { consoleRef, rerender } = renderStage({
-      mode: "attract",
-      zoomed: false,
-      scale: 0.5,
-      route: FLOOR,
-      introVariant: "screen",
-    });
-    expect(consoleRef.current.style.width).toBe("900px");
-    expect(consoleRef.current.style.height).toBe("800px");
-    rerender(
-      <ArcadeStage
-        mode="live"
-        zoomed
-        animating={false}
-        scale={0.5}
-        metrics={METRICS}
-        route={SELECT}
-        onNavigate={vi.fn()}
-        onEnter={vi.fn()}
-        introVariant="screen"
-        consoleRef={consoleRef}
-        backdropRef={createRef()}
-        enterButtonRef={createRef()}
-        tunnelRef={createRef()}
-      />,
-    );
-    expect(consoleRef.current.style.width).toBe("900px");
-    expect(consoleRef.current.style.height).toBe("800px");
-    expect(consoleRef.current.getAttribute("data-zoomed")).toBe("true");
+  it("opens an operator program from its route", () => {
+    renderStage(project("high-scores"));
+    expect(screen.getByRole("heading", { level: 2, name: "HIGH SCORES" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /FULL LEDGER/ })).toHaveAttribute("href", "/receipts/");
+    expect(screen.getByRole("region", { name: "HIGH SCORES" })).toBeInTheDocument();
   });
 
-  it("keeps the panel quiet while the zoom is animating", () => {
-    const { container } = renderStage({ animating: true });
-    expect(container.querySelector(".crt-screen")).toHaveAttribute("inert");
-    expect(container.querySelector(".cabinet-body")).toHaveAttribute("inert");
-    expect(screen.queryByRole("button", { name: /enter the arcade/i })).toBeNull();
+  it("opens a cartridge from its route", () => {
+    renderStage(project("mentl"));
+    expect(screen.getByRole("heading", { level: 2, name: "MENTL" })).toBeInTheDocument();
   });
 });

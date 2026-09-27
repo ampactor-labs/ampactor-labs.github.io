@@ -58,20 +58,21 @@ export const ENTRIES = {
     path: "/",
     title: `${SITE.name} · ${SITE.jobTitle}, ${SITE.locality}`,
     description:
-      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub.",
-    // Rendered from the live hero by scripts/render-og.mjs.
-    image: "/og-floor.png",
+      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub. The site is an arcade cabinet: press start.",
+    // Rendered from the live title card by scripts/render-og.mjs.
+    image: "/og-home.png",
     person: true,
-    // A first visit opens inside the cabinet (src/arcade/zoom/coldOpen.ts).
-    coldOpen: true,
+    // The cabinet is the page: dark from the first paint in either theme.
+    stage: true,
   },
   "arcade/index.html": {
     path: "/arcade/",
     title: `Arcade · ${SITE.name}`,
     description:
-      "My projects as an arcade cabinet: pick one to read about it, or insert a coin for three hidden programs, including a vector shooter with a global leaderboard.",
-    image: "/og-cabinet.png",
+      "The select screen of the cabinet: eighteen projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.",
+    image: "/og-home.png",
     person: false,
+    stage: true,
   },
   "receipts/index.html": {
     path: "/receipts/",
@@ -79,15 +80,15 @@ export const ENTRIES = {
     // The numbers come from the ledger itself (src/data/receipts.summary.json,
     // written by scripts/sync-receipts.mjs at build), so they cannot go stale.
     description: `${n(receipts.totals.commits)} commits across ${receipts.totals.repos} public repositories since ${monthName(receipts.totals.first)}, read from git when the site is built. Filter, sort, chart and export them in the browser.`,
-    image: "/og-floor.png",
+    image: "/og-home.png",
     person: false,
   },
   "craft/index.html": {
     path: "/craft/",
     title: `How this site is built · ${SITE.name}`,
     description:
-      "A case study of this site: the cabinet zoom, the commit log built from git, performance on a slow phone, and how it is tested. Numbers are measured on the production build.",
-    image: "/og-floor.png",
+      "A case study of this site: the arcade cabinet as the whole page, the commit log built from git, performance on a slow phone, and how it is tested. Numbers are measured on the production build.",
+    image: "/og-home.png",
     person: false,
   },
 };
@@ -124,12 +125,12 @@ function personJsonLd() {
 }
 
 // Everything a <head> needs beyond charset and viewport. `prepaint` is the
-// theme script from src/lib/theme.ts, `coldOpen` the first-visit script from
-// src/arcade/zoom/coldOpen.ts (floor only), and `bootShim` is
-// src/head/boot-shim.js; all are inlined so they run before any stylesheet or
-// module. `tokens` is public/tokens.css, inlined so the palette costs no
+// theme script from src/lib/theme.ts and `bootShim` is src/head/boot-shim.js;
+// both are inlined so they run before any stylesheet or module. A `stage`
+// entry (the cabinet) marks <html> so the room is dark from the first paint
+// whatever the theme. `tokens` is public/tokens.css, inlined so the palette costs no
 // render-blocking request (the file stays for the pages that link it).
-export function renderHead(entry, { prepaint, coldOpen, bootShim, tokens }) {
+export function renderHead(entry, { prepaint, bootShim, tokens }) {
   const url = `${SITE.origin}${entry.path}`;
   const image = `${SITE.origin}${entry.image}`;
   const title = escapeHtml(entry.title);
@@ -151,7 +152,7 @@ export function renderHead(entry, { prepaint, coldOpen, bootShim, tokens }) {
     `<meta name="twitter:image" content="${image}" />`,
     `<meta name="color-scheme" content="dark light" />`,
     `<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d2021" />`,
-    `<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f2e5bc" />`,
+    `<meta name="theme-color" media="(prefers-color-scheme: light)" content="${entry.stage ? "#1d2021" : "#f2e5bc"}" />`,
   ];
   if (entry.person) {
     lines.push(
@@ -159,7 +160,8 @@ export function renderHead(entry, { prepaint, coldOpen, bootShim, tokens }) {
     );
   }
   lines.push(`<script>${prepaint}</script>`);
-  if (entry.coldOpen && coldOpen) lines.push(`<script>${coldOpen}</script>`);
+  if (entry.stage)
+    lines.push(`<script>document.documentElement.setAttribute("data-stage","")</script>`);
   lines.push(
     tokens
       ? `<style>${tokens.trim()}</style>`
@@ -204,7 +206,7 @@ export function renderNoscript(entry) {
       }</li>`,
   ).join("\n          ");
   const arcadeNote =
-    entry.path === "/arcade/"
+    entry.stage
       ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
       : entry.path === "/receipts/"
         ? `<p>The commit log needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`

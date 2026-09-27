@@ -5,22 +5,25 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   style="height: 100%; display: flex; flex-direction: column;"
 >
   <div
-    class="desktop-only-flex"
-    style="justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+    style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px 16px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
   >
-    <div>
+    <div
+      style="flex: 1 1 260px; min-width: 0px;"
+    >
       <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
       >
         SELECT PROGRAM
       </div>
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SOFTWARE ENGINEER
+        MORGAN ESPITIA
+         · 
+        SOFTWARE ENGINEER
       </h1>
       <div
-        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -36,94 +39,40 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         </a>
       </div>
     </div>
-    <div
-      style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
+    <nav
+      aria-label="Operator"
+      style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
+      <a
+        href="/resume.html"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+      >
+        RESUME
+      </a>
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
         target="_blank"
       >
         GITHUB
       </a>
-      <br />
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
       </a>
-    </div>
+    </nav>
   </div>
   <div
-    class="mobile-only-block"
-    style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
-  >
-    <div
-      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"
-    >
-      <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
-      >
-        SELECT
-      </div>
-      <a
-        href="https://github.com/ampactor-labs"
-        rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
-        target="_blank"
-      >
-        GITHUB
-      </a>
-    </div>
-    <div
-      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;"
-    >
-      <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
-      >
-        PROGRAM
-      </div>
-      <a
-        href="https://www.linkedin.com/in/ampactor-labs/"
-        rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
-        target="_blank"
-      >
-        LINKEDIN
-      </a>
-    </div>
-    <div>
-      <h1
-        style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
-      >
-        MORGAN ESPITIA · SOFTWARE ENGINEER
-      </h1>
-      <div
-        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
-      >
-        <a
-          href="mailto:ampactorlabs@gmail.com"
-          style="color: inherit; text-decoration: none;"
-        >
-          ampactorlabs@gmail.com
-        </a>
-        <a
-          href="tel:+14352682446"
-          style="color: inherit; text-decoration: none;"
-        >
-          +1 435-268-2446
-        </a>
-      </div>
-    </div>
-  </div>
-  <div
+    aria-activedescendant="program-mentl"
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
+    tabindex="0"
   >
     <div>
       <div
@@ -142,6 +91,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="MENTL — SELF-HOSTING COMPILER"
         aria-selected="true"
         class="project-row"
+        id="program-mentl"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
@@ -188,6 +138,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
         aria-selected="false"
         class="project-row"
+        id="program-sonido"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -229,6 +180,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="TURBOSORT — SIMD-ACCELERATED RADIX SORT"
         aria-selected="false"
         class="project-row"
+        id="program-turbosort"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -270,6 +222,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="2-TOP — ROLLBACK NETCODE BRAWLER"
         aria-selected="false"
         class="project-row"
+        id="program-two-top"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -311,6 +264,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
         aria-selected="false"
         class="project-row"
+        id="program-clob"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -364,6 +318,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
         aria-selected="false"
         class="project-row"
+        id="program-tokensafe"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -417,6 +372,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="LANDED — SOLANA EXECUTION GATEWAY"
         aria-selected="false"
         class="project-row"
+        id="program-landed"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -470,6 +426,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="PERENNIALS — CONSTRAINT-SPACE FIELD GUIDE"
         aria-selected="false"
         class="project-row"
+        id="program-perennials"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -511,6 +468,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="BITS — PUPPET-SHOW INSTRUMENT"
         aria-selected="false"
         class="project-row"
+        id="program-bits"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -552,6 +510,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="NOODLES — MOBILE DAW"
         aria-selected="false"
         class="project-row"
+        id="program-noodles"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -593,6 +552,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="COPYCATS — REPLAY-GHOST PARTY RACER"
         aria-selected="false"
         class="project-row"
+        id="program-copycats"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -634,6 +594,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="STOOP — A PRESS FOR A PERIODICAL"
         aria-selected="false"
         class="project-row"
+        id="program-stoop"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -675,6 +636,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="UNDERSTORY — LYRIC X-RAY"
         aria-selected="false"
         class="project-row"
+        id="program-understory"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -716,6 +678,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="CELEZDIAL SELEKTA — ZODIAC-MAPPED SYNTHESIZER"
         aria-selected="false"
         class="project-row"
+        id="program-celezdial"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -757,6 +720,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="FREESTYLE ENGINE — FREESTYLE RAP PRACTICE"
         aria-selected="false"
         class="project-row"
+        id="program-freestyle-engine"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -798,6 +762,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="SLOT — B♭ TRUMPET TUNING LATTICE"
         aria-selected="false"
         class="project-row"
+        id="program-slot"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -839,6 +804,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="COMMA — THE PYTHAGOREAN COMMA, PLAYED"
         aria-selected="false"
         class="project-row"
+        id="program-comma"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -880,6 +846,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="APAPACHO — WORDS · FRASES · SEÑAS"
         aria-selected="false"
         class="project-row"
+        id="program-apapacho"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -921,6 +888,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="SYS/RESONANCE — SUBTRACTIVE SYNTH"
         aria-selected="false"
         class="project-row hidden-row tier-1-enter"
+        id="program-resonance"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
       >
@@ -962,6 +930,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="COHERENCE FIELD — CONSERVATION LAWS"
         aria-selected="false"
         class="project-row hidden-row tier-2-enter"
+        id="program-coherence"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
       >
@@ -1003,6 +972,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         aria-label="TUNNEL_RUN — VECTOR SHOOTER"
         aria-selected="false"
         class="project-row hidden-row tier-3-enter"
+        id="program-tunnel-run"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 14px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
       >
@@ -1050,13 +1020,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <span
         style="padding-right: 48px;"
       >
-        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com
+        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML EXPERIMENT · AVAILABLE FOR FULL-TIME OR CONTRACT · ampactorlabs@gmail.com
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com
+        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML EXPERIMENT · AVAILABLE FOR FULL-TIME OR CONTRACT · ampactorlabs@gmail.com
       </span>
     </div>
   </div>
@@ -1068,22 +1038,25 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   style="height: 100%; display: flex; flex-direction: column;"
 >
   <div
-    class="desktop-only-flex"
-    style="justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
+    style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px 16px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
   >
-    <div>
+    <div
+      style="flex: 1 1 260px; min-width: 0px;"
+    >
       <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
       >
         SELECT PROGRAM
       </div>
       <h1
         style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
-        MORGAN ESPITIA · SOFTWARE ENGINEER
+        MORGAN ESPITIA
+         · 
+        SOFTWARE ENGINEER
       </h1>
       <div
-        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -1099,94 +1072,40 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         </a>
       </div>
     </div>
-    <div
-      style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--color-muted); text-align: right; line-height: 2;"
+    <nav
+      aria-label="Operator"
+      style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
+      <a
+        href="/resume.html"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+      >
+        RESUME
+      </a>
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
         target="_blank"
       >
         GITHUB
       </a>
-      <br />
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px; margin-bottom: 5px;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
       </a>
-    </div>
+    </nav>
   </div>
   <div
-    class="mobile-only-block"
-    style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 229, 255, 0.1);"
-  >
-    <div
-      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"
-    >
-      <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
-      >
-        SELECT
-      </div>
-      <a
-        href="https://github.com/ampactor-labs"
-        rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
-        target="_blank"
-      >
-        GITHUB
-      </a>
-    </div>
-    <div
-      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;"
-    >
-      <div
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; color: rgb(0, 229, 255); text-shadow: 0 0 12px rgba(0,229,255,0.4); letter-spacing: 0.1em;"
-      >
-        PROGRAM
-      </div>
-      <a
-        href="https://www.linkedin.com/in/ampactor-labs/"
-        rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 3px 7px;"
-        target="_blank"
-      >
-        LINKEDIN
-      </a>
-    </div>
-    <div>
-      <h1
-        style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
-      >
-        MORGAN ESPITIA · SOFTWARE ENGINEER
-      </h1>
-      <div
-        style="display: flex; flex-wrap: wrap; column-gap: 6px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
-      >
-        <a
-          href="mailto:ampactorlabs@gmail.com"
-          style="color: inherit; text-decoration: none;"
-        >
-          ampactorlabs@gmail.com
-        </a>
-        <a
-          href="tel:+14352682446"
-          style="color: inherit; text-decoration: none;"
-        >
-          +1 435-268-2446
-        </a>
-      </div>
-    </div>
-  </div>
-  <div
+    aria-activedescendant="program-mentl"
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
+    tabindex="0"
   >
     <div>
       <div
@@ -1205,6 +1124,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="MENTL — SELF-HOSTING COMPILER"
         aria-selected="true"
         class="project-row"
+        id="program-mentl"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
@@ -1251,6 +1171,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="SONIDO — CROSS-PLATFORM DSP KERNEL"
         aria-selected="false"
         class="project-row"
+        id="program-sonido"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1292,6 +1213,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="TURBOSORT — SIMD-ACCELERATED RADIX SORT"
         aria-selected="false"
         class="project-row"
+        id="program-turbosort"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1333,6 +1255,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="2-TOP — ROLLBACK NETCODE BRAWLER"
         aria-selected="false"
         class="project-row"
+        id="program-two-top"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1374,6 +1297,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
         aria-selected="false"
         class="project-row"
+        id="program-clob"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1427,6 +1351,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="TOKENSAFE + SCRY — SOLANA SECURITY SCANNER"
         aria-selected="false"
         class="project-row"
+        id="program-tokensafe"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1480,6 +1405,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="LANDED — SOLANA EXECUTION GATEWAY"
         aria-selected="false"
         class="project-row"
+        id="program-landed"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1533,6 +1459,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="PERENNIALS — CONSTRAINT-SPACE FIELD GUIDE"
         aria-selected="false"
         class="project-row"
+        id="program-perennials"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1574,6 +1501,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="BITS — PUPPET-SHOW INSTRUMENT"
         aria-selected="false"
         class="project-row"
+        id="program-bits"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1615,6 +1543,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="NOODLES — MOBILE DAW"
         aria-selected="false"
         class="project-row"
+        id="program-noodles"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1656,6 +1585,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="COPYCATS — REPLAY-GHOST PARTY RACER"
         aria-selected="false"
         class="project-row"
+        id="program-copycats"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1697,6 +1627,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="STOOP — A PRESS FOR A PERIODICAL"
         aria-selected="false"
         class="project-row"
+        id="program-stoop"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1738,6 +1669,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="UNDERSTORY — LYRIC X-RAY"
         aria-selected="false"
         class="project-row"
+        id="program-understory"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1779,6 +1711,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="CELEZDIAL SELEKTA — ZODIAC-MAPPED SYNTHESIZER"
         aria-selected="false"
         class="project-row"
+        id="program-celezdial"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1820,6 +1753,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="FREESTYLE ENGINE — FREESTYLE RAP PRACTICE"
         aria-selected="false"
         class="project-row"
+        id="program-freestyle-engine"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1861,6 +1795,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="SLOT — B♭ TRUMPET TUNING LATTICE"
         aria-selected="false"
         class="project-row"
+        id="program-slot"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1902,6 +1837,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="COMMA — THE PYTHAGOREAN COMMA, PLAYED"
         aria-selected="false"
         class="project-row"
+        id="program-comma"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1943,6 +1879,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         aria-label="APAPACHO — WORDS · FRASES · SEÑAS"
         aria-selected="false"
         class="project-row"
+        id="program-apapacho"
         role="option"
         style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
       >
@@ -1990,13 +1927,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <span
         style="padding-right: 48px;"
       >
-        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com
+        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML EXPERIMENT · AVAILABLE FOR FULL-TIME OR CONTRACT · ampactorlabs@gmail.com
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML ARCHITECTURE · AVAILABLE FOR CONTRACT · ampactorlabs@gmail.com
+        MORGAN ESPITIA · COMPILER · DSP · EMBEDDED · SECURITY · RUST · WASM · github.com/ampactor-labs · SELF-HOSTING COMPILER · ZERO-HEAP DSP KERNEL · DETERMINISTIC NETCODE · TERNARY ML EXPERIMENT · AVAILABLE FOR FULL-TIME OR CONTRACT · ampactorlabs@gmail.com
       </span>
     </div>
   </div>

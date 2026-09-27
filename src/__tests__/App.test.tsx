@@ -1,16 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 import App from "../App";
+import { BOOT_LINES } from "../arcade/constants";
 
-// The cold open's clock is gsap.delayedCall; tests fire it by hand.
-const { delayed } = vi.hoisted(() => ({ delayed: [] as Array<() => void> }));
-
-function runClock() {
-  for (const fn of delayed.splice(0)) fn();
-}
-
-// The zoom is a GSAP tween; here it completes on the spot so the state
-// machine can be walked synchronously.
+// The power-on is a GSAP timeline; here it completes on the spot.
 vi.mock("gsap", () => {
   const complete = (vars: { onComplete?: () => void }) => {
     vars.onComplete?.();
@@ -22,23 +15,18 @@ vi.mock("gsap", () => {
         complete(to),
       to: (_el: unknown, vars: { onComplete?: () => void }) => complete(vars),
       set: () => {},
-      delayedCall: (_seconds: number, fn: () => void) => {
-        delayed.push(fn);
-        return {
-          kill: () => {
-            const i = delayed.indexOf(fn);
-            if (i >= 0) delayed.splice(i, 1);
-          },
-        };
-      },
-      timeline: () => {
+      timeline: (vars?: { onComplete?: () => void }) => {
         const tl = {
           to: () => tl,
           set: () => tl,
           call: () => tl,
           kill: () => {},
-          progress: () => {},
+          progress: () => {
+            vars?.onComplete?.();
+          },
         };
+        // A real timeline runs; this one is already over.
+        queueMicrotask(() => vars?.onComplete?.());
         return tl;
       },
     },
@@ -75,221 +63,168 @@ async function pressBack() {
   });
 }
 
-const ENTER = { name: "Enter the arcade" };
-const FLOOR = { name: "Back to the floor" };
+const START = { name: "PRESS START" };
+const LIST = { name: "Project list" };
+const returning = () => localStorage.setItem("ampactor_visited", "1");
 
 describe("App", () => {
   beforeEach(() => {
     localStorage.clear();
-    delayed.length = 0;
-    document.documentElement.removeAttribute("data-cold-open");
-    window.history.replaceState(null, "", "/");
-    document.body.removeAttribute("style");
+    // A fresh entry at the end of the session history: a push truncates
+    // whatever forward entries the last test's Back left behind, so the
+    // length arithmetic below holds.
+    window.history.pushState(null, "", "/");
   });
 
-  it("lands on the floor with the cabinet as one control", () => {
+  it("lands on the title card, with the name as the heading", () => {
+    returning();
     render(<App />);
     expect(
-      screen.getByRole("heading", { level: 1, name: "Morgan Espitia" }),
+      screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
+    expect(screen.getByRole("button", START)).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).toBeNull();
     expect(window.location.pathname).toBe("/");
-    expect(window.history.state).toEqual({ v: 1, view: "floor" });
+    expect(window.history.state).toEqual({ v: 1, view: "home" });
   });
 
-  it("entering pushes /arcade/, zooms, locks the page, and makes the floor inert", async () => {
+  it("PRESS START pushes /arcade/ and shows the list with the résumé one press away", async () => {
+    returning();
     render(<App />);
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", ENTER));
+      fireEvent.click(screen.getByRole("button", START));
     });
     expect(window.location.pathname).toBe("/arcade/");
     expect(window.history.state).toMatchObject({
       v: 1,
       view: "arcade",
       screen: "select",
-      fromFloor: true,
+      fromHome: true,
     });
-    const dialog = screen.getByRole("dialog", { name: "Arcade" });
-    expect(dialog).toHaveAttribute("aria-modal", "true");
-    expect(document.activeElement).toBe(dialog);
-    expect(document.body.style.position).toBe("fixed");
-    expect(screen.getByRole("banner")).toHaveAttribute("inert");
-    expect(screen.getByRole("contentinfo")).toHaveAttribute("inert");
-    expect(screen.queryByRole("button", ENTER)).toBeNull();
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute(
+      "href",
+      "/resume.html",
+    );
   });
 
-  it("‹ FLOOR walks history back to the floor and restores focus", async () => {
+  it("Escape on the list walks history back to the title card", async () => {
+    returning();
     render(<App />);
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", ENTER));
+      fireEvent.click(screen.getByRole("button", START));
     });
     await act(async () => {
       const popped = nextPopState();
-      fireEvent.click(screen.getByRole("button", FLOOR));
+      fireEvent.keyDown(window, { key: "Escape" });
       await popped;
     });
     expect(window.location.pathname).toBe("/");
-    expect(screen.queryByRole("dialog")).toBeNull();
-    expect(document.body.style.position).toBe("");
-    expect(document.activeElement).toBe(screen.getByRole("button", ENTER));
-    expect(screen.getByRole("banner")).not.toHaveAttribute("inert");
+    expect(screen.getByRole("button", START)).toBeInTheDocument();
+    expect(screen.queryByRole("listbox", LIST)).toBeNull();
   });
 
-  it("browser Back leaves the arcade", async () => {
+  it("browser Back from the list lands on the title card", async () => {
+    returning();
     render(<App />);
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", ENTER));
+      fireEvent.click(screen.getByRole("button", START));
     });
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
     await pressBack();
     expect(window.location.pathname).toBe("/");
-    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(screen.getByRole("button", START)).toBeInTheDocument();
   });
 
-  it("a hard load of /arcade/ mounts zoomed and leaving gives the floor its own entry", async () => {
+  it("a hard load of /arcade/ mounts on the list, and leaving gives the title card its own entry", async () => {
+    returning();
     window.history.replaceState(null, "", "/arcade/");
     render(<App />);
-    expect(screen.getByRole("dialog", { name: "Arcade" })).toBeInTheDocument();
-    expect(window.history.state).toEqual({
-      v: 1,
-      view: "arcade",
-      screen: "select",
-    });
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+    const entries = window.history.length;
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", FLOOR));
+      fireEvent.keyDown(window, { key: "Escape" });
     });
     expect(window.location.pathname).toBe("/");
-    expect(window.history.state).toEqual({ v: 1, view: "floor" });
-    expect(screen.queryByRole("dialog")).toBeNull();
-    // Back returns into the arcade.
+    expect(window.history.length).toBe(entries + 1);
+    expect(screen.getByRole("button", START)).toBeInTheDocument();
+    // ...so Back returns to the list rather than leaving the site.
     await pressBack();
     expect(window.location.pathname).toBe("/arcade/");
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
   });
 
   it("a deep link opens the cartridge over a select entry", async () => {
+    returning();
     window.history.replaceState(null, "", "/arcade/#mentl");
     render(<App />);
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-    expect(window.history.state).toMatchObject({
-      screen: "project",
-      id: "mentl",
-    });
     expect(
-      screen.getByRole("heading", { level: 2, name: /mentl/i }),
+      screen.getByRole("heading", { level: 2, name: "MENTL" }),
     ).toBeInTheDocument();
+    expect(window.history.state).toMatchObject({ screen: "project", id: "mentl" });
     await pressBack();
-    expect(window.location.pathname).toBe("/arcade/");
-    expect(window.history.state).toMatchObject({ screen: "select" });
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-    expect(
-      screen.getByRole("listbox", { name: /project list/i }),
-    ).toBeInTheDocument();
+    expect(window.location.pathname + window.location.hash).toBe("/arcade/");
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
   });
 
-  it("goes to a floor anchor loaded from another page", () => {
-    window.history.replaceState(null, "", "/#how");
-    const spy = vi.spyOn(Element.prototype, "scrollIntoView");
+  it("a deep link opens an operator program", () => {
+    returning();
+    window.history.replaceState(null, "", "/arcade/#credits");
     render(<App />);
-    expect(spy.mock.contexts.map((el) => (el as Element).id)).toContain("how");
-    // The address keeps its anchor.
-    expect(window.location.hash).toBe("#how");
-    spy.mockRestore();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "CREDITS" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("THANK YOU FOR PLAYING")).toBeInTheDocument();
   });
 
-  // The first visit's show. The pre-paint script (coldOpen.test.ts) has marked
-  // <html>; the app reads the mark.
-  describe("the cold open", () => {
-    beforeEach(() => {
-      document.documentElement.setAttribute("data-cold-open", "");
+  it("corrects an unknown cartridge to the list without a new entry", async () => {
+    returning();
+    window.history.replaceState(null, "", "/arcade/#no-such-thing");
+    const entries = window.history.length;
+    render(<App />);
+    await act(async () => {});
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+    expect(window.location.pathname + window.location.hash).toBe("/arcade/");
+    expect(window.history.length).toBe(entries);
+    expect(window.history.state).toMatchObject({ view: "arcade", screen: "select" });
+  });
+
+  // A hash edited by hand after load arrives as a popstate with no state.
+  it("corrects an unknown cartridge typed into the address bar", async () => {
+    returning();
+    window.history.replaceState(null, "", "/arcade/");
+    render(<App />);
+    await act(async () => {
+      window.history.pushState(null, "", "/arcade/#typo");
+      window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
     });
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+    expect(window.location.pathname + window.location.hash).toBe("/arcade/");
+  });
 
-    it("opens inside the machine, then pulls back to the floor without touching history", async () => {
-      const entries = window.history.length;
+  describe("a first visit", () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it("boots, then lands on the title card by itself and remembers the visit", async () => {
       render(<App />);
-      // The machine fills the screen, but it is a picture: not a dialog, no
-      // way out but the show ending, and the floor stays readable.
-      expect(
-        document.querySelector('[data-zoomed="true"][data-cold-open]'),
-      ).not.toBeNull();
-      expect(screen.queryByRole("dialog")).toBeNull();
-      expect(screen.queryByRole("button", FLOOR)).toBeNull();
-      expect(screen.queryByRole("button", ENTER)).toBeNull();
-      expect(screen.getByRole("banner")).not.toHaveAttribute("inert");
-      expect(document.body.style.position).toBe("fixed");
-
-      await act(async () => runClock());
-
-      expect(document.documentElement).not.toHaveAttribute("data-cold-open");
+      await act(async () => {});
+      // The test pattern first; no title card yet.
+      expect(screen.queryByRole("button", START)).toBeNull();
+      await act(async () => {
+        vi.advanceTimersByTime(900); // test pattern → the first BIOS line
+      });
+      expect(screen.getByText(/AMPACTOR BIOS/)).toBeInTheDocument();
+      await act(async () => {
+        vi.advanceTimersByTime((BOOT_LINES.length - 1) * 130 + 50); // every line
+      });
+      expect(screen.queryByRole("button", START)).toBeNull();
+      await act(async () => {
+        vi.advanceTimersByTime(1500); // the beat after READY.
+      });
+      expect(screen.getByRole("button", START)).toBeInTheDocument();
       expect(localStorage.getItem("ampactor_visited")).toBe("1");
-      expect(document.body.style.position).toBe("");
-      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
-      // Focus is left where the visitor would expect on a fresh page.
-      expect(document.activeElement).toBe(document.body);
       expect(window.location.pathname).toBe("/");
-      expect(window.history.state).toEqual({ v: 1, view: "floor" });
-      expect(window.history.length).toBe(entries);
-    });
-
-    it("ends at the first key, and a shortcut is not a key", async () => {
-      render(<App />);
-      await act(async () => {
-        fireEvent.keyDown(window, { key: "Meta", metaKey: true });
-      });
-      expect(screen.queryByRole("button", ENTER)).toBeNull();
-      await act(async () => {
-        fireEvent.keyDown(window, { key: "Tab" });
-      });
-      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
-      expect(localStorage.getItem("ampactor_visited")).toBe("1");
-      expect(delayed).toHaveLength(0);
-    });
-
-    it("ends at a press anywhere", async () => {
-      render(<App />);
-      await act(async () => {
-        fireEvent.pointerDown(document.body);
-      });
-      expect(screen.getByRole("button", ENTER)).toBeInTheDocument();
-    });
-
-    it("leaves the machine booted: walking up afterwards cuts straight to the list", async () => {
-      render(<App />);
-      await act(async () => runClock());
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", ENTER));
-      });
-      expect(
-        screen.getByRole("dialog", { name: "Arcade" }),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("listbox", { name: /project list/i }),
-      ).toBeInTheDocument();
-    });
-
-    it("walking in during the show goes straight in", async () => {
-      render(<App />);
-      await act(async () => {
-        fireEvent.click(
-          screen.getByRole("button", { name: "Enter the arcade ▸" }),
-        );
-      });
-      expect(window.location.pathname).toBe("/arcade/");
-      expect(document.documentElement).not.toHaveAttribute("data-cold-open");
-      const dialog = screen.getByRole("dialog", { name: "Arcade" });
-      expect(document.activeElement).toBe(dialog);
-      expect(screen.getByRole("banner")).toHaveAttribute("inert");
-      expect(delayed).toHaveLength(0);
-    });
-
-    it("is ignored anywhere but the floor", () => {
-      window.history.replaceState(null, "", "/arcade/");
-      render(<App />);
-      expect(
-        screen.getByRole("dialog", { name: "Arcade" }),
-      ).toBeInTheDocument();
-      expect(delayed).toHaveLength(0);
     });
   });
 });

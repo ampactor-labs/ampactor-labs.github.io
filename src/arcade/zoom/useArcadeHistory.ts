@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
-  FLOOR_ROUTE,
+  HOME_ROUTE,
   SELECT_ROUTE,
   isArcadeHistoryState,
   projectRoute,
@@ -9,6 +9,7 @@ import {
   urlFor,
   type ArcadeRoute,
 } from "./arcadeRoute";
+import { isKnownProgramId } from "./knownIds";
 
 // The cabinet asks for navigation with these; the router turns each into
 // history entries and hands back the route the address bar now wants.
@@ -19,22 +20,41 @@ export type NavIntent =
   | { type: "exit" }
   | { type: "select" };
 
+// The route the page loaded on. A hash naming nothing the machine has is the
+// select screen; the mount normalisation below corrects the address too.
 export function initialRouteFromLocation(): ArcadeRoute {
-  return resolveRoute(
+  const route = resolveRoute(
     window.history.state,
     window.location.pathname,
     window.location.hash,
   );
+  if (
+    route.view === "arcade" &&
+    route.screen === "project" &&
+    !isKnownProgramId(route.id)
+  ) {
+    return SELECT_ROUTE;
+  }
+  return route;
+}
+
+// The address for a route, keeping whatever query string the page was
+// loaded with (a shared link's tracking parameters, say).
+function addressFor(route: ArcadeRoute): string {
+  const [path, hash] = urlFor(route).split("#");
+  return path + window.location.search + (hash ? `#${hash}` : "");
 }
 
 // One owner for history. Entries:
 //
-//   /            floor
-//   /arcade/     the cabinet's select screen; marked fromFloor when this
-//                session pushed it from the floor
-//   /arcade/#id  an open cartridge, always pushed over a select entry
+//   /            the title card (attract mode)
+//   /arcade/     the select screen; marked fromHome when this session pushed
+//                it from the title card
+//   /arcade/#id  an open cartridge or operator program, always pushed over a
+//                select entry
 //
-// so Back always walks cartridge → select → floor, and Forward walks back in.
+// so Back always walks cartridge → select → title card, and Forward walks
+// back in.
 export function useArcadeHistory(initialRoute: ArcadeRoute): {
   route: ArcadeRoute;
   navigate: (intent: NavIntent) => void;
@@ -45,13 +65,17 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
 
   // Normalise the entry we loaded on so every popstate sees our state. A
   // deep-linked cartridge gets a select entry beneath it so Back lands on the
-  // list rather than off the site. Any other entry keeps the address it was
-  // loaded with: /#work stays an anchor, and a query string stays put.
-  useEffect(() => {
-    const { history } = window;
+  // list rather than off the site; a corrected deep link loses the hash that
+  // named nothing. Any other entry keeps the address it was loaded with.
+  // A layout effect, so this has run before any effect of the cabinet's can
+  // navigate.
+  useLayoutEffect(() => {
+    const { history, location } = window;
     if (initialRoute.view === "arcade" && initialRoute.screen === "project") {
-      history.replaceState(stateFor(SELECT_ROUTE), "", urlFor(SELECT_ROUTE));
-      history.pushState(stateFor(initialRoute), "", urlFor(initialRoute));
+      history.replaceState(stateFor(SELECT_ROUTE), "", addressFor(SELECT_ROUTE));
+      history.pushState(stateFor(initialRoute), "", addressFor(initialRoute));
+    } else if (initialRoute.view === "arcade" && location.hash) {
+      history.replaceState(stateFor(initialRoute), "", addressFor(initialRoute));
     } else {
       history.replaceState(stateFor(initialRoute), "");
     }
@@ -72,20 +96,20 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
   const navigate = useCallback((intent: NavIntent) => {
     const { history } = window;
     const current = routeRef.current;
-    const push = (next: ArcadeRoute, fromFloor = false) => {
-      history.pushState(stateFor(next, { fromFloor }), "", urlFor(next));
+    const push = (next: ArcadeRoute, fromHome = false) => {
+      history.pushState(stateFor(next, { fromHome }), "", addressFor(next));
       routeRef.current = next;
       setRoute(next);
     };
     const replace = (next: ArcadeRoute) => {
-      history.replaceState(stateFor(next), "", urlFor(next));
+      history.replaceState(stateFor(next), "", addressFor(next));
       routeRef.current = next;
       setRoute(next);
     };
 
     switch (intent.type) {
       case "enter": {
-        if (current.view === "floor") push(SELECT_ROUTE, true);
+        if (current.view === "home") push(SELECT_ROUTE, true);
         if (intent.id) push(projectRoute(intent.id));
         return;
       }
@@ -111,13 +135,14 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
       case "exit": {
         if (current.view !== "arcade") return;
         const state: unknown = history.state;
-        if (isArcadeHistoryState(state) && state.fromFloor) {
-          // We came from the floor entry directly beneath; walk back onto it.
+        if (isArcadeHistoryState(state) && state.fromHome) {
+          // We came from the title card's entry directly beneath; walk back
+          // onto it.
           history.back();
         } else {
           // Hard-loaded at /arcade/ (or leaving from a cartridge): give the
-          // floor its own entry so Back returns into the arcade.
-          push(FLOOR_ROUTE);
+          // title card its own entry so Back returns to the list.
+          push(HOME_ROUTE);
         }
         return;
       }

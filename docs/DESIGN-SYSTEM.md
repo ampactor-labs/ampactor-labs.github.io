@@ -9,10 +9,10 @@ design tool as the brand context.
   `tokens.css`; change the YAML upstream and rebuild._ The app's semantic layer on top of
   it is `src/styles/theme.css`.
 - **Copy source of truth:** `src/data/profile.js` (identity, contact), `src/data/site.js`
-  (every page's `<head>` and the one line of range), `src/data/projects.js` (the work,
-  with content fields pulled from each project's README at build time) and
-  `src/data/resume.json` (the résumé, rendered to `public/resume.html` and drawn as the
-  timeline). Nothing is mirrored by hand any more.
+  (every page's `<head>`), `src/data/projects.js` (the work, with content fields pulled
+  from each project's README at build time), `src/data/programs.js` (the operator's
+  three programs) and `src/data/resume.json` (the résumé, rendered to
+  `public/resume.html` and rolled as the credits). Nothing is mirrored by hand any more.
 - **This doc** is the layer the tokens and code don't carry: the concept, the usage
   rules, the component vocabulary, and the voice.
 
@@ -22,28 +22,30 @@ design tool as the brand context.
 
 **"Patina Dark" — a worn arcade CRT, rendered with systems-engineer precision.**
 
-The site is one room with one machine in it. The **floor** is the room: a calm,
-readable page in the cabinet's own light, where the name, the line of range, the work,
-the way of working and the years are laid out to be read in under a minute. The
-**cabinet** stands in the room, running its attract loop. Walk up to it (click, Enter)
-and the camera dollies in: the same machine fills the screen, the tube fires, and the
-arcade is the arcade it always was — cartridges, coin slot, hidden programs. Step back
-(Escape, B, `‹ FLOOR`, the browser's Back) and it shrinks to where it stood.
+The site is the machine. There is no page around it: the cabinet stands in the dark
+and fills the viewport, and everything a portfolio has to say is said in the idiom an
+arcade cabinet already has. The **title card** (attract mode, at `/`) is the hero: the
+name, the trade, the range, the availability, the email, `PRESS START`. START is the
+**select screen** (`/arcade/`): the cartridges are the work, and the header is the
+operator's sticker (name, email, phone, RESUME · GITHUB · LINKEDIN). At the end of
+the list sit the **operator's programs**: `HOW TO PLAY` (how I work), `HIGH SCORES`
+(the commit ledger), `CREDITS` (the career roll). Escape, B or the browser's Back step
+out the way you came in, down to the title card. The coin slot is still a coin slot:
+nothing on the site points at it, and the hidden programs are found, not linked.
 
-One universe, two depths. There is no "second portfolio": the console on the floor is
-the console in the arcade, laid out at its full size and scaled into its slot. The
-aesthetic is not nostalgia for its own sake — it is **proof of craft**: every effect is
-hand-built (GSAP, canvas, a Web Audio synth), and the floor around it is the product
-UI the same hands make.
+One universe, one depth. The aesthetic is not nostalgia for its own sake — it is
+**proof of craft**: every effect is hand-built (GSAP, canvas, a Web Audio synth), and
+the two paper pages beside it (the ledger, the case study) are the product UI the same
+hands make.
 
 | Surface | Role | Feel |
 |---|---|---|
-| **Floor** (`src/floor/`, `src/App.tsx`) | The room. Fast, skimmable, readable in ~60 s. Light or dark. | Same palette, the tube's glow pooling on the floor; prose in a reading face; signage in the arcade face, tiny. |
-| **Cabinet** (`src/arcade/`) | The machine. Opt-in depth: attract loop on the floor, cinematic boot when zoomed, cartridge select, readouts, hidden games. | Full CRT theatre: heavy glow, scanlines, ambient audio once entered. Always dark. |
+| **Cabinet** (`src/arcade/`, `src/App.tsx`) | The whole page at `/` and `/arcade/`. Title card, boot, select, cartridge readouts, the operator's programs, hidden games. | Full CRT theatre: heavy glow, scanlines, ambient audio once started. Always dark, whatever the theme. |
+| **Pages** (`src/receipts/`, `src/craft/`, `public/resume.html`, `src/floor/` for their header and footer) | The paper: the commit log, the case study, the résumé and the 404. Fast, skimmable, light or dark. | Same palette; prose in a reading face; signage in the arcade face, tiny. |
 
-The floor converts; the cabinet rewards. Design changes to one must not flatten the
-other. **The floor is where design exploration belongs.** The cabinet is bespoke craft;
-don't let a generator re-skin it.
+The cabinet converts and rewards; the pages are the receipts. Design changes to one
+must not flatten the other. **The pages are where design exploration belongs.** The
+cabinet is bespoke craft; don't let a generator re-skin it.
 
 ---
 
@@ -51,28 +53,29 @@ don't let a generator re-skin it.
 
 **Plain, specific, checkable.** Write the way a senior engineer writes a design doc.
 
-- **Say what things are.** Headings name the section ("How I work", "The commit log"),
-  never a slogan. The line under the name states the role and the range:
-  _"Full-stack software engineer since 2017, building web apps, APIs, compilers, audio
-  software and games."_ It does not pin the author to front-end, back-end or one
-  industry.
+- **Say what things are.** Headings name the section ("How this site is built", "The
+  commit log"), never a slogan. The title card states the role and the range in the
+  machine's own register: `SOFTWARE ENGINEER` · `WEB APPS · APIS · COMPILERS · AUDIO ·
+  GAMES` · `FULL-STACK SINCE 2017 · SALT LAKE CITY`. It does not pin the author to
+  front-end, back-end or one industry.
 - **Every claim can be checked**: a number, a link, a test. Qualify what is only mostly
   true ("most of my READMEs"); never round a claim up.
 - **No slogans or aphorisms, no "X, not Y" contrasts, no lists of three for rhythm, no
   em dashes, no metaphors in page copy.** The cabinet's in-world text (taglines, boot
-  lines, `PRESS START`) is the one place for a game voice.
+  lines, `PRESS START`, `THANK YOU FOR PLAYING`) is the one place for a game voice.
 - **First person, active voice, short sentences.** Mono for readouts, `→` on links that
   leave the page, `·` separators, `●` status dots. No marketing adjectives.
 - **Lead with what a non-engineer can map to value**, then the technical detail one layer
-  deeper (the cabinet readout, the case study).
+  deeper (the cartridge readout, the case study).
 - **Publish limits.** READMEs have a known-weaknesses section; benchmarks include the
   cases they lose.
 
 **Copy registers, by depth:**
 
-1. `range` (site.js) and `outcome` (projects.js): the home page, plain sentences.
+1. `outcome` (projects.js): the first line of a cartridge's readout and the résumé,
+   plain sentences; the page descriptions in `site.js`.
 2. `tagline`: the arcade hook, ALL-CAPS, in-world.
-3. `desc` / `highlights` / `operatorNote`: the technical detail, in the cabinet.
+3. `desc` / `highlights` / `operatorNote`: the technical detail, in the readout.
 
 ---
 
@@ -86,42 +89,43 @@ don't let a generator re-skin it.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--color-cyan` | `#00E5FF` | **Hero accent.** Glow, the active item, the cabinet's signage. Spend it like a spotlight. |
-| `--accent-text` | cyan / `#00708a` | The accent **as text on the page background**. Cyan in the dark theme; deepened in the light theme, where electric cyan has no contrast on parchment. Use this, not `--color-cyan`, for links, eyebrows, CTAs and the focus ring on the floor. |
-| `--color-amber` | `#d8a657` | Secondary accent: employment bars, INSERT COIN, caution. |
+| `--color-cyan` | `#00E5FF` | **Hero accent.** Glow, the active item, the cabinet's signage, the name on the title card. Spend it like a spotlight. |
+| `--accent-text` | cyan / `#00708a` | The accent **as text on a page background**. Cyan in the dark theme; deepened in the light theme, where electric cyan has no contrast on parchment. Use this, not `--color-cyan`, for links, eyebrows, CTAs and the focus ring on the pages. |
+| `--color-amber` | `#d8a657` | Secondary accent: `PRESS START`, the operator's programs, INSERT COIN, employment, caution. |
 | `--bg` / `--color-charcoal` | `#1d2021` | Page background (top of the radial). |
 | `--color-dim` | `#2a2826` | Mid background, the cabinet's chassis. |
-| `--color-void` | `#0f0e0d` | Deepest background, insets. |
+| `--color-void` | `#0f0e0d` | Deepest background, insets, the dark behind the machine. |
 | `--fg` / `--color-parchment` | `#d4be98` | **Primary text.** Warm parchment, never white. |
 | `--fg-bright` | `#efe4cc` | Headlines, one step brighter than body. |
-| `--fg-muted` / `--fg-faint` | `#a89984` / `#9a8e81` (light `#665a50` / `#6b5f54`) | Secondary and tertiary **text**. Both clear 4.5:1 on every surface the page paints in either theme; the palette's own `--color-muted` / `--color-comment` stay for fills and `color-mix` recipes, never for text. |
-| `--chart-1` | `#22c3dc` (light `#00708a`) | The one hue for magnitude in a chart: commits per month, commits by repository, the floor's strip. Validated with the dataviz palette checker against each theme's chart surface. |
+| `--fg-muted` / `--fg-faint` | `#a89984` / `#9a8e81` (light `#665a50` / `#6b5f54`) | Secondary and tertiary **text** on the pages. Both clear 4.5:1 on every surface the page paints in either theme; the palette's own `--color-muted` / `--color-comment` stay for fills, `color-mix` recipes and the cabinet's dim readouts, never for page text. |
+| `--chart-1` | `#22c3dc` (light `#00708a`) | The one hue for magnitude in a chart: commits per month, commits by repository, the HIGH SCORES bars. Validated with the dataviz palette checker against each theme's chart surface. |
 | `--chart-pos` / `--chart-neg` | `#3aa886` / `#e26a62` (light `#0a8f9c` / `#c14a4a`) | The diverging pair: lines added above the baseline, lines removed below it. The dark pair sits in the colour-blind floor band (ΔE 6.7), so sign is always also carried by position, a legend and direct labels. Text in a chart wears text tokens, never a series colour. |
 | `--hairline`, `-strong`, `-faint` | `color-mix` of `--fg` | Borders and rules; derived, so right in both themes. |
 | `--surface`, `--surface-raised` | `color-mix` of `--fg` | Card fills. |
 
 ### Per-project colour
 
-Each project owns one neon in `projects.js`. In the **cabinet** it is used raw. On the
-**floor** it is muted toward the patina — `color-mix(in srgb, <color> 55%,
-var(--color-muted))` — for the card's icon, title and border-top, and the raw colour is
-spent only on the hover bloom, so seventeen hues read as one shelf.
+Each project owns one neon in `projects.js`, used raw in the cabinet: the row's icon
+tile and its lit bar, the title when the row is active, the readout's faint bleed
+behind the screen. The operator's programs share amber. The pages paint no project
+colour; the ledger's repository chips are monochrome.
 
 ### Light theme — shipped
 
 `tokens.css` ships `[data-theme="patina-light"]` (parchment `#f2e5bc`, ink `#4f3829`).
-The floor is fully themed; `src/lib/theme.ts` resolves stored choice > system
+The pages are fully themed; `src/lib/theme.ts` resolves stored choice > system
 preference, an inline pre-paint script in every `<head>` applies it before first
-paint, and the header's light switch stores `ampactor_theme`. **The cabinet is a
-physical object and stays dark in a lit room:** `.cabinet-scope` in `theme.css` pins
-every token the arcade reads to its dark value. When it zooms, its backdrop covers the
-room: the lights go off, the machine takes over.
+paint, and the pages' header has the light switch, which stores `ampactor_theme`.
+**The cabinet is a physical object and stays dark in a lit room:** `.cabinet-scope` in
+`theme.css` pins every token the arcade reads to its dark value, and `/` and
+`/arcade/` mark `html[data-stage]` from an inline script so the dark behind the
+machine is painted before the first frame in either theme.
 
 ### Usage rules
 
 - **One spotlight per view.** Cyan is the accent of last resort.
 - **Text is parchment, not white.** Never `#fff` on the dark surfaces.
-- **Never use `--color-cyan` for text on the page background** — use `--accent-text`.
+- **Never use `--color-cyan` for text on a page background** — use `--accent-text`.
 
 ---
 
@@ -131,102 +135,90 @@ room: the lights go off, the machine takes over.
 
 | Token | Font | Used for |
 |---|---|---|
-| `--font-arcade` | **Press Start 2P** | Signage: section eyebrows, the wordmark, the nav, the cabinet's chrome. ALL-CAPS, wide tracking, **tiny** (7–9 px on the floor). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
-| `--font-display` | **Share Tech Mono** | Card titles, CTAs, readouts, the timeline's names. Weight 400; size and glow carry emphasis. |
-| `--font-body` | **JetBrains Mono** | Labels, stack chips, status lines, numbers, the cabinet's prose. |
-| `--font-sans` | **Inter** | The floor's prose: the name, the line of range, outcomes, ledes. The reading face; tabular numerals for data. |
+| `--font-arcade` | **Press Start 2P** | Signage: the name on the title card, screen titles (`SELECT PROGRAM`, `HIGH SCORES`), `PRESS START`, the operator's pills, section eyebrows, the pages' nav. ALL-CAPS, wide tracking; **tiny** on the pages (7–9 px). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
+| `--font-display` | **Share Tech Mono** | Row titles, CTAs, readouts, the credits' names. Weight 400; size and glow carry emphasis. |
+| `--font-body` | **JetBrains Mono** | The cabinet's prose and labels, stack chips, status lines, numbers. |
+| `--font-sans` | **Inter** | The pages' prose: the ledger's copy, the case study, the 404. The reading face; tabular numerals for data. |
 
-Scale on the floor is by `clamp()`: the name `clamp(38px, 5.4vw, 60px)`, section titles
-`clamp(26px, 3.4vw, 36px)`, ledes `clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
+Type in the cabinet scales with the screen's width (`fs()` in `useCabinetState`: ×1 at
+300 px, ×1.25 from 475 px); the name on the title card is `min(38px, width / 16)`. On
+the pages the scale is by `clamp()`: titles `clamp(26px, 3.4vw, 36px)`, ledes
+`clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
 
 **Self-hosted, and nothing moves when they arrive.** The latin subsets live in
 `public/fonts/` (all four under the OFL; `public/fonts/README.md`), declared in
-`src/styles/fonts.css`. Inter and Press Start 2P are preloaded from the head, the
-two faces that paint first. Each family is followed in its stack by a fallback face
-sized to it from the real metrics (`size-adjust` for the mean advance, ascent and
-descent overrides for the line box): Arial or its metric twins for Inter, a 0.6 em
-monospace for the other three. Text laid out before a font arrives takes the same room
-after, and the pages measure CLS 0. No page requests anything from another origin
-(`e2e/network.spec.ts`).
+`src/styles/fonts.css`. Inter and Press Start 2P are preloaded from every head. Each
+family is followed in its stack by a fallback face sized to it from the real metrics
+(`size-adjust` for the mean advance, ascent and descent overrides for the line box):
+Arial or its metric twins for Inter, a 0.6 em monospace for the other three. Text laid
+out before a font arrives takes the same room after, and the pages measure CLS 0. No
+page requests anything from another origin (`e2e/network.spec.ts`).
 
 ---
 
 ## 5 · Motion & Glow
 
-### The zoom
+### The power-on (first visit)
 
-The cabinet is always laid out at its zoomed size (`min(900px, 100vw)` × `100dvh`,
-measured by a hidden probe) and scaled into its slot by CSS (`--k`). Entering is a
-single transform tween from the slot rect to identity (`0.55 s power3.inOut`), leaving
-is the reverse (`0.45 s`); nothing inside reflows, the CRT effects stay lit, and the
-type is identical at both depths. The dark backdrop fades in over `0.35 s`. CSS owns
-the resting transform, GSAP owns the transition, React owns `data-zoomed`.
+A first visit (nothing in `localStorage`) powers the machine on out of the dark: the
+tunnel and the A-mark flicker up behind it, the chassis comes in, the tube fires onto
+the test card, and the boot roll prints its BIOS lines (`AMPACTOR BIOS v7.7.7`,
+`OPERATOR: MORGAN ESPITIA`, … `READY.`) at 130 ms a line, then holds a beat (1.4 s)
+and lands where the URL points: the title card at `/`, the list at `/arcade/`. About
+three seconds in all. Any key or tap after `READY.` moves on at once. It never runs
+for a returning visitor (`ampactor_visited`) or a deep-linked cartridge, and it never
+touches the URL or history. Under reduced motion the tween is skipped and the BIOS
+still prints: it is text.
 
-### The cold open (first visit)
+### The attract loop
 
-A first visit to `/` opens inside the machine, the way the site always used to: the
-dark room, the tunnel and the A-mark, the tube igniting onto the test card, the boot
-roll starting with `OPERATOR: MORGAN ESPITIA`, then at `2.3 s` the camera pulls back
-(`0.9 s power3.inOut`, the room's lights coming up over the first `0.54 s`) to the
-top of the page, where the same name is waiting. Any key, press, wheel or touch ends it
-at once; a Tab also moves focus as usual. It never runs for a returning visitor, a
-floor anchor, `/arcade/` or reduced motion, it never touches the URL or history, and
-while it runs the machine is a picture: hidden from assistive tech, its controls
-inert, the floor underneath readable. An inline pre-paint script decides (so the room
-is dark from the first frame in either theme); `src/arcade/zoom/coldOpen.ts` has the
-rules.
-
-### Attract, boot, power-on
-
-On the floor the tube runs an attract loop: test pattern → PRESS START → one cartridge
-at a time. Zoomed, a first walk-up fires the tube (the chassis is already there), then
-the boot roll; a returning visitor, or anyone who saw the cold open, lands on the
-select screen. A machine that was already full-screen at load (a hard load of
-`/arcade/`, the cold open) gets the whole-console power-on: there was nothing on screen
-before it. The test card holds until the tube is fully lit, then fades into the boot
-roll.
+The title card holds 7 s, then `HOW TO PLAY` 7 s, then `NOW SHOWING` runs four
+cartridges at 2.6 s each, then `HIGH SCORES` 6 s, and round again with the next four.
+`PRESS START` blinks (`startBlink`, 1.1 s, step-end, never fully off). `◄` `►` and the
+arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
+start the machine. No `AudioContext` exists until then.
 
 ### Between pages, and down the page
 
-Moving between the floor, the ledger and `/arcade/` is a cross-document view
-transition: the old page fades (`160 ms`) as the new one rises `10 px` into place
-(`240 ms`), and the header (`view-transition-name: site-header`) holds still across
-the change. Below the hero, each block (section headings, cartridges, the ledger card,
-the how-I-work items, the timeline) settles `14 px` into place as it scrolls into view,
-driven by the scroll position itself (`animation-timeline: view()`, no script). It
-moves with `translate`, so a card's hover lift still composes, and it is never used on
-the hero or around the cabinet. Browsers without either feature get the plain page.
+Leaving the cabinet for the ledger (`HIGH SCORES → FULL LEDGER`), the case study
+(`HOW TO PLAY → HOW THIS CABINET IS BUILT`) or the résumé, and coming back by the
+A-mark, is a cross-document view transition: the old page fades (`160 ms`) as the new
+one rises `10 px` into place (`240 ms`); between the two paper pages the header
+(`view-transition-name: site-header`) holds still. On the case study each block
+settles `14 px` into place as it scrolls into view, driven by the scroll position
+itself (`animation-timeline: view()`, no script). Browsers without either feature get
+the plain page.
 
-### Interaction motion (floor)
+### Interaction motion
 
-- Links: colour fade to the accent, `0.15 s`.
-- Primary CTA: bloom + `translateY(-1px)`, `0.18 s`.
-- Cards: `translateY(-3px)` + a bloom in the project's raw colour.
-- Walking up to the cabinet: the tube brightens a touch under the pointer.
+- Cabinet rows: the bar and the title take the project's colour, `0.2 s`; a hover blips.
+- Cabinet links: the focused pill carries the ring; A opens it.
+- The credits roll at `26 px/s` and pause `3.5 s` on a touch, a wheel or a focus.
+- Page links: colour fade to the accent, `0.15 s`. Primary CTA: bloom +
+  `translateY(-1px)`, `0.18 s`.
 
 ### Reduced motion — non-negotiable
 
-Every animated surface honours it: there is no cold open, the zoom becomes a cut with
-a `150 ms` backdrop fade, the intro completes immediately, the attract loop holds on
-PRESS START, pages cut instead of crossfading, every block is simply there, and every
-floor transition is off (`global.css`).
+Every animated surface honours it: the power-on is a cut (the BIOS still prints),
+the title card holds still and `PRESS START` does not blink, the credits stand, pages
+cut instead of crossfading, every block is simply there, and every page transition is
+off (`global.css`).
 
 ---
 
 ## 6 · Spacing & Layout
 
-- **Responsive by `clamp()`, not breakpoints**, with three exceptions that are about
-  posture rather than size: the hero goes two-column at `960px`, the `‹ FLOOR` control
-  hangs from the top edge under `1000px` (no margin to sit in), and the hero hint hides
-  under `600px`.
-- **Single reading column, `--page-max: 1100px`, gutter `clamp(16px, 4vw, 40px)`.**
+- **The console is the viewport:** `min(900px, 100vw)` wide, `100dvh` tall, centred in
+  the dark (`stage.module.css`). The page never scrolls; the screens scroll inside the
+  tube (the list, a readout, the credits).
+- **Inside the tube, `fs()` is the one scale** (§4); paddings are in px and do not
+  scale.
+- **The pages: single reading column, `--page-max: 1100px`, gutter
+  `clamp(16px, 4vw, 40px)`, responsive by `clamp()`, not breakpoints.**
 - **Grids auto-fill:** `repeat(auto-fill, minmax(min(100%, 280px), 1fr))` for cards.
-- **The slot reserves the miniature's exact footprint** (`zoomW × k` by `zoomH × k`), so
-  the page never reflows when the stage leaves it to go full screen. The floor scale is
-  capped at `0.72` so a phone's cabinet is still a machine on the floor, not the arcade.
-- **No `transform`, `filter`, `backdrop-filter` or `contain` on the stage or any of its
-  ancestors.** The stage positions a fixed backdrop against the viewport; a transformed
-  ancestor would become its containing block. The header may blur: it is a sibling.
+- **No `transform`, `filter`, `backdrop-filter` or `contain` on `main` or the stage's
+  ancestors.** The stage is a fixed layer; a transformed ancestor would become its
+  containing block.
 - **Radii:** 4 px (chips), 6 px (buttons), 10 px (cards), 16 px (the cabinet).
 
 ---
@@ -237,24 +229,29 @@ floor transition is off (`global.css`).
   squiggle through the crossbar and two serif feet — the amp and the wave. The only logo.
 - **Wordmark:** `AMPACTOR` in Press Start 2P, `letter-spacing: 0.2em`, the accent.
 - **Glyph language — Unicode symbols, not icon fonts:** `▸` (run/enter, in Share Tech
-  Mono or Inter, never Press Start), `◈`, `∿`, `☀`, `♫`, `⚡`, `⚔`, `●`.
+  Mono or Inter, never Press Start), `◈`, `∿`, `☀`, `♫`, `⚡`, `⚔`, `●`, `★`, `≡`.
 
 ---
 
 ## 8 · Components
 
-### Floor
+### Cabinet screens (bespoke, change with care)
+
+| Screen | Spec |
+|---|---|
+| **Title card** (`AttractScreen.jsx`) | Eyebrow `OPERATOR` → `<h1>` name in Press Start, cyan, glowing → `SOFTWARE ENGINEER` in amber → two range lines → `● AVAILABLE · FULL-TIME OR CONTRACT · REMOTE OK` (verdigris dot) → the email as a link → `PRESS START` (a `<button>`) → `1 PLAYER · N CARTRIDGES LOADED` and the © line → the marquee. The `<h1>` stays in the DOM (visually hidden) on the loop's other frames. |
+| **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (shared with the attract loop's `TestPattern.jsx`), phase 1 the BIOS column laid out at its final height and printed top to bottom; the last line, `READY.`, in Press Start and amber. |
+| **Select** (`SelectScreen.jsx`) | The operator's sticker: `SELECT PROGRAM`, `<h1>` `NAME · ROLE`, email and phone as links, and `<nav aria-label="Operator">` with the pills `RESUME` (`/resume.html`) · `GITHUB` · `LINKEDIN`. Then the `listbox` (`Project list`), which takes focus when the screen comes up and names its active row with `aria-activedescendant`: category headers `SYSTEMS · SECURITY · WEB3 · CREATIVE · OPERATOR`, one row per program (icon tile in the program's colour, title in Share Tech Mono, `lang` chip, subtitle), three `[CLASSIFIED] · INSERT COIN TO UNLOCK` rows until the coin drops, the marquee. |
+| **Cartridge readout** (`DetailScreen.jsx`) | `◄` back, icon, `<h2>` title, subtitle, the link rail (demo first, then source), then `outcome` → `desc` → highlights → stack → operator notes in a scrolling, focusable region. |
+| **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, amber. `HOW TO PLAY`: `OBJECTIVE` and `MOVES`, the three habits; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, `THANK YOU FOR PLAYING`; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
+| **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. |
+| **Hidden programs** | Unlocked by the coin, wherever it is dropped; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
+
+### Pages header and footer (`src/floor/`)
 
 | Component | Spec |
 |---|---|
-| **Header** | Sticky, blurred. A-mark + `AMPACTOR`; nav `WORK · COMMITS · CRAFT · ARCADE · RESUME · GITHUB` in Press Start 7 px; the light switch (`ThemeToggle`, `aria-pressed`). Shared by every page, which marks itself with `aria-current="page"`: on the floor ARCADE zooms the cabinet, elsewhere it is a link to `/arcade/` and the anchors point back at the floor. On a phone it stays one line from 360 px: the brand is the A-mark alone and GITHUB drops under 480 px, WORK under 440 px (the work is the next thing below the hero), and the gap tightens under 380 px. Inert while the cabinet is zoomed. |
-| **Hero** | Eyebrow (`AMPACTOR LABS · SALT LAKE CITY`) → `<h1>` name in Inter 600 → the line of range → status line (`●` verdigris, "Available — full-time or contract · Salt Lake City, UT · remote") → `Email →` primary, `Résumé` and `Enter the arcade ▸` ghosts → a one-line hint. |
-| **Slot + stage** | The cabinet's footprint on the floor. The stage holds the console, the backdrop (tunnel, A-mark, game) and the two controls: the transparent **Enter the arcade** button over the whole machine (the only tab stop on the floor; the panel beneath is `inert`) and, when zoomed, **`‹ FLOOR`**. |
-| **SectionHeading** | Press Start eyebrow + hairline rule, Inter `<h2>`, optional lede. The repeating chapter heading. |
-| **Shelf / Cartridge** | One auto-fill grid of every project. Card: icon in the muted accent, `lang`, Share Tech Mono title, `CATEGORY · subtitle`, `outcome`, up to four stack chips, `Live →` / `Source →` / `▸ Cabinet` (zooms straight to that cartridge). |
-| **Commits summary** | `N commits since <month>`, two numbers (commits, public repositories) and the commits-per-month strip from `receipts.summary.json`, then `Open the commit log →`. Line counts stay on the commit log page, where they sit in context. |
-| **How I work** | Three habits a reader can check against this repository: end to end; documented limits; working with AI, with the commit log's count of commits that name Claude. Then one quiet hairline link, `How this site is built →`. |
-| **Timeline** | SVG from `resume.json`: employment as amber bars, the studio faint until it became the whole job, then cyan. `<title>` and `<desc>` carry the data for screen readers. |
+| **Header** | Sticky, blurred. A-mark + `AMPACTOR` (a link home, `Ampactor Labs, home`); nav `ARCADE · COMMITS · CRAFT · RESUME · GITHUB` in Press Start 7 px, the current page marked `aria-current="page"`; the light switch (`ThemeToggle`, `aria-pressed`). On a phone it stays one line from 360 px: the brand is the A-mark alone and the nav tightens. |
 | **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
 
 ### Receipts (`/receipts/`)
@@ -282,22 +279,11 @@ changed it.
 |---|---|
 | **Page head** | `CRAFT` eyebrow, Inter `<h1>`, the lede, the stack as one mono line with `·` separators, six measured tiles (a `<ul aria-label="Measured">`: value in Share Tech Mono on top, label, one line of source), then the measured line: date, tool, form factor, "median of 3 runs", a link to `scripts/audit.mjs`. |
 | **Contents rail** | `<nav aria-label="On this page">`, numbered `01`–`05`. A sticky column beside the chapters from 1000 px; below that, one wrapped row between hairlines. |
-| **Chapter** | A `<section>` with a numbered Press Start eyebrow (`01 · THE MACHINE`) and an Inter `<h2>`, hairline between chapters. |
+| **Chapter** | A `<section>` with a numbered Press Start eyebrow (`01 · THE CABINET`) and an Inter `<h2>`, hairline between chapters. |
 | **Fact cards** | The same three parts in every chapter: a `<dl>` of three hairline cards, `▸ Problem`, `◆ Approach`, `✓ Verification`, glyphs decorative. |
 | **Points** | A `▸` list for decisions and tradeoffs, one or two plain sentences each. |
 | **Tables** | Captioned, mono, tabular numerals, right-aligned values, row headers that may wrap, column headers that may wrap onto two lines so the values set the width. A table wider than its column scrolls inside a labelled, focusable region. |
-| **Machine diagram** | Two panels drawn to scale for a 1280 × 800 screen, `On the page` and `Open`, each an `<svg role="img">` with its own label and no text inside; titles, the CSS each depth uses and a note are HTML beneath. The cabinet and its room sit in `.cabinet-scope` groups, so they stay dark in the light theme. Side by side with an arrow between; on a phone they stack and the arrow points down. |
 | **Links row** | Mono links to the files a chapter talks about, on `main`. |
-
-### Cabinet (bespoke, change with care)
-
-- **Attract screen** (`AttractScreen.jsx`) — the loop on the floor; the test pattern is
-  shared with the boot's phase 0 (`TestPattern.jsx`).
-- **Cartridge / program rows** in the select screen; **SYS/READOUT** detail panel
-  (`outcome` → `desc` → highlights → stack → operator notes); **boot sequence**
-  (`useIntroSequence`, two variants); **insert-coin mechanic**, **hidden programs**.
-- Zoomed, the console is `role="dialog" aria-modal="true" aria-label="Arcade"`, the
-  floor is `inert`, focus moves in and back out to the Enter control.
 
 ---
 
@@ -311,26 +297,30 @@ Each project (`src/data/projects.js`) is the real résumé unit:
   color, icon,                    // per-project visual identity
   github, live, liveLabel,        // links (live = deployed product URL, optional)
   lang, stack, tags,              // facts
-  outcome,                        // register 1 — floor card, résumé
+  outcome,                        // register 1 — the readout's first line, the résumé
   tagline,                        // register 2 — ALL-CAPS arcade hook
-  desc, highlights, operatorNote, // register 3 — the cabinet readout (desc/operatorNote from the README)
+  desc, highlights, operatorNote, // register 3 — the readout (desc/operatorNote from the README)
   status, category,
 }
 ```
 
+The operator's programs (`src/data/programs.js`) share the row shape (`id, title,
+subtitle, lang: "OPERATOR", color, icon, category: "operator", tagline`) and declare
+their `kind` (`howto | scores | credits`) and their link rail outright.
 `src/data/resume.json` holds the résumé (roles with years, bullets, selected public
-work, skills); `src/data/site.js` holds the per-page `<head>` and the line of range.
+work, skills); `src/data/site.js` holds the per-page `<head>`.
 
 ---
 
 ## 10 · Information Architecture
 
 ```
-/                 → the floor; the cabinet in attract mode
-/arcade/          → the cabinet, zoomed (a real static entry; Back returns to the floor)
-/arcade/#<id>     → a cartridge open in the cabinet (shareable)
+/                 → the cabinet on its title card (attract mode)
+/arcade/          → the select screen (a real static entry)
+/arcade/#<id>     → a cartridge open in the cabinet (shareable), or an operator
+                    program: #how-to-play, #high-scores, #credits
 /receipts/        → the ledger; ?from=&to=&repo=&q=&merges=0&sort=-key is the whole view
-/craft/           → how this site is built; #zoom #commits #performance #testing #tradeoffs
+/craft/           → how this site is built; #cabinet #commits #performance #testing #tradeoffs
 /resume.html      → static, zero-JS, print/ATS, generated from resume.json
 ```
 
@@ -338,27 +328,35 @@ The ledger writes its view with `replaceState` (typing a search must not bury Ba
 and re-reads the address on `popstate`; defaults are omitted so the plain URL stays
 plain, and anything unparseable falls back to the default instead of breaking the page.
 
-The URL is the source of truth (`src/arcade/zoom/arcadeRoute.ts`). Entering from the
-floor pushes `/arcade/`; opening a cartridge pushes `/arcade/#id`; Back walks cartridge
-→ select → floor and Forward walks back in. A deep link gets a select entry laid down
-beneath it. Leaving a hard-loaded `/arcade/` gives the floor its own entry, so Back
-returns into the arcade. `ampactor_visited` only decides whether the boot plays.
+The URL is the source of truth (`src/arcade/zoom/arcadeRoute.ts`); the cabinet asks for
+navigation with intents (`enter`, `open`, `back`, `exit`, `select`) and
+`useArcadeHistory` owns the History API. START pushes `/arcade/`; opening a program
+pushes `/arcade/#id`; Back walks program → list → title card and Forward walks back in.
+A deep link gets a select entry laid down beneath it; a hash naming nothing is
+corrected to `/arcade/` on load. Leaving a hard-loaded `/arcade/` gives the title card
+its own entry, so Back returns to the list. `ampactor_visited` only decides whether the
+power-on plays.
 
 ---
 
 ## 11 · Accessibility
 
-- The floor, the ledger and the case study pass axe in the browser suite, at desktop
-  and phone sizes, the ledger and the case study in both themes (`e2e/*.spec.ts`).
-- One focus ring everywhere (`:focus-visible`, `--accent-text`).
-- The floor's cabinet is one control with an accessible name and a description; its
-  panel is `inert`. Zoomed, it is a modal dialog and the rest of the page is `inert`.
-- Focus moves into the cabinet on zoom and back to the Enter control on exit; Escape
-  leaves; browser Back leaves.
-- Decorative SVG and glyphs are `aria-hidden`; the timeline SVG has `<title>`/`<desc>`.
+- The title card, the select screen, HIGH SCORES, the ledger and the case study pass
+  axe in the browser suite, at desktop and phone sizes, the ledger and the case study
+  in both themes (`e2e/*.spec.ts`).
+- Every screen has an `<h1>`: the name on the title card, `NAME · ROLE` on the select
+  screen; an open program is an `<h2>`.
+- One focus ring everywhere (`:focus-visible`, `--accent-text`); in the listbox the
+  lit row is the indicator.
+- The list is a `listbox` that takes focus when it comes up and names its active row;
+  readouts scroll in focusable regions; every panel control is a named `button`.
+- Escape and B step back; browser Back steps back; the title card's `PRESS START` is a
+  real button and the email a real link.
+- Decorative SVG and glyphs are `aria-hidden`; the HIGH SCORES bars carry their
+  numbers in the image's name.
 - External links: `target="_blank"` + `rel="noopener noreferrer"`.
-- `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` is created by a
-  floor gesture; audio starts only once the arcade is entered.
+- `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` is created on
+  the title card; audio starts only once the machine is started.
 - Contrast: parchment on charcoal and the deepened accent on parchment both clear AA at
   the sizes used; keep muted/comment text at ≥ 11 px mono / 12 px sans.
 
@@ -368,14 +366,18 @@ returns into the arcade. `ampactor_visited` only decides whether the boot plays.
 
 **Do**
 - Lead with the outcome; keep the numbers one layer deeper.
-- Spend cyan like spotlight; use `--accent-text` for anything read on the page.
-- Keep the floor's prose in Inter, its readouts in mono, its signage in Press Start.
+- Spend cyan like spotlight; use `--accent-text` for anything read on a page.
+- Keep the pages' prose in Inter, their readouts in mono, their signage in Press Start.
+- Say it in the cabinet's idiom before adding a widget: a table is a high-score table,
+  a bio is a credits roll, a link is a pill on the panel.
 - Honour reduced motion in any new animation.
-- Keep the slot and its ancestors free of transforms and filters.
+- Keep `main` and the stage's ancestors free of transforms and filters.
 
 **Don't**
+- Don't build a page around the cabinet, and don't link the coin slot or the hidden
+  programs from anywhere: they are found.
 - Don't introduce a second sans, pure white text, or flat-black backgrounds.
-- Don't let a generator re-skin the cabinet (GSAP/canvas/audio) — explore the floor.
+- Don't let a generator re-skin the cabinet (GSAP/canvas/audio) — explore the pages.
 - Don't hand-edit `tokens.css`, `public/resume.html`, or any generated file.
 - Don't add a title or an industry under the name. Don't bury "Available".
 - Don't write `▸` or accented capitals in Press Start 2P.
@@ -390,12 +392,11 @@ returns into the arcade. `ampactor_visited` only decides whether the boot plays.
 - **Semantic tokens and theming** (`src/styles/theme.css`): hairlines, surfaces,
   `--accent-text`, the light overrides, the cabinet's dark island. Add new semantic
   colours here, derived from the palette, not as literals in components.
-- **Heads and the line of range**: `src/data/site.js`. Rendered into every entry by
-  `vite.config.js`.
+- **Heads**: `src/data/site.js`. Rendered into every entry by `vite.config.js`.
 - **Identity and contact**: `src/data/profile.js`.
 - **The work**: `src/data/projects.js`; content fields follow each README
-  (`npm run sync:readmes`).
-- **The résumé and the timeline**: `src/data/resume.json`; `npm run resume:build`.
+  (`npm run sync:readmes`). **The operator's programs**: `src/data/programs.js`.
+- **The résumé and the credits**: `src/data/resume.json`; `npm run resume:build`.
 - **The social card**: `node scripts/render-og.mjs` against a running preview.
 - **Verify**: `npm run lint && npm run typecheck && npm test && npm run e2e && npm run build`.
   CI runs the same on every push; `main` deploys.
@@ -405,34 +406,38 @@ returns into the arcade. `ampactor_visited` only decides whether the boot plays.
 ## 14 · AI Handoff Brief
 
 _Paste this block into a design tool as the brand context. Scope any generation to
-**the floor** — not the bespoke arcade._
+**the pages** (the ledger, the case study, the résumé) — not the bespoke arcade._
 
 > **Brand:** Ampactor Labs — the portfolio of Morgan Espitia, a software engineer in
 > Salt Lake City who makes compilers, synths, games, and the apps around them.
-> **Concept:** "Patina Dark" — one room, one machine. A worn arcade CRT rendered with
-> engineering precision stands in a calm, readable page in its own light. Click it and
-> it fills the screen. Confident, terse, buyer-framed voice; receipts over claims.
+> **Concept:** "Patina Dark" — the site is an arcade cabinet, and the cabinet is the
+> whole page: a worn CRT rendered with engineering precision, standing in the dark.
+> The title card is the hero, the select screen is the work, the operator's programs
+> (HOW TO PLAY, HIGH SCORES, CREDITS) are the rest of the portfolio, and two paper
+> pages beside it carry the commit log and the case study. Confident, terse,
+> buyer-framed voice; receipts over claims.
 >
-> **Palette:** dark radial `#1d2021 → #2a2826 → #0f0e0d` (light: parchment `#f2e5bc`,
-> ink `#4f3829`); primary text parchment `#d4be98` (never white); hero accent electric
-> cyan `#00E5FF` as a spotlight (as text on light backgrounds, deepen to `#00708a`);
-> secondary amber `#d8a657`; muted `#a89984`; faint `#5a524c`. Per-card project colours
-> muted 55% toward `#a89984`.
+> **Palette:** dark radial `#1d2021 → #2a2826 → #0f0e0d` (light pages: parchment
+> `#f2e5bc`, ink `#4f3829`); primary text parchment `#d4be98` (never white); hero
+> accent electric cyan `#00E5FF` as a spotlight (as text on light backgrounds, deepen
+> to `#00708a`); secondary amber `#d8a657`; muted `#a89984`; faint `#5a524c`.
 >
-> **Type:** Inter for prose (name, one line of range, outcomes); Share Tech Mono for
-> titles, CTAs and readouts (weight 400); JetBrains Mono for labels, chips and numbers;
-> Press Start 2P only as tiny ALL-CAPS signage (eyebrows, nav, wordmark).
+> **Type:** Inter for the pages' prose; Share Tech Mono for titles, CTAs and readouts
+> (weight 400); JetBrains Mono for labels, chips and numbers; Press Start 2P as
+> ALL-CAPS signage (the cabinet's titles, the pages' tiny eyebrows and nav).
 >
-> **Layout:** single column ≤ 1100 px, `clamp()` rhythm, auto-fill card grids, hairline
-> low-alpha borders with a coloured border-top, radii 6/10/16 px, soft blooms on hover,
-> reduced motion honoured. The cabinet's slot is a fixed footprint on the right of the
-> hero (stacked on phones), with the machine scaled to ~0.7.
+> **Layout:** the cabinet fills the viewport (≤ 900 px wide) and never scrolls; the
+> pages are a single column ≤ 1100 px, `clamp()` rhythm, auto-fill card grids,
+> hairline low-alpha borders, radii 6/10/16 px, soft blooms on hover, reduced motion
+> honoured.
 >
-> **Floor sections, in order:** header (A-mark wordmark, nav, light switch) → hero (name
-> → one line of range → `● Available` status → Email / Résumé / Enter the arcade → the
-> cabinet in attract mode) → THE WORK (17 cards) → HOW I WORK (three checkable claims) →
-> SINCE 2017 (employment timeline) → footer.
+> **Screens, in order:** title card (name → role → range → `● AVAILABLE` → email →
+> PRESS START) → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
+> cartridges by category, then OPERATOR: HOW TO PLAY · HIGH SCORES · CREDITS) →
+> readouts. **Pages:** header (A-mark, nav, light switch) → the commit log / the case
+> study → footer.
 >
-> **Goal:** a page a hiring manager reads in a minute and a machine they want to touch.
-> Don't redesign the arcade; don't add a title or an industry under the name; don't use
-> white text; don't bury "Available" or the email.
+> **Goal:** a machine a hiring manager wants to touch, that still gets them the résumé
+> in two presses. Don't redesign the arcade; don't build a page around it; don't add a
+> title or an industry under the name; don't use white text; don't bury "Available" or
+> the email.

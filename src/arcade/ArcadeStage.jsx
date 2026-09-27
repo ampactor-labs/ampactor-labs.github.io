@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, lazy, Suspense } from "react";
+import { useRef, useState, lazy, Suspense } from "react";
 const TunnelGame = lazy(() => import("./TunnelGame"));
 import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
@@ -6,15 +6,17 @@ import { crtStyles } from "./styles/crtStyles";
 import styles from "./styles/stage.module.css";
 import { BOOT_LINES } from "./constants";
 import { PROJECTS } from "../data/projects";
+import { hasVisited } from "./visited";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
 import DetailScreen from "./components/screens/DetailScreen";
+import SystemScreen from "./components/screens/SystemScreen";
 import AttractScreen from "./components/screens/AttractScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
 
-// The A-mark that flickers in during the intro and then sits, nearly dark, in
-// the room behind the console. Moved here verbatim from the old root.
+// The A-mark that flickers in during the power-on and then sits, nearly
+// dark, in the room behind the console.
 function AMarkOverlay({ logoRef }) {
   return (
     <div
@@ -53,40 +55,24 @@ function AMarkOverlay({ logoRef }) {
   );
 }
 
-// The cabinet, at both depths. On the floor it is a miniature in attract mode
-// under a single "Enter the arcade" control; zoomed, it is the arcade exactly
-// as it always was. The same console element plays both parts; App decides
-// which with `zoomed`/`mode` and animates between them (useArcadeZoom).
-//
-// `coldOpen` is the floor's first-visit show: the machine full-screen and
-// powering on before the camera pulls back. It is a picture, not a place to
-// be: hidden from assistive tech (the floor underneath stays readable), its
-// controls inert, and no way out but the show ending.
+// The cabinet, standing in its dark room, as the whole page. The URL decides
+// the screen (`route`); the cabinet asks for changes through `onNavigate`.
 export default function ArcadeStage({
-  mode,
-  zoomed,
-  animating,
-  scale,
-  metrics,
   route,
   onNavigate,
-  onEnter,
-  introVariant,
-  coldOpen = false,
   reducedMotion = false,
   consoleRef,
-  backdropRef,
-  enterButtonRef,
   tunnelRef,
 }) {
-  const stageRef = useRef(null);
   const screenRef = useRef(null);
   const tubeRef = useRef(null);
   const logoRef = useRef(null);
-  // A machine that powered on in the dark (a hard load of /arcade/, the cold
-  // open) starts with its console hidden and the intro brings it up. Decided
-  // once, so React never re-applies it over the animation.
-  const [darkStart] = useState(introVariant === "console");
+  // A first visit powers the machine on out of the dark: the console starts
+  // hidden and the intro brings it up. Decided once, so React never
+  // re-applies it over the animation.
+  const [darkStart] = useState(
+    () => !(hasVisited() || (route.view === "arcade" && route.screen === "project")),
+  );
 
   const {
     screen,
@@ -100,14 +86,15 @@ export default function ArcadeStage({
     dims,
     gameHighlight,
     allProjects,
+    attractNudge,
     fs,
     introComplete,
     skipIntro,
     insertCoin,
+    start,
     openProject,
     goBack,
     exitGame,
-    exitArcade,
     hoverSelect,
     advanceBoot,
     navUp,
@@ -126,82 +113,32 @@ export default function ArcadeStage({
     logoRef,
     consoleRef,
     tubeRef,
-    mode,
     route,
     onNavigate,
-    animating,
-    introVariant,
-    coldOpen,
   });
 
-  const live = mode === "live";
-  // Inputs are for a zoomed, settled machine. Mid-zoom the panel is already
-  // un-inert in the DOM sense, so `animating` keeps it quiet.
-  const inert = !zoomed || animating || coldOpen;
-  const modal = zoomed && !coldOpen;
-
-  // A cabinet scrolled out of view stops flickering: the CRT keyframes are
-  // paused through a class the stylesheet knows.
-  useEffect(() => {
-    const el = stageRef.current;
-    if (!el || zoomed || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(([entry]) => {
-      el.classList.toggle("arcade-offscreen", !entry.isIntersecting);
-    });
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      el.classList.remove("arcade-offscreen");
-    };
-  }, [zoomed]);
-
   return (
-    <div
-      ref={stageRef}
-      className={styles.stage}
-      data-zoomed={zoomed ? "true" : "false"}
-      data-mode={mode}
-      data-pinned={zoomed || animating || undefined}
-      data-cold-open={coldOpen || undefined}
-      aria-hidden={coldOpen || undefined}
-    >
+    <div className={styles.stage} data-screen={screen}>
       <CrtSvgDefs />
       <style>{crtStyles}</style>
-      {(zoomed || animating) && (
-        <div
-          ref={backdropRef}
-          className={styles.backdrop}
-          data-backdrop=""
-          aria-hidden={zoomed ? undefined : "true"}
-        >
-          <TunnelCanvas ref={tunnelRef} />
-          {zoomed && <AMarkOverlay logoRef={logoRef} />}
-          {zoomed && screen === "game" && (
-            <Suspense fallback={null}>
-              <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
-            </Suspense>
-          )}
-        </div>
-      )}
+      <div className={styles.backdrop} data-backdrop="">
+        <TunnelCanvas ref={tunnelRef} />
+        <AMarkOverlay logoRef={logoRef} />
+        {screen === "game" && (
+          <Suspense fallback={null}>
+            <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
+          </Suspense>
+        )}
+      </div>
       <div
         ref={consoleRef}
         className={`${styles.console} cabinet-scope`}
-        data-zoomed={zoomed ? "true" : "false"}
         tabIndex={-1}
-        role={modal ? "dialog" : undefined}
-        aria-modal={modal ? "true" : undefined}
-        aria-label={modal ? "Arcade" : undefined}
-        style={{
-          width: metrics.zoomW,
-          height: metrics.zoomH,
-          "--k": scale,
-          opacity: darkStart ? 0 : undefined,
-        }}
+        style={{ opacity: darkStart ? 0 : undefined }}
       >
         <div
           ref={screenRef}
           className="crt-screen"
-          inert={inert || undefined}
           style={{
             flex: 1,
             margin: "10px 10px 0",
@@ -280,8 +217,8 @@ export default function ArcadeStage({
             ref={tubeRef}
             style={{ position: "relative", zIndex: 50, height: "100%" }}
           >
-            {/* Faint skip hint during GSAP intro */}
-            {live && !introComplete && (
+            {/* Faint skip hint during the power-on */}
+            {!introComplete && (
               <div
                 onClick={skipIntro}
                 style={{
@@ -314,7 +251,10 @@ export default function ArcadeStage({
                 <AttractScreen
                   projects={PROJECTS}
                   fs={fs}
+                  onStart={start}
+                  nudge={attractNudge}
                   reducedMotion={reducedMotion}
+                  screenWidth={dims.w}
                 />
               )}
               {screen === "boot" && (
@@ -357,6 +297,17 @@ export default function ArcadeStage({
                   focusedLink={linkIdx}
                 />
               )}
+              {screen === "system" && detailProject && (
+                <SystemScreen
+                  program={detailProject}
+                  onBack={goBack}
+                  fs={fs}
+                  bodyRef={detailBodyRef}
+                  linkRefs={linkRefs}
+                  focusedLink={linkIdx}
+                  reducedMotion={reducedMotion}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -373,35 +324,8 @@ export default function ArcadeStage({
           coinCount={coinCount}
           introComplete={introComplete}
           fs={fs}
-          attract={!live}
-          inert={inert}
         />
       </div>
-
-      {modal && screen !== "game" && (
-        <button
-          type="button"
-          className={styles.floorReturn}
-          onClick={exitArcade}
-          aria-label="Back to the floor"
-        >
-          ‹ FLOOR
-        </button>
-      )}
-      {!zoomed && (
-        // Mounted for the whole un-zoomed posture, including the shrink back
-        // into the slot, so focus has somewhere to land the moment it ends;
-        // pointer-inert until then.
-        <button
-          ref={enterButtonRef}
-          type="button"
-          className={styles.enter}
-          data-animating={animating || undefined}
-          onClick={() => onEnter()}
-          aria-label="Enter the arcade"
-          aria-describedby="arcade-enter-hint"
-        />
-      )}
     </div>
   );
 }

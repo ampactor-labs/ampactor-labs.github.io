@@ -1,13 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, within } from "@testing-library/react";
-import CraftPage, {
-  COLD_OPEN_SECONDS as SAID_SECONDS,
-  PULLBACK_SECONDS as SAID_PULLBACK,
-} from "../CraftPage";
-import {
-  COLD_OPEN_SECONDS,
-  PULLBACK_SECONDS,
-} from "../../arcade/zoom/coldOpen";
+import CraftPage, { BOOT_SECONDS as SAID_SECONDS } from "../CraftPage";
+import { BOOT_LINES } from "../../arcade/constants";
 import { audit } from "../../data/audit";
 import { summary } from "../../data/receiptsSummary";
 
@@ -68,12 +62,13 @@ describe("CraftPage", () => {
     ).toBeNull();
   });
 
-  it("tells the cold open's timings as the code has them", () => {
-    expect(SAID_SECONDS).toBe(COLD_OPEN_SECONDS);
-    expect(SAID_PULLBACK).toBe(PULLBACK_SECONDS);
+  it("tells the boot's length as the code has it", () => {
+    // The test pattern holds 450 ms, then one BIOS line every 130 ms.
+    const boot = 0.45 + BOOT_LINES.length * 0.13;
+    expect(SAID_SECONDS).toBe(Math.round(boot));
     render(<CraftPage />);
     expect(
-      screen.getByText(new RegExp(`after ${COLD_OPEN_SECONDS} seconds`)),
-    ).toBeTruthy();
+      screen.getAllByText(new RegExp(`about ${SAID_SECONDS} seconds`)).length,
+    ).toBeGreaterThan(0);
   });
 });

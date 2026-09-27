@@ -58,6 +58,7 @@ export default function BootScreen({
             are hidden, so the column has its final height at once: it prints
             top to bottom like a terminal instead of re-centring (and moving
             every printed line) each time one is added. */}
+        {/* The last line is the prompt (READY.), set in the display face. */}
         {lines.map((line, i) => (
           <div
             key={i}
@@ -68,7 +69,7 @@ export default function BootScreen({
                   ? "#00E5FF"
                   : line === "ALL SYSTEMS NOMINAL"
                     ? "#00E5FF"
-                    : line === "PRESS ANY KEY"
+                    : i === lines.length - 1
                       ? "var(--color-amber)"
                       : line.startsWith("OPERATOR:")
                         ? "#00E5FF"
@@ -81,12 +82,11 @@ export default function BootScreen({
                               : "var(--color-muted)",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
-                line === "PRESS ANY KEY"
+                i === lines.length - 1
                   ? "'Press Start 2P', monospace"
                   : undefined,
-              fontSize: line === "PRESS ANY KEY" ? fs(13) : undefined,
-              textAlign: line === "PRESS ANY KEY" ? "center" : undefined,
-              marginTop: line === "PRESS ANY KEY" ? 8 : undefined,
+              fontSize: i === lines.length - 1 ? fs(12) : undefined,
+              marginTop: i === lines.length - 1 ? 8 : undefined,
             }}
           >
             {line}

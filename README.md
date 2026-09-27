@@ -13,13 +13,17 @@ npm install --legacy-peer-deps
 npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
 ```
 
-The home page shows an arcade cabinet next to the introduction. Clicking the
-cabinet zooms it to full screen, where each project can be opened from a menu;
-Escape or the browser's Back button returns to the page. On a first visit the
-page opens with the cabinet at full screen and zooms out after a few seconds.
-Click the coin slot on the cabinet to unlock three hidden programs. One of them
-is TUNNEL_RUN, a vector shooter with a global top-10 leaderboard that runs with
-no server.
+The site is an arcade cabinet, and the cabinet is the whole page. It opens on
+its title card (the name, the trade, the availability, PRESS START); START
+shows the select screen, where each project is a cartridge and three operator
+programs at the end of the list hold the rest of a portfolio: HOW TO PLAY (how
+I work), HIGH SCORES (the commit ledger) and CREDITS (the career roll). The
+résumé, GitHub and LinkedIn are pills on the select screen's header. Escape or
+the browser's Back button steps back the way you came, down to the title card.
+On a first visit the machine powers on and prints its BIOS before the title
+card; after that it lands where the URL points. Click the coin slot on the
+cabinet to unlock three hidden programs. One of them is TUNNEL_RUN, a vector
+shooter with a global top-10 leaderboard that runs with no server.
 
 The other commands:
 
@@ -37,9 +41,11 @@ npm run audit          # Lighthouse (median of 5), test counts and weights → s
 
 The pages:
 
-- `/`: the home page: hero, projects, a summary of the commit log, how I work,
-  and a timeline since 2017, in light and dark themes
-- `/arcade/`: the cabinet at full screen; `/arcade/#<project id>` opens a project
+- `/`: the cabinet on its title card (attract mode): the name, the trade, a
+  short HOW TO PLAY, the cartridges in turn and the high-score table
+- `/arcade/`: the cabinet's select screen; `/arcade/#<project id>` opens a
+  project, `/arcade/#how-to-play`, `#high-scores` and `#credits` the operator
+  programs
 - `/receipts/`: the commit log, every public commit with filters, charts and
   CSV/JSON export; the view is stored in the query string, so any view can be linked
 - `/craft/`: how the site is built, with numbers that `npm run audit` measures
@@ -48,14 +54,17 @@ The pages:
 - `/comma/`, `/slot/`, `/apapacho/`: small apps served from `public/`; the
   other hosted projects deploy from their own repositories to `ampactor.dev/<repo>/`
 
-### The zoom
+### The cabinet as the page
 
-The cabinet is always laid out at its full-screen size (`min(900px, 100vw)` ×
-`100dvh`) and scaled into its slot with CSS on the home page, so the zoom
-animates a single transform and nothing inside is laid out again. The URL is
-the source of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route,
+The console fills the viewport (`min(900px, 100vw)` × `100dvh`) and stands in
+a dark backdrop; there is no page around it to scroll. The URL is the source
+of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route (`/` the title
+card, `/arcade/` the list, `/arcade/#<id>` an open program),
 `useArcadeHistory` owns the History API, and the cabinet requests navigation
-instead of calling it directly. `docs/DESIGN-SYSTEM.md` covers the design.
+through intents instead of calling it directly, so Back always walks program →
+list → title card. The boot is the machine's own business and not a route: a
+first visit (nothing in `localStorage`) powers on and prints the BIOS, then
+lands where the URL points. `docs/DESIGN-SYSTEM.md` covers the design.
 
 ### Shared code
 
@@ -133,21 +142,21 @@ date. The last run, 2026-09-25, on one laptop:
 | `/craft/`    | 98          | 100 / 100 / 100                    | 2.1 s         | 0   | 70 KB     |
 
 The cost is the cabinet: the home page ships the most JavaScript and paints
-its largest element last, because the first visit boots the machine before
-pulling back to the page.
+its largest element last, because a first visit powers the machine on and
+prints the BIOS before the title card.
 
 ## Project layout
 
 ```
 src/
-  main.tsx, App.tsx        the home page, the zoom, the router
-  floor/                   the home page: header, hero, projects, commit summary,
-                           how I work, timeline, footer
-  arcade/                  the cabinet (JavaScript); zoom/ holds the URL scheme,
-                           history, scroll lock and the zoom itself
+  main.tsx, App.tsx        the cabinet page and its router
+  floor/                   the header and footer of the commit log and craft pages
+  arcade/                  the cabinet (JavaScript): the screens (title card, boot,
+                           select, cartridge, operator programs), the panel, the
+                           game; zoom/ holds the URL scheme and the history
   receipts/                the commit log page: pure data model, URL state, charts,
                            the virtualized table, the drawer, the export form
-  craft/                   the case study page and its drawn-to-scale diagram
+  craft/                   the case study page
   ui/, lib/, styles/       shared primitives, theme, tokens, number formatting
   data/                    projects.js, profile.js, site.js (each page's <head>),
                            resume.json, receipts.summary.json, audit.json,
@@ -178,10 +187,10 @@ npm run typecheck      # tsc --noEmit
 ```
 
 The unit tests cover the commit log's model, URL codec, chart scale and
-export schema, the project data, the arcade's route, cold open, scroll lock,
-cabinet state, screens and boss, the formatters and the theme, and the pages'
-rendering. The browser tests cover the floor, the zoom and its history, the
-cabinet, the commit log, the craft page, continuity between pages and
+export schema, the project data, the arcade's route and history, cabinet
+state, screens and boss, the formatters and the theme, and the pages'
+rendering. The browser tests cover the title card, the boot, the list and the
+operator programs, the history, the commit log, the craft page, continuity between pages and
 behaviour on a slow network, on a desktop and a phone profile, with an axe
 accessibility scan. `npm run audit` counted 243 unit tests and 68 browser
 test runs on 2026-09-25. CI (`.github/workflows/ci.yml`) runs lint, typecheck,

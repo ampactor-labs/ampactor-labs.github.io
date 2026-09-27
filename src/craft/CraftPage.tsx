@@ -1,19 +1,17 @@
 import type { ReactNode } from "react";
 import Header from "../floor/Header";
 import Footer from "../floor/Footer";
-import MachineDiagram from "./MachineDiagram";
 import { audit, type PageAudit } from "../data/audit";
 import { summary } from "../data/receiptsSummary";
 import { int, shortDate } from "../lib/format";
 import styles from "./Craft.module.css";
 
-// The first-visit animation's timings (src/arcade/zoom/coldOpen.ts), copied
-// rather than imported: a module this page and the home page both import
-// would be split into a chunk of its own, adding a request before the home
-// page renders (Lighthouse measured +160 ms). The unit test checks these
-// against the real constants.
-export const COLD_OPEN_SECONDS = 2.3;
-export const PULLBACK_SECONDS = 0.9;
+// How long a first visit's boot takes (the test pattern, then one BIOS line
+// every 130 ms), stated here rather than imported: a module this page and
+// the cabinet both import would be split into a chunk of its own, adding a
+// request before the cabinet renders. The unit test checks it against the
+// real boot lines.
+export const BOOT_SECONDS = 3;
 
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 const source = (path: string) => `${REPO}/blob/main/${path}`;
@@ -33,7 +31,7 @@ const measured = PAGES.flatMap((p) => {
 });
 
 const CHAPTERS = [
-  { id: "zoom", title: "The cabinet zoom" },
+  { id: "cabinet", title: "The cabinet" },
   { id: "commits", title: "The commit log" },
   { id: "performance", title: "Performance" },
   { id: "testing", title: "Testing" },
@@ -87,7 +85,7 @@ export default function CraftPage() {
             </ol>
           </nav>
           <div className={styles.chapters}>
-            <Zoom />
+            <CabinetChapter />
             <CommitLog />
             <Performance />
             <Testing />
@@ -247,81 +245,80 @@ function Code({ children }: { children: ReactNode }) {
   return <code className={styles.code}>{children}</code>;
 }
 
-function Zoom() {
+function CabinetChapter() {
   return (
-    <Chapter id="zoom" index={1} eyebrow="THE ZOOM" title="The cabinet zoom">
+    <Chapter id="cabinet" index={1} eyebrow="THE CABINET" title="The cabinet">
       <div className={styles.prose}>
         <p>
-          The cabinet on the home page and the full-screen arcade are the same
-          DOM element. Clicking the cabinet scales it up to fill the screen, and
-          Escape or the browser&apos;s Back button scales it back down. The URL
-          updates at each step, so every state can be linked to.
+          The site is one arcade cabinet, and the cabinet is the whole page. It
+          stands in a dark room, as wide as the browser up to 900 pixels and as
+          tall as it. What a portfolio needs, a real machine already has a
+          surface for. The attract loop on the home page is the title card
+          (name, role, city, availability, email), then HOW TO PLAY, a few
+          cartridges and the HIGH SCORES table. PRESS START opens the select
+          screen, where the operator&apos;s sticker carries the email, the phone
+          number and the links to the résumé, GitHub and LinkedIn. The eighteen
+          projects are cartridges, and three operator programs at the end of
+          the list hold the long forms: HOW TO PLAY (how I work), HIGH SCORES
+          (the commit log) and CREDITS (the years, and who built this).
         </p>
       </div>
       <Facts
         problem={
           <>
-            The cabinet appears at two sizes: small on the page and full screen
-            when open. Animating between two layouts of different sizes either
-            makes the content jump on the first frame or forces a new layout on
-            every frame.
+            A recruiter needs a name, a title and a résumé within seconds; an
+            engineer wants the projects and their source; a stranger wants to
+            play. A conventional page built around the cabinet served the first
+            two and cost the machine its character.
           </>
         }
         approach={
           <>
-            The cabinet is always laid out at its full-screen size, and a CSS
-            transform scales it down on the page. Opening it animates only that
-            transform, so nothing inside is laid out again and the text renders
-            the same at both sizes.
+            Keep the machine and use the surfaces a cabinet has anyway. The
+            title card is the hero, the select screen&apos;s header is the
+            contact block, and three programs at the end of the list are the
+            about pages. The URL still names each screen, and nothing on the
+            page exists outside the cabinet&apos;s own vocabulary.
           </>
         }
         verification={
           <>
-            Playwright tests check the cabinet&apos;s layout size on the page,
-            open and close it on desktop and phone, confirm that focus returns
-            to it, and step back through history from a project to the home
-            page.
+            Playwright loads the home page cold and as a returning visitor,
+            checks that the name and the résumé link are one press away, walks
+            the list from the keyboard, opens the operator programs, steps back
+            through history from a cartridge to the title card, and runs axe on
+            the screens, on desktop and on a phone.
           </>
         }
       />
-      <MachineDiagram />
-      <h3 className={styles.h3}>First-visit animation</h3>
+      <h3 className={styles.h3}>A first visit</h3>
       <div className={styles.prose}>
         <p>
-          On a first visit, the page opens inside the cabinet as it powers on,
-          then zooms out to the home page after {COLD_OPEN_SECONDS} seconds. Any
-          key, click, tap or scroll skips it. It plays only once, never when a
-          link points to a section of the page, and never when the visitor has
-          asked for reduced motion. It adds no history entry, and screen readers
-          get the page underneath from the start.
-        </p>
-        <p>
-          My first version moved the cabinet&apos;s container back into the page
-          on a timer. Chrome counts layout changes that are not caused by user
-          input as layout shift, and it scored this one at 0.49, which pulled
-          the page&apos;s Lighthouse performance score down to 67. The fix was
-          to pin the container in place while the cabinet is open and animate
-          only the transform. A first visit now measures 0.005. The numbers are
-          in <a href={SPEED_COMMIT}>the commit</a>.
+          On a first visit the machine powers on out of the dark and prints its
+          BIOS lines, which takes about {BOOT_SECONDS} seconds; any key, click
+          or tap skips ahead. It plays once per browser. After that a visit
+          lands on the title card, and a shared link such as{" "}
+          <a href="/arcade/#mentl">/arcade/#mentl</a> lands on that cartridge
+          without booting.
         </p>
       </div>
       <h3 className={styles.h3}>History and deep links</h3>
       <div className={styles.prose}>
         <p>
-          A single pure function maps each history entry to a state: the home
-          page, the project list, or one project. The cabinet asks for
-          navigation instead of calling the History API itself, so Back,
-          Forward, a reload and a shared link such as{" "}
-          <a href="/arcade/#mentl">/arcade/#mentl</a> all end up in the same
-          place.
+          A single pure function maps each history entry to a screen: the title
+          card, the list, or one program. The cabinet asks for navigation
+          instead of calling the History API itself, so Back, Forward, a
+          reload and a shared link all end up in the same place, and Back from
+          a cartridge always lands on the list rather than off the site.
         </p>
       </div>
       <Links
         items={[
-          ["useArcadeZoom.ts", source("src/arcade/zoom/useArcadeZoom.ts")],
+          ["useCabinetState.js", source("src/arcade/hooks/useCabinetState.js")],
           ["arcadeRoute.ts", source("src/arcade/zoom/arcadeRoute.ts")],
-          ["coldOpen.ts", source("src/arcade/zoom/coldOpen.ts")],
-          ["e2e/floor.spec.ts", source("e2e/floor.spec.ts")],
+          ["AttractScreen.jsx", source("src/arcade/components/screens/AttractScreen.jsx")],
+          ["SystemScreen.jsx", source("src/arcade/components/screens/SystemScreen.jsx")],
+          ["e2e/home.spec.ts", source("e2e/home.spec.ts")],
           ["e2e/arcade.spec.ts", source("e2e/arcade.spec.ts")],
         ]}
       />
@@ -567,16 +564,15 @@ function Testing() {
         <li>
           {int(audit.tests.unit)} unit tests in Vitest and{" "}
           {int(audit.tests.browserRuns)} browser test runs in Playwright, on a
-          desktop viewport and a Pixel 7. They cover the zoom, the first-visit
-          animation, history, the commit filters and export, and this page. CI
-          runs all of them on every pull request.
+          desktop viewport and a Pixel 7. They cover the title card, the boot,
+          the list and the operator programs, history, the commit filters and
+          export, and this page. CI runs all of them on every pull request.
         </li>
         <li>
           axe accessibility checks run in the browser tests on the home page,
           the commits page and this page, at both screen sizes, and any
-          violation fails the run. Everything is usable from the keyboard; the
-          open cabinet is a modal dialog, and focus returns to it when it
-          closes.
+          violation fails the run. Everything is usable from the keyboard: the
+          arrow keys are the d-pad, Enter is A and Escape is B.
         </li>
         <li>
           No page loads anything from another server: no fonts, analytics or
@@ -632,19 +628,13 @@ function Tradeoffs() {
           Next step: prerender each page&apos;s text at build time.
         </li>
         <li>
-          The first-visit animation costs a new visitor about{" "}
-          {Math.round(COLD_OPEN_SECONDS + PULLBACK_SECONDS)} seconds. Any input
-          skips it, and it never plays twice. Lighthouse loads the home page as
-          a first visit, so its largest paint is a line of the animation&apos;s
-          boot text
+          A first visit boots the machine before showing anything: about{" "}
+          {BOOT_SECONDS} seconds of test pattern and BIOS text, skippable with
+          any input, once per browser. Lighthouse loads the home page as a
+          first visit, so its largest paint is a line of that boot text
           {home ? `, at ${seconds(home.lcpMs)}` : ""}, and part of the home
-          page&apos;s score comes from the animation&apos;s timing. I decided
-          the first impression is worth it.
-        </li>
-        <li>
-          The small cabinet on the home page is laid out at full-screen size,
-          which costs more layout work than an image would. In exchange, the
-          zoom has no visual jump.
+          page&apos;s score comes from the boot&apos;s timing. I decided the
+          first impression is worth it.
         </li>
         <li>
           Reading history from git means keeping a clone of every repository:
@@ -658,9 +648,8 @@ function Tradeoffs() {
       </ul>
       <div className={styles.prose}>
         <p>
-          Also next: timing the zoom-out on real phones, since the automated
-          runs use a software renderer; a 404 page; and a social card for the
-          commits page.
+          Also next: prerendering each page&apos;s text at build time, and a
+          social card for the commits page.
         </p>
       </div>
     </Chapter>
