@@ -85,7 +85,7 @@ const RAW_PROJECTS = [
     color: "#FF6B35",
     icon: "⚡",
     github: "https://github.com/ampactor-labs/turbosort",
-    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types in a strict no_std environment without relying on FFI or the nightly compiler. Benchmarked against std and voracious with full criterion runs: 3.2× over std on f32 at 1M elements, 3.7× with the parallel feature at 10M. A perf sweep out to 100M keys shows the lead widening rather than collapsing, because radix holds a flat instruction count per key while pdqsort's grows with log n. The README publishes the losses too; large random u64 still goes to voracious.",
+    desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types, builds without the standard library (AVX2 detection needs the std feature), and uses no FFI and no nightly compiler. Benchmarked against std and voracious with full criterion runs: 3.2× over std on f32 at 1M elements, 3.7× with the parallel feature at 10M. A perf sweep out to 100M keys shows the lead widening rather than collapsing, because radix holds a flat instruction count per key while pdqsort's grows with log n. The README publishes the losses too; large random u64 still goes to voracious.",
     tags: ["algorithms", "simd", "performance", "no_std"],
     tagline: "FASTER THAN STD",
     outcome:
@@ -96,7 +96,7 @@ const RAW_PROJECTS = [
       "2.2–3.2× HELD OUT TO 100M KEYS",
       "73% OF CYCLES IN THE SCATTER PASS",
       "AVX2 NETWORKS · LSD RADIX · CPUID DISPATCH",
-      "MIRI-CHECKED UNSAFE CORE, EVERY PUSH",
+      "MIRI-CHECKED UNSAFE CORE IN CI",
     ],
     stack: ["Rust", "AVX2", "NEON", "rayon", "perf"],
     status: "active",

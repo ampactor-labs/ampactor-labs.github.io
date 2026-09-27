@@ -133,7 +133,7 @@
     {
       "id": "turbosort",
       "name": "Turbosort",
-      "what": "SIMD radix sort on crates.io, 2.2–3.2× faster than the standard library from 1M to 100M keys, with the cases where it is slower documented.",
+      "what": "SIMD radix sort on crates.io: 2.2 to 3.2 times as fast as the standard library on random 32-bit keys from 1M to 100M on one laptop, with the losses (64-bit keys, a second machine) documented.",
       "stack": "Rust · AVX2",
       "url": "https://github.com/ampactor-labs/turbosort"
     }
