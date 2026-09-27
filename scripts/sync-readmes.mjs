@@ -120,12 +120,21 @@ export function leadParagraph(md) {
   return "";
 }
 
+// The caveat is the rest of the status paragraph, however it is wrapped: a
+// README formatted at 80 columns puts the second sentence on its own line,
+// and reading one line lost it (slot's status once shipped cut in half).
+// The paragraph ends at a blank line or at the next block that is not prose.
 export function statusOf(md) {
-  const m = md.match(/\*\*Status:\s*([^*]+)\*\*\s*([^\n]*)/i);
+  const m = md.match(/\*\*Status:\s*([^*]+)\*\*/i);
   if (!m) return null;
+  const lines = [];
+  for (const line of md.slice(m.index + m[0].length).split("\n")) {
+    if (lines.length && (!line.trim() || !isProse(line))) break;
+    lines.push(line);
+  }
   return {
     label: stripMd(m[1]).replace(/[.,]\s*$/, ""),
-    caveat: stripMd(m[2] || "").replace(/^\s*[-–—]\s*/, ""),
+    caveat: stripMd(lines.join(" ")).replace(/^\s*[-–—]\s*/, ""),
   };
 }
 
