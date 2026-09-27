@@ -148,6 +148,12 @@ export default function useCabinetState({
     if (route.screen === "project") {
       const idx = allProjects.findIndex((p) => p.id === route.id);
       if (idx === -1) {
+        // A link straight to a hidden program (/arcade/#tunnel-run from the
+        // floor) drops the coin for the visitor instead of refusing them.
+        if (coinCount === 0 && HIDDEN_PROJECTS.some((p) => p.id === route.id)) {
+          setCoinCount(3);
+          return;
+        }
         onNavigate({ type: "select" });
         return;
       }

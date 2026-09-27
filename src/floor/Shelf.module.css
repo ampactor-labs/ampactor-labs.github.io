@@ -137,6 +137,17 @@
   color: var(--fg-bright);
 }
 
+/* A finger needs about 44px. On a touch screen the links keep their look
+   and grow a taller hit area. */
+@media (pointer: coarse) {
+  .action,
+  .cabinet {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
 /* On a phone the cartridge's small print comes up to 12px. */
 @media (max-width: 640px) {
   .lang,

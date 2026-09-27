@@ -23,6 +23,7 @@
     "readme:check": "node scripts/check-readme.mjs",
     "resume:build": "node scripts/build-resume.mjs",
     "resume:check": "node scripts/build-resume.mjs --check",
+    "resume:pdf": "node scripts/build-resume-pdf.mjs",
     "sync:receipts": "node scripts/sync-receipts.mjs",
     "sync:receipts:report": "node scripts/sync-receipts.mjs --report",
     "audit": "node scripts/audit.mjs"

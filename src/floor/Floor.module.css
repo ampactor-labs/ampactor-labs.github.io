@@ -137,6 +137,16 @@
   }
 }
 
+/* A finger needs about 44px. Vertical padding on these inline links grows
+   the hit area without moving the layout or undoing the phone's hidden
+   links above. */
+@media (pointer: coarse) {
+  .nav a,
+  .navButton {
+    padding-block: 14px;
+  }
+}
+
 .main:focus {
   outline: none;
 }
@@ -274,6 +284,35 @@
   letter-spacing: 0.04em;
 }
 
+/* The one line for a visitor who came to play rather than to hire. It stays
+   on a phone, where the hint above is hidden. */
+.play {
+  margin: 0;
+  color: var(--fg-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.play a {
+  display: inline-block;
+  padding: 6px 0;
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+.play a:hover {
+  color: var(--fg-bright);
+}
+
+@media (pointer: coarse) {
+  .play a {
+    padding: 13px 0;
+  }
+}
+
 /* The slot reserves the miniature's exact footprint so the page never
    reflows when the stage leaves it to go full-screen. */
 .slotWrap {
@@ -341,6 +380,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
+}
+
+@media (pointer: coarse) {
+  .footer a {
+    padding-block: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
