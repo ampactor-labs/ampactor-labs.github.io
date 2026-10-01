@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import BootScreen from "../BootScreen";
+import { BOOT_LINES } from "../../../constants";
+import { PITCH } from "../../../../data/profile";
 
 const fs = (size) => size;
 const lines = [
@@ -95,4 +97,17 @@ describe("BootScreen", () => {
     expect(getByText("PRESS ANY KEY")).toBeTruthy();
   });
 
+  it("ends the real BIOS on the pitch, lit, then READY.", () => {
+    const { getByText } = render(
+      <BootScreen
+        lines={BOOT_LINES}
+        currentLine={BOOT_LINES.length - 1}
+        bootPhase={1}
+        fs={fs}
+        onSkip={onSkip}
+      />,
+    );
+    expect(BOOT_LINES.slice(-3)).toEqual([PITCH, "", "READY."]);
+    expect(getByText(PITCH).style.color).toBe("rgb(0, 229, 255)");
+  });
 });

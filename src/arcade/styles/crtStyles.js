@@ -24,7 +24,8 @@ export const crtStyles = `
   .crt-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:88;opacity:0.04;mix-blend-mode:screen}
   .scanline-bar{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.03);animation:scanmove 8s linear infinite;pointer-events:none;z-index:100}
   .blink-cursor{animation:blink 1s step-end infinite}
-  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;animation:marquee 90s linear infinite}
+  /* The ticker crawls about 2.8 characters a second: 106s for MARQUEE_TEXT's 296 (constants.js). */
+  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;animation:marquee 106s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
   .project-row:hover{background:rgba(219,116,151,0.03)!important;transform:translateX(4px)}
   .btn-cabinet{transition:all 0.15s ease;cursor:pointer;user-select:none}
