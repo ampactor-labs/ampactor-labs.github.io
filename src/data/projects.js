@@ -84,6 +84,10 @@ const RAW_PROJECTS = [
     lang: "Rust",
     color: "#FF6B35",
     icon: "⚡",
+    // A library has nothing to run in a browser; its release is the crate,
+    // and the page there is the proof of "published on crates.io".
+    live: "https://crates.io/crates/turbosort",
+    liveLabel: "▸ CRATES.IO",
     github: "https://github.com/ampactor-labs/turbosort",
     desc: "Turbosort accelerates sorting by reading the host CPUID at runtime and dispatching to AVX2 sorting networks for small arrays or an LSD radix sort for large ones. It covers all ten primitive Rust number types, builds without the standard library (AVX2 detection needs the std feature), and uses no FFI and no nightly compiler. Benchmarked against std and voracious with full criterion runs: 3.2× over std on f32 at 1M elements, 3.7× with the parallel feature at 10M. A perf sweep out to 100M keys shows the lead widening rather than collapsing, because radix holds a flat instruction count per key while pdqsort's grows with log n. The README publishes the losses too; large random u64 still goes to voracious.",
     tags: ["algorithms", "simd", "performance", "no_std"],

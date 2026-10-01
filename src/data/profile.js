@@ -1,6 +1,6 @@
-// Single source of truth for identity, contact, and positioning copy.
-// Consumed by SelectScreen. The static public/resume.html mirrors
-// this copy by hand (it cannot import JS) — keep the two in sync when editing.
+// Single source of truth for identity, contact, and positioning copy: the
+// cabinet's screens, the ticker and the pages' <head> (site.js) read it. The
+// résumé has its own source, src/data/resume.json.
 
 // Phone kept as split digits so naive source/HTML scrapers can't lift a clean
 // tel: number from the bundle. Joined at runtime.
@@ -39,3 +39,10 @@ export const CONTACT = {
 // The primary call to action. No prefilled subject: whoever writes knows
 // better than a default what the email is about.
 export const MAILTO = `mailto:${CONTACT.email}`;
+
+// The pitch: one line, said the same way wherever the site describes its
+// author (the boot's last line before READY., the title card, the ticker,
+// the pages' descriptions). RANGE is its receipts, from the top of the stack
+// to the bottom; every layer is a cartridge.
+export const PITCH = "FULL STACK, ALL THE WAY DOWN";
+export const RANGE = ["WEB APPS", "APIS", "COMPILERS", "DSP", "FIRMWARE"];

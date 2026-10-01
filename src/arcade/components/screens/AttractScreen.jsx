@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MARQUEE_TEXT } from "../../constants";
-import { CONTACT, MAILTO } from "../../../data/profile";
+import { CONTACT, MAILTO, PITCH, RANGE } from "../../../data/profile";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
 
@@ -58,24 +58,38 @@ const label = (fs, color = "rgba(0,229,255,0.45)") => ({
   letterSpacing: "0.3em",
 });
 
-function TitleCard({ fs, hidden, nameSize }) {
+// The title card's two links, the email and the résumé, share one look.
+const cardLink = (fs) => ({
+  fontSize: fs(11),
+  color: "var(--fg)",
+  textDecoration: "none",
+  borderBottom: "1px solid rgba(212,190,152,0.35)",
+  paddingBottom: 2,
+});
+
+function TitleCard({ fs, hidden, nameSize, onReveal }) {
   // The identity stays in the document on every frame, so the page always
-  // has its heading; it is only shown on the title card.
+  // has its heading; it is only shown on the title card. Focus that lands on
+  // one of its links while another frame is up brings the card back, so the
+  // focused link is never invisible.
   return (
     <div
-      className={hidden ? "visually-hidden" : undefined}
+      className={hidden ? "title-card visually-hidden" : "title-card"}
+      onFocus={hidden ? onReveal : undefined}
       style={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 14,
+        gap: "var(--title-gap, 14px)",
         padding: "0 16px",
         textAlign: "center",
       }}
     >
-      <div style={label(fs)}>OPERATOR</div>
+      <div className="title-eyebrow" style={label(fs)}>
+        OPERATOR
+      </div>
       <h1
         style={{
           margin: "4px 0 0",
@@ -103,6 +117,7 @@ function TitleCard({ fs, hidden, nameSize }) {
         {CONTACT.role}
       </div>
       <div
+        className="title-rule"
         aria-hidden="true"
         style={{
           width: 120,
@@ -112,17 +127,26 @@ function TitleCard({ fs, hidden, nameSize }) {
             "linear-gradient(90deg, transparent, rgba(0,229,255,0.5), transparent)",
         }}
       />
-      <div
-        style={{
-          fontSize: fs(9),
-          color: "var(--color-muted)",
-          letterSpacing: "0.14em",
-          lineHeight: 2,
-        }}
-      >
-        WEB APPS · APIS · COMPILERS · AUDIO · GAMES
-        <br />
-        FULL-STACK SINCE 2017 · SALT LAKE CITY
+      {/* The pitch, then its receipts from the top of the stack down. */}
+      <div style={{ lineHeight: 2 }}>
+        <div
+          style={{
+            fontSize: fs(11),
+            color: "var(--fg)",
+            letterSpacing: "0.16em",
+          }}
+        >
+          {PITCH}
+        </div>
+        <div
+          style={{
+            fontSize: fs(9),
+            color: "var(--color-muted)",
+            letterSpacing: "0.14em",
+          }}
+        >
+          {RANGE.join(" · ")}
+        </div>
       </div>
       <div
         style={{
@@ -145,21 +169,27 @@ function TitleCard({ fs, hidden, nameSize }) {
             boxShadow: "0 0 8px var(--color-verdigris)",
           }}
         />
-        AVAILABLE · FULL-TIME OR CONTRACT · REMOTE OK
+        AVAILABLE · <span style={{ whiteSpace: "nowrap" }}>FULL-TIME OR CONTRACT</span> ·{" "}
+        <span style={{ whiteSpace: "nowrap" }}>REMOTE OK</span>
       </div>
-      <a
-        href={MAILTO}
+      <div
         style={{
-          fontSize: fs(11),
-          color: "var(--fg)",
-          letterSpacing: "0.08em",
-          textDecoration: "none",
-          borderBottom: "1px solid rgba(212,190,152,0.35)",
-          paddingBottom: 2,
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "baseline",
+          gap: "8px 20px",
         }}
       >
-        {CONTACT.email}
-      </a>
+        <a href={MAILTO} style={{ ...cardLink(fs), letterSpacing: "0.08em" }}>
+          {CONTACT.email}
+        </a>
+        {/* Spelled as on the select screen's pill, which is also its name
+            for a voice-control user. */}
+        <a href="/resume.html" style={{ ...cardLink(fs), letterSpacing: "0.14em" }}>
+          RESUME
+        </a>
+      </div>
     </div>
   );
 }
@@ -349,42 +379,49 @@ export default function AttractScreen({
   const [frame, setFrame] = useState(0);
   // Which cartridges this pass of the loop shows.
   const [offset, setOffset] = useState(0);
+  // Someone reading: a pointer over the tube (a finger on it, on a phone) or
+  // focus inside it holds the loop on the frame they are reading, and it
+  // carries on, from the top of that frame, when they leave.
+  const [pointerIn, setPointerIn] = useState(false);
+  const [focusIn, setFocusIn] = useState(false);
+  const held = pointerIn || focusIn;
 
+  // One timer per frame: a nudge, a released hold or a tab coming back all
+  // give the frame on screen its full time.
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || held) return;
     let timer = null;
-    const schedule = (current) => {
+    const arm = () => {
       timer = setTimeout(() => {
-        const next = nextFrame(current);
+        const next = nextFrame(frame);
         if (next === 0) setOffset((o) => (o + FEATURED) % Math.max(1, projects.length));
         setFrame(next);
-        schedule(next);
-      }, frameDuration(current));
+      }, frameDuration(frame));
     };
     const onVisibility = () => {
       if (document.hidden) {
         clearTimeout(timer);
         timer = null;
       } else if (timer === null) {
-        schedule(frame);
+        arm();
       }
     };
-    if (!document.hidden) schedule(frame);
+    if (!document.hidden) arm();
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       clearTimeout(timer);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-    // The chain reschedules itself from the frame it was started on; a nudge
-    // restarts it from the new frame.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reducedMotion, projects.length, nudge.n]);
+  }, [reducedMotion, held, frame, projects.length]);
 
-  // The d-pad steps the loop, either way round.
-  useEffect(() => {
-    if (nudge.n === 0) return;
+  // The d-pad steps the loop, either way round. The cabinet counts presses;
+  // each new one steps once, as the loop renders, and the count the loop
+  // mounts with (presses from an earlier visit to the title card) is not one.
+  const [seenNudge, setSeenNudge] = useState(nudge.n);
+  if (nudge.n !== seenNudge) {
+    setSeenNudge(nudge.n);
     setFrame((f) => (f + nudge.dir + FRAMES.length) % FRAMES.length);
-  }, [nudge]);
+  }
 
   const kind = FRAMES[frame];
   const cartridge =
@@ -400,15 +437,27 @@ export default function AttractScreen({
 
   return (
     <div
+      className="attract"
       data-testid="attract-screen"
       data-frame={kind}
+      onPointerEnter={() => setPointerIn(true)}
+      onPointerLeave={() => setPointerIn(false)}
+      onFocus={() => setFocusIn(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setFocusIn(false);
+      }}
       style={{ height: "100%", display: "flex", flexDirection: "column", position: "relative" }}
     >
       <div
         style={{ flex: 1, minHeight: 0, position: "relative", cursor: "pointer" }}
         onClick={onTubeClick}
       >
-        <TitleCard fs={fs} hidden={kind !== "title"} nameSize={nameSize} />
+        <TitleCard
+          fs={fs}
+          hidden={kind !== "title"}
+          nameSize={nameSize}
+          onReveal={() => setFrame(0)}
+        />
         {kind === "howto" && <HowToPlayCard fs={fs} />}
         {cartridge && <NowShowing cartridge={cartridge} fs={fs} />}
         {kind === "scores" && <HighScores fs={fs} />}
@@ -443,6 +492,7 @@ export default function AttractScreen({
           PRESS START
         </button>
         <div
+          className="attract-meta"
           style={{
             fontSize: fs(8),
             color: "var(--color-muted)",

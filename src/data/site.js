@@ -21,9 +21,10 @@ export const SITE = {
   origin: "https://ampactor.dev",
   name: "Morgan Espitia",
   jobTitle: "Software Engineer",
-  // The line under the name on the home page, and the Person description.
+  // The lead under the name in the no-JS page, and the Person description:
+  // the pitch (profile.js) with its receipts, in a sentence.
   range:
-    "Full-stack software engineer since 2017, building web apps, APIs, compilers, audio software and games.",
+    "Software engineer since 2017. Full stack, all the way down: web apps and APIs, compilers, DSP and firmware.",
   locality: "Salt Lake City",
   region: "UT",
   // Self-hosted (public/fonts, src/styles/fonts.css). The two that paint
@@ -58,7 +59,7 @@ export const ENTRIES = {
     path: "/",
     title: `${SITE.name} · ${SITE.jobTitle}, ${SITE.locality}`,
     description:
-      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub. The site is an arcade cabinet: press start.",
+      "Morgan Espitia, software engineer in Salt Lake City: full stack, all the way down. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work from web apps and APIs down to a compiler, DSP and guitar-pedal firmware, with source on GitHub. The site is an arcade cabinet: press start.",
     // Rendered from the live title card by scripts/render-og.mjs.
     image: "/og-home.png",
     person: true,

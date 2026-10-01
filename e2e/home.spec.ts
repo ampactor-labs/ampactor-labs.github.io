@@ -28,6 +28,12 @@ test("the title card is accessible, and says who and how to reach them", async (
   await expect(
     page.getByRole("link", { name: "ampactorlabs@gmail.com" }),
   ).toHaveAttribute("href", "mailto:ampactorlabs@gmail.com");
+  await expect(
+    titleCard(page).getByRole("link", { name: "RESUME" }),
+  ).toHaveAttribute("href", "/resume.html");
+  await expect(
+    page.getByText("FULL STACK, ALL THE WAY DOWN", { exact: true }),
+  ).toBeVisible();
   await expect(page.getByText(/AVAILABLE · FULL-TIME/)).toBeVisible();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator("html")).toHaveAttribute("data-stage", "");
@@ -38,7 +44,26 @@ test("the title card is accessible, and says who and how to reach them", async (
   ).toEqual([]);
 });
 
-test("PRESS START is the list, with the résumé one press away", async ({
+// An iPhone SE with Safari's bars: the shortest tube in common use. The card
+// sheds its ornaments to fit, so neither link lies over PRESS START.
+test.describe("on a short phone", () => {
+  test.use({ viewport: { width: 375, height: 548 } });
+
+  test("the title card fits above PRESS START, and RESUME opens the résumé", async ({
+    page,
+  }) => {
+    await landOnTitleCard(page);
+    const start = await page.getByRole("button", START).boundingBox();
+    for (const name of ["ampactorlabs@gmail.com", "RESUME"]) {
+      const link = await titleCard(page).getByRole("link", { name }).boundingBox();
+      expect(link && start && link.y + link.height <= start.y, name).toBe(true);
+    }
+    await titleCard(page).getByRole("link", { name: "RESUME" }).click();
+    await expect(page).toHaveURL(/\/resume\.html$/);
+  });
+});
+
+test("PRESS START is the list, with the résumé, GitHub and LinkedIn in its header", async ({
   page,
 }) => {
   await landOnTitleCard(page);
