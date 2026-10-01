@@ -25,7 +25,8 @@ design tool as the brand context.
 The site is the machine. There is no page around it: the cabinet stands in the dark
 and fills the viewport, and everything a portfolio has to say is said in the idiom an
 arcade cabinet already has. The **title card** (attract mode, at `/`) is the hero: the
-name, the trade, the range, the availability, the email, `PRESS START`. START is the
+name, the trade, the pitch and its range, the availability, the email and the résumé,
+`PRESS START`. START is the
 **select screen** (`/arcade/`): the cartridges are the work, and the header is the
 operator's sticker (name, email, phone, RESUME · GITHUB · LINKEDIN). At the end of
 the list sit the **operator's programs**: `HOW TO PLAY` (how I work), `HIGH SCORES`
@@ -54,10 +55,16 @@ cabinet is bespoke craft; don't let a generator re-skin it.
 **Plain, specific, checkable.** Write the way a senior engineer writes a design doc.
 
 - **Say what things are.** Headings name the section ("How this site is built", "The
-  commit log"), never a slogan. The title card states the role and the range in the
-  machine's own register: `SOFTWARE ENGINEER` · `WEB APPS · APIS · COMPILERS · AUDIO ·
-  GAMES` · `FULL-STACK SINCE 2017 · SALT LAKE CITY`. It does not pin the author to
+  commit log"), never a slogan. The title card states the role, the pitch and its range
+  in the machine's own register: `SOFTWARE ENGINEER` · `FULL STACK, ALL THE WAY DOWN` ·
+  `WEB APPS · APIS · COMPILERS · DSP · FIRMWARE`. It does not pin the author to
   front-end, back-end or one industry.
+- **One pitch, said the same way everywhere.** `FULL STACK, ALL THE WAY DOWN` is the
+  author's chosen line, the one exception to the rule against slogans below, and not
+  something to edit out. `PITCH` and `RANGE` in `src/data/profile.js` feed the boot's
+  last line, the title card, the ticker and the pages' descriptions; page copy follows
+  the line with its receipts (the range, top of the stack to the bottom, every layer a
+  cartridge). Change it there, never in one place alone.
 - **Every claim can be checked**: a number, a link, a test. Qualify what is only mostly
   true ("most of my READMEs"); never round a claim up.
 - **No slogans or aphorisms, no "X, not Y" contrasts, no lists of three for rhythm, no
@@ -176,7 +183,9 @@ The title card holds 7 s, then `HOW TO PLAY` 7 s, then `NOW SHOWING` runs four
 cartridges at 2.6 s each, then `HIGH SCORES` 6 s, and round again with the next four.
 `PRESS START` blinks (`startBlink`, 1.1 s, step-end, never fully off). `◄` `►` and the
 arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
-start the machine. No `AudioContext` exists until then.
+start the machine. No `AudioContext` exists until then. Someone reading holds it: a
+pointer over the tube, a finger on it or focus inside keeps the frame on screen, and the
+loop carries on from the top of that frame when they leave.
 
 ### Between pages, and down the page
 
@@ -239,8 +248,8 @@ off (`global.css`).
 
 | Screen | Spec |
 |---|---|
-| **Title card** (`AttractScreen.jsx`) | Eyebrow `OPERATOR` → `<h1>` name in Press Start, cyan, glowing → `SOFTWARE ENGINEER` in amber → two range lines → `● AVAILABLE · FULL-TIME OR CONTRACT · REMOTE OK` (verdigris dot) → the email as a link → `PRESS START` (a `<button>`) → `1 PLAYER · N CARTRIDGES LOADED` and the © line → the marquee. The `<h1>` stays in the DOM (visually hidden) on the loop's other frames. |
-| **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (shared with the attract loop's `TestPattern.jsx`), phase 1 the BIOS column laid out at its final height and printed top to bottom; the last line, `READY.`, in Press Start and amber. |
+| **Title card** (`AttractScreen.jsx`) | Eyebrow `OPERATOR` → `<h1>` name in Press Start, cyan, glowing → `SOFTWARE ENGINEER` in amber → the rule → `PITCH` in parchment over `RANGE` in muted → `● AVAILABLE · FULL-TIME OR CONTRACT · REMOTE OK` (verdigris dot; it breaks only at a dot) → the email and `RESUME` (`/resume.html`) as links → `PRESS START` (a `<button>`) → `1 PLAYER · N CARTRIDGES LOADED` and the © line → the marquee. The `<h1>` and the links stay in the DOM (visually hidden) on the loop's other frames, and focus reaching a link brings the card back. On a short tube (the screen under 440 px tall: a small phone with the browser's bars, a short window, the social card) the eyebrow and the rule go and the gaps close up; under 400 px the two lines under `PRESS START` go too, so nothing spills onto it. |
+| **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (shared with the attract loop's `TestPattern.jsx`), phase 1 the BIOS column laid out at its final height and printed top to bottom; the pitch, lit cyan like the `OPERATOR:` line it answers, then the last line, `READY.`, in Press Start and amber. |
 | **Select** (`SelectScreen.jsx`) | The operator's sticker: `SELECT PROGRAM`, `<h1>` `NAME · ROLE`, email and phone as links, and `<nav aria-label="Operator">` with the pills `RESUME` (`/resume.html`) · `GITHUB` · `LINKEDIN`. Then the `listbox` (`Project list`), which takes focus when the screen comes up and names its active row with `aria-activedescendant`: category headers `SYSTEMS · SECURITY · WEB3 · CREATIVE · OPERATOR`, one row per program (icon tile in the program's colour, title in Share Tech Mono, `lang` chip, subtitle), three `[CLASSIFIED] · INSERT COIN TO UNLOCK` rows until the coin drops, the marquee. |
 | **Cartridge readout** (`DetailScreen.jsx`) | `◄` back, icon, `<h2>` title, subtitle, the link rail (demo first, then source), then `outcome` → `desc` → highlights → stack → operator notes in a scrolling, focusable region. |
 | **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, amber. `HOW TO PLAY`: `OBJECTIVE` and `MOVES`, the three habits; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, `THANK YOU FOR PLAYING`; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
@@ -393,7 +402,7 @@ power-on plays.
   `--accent-text`, the light overrides, the cabinet's dark island. Add new semantic
   colours here, derived from the palette, not as literals in components.
 - **Heads**: `src/data/site.js`. Rendered into every entry by `vite.config.js`.
-- **Identity and contact**: `src/data/profile.js`.
+- **Identity, contact and the pitch**: `src/data/profile.js` (`PITCH`, `RANGE`).
 - **The work**: `src/data/projects.js`; content fields follow each README
   (`npm run sync:readmes`). **The operator's programs**: `src/data/programs.js`.
 - **The résumé and the credits**: `src/data/resume.json`; `npm run resume:build`.
@@ -431,13 +440,13 @@ _Paste this block into a design tool as the brand context. Scope any generation 
 > hairline low-alpha borders, radii 6/10/16 px, soft blooms on hover, reduced motion
 > honoured.
 >
-> **Screens, in order:** title card (name → role → range → `● AVAILABLE` → email →
-> PRESS START) → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
+> **Screens, in order:** title card (name → role → pitch → range → `● AVAILABLE` →
+> email · RESUME → PRESS START) → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
 > cartridges by category, then OPERATOR: HOW TO PLAY · HIGH SCORES · CREDITS) →
 > readouts. **Pages:** header (A-mark, nav, light switch) → the commit log / the case
 > study → footer.
 >
 > **Goal:** a machine a hiring manager wants to touch, that still gets them the résumé
-> in two presses. Don't redesign the arcade; don't build a page around it; don't add a
+> from its first screen. Don't redesign the arcade; don't build a page around it; don't add a
 > title or an industry under the name; don't use white text; don't bury "Available" or
 > the email.

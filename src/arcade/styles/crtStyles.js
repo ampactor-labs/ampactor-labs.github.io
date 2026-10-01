@@ -6,6 +6,11 @@ export const crtStyles = `
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   @keyframes startBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .attract-start:hover, .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
+  /* A short tube (a small phone with the browser's bars showing) keeps every word of the
+     title card and drops its ornaments, so nothing spills onto PRESS START. */
+  .attract{container:attract / size}
+  @container attract (max-height: 440px){.title-card{--title-gap:8px}.title-eyebrow,.title-rule{display:none}}
+  @container attract (max-height: 400px){.attract-meta{display:none}}
   @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
   @keyframes glitchIn { 0%{transform:translateX(-8px) skewX(-5deg);opacity:0;filter:hue-rotate(90deg)} 30%{transform:translateX(4px) skewX(2deg);opacity:0.7;filter:hue-rotate(-30deg)} 60%{transform:translateX(-2px) skewX(-1deg);opacity:0.9;filter:hue-rotate(10deg)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes glitchFlash { 0%{background:transparent} 10%{background:rgba(0,229,255,0.08)} 20%{background:rgba(255,0,100,0.05)} 30%{background:transparent} 40%{background:rgba(0,100,255,0.06)} 50%,100%{background:transparent} }

@@ -8,6 +8,7 @@ import AttractScreen, {
   topScores,
 } from "../AttractScreen";
 import { PROJECTS } from "../../../../data/projects";
+import { PITCH, RANGE } from "../../../../data/profile";
 import { summary } from "../../../../data/receiptsSummary";
 
 const fs = (n) => n;
@@ -27,7 +28,10 @@ describe("AttractScreen", () => {
       screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeVisible();
     expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
+    expect(screen.getByText(PITCH)).toBeInTheDocument();
+    expect(screen.getByText(RANGE.join(" · "))).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "ampactorlabs@gmail.com" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute("href", "/resume.html");
     expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
   });
 
@@ -67,7 +71,7 @@ describe("AttractScreen", () => {
     expect(screen.getByRole("button", { name: "PRESS START" }).style.animation).toBe("");
   });
 
-  it("starts on the button, on the tube, but not on the email link", () => {
+  it("starts on the button, on the tube, but not on the email or résumé link", () => {
     const onStart = vi.fn();
     render(<AttractScreen projects={PROJECTS} fs={fs} onStart={onStart} />);
     fireEvent.click(screen.getByRole("button", { name: "PRESS START" }));
@@ -75,7 +79,41 @@ describe("AttractScreen", () => {
     fireEvent.click(screen.getByText("SOFTWARE ENGINEER"));
     expect(onStart).toHaveBeenCalledTimes(2);
     fireEvent.click(screen.getByRole("link", { name: "ampactorlabs@gmail.com" }));
+    fireEvent.click(screen.getByRole("link", { name: "RESUME" }));
     expect(onStart).toHaveBeenCalledTimes(2);
+  });
+
+  it("holds the frame while a pointer is on the tube, and gives it its full time after", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} />);
+    const el = screen.getByTestId("attract-screen");
+    act(() => vi.advanceTimersByTime(frameDuration(0) - 1000));
+    fireEvent.pointerEnter(el);
+    act(() => vi.advanceTimersByTime(60000));
+    expect(el.dataset.frame).toBe("title");
+    fireEvent.pointerLeave(el);
+    act(() => vi.advanceTimersByTime(frameDuration(0) - 1));
+    expect(el.dataset.frame).toBe("title");
+    act(() => vi.advanceTimersByTime(1));
+    expect(el.dataset.frame).toBe("howto");
+  });
+
+  it("holds while focus is inside, and focus on the hidden card's link brings it back", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} />);
+    const el = screen.getByTestId("attract-screen");
+    act(() => vi.advanceTimersByTime(frameDuration(0)));
+    expect(el.dataset.frame).toBe("howto");
+    // Tab reaches the résumé link on the title card, hidden on this frame.
+    act(() => screen.getByRole("link", { name: "RESUME" }).focus());
+    expect(el.dataset.frame).toBe("title");
+    act(() => vi.advanceTimersByTime(60000));
+    expect(el.dataset.frame).toBe("title");
+    // Moving between the card's links keeps the hold.
+    act(() => screen.getByRole("link", { name: "ampactorlabs@gmail.com" }).focus());
+    act(() => vi.advanceTimersByTime(60000));
+    expect(el.dataset.frame).toBe("title");
+    act(() => screen.getByRole("link", { name: "ampactorlabs@gmail.com" }).blur());
+    act(() => vi.advanceTimersByTime(frameDuration(0)));
+    expect(el.dataset.frame).toBe("howto");
   });
 
   it("steps the loop either way when nudged", () => {
@@ -89,6 +127,11 @@ describe("AttractScreen", () => {
     expect(el.dataset.frame).toBe("title");
     rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 3, dir: -1 }} />);
     expect(el.dataset.frame).toBe(FRAMES[FRAMES.length - 1]);
+  });
+
+  it("does not replay presses from an earlier visit when it comes back", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 4, dir: 1 }} />);
+    expect(screen.getByTestId("attract-screen").dataset.frame).toBe("title");
   });
 
   it("nextFrame wraps, and the high scores are the ledger's top repositories", () => {
