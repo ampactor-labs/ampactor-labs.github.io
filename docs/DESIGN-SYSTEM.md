@@ -51,23 +51,35 @@ cabinet is bespoke craft; don't let a generator re-skin it.
 
 ## 2 · Voice
 
-**Plain, specific, checkable.** Write the way a senior engineer writes a design doc.
+Morgan writes the words. The rules are three lines of Morgan's, quoted as written:
 
-- **Say what things are.** Headings name the section ("How this site is built", "The
-  commit log"), never a slogan. The title card states the role in the machine's own
-  register: `SOFTWARE ENGINEER`. It does not pin the author to front-end, back-end or
-  one industry.
-- **Every claim can be checked**: a number, a link, a test. Qualify what is only mostly
-  true ("most of my READMEs"); never round a claim up.
-- **No slogans or aphorisms, no "X, not Y" contrasts, no lists of three for rhythm, no
-  em dashes, no metaphors in page copy.** The cabinet's in-world text (taglines, boot
-  lines, `PRESS START`, `THANK YOU FOR PLAYING`) is the one place for a game voice.
-- **First person, active voice, short sentences.** Mono for readouts, `→` on links that
-  leave the page, `·` separators, `●` status dots. No marketing adjectives.
-- **Lead with what a non-engineer can map to value**, then the technical detail one layer
-  deeper (the cartridge readout, the case study).
-- **Publish limits.** READMEs have a known-weaknesses section; benchmarks include the
-  cases they lose.
+> say it PLAINLY - what am I really doing? what do I really want?
+
+> LET THE AUDIENCE FIGURE OUT WHAT TO DO BY BEING IN THE SPACE THEY ARE PRESENTED WITH!
+
+> BE AUTHENTIC AND MAKE LIGHT, GOOD TIMES ANYWAY!
+
+What that means for the site:
+
+- **Morgan's lines are Morgan's.** `WORDS` in `src/data/profile.js` and the taglines in
+  `projects.js` are Morgan's. Claude may cut copy, move it, or leave a slot for Morgan
+  to fill. Claude does not write a sentence that describes Morgan, and does not touch
+  one of Morgan's lines.
+- **Say what it is.** A cartridge's card, status and limits come from its README
+  (`docs/README-STANDARD.md`) and are literally true. Headings name the thing. No
+  slogans.
+- **Let the machine teach.** No instructions to the reader, no explaining what to
+  conclude, no asking to be trusted. The cabinet's own idiom (`PRESS START`, `INSERT
+  COIN`, `NOW SHOWING`, `HIGH SCORES`, `CREDITS`, `HOW TO PLAY` for the controls) is the
+  one voice the cabinet speaks for itself.
+- **One fact, one place.** The name, the role, the contact, the city: once per screen.
+  The panel plate says Salt Lake City; nothing above it says it again.
+- **No tells.** No lists of three for rhythm, no "X, Y" taglines, no "X, not Y", no em
+  dashes, no brand words worn as a personality ("receipts", "checkable", "the cases it
+  loses"). Short lines. Lowercase is fine.
+- **The pages are plain.** The commit log, the case study and the résumé are written
+  for reading and for an applicant-tracking system: first person, short sentences,
+  numbers with their source.
 
 **Copy registers, by depth:**
 
@@ -417,8 +429,8 @@ _Paste this block into a design tool as the brand context. Scope any generation 
 > whole page: a worn CRT rendered with engineering precision, standing in the dark.
 > The title card is the hero, the select screen is the work, the operator's programs
 > (HOW TO PLAY, HIGH SCORES, CREDITS) are the rest of the portfolio, and two paper
-> pages beside it carry the commit log and the case study. Confident, terse,
-> buyer-framed voice; receipts over claims.
+> pages beside it carry the commit log and the case study. Morgan's words, plain; no
+> slogans.
 >
 > **Palette:** dark radial `#1d2021 → #2a2826 → #0f0e0d` (light pages: parchment
 > `#f2e5bc`, ink `#4f3829`); primary text parchment `#d4be98` (never white); hero

@@ -42,12 +42,27 @@ PRESS START → select screen (`/arcade/`) → a cartridge (`/arcade/#<id>`). A
 returning visitor, or a link straight to a cartridge, skips the boot. Back walks cartridge → list → title card. The coin slot
 unlocks the hidden programs; the site's copy never points at it.
 
-## Copy
+## The words
 
-Every claim is literally true and checkable against a project's README
-(`docs/README-STANDARD.md`), losses included. The cabinet's in-world text
-speaks in a game voice; the pages are plain. `docs/DESIGN-SYSTEM.md` has the
-rest.
+Morgan writes the words. Claude cuts, moves and labels; Claude does not write
+a sentence about Morgan, and does not touch a line of Morgan's. The lines the
+cabinet speaks for its operator live in `WORDS` (`src/data/profile.js`); an
+empty slot stays empty until Morgan fills it. Morgan's rules, as written:
+
+> say it PLAINLY - what am I really doing? what do I really want?
+>
+> LET THE AUDIENCE FIGURE OUT WHAT TO DO BY BEING IN THE SPACE THEY ARE
+> PRESENTED WITH!
+>
+> BE AUTHENTIC AND MAKE LIGHT, GOOD TIMES ANYWAY!
+
+In practice: one fact in one place per screen; no instructions to the reader
+and no explaining what to conclude; no lists of three for rhythm, no "X, Y"
+taglines, no brand words worn as a personality. The cabinet's game idiom
+(PRESS START, INSERT COIN, HIGH SCORES) is fine. Every claim about a project
+is literally true and can be checked against its README
+(`docs/README-STANDARD.md`). The pages (the commit log, the case study, the
+résumé) are plain. `docs/DESIGN-SYSTEM.md` has the rest.
 
 ## Before pushing
 
