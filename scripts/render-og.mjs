@@ -8,7 +8,7 @@
 // standing in the dark with the name up. Re-run it when the title card changes; the PNG is
 // committed because the deploy has no browser.
 
-/* global localStorage, document */
+/* global document */
 // (the two callbacks below run inside the page, not in Node)
 
 import { chromium } from "@playwright/test";
