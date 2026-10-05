@@ -41,7 +41,7 @@ export const SYSTEM_PROGRAMS = [
     id: "credits",
     kind: "credits",
     title: "CREDITS",
-    subtitle: "THE YEARS, AND THE MAKING OF",
+    subtitle: "",
     lang: "OPERATOR",
     color: "#d8a657",
     icon: "≡",
