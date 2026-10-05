@@ -8,7 +8,6 @@ import AttractScreen, {
   topScores,
 } from "../AttractScreen";
 import { PROJECTS } from "../../../../data/projects";
-import { PITCH, RANGE } from "../../../../data/profile";
 import { summary } from "../../../../data/receiptsSummary";
 
 const fs = (n) => n;
@@ -21,21 +20,19 @@ describe("AttractScreen", () => {
     vi.useRealTimers();
   });
 
-  it("opens on the title card, with the name as the page's heading", () => {
+  it("opens on the title card: the name as the page's heading, the role, PRESS START", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     expect(screen.getByTestId("attract-screen").dataset.frame).toBe("title");
     expect(
       screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeVisible();
     expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
-    expect(screen.getByText(PITCH)).toBeInTheDocument();
-    expect(screen.getByText(RANGE.join(" · "))).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "ampactorlabs@gmail.com" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute("href", "/resume.html");
     expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
+    // Nothing else on the card: the sticker on the select screen has the rest.
+    expect(screen.queryAllByRole("link")).toHaveLength(0);
   });
 
-  it("cycles title → how to play → four cartridges → high scores → round again", () => {
+  it("cycles title → four cartridges → high scores → round again", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     const el = screen.getByTestId("attract-screen");
     let frame = 0;
@@ -43,9 +40,6 @@ describe("AttractScreen", () => {
       act(() => vi.advanceTimersByTime(frameDuration(frame)));
       frame = nextFrame(frame);
     };
-    advance();
-    expect(el.dataset.frame).toBe("howto");
-    expect(screen.getByText("DOCUMENTED LIMITS")).toBeInTheDocument();
     for (let i = 0; i < FEATURED; i++) {
       advance();
       expect(el.dataset.frame).toBe("show");
@@ -59,7 +53,7 @@ describe("AttractScreen", () => {
     // The heading is in the document on every frame, shown only on the title.
     expect(screen.getByRole("heading", { level: 1 })).toBeVisible();
     // The next pass shows the next cartridges.
-    for (let i = 0; i < 2; i++) advance();
+    advance();
     expect(screen.getByText(PROJECTS[FEATURED].title)).toBeInTheDocument();
   });
 
@@ -71,15 +65,12 @@ describe("AttractScreen", () => {
     expect(screen.getByRole("button", { name: "PRESS START" }).style.animation).toBe("");
   });
 
-  it("starts on the button, on the tube, but not on the email or résumé link", () => {
+  it("starts on the button and on the tube", () => {
     const onStart = vi.fn();
     render(<AttractScreen projects={PROJECTS} fs={fs} onStart={onStart} />);
     fireEvent.click(screen.getByRole("button", { name: "PRESS START" }));
     expect(onStart).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByText("SOFTWARE ENGINEER"));
-    expect(onStart).toHaveBeenCalledTimes(2);
-    fireEvent.click(screen.getByRole("link", { name: "ampactorlabs@gmail.com" }));
-    fireEvent.click(screen.getByRole("link", { name: "RESUME" }));
     expect(onStart).toHaveBeenCalledTimes(2);
   });
 
@@ -94,26 +85,19 @@ describe("AttractScreen", () => {
     act(() => vi.advanceTimersByTime(frameDuration(0) - 1));
     expect(el.dataset.frame).toBe("title");
     act(() => vi.advanceTimersByTime(1));
-    expect(el.dataset.frame).toBe("howto");
+    expect(el.dataset.frame).toBe("show");
   });
 
-  it("holds while focus is inside, and focus on the hidden card's link brings it back", () => {
+  it("holds while focus is inside, on PRESS START", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     const el = screen.getByTestId("attract-screen");
-    act(() => vi.advanceTimersByTime(frameDuration(0)));
-    expect(el.dataset.frame).toBe("howto");
-    // Tab reaches the résumé link on the title card, hidden on this frame.
-    act(() => screen.getByRole("link", { name: "RESUME" }).focus());
-    expect(el.dataset.frame).toBe("title");
+    const start = screen.getByRole("button", { name: "PRESS START" });
+    act(() => start.focus());
     act(() => vi.advanceTimersByTime(60000));
     expect(el.dataset.frame).toBe("title");
-    // Moving between the card's links keeps the hold.
-    act(() => screen.getByRole("link", { name: "ampactorlabs@gmail.com" }).focus());
-    act(() => vi.advanceTimersByTime(60000));
-    expect(el.dataset.frame).toBe("title");
-    act(() => screen.getByRole("link", { name: "ampactorlabs@gmail.com" }).blur());
+    act(() => start.blur());
     act(() => vi.advanceTimersByTime(frameDuration(0)));
-    expect(el.dataset.frame).toBe("howto");
+    expect(el.dataset.frame).toBe("show");
   });
 
   it("steps the loop either way when nudged", () => {
@@ -122,7 +106,7 @@ describe("AttractScreen", () => {
     );
     const el = screen.getByTestId("attract-screen");
     rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 1, dir: 1 }} />);
-    expect(el.dataset.frame).toBe("howto");
+    expect(el.dataset.frame).toBe("show");
     rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 2, dir: -1 }} />);
     expect(el.dataset.frame).toBe("title");
     rerender(<AttractScreen projects={PROJECTS} fs={fs} nudge={{ n: 3, dir: -1 }} />);

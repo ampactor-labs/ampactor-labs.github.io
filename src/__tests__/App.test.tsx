@@ -2,6 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 import App from "../App";
 import { BOOT_LINES } from "../arcade/constants";
+import {
+  BOOT_PATTERN_MS,
+  BOOT_LINE_MS,
+  BOOT_BEAT_MS,
+} from "../arcade/hooks/useCabinetState";
 
 // The power-on is a GSAP timeline; here it completes on the spot.
 vi.mock("gsap", () => {
@@ -212,15 +217,15 @@ describe("App", () => {
       // The test pattern first; no title card yet.
       expect(screen.queryByRole("button", START)).toBeNull();
       await act(async () => {
-        vi.advanceTimersByTime(900); // test pattern → the first BIOS line
+        vi.advanceTimersByTime(BOOT_PATTERN_MS + 10); // test pattern → the first BIOS line
       });
       expect(screen.getByText(/AMPACTOR BIOS/)).toBeInTheDocument();
       await act(async () => {
-        vi.advanceTimersByTime((BOOT_LINES.length - 1) * 130 + 50); // every line
+        vi.advanceTimersByTime((BOOT_LINES.length - 1) * BOOT_LINE_MS + 10); // every line
       });
       expect(screen.queryByRole("button", START)).toBeNull();
       await act(async () => {
-        vi.advanceTimersByTime(1500); // the beat after READY.
+        vi.advanceTimersByTime(BOOT_BEAT_MS + 10); // the beat after READY.
       });
       expect(screen.getByRole("button", START)).toBeInTheDocument();
       expect(localStorage.getItem("ampactor_visited")).toBe("1");

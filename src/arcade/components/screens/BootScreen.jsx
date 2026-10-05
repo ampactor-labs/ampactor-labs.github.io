@@ -1,5 +1,4 @@
 import TestPattern from "../TestPattern";
-import { PITCH } from "../../../data/profile";
 
 export default function BootScreen({
   lines,
@@ -68,7 +67,7 @@ export default function BootScreen({
               color:
                 i === 0
                   ? "#00E5FF"
-                  : line === "ALL SYSTEMS NOMINAL" || line === PITCH
+                  : line === "ALL SYSTEMS NOMINAL"
                     ? "#00E5FF"
                     : i === lines.length - 1
                       ? "var(--color-amber)"

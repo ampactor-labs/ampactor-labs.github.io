@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
-import { MARQUEE_TEXT } from "../../constants";
+import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 
 export default function SelectScreen({
   projects,
@@ -393,6 +393,7 @@ export default function SelectScreen({
             fontSize: fs(8),
             color: "var(--color-comment)",
             letterSpacing: "0.1em",
+            animationDuration: `${MARQUEE_SECONDS}s`,
           }}
         >
           <span style={{ paddingRight: 48 }}>{MARQUEE_TEXT}</span>

@@ -39,10 +39,3 @@ export const CONTACT = {
 // The primary call to action. No prefilled subject: whoever writes knows
 // better than a default what the email is about.
 export const MAILTO = `mailto:${CONTACT.email}`;
-
-// The pitch: one line, said the same way wherever the site describes its
-// author (the boot's last line before READY., the title card, the ticker,
-// the pages' descriptions). RANGE is its receipts, from the top of the stack
-// to the bottom; every layer is a cartridge.
-export const PITCH = "FULL STACK, ALL THE WAY DOWN";
-export const RANGE = ["WEB APPS", "APIS", "COMPILERS", "DSP", "FIRMWARE"];

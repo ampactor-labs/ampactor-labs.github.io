@@ -21,10 +21,10 @@ week:
 Both tried to make the site quick for a recruiter to skim. The cabinet already
 does that, and anything more for that reader belongs inside it:
 
-- The title card (attract mode, `/`) shows the name, the role, the pitch,
-  availability, the email and RESUME. A visitor who touches nothing gets the
-  whole pitch from the attract loop in about thirty seconds.
-- The select screen's header has RESUME, GITHUB and LINKEDIN.
+- The title card (attract mode, `/`) is the name, the role and PRESS START.
+  A visitor who touches nothing sees the cartridges and the high scores go by.
+- The select screen's header, one press away, has the email, the phone,
+  RESUME, GITHUB and LINKEDIN.
 - The `<noscript>` list (`src/data/site.js`) is the plain version for
   crawlers, applicant-tracking systems and visitors without JavaScript.
 
@@ -34,18 +34,11 @@ or operator programs (`src/data/programs.js`), the way `/receipts/` and
 
 ## The flow
 
-A first visit: power-on → BIOS boot (ends on the pitch, then `READY.`) → title
-card → PRESS START → select screen (`/arcade/`) → a cartridge
-(`/arcade/#<id>`). A returning visitor, or a link straight to a cartridge,
-skips the boot. Back walks cartridge → list → title card. The coin slot
+A first visit: the tube lights, the BIOS lines burst by, the title card drops
+in, about two and a half seconds in all, and any key or tap skips ahead. Then
+PRESS START → select screen (`/arcade/`) → a cartridge (`/arcade/#<id>`). A
+returning visitor, or a link straight to a cartridge, skips the boot. Back walks cartridge → list → title card. The coin slot
 unlocks the hidden programs; the site's copy never points at it.
-
-## The pitch
-
-**FULL STACK, ALL THE WAY DOWN.** It is Morgan's chosen line, not a slogan to
-edit out. `PITCH` and `RANGE` in `src/data/profile.js` feed the boot, the title
-card, the ticker and the pages' descriptions. Change it there, never in one
-place alone.
 
 ## Copy
 

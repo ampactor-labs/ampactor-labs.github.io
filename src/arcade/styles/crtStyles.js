@@ -6,11 +6,6 @@ export const crtStyles = `
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   @keyframes startBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .attract-start:hover, .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
-  /* A short tube (a small phone with the browser's bars showing) keeps every word of the
-     title card and drops its ornaments, so nothing spills onto PRESS START. */
-  .attract{container:attract / size}
-  @container attract (max-height: 440px){.title-card{--title-gap:8px}.title-eyebrow,.title-rule{display:none}}
-  @container attract (max-height: 400px){.attract-meta{display:none}}
   @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
   @keyframes glitchIn { 0%{transform:translateX(-8px) skewX(-5deg);opacity:0;filter:hue-rotate(90deg)} 30%{transform:translateX(4px) skewX(2deg);opacity:0.7;filter:hue-rotate(-30deg)} 60%{transform:translateX(-2px) skewX(-1deg);opacity:0.9;filter:hue-rotate(10deg)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes glitchFlash { 0%{background:transparent} 10%{background:rgba(0,229,255,0.08)} 20%{background:rgba(255,0,100,0.05)} 30%{background:transparent} 40%{background:rgba(0,100,255,0.06)} 50%,100%{background:transparent} }
@@ -29,8 +24,8 @@ export const crtStyles = `
   .crt-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:88;opacity:0.04;mix-blend-mode:screen}
   .scanline-bar{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.03);animation:scanmove 8s linear infinite;pointer-events:none;z-index:100}
   .blink-cursor{animation:blink 1s step-end infinite}
-  /* The ticker crawls about 2.8 characters a second: 106s for MARQUEE_TEXT's 296 (constants.js). */
-  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;animation:marquee 106s linear infinite}
+  /* The marquee sets its own duration inline from its text's length (constants.js). */
+  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;animation:marquee 90s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
   .project-row:hover{background:rgba(219,116,151,0.03)!important;transform:translateX(4px)}
   .btn-cabinet{transition:all 0.15s ease;cursor:pointer;user-select:none}

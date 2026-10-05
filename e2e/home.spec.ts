@@ -19,22 +19,13 @@ async function landOnTitleCard(page: Page) {
   await expect(page.getByRole("button", START)).toBeVisible();
 }
 
-test("the title card is accessible, and says who and how to reach them", async ({
+test("the title card is accessible, and says who", async ({
   page,
 }) => {
   await landOnTitleCard(page);
   await expect(titleCard(page)).toBeVisible();
   await expect(page.getByRole("heading", NAME)).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "ampactorlabs@gmail.com" }),
-  ).toHaveAttribute("href", "mailto:ampactorlabs@gmail.com");
-  await expect(
-    titleCard(page).getByRole("link", { name: "RESUME" }),
-  ).toHaveAttribute("href", "/resume.html");
-  await expect(
-    page.getByText("FULL STACK, ALL THE WAY DOWN", { exact: true }),
-  ).toBeVisible();
-  await expect(page.getByText(/AVAILABLE · FULL-TIME/)).toBeVisible();
+  await expect(titleCard(page).getByText("SOFTWARE ENGINEER")).toBeVisible();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator("html")).toHaveAttribute("data-stage", "");
   const results = await new AxeBuilder({ page }).analyze();
@@ -44,22 +35,16 @@ test("the title card is accessible, and says who and how to reach them", async (
   ).toEqual([]);
 });
 
-// An iPhone SE with Safari's bars: the shortest tube in common use. The card
-// sheds its ornaments to fit, so neither link lies over PRESS START.
+// An iPhone SE with Safari's bars: the shortest tube in common use. The
+// whole card sits above PRESS START.
 test.describe("on a short phone", () => {
   test.use({ viewport: { width: 375, height: 548 } });
 
-  test("the title card fits above PRESS START, and RESUME opens the résumé", async ({
-    page,
-  }) => {
+  test("the title card fits above PRESS START", async ({ page }) => {
     await landOnTitleCard(page);
     const start = await page.getByRole("button", START).boundingBox();
-    for (const name of ["ampactorlabs@gmail.com", "RESUME"]) {
-      const link = await titleCard(page).getByRole("link", { name }).boundingBox();
-      expect(link && start && link.y + link.height <= start.y, name).toBe(true);
-    }
-    await titleCard(page).getByRole("link", { name: "RESUME" }).click();
-    await expect(page).toHaveURL(/\/resume\.html$/);
+    const role = await titleCard(page).getByText("SOFTWARE ENGINEER").boundingBox();
+    expect(role && start && role.y + role.height <= start.y).toBe(true);
   });
 });
 
@@ -180,7 +165,7 @@ test("left and right step the attract loop", async ({ page }) => {
   await landOnTitleCard(page);
   await page.keyboard.press("ArrowRight");
   await expect(
-    page.locator('[data-testid="attract-screen"][data-frame="howto"]'),
+    page.locator('[data-testid="attract-screen"][data-frame="show"]'),
   ).toBeVisible();
   await page.getByRole("button", { name: "Navigate left" }).click();
   await expect(titleCard(page)).toBeVisible();
@@ -213,11 +198,11 @@ test.describe("the first visit", () => {
   }) => {
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute("data-stage", "");
+    await expect(page.getByRole("button", START)).toHaveCount(0);
+    const entries = await page.evaluate(() => history.length);
     await expect(page.getByText(/AMPACTOR BIOS/)).toBeVisible({
       timeout: 15_000,
     });
-    await expect(page.getByRole("button", START)).toHaveCount(0);
-    const entries = await page.evaluate(() => history.length);
 
     await expect(page.getByRole("button", START)).toBeVisible({
       timeout: 15_000,
@@ -231,12 +216,20 @@ test.describe("the first visit", () => {
     await expect(page.getByRole("listbox", LIST)).toBeVisible();
   });
 
-  test("a key after READY. moves on at once", async ({ page }) => {
+  // The BIOS is on screen for about a second, so this polls for it itself
+  // rather than through expect's growing intervals. That a key cuts the
+  // boot short, rather than the boot finishing on its own, is proved with
+  // fake timers in useCabinetState's tests.
+  test("a key during the BIOS lands on the title card", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText("READY.")).toBeVisible({ timeout: 15_000 });
+    await page.waitForFunction(
+      () => /AMPACTOR BIOS/.test(document.body.innerText),
+      null,
+      { polling: 40, timeout: 15_000 },
+    );
     await page.keyboard.press("Enter");
     await expect(page.getByRole("button", START)).toBeVisible({
-      timeout: 2_000,
+      timeout: 3_000,
     });
     expect(await visited(page)).toBe("1");
   });

@@ -28,6 +28,13 @@ const SCROLL_STEP = 72;
 // detail screen must not also leave when the button is mashed.
 const EXIT_SETTLE_MS = 400;
 
+// The power-on's pacing once the tube is lit: the test card, the BIOS lines
+// in a burst, a beat on READY., then the title card. About 1.4 s in all; the
+// tube's own ignition (useIntroSequence) runs before it.
+export const BOOT_PATTERN_MS = 350;
+export const BOOT_LINE_MS = 40;
+export const BOOT_BEAT_MS = 350;
+
 const SELECT_ROUTE = Object.freeze({ view: "arcade", screen: "select" });
 
 // Which screen a cartridge or program opens on.
@@ -208,11 +215,11 @@ export default function useCabinetState({
     linkRefs.current[linkIdxRef.current]?.click();
   };
 
-  // Boot phase 0: test pattern (450ms), then phase 1: text sequence
+  // Boot phase 0: the test card, then phase 1: the BIOS lines.
   useEffect(() => {
     if (screen !== "boot" || !introComplete) return;
     if (bootPhase === 0) {
-      const t = setTimeout(() => setBootPhase(1), 450);
+      const t = setTimeout(() => setBootPhase(1), BOOT_PATTERN_MS);
       return () => clearTimeout(t);
     }
   }, [screen, bootPhase, introComplete]);
@@ -227,7 +234,7 @@ export default function useCabinetState({
         }
         return prev + 1;
       });
-    }, 130);
+    }, BOOT_LINE_MS);
     return () => clearInterval(interval);
   }, [screen, bootPhase]);
 
@@ -267,31 +274,31 @@ export default function useCabinetState({
     setScreen(afterBoot);
   };
 
-  // Boot screen: any key OR click/tap advances
+  // Any key or tap during the boot skips ahead: off the test card and on to
+  // the lines, or off the lines and on to where the URL points.
+  const skipBoot = () => {
+    if (bootPhase === 0) setBootPhase(1);
+    else finishBoot();
+  };
+
   useEffect(() => {
     if (!introComplete || screen !== "boot") return;
-    const advance = () => {
-      if (bootPhase === 0) {
-        setBootPhase(1);
-      } else if (bootLine >= BOOT_LINES.length - 1) {
-        finishBoot();
-      }
-    };
+    const advance = () => skipBoot();
     window.addEventListener("keydown", advance);
     window.addEventListener("pointerdown", advance);
     return () => {
       window.removeEventListener("keydown", advance);
       window.removeEventListener("pointerdown", advance);
     };
-    // finishBoot reads the route through afterBoot at call time.
+    // skipBoot reads the phase and the route at call time.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [introComplete, screen, bootPhase, bootLine, afterBoot]);
+  }, [introComplete, screen, bootPhase, afterBoot]);
 
   // The last BIOS line printed, the machine moves on by itself after a beat.
   useEffect(() => {
     if (screen !== "boot" || bootPhase < 1 || bootLine < BOOT_LINES.length - 1)
       return;
-    const t = setTimeout(finishBoot, 1400);
+    const t = setTimeout(finishBoot, BOOT_BEAT_MS);
     return () => clearTimeout(t);
     // finishBoot reads the route through afterBoot at call time.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -465,11 +472,8 @@ export default function useCabinetState({
     }
   };
 
-  // Boot advancement: phase 0 → 1 → where the URL points
-  const advanceBoot = () => {
-    if (bootPhase === 0) setBootPhase(1);
-    else if (bootLine >= BOOT_LINES.length - 1) finishBoot();
-  };
+  // The panel's A during the boot: the same skip.
+  const advanceBoot = skipBoot;
 
   // D-pad navigation. On select it walks the project list; on detail the same
   // four buttons scroll the body and walk the link rail, because a d-pad that
@@ -479,12 +483,7 @@ export default function useCabinetState({
     if (screen === "select")
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
     else if (screen === "detail" || screen === "system") scrollDetail(-1);
-    else if (
-      screen === "boot" &&
-      bootPhase > 0 &&
-      bootLine >= BOOT_LINES.length - 1
-    )
-      finishBoot();
+    else if (screen === "boot") skipBoot();
   };
 
   const navDown = () => {

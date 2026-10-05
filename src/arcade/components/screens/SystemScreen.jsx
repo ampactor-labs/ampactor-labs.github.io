@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { HOW_TO_PLAY } from "./AttractScreen";
 import { summary } from "../../../data/receiptsSummary";
 import { audit } from "../../../data/audit";
 import resume from "../../../data/resume.json";
@@ -27,70 +26,48 @@ function Label({ text, color, fs }) {
   );
 }
 
-const HOW_TO_PLAY_LONG = [
-  "I take projects from design to deployment on my own: the interface, the backend, the tests, CI and the documentation. This cabinet is React 19 and TypeScript on Vite, with unit tests and browser tests on every pull request.",
-  "Every project's README follows one written standard: what it is, whether it works, how to run and test it, and a Limitations section on what does not work yet. Benchmarks include the cases I lose. The cabinet reads each cartridge's card and its known-limitations note from that README when the site is built, so the two cannot disagree.",
-  `I use Claude Code daily as a pair programmer. I review every diff and run the checks myself. Of the ${int(summary.totals.commits)} commits in the ledger, ${int(summary.totals.withClaude)} list Claude as author or co-author, and this cabinet's own history is public.`,
+// What the panel does, which is what HOW TO PLAY means on a cabinet.
+const CONTROLS = [
+  { keys: "\u25b2 \u25bc", does: "WALK THE LIST · SCROLL A READOUT" },
+  { keys: "\u25c4 \u25ba", does: "WALK A READOUT'S LINKS · STEP THE TITLE LOOP" },
+  { keys: "A", does: "OPEN" },
+  { keys: "B", does: "BACK" },
+  { keys: "ARROWS · ENTER · ESC", does: "THE SAME, ON A KEYBOARD" },
 ];
 
 function HowToPlay({ color, fs }) {
   return (
     <>
-      <Label text="OBJECTIVE" color={color} fs={fs} />
-      <p
+      <Label text="CONTROLS" color={color} fs={fs} />
+      <table
         style={{
-          margin: "0 0 18px",
-          fontSize: fs(13),
-          lineHeight: 1.5,
-          color,
-          letterSpacing: "0.02em",
+          borderCollapse: "collapse",
+          fontFamily: "'Share Tech Mono', monospace",
+          fontSize: fs(12),
+          letterSpacing: "0.08em",
         }}
       >
-        Take a project from the first sketch to the thing running in front of
-        people, and say plainly what it does not do yet.
-      </p>
-      <Label text="MOVES" color={color} fs={fs} />
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {HOW_TO_PLAY.map((m, i) => (
-          <div key={m.title} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-            <div
-              aria-hidden="true"
-              style={{
-                flexShrink: 0,
-                width: 36,
-                height: 36,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: fs(16),
-                color,
-                border: `1px solid ${color}55`,
-                borderRadius: 5,
-                background: `${color}11`,
-              }}
-            >
-              {m.glyph}
-            </div>
-            <div style={{ minWidth: 0 }}>
-              <h3
+        <tbody>
+          {CONTROLS.map((c) => (
+            <tr key={c.keys}>
+              <th
+                scope="row"
                 style={{
-                  margin: "0 0 6px",
-                  fontFamily: "'Press Start 2P', monospace",
+                  textAlign: "left",
                   fontWeight: 400,
-                  fontSize: fs(8),
                   color,
-                  letterSpacing: "0.12em",
+                  padding: "7px 18px 7px 0",
+                  whiteSpace: "nowrap",
+                  verticalAlign: "top",
                 }}
               >
-                {m.title}
-              </h3>
-              <p style={{ margin: 0, fontSize: fs(11), lineHeight: 1.6, color: "var(--fg)" }}>
-                {HOW_TO_PLAY_LONG[i]}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+                {c.keys}
+              </th>
+              <td style={{ padding: "7px 0", color: "var(--fg)", lineHeight: 1.5 }}>{c.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
@@ -182,8 +159,7 @@ function HighScores({ color, fs }) {
       </div>
       <p style={{ margin: "18px 0 0", fontSize: fs(10), color: "var(--color-muted)", lineHeight: 1.6, letterSpacing: "0.06em" }}>
         CO-OP MODE: {int(summary.totals.withClaude)} of these commits list Claude as
-        author or co-author. Every commit, its message and what was checked before it
-        landed are in the full ledger.
+        author or co-author.
       </p>
     </>
   );
@@ -210,7 +186,6 @@ export function creditLines() {
       kind: "line",
       head: `${int(audit.tests.unit)} UNIT TESTS · ${int(audit.tests.browserRuns)} BROWSER TEST RUNS · NO THIRD-PARTY REQUESTS`,
     },
-    { kind: "line", head: "DESIGNED, BUILT, TESTED AND SHIPPED BY THE OPERATOR" },
     { kind: "end", head: "THANK YOU FOR PLAYING" },
   ];
 }
