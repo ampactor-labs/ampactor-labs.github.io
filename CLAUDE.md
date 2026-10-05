@@ -21,10 +21,11 @@ week:
 Both tried to make the site quick for a recruiter to skim. The cabinet already
 does that, and anything more for that reader belongs inside it:
 
-- The title card (attract mode, `/`) shows the name, the role, the pitch,
-  availability, the email and RESUME. A visitor who touches nothing gets the
-  whole pitch from the attract loop in about thirty seconds.
-- The select screen's header has RESUME, GITHUB and LINKEDIN.
+- The title card (attract mode, `/`) is the name, the role, two lines of
+  Morgan's own and PRESS START.
+  A visitor who touches nothing sees the cartridges and the high scores go by.
+- The select screen's header, one press away, has the email, the phone,
+  RESUME, GITHUB and LINKEDIN.
 - The `<noscript>` list (`src/data/site.js`) is the plain version for
   crawlers, applicant-tracking systems and visitors without JavaScript.
 
@@ -34,25 +35,37 @@ or operator programs (`src/data/programs.js`), the way `/receipts/` and
 
 ## The flow
 
-A first visit: power-on → BIOS boot (ends on the pitch, then `READY.`) → title
-card → PRESS START → select screen (`/arcade/`) → a cartridge
-(`/arcade/#<id>`). A returning visitor, or a link straight to a cartridge,
-skips the boot. Back walks cartridge → list → title card. The coin slot
+A first visit: the tube lights, the BIOS lines burst by (the last one before
+`READY.` is Morgan's), the title card drops in, about two and a half seconds
+in all, and any key or tap skips ahead. Then
+PRESS START → select screen (`/arcade/`) → a cartridge (`/arcade/#<id>`). A
+returning visitor, or a link straight to a cartridge, skips the boot. Back walks cartridge → list → title card. The coin slot
 unlocks the hidden programs; the site's copy never points at it.
 
-## The pitch
+## The words
 
-**FULL STACK, ALL THE WAY DOWN.** It is Morgan's chosen line, not a slogan to
-edit out. `PITCH` and `RANGE` in `src/data/profile.js` feed the boot, the title
-card, the ticker and the pages' descriptions. Change it there, never in one
-place alone.
+Morgan writes the words. Claude cuts, moves and labels; Claude does not write
+a sentence about Morgan unasked, and does not touch a line of Morgan's. When
+Morgan asks for a line, Claude drafts it in Morgan's voice (the samples are
+in `docs/DESIGN-SYSTEM.md`), short, playful and true, and says which lines it
+wrote. The lines the cabinet speaks for its operator live in `WORDS`
+(`src/data/profile.js`); an empty slot stays empty until Morgan fills it.
+Morgan's rules, as written:
 
-## Copy
+> say it PLAINLY - what am I really doing? what do I really want?
+>
+> LET THE AUDIENCE FIGURE OUT WHAT TO DO BY BEING IN THE SPACE THEY ARE
+> PRESENTED WITH!
+>
+> BE AUTHENTIC AND MAKE LIGHT, GOOD TIMES ANYWAY!
 
-Every claim is literally true and checkable against a project's README
-(`docs/README-STANDARD.md`), losses included. The cabinet's in-world text
-speaks in a game voice; the pages are plain. `docs/DESIGN-SYSTEM.md` has the
-rest.
+In practice: one fact in one place per screen; no instructions to the reader
+and no explaining what to conclude; no lists of three for rhythm, no "X, Y"
+taglines, no brand words worn as a personality. The cabinet's game idiom
+(PRESS START, INSERT COIN, HIGH SCORES) is fine. Every claim about a project
+is literally true and can be checked against its README
+(`docs/README-STANDARD.md`). The pages (the commit log, the case study, the
+résumé) are plain. `docs/DESIGN-SYSTEM.md` has the rest.
 
 ## Before pushing
 

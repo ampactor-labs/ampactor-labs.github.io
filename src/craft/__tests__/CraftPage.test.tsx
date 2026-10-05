@@ -2,6 +2,11 @@ import { describe, it, expect } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import CraftPage, { BOOT_SECONDS as SAID_SECONDS } from "../CraftPage";
 import { BOOT_LINES } from "../../arcade/constants";
+import {
+  BOOT_PATTERN_MS,
+  BOOT_LINE_MS,
+  BOOT_BEAT_MS,
+} from "../../arcade/hooks/useCabinetState";
 import { audit } from "../../data/audit";
 import { summary } from "../../data/receiptsSummary";
 
@@ -63,9 +68,10 @@ describe("CraftPage", () => {
   });
 
   it("tells the boot's length as the code has it", () => {
-    // The test pattern holds 450 ms, then one BIOS line every 130 ms.
-    const boot = 0.45 + BOOT_LINES.length * 0.13;
-    expect(SAID_SECONDS).toBe(Math.round(boot));
+    // The test card, one BIOS line per tick, then the beat on READY.
+    const boot =
+      (BOOT_PATTERN_MS + BOOT_LINES.length * BOOT_LINE_MS + BOOT_BEAT_MS) / 1000;
+    expect(SAID_SECONDS).toBe(Math.round(boot * 10) / 10);
     render(<CraftPage />);
     expect(
       screen.getAllByText(new RegExp(`about ${SAID_SECONDS} seconds`)).length,

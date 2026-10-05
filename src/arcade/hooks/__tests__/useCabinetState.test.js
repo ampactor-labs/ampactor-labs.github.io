@@ -1,7 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useState } from "react";
 import { renderHook, act } from "@testing-library/react";
-import useCabinetState from "../useCabinetState";
+import useCabinetState, {
+  BOOT_PATTERN_MS,
+  BOOT_LINE_MS,
+  BOOT_BEAT_MS,
+} from "../useCabinetState";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../../data/projects";
 import { SYSTEM_PROGRAMS } from "../../../data/programs";
 import { BOOT_LINES } from "../../constants";
@@ -84,10 +88,10 @@ describe("useCabinetState", () => {
   // all boot lines.
   function bootToSelect(result) {
     act(() => {
-      vi.advanceTimersByTime(900); // bootPhase 0→1 (450ms) + buffer
+      vi.advanceTimersByTime(BOOT_PATTERN_MS + 10); // bootPhase 0→1
     });
     act(() => {
-      vi.advanceTimersByTime(BOOT_LINES.length * 280 + 100); // all boot lines
+      vi.advanceTimersByTime(BOOT_LINES.length * BOOT_LINE_MS + 10); // all boot lines
     });
     act(() => {
       result.current.advanceBoot(); // bootLine at end → screen="select"
@@ -338,14 +342,31 @@ describe("useCabinetState", () => {
       const { result } = renderCabinet({ initialRoute: SELECT });
       expect(result.current.screen).toBe("boot");
       act(() => {
-        vi.advanceTimersByTime(900); // test pattern → the first BIOS line
+        vi.advanceTimersByTime(BOOT_PATTERN_MS + 10); // test pattern → the first BIOS line
       });
       act(() => {
-        vi.advanceTimersByTime((BOOT_LINES.length - 1) * 130 + 50); // every line printed
+        vi.advanceTimersByTime((BOOT_LINES.length - 1) * BOOT_LINE_MS + 10); // every line printed
       });
       expect(result.current.screen).toBe("boot");
       act(() => {
-        vi.advanceTimersByTime(1500); // the beat after READY.
+        vi.advanceTimersByTime(BOOT_BEAT_MS + 10); // the beat after READY.
+      });
+      expect(result.current.screen).toBe("select");
+    });
+
+    it("a key during the lines cuts the boot short", () => {
+      localStorage.clear();
+      const { result } = renderCabinet({ initialRoute: SELECT });
+      act(() => {
+        vi.advanceTimersByTime(BOOT_PATTERN_MS + 10); // on to the lines
+      });
+      act(() => {
+        vi.advanceTimersByTime(3 * BOOT_LINE_MS); // a few lines in
+      });
+      expect(result.current.screen).toBe("boot");
+      expect(result.current.bootLine).toBeLessThan(BOOT_LINES.length - 1);
+      act(() => {
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
       });
       expect(result.current.screen).toBe("select");
     });

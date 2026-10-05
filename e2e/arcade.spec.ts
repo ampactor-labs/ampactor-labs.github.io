@@ -72,7 +72,7 @@ test("up from the top wraps to CREDITS; B steps out to the list, then the title 
   await expect(
     page.getByRole("heading", { level: 2, name: "CREDITS" }),
   ).toBeVisible();
-  await expect(page.getByText("THANK YOU FOR PLAYING")).toBeAttached();
+  await expect(page.getByText("MAKE ART WITH YOUR FRIENDS")).toBeAttached();
 
   // The panel's B, not the screen's own ◄.
   const B = page.getByRole("button", { name: "Back", exact: true });

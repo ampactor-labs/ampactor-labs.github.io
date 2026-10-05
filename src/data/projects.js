@@ -153,7 +153,7 @@ const RAW_PROJECTS = [
     github: "https://github.com/ampactor-labs/clob",
     desc: "Clob bets that intelligence is compression efficiency per joule. A ternary recurrent kernel streams text on a laptop CPU while a crystallization loop distills prediction errors into compiled ternary modules; the compile path lowers ternary matrices to native x86-64, with no GPU anywhere in the loop. Every run writes a manifest recording the seed, git commit, and input hashes, so every result is auditable. The core is still untrained; the first real run crystallized zero modules, so training the recurrent core is the current track.",
     tags: ["ternary", "ml", "energy", "codegen"],
-    tagline: "JOULES PER NAT, DRIVEN DOWN",
+    tagline: "THREE NUMBERS AND A LAPTOP",
     outcome:
       "A ternary AI kernel that compiles what it learns into native machine code, on a laptop CPU. In development.",
     highlights: [
@@ -182,7 +182,7 @@ const RAW_PROJECTS = [
     live: "https://scry-production.up.railway.app",
     desc: "TokenSafe scores Solana tokens using only on-chain RPC data from Helius, avoiding machine learning or third-party oracles. It runs nine specific checks to detect state deltas and common exploit patterns. Access is gated by x402 micropayments, where a $0.02 payment serves as the authentication token, removing the need for API keys. Scry wraps this kernel, providing a web interface and a Telegram bot for end users.",
     tags: ["solana", "security", "deployed", "x402"],
-    tagline: "SHIPPED. ON-CHAIN. PAID.",
+    tagline: "CHECKS THE CHAIN FOR RUGS",
     outcome:
       "Scores Solana tokens for rug-pull risk from on-chain data. Live in production and paid per request with x402 micropayments.",
     highlights: [
@@ -210,7 +210,7 @@ const RAW_PROJECTS = [
     github: "https://github.com/ampactor-labs/landed",
     desc: "Landed runs one Solana transaction at a time through four timed stages: assemble a message on a fresh blockhash, gate it, submit it by plain RPC or as a Jito bundle, then track it to a landed slot. What comes back says which of those happened and where the milliseconds went. The law is fail-closed. Gates read evidence gathered from live chain state, and if any of that evidence cannot be fetched, the transaction is rejected rather than submitted with the check skipped; the compute gate refuses even when the node simply declines to report consumption, because 'it fits the budget' and 'nobody told me' are different facts. It speaks JSON-RPC directly instead of depending on solana-client, which drags the whole RPC stack in to send one transaction and, in the stable 4.x line, resolves against a wincode version that will not compile with the one solana-sdk's own types implement.",
     tags: ["solana", "jito", "execution", "latency"],
-    tagline: "UNKNOWN IS NOT SAFE",
+    tagline: "WON'T SEND WHAT IT CAN'T CHECK",
     outcome:
       "A published Rust crate for landing Solana transactions. Its CI starts a real validator and sends live transactions on every push, which caught a bug before the first release.",
     highlights: [
@@ -442,7 +442,7 @@ const RAW_PROJECTS = [
     live: "https://ampactor.dev/freestyle-engine/",
     desc: "A local-first deliberate-practice instrument for freestyle rap. No accounts. No AI. The browser measures your performance, maintains a longitudinal skill model, and prescribes the next workout from evidence.",
     tags: ["freestyle", "rap", "practice", "phonology"],
-    tagline: "TRAIN THE MACHINERY, NOT THE BARS",
+    tagline: "DRILLS WHATEVER YOU'RE WORST AT",
     outcome:
       "Freestyle rap over a beat in the browser. It measures each take for timing, rhyme chains and vocabulary, then suggests drills for the weakest area.",
     highlights: [

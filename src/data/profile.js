@@ -40,9 +40,14 @@ export const CONTACT = {
 // better than a default what the email is about.
 export const MAILTO = `mailto:${CONTACT.email}`;
 
-// The pitch: one line, said the same way wherever the site describes its
-// author (the boot's last line before READY., the title card, the ticker,
-// the pages' descriptions). RANGE is its receipts, from the top of the stack
-// to the bottom; every layer is a cartridge.
-export const PITCH = "FULL STACK, ALL THE WAY DOWN";
-export const RANGE = ["WEB APPS", "APIS", "COMPILERS", "DSP", "FIRMWARE"];
+// Morgan's words, verbatim, where the cabinet speaks for its operator. Claude
+// cuts; it does not write these. An empty slot stays empty until Morgan
+// fills it.
+export const WORDS = {
+  // The last BIOS line before READY.
+  boot: "no jokers in my deck",
+  // Under the role on the title card, two lines as written.
+  title: ["i keep my eyes peeled", "and I got plans to grow"],
+  // The last line of the credits roll.
+  credits: "MAKE ART WITH YOUR FRIENDS",
+};

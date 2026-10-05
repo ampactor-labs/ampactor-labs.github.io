@@ -6,12 +6,12 @@ import { summary } from "../data/receiptsSummary";
 import { int, shortDate } from "../lib/format";
 import styles from "./Craft.module.css";
 
-// How long a first visit's boot takes (the test pattern, then one BIOS line
-// every 130 ms), stated here rather than imported: a module this page and
-// the cabinet both import would be split into a chunk of its own, adding a
-// request before the cabinet renders. The unit test checks it against the
-// real boot lines.
-export const BOOT_SECONDS = 3;
+// How long a first visit's boot takes once the tube is lit (the test card,
+// the BIOS lines in a burst, a beat on READY.), stated here rather than
+// imported: a module this page and the cabinet both import would be split
+// into a chunk of its own, adding a request before the cabinet renders. The
+// unit test checks it against the cabinet's real pacing.
+export const BOOT_SECONDS = 1.4;
 
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 const source = (path: string) => `${REPO}/blob/main/${path}`;
@@ -253,14 +253,13 @@ function CabinetChapter() {
           The site is one arcade cabinet, and the cabinet is the whole page. It
           stands in a dark room, as wide as the browser up to 900 pixels and as
           tall as it. What a portfolio needs, a real machine already has a
-          surface for. The attract loop on the home page is the title card
-          (name, role, city, availability, email), then HOW TO PLAY, a few
-          cartridges and the HIGH SCORES table. PRESS START opens the select
-          screen, where the operator&apos;s sticker carries the email, the phone
-          number and the links to the résumé, GitHub and LinkedIn. The eighteen
-          projects are cartridges, and three operator programs at the end of
-          the list hold the long forms: HOW TO PLAY (how I work), HIGH SCORES
-          (the commit log) and CREDITS (the years, and who built this).
+          surface for. The attract loop on the home page is the title card,
+          a few cartridges and the HIGH SCORES table. PRESS START opens the
+          select screen, where the operator&apos;s sticker carries the email,
+          the phone number and the links to the résumé, GitHub and LinkedIn.
+          The eighteen projects are cartridges, and three operator programs at
+          the end of the list hold the rest: HOW TO PLAY (the controls), HIGH
+          SCORES (the commit log) and CREDITS (the years, and who built this).
         </p>
       </div>
       <Facts
@@ -294,9 +293,10 @@ function CabinetChapter() {
       <h3 className={styles.h3}>A first visit</h3>
       <div className={styles.prose}>
         <p>
-          On a first visit the machine powers on out of the dark and prints its
-          BIOS lines, which takes about {BOOT_SECONDS} seconds; any key, click
-          or tap skips ahead. It plays once per browser. After that a visit
+          On a first visit the machine powers on out of the dark, then prints
+          its BIOS lines and drops the title card in, about {BOOT_SECONDS}{" "}
+          seconds after the tube is lit; any key, click or tap skips ahead. It
+          plays once per browser. After that a visit
           lands on the title card, and a shared link such as{" "}
           <a href="/arcade/#mentl">/arcade/#mentl</a> lands on that cartridge
           without booting.
@@ -628,9 +628,9 @@ function Tradeoffs() {
           Next step: prerender each page&apos;s text at build time.
         </li>
         <li>
-          A first visit boots the machine before showing anything: about{" "}
-          {BOOT_SECONDS} seconds of test pattern and BIOS text, skippable with
-          any input, once per browser. Lighthouse loads the home page as a
+          A first visit boots the machine before showing anything: the tube
+          lights, then about {BOOT_SECONDS} seconds of test pattern and BIOS
+          text, skippable with any input, once per browser. Lighthouse loads the home page as a
           first visit, so its largest paint is a line of that boot text
           {home ? `, at ${seconds(home.lcpMs)}` : ""}, and part of the home
           page&apos;s score comes from the boot&apos;s timing. I decided the
