@@ -179,7 +179,7 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { level: 2, name: "CREDITS" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("THANK YOU FOR PLAYING")).toBeInTheDocument();
+    expect(screen.getByText("MAKE ART WITH YOUR FRIENDS")).toBeInTheDocument();
   });
 
   it("corrects an unknown cartridge to the list without a new entry", async () => {

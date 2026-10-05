@@ -145,7 +145,7 @@ test("the operator programs open by deep link", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 2, name: "CREDITS" }),
   ).toBeVisible();
-  await expect(page.getByText("THANK YOU FOR PLAYING")).toBeVisible();
+  await expect(page.getByText("MAKE ART WITH YOUR FRIENDS")).toBeVisible();
   await expect(page.getByRole("link", { name: /FULL RÉSUMÉ/ })).toHaveAttribute(
     "href",
     "/resume.html",

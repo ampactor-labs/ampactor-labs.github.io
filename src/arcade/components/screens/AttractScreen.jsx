@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CONTACT } from "../../../data/profile";
+import { CONTACT, WORDS } from "../../../data/profile";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
 
@@ -79,6 +79,20 @@ function TitleCard({ fs, hidden, nameSize }) {
         }}
       >
         {CONTACT.role}
+      </div>
+      {/* The operator's own lines, as written. */}
+      <div
+        style={{
+          marginTop: 10,
+          fontSize: fs(11),
+          color: "var(--fg)",
+          letterSpacing: "0.08em",
+          lineHeight: 1.9,
+        }}
+      >
+        {WORDS.title.map((line) => (
+          <div key={line}>{line}</div>
+        ))}
       </div>
     </div>
   );

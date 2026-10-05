@@ -39,3 +39,15 @@ export const CONTACT = {
 // The primary call to action. No prefilled subject: whoever writes knows
 // better than a default what the email is about.
 export const MAILTO = `mailto:${CONTACT.email}`;
+
+// Morgan's words, verbatim, where the cabinet speaks for its operator. Claude
+// cuts; it does not write these. An empty slot stays empty until Morgan
+// fills it.
+export const WORDS = {
+  // The last BIOS line before READY.
+  boot: "no jokers in my deck",
+  // Under the role on the title card, two lines as written.
+  title: ["i keep my eyes peeled", "and I got plans to grow"],
+  // The last line of the credits roll.
+  credits: "MAKE ART WITH YOUR FRIENDS",
+};

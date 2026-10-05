@@ -14,17 +14,17 @@ npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
 ```
 
 The site is an arcade cabinet, and the cabinet is the whole page. It opens on
-its title card (the name, the trade, PRESS START); START shows the select
-screen, where each project is a cartridge and three operator programs at the
-end of the list hold the rest of a portfolio: HOW TO PLAY (the controls), HIGH
-SCORES (the commit ledger) and CREDITS (the career roll). The résumé, GitHub
-and LinkedIn are pills on the select screen's header. Escape or the browser's
-Back button steps back the way you came, down to the title card. On a first
-visit the machine powers on and prints its BIOS before the title card, about
-two and a half seconds in all, and any key or tap skips ahead; after that it
-lands where the URL points. Click the coin slot on the cabinet to unlock three
-hidden programs. One of them is TUNNEL_RUN, a vector shooter with a global
-top-10 leaderboard that runs with no server.
+its title card (the name, the trade, two lines of Morgan's own, PRESS START);
+START shows the select screen, where each project is a cartridge and three
+operator programs at the end of the list hold the rest of a portfolio: HOW TO
+PLAY (the controls), HIGH SCORES (the commit ledger) and CREDITS (the career
+roll). The résumé, GitHub and LinkedIn are pills on the select screen's
+header. Escape or the browser's Back button steps back the way you came, down
+to the title card. On a first visit the machine powers on and prints its BIOS
+before the title card, about two and a half seconds in all, and any key or tap
+skips ahead; after that it lands where the URL points. Click the coin slot on
+the cabinet to unlock three hidden programs. One of them is TUNNEL_RUN, a
+vector shooter with a global top-10 leaderboard that runs with no server.
 
 The other commands:
 

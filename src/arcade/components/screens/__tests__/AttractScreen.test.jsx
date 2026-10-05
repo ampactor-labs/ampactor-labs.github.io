@@ -8,6 +8,7 @@ import AttractScreen, {
   topScores,
 } from "../AttractScreen";
 import { PROJECTS } from "../../../../data/projects";
+import { WORDS } from "../../../../data/profile";
 import { summary } from "../../../../data/receiptsSummary";
 
 const fs = (n) => n;
@@ -20,13 +21,14 @@ describe("AttractScreen", () => {
     vi.useRealTimers();
   });
 
-  it("opens on the title card: the name as the page's heading, the role, PRESS START", () => {
+  it("opens on the title card: the name as the page's heading, the role, the operator's lines, PRESS START", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     expect(screen.getByTestId("attract-screen").dataset.frame).toBe("title");
     expect(
       screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeVisible();
     expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
+    for (const line of WORDS.title) expect(screen.getByText(line)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
     // Nothing else on the card: the sticker on the select screen has the rest.
     expect(screen.queryAllByRole("link")).toHaveLength(0);

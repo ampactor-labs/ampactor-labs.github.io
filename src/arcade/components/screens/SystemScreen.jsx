@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { summary } from "../../../data/receiptsSummary";
 import { audit } from "../../../data/audit";
 import resume from "../../../data/resume.json";
+import { WORDS } from "../../../data/profile";
 import { int, monthLabel } from "../../../lib/format";
 
 // The operator's programs: HOW TO PLAY, HIGH SCORES and CREDITS. Same frame
@@ -166,7 +167,8 @@ function HighScores({ color, fs }) {
 }
 
 // The years as an end-credits roll: newest role first, as a résumé reads,
-// then the life before software, then who built this cabinet.
+// then the life before software, then this cabinet, then the operator's
+// sign-off.
 export function creditLines() {
   const years = (r) => `${r.start}–${r.end ?? "NOW"}`;
   const roles = resume.experience.map((r) => ({
@@ -186,7 +188,7 @@ export function creditLines() {
       kind: "line",
       head: `${int(audit.tests.unit)} UNIT TESTS · ${int(audit.tests.browserRuns)} BROWSER TEST RUNS · NO THIRD-PARTY REQUESTS`,
     },
-    { kind: "end", head: "THANK YOU FOR PLAYING" },
+    { kind: "end", head: WORDS.credits },
   ];
 }
 

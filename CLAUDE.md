@@ -21,7 +21,8 @@ week:
 Both tried to make the site quick for a recruiter to skim. The cabinet already
 does that, and anything more for that reader belongs inside it:
 
-- The title card (attract mode, `/`) is the name, the role and PRESS START.
+- The title card (attract mode, `/`) is the name, the role, two lines of
+  Morgan's own and PRESS START.
   A visitor who touches nothing sees the cartridges and the high scores go by.
 - The select screen's header, one press away, has the email, the phone,
   RESUME, GITHUB and LINKEDIN.
@@ -34,8 +35,9 @@ or operator programs (`src/data/programs.js`), the way `/receipts/` and
 
 ## The flow
 
-A first visit: the tube lights, the BIOS lines burst by, the title card drops
-in, about two and a half seconds in all, and any key or tap skips ahead. Then
+A first visit: the tube lights, the BIOS lines burst by (the last one before
+`READY.` is Morgan's), the title card drops in, about two and a half seconds
+in all, and any key or tap skips ahead. Then
 PRESS START → select screen (`/arcade/`) → a cartridge (`/arcade/#<id>`). A
 returning visitor, or a link straight to a cartridge, skips the boot. Back walks cartridge → list → title card. The coin slot
 unlocks the hidden programs; the site's copy never points at it.

@@ -11,7 +11,7 @@ import styles from "./Craft.module.css";
 // imported: a module this page and the cabinet both import would be split
 // into a chunk of its own, adding a request before the cabinet renders. The
 // unit test checks it against the cabinet's real pacing.
-export const BOOT_SECONDS = 1.3;
+export const BOOT_SECONDS = 1.4;
 
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 const source = (path: string) => `${REPO}/blob/main/${path}`;
