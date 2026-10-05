@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { QUOTES } from "../data/quotes";
 import Header from "../floor/Header";
 import Footer from "../floor/Footer";
 import { audit, type PageAudit } from "../data/audit";
@@ -140,6 +141,7 @@ function Head() {
         CRAFT
       </p>
       <h1 className={styles.h1}>How this site is built</h1>
+      <p className="epigraph">{QUOTES.craft}</p>
       <p className={styles.lede}>
         I designed and built this site myself, including the tests, the data
         pipeline and the deployment. Each section covers one part: the problem,

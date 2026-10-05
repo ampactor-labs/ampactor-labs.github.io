@@ -63,6 +63,7 @@ export const crtStyles = `
   .coin-announce.tier-1{bottom:120px;font-size:8px;color:var(--color-amber)}
   .coin-announce.tier-2{bottom:120px;font-size:8px;color:var(--color-verdigris)}
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:14px;color:var(--ui-danger);text-align:center;animation:tier3Overlay 2.8s ease forwards;background:rgba(0,0,0,0.9);padding:20px 30px;border:1px solid var(--ui-danger)}
+  .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:9px;letter-spacing:0.12em;white-space:nowrap;color:var(--fg)}
   @media (prefers-reduced-motion: reduce) {
     .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot, .btn-action,
     .glitch-enter, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,

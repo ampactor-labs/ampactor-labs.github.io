@@ -5,6 +5,7 @@ import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
 import { SYSTEM_PROGRAMS, isSystemProgram } from "../../data/programs";
 import { BOOT_LINES } from "../constants";
 import { hasVisited as readVisited, markVisited } from "../visited";
+import { KONAMI } from "../../data/quotes";
 
 // The detail screen's link rail, in focus order. Demo comes first when a project
 // has one, so A opens the running thing rather than the repo. DetailScreen renders
@@ -342,8 +343,19 @@ export default function useCabinetState({
   // is kept in a ref and the window listener, subscribed once, always calls
   // the latest one.
   const keyHandlerRef = useRef(null);
+  // The last few keys, for the Konami code.
+  const konamiRef = useRef([]);
   keyHandlerRef.current = (e) => {
     if (!introComplete) return;
+    // Up up down down left right left right B A drops the coin, from any
+    // screen the panel is live on.
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    konamiRef.current = [...konamiRef.current, key].slice(-KONAMI.length);
+    if (KONAMI.every((k, i) => konamiRef.current[i] === k)) {
+      konamiRef.current = [];
+      insertCoin();
+      return;
+    }
     if (screen === "game" || screen === "boot") return;
     if (screen === "attract") {
       // A link on the title card keeps its own Enter.

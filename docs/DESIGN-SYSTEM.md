@@ -186,7 +186,8 @@ still prints: it is text.
 ### The attract loop
 
 The title card holds 6 s, then `NOW SHOWING` runs four cartridges at 2.6 s each, then
-`HIGH SCORES` 6 s, and round again with the next four. Every frame glitches in.
+`HIGH SCORES` 6 s, then the WINNERS DON'T USE DRUGS splash every cabinet of the period
+ran, 2.5 s, and round again with the next four. Every frame glitches in.
 `PRESS START` blinks (`startBlink`, 1.1 s, step-end, never fully off). `◄` `►` and the
 arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
 start the machine. No `AudioContext` exists until then. Someone reading holds it: a
@@ -254,13 +255,13 @@ off (`global.css`).
 
 | Screen | Spec |
 |---|---|
-| **Title card** (`AttractScreen.jsx`) | `<h1>` name in Press Start, cyan, glowing → `SOFTWARE ENGINEER` in amber → two lines of Morgan's own (`WORDS.title`, `profile.js`), as written → `PRESS START` (a `<button>`). Nothing else: the sticker on the select screen has the contact and the links. The `<h1>` stays in the DOM (visually hidden) on the loop's other frames. It fits a short phone (375×548) above `PRESS START`. |
+| **Title card** (`AttractScreen.jsx`) | `<h1>` name in Press Start, cyan, glowing → `SOFTWARE ENGINEER` in amber → a borrowed line (`quotes.js`: SHALL WE PLAY A GAME? for a first visit, KEPT YOU WAITING, HUH? for a returning one) → `PRESS START` (a `<button>`). Nothing else: the sticker on the select screen has the contact and the links. The `<h1>` stays in the DOM (visually hidden) on the loop's other frames. It fits a short phone (375×548) above `PRESS START`. |
 | **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (shared with the attract loop's `TestPattern.jsx`), phase 1 the BIOS column laid out at its final height and printed top to bottom in a burst (`BOOT_LINE_MS`, 40 ms a line); the operator's sign-off (`WORDS.boot`), lit cyan like the `OPERATOR:` line, then a beat on the last line, `READY.`, in Press Start and amber, and the title card. Any key or tap skips ahead. |
-| **Select** (`SelectScreen.jsx`) | The operator's sticker: `SELECT PROGRAM`, `<h1>` `NAME · ROLE`, email and phone as links, and `<nav aria-label="Operator">` with the pills `RESUME` (`/resume.html`) · `GITHUB` · `LINKEDIN`. Then the `listbox` (`Project list`), which takes focus when the screen comes up and names its active row with `aria-activedescendant`: category headers `SYSTEMS · SECURITY · WEB3 · CREATIVE · OPERATOR`, one row per program (icon tile in the program's colour, title in Share Tech Mono, `lang` chip, subtitle), three `[CLASSIFIED] · INSERT COIN TO UNLOCK` rows until the coin drops, the marquee (the cartridges and their taglines, `constants.js`). |
+| **Select** (`SelectScreen.jsx`) | The operator's sticker: `SELECT PROGRAM`, `<h1>` `NAME · ROLE`, email and phone as links, and `<nav aria-label="Operator">` with the pills `RESUME` (`/resume.html`) · `GITHUB` · `LINKEDIN`. Then the `listbox` (`Project list`), which takes focus when the screen comes up and names its active row with `aria-activedescendant`: category headers `SYSTEMS · SECURITY · WEB3 · CREATIVE · OPERATOR`, one row per program (icon tile in the program's colour, title in Share Tech Mono, `lang` chip, subtitle), three `[CLASSIFIED] · YOU DIDN'T SAY THE MAGIC WORD` rows until the coin drops, the marquee (the cartridges and their taglines, `constants.js`). |
 | **Cartridge readout** (`DetailScreen.jsx`) | `◄` back, icon, `<h2>` title, subtitle, the link rail (demo first, then source), then `outcome` → `desc` → highlights → stack → operator notes in a scrolling, focusable region. |
-| **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, amber. `HOW TO PLAY`: `CONTROLS`, what the panel does; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, and the operator's sign-off (`WORDS.credits`) where `THANK YOU FOR PLAYING` would be; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
+| **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, amber. `HOW TO PLAY`: IT'S DANGEROUS TO GO ALONE! TAKE THIS., then `CONTROLS`, what the panel does; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, and the operator's sign-off (`WORDS.credits`) where `THANK YOU FOR PLAYING` would be; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
 | **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. |
-| **Hidden programs** | Unlocked by the coin, wherever it is dropped; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
+| **Hidden programs** | Unlocked by the coin, wherever it is dropped, or by the Konami code on a keyboard; the ceremony says CREDIT ACCEPTED and IT'S A SECRET TO EVERYBODY.; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
 
 ### Pages header and footer (`src/floor/`)
 
@@ -409,6 +410,7 @@ power-on plays.
   colours here, derived from the palette, not as literals in components.
 - **Heads**: `src/data/site.js`. Rendered into every entry by `vite.config.js`.
 - **Identity, contact and Morgan's words**: `src/data/profile.js` (`WORDS`).
+- **Borrowed lines**: `src/data/quotes.js`, each with its source in a comment.
 - **The work**: `src/data/projects.js`; content fields follow each README
   (`npm run sync:readmes`). **The operator's programs**: `src/data/programs.js`.
 - **The résumé and the credits**: `src/data/resume.json`; `npm run resume:build`.

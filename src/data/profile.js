@@ -46,8 +46,6 @@ export const MAILTO = `mailto:${CONTACT.email}`;
 export const WORDS = {
   // The last BIOS line before READY.
   boot: "no jokers in my deck",
-  // Under the role on the title card, two lines as written.
-  title: ["i keep my eyes peeled", "and I got plans to grow"],
   // The last line of the credits roll.
   credits: "MAKE ART WITH YOUR FRIENDS",
 };

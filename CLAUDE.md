@@ -59,6 +59,13 @@ Morgan's rules, as written:
 >
 > BE AUTHENTIC AND MAKE LIGHT, GOOD TIMES ANYWAY!
 
+Borrowed lines live in `src/data/quotes.js`: short, famous lines from games,
+films and dev folklore, each with its source in a comment and never on screen,
+placed where a real machine would show something (the title card's greeting,
+the locked rows, the coin, the game over, the 404, an epigraph on a paper
+page). They are idiom, like PRESS START, not words about Morgan. Short lines
+only; never a lyric, never a passage, never Fallout.
+
 In practice: one fact in one place per screen; no instructions to the reader
 and no explaining what to conclude; no lists of three for rhythm, no "X, Y"
 taglines, no brand words worn as a personality. The cabinet's game idiom

@@ -75,6 +75,15 @@ svg {
 }
 
 /* Screen-reader-only text. */
+/* A borrowed line under a page's heading (src/data/quotes.js). */
+.epigraph {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px;

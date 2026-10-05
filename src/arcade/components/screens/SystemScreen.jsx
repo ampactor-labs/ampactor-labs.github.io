@@ -3,6 +3,7 @@ import { summary } from "../../../data/receiptsSummary";
 import { audit } from "../../../data/audit";
 import resume from "../../../data/resume.json";
 import { WORDS } from "../../../data/profile";
+import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
 
 // The operator's programs: HOW TO PLAY, HIGH SCORES and CREDITS. Same frame
@@ -39,6 +40,18 @@ const CONTROLS = [
 function HowToPlay({ color, fs }) {
   return (
     <>
+      <p
+        style={{
+          margin: "0 0 16px",
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: fs(9),
+          lineHeight: 1.8,
+          color,
+          letterSpacing: "0.08em",
+        }}
+      >
+        {QUOTES.howto}
+      </p>
       <Label text="CONTROLS" color={color} fs={fs} />
       <table
         style={{

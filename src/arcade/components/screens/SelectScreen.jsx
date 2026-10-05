@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
+import { QUOTES } from "../../../data/quotes";
 
 export default function SelectScreen({
   projects,
@@ -371,7 +372,7 @@ export default function SelectScreen({
                     marginTop: 1,
                   }}
                 >
-                  INSERT COIN TO UNLOCK
+                  {QUOTES.locked}
                 </div>
               </div>
             </div>
