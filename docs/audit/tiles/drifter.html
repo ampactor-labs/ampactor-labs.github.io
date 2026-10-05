@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1400">
+<title>Drifter style tile</title>
+<style>
+@font-face{font-family:"Press Start 2P";src:url(/fonts/press-start-2p-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Share Tech Mono";src:url(/fonts/share-tech-mono-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+
+:root{
+  /* DRIFTER palette */
+  --void:#0a0716;      /* the screen's black, the deepest shadow */
+  --indigo:#15102e;    /* the room; tube ground */
+  --dusk:#221a45;      /* chassis, surfaces, cards */
+  --violet:#3b2b7d;    /* bezel, borders, hairlines */
+  --purple:#6b3fd6;    /* lit grid, active fills, selection */
+  --lilac:#b9a6e8;     /* muted text, d-pad glyphs, grid highlight */
+  --mist:#ece6fb;      /* primary text */
+  --teal:#3ee6c6;      /* the A-mark, signage, the machine's own colour */
+  --magenta:#ff4fa3;   /* highlight: PRESS START, the lit row, the coin */
+  --ember:#ff8a5c;     /* the one warm thing: the pixel figure, the coin slot */
+  --fault:#ff3b6b;     /* danger, B */
+
+  --font-arcade:"Press Start 2P","Press Start 2P Fallback",monospace;
+  --font-display:"Share Tech Mono",Menlo,Consolas,monospace;
+  --font-body:"JetBrains Mono",Menlo,Consolas,monospace;
+  --font-sans:"Inter",Arial,Helvetica,sans-serif;
+
+  --bloom-magenta:0 0 6px rgba(255,79,163,.55),0 0 22px rgba(255,79,163,.28),0 0 48px rgba(107,63,214,.35);
+  --bloom-teal:0 0 6px rgba(62,230,198,.5),0 0 20px rgba(62,230,198,.22);
+  --bloom-soft:0 0 10px rgba(185,166,232,.25);
+  --hair:rgba(185,166,232,.14);
+  --hair-strong:rgba(185,166,232,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1400px;height:1000px;overflow:hidden}
+body{
+  background:
+    radial-gradient(ellipse at 50% 30%, #1b1440 0%, var(--indigo) 55%, var(--void) 100%);
+  color:var(--mist);font-family:var(--font-body);font-size:12px;line-height:1.5;
+  position:relative;
+}
+/* faint lit grid on the room, Ultracode style, brighter to the right */
+body::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg, rgba(185,166,232,.18) 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(0deg, rgba(185,166,232,.18) 0 1px, transparent 1px 14px);
+  -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,.08) 0 30%, rgba(0,0,0,.18) 30% 60%, rgba(0,0,0,.32) 60% 85%, rgba(0,0,0,.5) 85%);
+  mask-image:linear-gradient(90deg, rgba(0,0,0,.08) 0 30%, rgba(0,0,0,.18) 30% 60%, rgba(0,0,0,.32) 60% 85%, rgba(0,0,0,.5) 85%);
+}
+.page{position:relative;z-index:1;padding:28px;height:1000px;display:grid;
+  grid-template-columns:430px 420px 446px;grid-template-rows:52px 232px 1fr;gap:20px 24px}
+
+/* ---------- header band ---------- */
+.band{grid-column:1/4;position:relative;border-radius:10px;overflow:hidden;
+  background:linear-gradient(90deg,#1a1240 0%, #2b1b66 45%, #4a2fa8 78%, #6b3fd6 100%);
+  display:flex;align-items:center;padding:0 22px;gap:26px}
+.band::before{content:"";position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg, rgba(185,166,232,.9) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(0deg, rgba(185,166,232,.9) 0 1px, transparent 1px 12px);
+  -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,.05) 0 28%, rgba(0,0,0,.14) 28% 52%, rgba(0,0,0,.28) 52% 76%, rgba(0,0,0,.5) 76%);
+  mask-image:linear-gradient(90deg, rgba(0,0,0,.05) 0 28%, rgba(0,0,0,.14) 28% 52%, rgba(0,0,0,.28) 52% 76%, rgba(0,0,0,.5) 76%);
+}
+.band>*{position:relative}
+.band .k{font-family:var(--font-arcade);font-size:8px;letter-spacing:.3em;color:var(--teal);text-shadow:var(--bloom-teal)}
+.band .t{font-family:var(--font-sans);font-weight:600;font-size:22px;letter-spacing:-.01em;color:#fff}
+.band .s{font-family:var(--font-body);font-size:11px;color:var(--lilac);letter-spacing:.08em;margin-left:auto;margin-right:84px}
+/* pixel figure, ember, like the reference's character */
+.sprite{position:absolute;right:30px;top:10px;width:4px;height:4px;background:var(--ember);
+  box-shadow:
+   8px 0 var(--ember),12px 0 var(--ember),16px 0 var(--ember),
+   4px 4px var(--ember),8px 4px var(--ember),12px 4px var(--ember),16px 4px var(--ember),20px 4px var(--ember),
+   4px 8px var(--ember),8px 8px #fff,12px 8px var(--ember),16px 8px #fff,20px 8px var(--ember),
+   4px 12px var(--ember),8px 12px var(--ember),12px 12px var(--ember),16px 12px var(--ember),20px 12px var(--ember),
+   8px 16px var(--ember),12px 16px var(--ember),16px 16px var(--ember),
+   0 20px var(--ember),8px 20px var(--ember),12px 20px var(--ember),16px 20px var(--ember),24px 20px var(--ember),
+   8px 24px var(--ember),16px 24px var(--ember),
+   8px 28px var(--ember),16px 28px var(--ember),
+   4px 28px var(--ember),20px 28px var(--ember),
+   -8px 6px #ffe08a,32px 2px #ffe08a,30px 24px #ffe08a;
+  filter:drop-shadow(0 0 6px rgba(255,138,92,.6))}
+
+/* ---------- cabinet ---------- */
+.cabinet{grid-column:1;grid-row:2/4;display:flex;flex-direction:column;
+  background:var(--dusk);border-radius:16px;
+  box-shadow:0 20px 80px rgba(107,63,214,.18),0 0 120px rgba(107,63,214,.08),0 40px 60px rgba(0,0,0,.5)}
+.tube{flex:1;margin:10px 10px 0;border:3px solid var(--violet);border-bottom:none;border-radius:16px 16px 0 0;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 40%, #1a1340 0%, var(--void) 80%);
+  box-shadow:inset 0 0 80px rgba(0,0,0,.6),0 0 40px rgba(107,63,214,.18),0 0 90px rgba(255,79,163,.06)}
+/* lit floor grid in the lower third, Ultracode's bands turned into a floor */
+.tube .floor{position:absolute;left:0;right:0;bottom:0;height:46%;
+  background:
+    repeating-linear-gradient(90deg, rgba(107,63,214,.55) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg, rgba(107,63,214,.55) 0 1px, transparent 1px 16px);
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, rgba(0,0,0,.35) 45%, rgba(0,0,0,.9) 100%);
+  mask-image:linear-gradient(180deg, transparent 0, rgba(0,0,0,.35) 45%, rgba(0,0,0,.9) 100%)}
+/* dither band where the floor meets the dark */
+.tube .dither{position:absolute;left:0;right:0;bottom:0;height:40%;
+  background:conic-gradient(rgba(107,63,214,.35) 25%, transparent 0 50%, rgba(107,63,214,.35) 0 75%, transparent 0) 0 0/4px 4px;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, rgba(0,0,0,.6) 50%, transparent 100%);
+  mask-image:linear-gradient(180deg, transparent 0, rgba(0,0,0,.6) 50%, transparent 100%)}
+.tube .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.07) 2px 4px);pointer-events:none}
+.tube .vig{position:absolute;inset:0;background:radial-gradient(ellipse at center, transparent 55%, rgba(10,7,22,.65) 100%)}
+.tube .glow{position:absolute;left:50%;top:38%;width:300px;height:160px;transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse, rgba(255,79,163,.18) 0%, rgba(107,63,214,.12) 40%, transparent 70%);filter:blur(10px)}
+.card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:14px;padding:0 16px 40px}
+.card h1{font-family:var(--font-arcade);font-size:20px;line-height:1.5;letter-spacing:.06em;color:var(--mist);
+  text-shadow:var(--bloom-magenta)}
+.card .role{font-family:var(--font-display);font-size:17px;letter-spacing:.24em;color:var(--teal);text-shadow:var(--bloom-teal)}
+.card .lines{font-family:var(--font-body);font-size:12px;letter-spacing:.08em;line-height:1.9;color:var(--lilac);margin-top:6px;text-shadow:var(--bloom-soft)}
+.start{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--font-arcade);font-size:14px;letter-spacing:.14em;
+  color:var(--magenta);text-shadow:var(--bloom-magenta)}
+.tube .skip{position:absolute;right:12px;top:10px;font-family:var(--font-body);font-size:8px;letter-spacing:.15em;color:rgba(185,166,232,.35)}
+
+.panel{margin:0 10px 10px;border-radius:0 0 16px 16px;border:3px solid var(--violet);border-top-width:2px;
+  background:linear-gradient(180deg,#2a2060,#1b1442 40%,#0d0922);
+  box-shadow:inset 0 2px 0 rgba(185,166,232,.1),inset 0 -4px 14px rgba(0,0,0,.65),0 4px 0 rgba(0,0,0,.55);
+  padding:12px 20px 12px;display:flex;justify-content:space-between;align-items:center;height:132px}
+.dpad{display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);gap:2px}
+.key{display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:11px;color:var(--lilac);
+  background:linear-gradient(145deg,#352a6e,#241b52 55%,#17113a);border:1.5px solid var(--violet);border-radius:4px;
+  box-shadow:0 3px 6px rgba(0,0,0,.5),inset 0 1px 0 rgba(185,166,232,.14),inset 0 -1px 0 rgba(0,0,0,.4)}
+.key.well{background:radial-gradient(circle,#110c2a,#07051a);border-color:#2a2058;box-shadow:inset 0 2px 8px rgba(0,0,0,.7)}
+.key.blank{visibility:hidden}
+.centre{display:flex;flex-direction:column;align-items:center;gap:5px}
+.mark{filter:drop-shadow(-1.5px 0 0 rgba(255,79,163,.45)) drop-shadow(1.5px 0 0 rgba(107,63,214,.6)) drop-shadow(0 0 6px rgba(62,230,198,.45))}
+.word{font-family:var(--font-arcade);font-size:9px;letter-spacing:.2em;color:var(--teal);text-shadow:var(--bloom-teal)}
+.est{font-family:var(--font-body);font-size:7px;letter-spacing:.15em;color:var(--lilac)}
+.slot{width:60px;height:20px;border-radius:10px;border:2px solid rgba(255,138,92,.55);
+  background:rgba(255,138,92,.08);box-shadow:inset 0 2px 6px rgba(255,138,92,.25),0 0 12px rgba(255,138,92,.25);
+  display:flex;align-items:center;justify-content:center}
+.slot i{display:block;width:38px;height:4px;border-radius:2px;background:rgba(255,138,92,.75);box-shadow:0 0 8px rgba(255,138,92,.6)}
+.coin{font-family:var(--font-arcade);font-size:7px;letter-spacing:.12em;color:var(--magenta);text-shadow:0 0 8px rgba(255,79,163,.5)}
+.credit{font-family:var(--font-arcade);font-size:6px;color:var(--ember)}
+.actions{display:flex;gap:14px;align-items:flex-end}
+.btnwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btn{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-arcade);font-size:11px;
+  box-shadow:0 4px 10px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -3px 6px rgba(0,0,0,.45)}
+.btn.b{background:radial-gradient(circle at 38% 32%,#6a1f4a,#431236 50%,#2a0a22);border:2.5px solid #7a2a58;color:var(--fault);
+  text-shadow:0 0 6px rgba(255,59,107,.7);box-shadow:0 0 16px rgba(255,59,107,.35),0 4px 10px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -3px 6px rgba(0,0,0,.45)}
+.btn.a{background:radial-gradient(circle at 38% 32%,#1b4f5e,#0f3140 50%,#081c2a);border:2.5px solid #1f6f78;color:var(--teal);
+  text-shadow:0 0 6px rgba(62,230,198,.7);box-shadow:0 0 16px rgba(62,230,198,.35),0 4px 10px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -3px 6px rgba(0,0,0,.45)}
+.lbl{font-family:var(--font-arcade);font-size:5px;letter-spacing:.12em;color:rgba(185,166,232,.55)}
+
+/* ---------- generic tile frame ---------- */
+.frame{background:rgba(21,16,46,.78);border:1px solid var(--hair);border-radius:10px;padding:16px 18px;overflow:hidden;position:relative;
+  backdrop-filter:blur(2px)}
+.frame .cap{font-family:var(--font-arcade);font-size:7px;letter-spacing:.3em;color:var(--lilac);opacity:.75;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px}
+.frame .cap::after{content:"";flex:1;height:1px;background:var(--hair)}
+
+/* ---------- palette ---------- */
+.palette{grid-column:2/4;grid-row:2}
+.sw{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.sw>div{height:74px;border-radius:6px;padding:7px 8px;display:flex;flex-direction:column;justify-content:flex-end;
+  font-family:var(--font-body);position:relative;border:1px solid rgba(185,166,232,.12)}
+.sw b{font-size:10px;font-weight:600;letter-spacing:.06em}
+.sw i{font-style:normal;font-size:8.5px;opacity:.85;line-height:1.3;margin-top:1px}
+.sw .n{position:absolute;top:6px;left:8px;font-family:var(--font-arcade);font-size:6px;letter-spacing:.15em;opacity:.8}
+.row2{grid-template-columns:repeat(5,1fr);margin-top:10px}
+.ink{color:var(--mist)}.dark{color:var(--indigo)}
+
+/* ---------- type ---------- */
+.type{grid-column:2;grid-row:3;display:flex;flex-direction:column;gap:0}
+.spec{padding:11px 0;border-bottom:1px solid var(--hair)}
+.spec:last-child{border-bottom:none}
+.spec .m{font-family:var(--font-body);font-size:8.5px;letter-spacing:.1em;color:var(--lilac);opacity:.7;margin-bottom:6px}
+.sp-signage{font-family:var(--font-arcade);font-size:16px;letter-spacing:.1em;color:var(--teal);text-shadow:var(--bloom-teal);line-height:1.6}
+.sp-signage span{color:var(--magenta);text-shadow:var(--bloom-magenta)}
+.sp-display{font-family:var(--font-display);font-size:26px;letter-spacing:.06em;color:var(--mist);line-height:1.2}
+.sp-display small{display:block;font-size:14px;letter-spacing:.24em;color:var(--teal);margin-top:4px}
+.sp-body{font-family:var(--font-body);font-size:12px;line-height:1.9;letter-spacing:.08em;color:var(--lilac)}
+.sp-body b{color:var(--mist);font-weight:500}
+.sp-prose{font-family:var(--font-sans);font-size:15px;line-height:1.5;color:var(--mist)}
+.sp-prose strong{font-weight:600;font-size:24px;letter-spacing:-.02em;display:block;margin-bottom:3px}
+.sp-label{font-family:var(--font-arcade);font-size:7px;letter-spacing:.3em;color:var(--lilac);display:flex;gap:18px;flex-wrap:wrap}
+.sp-label em{font-style:normal;color:var(--teal)}
+
+/* ---------- right column ---------- */
+.right{grid-column:3;grid-row:3;display:flex;flex-direction:column;gap:20px}
+.select{flex:0 0 auto}
+.cat{font-family:var(--font-arcade);font-size:7px;letter-spacing:.3em;color:rgba(185,166,232,.7);display:flex;align-items:center;gap:10px;margin:2px 0 8px}
+.cat::after{content:"";flex:1;height:1px;background:rgba(107,63,214,.45)}
+.prow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;border:1px solid transparent;position:relative;margin-bottom:3px}
+.prow .bar{position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:2px;background:var(--c);opacity:.35}
+.prow .ico{width:32px;height:32px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;
+  background:color-mix(in srgb,var(--c) 10%,transparent);border:1px solid color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.prow .tt{font-family:var(--font-display);font-size:15px;letter-spacing:.04em;color:var(--mist)}
+.prow .chip{font-family:var(--font-body);font-size:9px;color:var(--lilac);padding:1px 6px;border-radius:3px;background:rgba(185,166,232,.06);border:1px solid rgba(185,166,232,.1);margin-left:8px;vertical-align:2px}
+.prow .sub{font-family:var(--font-body);font-size:10px;letter-spacing:.08em;color:var(--lilac);margin-top:2px}
+.prow .car{margin-left:auto;font-size:14px;color:var(--lilac);opacity:.5}
+.prow.lit{background:rgba(107,63,214,.2);border-color:rgba(255,79,163,.45);box-shadow:0 0 18px rgba(107,63,214,.35),inset 0 0 24px rgba(107,63,214,.15)}
+.prow.lit .bar{opacity:1;box-shadow:0 0 8px var(--c)}
+.prow.lit .tt{color:var(--c);text-shadow:0 0 10px color-mix(in srgb,var(--c) 45%,transparent)}
+.prow.lit .ico{box-shadow:0 0 10px color-mix(in srgb,var(--c) 30%,transparent)}
+.prow.lit .car{color:var(--magenta);opacity:1;text-shadow:0 0 8px rgba(255,79,163,.6)}
+
+/* ---------- paper page ---------- */
+.paper{flex:1;background:linear-gradient(180deg,#1a1340,var(--indigo));border-color:var(--hair-strong);padding:0;display:flex;flex-direction:column}
+.phead{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--hair);
+  background:rgba(21,16,46,.8)}
+.phead .word{font-size:9px}
+.pnav{margin-left:auto;display:flex;gap:14px;font-family:var(--font-arcade);font-size:7px;letter-spacing:.18em;color:var(--lilac)}
+.pnav .cur{color:var(--teal);text-shadow:var(--bloom-teal)}
+.pbody{padding:16px 18px 14px;display:flex;flex-direction:column;gap:12px;flex:1}
+.eyebrow{font-family:var(--font-arcade);font-size:8px;letter-spacing:.3em;color:var(--teal);text-shadow:var(--bloom-teal)}
+.ph1{font-family:var(--font-sans);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--mist);line-height:1.15}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.tile{background:rgba(185,166,232,.045);border:1px solid var(--hair);border-radius:8px;padding:12px 14px 10px;position:relative;overflow:hidden}
+.tile::after{content:"";position:absolute;right:-6px;bottom:-6px;width:70px;height:48px;
+  background:repeating-linear-gradient(90deg, rgba(107,63,214,.5) 0 1px, transparent 1px 8px),repeating-linear-gradient(0deg, rgba(107,63,214,.5) 0 1px, transparent 1px 8px);
+  -webkit-mask-image:linear-gradient(225deg, rgba(0,0,0,.9), transparent 70%);mask-image:linear-gradient(225deg, rgba(0,0,0,.9), transparent 70%)}
+.tile .l{font-family:var(--font-body);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac)}
+.tile .v{font-family:var(--font-display);font-size:32px;line-height:1.1;color:var(--mist);font-variant-numeric:tabular-nums;margin:4px 0 2px;text-shadow:var(--bloom-soft)}
+.tile .s{font-family:var(--font-body);font-size:10.5px;color:var(--lilac);opacity:.8}
+.cta{align-self:flex-start;margin-top:auto;font-family:var(--font-display);font-size:14px;letter-spacing:.06em;color:var(--teal);
+  padding:7px 14px;border-radius:6px;border:1px solid rgba(62,230,198,.4);background:rgba(62,230,198,.08);box-shadow:0 0 4px rgba(62,230,198,.3),0 0 12px rgba(62,230,198,.1)}
+.light{position:absolute;right:16px;bottom:14px;display:flex;align-items:center;gap:8px;font-family:var(--font-arcade);font-size:7px;letter-spacing:.18em;color:var(--lilac)}
+.light .pill{display:flex;gap:4px}
+.light .pill i{width:14px;height:14px;border-radius:3px;border:1px solid var(--hair-strong)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="band">
+    <span class="k">STYLE TILE</span>
+    <span class="t">Drifter</span>
+    <span class="s">INDIGO · VIOLET · MAGENTA · TEAL · ONE EMBER</span>
+    <span class="sprite"></span>
+  </div>
+
+  <!-- (c) + (e) the cabinet -->
+  <div class="cabinet">
+    <div class="tube">
+      <div class="floor"></div>
+      <div class="dither"></div>
+      <div class="glow"></div>
+      <div class="scan"></div>
+      <div class="vig"></div>
+      <div class="skip">[ TAP TO SKIP ]</div>
+      <div class="card">
+        <h1>MORGAN ESPITIA</h1>
+        <div class="role">SOFTWARE ENGINEER</div>
+        <div class="lines">i keep my eyes peeled<br>and I got plans to grow</div>
+      </div>
+      <div class="start">PRESS START</div>
+    </div>
+    <div class="panel">
+      <div class="dpad">
+        <span class="key blank"></span><span class="key">▲</span><span class="key blank"></span>
+        <span class="key">◄</span><span class="key well"></span><span class="key">►</span>
+        <span class="key blank"></span><span class="key">▼</span><span class="key blank"></span>
+      </div>
+      <div class="centre">
+        <svg class="mark" width="28" height="28" viewBox="0 0 100 100" fill="none" stroke="#3ee6c6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 92 L50 10 L88 92" stroke-width="11"/>
+          <path d="M30 64 q5 -9 10 0 t10 0 t10 0 t10 0" stroke-width="6"/>
+        </svg>
+        <div class="word">AMPACTOR</div>
+        <div class="est">SALT LAKE CITY · EST. 2018</div>
+        <div class="slot"><i></i></div>
+        <div class="coin">INSERT COIN</div>
+        <div class="credit">◉</div>
+      </div>
+      <div class="actions">
+        <div class="btnwrap"><div class="btn b">B</div><div class="lbl">BACK</div></div>
+        <div class="btnwrap"><div class="btn a">A</div><div class="lbl">SELECT</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- (a) palette -->
+  <div class="frame palette">
+    <div class="cap">PALETTE</div>
+    <div class="sw">
+      <div style="background:var(--void)" class="ink"><span class="n">01</span><b>#0a0716</b><i>void · the screen's black, deepest shadow</i></div>
+      <div style="background:var(--indigo)" class="ink"><span class="n">02</span><b>#15102e</b><i>indigo · the room, tube ground</i></div>
+      <div style="background:var(--dusk)" class="ink"><span class="n">03</span><b>#221a45</b><i>dusk · chassis, cards, surfaces</i></div>
+      <div style="background:var(--violet)" class="ink"><span class="n">04</span><b>#3b2b7d</b><i>violet · bezel, borders, hairlines</i></div>
+      <div style="background:var(--purple)" class="ink"><span class="n">05</span><b>#6b3fd6</b><i>purple · lit grid, active fills</i></div>
+      <div style="background:var(--lilac)" class="dark"><span class="n">06</span><b>#b9a6e8</b><i>lilac · muted text, d-pad glyphs</i></div>
+    </div>
+    <div class="sw row2">
+      <div style="background:var(--mist)" class="dark"><span class="n">07</span><b>#ece6fb</b><i>mist · primary text (never #fff)</i></div>
+      <div style="background:var(--teal)" class="dark"><span class="n">08</span><b>#3ee6c6</b><i>teal · the A-mark, signage, the machine</i></div>
+      <div style="background:var(--magenta)" class="dark"><span class="n">09</span><b>#ff4fa3</b><i>magenta · PRESS START, lit row, coin</i></div>
+      <div style="background:var(--ember)" class="dark"><span class="n">10</span><b>#ff8a5c</b><i>ember · the one warm thing: figure, slot</i></div>
+      <div style="background:var(--fault)" class="dark"><span class="n">11</span><b>#ff3b6b</b><i>fault · danger, B, game over</i></div>
+    </div>
+  </div>
+
+  <!-- (b) type -->
+  <div class="frame type">
+    <div class="cap">TYPE</div>
+    <div class="spec">
+      <div class="m">SIGNAGE · PRESS START 2P · fs(7)–fs(16) · .06–.3em · caps only</div>
+      <div class="sp-signage">INSERT COIN<br><span>PRESS START</span></div>
+    </div>
+    <div class="spec">
+      <div class="m">DISPLAY · SHARE TECH MONO · row titles, the role, tables</div>
+      <div class="sp-display">NOW SHOWING<small>SOFTWARE ENGINEER</small></div>
+    </div>
+    <div class="spec">
+      <div class="m">BODY · JETBRAINS MONO · fs(10)–fs(12) · the tube's prose, lilac on indigo</div>
+      <div class="sp-body"><b>i keep my eyes peeled</b><br>and I got plans to grow</div>
+    </div>
+    <div class="spec">
+      <div class="m">PAPER · INTER 600 / 400 · the pages' reading face</div>
+      <div class="sp-prose"><strong>Every public commit</strong>Read from git at build.</div>
+    </div>
+    <div class="spec">
+      <div class="m">LABELS · PRESS START 2P 7px · .3em · lilac, teal when current</div>
+      <div class="sp-label"><span>HIGH SCORES</span><em>SELECT PROGRAM</em><span>CREDITS</span><span>HOW TO PLAY</span></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <!-- (d) select rows -->
+    <div class="frame select">
+      <div class="cap">SELECT SCREEN</div>
+      <div class="cat">SYSTEMS</div>
+      <div class="prow" style="--c:#E0FF00">
+        <span class="bar"></span><span class="ico">☀</span>
+        <span><span class="tt">MENTL</span><span class="chip">Mentl/WASM</span><div class="sub">SELF-HOSTING COMPILER</div></span>
+        <span class="car">›</span>
+      </div>
+      <div class="prow lit" style="--c:#00E5FF">
+        <span class="bar"></span><span class="ico">♫</span>
+        <span><span class="tt">SONIDO</span><span class="chip">Rust</span><div class="sub">CROSS-PLATFORM DSP KERNEL</div></span>
+        <span class="car">›</span>
+      </div>
+      <div class="prow" style="--c:#FF6B35">
+        <span class="bar"></span><span class="ico">⚡</span>
+        <span><span class="tt">TURBOSORT</span><span class="chip">Rust</span><div class="sub">SIMD-ACCELERATED RADIX SORT</div></span>
+        <span class="car">›</span>
+      </div>
+    </div>
+
+    <!-- (f) paper page -->
+    <div class="frame paper">
+      <div class="phead">
+        <svg class="mark" width="18" height="18" viewBox="0 0 100 100" fill="none" stroke="#3ee6c6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 92 L50 10 L88 92" stroke-width="11"/><path d="M30 64 q5 -9 10 0 t10 0 t10 0 t10 0" stroke-width="6"/>
+        </svg>
+        <span class="word">AMPACTOR</span>
+        <span class="pnav"><span>ARCADE</span><span class="cur">COMMITS</span><span>CRAFT</span><span>RESUME</span><span>GITHUB</span></span>
+      </div>
+      <div class="pbody">
+        <div class="eyebrow">COMMITS</div>
+        <div class="ph1">Every public commit</div>
+        <div class="tiles">
+          <div class="tile"><div class="l">Commits</div><div class="v">1,732</div><div class="s">read from git at build</div></div>
+          <div class="tile"><div class="l">Repositories</div><div class="v">18</div><div class="s">with Claude · 412</div></div>
+        </div>
+        <div class="cta">FULL LEDGER</div>
+        <div class="light">LIGHTS ON <span class="pill"><i style="background:#f3effc"></i><i style="background:#2b1f5c"></i><i style="background:#0a8a78"></i><i style="background:#c2186e"></i></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
