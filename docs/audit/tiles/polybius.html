@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1400">
+<title>Polybius Tile</title>
+<meta name="description" content="Style tile: ampactor.dev as a black Polybius cabinet, neon vectors, bloom and trails.">
+<style>
+@font-face{font-family:"Press Start 2P";src:url(/fonts/press-start-2p-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Share Tech Mono";src:url(/fonts/share-tech-mono-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+
+:root{
+  /* POLYBIUS tokens */
+  --void:#04020a;        /* the room, true black-violet */
+  --ink:#0b0618;         /* tube ground */
+  --dusk:#160b30;        /* chassis, raised surfaces */
+  --wire:#2a1a52;        /* hairlines, bezels */
+  --fg:#f1ebff;          /* primary text, lilac white */
+  --fg-muted:#b7a6ec;    /* secondary text */
+  --fg-dim:#8b7cc4;      /* comment text, 5.0:1 on --ink */
+  --magenta:#ff2bd6;     /* machine voice: PRESS START, INSERT COIN, READY. */
+  --cyan:#00e5ff;        /* the A-mark, the name, SELECT */
+  --violet:#8c3dff;      /* depth: tunnel mid, category rules */
+  --blue:#2f6bff;        /* electric blue: trails, far rings */
+  --mint:#00ffd0;        /* lasers, OK, signal */
+  --hot:#ff2266;         /* danger, boss, B button */
+  --gold:#ffb800;        /* the coin, HIGH SCORES rank 1 */
+  --glow-magenta:0 0 6px rgba(255,43,214,.9),0 0 18px rgba(255,43,214,.55),0 0 42px rgba(255,43,214,.25);
+  --glow-cyan:0 0 6px rgba(0,229,255,.9),0 0 18px rgba(0,229,255,.55),0 0 42px rgba(0,229,255,.25);
+  --glow-violet:0 0 12px rgba(140,61,255,.6),0 0 32px rgba(140,61,255,.3);
+  --font-arcade:"Press Start 2P","Press Start 2P Fallback",monospace;
+  --font-display:"Share Tech Mono",Menlo,Consolas,monospace;
+  --font-body:"JetBrains Mono",Menlo,Consolas,monospace;
+  --font-sans:"Inter",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--void);color:var(--fg)}
+body{width:1400px;height:1000px;overflow:hidden;position:relative;font-family:var(--font-body);font-size:12px;line-height:1.5}
+
+/* room: wireframe tunnel */
+.room{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.room svg{position:absolute;right:-140px;bottom:-160px;width:1100px;height:1100px;opacity:.55}
+.room .haze{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 78% 70%,rgba(140,61,255,.18),transparent 70%),
+  radial-gradient(ellipse 40% 40% at 10% 10%,rgba(255,43,214,.10),transparent 70%),
+  radial-gradient(ellipse 50% 30% at 50% 100%,rgba(0,229,255,.08),transparent 70%)}
+.room .grid{position:absolute;left:0;right:0;bottom:0;height:260px;
+  background:linear-gradient(rgba(140,61,255,.22) 1px,transparent 1px) 0 0/100% 26px,
+             linear-gradient(90deg,rgba(0,229,255,.16) 1px,transparent 1px) 0 0/48px 100%;
+  transform:perspective(500px) rotateX(62deg);transform-origin:50% 100%;
+  -webkit-mask:linear-gradient(transparent,#000 70%);mask:linear-gradient(transparent,#000 70%)}
+
+.tile{position:relative;z-index:1;padding:28px 32px;height:100%;display:grid;grid-template-rows:54px 1fr;gap:18px}
+
+/* header */
+.head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--wire);padding-bottom:12px}
+.head h1{font-family:var(--font-arcade);font-size:18px;letter-spacing:.14em;color:var(--magenta);text-shadow:var(--glow-magenta)}
+.head h1 span{color:var(--cyan);text-shadow:var(--glow-cyan)}
+.head .sub{font-family:var(--font-display);font-size:13px;letter-spacing:.12em;color:var(--fg-muted)}
+.head .sub b{color:var(--mint);font-weight:400}
+
+.cols{display:grid;grid-template-columns:330px 560px 1fr;gap:24px;min-height:0}
+.lbl{font-family:var(--font-arcade);font-size:7px;letter-spacing:.3em;color:var(--violet);text-shadow:0 0 8px rgba(140,61,255,.6);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lbl::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--violet),transparent)}
+
+/* swatches */
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.chip{display:flex;align-items:center;gap:9px;padding:6px 8px;border:1px solid var(--wire);background:rgba(11,6,24,.75);border-radius:4px}
+.chip i{width:26px;height:26px;border-radius:3px;flex:none;box-shadow:0 0 10px var(--c),0 0 22px color-mix(in srgb,var(--c) 35%,transparent)}
+.chip i.flat{box-shadow:inset 0 0 0 1px var(--wire)}
+.chip .hx{font-family:var(--font-display);font-size:12px;color:var(--fg);letter-spacing:.04em}
+.chip .ro{font-size:9.5px;color:var(--fg-dim);letter-spacing:.02em;line-height:1.3}
+
+/* type */
+.type{margin-top:16px;display:grid;gap:9px}
+.spec{border:1px solid var(--wire);background:rgba(11,6,24,.75);border-radius:4px;padding:9px 11px;display:grid;gap:4px}
+.spec .k{font-size:9px;color:var(--fg-dim);letter-spacing:.08em;display:flex;justify-content:space-between}
+.spec .k span{color:var(--violet)}
+.t-display{font-family:var(--font-arcade);font-size:15px;line-height:1.5;color:var(--cyan);text-shadow:var(--glow-cyan);letter-spacing:.06em}
+.t-display2{font-family:var(--font-display);font-size:22px;letter-spacing:.08em;color:var(--magenta);text-shadow:var(--glow-magenta)}
+.t-label{font-family:var(--font-arcade);font-size:8px;letter-spacing:.3em;color:var(--fg-muted)}
+.t-body{font-family:var(--font-body);font-size:12px;line-height:1.75;color:var(--fg)}
+.t-paper{font-family:var(--font-sans);font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--fg)}
+
+/* cabinet */
+.cab{display:flex;flex-direction:column;background:var(--dusk);border-radius:18px;padding:12px 12px 0;
+  box-shadow:0 0 0 1px var(--wire),0 0 60px rgba(255,43,214,.14),0 0 120px rgba(0,229,255,.10),0 40px 80px rgba(0,0,0,.7);
+  background-image:linear-gradient(180deg,#1a0d3a,#0e0722 60%,#06030f)}
+.tube{position:relative;flex:1;border-radius:14px 14px 0 0;border:2px solid var(--wire);overflow:hidden;
+  background:radial-gradient(ellipse at 50% 45%,#120a2a 0%,#0b0618 55%,#04020a 100%);
+  box-shadow:inset 0 0 90px rgba(0,0,0,.75),inset 0 0 30px rgba(140,61,255,.18),0 0 34px rgba(0,229,255,.12),0 0 70px rgba(255,43,214,.10)}
+.tube .rings{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.tube .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.14) 3px 4px);pointer-events:none}
+.tube .vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(4,2,10,.75) 100%);pointer-events:none}
+.card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:0 24px 30px}
+.eyebrow{font-family:var(--font-arcade);font-size:8px;letter-spacing:.3em;color:var(--fg-muted);opacity:.85}
+.name{font-family:var(--font-arcade);font-size:34px;line-height:1.5;letter-spacing:.06em;color:var(--cyan);
+  text-shadow:-2px 0 0 rgba(255,43,214,.75),2px 0 0 rgba(47,107,255,.75),0 0 8px rgba(0,229,255,.9),0 0 26px rgba(0,229,255,.55),0 0 60px rgba(0,229,255,.3)}
+.role{font-family:var(--font-display);font-size:19px;letter-spacing:.26em;color:var(--magenta);text-shadow:var(--glow-magenta)}
+.lines{font-family:var(--font-body);font-size:13px;line-height:1.9;letter-spacing:.08em;color:var(--fg);text-shadow:0 0 10px rgba(183,166,236,.35)}
+.start{margin-top:8px;font-family:var(--font-arcade);font-size:16px;letter-spacing:.14em;color:var(--fg);
+  padding:10px 20px;border:1px solid rgba(255,43,214,.7);border-radius:4px;background:rgba(255,43,214,.10);
+  box-shadow:0 0 14px rgba(255,43,214,.55),0 0 40px rgba(255,43,214,.25),inset 0 0 18px rgba(255,43,214,.18);text-shadow:0 0 10px rgba(255,43,214,.9)}
+.trail{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5;box-shadow:0 0 8px var(--cyan)}
+
+/* panel */
+.panel{display:flex;align-items:center;justify-content:space-between;padding:14px 22px 16px;border-top:2px solid var(--wire);
+  background:linear-gradient(180deg,#140a30,#0a0520 45%,#040210);border-radius:0 0 16px 16px;
+  box-shadow:inset 0 2px 0 rgba(183,166,236,.08),inset 0 -6px 16px rgba(0,0,0,.8)}
+.dpad{display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);gap:2px}
+.key{display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:11px;color:var(--fg-muted);
+  background:linear-gradient(145deg,#231349,#150b2e 55%,#0b0618);border:1.5px solid var(--wire);
+  box-shadow:0 3px 6px rgba(0,0,0,.7),inset 0 1px 0 rgba(183,166,236,.14),0 0 8px rgba(140,61,255,.25)}
+.key.c{background:radial-gradient(circle,#06030f,#02010a);border-color:#1b1038;box-shadow:inset 0 2px 8px rgba(0,0,0,.9)}
+.mid{display:flex;flex-direction:column;align-items:center;gap:6px}
+.mark{display:flex;align-items:center;gap:10px}
+.mark svg{filter:drop-shadow(-1.5px 0 0 rgba(255,43,214,.7)) drop-shadow(1.5px 0 0 rgba(47,107,255,.7)) drop-shadow(0 0 7px rgba(0,229,255,.7))}
+.word{font-family:var(--font-arcade);font-size:11px;letter-spacing:.2em;color:var(--cyan);text-shadow:var(--glow-cyan)}
+.slot{width:64px;height:20px;border-radius:10px;border:2px solid rgba(255,184,0,.6);background:rgba(255,184,0,.08);position:relative;
+  box-shadow:inset 0 2px 8px rgba(255,184,0,.3),0 0 14px rgba(255,184,0,.35)}
+.slot::after{content:"";position:absolute;left:12px;right:12px;top:7px;height:4px;border-radius:2px;background:linear-gradient(90deg,#1a0d3a,#ffb800 40%,#ffe28a 50%,#ffb800 60%,#1a0d3a);box-shadow:0 0 10px rgba(255,184,0,.8)}
+.coin{font-family:var(--font-arcade);font-size:8px;letter-spacing:.12em;color:var(--magenta);text-shadow:var(--glow-magenta)}
+.act{display:flex;gap:16px}
+.btn{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btn b{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-arcade);font-size:11px;font-weight:400;
+  border:2.5px solid;box-shadow:0 4px 10px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.6)}
+.btn.b b{color:var(--hot);border-color:#7a1540;background:radial-gradient(circle at 38% 32%,#5a0f35,#36082a 55%,#1a0416);box-shadow:0 0 18px rgba(255,34,102,.6),0 0 6px rgba(255,34,102,.9),0 4px 10px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.6);text-shadow:0 0 8px var(--hot)}
+.btn.a b{color:var(--cyan);border-color:#1d4f8a;background:radial-gradient(circle at 38% 32%,#0f3466,#0a1f4a 55%,#050f2a);box-shadow:0 0 18px rgba(0,229,255,.6),0 0 6px rgba(0,229,255,.9),0 4px 10px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.6);text-shadow:0 0 8px var(--cyan)}
+.btn s{text-decoration:none;font-family:var(--font-arcade);font-size:6px;letter-spacing:.12em;color:var(--fg-dim)}
+
+/* select rows */
+.list{border:1px solid var(--wire);border-radius:6px;background:rgba(11,6,24,.85);padding:12px 12px 10px;display:grid;gap:4px;box-shadow:0 0 30px rgba(140,61,255,.12)}
+.hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid rgba(140,61,255,.35)}
+.hd .t{font-family:var(--font-arcade);font-size:13px;letter-spacing:.1em;color:var(--cyan);text-shadow:var(--glow-cyan)}
+.pill{font-family:var(--font-arcade);font-size:7px;letter-spacing:.06em;color:var(--magenta);border:1px solid rgba(255,43,214,.6);background:rgba(255,43,214,.08);padding:5px 7px;border-radius:3px;box-shadow:0 0 8px rgba(255,43,214,.3);margin-left:4px}
+.cat{font-family:var(--font-arcade);font-size:7px;letter-spacing:.3em;color:var(--magenta);text-shadow:0 0 8px rgba(255,43,214,.7);display:flex;align-items:center;gap:8px;margin:4px 0 2px}
+.cat::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,43,214,.6),transparent)}
+.row{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:5px;border:1px solid transparent;position:relative}
+.row .bar{width:3px;height:30px;border-radius:2px;background:var(--c);box-shadow:0 0 8px var(--c);opacity:.5}
+.row .ic{width:32px;height:32px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 25%,transparent);background:color-mix(in srgb,var(--c) 8%,transparent)}
+.row .tt{font-family:var(--font-display);font-size:15px;letter-spacing:.04em;color:var(--fg)}
+.row .st{font-size:10px;letter-spacing:.08em;color:var(--fg-muted);margin-top:2px}
+.row .lg{font-size:9px;color:var(--fg-dim);border:1px solid var(--wire);padding:1px 5px;border-radius:3px;margin-left:8px;vertical-align:middle}
+.row .car{margin-left:auto;font-size:14px;color:var(--fg-dim)}
+.row.lit{background:color-mix(in srgb,var(--c) 10%,transparent);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--c) 35%,transparent),inset 0 0 24px color-mix(in srgb,var(--c) 10%,transparent)}
+.row.lit .bar{opacity:1;box-shadow:0 0 12px var(--c),0 0 28px var(--c)}
+.row.lit .tt{color:var(--c);text-shadow:0 0 8px var(--c),0 0 20px color-mix(in srgb,var(--c) 50%,transparent)}
+.row.lit .ic{box-shadow:0 0 12px color-mix(in srgb,var(--c) 60%,transparent);border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+.row.lit .car{color:var(--c);text-shadow:0 0 8px var(--c)}
+.marq{margin-top:4px;padding-top:8px;border-top:1px solid rgba(0,229,255,.18);font-size:8px;letter-spacing:.1em;color:var(--fg-dim);white-space:nowrap;overflow:hidden}
+
+/* paper */
+.paper{margin-top:18px;border:1px solid var(--wire);border-radius:10px;background:linear-gradient(180deg,#0f0822,#0a0518);padding:18px 20px;display:grid;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.paper .eb{font-family:var(--font-arcade);font-size:8px;letter-spacing:.3em;color:var(--magenta);text-shadow:0 0 10px rgba(255,43,214,.6)}
+.paper h2{font-family:var(--font-sans);font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--fg)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{border:1px solid var(--wire);border-radius:8px;background:rgba(183,166,236,.04);padding:12px 14px;display:grid;gap:4px;position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.stat.m::before{background:var(--magenta);box-shadow:0 0 10px var(--magenta)}
+.stat .l{font-family:var(--font-body);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim)}
+.stat .v{font-family:var(--font-display);font-size:30px;line-height:1.1;color:var(--fg);font-variant-numeric:tabular-nums;text-shadow:0 0 14px rgba(0,229,255,.35)}
+.stat.m .v{text-shadow:0 0 14px rgba(255,43,214,.35)}
+.stat .s{font-size:10.5px;color:var(--fg-muted)}
+.cta{display:flex;gap:10px;align-items:center}
+.cta a{font-family:var(--font-display);font-size:14px;letter-spacing:.08em;color:var(--cyan);text-decoration:none;padding:7px 14px;border-radius:5px;border:1px solid rgba(0,229,255,.5);background:rgba(0,229,255,.08);box-shadow:0 0 12px rgba(0,229,255,.35)}
+.cta a.g{color:var(--fg-muted);border-color:var(--wire);background:transparent;box-shadow:none}
+.foot{position:absolute;left:32px;right:32px;bottom:14px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.1em;color:var(--fg-dim)}
+</style>
+</head>
+<body>
+<div class="room">
+  <div class="haze"></div>
+  <svg viewBox="-500 -500 1000 1000" fill="none" stroke-linejoin="round">
+    <g transform="rotate(8)">
+      <polygon points="0,-480 456,-148 282,388 -282,388 -456,-148" stroke="#1a0d3a" stroke-width="1"/>
+      <polygon points="0,-400 380,-124 235,323 -235,323 -380,-124" stroke="#2a1a52" stroke-width="1"/>
+      <polygon points="0,-330 314,-102 194,267 -194,267 -314,-102" stroke="#3b22a0" stroke-width="1.2"/>
+      <polygon points="0,-270 257,-83 159,218 -159,218 -257,-83" stroke="#5a2fd0" stroke-width="1.4"/>
+      <polygon points="0,-218 207,-67 128,176 -128,176 -207,-67" stroke="#8c3dff" stroke-width="1.6"/>
+      <polygon points="0,-172 164,-53 101,139 -101,139 -164,-53" stroke="#2f6bff" stroke-width="1.8"/>
+      <polygon points="0,-132 126,-41 78,107 -78,107 -126,-41" stroke="#44aaff" stroke-width="2"/>
+      <polygon points="0,-98 93,-30 58,79 -58,79 -93,-30" stroke="#00e5ff" stroke-width="2.2"/>
+      <polygon points="0,-68 65,-21 40,55 -40,55 -65,-21" stroke="#00ffd0" stroke-width="2.4"/>
+      <polygon points="0,-42 40,-13 25,34 -25,34 -40,-13" stroke="#ff2bd6" stroke-width="2.6"/>
+      <g stroke="#00e5ff" stroke-width=".6" opacity=".5"><line x1="0" y1="0" x2="0" y2="-480"/><line x1="0" y1="0" x2="456" y2="-148"/><line x1="0" y1="0" x2="282" y2="388"/><line x1="0" y1="0" x2="-282" y2="388"/><line x1="0" y1="0" x2="-456" y2="-148"/></g>
+    </g>
+  </svg>
+  <div class="grid"></div>
+</div>
+
+<div class="tile">
+  <div class="head">
+    <h1>POLYBIUS <span>· AMPACTOR</span></h1>
+    <div class="sub">BLACK CABINET · NEON VECTORS · BLOOM AND TRAILS · <b>SPEED</b></div>
+  </div>
+
+  <div class="cols">
+    <!-- (a) palette, (b) type -->
+    <div>
+      <div class="lbl">PALETTE</div>
+      <div class="sw">
+        <div class="chip" style="--c:#04020a"><i class="flat" style="background:#04020a"></i><div><div class="hx">#04020A</div><div class="ro">void · the room</div></div></div>
+        <div class="chip" style="--c:#0b0618"><i class="flat" style="background:#0b0618"></i><div><div class="hx">#0B0618</div><div class="ro">ink · tube ground</div></div></div>
+        <div class="chip" style="--c:#160b30"><i class="flat" style="background:#160b30"></i><div><div class="hx">#160B30</div><div class="ro">dusk · chassis, cards</div></div></div>
+        <div class="chip" style="--c:#2a1a52"><i class="flat" style="background:#2a1a52"></i><div><div class="hx">#2A1A52</div><div class="ro">wire · hairlines, bezels</div></div></div>
+        <div class="chip" style="--c:#ff2bd6"><i style="background:#ff2bd6"></i><div><div class="hx">#FF2BD6</div><div class="ro">magenta · the machine's voice</div></div></div>
+        <div class="chip" style="--c:#00e5ff"><i style="background:#00e5ff"></i><div><div class="hx">#00E5FF</div><div class="ro">cyan · the mark, the name</div></div></div>
+        <div class="chip" style="--c:#8c3dff"><i style="background:#8c3dff"></i><div><div class="hx">#8C3DFF</div><div class="ro">violet · depth, rules</div></div></div>
+        <div class="chip" style="--c:#2f6bff"><i style="background:#2f6bff"></i><div><div class="hx">#2F6BFF</div><div class="ro">electric blue · trails</div></div></div>
+        <div class="chip" style="--c:#00ffd0"><i style="background:#00ffd0"></i><div><div class="hx">#00FFD0</div><div class="ro">mint · lasers, OK</div></div></div>
+        <div class="chip" style="--c:#ff2266"><i style="background:#ff2266"></i><div><div class="hx">#FF2266</div><div class="ro">hot · danger, boss, B</div></div></div>
+        <div class="chip" style="--c:#ffb800"><i style="background:#ffb800"></i><div><div class="hx">#FFB800</div><div class="ro">gold · the coin, rank 1</div></div></div>
+        <div class="chip" style="--c:#f1ebff"><i style="background:#f1ebff"></i><div><div class="hx">#F1EBFF</div><div class="ro">text · lilac white</div></div></div>
+        <div class="chip" style="--c:#b7a6ec"><i style="background:#b7a6ec"></i><div><div class="hx">#B7A6EC</div><div class="ro">muted · 9.6:1 on ink</div></div></div>
+        <div class="chip" style="--c:#8b7cc4"><i style="background:#8b7cc4"></i><div><div class="hx">#8B7CC4</div><div class="ro">dim · 5.0:1 on ink</div></div></div>
+      </div>
+
+      <div class="type">
+        <div class="lbl" style="margin:16px 0 0">TYPE</div>
+        <div class="spec"><div class="k">DISPLAY · SIGNAGE <span>Press Start 2P</span></div><div class="t-display">HIGH SCORES</div></div>
+        <div class="spec"><div class="k">DISPLAY · READOUT <span>Share Tech Mono</span></div><div class="t-display2">NOW SHOWING</div></div>
+        <div class="spec"><div class="k">LABEL <span>Press Start 2P · 0.3em</span></div><div class="t-label">CREDITS · SELECT PROGRAM</div></div>
+        <div class="spec"><div class="k">BODY · TUBE <span>JetBrains Mono</span></div><div class="t-body">i keep my eyes peeled<br>and I got plans to grow</div></div>
+        <div class="spec"><div class="k">BODY · PAPER <span>Inter 600</span></div><div class="t-paper">Every public commit</div></div>
+      </div>
+    </div>
+
+    <!-- (c) tube + (e) panel -->
+    <div class="cab">
+      <div class="tube">
+        <svg class="rings" viewBox="-280 -260 560 520" fill="none" preserveAspectRatio="xMidYMid slice">
+          <g transform="translate(0,20) rotate(-6)" opacity=".55">
+            <polygon points="0,-330 314,-102 194,267 -194,267 -314,-102" stroke="#2a1a52" stroke-width="1"/>
+            <polygon points="0,-270 257,-83 159,218 -159,218 -257,-83" stroke="#3b22a0" stroke-width="1"/>
+            <polygon points="0,-218 207,-67 128,176 -128,176 -207,-67" stroke="#5a2fd0" stroke-width="1.1"/>
+            <polygon points="0,-172 164,-53 101,139 -101,139 -164,-53" stroke="#8c3dff" stroke-width="1.2"/>
+            <polygon points="0,-132 126,-41 78,107 -78,107 -126,-41" stroke="#2f6bff" stroke-width="1.3"/>
+            <polygon points="0,-98 93,-30 58,79 -58,79 -93,-30" stroke="#44aaff" stroke-width="1.4"/>
+            <polygon points="0,-68 65,-21 40,55 -40,55 -65,-21" stroke="#00e5ff" stroke-width="1.5"/>
+            <polygon points="0,-42 40,-13 25,34 -25,34 -40,-13" stroke="#00ffd0" stroke-width="1.6"/>
+          </g>
+        </svg>
+        <div class="trail" style="top:18%"></div>
+        <div class="trail" style="top:82%;background:linear-gradient(90deg,transparent,var(--magenta),transparent);box-shadow:0 0 8px var(--magenta)"></div>
+        <div class="card">
+          <div class="name">MORGAN<br>ESPITIA</div>
+          <div class="role">SOFTWARE ENGINEER</div>
+          <div class="lines">i keep my eyes peeled<br>and I got plans to grow</div>
+          <div class="start">PRESS START</div>
+        </div>
+        <div class="scan"></div>
+        <div class="vig"></div>
+      </div>
+      <div class="panel">
+        <div class="dpad">
+          <span class="key" style="visibility:hidden"></span><span class="key">▲</span><span class="key" style="visibility:hidden"></span>
+          <span class="key">◄</span><span class="key c"></span><span class="key">►</span>
+          <span class="key" style="visibility:hidden"></span><span class="key">▼</span><span class="key" style="visibility:hidden"></span>
+        </div>
+        <div class="mid">
+          <div class="mark">
+            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" stroke="#00e5ff" stroke-linecap="round">
+              <line x1="50" y1="12" x2="16" y2="88" stroke-width="9"/><line x1="50" y1="12" x2="84" y2="88" stroke-width="9"/>
+              <path d="M30 64 q5 -8 10 0 t10 0 t10 0 t10 0" stroke-width="5"/>
+            </svg>
+            <span class="word">AMPACTOR</span>
+          </div>
+          <div class="slot"></div>
+          <div class="coin">INSERT COIN</div>
+        </div>
+        <div class="act">
+          <div class="btn b"><b>B</b><s>BACK</s></div>
+          <div class="btn a"><b>A</b><s>SELECT</s></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- (d) select list, (f) paper -->
+    <div>
+      <div class="lbl">SELECT SCREEN</div>
+      <div class="list">
+        <div class="hd"><div class="t">SELECT PROGRAM</div><div><span class="pill">RESUME</span><span class="pill">GITHUB</span><span class="pill">LINKEDIN</span></div></div>
+        <div class="cat">SYSTEMS</div>
+        <div class="row" style="--c:#E0FF00"><span class="bar"></span><span class="ic">☀</span><div><div class="tt">MENTL<span class="lg">Mentl/WASM</span></div><div class="st">SELF-HOSTING COMPILER</div></div><span class="car">›</span></div>
+        <div class="row lit" style="--c:#00E5FF"><span class="bar"></span><span class="ic">♫</span><div><div class="tt">SONIDO<span class="lg">Rust</span></div><div class="st">CROSS-PLATFORM DSP KERNEL</div></div><span class="car">›</span></div>
+        <div class="row" style="--c:#00ff9c"><span class="bar"></span><span class="ic">∴</span><div><div class="tt">CLOB<span class="lg">Rust</span></div><div class="st">TERNARY INTELLIGENCE KERNEL</div></div><span class="car">›</span></div>
+        <div class="marq">STOOP: A PRESS FOR A PERIODICAL · CELEZDIAL SELEKTA: ZODIAC-MAPPED SYNTHESIZER · TUNNEL_RUN: VECTOR SHOOTER · MENTL: SELF-HOSTING COMPILER</div>
+      </div>
+
+      <div class="lbl" style="margin-top:18px">THE PAPER · /receipts/</div>
+      <div class="paper" style="margin-top:0">
+        <div class="eb">COMMITS</div>
+        <h2>Every public commit</h2>
+        <div class="tiles">
+          <div class="stat"><div class="l">Commits</div><div class="v">1,024</div><div class="s">sample value</div></div>
+          <div class="stat m"><div class="l">Repositories</div><div class="v">18</div><div class="s">sample value</div></div>
+        </div>
+        <div class="cta"><a href="#">▸ FULL LEDGER</a><a class="g" href="#">› GITHUB</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="foot"><span>STYLE TILE · POLYBIUS · 1400×1000</span><span>FONTS: PRESS START 2P · SHARE TECH MONO · JETBRAINS MONO · INTER (ALL SELF-HOSTED, OFL)</span></div>
+</body>
+</html>
