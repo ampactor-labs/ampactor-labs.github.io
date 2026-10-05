@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from "react";
+import { QUOTES } from "../data/quotes";
 import useTunnelGameAudio from "./useTunnelGameAudio";
 import {
   LB_MAX,
@@ -351,6 +352,8 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
         ctx.fillStyle = "rgba(143,160,179,0.5)";
         ctx.fillText("ESC / B TO END", cx, cy + (mobile ? 34 : 48));
+        ctx.fillStyle = "rgba(143,160,179,0.35)";
+        ctx.fillText(QUOTES.paused, cx, cy + (mobile ? 56 : 78));
         return;
       }
 
@@ -1451,6 +1454,11 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
       <div style={{ color: "#778899", fontSize: mobile ? 8 : 10 }}>
         {global ? "GLOBAL RANK" : "RANK"} #{rank}
       </div>
+      {global && (
+        <div style={{ color: "#ff2266", fontSize: mobile ? 8 : 10, letterSpacing: "0.08em" }}>
+          {QUOTES.challenger}
+        </div>
+      )}
 
       <div style={{ display: "flex", gap: mobile ? 12 : 18, marginTop: 4 }}>
         {chars.map((ci, i) => (
@@ -1585,6 +1593,10 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
       ctx.shadowBlur = 18;
       ctx.shadowColor = "rgba(255,34,102,0.8)";
       ctx.fillText("SIGNAL ANOMALY DETECTED", cx, cy - (mobile ? 60 : 90));
+      ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
+      ctx.fillStyle = "rgba(255,34,102,0.7)";
+      ctx.shadowBlur = 0;
+      ctx.fillText(QUOTES.boss, cx, cy - (mobile ? 42 : 64));
       ctx.restore();
     }
     return;
@@ -1669,6 +1681,12 @@ function drawGameOver(ctx, gs, w, h, mobile) {
 
   const top = mobile ? 18 : 30;
   const goY = top + (mobile ? 16 : 26);
+
+  // The crash line, then GAME OVER.
+  ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
+  ctx.fillStyle = "rgba(143,160,179,0.7)";
+  ctx.shadowBlur = 0;
+  ctx.fillText(QUOTES.gameOver, cx, goY - (mobile ? 22 : 34));
 
   // GAME OVER
   ctx.font = `${mobile ? 20 : 34}px 'Press Start 2P', monospace`;

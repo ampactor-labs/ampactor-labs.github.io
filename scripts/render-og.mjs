@@ -4,11 +4,11 @@
 //   npx vite build && npx vite preview --port 4173 &   # serve the build
 //   node scripts/render-og.mjs                         # writes public/og-home.png
 //
-// The card is the machine as a returning visitor sees it, standing in the
-// dark with the name up. Re-run it when the title card changes; the PNG is
+// The card is the machine as a first visitor sees it once the boot has run,
+// standing in the dark with the name up. Re-run it when the title card changes; the PNG is
 // committed because the deploy has no browser.
 
-/* global localStorage, document */
+/* global document */
 // (the two callbacks below run inside the page, not in Node)
 
 import { chromium } from "@playwright/test";
@@ -29,7 +29,8 @@ const page = await browser.newPage({
   reducedMotion: "reduce",
   ignoreHTTPSErrors: true,
 });
-await page.addInitScript(() => localStorage.setItem("ampactor_visited", "1"));
+// A first visit, so the card asks the question a stranger sees; under reduced
+// motion the boot still prints, so the title card is up within a few seconds.
 await page.goto(url);
 await page.waitForSelector('[data-testid="attract-screen"][data-frame="title"]', {
   timeout: 20_000,

@@ -26,6 +26,8 @@ test("the title card is accessible, and says who", async ({
   await expect(titleCard(page)).toBeVisible();
   await expect(page.getByRole("heading", NAME)).toBeVisible();
   await expect(titleCard(page).getByText("SOFTWARE ENGINEER")).toBeVisible();
+  // It has been here before (landOnTitleCard sets the flag).
+  await expect(titleCard(page).getByText("KEPT YOU WAITING, HUH?")).toBeVisible();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator("html")).toHaveAttribute("data-stage", "");
   const results = await new AxeBuilder({ page }).analyze();
@@ -43,8 +45,8 @@ test.describe("on a short phone", () => {
   test("the title card fits above PRESS START", async ({ page }) => {
     await landOnTitleCard(page);
     const start = await page.getByRole("button", START).boundingBox();
-    const role = await titleCard(page).getByText("SOFTWARE ENGINEER").boundingBox();
-    expect(role && start && role.y + role.height <= start.y).toBe(true);
+    const last = await titleCard(page).getByText("KEPT YOU WAITING, HUH?").boundingBox();
+    expect(last && start && last.y + last.height <= start.y).toBe(true);
   });
 });
 
@@ -210,6 +212,8 @@ test.describe("the first visit", () => {
     await expect(page).toHaveURL(HOME_URL);
     expect(await page.evaluate(() => history.length)).toBe(entries);
     expect(await visited(page)).toBe("1");
+    // A first visitor is asked, not greeted back.
+    await expect(page.getByText("SHALL WE PLAY A GAME?")).toBeVisible();
 
     // It has booted once: START now cuts straight to the list.
     await page.getByRole("button", START).click();

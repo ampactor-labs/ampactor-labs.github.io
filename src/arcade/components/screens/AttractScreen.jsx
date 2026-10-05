@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
-import { CONTACT, WORDS } from "../../../data/profile";
+import { CONTACT } from "../../../data/profile";
+import { QUOTES } from "../../../data/quotes";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
 
 // The loop a real machine runs when nobody is playing, and this site's front
-// door: the title card, a few cartridges, the high score table, then round
-// again. Any input starts the machine; the d-pad steps the loop. It captures
+// door: the title card, a few cartridges, the high score table, the splash
+// every cabinet of the period ran, then round again. Any input starts the machine; the d-pad steps the loop. It captures
 // no keys itself; the cabinet's state machine does, so the loop and the panel
 // cannot disagree.
 
 const TITLE_MS = 6000;
 const CARTRIDGE_MS = 2600;
 const SCORES_MS = 6000;
+const WINNERS_MS = 2500;
 // How many cartridges one pass of the loop shows; the next pass shows the
 // next few, so every cartridge gets its turn on the marquee.
 export const FEATURED = 4;
 
-export const FRAMES = ["title", "show", "show", "show", "show", "scores"];
+export const FRAMES = ["title", "show", "show", "show", "show", "scores", "winners"];
 
 export function frameDuration(frame) {
   const kind = FRAMES[frame];
   if (kind === "title") return TITLE_MS;
   if (kind === "scores") return SCORES_MS;
+  if (kind === "winners") return WINNERS_MS;
   return CARTRIDGE_MS;
 }
 
@@ -36,7 +39,7 @@ const label = (fs, color = "rgba(0,229,255,0.45)") => ({
   letterSpacing: "0.3em",
 });
 
-function TitleCard({ fs, hidden, nameSize }) {
+function TitleCard({ fs, hidden, nameSize, returning }) {
   // The identity stays in the document on every frame, so the page always
   // has its heading; it is only shown on the title card, and it glitches in
   // each time the card comes up, like the other frames.
@@ -80,19 +83,18 @@ function TitleCard({ fs, hidden, nameSize }) {
       >
         {CONTACT.role}
       </div>
-      {/* The operator's own lines, as written. */}
+      {/* The machine speaks: a question for a first visitor, a nod to one
+          who has been here before (quotes.js). */}
       <div
         style={{
           marginTop: 10,
           fontSize: fs(11),
           color: "var(--fg)",
-          letterSpacing: "0.08em",
+          letterSpacing: "0.12em",
           lineHeight: 1.9,
         }}
       >
-        {WORDS.title.map((line) => (
-          <div key={line}>{line}</div>
-        ))}
+        {returning ? QUOTES.titleReturn : QUOTES.titleFirst}
       </div>
     </div>
   );
@@ -138,6 +140,41 @@ function NowShowing({ cartridge, fs }) {
       </div>
       <div style={{ fontSize: fs(12), color: "var(--fg)", letterSpacing: "0.12em" }}>
         {cartridge.tagline || cartridge.subtitle}
+      </div>
+    </div>
+  );
+}
+
+// The splash that ran between every game's attract frames for a decade,
+// set the way the machine sets everything else.
+function Winners({ fs }) {
+  return (
+    <div
+      className="glitch-enter"
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 14,
+        padding: "0 16px",
+        textAlign: "center",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: fs(14),
+          lineHeight: 1.7,
+          color: "var(--fg)",
+          letterSpacing: "0.1em",
+        }}
+      >
+        {QUOTES.winners}
+      </div>
+      <div style={{ ...label(fs, "var(--color-muted)"), letterSpacing: "0.2em" }}>
+        {QUOTES.winnersBy}
       </div>
     </div>
   );
@@ -205,6 +242,9 @@ export default function AttractScreen({
   nudge = { n: 0, dir: 1 },
   reducedMotion = false,
   screenWidth = 360,
+  // Whether this browser has seen the machine before (decided at mount, so a
+  // first visit keeps its line after the boot marks the visit).
+  returning = false,
 }) {
   // The name fills the tube the way a title does: one line on a desktop tube,
   // two on a phone, never smaller than the rest of the card.
@@ -280,9 +320,15 @@ export default function AttractScreen({
         style={{ flex: 1, minHeight: 0, position: "relative", cursor: "pointer" }}
         onClick={() => onStart?.()}
       >
-        <TitleCard fs={fs} hidden={kind !== "title"} nameSize={nameSize} />
+        <TitleCard
+          fs={fs}
+          hidden={kind !== "title"}
+          nameSize={nameSize}
+          returning={returning}
+        />
         {cartridge && <NowShowing cartridge={cartridge} fs={fs} />}
         {kind === "scores" && <HighScores fs={fs} />}
+        {kind === "winners" && <Winners fs={fs} />}
       </div>
       <div
         style={{

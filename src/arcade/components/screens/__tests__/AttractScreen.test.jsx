@@ -8,7 +8,7 @@ import AttractScreen, {
   topScores,
 } from "../AttractScreen";
 import { PROJECTS } from "../../../../data/projects";
-import { WORDS } from "../../../../data/profile";
+import { QUOTES } from "../../../../data/quotes";
 import { summary } from "../../../../data/receiptsSummary";
 
 const fs = (n) => n;
@@ -28,13 +28,19 @@ describe("AttractScreen", () => {
       screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeVisible();
     expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
-    for (const line of WORDS.title) expect(screen.getByText(line)).toBeInTheDocument();
+    expect(screen.getByText(QUOTES.titleFirst)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
     // Nothing else on the card: the sticker on the select screen has the rest.
     expect(screen.queryAllByRole("link")).toHaveLength(0);
   });
 
-  it("cycles title → four cartridges → high scores → round again", () => {
+  it("greets a returning visitor differently", () => {
+    render(<AttractScreen projects={PROJECTS} fs={fs} returning />);
+    expect(screen.getByText(QUOTES.titleReturn)).toBeInTheDocument();
+    expect(screen.queryByText(QUOTES.titleFirst)).toBeNull();
+  });
+
+  it("cycles title → four cartridges → high scores → the splash → round again", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     const el = screen.getByTestId("attract-screen");
     let frame = 0;
@@ -50,6 +56,9 @@ describe("AttractScreen", () => {
     advance();
     expect(el.dataset.frame).toBe("scores");
     expect(screen.getByText(topScores(1)[0].repo, { exact: false })).toBeInTheDocument();
+    advance();
+    expect(el.dataset.frame).toBe("winners");
+    expect(screen.getByText(QUOTES.winners)).toBeInTheDocument();
     advance();
     expect(el.dataset.frame).toBe("title");
     // The heading is in the document on every frame, shown only on the title.

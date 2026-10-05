@@ -7,6 +7,7 @@ import styles from "./styles/stage.module.css";
 import { BOOT_LINES } from "./constants";
 import { PROJECTS } from "../data/projects";
 import { hasVisited } from "./visited";
+import { QUOTES } from "../data/quotes";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
 import DetailScreen from "./components/screens/DetailScreen";
@@ -73,6 +74,9 @@ export default function ArcadeStage({
   const [darkStart] = useState(
     () => !(hasVisited() || (route.view === "arcade" && route.screen === "project")),
   );
+  // Read once: the boot marks the visit, and the title card after a first
+  // boot must still greet a first visitor.
+  const [returning] = useState(() => hasVisited());
 
   const {
     screen,
@@ -195,7 +199,7 @@ export default function ArcadeStage({
             <div className="coin-announce tier-3">
               CREDIT ACCEPTED
               <br />
-              <span>3 PROGRAMS UNLOCKED</span>
+              <span>{QUOTES.coin}</span>
             </div>
           )}
           {/* Project color bleed */}
@@ -255,6 +259,7 @@ export default function ArcadeStage({
                   nudge={attractNudge}
                   reducedMotion={reducedMotion}
                   screenWidth={dims.w}
+                  returning={returning}
                 />
               )}
               {screen === "boot" && (

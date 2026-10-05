@@ -372,6 +372,30 @@ describe("useCabinetState", () => {
     });
   });
 
+  describe("the Konami code", () => {
+    it("drops the coin from the list", () => {
+      localStorage.setItem("ampactor_visited", "1");
+      const { result } = renderCabinet({ initialRoute: SELECT });
+      expect(result.current.screen).toBe("select");
+      expect(result.current.coinCount).toBe(0);
+      const keys = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+      act(() => {
+        for (const key of keys) window.dispatchEvent(new KeyboardEvent("keydown", { key }));
+      });
+      expect(result.current.coinCount).toBe(3);
+    });
+
+    it("ignores a near miss", () => {
+      localStorage.setItem("ampactor_visited", "1");
+      const { result } = renderCabinet({ initialRoute: SELECT });
+      const keys = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "a", "b"];
+      act(() => {
+        for (const key of keys) window.dispatchEvent(new KeyboardEvent("keydown", { key }));
+      });
+      expect(result.current.coinCount).toBe(0);
+    });
+  });
+
   describe("detail screen controls", () => {
     const BOTH = PROJECTS.findIndex((p) => p.live && p.github);
     const SOURCE_ONLY = PROJECTS.findIndex((p) => p.github && !p.live);

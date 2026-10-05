@@ -64,6 +64,7 @@
     .said b { color: #efe4cc; font-weight: 500; }
     .said .cursor { display: inline-block; width: 0.6em; height: 1em; margin-left: 2px; vertical-align: -2px; background: #d8a657; animation: blink 1.1s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
+    .quote { margin: 18px 0 0; font: 9px/1.9 "Press Start 2P", monospace; letter-spacing: 0.1em; color: #a89984; }
     .continue { margin: 30px 0 12px; font: 11px/1 "Press Start 2P", monospace; letter-spacing: 0.2em; color: #d8a657; }
     ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-family: "JetBrains Mono", monospace; font-size: 15px; }
     li a {
@@ -86,6 +87,8 @@
       <p class="code">ERROR 404</p>
       <h1>CARTRIDGE NOT FOUND</h1>
       <p class="said">Nothing is loaded at <b id="path">this address</b><span class="cursor" aria-hidden="true"></span></p>
+      <!-- Super Mario Bros. (1985), Toad. The other borrowed lines are in src/data/quotes.js. -->
+      <p class="quote">THANK YOU MARIO! BUT OUR PRINCESS IS IN ANOTHER CASTLE!</p>
       <p class="continue" id="continue">CONTINUE?</p>
       <ul aria-labelledby="continue">
         <li><a href="/">The cabinet <small>press start</small></a></li>
