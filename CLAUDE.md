@@ -45,9 +45,12 @@ unlocks the hidden programs; the site's copy never points at it.
 ## The words
 
 Morgan writes the words. Claude cuts, moves and labels; Claude does not write
-a sentence about Morgan, and does not touch a line of Morgan's. The lines the
-cabinet speaks for its operator live in `WORDS` (`src/data/profile.js`); an
-empty slot stays empty until Morgan fills it. Morgan's rules, as written:
+a sentence about Morgan unasked, and does not touch a line of Morgan's. When
+Morgan asks for a line, Claude drafts it in Morgan's voice (the samples are
+in `docs/DESIGN-SYSTEM.md`), short, playful and true, and says which lines it
+wrote. The lines the cabinet speaks for its operator live in `WORDS`
+(`src/data/profile.js`); an empty slot stays empty until Morgan fills it.
+Morgan's rules, as written:
 
 > say it PLAINLY - what am I really doing? what do I really want?
 >
