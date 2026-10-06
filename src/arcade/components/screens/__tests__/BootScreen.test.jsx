@@ -97,6 +97,27 @@ describe("BootScreen", () => {
     expect(getByText("PRESS ANY KEY")).toBeTruthy();
   });
 
+  it("sets each BIOS status line as a checklist row: name, verb and a lit OK", () => {
+    const { container, getByText, getAllByText } = render(
+      <BootScreen
+        lines={BOOT_LINES}
+        currentLine={BOOT_LINES.length - 1}
+        bootPhase={1}
+        fs={fs}
+        onSkip={onSkip}
+      />,
+    );
+    expect(getByText("mentl")).toBeTruthy();
+    expect(getByText("compiling")).toBeTruthy();
+    const statusLines = BOOT_LINES.filter((line) => / \.{2,} .+ \.{2,} OK$/.test(line));
+    const oks = getAllByText("OK");
+    expect(oks).toHaveLength(statusLines.length);
+    expect(oks.every((cell) => cell.className === "ok-cell")).toBe(true);
+    // The dot leaders and the block cursor are gone; the words are not.
+    expect(container.textContent).not.toContain("..");
+    expect(container.textContent).not.toContain("\u2588");
+  });
+
   it("ends the real BIOS on the operator's sign-off, lit, then READY.", () => {
     const { getByText } = render(
       <BootScreen

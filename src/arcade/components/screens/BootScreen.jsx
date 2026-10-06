@@ -2,6 +2,9 @@ import TestPattern from "../TestPattern";
 import { WORDS } from "../../../data/profile";
 import { PALETTE } from "../../palette";
 
+// A BIOS status line: a name, dots, a verb, dots, OK.
+const STATUS = /^(.+?) \.{2,} (.+?) \.{2,} (OK)$/;
+
 export default function BootScreen({
   lines,
   currentLine,
@@ -14,7 +17,6 @@ export default function BootScreen({
   // dark (the cold open, a hard load of /arcade/) blooms onto an empty tube.
   introComplete = true,
 }) {
-  const bootColumnWidth = `${Math.max(1, ...lines.map((line) => line.length))}ch`;
 
   if (bootPhase === 0) {
     return <TestPattern fs={fs} onSkip={onSkip} animate={introComplete} />;
@@ -46,59 +48,60 @@ export default function BootScreen({
       >
         {/* [ SKIP ] */}
       </div>
+      {/* Every line is laid out from the start and the ones still to come
+          are hidden, so the column has its final height at once: it prints
+          top to bottom instead of re-centring each time a line lands. A
+          status line ("name ..... verb ..... OK") is a lit checklist row:
+          name, verb and a mint OK cell; every other line spans the row. The
+          last line is the prompt (READY.), set in the display face. */}
       <div
+        className="bios"
         style={{
-          fontSize: Math.min(fs(14), screenWidth / 28),
+          fontSize: Math.min(fs(14), screenWidth / 24),
           lineHeight: 2,
           maxWidth: "100%",
-          textAlign: "left",
           whiteSpace: "nowrap",
-          width: bootColumnWidth,
         }}
       >
-        {/* Every line is laid out from the start and the ones still to come
-            are hidden, so the column has its final height at once: it prints
-            top to bottom like a terminal instead of re-centring (and moving
-            every printed line) each time one is added. */}
-        {/* The last line is the prompt (READY.), set in the display face. */}
-        {lines.map((line, i) => (
-          <div
-            key={i}
-            style={{
-              visibility: i > currentLine ? "hidden" : undefined,
-              color:
-                i === 0
-                  ? PALETTE.mark
-                  : line === "ALL SYSTEMS NOMINAL" || line === WORDS.boot
+        {lines.flatMap((line, i) => {
+          const hidden = i > currentLine ? "hidden" : undefined;
+          const row = STATUS.exec(line);
+          if (row)
+            return [
+              <span key={`${i}n`} style={{ visibility: hidden, color: "var(--cab-text)" }}>
+                {row[1]}
+              </span>,
+              <span key={`${i}v`} style={{ visibility: hidden, color: "var(--cab-muted)" }}>
+                {row[2]}
+              </span>,
+              <span key={`${i}k`} className="ok-cell" style={{ visibility: hidden }}>
+                {row[3]}
+              </span>,
+            ];
+          const last = i === lines.length - 1;
+          return (
+            <div
+              key={i}
+              className="wide"
+              style={{
+                visibility: hidden,
+                color:
+                  i === 0 || line === "ALL SYSTEMS NOMINAL" || line === WORDS.boot || line.startsWith("OPERATOR:")
                     ? PALETTE.mark
-                    : i === lines.length - 1
+                    : last || line.startsWith("STATUS:")
                       ? "var(--cab-voice)"
-                      : line.startsWith("OPERATOR:")
-                        ? PALETTE.mark
-                        : line.startsWith("FOCUS:")
-                          ? "var(--cab-ok)"
-                          : line.startsWith("STATUS:")
-                            ? "var(--cab-voice)"
-                            : line.includes("OK")
-                              ? "var(--cab-ok)"
-                              : "var(--cab-muted)",
-              fontFamily:
-                i === lines.length - 1
-                  ? "'Press Start 2P', monospace"
-                  : undefined,
-              fontSize: i === lines.length - 1 ? fs(12) : undefined,
-              marginTop: i === lines.length - 1 ? 8 : undefined,
-            }}
-          >
-            {line}
-            {i === currentLine && line !== "" && (
-              <span className="blink-cursor" style={{ color: PALETTE.mark }}>
-                {" "}
-                {"\u2588"}
-              </span>
-            )}
-          </div>
-        ))}
+                      : line.startsWith("FOCUS:") || line.includes("OK")
+                        ? "var(--cab-ok)"
+                        : "var(--cab-muted)",
+                fontFamily: last ? "'Press Start 2P', monospace" : undefined,
+                fontSize: last ? fs(12) : undefined,
+                marginTop: last ? 8 : undefined,
+              }}
+            >
+              {line}
+            </div>
+          );
+        })}
       </div>
       {currentLine >= 6 && (
         <div

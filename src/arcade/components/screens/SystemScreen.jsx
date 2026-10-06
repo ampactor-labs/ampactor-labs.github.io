@@ -6,28 +6,11 @@ import { WORDS } from "../../../data/profile";
 import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
 import { PALETTE, alpha } from "../../palette";
+import Sign from "../Sign";
 
 // The operator's programs: HOW TO PLAY, HIGH SCORES and CREDITS. Same frame
 // as a cartridge (back, title, the link rail the A button walks, a scrolling
 // body the d-pad pans), different bodies.
-
-function Label({ text, color, fs }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-      <span
-        style={{
-          fontFamily: "'Press Start 2P', monospace",
-          fontSize: fs(7),
-          color: `${color}88`,
-          letterSpacing: "0.2em",
-        }}
-      >
-        {text}
-      </span>
-      <div style={{ flex: 1, height: 1, background: `${color}22` }} />
-    </div>
-  );
-}
 
 // What the panel does, which is what HOW TO PLAY means on a cabinet.
 const CONTROLS = [
@@ -53,7 +36,7 @@ function HowToPlay({ color, fs }) {
       >
         {QUOTES.howto}
       </p>
-      <Label text="CONTROLS" color={color} fs={fs} />
+      <Sign text="CONTROLS" fs={fs} />
       <table
         style={{
           borderCollapse: "collapse",
@@ -114,7 +97,7 @@ function HighScores({ color, fs }) {
         {since && <span>SINCE {since.toUpperCase()}</span>}
         <span>READ FROM GIT AT BUILD</span>
       </div>
-      <Label text="TOP TEN" color={color} fs={fs} />
+      <Sign text="TOP TEN" fs={fs} />
       <table
         style={{
           width: "100%",
@@ -147,7 +130,7 @@ function HighScores({ color, fs }) {
         </tbody>
       </table>
       <div style={{ marginTop: 20 }}>
-        <Label text="LAST TWELVE MONTHS" color={color} fs={fs} />
+        <Sign text="LAST TWELVE MONTHS" fs={fs} />
         <div
           role="img"
           aria-label={`Commits per month: ${months.map((m) => `${monthLabel(m.month, "short")} ${m.commits}`).join(", ")}`}
@@ -368,7 +351,7 @@ export default function SystemScreen({
           </div>
         </div>
         {rail.length > 0 && (
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: "auto", flexShrink: 0, flexWrap: "wrap" }}>
+          <div className="readout-rail" style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: "auto", flexShrink: 0, flexWrap: "wrap" }}>
             {rail.map((link, i) => {
               const primary = link.kind === "live";
               const focused = i === focusedLink;
