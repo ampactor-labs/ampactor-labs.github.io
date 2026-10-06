@@ -2,6 +2,7 @@ import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
 import { PALETTE, alpha } from "../../palette";
 import Sign from "../Sign";
+import { pixel } from "../../type";
 
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
@@ -87,10 +88,10 @@ export default function DetailScreen({
             className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(12),
+              fontSize: pixel(fs(12)),
               fontWeight: 400,
               color: p.color,
-              letterSpacing: "0.05em",
+              letterSpacing: "var(--track-pixel)",
               margin: 0,
             }}
           >
@@ -100,7 +101,7 @@ export default function DetailScreen({
             style={{
               fontSize: fs(10),
               color: "var(--cab-text)",
-              letterSpacing: "0.1em",
+              letterSpacing: "var(--track-ui)",
               marginTop: 3,
             }}
           >
@@ -144,7 +145,7 @@ export default function DetailScreen({
                   aria-current={focused ? "true" : undefined}
                   style={{
                     fontSize: fs(10),
-                    letterSpacing: "0.08em",
+                    letterSpacing: "var(--track-ui)",
                     textDecoration: "none",
                     padding: "5px 12px",
                     borderRadius: 4,
@@ -192,8 +193,8 @@ export default function DetailScreen({
               transformOrigin: "right center",
               whiteSpace: "nowrap",
               fontFamily: "'Press Start 2P'",
-              fontSize: fs(7),
-              letterSpacing: "0.3em",
+              fontSize: pixel(fs(7)),
+              letterSpacing: "var(--track-pixel)",
               color: `${p.color}0a`,
               pointerEvents: "none",
               userSelect: "none",
@@ -260,7 +261,7 @@ export default function DetailScreen({
                       fontSize: fs(10),
                       color: "var(--cab-text)",
                       lineHeight: 1.8,
-                      letterSpacing: "0.04em",
+                      letterSpacing: "var(--track-display)",
                     }}
                   >
                     <span style={{ color: `${p.color}88` }}>&gt;&gt; </span>
@@ -277,13 +278,14 @@ export default function DetailScreen({
                     <span
                       key={s}
                       style={{
+                        fontFamily: "var(--font-body)",
                         fontSize: fs(9),
                         padding: "2px 7px",
                         borderRadius: 3,
                         background: `${p.color}15`,
                         border: `1px solid ${p.color}30`,
                         color: `${p.color}cc`,
-                        letterSpacing: "0.05em",
+                        letterSpacing: "var(--track-display)",
                       }}
                     >
                       {s}
@@ -332,7 +334,7 @@ export default function DetailScreen({
         >
           {p.status && (
             <>
-              <span style={{ fontSize: fs(10), color: statusColor }}>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: fs(10), color: statusColor }}>
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
               <span style={{ color: "var(--cab-faint)", fontSize: fs(10) }}>
@@ -345,13 +347,14 @@ export default function DetailScreen({
               <span
                 key={tag}
                 style={{
+                  fontFamily: "var(--font-body)",
                   fontSize: fs(8),
                   padding: "2px 6px",
                   borderRadius: 3,
                   background: `${p.color}0a`,
                   border: `1px solid ${p.color}20`,
                   color: `${p.color}aa`,
-                  letterSpacing: "0.05em",
+                  letterSpacing: "var(--track-display)",
                 }}
               >
                 {tag}
@@ -373,6 +376,7 @@ export default function DetailScreen({
       {/* Footer */}
       <div
         style={{
+          fontFamily: "var(--font-body)",
           paddingTop: 10,
           borderTop: `1px solid ${p.color}11`,
           fontSize: fs(8),

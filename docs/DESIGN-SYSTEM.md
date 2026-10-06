@@ -175,13 +175,15 @@ the dark behind the machine is painted before the first frame in either theme.
 
 | Token | Font | Used for |
 |---|---|---|
-| `--font-arcade` | **Press Start 2P** | Signage: the name on the title card, screen titles (`SELECT PROGRAM`, `HIGH SCORES`), `PRESS START`, the operator's pills, section eyebrows, the pages' nav. ALL-CAPS, wide tracking; **tiny** on the pages (7–9 px). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
+| `--font-arcade` | **Press Start 2P** | Signage: the name on the title card, screen titles (`SELECT PROGRAM`, `HIGH SCORES`), `PRESS START`, the operator's pills, section eyebrows, the pages' nav. ALL-CAPS. In the cabinet it sits on its 8 px grid (`pixel()` in `src/arcade/type.js` snaps every size to 8, 16, 24, 32 or 40, the game's canvas included) with `--track-pixel` (0.125em: whole pixels), so every cell is crisp; a browser test holds every screen to it. **Tiny** on the pages (7–9 px). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
 | `--font-display` | **Share Tech Mono** | Row titles, CTAs, readouts, the credits' names. Weight 400; size and glow carry emphasis. |
-| `--font-body` | **JetBrains Mono** | The cabinet's prose and labels, stack chips, status lines, numbers. |
-| `--font-sans` | **Inter** | The pages' prose: the ledger's copy, the case study, the 404. The reading face; tabular numerals for data. |
+| `--font-body` | **JetBrains Mono** | By opt-in: the BIOS, numbers, stack and tag chips, status lines, the contact, the marquee. |
+| `--font-sans` | **Inter** | The reading face, and the cabinet's default: a readout's prose, subtitles, the borrowed line on the title card; on the pages the ledger's copy, the case study, the 404. Tabular numerals for data. |
+
+Tracking in the cabinet is three tokens: `--track-pixel` for Press Start, `--track-ui` (0.1em) for labels and subtitles, `--track-display` (0.06em) for display and chips; the role's wide 0.24em stays its own.
 
 Type in the cabinet scales with the screen's width (`fs()` in `useCabinetState`: ×1 at
-300 px, ×1.25 from 475 px); the name on the title card is `min(38px, width / 16)`. On
+300 px, ×1.25 from 475 px); the name on the title card is `min(38px, width / 16)` snapped to the grid. On
 the pages the scale is by `clamp()`: titles `clamp(26px, 3.4vw, 36px)`, ledes
 `clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
 
@@ -296,7 +298,7 @@ off (`global.css`).
 
 - **A-mark** (`src/ui/AMark.tsx`): an "A" drawn as two cyan strokes with a sine-wave
   squiggle through the crossbar and two serif feet — the amp and the wave. The only logo.
-- **Wordmark:** `AMPACTOR` in Press Start 2P, `letter-spacing: 0.2em`, the accent.
+- **Wordmark:** `AMPACTOR` in Press Start 2P on the grid, `--track-pixel`, the accent.
 - **Glyph language — Unicode symbols, not icon fonts:** `▸` (run/enter, in Share Tech
   Mono or Inter, never Press Start), `◈`, `∿`, `☀`, `♫`, `⚡`, `⚔`, `●`, `★`, `≡`.
 

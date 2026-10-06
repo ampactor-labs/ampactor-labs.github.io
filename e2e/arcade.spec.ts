@@ -205,6 +205,54 @@ test("on a touch screen every panel control is a 44 px target", async ({
   }
 });
 
+// Press Start 2P is drawn on an 8 px grid; off it, the pixels smear. Every
+// node set in it sits on the grid, and its tracking is whole pixels.
+test("the pixel face sits on its 8 px grid on every screen", async ({
+  page,
+}) => {
+  const offGrid = () =>
+    page.evaluate(() =>
+      [...document.querySelectorAll("body *")]
+        .filter((el) => {
+          const style = getComputedStyle(el);
+          if (!style.fontFamily.startsWith('"Press Start 2P"')) return false;
+          const ownText = [...el.childNodes].some(
+            (n) => n.nodeType === 3 && n.textContent!.trim(),
+          );
+          if (!ownText || style.visibility === "hidden") return false;
+          const size = parseFloat(style.fontSize);
+          const track =
+            style.letterSpacing === "normal"
+              ? 0
+              : parseFloat(style.letterSpacing);
+          return size % 8 !== 0 || !Number.isInteger(track);
+        })
+        .map((el) => {
+          const style = getComputedStyle(el);
+          return `${el.textContent!.trim().slice(0, 24)} ${style.fontSize} ${style.letterSpacing}`;
+        }),
+    );
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+  expect(await offGrid()).toEqual([]);
+  await page.goto("/arcade/");
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
+  expect(await offGrid()).toEqual([]);
+  for (const [hash, title] of [
+    ["sonido", "SONIDO"],
+    ["high-scores", "HIGH SCORES"],
+    ["credits", "CREDITS"],
+  ]) {
+    await page.goto(`/arcade/#${hash}`);
+    await expect(
+      page.getByRole("heading", { level: 1, name: title }),
+    ).toBeVisible();
+    expect(await offGrid(), hash).toEqual([]);
+  }
+});
+
 test("the page never scrolls: the cabinet is the viewport", async ({
   page,
 }) => {

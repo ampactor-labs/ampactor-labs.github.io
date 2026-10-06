@@ -41,7 +41,8 @@
   flex-direction: column;
   background: var(--cab-raised);
   border-radius: 16px;
-  font-family: "JetBrains Mono", monospace;
+  /* Prose reads in Inter; numbers, chips and readouts opt into mono. */
+  font-family: var(--font-sans);
   outline: none;
 }
 

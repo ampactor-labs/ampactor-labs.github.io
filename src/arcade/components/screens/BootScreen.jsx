@@ -1,6 +1,7 @@
 import TestPattern from "../TestPattern";
 import { WORDS } from "../../../data/profile";
 import { PALETTE } from "../../palette";
+import { pixel } from "../../type";
 
 // A BIOS status line: a name, dots, a verb, dots, OK.
 const STATUS = /^(.+?) \.{2,} (.+?) \.{2,} (OK)$/;
@@ -41,7 +42,7 @@ export default function BootScreen({
           fontSize: fs(10),
           color: "var(--cab-voice)",
           cursor: "pointer",
-          letterSpacing: "0.1em",
+          letterSpacing: "var(--track-ui)",
           zIndex: 60,
           opacity: 0.7,
         }}
@@ -57,6 +58,7 @@ export default function BootScreen({
       <div
         className="bios"
         style={{
+          fontFamily: "var(--font-body)",
           fontSize: Math.min(fs(14), screenWidth / 24),
           lineHeight: 2,
           maxWidth: "100%",
@@ -94,7 +96,7 @@ export default function BootScreen({
                         ? "var(--cab-ok)"
                         : "var(--cab-muted)",
                 fontFamily: last ? "'Press Start 2P', monospace" : undefined,
-                fontSize: last ? fs(12) : undefined,
+                fontSize: last ? pixel(fs(12)) : undefined,
                 marginTop: last ? 8 : undefined,
               }}
             >

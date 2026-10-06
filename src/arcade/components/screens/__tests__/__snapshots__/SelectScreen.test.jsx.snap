@@ -12,12 +12,12 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     >
       <div
         class="signage"
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); letter-spacing: 0.1em;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); letter-spacing: var(--track-pixel);"
       >
         SELECT PROGRAM
       </div>
       <h1
-        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: 0.12em; margin: 6px 0px 0px;"
+        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: var(--track-ui); margin: 6px 0px 0px;"
       >
         MORGAN ESPITIA
          · 
@@ -25,7 +25,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       </h1>
       <div
         class="desk-only"
-        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="font-family: var(--font-body); display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: var(--track-ui); margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -49,7 +49,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <a
         class="pill"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
       >
         RESUME
       </a>
@@ -57,7 +57,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="pill"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         GITHUB
@@ -66,7 +66,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="pill"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
@@ -79,14 +79,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     >
       <a
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
       >
         RESUME
       </a>
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
         target="_blank"
       >
         GITHUB
@@ -94,20 +94,20 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
         target="_blank"
       >
         LINKEDIN
       </a>
       <a
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: 0.02em; color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: 0.02em; color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
       >
         +1 435-268-2446
       </a>
@@ -126,7 +126,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 0px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYSTEMS
         </span>
@@ -163,13 +163,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               MENTL
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Mentl/WASM
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SELF-HOSTING COMPILER
           </div>
@@ -210,13 +210,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               SONIDO
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             CROSS-PLATFORM DSP KERNEL
           </div>
@@ -252,13 +252,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               TURBOSORT
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SIMD-ACCELERATED RADIX SORT
           </div>
@@ -294,13 +294,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               2-TOP
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust/Bevy
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             ROLLBACK NETCODE BRAWLER
           </div>
@@ -336,13 +336,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               CLOB
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             TERNARY INTELLIGENCE KERNEL
           </div>
@@ -355,7 +355,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SECURITY
         </span>
@@ -392,13 +392,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               TOKENSAFE + SCRY
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript/Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SOLANA SECURITY SCANNER
           </div>
@@ -411,7 +411,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           WEB3
         </span>
@@ -448,13 +448,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               LANDED
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SOLANA EXECUTION GATEWAY
           </div>
@@ -467,7 +467,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           CREATIVE
         </span>
@@ -504,13 +504,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               PERENNIALS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/TS
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             CONSTRAINT-SPACE FIELD GUIDE
           </div>
@@ -546,13 +546,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               BITS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TS/React
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             PUPPET-SHOW INSTRUMENT
           </div>
@@ -588,13 +588,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               NOODLES
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JS/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             MOBILE DAW
           </div>
@@ -630,13 +630,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               COPYCATS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Godot 4.7
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             REPLAY-GHOST PARTY RACER
           </div>
@@ -672,13 +672,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               STOOP
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             A PRESS FOR A PERIODICAL
           </div>
@@ -714,13 +714,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               UNDERSTORY
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             LYRIC X-RAY
           </div>
@@ -756,13 +756,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               CELEZDIAL SELEKTA
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             ZODIAC-MAPPED SYNTHESIZER
           </div>
@@ -798,13 +798,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               FREESTYLE ENGINE
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             FREESTYLE RAP PRACTICE
           </div>
@@ -840,13 +840,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               SLOT
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             B♭ TRUMPET TUNING LATTICE
           </div>
@@ -882,13 +882,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               COMMA
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             THE PYTHAGOREAN COMMA, PLAYED
           </div>
@@ -924,13 +924,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               APAPACHO
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             WORDS · FRASES · SEÑAS
           </div>
@@ -966,13 +966,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               SYS/RESONANCE
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               WebAudio
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SUBTRACTIVE SYNTH
           </div>
@@ -1008,13 +1008,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               COHERENCE FIELD
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               —
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             CONSERVATION LAWS
           </div>
@@ -1050,13 +1050,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               TUNNEL_RUN
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Canvas
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             VECTOR SHOOTER
           </div>
@@ -1075,7 +1075,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-size: 8px; color: var(--cab-faint); letter-spacing: 0.1em; animation-duration: 247s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 247s;"
     >
       <span
         style="padding-right: 48px;"
@@ -1105,12 +1105,12 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     >
       <div
         class="signage"
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); letter-spacing: 0.1em;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; line-height: 1.5; color: rgb(0, 229, 255); letter-spacing: var(--track-pixel);"
       >
         SELECT PROGRAM
       </div>
       <h1
-        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: 0.12em; margin: 6px 0px 0px;"
+        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: var(--track-ui); margin: 6px 0px 0px;"
       >
         MORGAN ESPITIA
          · 
@@ -1118,7 +1118,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       </h1>
       <div
         class="desk-only"
-        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="font-family: var(--font-body); display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: var(--track-ui); margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -1142,7 +1142,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <a
         class="pill"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
       >
         RESUME
       </a>
@@ -1150,7 +1150,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="pill"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         GITHUB
@@ -1159,7 +1159,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="pill"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
@@ -1172,14 +1172,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     >
       <a
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
       >
         RESUME
       </a>
       <a
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
         target="_blank"
       >
         GITHUB
@@ -1187,20 +1187,20 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <a
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: 0.06em; color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
         target="_blank"
       >
         LINKEDIN
       </a>
       <a
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: 0.02em; color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: 0.02em; color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
       >
         +1 435-268-2446
       </a>
@@ -1219,7 +1219,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 0px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYSTEMS
         </span>
@@ -1256,13 +1256,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               MENTL
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Mentl/WASM
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SELF-HOSTING COMPILER
           </div>
@@ -1303,13 +1303,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               SONIDO
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             CROSS-PLATFORM DSP KERNEL
           </div>
@@ -1345,13 +1345,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               TURBOSORT
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SIMD-ACCELERATED RADIX SORT
           </div>
@@ -1387,13 +1387,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               2-TOP
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust/Bevy
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             ROLLBACK NETCODE BRAWLER
           </div>
@@ -1429,13 +1429,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               CLOB
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             TERNARY INTELLIGENCE KERNEL
           </div>
@@ -1448,7 +1448,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SECURITY
         </span>
@@ -1485,13 +1485,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               TOKENSAFE + SCRY
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript/Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SOLANA SECURITY SCANNER
           </div>
@@ -1504,7 +1504,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           WEB3
         </span>
@@ -1541,13 +1541,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               LANDED
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             SOLANA EXECUTION GATEWAY
           </div>
@@ -1560,7 +1560,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         style="padding: 8px 4px 2px; margin-top: 6px;"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           CREATIVE
         </span>
@@ -1597,13 +1597,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               PERENNIALS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/TS
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             CONSTRAINT-SPACE FIELD GUIDE
           </div>
@@ -1639,13 +1639,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               BITS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TS/React
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             PUPPET-SHOW INSTRUMENT
           </div>
@@ -1681,13 +1681,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               NOODLES
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JS/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             MOBILE DAW
           </div>
@@ -1723,13 +1723,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               COPYCATS
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Godot 4.7
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             REPLAY-GHOST PARTY RACER
           </div>
@@ -1765,13 +1765,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               STOOP
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             A PRESS FOR A PERIODICAL
           </div>
@@ -1807,13 +1807,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               UNDERSTORY
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             LYRIC X-RAY
           </div>
@@ -1849,13 +1849,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               CELEZDIAL SELEKTA
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             ZODIAC-MAPPED SYNTHESIZER
           </div>
@@ -1891,13 +1891,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               FREESTYLE ENGINE
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             FREESTYLE RAP PRACTICE
           </div>
@@ -1933,13 +1933,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               SLOT
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             B♭ TRUMPET TUNING LATTICE
           </div>
@@ -1975,13 +1975,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               COMMA
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             THE PYTHAGOREAN COMMA, PLAYED
           </div>
@@ -2017,13 +2017,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               APAPACHO
             </span>
             <span
-              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
             WORDS · FRASES · SEÑAS
           </div>
@@ -2042,7 +2042,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-size: 8px; color: var(--cab-faint); letter-spacing: 0.1em; animation-duration: 247s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 247s;"
     >
       <span
         style="padding-right: 48px;"

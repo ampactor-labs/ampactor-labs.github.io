@@ -26,12 +26,12 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     >
       <h1
         class="signage"
-        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(224, 255, 0); letter-spacing: 0.05em; margin: 0px;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; font-weight: 400; color: rgb(224, 255, 0); letter-spacing: var(--track-pixel); margin: 0px;"
       >
         MENTL
       </h1>
       <div
-        style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--cab-text); letter-spacing: var(--track-ui); margin-top: 3px;"
       >
         SELF-HOSTING COMPILER
       </div>
@@ -45,7 +45,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         class="chip"
         href="https://github.com/ampactor-labs/mentl"
         rel="noopener noreferrer"
-        style="font-size: 10px; letter-spacing: 0.08em; text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
+        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
         target="_blank"
       >
         › SOURCE
@@ -59,7 +59,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     tabindex="0"
   >
     <span
-      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 8px; letter-spacing: var(--track-pixel); color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
     >
       THE COMPILER BOOTSTRAPS ITSELF
     </span>
@@ -75,7 +75,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         class="sign"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYS/READOUT
         </span>
@@ -105,7 +105,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           class="sign"
         >
           <span
-            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+            style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
           >
             SPECIFICATIONS
           </span>
@@ -115,7 +115,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           />
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -125,7 +125,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           BYTE-IDENTICAL SELF-COMPILE, EVERY PIN
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -135,7 +135,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           FULL EFFECT ALGEBRA (+, -, &, !, Pure)
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -145,7 +145,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           SELF-HOSTED: MENTL COMPILES MENTL
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -155,7 +155,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           ONE GRAPH, ONE WRITER: INFERENCE
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -165,7 +165,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           ROW-POLYMORPHIC TYPE SYSTEM
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -182,7 +182,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           class="sign"
         >
           <span
-            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+            style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
           >
             STACK
           </span>
@@ -195,22 +195,22 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             WASM
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             WAT
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             Hindley-Milner
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             row polymorphism
           </span>
@@ -224,7 +224,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         class="sign"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           OPERATOR NOTES
         </span>
@@ -243,7 +243,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
-        style="font-size: 10px; color: var(--cab-ok);"
+        style="font-family: var(--font-body); font-size: 10px; color: var(--cab-ok);"
       >
         ●
          
@@ -258,22 +258,22 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           compiler
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           effects
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           self-hosting
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           wasm
         </span>
@@ -281,7 +281,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     </div>
   </div>
   <div
-    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
+    style="font-family: var(--font-body); padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 
@@ -326,12 +326,12 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     >
       <h1
         class="signage"
-        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(255, 184, 0); letter-spacing: 0.05em; margin: 0px;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; font-weight: 400; color: rgb(255, 184, 0); letter-spacing: var(--track-pixel); margin: 0px;"
       >
         SYS/RESONANCE
       </h1>
       <div
-        style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--cab-text); letter-spacing: var(--track-ui); margin-top: 3px;"
       >
         SUBTRACTIVE SYNTH
       </div>
@@ -344,7 +344,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     tabindex="0"
   >
     <span
-      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 7px; letter-spacing: 0.3em; color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 8px; letter-spacing: var(--track-pixel); color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"
     >
       THE CHAIN SPEAKS
     </span>
@@ -355,7 +355,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         class="sign"
       >
         <span
-          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+          style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYS/READOUT
         </span>
@@ -385,7 +385,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           class="sign"
         >
           <span
-            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+            style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
           >
             SPECIFICATIONS
           </span>
@@ -395,7 +395,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           />
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -405,7 +405,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           OSC → FILTER → AMP → DELAY
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -415,7 +415,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           KEYBOARD MAPPED
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -425,7 +425,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           REAL-TIME PARAMETER CONTROL
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -435,7 +435,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           WEB AUDIO SYNTHESIS
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -445,7 +445,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           SUBTRACTIVE SIGNAL CHAIN
         </div>
         <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -462,7 +462,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           class="sign"
         >
           <span
-            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
+            style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
           >
             STACK
           </span>
@@ -475,17 +475,17 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             Web Audio API
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             React
           </span>
           <span
-            style="font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: 0.05em;"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             keyboard events
           </span>
@@ -496,7 +496,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
-        style="font-size: 10px; color: var(--cab-quiet);"
+        style="font-family: var(--font-body); font-size: 10px; color: var(--cab-quiet);"
       >
         ●
          
@@ -511,22 +511,22 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           oscillator
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           filter
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           envelope
         </span>
         <span
-          style="font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: 0.05em;"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           delay
         </span>
@@ -534,7 +534,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     </div>
   </div>
   <div
-    style="padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
+    style="font-family: var(--font-body); padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 

@@ -20,7 +20,7 @@ export const crtStyles = `
   .tube-shade{position:absolute;inset:0;z-index:40;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,${alpha(PALETTE.void, 0.55)} 100%)}
   /* Bloom in the text's own colour: a soft stop on every readout, two on the
      signage, and the chromatic split (magenta left, cyan right) on signage. */
-  .cabinet-scope{--bloom-text:0 0 4px color-mix(in srgb, currentColor 35%, transparent);--bloom-signage:0 0 6px color-mix(in srgb, currentColor 60%, transparent),0 0 24px color-mix(in srgb, currentColor 28%, transparent);--fringe:-1.5px 0 0 ${alpha(PALETTE.voice, 0.5)},1.5px 0 0 ${alpha(PALETTE.mark, 0.5)}}
+  .cabinet-scope{--track-pixel:0.125em;--track-ui:0.1em;--track-display:0.06em;--bloom-text:0 0 4px color-mix(in srgb, currentColor 35%, transparent);--bloom-signage:0 0 6px color-mix(in srgb, currentColor 60%, transparent),0 0 24px color-mix(in srgb, currentColor 28%, transparent);--fringe:-1.5px 0 0 ${alpha(PALETTE.voice, 0.5)},1.5px 0 0 ${alpha(PALETTE.mark, 0.5)}}
   .crt-phosphor{text-shadow:var(--bloom-text)}
   .signage{text-shadow:var(--bloom-signage),var(--fringe)}
   .blink-cursor{animation:blink 1s step-end infinite}
@@ -69,7 +69,7 @@ export const crtStyles = `
   .btn-action.btn-a{border:2px solid var(--cab-mark);color:var(--cab-mark);box-shadow:0 0 14px ${alpha(PALETTE.mark, 0.45)},inset 0 0 10px ${alpha(PALETTE.mark, 0.18)}}
   .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
   .btn-action:active{transform:scale(0.92);filter:brightness(0.8)}
-  .panel-label{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--cab-muted);letter-spacing:0.12em;user-select:none}
+  .panel-label{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--cab-muted);letter-spacing:var(--track-pixel);user-select:none}
   /* A narrow deck: the 8 px labels are wider than their buttons, so the
      padding, the gap between B and A and the tracking come in, and the
      AMPACTOR sign keeps its room between the d-pad and the buttons. */
@@ -77,8 +77,8 @@ export const crtStyles = `
     .est-line{display:none}
     .cabinet-body{padding:10px 12px 12px!important}
     .action-cluster{gap:8px!important}
-    .panel-label{letter-spacing:0.04em}
-    .brand-sign{letter-spacing:0.1em!important}
+    .panel-label{letter-spacing:0}
+    .brand-sign{letter-spacing:0!important}
   }
   @media (pointer: coarse) {
     .dpad-key,.dpad-centre{width:36px;height:36px}
@@ -145,8 +145,8 @@ export const crtStyles = `
   .coin-announce{position:absolute;left:50%;transform:translateX(-50%);animation:announceIn 1.6s ease forwards;font-family:'Press Start 2P',monospace;pointer-events:none;z-index:200}
   .coin-announce.tier-1{bottom:120px;font-size:8px;color:var(--cab-voice)}
   .coin-announce.tier-2{bottom:120px;font-size:8px;color:var(--cab-halo)}
-  .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:14px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
-  .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:9px;letter-spacing:0.12em;white-space:nowrap;color:var(--cab-text)}
+  .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:16px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
+  .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:8px;letter-spacing:var(--track-pixel);white-space:nowrap;color:var(--cab-text)}
   @media (prefers-reduced-motion: reduce) {
     .blink-cursor, .hidden-row, .coin-slot, .btn-action, .tube-sweep,
     .dash-in, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,

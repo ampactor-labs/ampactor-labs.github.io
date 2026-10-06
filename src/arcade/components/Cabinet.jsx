@@ -1,4 +1,5 @@
 import { FRINGE, PALETTE, alpha } from "../palette";
+import { pixel } from "../type";
 // Every d-pad key goes through here, so none of them can ship as a bare div with
 // no handler again — which is how ► stayed dead on every screen.
 function DpadButton({ label, glyph, onPress, style }) {
@@ -183,9 +184,9 @@ export default function Cabinet({
             className="signage brand-sign"
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(9),
+              fontSize: pixel(fs(9)),
               color: PALETTE.mark,
-              letterSpacing: "0.2em",
+              letterSpacing: "var(--track-pixel)",
             }}
           >
             AMPACTOR
@@ -195,7 +196,7 @@ export default function Cabinet({
             style={{
               fontSize: fs(7),
               color: "var(--cab-text)",
-              letterSpacing: "0.15em",
+              letterSpacing: "var(--track-ui)",
             }}
           >
             SALT LAKE CITY {"\u00b7"} EST. 2018
@@ -267,10 +268,10 @@ export default function Cabinet({
           >
             <div
               style={{
-                fontSize: fs(7),
+                fontSize: pixel(fs(7)),
                 fontFamily: "'Press Start 2P', monospace",
                 color: "var(--cab-voice)",
-                letterSpacing: "0.12em",
+                letterSpacing: "var(--track-pixel)",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
                 animation: coinCount > 0 ? "none" : "breathe 2.4s ease-in-out infinite",
@@ -282,9 +283,9 @@ export default function Cabinet({
         )}
         <div
           style={{
-            fontSize: fs(6),
+            fontSize: pixel(fs(6)),
             color: coinCount > 0 ? alpha(PALETTE.coin, 0.5) : "var(--cab-line)",
-            letterSpacing: "0.15em",
+            letterSpacing: "var(--track-pixel)",
             transition: "color 0.3s ease",
             animation:
               coinCount > 0 ? "none" : "coinTextPulse 3s ease-in-out infinite",
@@ -321,7 +322,7 @@ export default function Cabinet({
               }
             }}
             style={{
-              fontSize: fs(9),
+              fontSize: pixel(fs(9)),
               fontFamily: "'Press Start 2P', monospace",
             }}
           >
@@ -352,7 +353,7 @@ export default function Cabinet({
               }
             }}
             style={{
-              fontSize: fs(9),
+              fontSize: pixel(fs(9)),
               fontFamily: "'Press Start 2P', monospace",
             }}
           >

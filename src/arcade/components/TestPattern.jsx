@@ -131,7 +131,7 @@ export default function TestPattern({
           style={{
             fontSize: fs(9),
             color: alpha(PALETTE.text, 0.6),
-            letterSpacing: "0.15em",
+            letterSpacing: "var(--track-ui)",
             animation: "blink 2s step-end infinite",
             userSelect: "none",
             cursor: "pointer",

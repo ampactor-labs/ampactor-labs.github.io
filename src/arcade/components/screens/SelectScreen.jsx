@@ -4,6 +4,7 @@ import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
 import Sign from "../Sign";
 import { PALETTE, alpha } from "../../palette";
+import { pixel } from "../../type";
 
 export default function SelectScreen({
   projects,
@@ -49,19 +50,19 @@ export default function SelectScreen({
     color: PALETTE.mark,
     textDecoration: "none",
     display: "inline-block",
-    fontSize: fs(8),
+    fontSize: pixel(fs(8)),
     lineHeight: 1,
     border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
     borderRadius: 3,
     background: alpha(PALETTE.mark, 0.06),
     padding: "7px 8px",
-    letterSpacing: "0.06em",
+    letterSpacing: "var(--track-pixel)",
     whiteSpace: "nowrap",
   };
   const railChip = {
     fontFamily: "'Press Start 2P', monospace",
-    fontSize: fs(8),
-    letterSpacing: "0.06em",
+    fontSize: pixel(fs(8)),
+    letterSpacing: "var(--track-pixel)",
     color: PALETTE.mark,
     border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
     background: alpha(PALETTE.mark, 0.06),
@@ -70,7 +71,7 @@ export default function SelectScreen({
     ...railChip,
     fontFamily: "var(--font-body)",
     fontSize: fs(10),
-    letterSpacing: "0.02em",
+    letterSpacing: "var(--track-display)",
     padding: "0 10px",
     color: "var(--cab-muted)",
     border: `1px solid ${alpha(PALETTE.muted, 0.3)}`,
@@ -99,10 +100,10 @@ export default function SelectScreen({
             className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(16),
+              fontSize: pixel(fs(16)),
               lineHeight: 1.5,
               color: PALETTE.mark,
-              letterSpacing: "0.1em",
+              letterSpacing: "var(--track-pixel)",
             }}
           >
             SELECT PROGRAM
@@ -112,7 +113,7 @@ export default function SelectScreen({
               fontSize: fs(10),
               fontWeight: 400,
               color: "var(--cab-text)",
-              letterSpacing: "0.12em",
+              letterSpacing: "var(--track-ui)",
               margin: "6px 0 0",
             }}
           >
@@ -121,12 +122,13 @@ export default function SelectScreen({
           <div
             className="desk-only"
             style={{
+              fontFamily: "var(--font-body)",
               display: "flex",
               flexWrap: "wrap",
               columnGap: 10,
               fontSize: fs(11),
               color: "var(--cab-muted)",
-              letterSpacing: "0.08em",
+              letterSpacing: "var(--track-ui)",
               marginTop: 2,
             }}
           >
@@ -299,6 +301,7 @@ export default function SelectScreen({
                     </span>
                     <span
                       style={{
+                        fontFamily: "var(--font-body)",
                         fontSize: fs(9),
                         color: "var(--cab-muted)",
                         padding: "1px 5px",
@@ -316,7 +319,7 @@ export default function SelectScreen({
                       fontSize: fs(10),
                       color: "var(--cab-text)",
                       marginTop: 1,
-                      letterSpacing: "0.08em",
+                      letterSpacing: "var(--track-ui)",
                     }}
                   >
                     {p.subtitle}
@@ -376,7 +379,7 @@ export default function SelectScreen({
                   style={{
                     fontSize: fs(11),
                     color: "var(--cab-faint)",
-                    letterSpacing: "0.1em",
+                    letterSpacing: "var(--track-ui)",
                     fontFamily: "'Share Tech Mono', monospace",
                   }}
                 >
@@ -386,7 +389,7 @@ export default function SelectScreen({
                   style={{
                     fontSize: fs(9),
                     color: "var(--cab-faint)",
-                    letterSpacing: "0.08em",
+                    letterSpacing: "var(--track-ui)",
                     marginTop: 1,
                   }}
                 >
@@ -415,9 +418,10 @@ export default function SelectScreen({
         <div
           className="marquee-track"
           style={{
+            fontFamily: "var(--font-body)",
             fontSize: fs(8),
             color: "var(--cab-faint)",
-            letterSpacing: "0.1em",
+            letterSpacing: "var(--track-ui)",
             animationDuration: `${MARQUEE_SECONDS}s`,
           }}
         >
