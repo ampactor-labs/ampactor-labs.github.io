@@ -105,20 +105,6 @@ export default function BootScreen({
           );
         })}
       </div>
-      {currentLine >= 6 && (
-        <div
-          style={{
-            textAlign: "center",
-            marginTop: 14,
-            fontSize: fs(9),
-            color: "var(--cab-muted)",
-            cursor: "pointer",
-          }}
-          onClick={onSkip}
-        >
-          {/* [ press any key or tap A ] */}
-        </div>
-      )}
     </div>
   );
 }

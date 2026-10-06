@@ -14,6 +14,9 @@ export interface PageAudit {
   speedIndexMs: number;
   htmlGzipKb: number;
   jsGzipKb: number;
+  // Lighthouse's benchmark of the host; absent in a file written before the
+  // script recorded it.
+  benchmarkIndex?: number;
 }
 
 export interface Audit {

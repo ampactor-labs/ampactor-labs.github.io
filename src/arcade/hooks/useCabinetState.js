@@ -245,6 +245,15 @@ export default function useCabinetState({
     linkRefs.current[linkIdxRef.current]?.click();
   };
 
+  // The BIOS prints in JetBrains Mono, which nothing on the first screen
+  // asks for. Asked for as the machine powers on (a first visit only; a
+  // returning one skips the boot), it is on hand when the first line lands,
+  // so the BIOS paints once instead of swapping faces mid-print.
+  useEffect(() => {
+    if (screen !== "boot") return;
+    document.fonts?.load?.('1em "JetBrains Mono"')?.catch?.(() => {});
+  }, [screen]);
+
   // Boot phase 0: the test card, then phase 1: the BIOS lines.
   useEffect(() => {
     if (screen !== "boot" || !introComplete) return;
