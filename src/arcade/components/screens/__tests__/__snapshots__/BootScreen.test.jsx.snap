@@ -141,7 +141,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
   </svg>
   <div
-    style="font-size: 9px; color: rgba(212, 190, 152, 0.6); letter-spacing: 0.15em; animation: blink 2s step-end infinite; user-select: none; cursor: pointer;"
+    style="font-size: 9px; color: rgba(236, 230, 251, 0.6); letter-spacing: 0.15em; animation: blink 2s step-end infinite; user-select: none; cursor: pointer;"
   >
     [ TAP TO SKIP ]
   </div>

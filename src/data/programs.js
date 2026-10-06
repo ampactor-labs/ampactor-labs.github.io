@@ -14,7 +14,7 @@ export const SYSTEM_PROGRAMS = [
     title: "HOW TO PLAY",
     subtitle: "THE CONTROLS",
     lang: "OPERATOR",
-    color: PALETTE.voice,
+    color: PALETTE.quiet,
     icon: "?",
     category: "operator",
     links: [
@@ -32,7 +32,7 @@ export const SYSTEM_PROGRAMS = [
     title: "HIGH SCORES",
     subtitle: "EVERY PUBLIC COMMIT",
     lang: "OPERATOR",
-    color: PALETTE.voice,
+    color: PALETTE.quiet,
     icon: "★",
     category: "operator",
     links: [
@@ -50,7 +50,7 @@ export const SYSTEM_PROGRAMS = [
     title: "CREDITS",
     subtitle: "",
     lang: "OPERATOR",
-    color: PALETTE.voice,
+    color: PALETTE.quiet,
     icon: "≡",
     category: "operator",
     links: [

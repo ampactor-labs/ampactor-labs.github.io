@@ -37,7 +37,7 @@
       el = document.createElement("pre");
       el.id = "boot-error";
       el.style.cssText =
-        "position:fixed;inset:0;z-index:99999;margin:0;padding:18px;background:#0f0e0d;color:#ff5a6a;font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto";
+        "position:fixed;inset:0;z-index:99999;margin:0;padding:18px;background:#0a0716;color:#ff3b7a;font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto";
       (document.body || document.documentElement).appendChild(el);
     }
     el.textContent = "⚠ boot error — please screenshot and send:\n\n" + msg;

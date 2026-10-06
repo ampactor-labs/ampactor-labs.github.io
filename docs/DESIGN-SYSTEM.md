@@ -96,6 +96,31 @@ What that means for the site:
 > The muted **patina teal `#7daea3`** (`--color-teal`) is a different colour used as a
 > syntax/role colour. "The cyan / the glow" always means `#00E5FF`.
 
+### The cabinet's palette
+
+The machine's own set, in `src/arcade/palette.js` by role and on `:root` as
+`--cab-*`. Indigo and void for the grounds, mist and lilac for the text, magenta
+as the machine's voice, cyan kept as the mark (`docs/AUDIT-NEON.md` section 3
+has every ratio). Text sits only on void, room, raised and the band; never on
+`line`, `lit` or `bandBright`.
+
+| Role | Hex | Use |
+|---|---|---|
+| `void` / `room` / `raised` | `#0a0716` / `#15102e` / `#221a45` | The tube's bottom and insets; the room and the tube's centre; the console, the chassis and cards. |
+| `line` / `lit` | `#3b2b7d` / `#6b3fd6` | Borders and hairlines; the lit grid and active fills. Never under text. |
+| `band` / `bandBright` | `#2b1a5e` / `#4a2ca0` | The title band, dark end to bright end. |
+| `text` / `muted` / `faint` | `#ece6fb` / `#b9a6e8` / `#8f7fb8` | The three text tiers. Faint never sits on the band. |
+| `mark` | `#00e5ff` | The A-mark, the name, the A button, the ship, the tunnel. |
+| `voice` / `voiceLt` | `#ff2fd2` / `#ff5ce1` | The machine's voice: PRESS START, READY., INSERT COIN, the lit row; the lighter one at 7 to 9 px. |
+| `ok` / `mint` | `#00ffd0` | OK, status, deployed; lasers and the dust. |
+| `quiet` / `halo` | `#b388ff` | The operator's programs and a status that is not live; the bloom behind the letters. |
+| `coin` | `#ffb800` | The coin and only the coin. |
+| `ember` | `#ff8a5c` | The one warm accent. |
+| `danger` / `hot` | `#ff3b7a` / `#ff2266` | Danger text and B's label; strokes and glows only. |
+
+The pages (`/receipts/`, `/craft/`, the résumé) still paint the Patina palette
+below until their own step of the audit.
+
 ### Core palette (Patina Dark)
 
 | Token | Hex | Role |
@@ -118,7 +143,7 @@ What that means for the site:
 
 Each project owns one neon in `projects.js`, used raw in the cabinet: the row's icon
 tile and its lit bar, the title when the row is active, the readout's faint bleed
-behind the screen. The operator's programs share amber. The pages paint no project
+behind the screen. The operator's programs share the quiet violet. The pages paint no project
 colour; the ledger's repository chips are monochrome.
 
 ### Light theme — shipped
