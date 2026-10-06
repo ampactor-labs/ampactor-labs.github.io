@@ -201,8 +201,9 @@ page requests anything from another origin (`e2e/network.spec.ts`).
 ### The power-on (first visit)
 
 A first visit (nothing in `localStorage`) powers the machine on out of the dark: the
-tunnel and the A-mark flicker up behind it, the chassis comes in, the tube fires onto
-the test card (`BOOT_PATTERN_MS`, 350 ms), and the boot roll prints its BIOS lines
+tunnel reveals and the A-mark snaps on behind it (one rise, one fall), the tube lights
+up in twelve bands left to right, cuts to the test card (`BOOT_PATTERN_MS`, 350 ms),
+and the boot roll pops its BIOS lines on
 (`OPERATOR: MORGAN ESPITIA`, `AMPACTOR BIOS v7.7.7`, … `READY.`) in a burst
 (`BOOT_LINE_MS`, 40 ms a line), holds a beat on `READY.` (`BOOT_BEAT_MS`, 350 ms) and
 lands where the URL points: the title card at `/`, the list at `/arcade/`. About two
@@ -216,12 +217,35 @@ still prints: it is text.
 
 The title card holds 6 s, then `NOW SHOWING` runs four cartridges at 2.6 s each, then
 `HIGH SCORES` 6 s, then the WINNERS DON'T USE DRUGS splash every cabinet of the period
-ran, 2.5 s, and round again with the next four. Every frame glitches in.
-`PRESS START` blinks (`startBlink`, 1.1 s, step-end, never fully off). `◄` `►` and the
+ran, 2.5 s, and round again with the next four. Every frame dashes in (`dashIn`,
+260 ms, a magenta and a cyan after-image; transform and opacity only on a phone).
+`PRESS START` breathes (`breathe`, 2.4 s, a sine, never fully off). `◄` `►` and the
 arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
 start the machine. No `AudioContext` exists until then. Someone reading holds it: a
 pointer over the tube, a finger on it or focus inside keeps the frame on screen, and the
 loop carries on from the top of that frame when they leave.
+
+### Between screens
+
+A screen change on the tube is a cut and a dash: the old frame cuts out
+(`cutOut`, two frames) and the new one dashes in (`dashInLite`, 220 ms), through the
+same-document view-transition API on the tube's content layer
+(`view-transition-name: tube`), only where the browser has it and motion is welcome.
+The hidden rows the coin unlocks dash in with an 80 ms stagger. The coin itself is a
+thing that happens: the slit takes the drop (120 ms), a ring blooms from the slot,
+then the stamp lands on the tube, then the rows light in order. The idle layer is one
+slow sweep of light across the grid (`sweep`, 9 s, transform only), off on a phone
+and under reduced motion.
+
+### The flash budget
+
+No region over 21,824 px² (a tenth of a 1280×800 tube's content) changes its
+brightness by 0.10 more than three times a second. The loud part of the register
+lives in hue and bloom, which WCAG 2.3.1 does not count, never in brightness. In
+code: no looping square-wave animation on the tube has a period under a third of a
+second, and the game's blinks (the dying boss, the enraged bar, the ship's shield)
+hold each state for `BLINK_MS`, 170 ms, with the boss's swing narrowed to 0.45–0.85.
+`src/arcade/__tests__/flashBudget.test.js` holds all three.
 
 ### Between pages, and down the page
 

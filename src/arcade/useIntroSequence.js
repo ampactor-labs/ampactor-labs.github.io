@@ -9,9 +9,9 @@ const prefersReducedMotion = () =>
 // The power-on. Two variants of the same timeline:
 //
 //   "console" — the whole machine materialises out of the dark: the tunnel
-//               reveals, the A-mark flickers, and the console blooms open from
-//               a single scanline. This is the cabinet hard-loaded at /arcade/,
-//               where there was nothing on screen before it.
+//               reveals, the A-mark snaps on, and the console lights up band
+//               by band. This is the cabinet hard-loaded at /arcade/, where
+//               there was nothing on screen before it.
 //   "screen"  — the cabinet is already standing there (the visitor walked up
 //               to it on the floor and it zoomed in), so only the tube fires:
 //               same tunnel and A-mark, but the clip-path/brightness ignition
@@ -87,61 +87,28 @@ export default function useIntroSequence(
       );
     }
 
-    // 0.0–0.55s: A-mark logo flickers into existence (CRT warm-up)
+    // 0.05–0.27s: the A-mark snaps on, one rise; 0.55–0.9s it dims to ambient.
     if (logo) {
-      tl.to(
-        logo,
-        {
-          keyframes: [
-            { opacity: 0, duration: 0 },
-            { opacity: 0.4, duration: 0.07 },
-            { opacity: 0.1, duration: 0.056 },
-            { opacity: 0.6, duration: 0.084 },
-            { opacity: 0.2, duration: 0.042 },
-            { opacity: 0.8, duration: 0.105 },
-            { opacity: 0.5, duration: 0.056 },
-            { opacity: 0.9, duration: 0.14 },
-          ],
-          ease: "none",
-        },
-        0,
-      );
-
-      // 0.55–0.9s: Logo dims to ambient
-      tl.to(
-        logo,
-        {
-          opacity: 0.03,
-          duration: 0.35,
-          ease: "power2.in",
-        },
-        0.55,
-      );
+      tl.to(logo, { opacity: 0.9, duration: 0.22, ease: "power3.out" }, 0.05);
+      tl.to(logo, { opacity: 0.03, duration: 0.35, ease: "power2.in" }, 0.55);
     }
 
-    // 0.5–1.27s: CRT power-on — a scanline igniting, then blooming open in
-    // one continuous tween. The old version stepped through four keyframe
-    // segments (velocity jumps at every boundary read as stutter) and peaked
-    // at brightness(6), which washed the whole console white. One expo.out
-    // for the aperture and a parallel decay from a gentler peak keep the
-    // tube-firing read without the flash or the seams.
+    // 0.5–1.27s: the tube ignites as a stepped wipe, twelve lit bands left to
+    // right (the reference's grid lighting up), with a brightness peak that
+    // decays as the bands land. The same window the scanline aperture had,
+    // so the boot's constants and the browser suite's timings hold.
     if (target) {
       const radius = variant === "screen" ? "0px" : "16px";
-      tl.set(
-        target,
-        {
-          opacity: 1,
-          clipPath: `inset(49.5% 0 49.5% 0 round ${radius})`,
-          filter: "brightness(2.4)",
-        },
-        0.5,
-      );
+      const wipe = { bands: 0 };
+      const clip = (n) => `inset(0 ${100 - (n / 12) * 100}% 0 0 round ${radius})`;
+      tl.set(target, { opacity: 1, clipPath: clip(0), filter: "brightness(2.4)" }, 0.5);
       tl.to(
-        target,
+        wipe,
         {
-          clipPath: `inset(0% 0 0% 0 round ${radius})`,
+          bands: 12,
           duration: 0.7,
-          ease: "expo.out",
+          ease: "steps(12)",
+          onUpdate: () => gsap.set(target, { clipPath: clip(wipe.bands) }),
         },
         0.52,
       );

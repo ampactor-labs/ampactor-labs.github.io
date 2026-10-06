@@ -86,7 +86,6 @@ export default function ArcadeStage({
     detailProject,
     coinCount,
     announcing,
-    glitching,
     dims,
     gameHighlight,
     allProjects,
@@ -162,17 +161,7 @@ export default function ArcadeStage({
               content. */}
           <div className="tube-ground" />
           <div className="tube-shade" />
-          {glitching && (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                animation: "glitchFlash 0.6s ease",
-                pointerEvents: "none",
-                zIndex: 95,
-              }}
-            />
-          )}
+          <div className="tube-sweep" />
           {announcing === 3 && (
             <div className="coin-announce tier-3">
               CREDIT ACCEPTED
@@ -212,7 +201,7 @@ export default function ArcadeStage({
                   fontSize: fs(7),
                   color: alpha(PALETTE.text, 0.25),
                   letterSpacing: "0.15em",
-                  animation: "blink 2s step-end infinite",
+                  animation: "breathe 2.4s ease-in-out infinite",
                   cursor: "pointer",
                   zIndex: 60,
                   userSelect: "none",

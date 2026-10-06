@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
 import { PALETTE, alpha } from "../../palette";
 
@@ -35,11 +35,6 @@ export default function DetailScreen({
   linkRefs,
   focusedLink = 0,
 }) {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(t);
-  }, []);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
   // Standalone render (tests, stories) still works: fall back to local refs.
@@ -60,8 +55,6 @@ export default function DetailScreen({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        opacity: loaded ? 1 : 0,
-        transform: loaded ? "none" : "translateY(10px)",
         transition: "all 0.3s ease",
       }}
     >

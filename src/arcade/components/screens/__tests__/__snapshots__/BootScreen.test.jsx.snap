@@ -2,7 +2,7 @@
 
 exports[`BootScreen > matches snapshot in phase 0 1`] = `
 <div
-  style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; animation: testPattern 0.5s ease-out forwards;"
+  style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; animation: testPattern 0.5s steps(1, end) forwards;"
 >
   <svg
     height="200"
@@ -174,7 +174,7 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
       Mounting effect algebra........ OK
     </div>
     <div
-      style="color: var(--cab-ok); animation: slideUp 0.2s ease;"
+      style="color: var(--cab-ok);"
     >
       Calibrating resonance field.... OK
       <span

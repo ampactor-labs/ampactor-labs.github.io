@@ -313,7 +313,7 @@ export default function SystemScreen({
   const rail = p.links ?? [];
   const color = p.color;
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }} className="glitch-enter">
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }} className="dash-in">
       <div
         style={{
           display: "flex",

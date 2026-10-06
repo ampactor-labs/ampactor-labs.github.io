@@ -17,6 +17,13 @@ export const BOSS_WORLD_SIZE_MOBILE = 480;
 export const ENRAGE_HP_FRAC = 0.3; // below this it goes berserk
 export const ENRAGE_RATE = 0.55; // fire-interval multiplier while enraged
 
+// The flash budget (docs/DESIGN-SYSTEM.md): nothing on the tube changes its
+// brightness more than three times a second, so every blink holds each state
+// for at least a sixth of a second. The boss's death, its enraged bar and the
+// ship's shield all blink at this rate.
+export const BLINK_MS = 170;
+export const DEATH_BLINK_ALPHA = [0.45, 0.85]; // the dying boss, dim then bright
+
 // Each encounter is physically bigger, capped so it never fills the tunnel.
 export function bossSize(level, mobile) {
   const base = mobile ? BOSS_WORLD_SIZE_MOBILE : BOSS_WORLD_SIZE;
