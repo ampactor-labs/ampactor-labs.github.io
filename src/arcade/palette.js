@@ -96,6 +96,13 @@ export function alpha(hex, a) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }
 
+// A card on the tube: the void at 72%, so the lit grid recedes behind
+// whatever stands on it (the list's programs, the pills and chips, the
+// readout's panels, the cartridge on the title card). onCard(tint) lays a
+// colour's tint over it.
+export const CARD = alpha(PALETTE.void, 0.72);
+export const onCard = (tint) => `linear-gradient(${tint}, ${tint}), ${CARD}`;
+
 // The semantic set as custom properties, for the stylesheets and the head.
 export const CABINET_VARS = Object.fromEntries(
   Object.entries(PALETTE).map(([k, v]) => [`--cab-${k}`, v]),

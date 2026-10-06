@@ -1,7 +1,7 @@
 import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
-import { withReadme } from "../../../data/readme";
-import { PALETTE, alpha } from "../../palette";
+import { bodyAfterHeadline, withReadme } from "../../../data/readme";
+import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
@@ -21,6 +21,7 @@ export default function DetailScreen({
   // The README's word on what the project is, applied here: nothing before
   // the readout needs it (src/data/readme.js).
   const p = withReadme(project);
+  const readout = bodyAfterHeadline(p.desc, p.outcome);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
   // Standalone render (tests, stories) still works: fall back to local refs.
@@ -57,7 +58,7 @@ export default function DetailScreen({
         }}
       >
         <div
-          className="btn-cabinet"
+          className="btn-cabinet frost"
           role="button"
           aria-label="Back to project list"
           tabIndex={0}
@@ -73,7 +74,7 @@ export default function DetailScreen({
             color: "var(--cab-text)",
             padding: "3px 7px",
             borderRadius: 4,
-            background: alpha(PALETTE.white, 0.03),
+            background: onCard(alpha(PALETTE.white, 0.03)),
             border: `1px solid ${alpha(PALETTE.white, 0.06)}`,
           }}
         >
@@ -138,7 +139,7 @@ export default function DetailScreen({
               );
               return (
                 <a
-                  className="chip"
+                  className="chip frost"
                   key={link.kind}
                   ref={(el) => {
                     links.current[i] = el;
@@ -156,7 +157,7 @@ export default function DetailScreen({
                     whiteSpace: "nowrap",
                     fontWeight: demo ? 700 : 600,
                     color: demo ? "var(--cab-void)" : p.color,
-                    background: demo ? p.color : `${p.color}11`,
+                    background: demo ? p.color : onCard(`${p.color}11`),
                     border: demo
                       ? "1px solid transparent"
                       : `1px solid ${p.color}55`,
@@ -222,29 +223,31 @@ export default function DetailScreen({
             {p.outcome}
           </div>
         )}
-        {/* Zone A — SYS/READOUT */}
-        <div
-          style={{
-            marginBottom: 14,
-            padding: "10px 12px",
-            borderRadius: 4,
-            background: `${p.color}05`,
-            border: `1px solid ${p.color}0a`,
-          }}
-        >
-          <Sign text="SYS/READOUT" fs={fs} />
+        {/* Zone A — SYS/READOUT: the rest of the lead, after the headline */}
+        {readout && (
           <div
             style={{
-              fontSize: fs(11),
-              lineHeight: 1.75,
-              color: "var(--cab-text)",
-              maxWidth: 520,
+              marginBottom: 14,
+              padding: "10px 12px",
+              borderRadius: 4,
+              background: onCard(`${p.color}05`),
+              border: `1px solid ${p.color}0a`,
             }}
           >
-            <span style={{ color: p.color }}>&gt; </span>
-            {p.desc}
+            <Sign text="SYS/READOUT" fs={fs} />
+            <div
+              style={{
+                fontSize: fs(11),
+                lineHeight: 1.75,
+                color: "var(--cab-text)",
+                maxWidth: 520,
+              }}
+            >
+              <span style={{ color: p.color }}>&gt; </span>
+              {readout}
+            </div>
           </div>
-        </div>
+        )}
         {/* Zone B — SPECIFICATIONS + STACK */}
         {(p.highlights || p.stack) && (
           <div
@@ -286,7 +289,7 @@ export default function DetailScreen({
                         fontSize: fs(9),
                         padding: "2px 7px",
                         borderRadius: 3,
-                        background: `${p.color}15`,
+                        background: onCard(`${p.color}15`),
                         border: `1px solid ${p.color}30`,
                         color: `${p.color}cc`,
                         letterSpacing: "var(--track-display)",
@@ -307,7 +310,7 @@ export default function DetailScreen({
               marginBottom: 14,
               padding: "8px 12px",
               borderRadius: 4,
-              background: `${p.color}06`,
+              background: onCard(`${p.color}06`),
               border: `1px solid ${p.color}15`,
               borderLeft: `3px solid ${p.color}40`,
             }}
@@ -355,7 +358,7 @@ export default function DetailScreen({
                   fontSize: fs(8),
                   padding: "2px 6px",
                   borderRadius: 3,
-                  background: `${p.color}0a`,
+                  background: onCard(`${p.color}0a`),
                   border: `1px solid ${p.color}20`,
                   color: `${p.color}aa`,
                   letterSpacing: "var(--track-display)",

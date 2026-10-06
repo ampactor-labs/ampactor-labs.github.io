@@ -47,26 +47,26 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
       <a
-        class="pill"
+        class="pill frost"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
       >
         RESUME
       </a>
       <a
-        class="pill"
+        class="pill frost"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         GITHUB
       </a>
       <a
-        class="pill"
+        class="pill frost"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
@@ -78,36 +78,41 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       style="display: none; flex-basis: 100%;"
     >
       <a
+        class="frost"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
       >
         RESUME
       </a>
       <a
+        class="frost"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
         target="_blank"
       >
         GITHUB
       </a>
       <a
+        class="frost"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
         target="_blank"
       >
         LINKEDIN
       </a>
       <a
+        class="frost"
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
+        class="frost"
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
       >
         +1 435-268-2446
       </a>
@@ -116,6 +121,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   <div
     aria-activedescendant="program-mentl"
     aria-label="Project list"
+    class="frost"
     role="listbox"
     style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
     tabindex="0"
@@ -141,7 +147,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-mentl"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
@@ -188,7 +194,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-sonido"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -230,7 +236,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-turbosort"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -272,7 +278,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-two-top"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -314,7 +320,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-clob"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -370,7 +376,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-tokensafe"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -426,7 +432,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-landed"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -482,7 +488,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-perennials"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -524,7 +530,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-bits"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -566,7 +572,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-noodles"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -608,7 +614,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-copycats"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -650,7 +656,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-stoop"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -692,7 +698,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-understory"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -734,7 +740,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-celezdial"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -776,7 +782,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-freestyle-engine"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -818,7 +824,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-slot"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -860,7 +866,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-comma"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -902,7 +908,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-apapacho"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -941,10 +947,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="SYS/RESONANCE — SUBTRACTIVE SYNTH"
         aria-selected="false"
-        class="project-row hidden-row tier-1-enter"
+        class="project-row"
         id="program-resonance"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -983,10 +989,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="COHERENCE FIELD — CONSERVATION LAWS"
         aria-selected="false"
-        class="project-row hidden-row tier-2-enter"
+        class="project-row"
         id="program-coherence"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -1025,10 +1031,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="TUNNEL_RUN — VECTOR SHOOTER"
         aria-selected="false"
-        class="project-row hidden-row tier-3-enter"
+        class="project-row"
         id="program-tunnel-run"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -1140,26 +1146,26 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
       <a
-        class="pill"
+        class="pill frost"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
       >
         RESUME
       </a>
       <a
-        class="pill"
+        class="pill frost"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         GITHUB
       </a>
       <a
-        class="pill"
+        class="pill frost"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
+        style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); padding: 7px 8px; letter-spacing: var(--track-pixel); white-space: nowrap;"
         target="_blank"
       >
         LINKEDIN
@@ -1171,36 +1177,41 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       style="display: none; flex-basis: 100%;"
     >
       <a
+        class="frost"
         href="/resume.html"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
       >
         RESUME
       </a>
       <a
+        class="frost"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
         target="_blank"
       >
         GITHUB
       </a>
       <a
+        class="frost"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
-        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.06);"
+        style="font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: var(--track-pixel); color: rgb(0, 229, 255); border: 1px solid rgba(0, 229, 255, 0.35); background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72);"
         target="_blank"
       >
         LINKEDIN
       </a>
       <a
+        class="frost"
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
+        class="frost"
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: rgba(185, 166, 232, 0.05); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
       >
         +1 435-268-2446
       </a>
@@ -1209,6 +1220,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   <div
     aria-activedescendant="program-mentl"
     aria-label="Project list"
+    class="frost"
     role="listbox"
     style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
     tabindex="0"
@@ -1234,7 +1246,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-mentl"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
@@ -1281,7 +1293,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-sonido"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1323,7 +1335,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-turbosort"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1365,7 +1377,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-two-top"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1407,7 +1419,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-clob"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1463,7 +1475,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-tokensafe"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1519,7 +1531,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-landed"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1575,7 +1587,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-perennials"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1617,7 +1629,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-bits"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1659,7 +1671,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-noodles"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1701,7 +1713,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-copycats"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1743,7 +1755,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-stoop"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1785,7 +1797,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-understory"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1827,7 +1839,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-celezdial"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1869,7 +1881,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-freestyle-engine"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1911,7 +1923,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-slot"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1953,7 +1965,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-comma"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1995,7 +2007,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-apapacho"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"

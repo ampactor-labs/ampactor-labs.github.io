@@ -1,10 +1,13 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
 import Sign from "../Sign";
-import { PALETTE, alpha } from "../../palette";
+import { CARD, PALETTE, alpha, onCard } from "../../palette";
 import { pixel } from "../../type";
+
+// Long enough for the last of the three staggered entrances to land.
+const UNLOCK_MS = 800;
 
 export default function SelectScreen({
   projects,
@@ -32,6 +35,22 @@ export default function SelectScreen({
     listRef.current?.focus({ preventScroll: true });
   }, []);
 
+  // The three secret programs dash in once, staggered, when the coin unlocks
+  // them on this screen. The entrance comes off once they have landed, so
+  // neither TUNNEL_RUN's highlight ending nor a later visit to the list
+  // replays it.
+  const [seenCoins, setSeenCoins] = useState(coinCount);
+  const [unlocking, setUnlocking] = useState(false);
+  if (coinCount !== seenCoins) {
+    setSeenCoins(coinCount);
+    if (!seenCoins && coinCount > 0) setUnlocking(true);
+  }
+  useEffect(() => {
+    if (!unlocking) return;
+    const t = setTimeout(() => setUnlocking(false), UNLOCK_MS);
+    return () => clearTimeout(t);
+  }, [unlocking]);
+
   useEffect(() => {
     if (coinCount > 0 && listRef.current) {
       setTimeout(() => {
@@ -54,7 +73,7 @@ export default function SelectScreen({
     lineHeight: 1,
     border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
     borderRadius: 3,
-    background: alpha(PALETTE.mark, 0.06),
+    background: onCard(alpha(PALETTE.mark, 0.06)),
     padding: "7px 8px",
     letterSpacing: "var(--track-pixel)",
     whiteSpace: "nowrap",
@@ -65,7 +84,7 @@ export default function SelectScreen({
     letterSpacing: "var(--track-pixel)",
     color: PALETTE.mark,
     border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
-    background: alpha(PALETTE.mark, 0.06),
+    background: onCard(alpha(PALETTE.mark, 0.06)),
   };
   const contactChip = {
     ...railChip,
@@ -75,7 +94,7 @@ export default function SelectScreen({
     padding: "0 10px",
     color: "var(--cab-muted)",
     border: `1px solid ${alpha(PALETTE.muted, 0.3)}`,
-    background: alpha(PALETTE.muted, 0.05),
+    background: onCard(alpha(PALETTE.muted, 0.05)),
   };
   const lit = projects[selectedIdx]?.color ?? PALETTE.mark;
 
@@ -150,32 +169,32 @@ export default function SelectScreen({
         >
           {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
               that is also its name for a voice-control user. */}
-          <a href="/resume.html" className="pill" style={pill}>
+          <a href="/resume.html" className="pill frost" style={pill}>
             RESUME
           </a>
-          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="pill" style={pill}>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="pill frost" style={pill}>
             GITHUB
           </a>
-          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="pill" style={pill}>
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="pill frost" style={pill}>
             LINKEDIN
           </a>
         </nav>
         {/* On a phone the links and the contact are one set of chips under
             the name (crtStyles.js shows it under 600 px; hidden otherwise). */}
         <nav aria-label="Operator" className="phone-rail" style={{ display: "none", flexBasis: "100%" }}>
-          <a href="/resume.html" style={railChip}>
+          <a href="/resume.html" className="frost" style={railChip}>
             RESUME
           </a>
-          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" style={railChip}>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="frost" style={railChip}>
             GITHUB
           </a>
-          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" style={railChip}>
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="frost" style={railChip}>
             LINKEDIN
           </a>
-          <a href={MAILTO} style={contactChip}>
+          <a href={MAILTO} className="frost" style={contactChip}>
             {CONTACT.email}
           </a>
-          <a href={`tel:${CONTACT.phoneTel}`} style={contactChip}>
+          <a href={`tel:${CONTACT.phoneTel}`} className="frost" style={contactChip}>
             {CONTACT.phoneDisplay}
           </a>
         </nav>
@@ -184,6 +203,7 @@ export default function SelectScreen({
         ref={listRef}
         role="listbox"
         aria-label="Project list"
+        className="frost"
         tabIndex={0}
         aria-activedescendant={
           projects[selectedIdx] ? `program-${projects[selectedIdx].id}` : undefined
@@ -228,7 +248,7 @@ export default function SelectScreen({
                 role="option"
                 aria-selected={active}
                 aria-label={`${p.title} — ${p.subtitle}`}
-                className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
+                className={`project-row${isH && unlocking ? ` tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
                 onClick={() => onSelect(i)}
                 onMouseEnter={() => {
                   onHoverSelect(i);
@@ -243,13 +263,11 @@ export default function SelectScreen({
                   padding: "8px 12px",
                   borderRadius: 6,
                   background: active
-                    ? isH
-                      ? alpha(PALETTE.coin, 0.04)
-                      : alpha(PALETTE.mark, 0.05)
-                    : "transparent",
+                    ? onCard(isH ? alpha(PALETTE.coin, 0.05) : alpha(PALETTE.mark, 0.06))
+                    : CARD,
                   border: active
                     ? `1px solid ${isH ? alpha(PALETTE.coin, 0.15) : alpha(PALETTE.mark, 0.15)}`
-                    : "1px solid transparent",
+                    : `1px solid ${alpha(PALETTE.muted, 0.08)}`,
                   position: "relative",
                   borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
                   boxShadow: isGame && isH ? `0 0 8px ${p.color}22` : undefined,
@@ -299,20 +317,24 @@ export default function SelectScreen({
                     >
                       {p.title}
                     </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: fs(9),
-                        color: "var(--cab-muted)",
-                        padding: "1px 5px",
-                        background: alpha(PALETTE.white, 0.03),
-                        borderRadius: 3,
-                        border: `1px solid ${alpha(PALETTE.white, 0.05)}`,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {p.lang}
-                    </span>
+                    {/* The language chip, unless it would only repeat the
+                        category sign above the row (the operator's programs). */}
+                    {p.lang && p.lang !== CATEGORY_LABELS[p.category] && (
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: fs(9),
+                          color: "var(--cab-muted)",
+                          padding: "1px 5px",
+                          background: alpha(PALETTE.white, 0.03),
+                          borderRadius: 3,
+                          border: `1px solid ${alpha(PALETTE.white, 0.05)}`,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {p.lang}
+                      </span>
+                    )}
                   </div>
                   <div
                     style={{
@@ -351,6 +373,7 @@ export default function SelectScreen({
                 gap: 12,
                 padding: "10px 12px",
                 borderRadius: 6,
+                background: CARD,
                 opacity: 0.3,
                 pointerEvents: "none",
                 borderLeft: `2px dashed ${alpha(PALETTE.coin, 0.2)}`,
