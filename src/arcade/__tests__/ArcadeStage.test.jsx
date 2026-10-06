@@ -72,13 +72,13 @@ describe("ArcadeStage", () => {
 
   it("opens an operator program from its route", () => {
     renderStage(project("high-scores"));
-    expect(screen.getByRole("heading", { level: 2, name: "HIGH SCORES" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "HIGH SCORES" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /FULL LEDGER/ })).toHaveAttribute("href", "/receipts/");
     expect(screen.getByRole("region", { name: "HIGH SCORES" })).toBeInTheDocument();
   });
 
   it("opens a cartridge from its route", () => {
     renderStage(project("mentl"));
-    expect(screen.getByRole("heading", { level: 2, name: "MENTL" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "MENTL" })).toBeInTheDocument();
   });
 });

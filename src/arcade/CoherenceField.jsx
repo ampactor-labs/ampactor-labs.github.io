@@ -125,12 +125,12 @@ export default function CoherenceField({ width, height }) {
             p.r += (p.baseR - p.r) * 0.01;
             q.r += (q.baseR - q.r) * 0.01;
           }
-          const alpha = (1 - dist / 80) * 0.25 * p.energy * q.energy;
+          const lineAlpha = (1 - dist / 80) * 0.25 * p.energy * q.energy;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = `hsla(${170 + Math.sin(p.phase + q.phase) * 30},60%,55%,${alpha})`;
-          ctx.lineWidth = alpha * 2.5;
+          ctx.strokeStyle = `hsla(${170 + Math.sin(p.phase + q.phase) * 30},60%,55%,${lineAlpha})`;
+          ctx.lineWidth = lineAlpha * 2.5;
           ctx.stroke();
         }
         if (v.neglect) {

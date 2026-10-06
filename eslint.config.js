@@ -85,6 +85,9 @@ export default [
         "warn",
         { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
       ],
+      // A drawing function's `alpha` parameter once shadowed the palette's
+      // alpha() helper and stopped the game on its first frame.
+      "no-shadow": "error",
     },
   },
   {

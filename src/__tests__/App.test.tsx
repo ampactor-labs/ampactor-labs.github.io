@@ -164,7 +164,7 @@ describe("App", () => {
     window.history.replaceState(null, "", "/arcade/#mentl");
     render(<App />);
     expect(
-      screen.getByRole("heading", { level: 2, name: "MENTL" }),
+      screen.getByRole("heading", { level: 1, name: "MENTL" }),
     ).toBeInTheDocument();
     expect(window.history.state).toMatchObject({ screen: "project", id: "mentl" });
     await pressBack();
@@ -177,7 +177,7 @@ describe("App", () => {
     window.history.replaceState(null, "", "/arcade/#credits");
     render(<App />);
     expect(
-      screen.getByRole("heading", { level: 2, name: "CREDITS" }),
+      screen.getByRole("heading", { level: 1, name: "CREDITS" }),
     ).toBeInTheDocument();
     expect(screen.getByText("MAKE ART WITH YOUR FRIENDS")).toBeInTheDocument();
   });

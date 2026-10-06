@@ -31,7 +31,9 @@ import {
   BLINK_MS,
   DEATH_BLINK_ALPHA,
 } from "./tunnelBoss";
-import { FRINGE, GAME, PALETTE, alpha } from "./palette";
+// The helper is `rgba` here: `alpha` is the drawing functions' own word for
+// opacity, and a parameter of that name once shadowed it (no-shadow guards it).
+import { FRINGE, GAME, PALETTE, alpha as rgba } from "./palette";
 
 
 // Debug hook: ?boss=<score> summons the first ANOMALY early. Used for
@@ -286,7 +288,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     // Glow
     if (glow) {
       ctx.shadowBlur = 12;
-      ctx.shadowColor = alpha(PALETTE.mark, 0.6);
+      ctx.shadowColor = rgba(PALETTE.mark, 0.6);
     }
     ctx.strokeStyle = PALETTE.mark;
     ctx.lineWidth = 2.5;
@@ -339,22 +341,22 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // ── PAUSED ── (freeze time + the battlefield; show a pause card)
       if (gs.phase === "paused") {
         ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = alpha(GAME.shade, 0.6);
+        ctx.fillStyle = rgba(GAME.shade, 0.6);
         ctx.fillRect(0, 0, w, h);
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillStyle = PALETTE.mark;
         ctx.shadowBlur = 18;
-        ctx.shadowColor = alpha(PALETTE.mark, 0.7);
+        ctx.shadowColor = rgba(PALETTE.mark, 0.7);
         ctx.font = `${mobile ? 22 : 34}px 'Press Start 2P', monospace`;
         ctx.fillText("PAUSED", cx, cy - (mobile ? 14 : 20));
         ctx.shadowBlur = 0;
         ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
-        ctx.fillStyle = alpha(GAME.hud, 0.8);
+        ctx.fillStyle = rgba(GAME.hud, 0.8);
         ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
-        ctx.fillStyle = alpha(GAME.hud, 0.5);
+        ctx.fillStyle = rgba(GAME.hud, 0.5);
         ctx.fillText("ESC / B TO END", cx, cy + (mobile ? 34 : 48));
-        ctx.fillStyle = alpha(GAME.hud, 0.35);
+        ctx.fillStyle = rgba(GAME.hud, 0.35);
         ctx.fillText(QUOTES.paused, cx, cy + (mobile ? 56 : 78));
         return;
       }
@@ -397,13 +399,13 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.shadowBlur = 20;
-        ctx.shadowColor = alpha(PALETTE.mark, 0.8);
+        ctx.shadowColor = rgba(PALETTE.mark, 0.8);
         ctx.strokeStyle = PALETTE.mark;
         ctx.lineWidth = 2;
         const countText =
           gs.countdownLeft > 0 ? String(gs.countdownLeft) : "COMPILE";
         ctx.strokeText(countText, cx, cy);
-        ctx.fillStyle = alpha(PALETTE.mark, 0.15);
+        ctx.fillStyle = rgba(PALETTE.mark, 0.15);
         ctx.fillText(countText, cx, cy);
         ctx.shadowBlur = 0;
 
@@ -737,7 +739,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.save();
         ctx.strokeStyle = PALETTE.mint;
         ctx.shadowBlur = 8;
-        ctx.shadowColor = alpha(PALETTE.mint, 0.8);
+        ctx.shadowColor = rgba(PALETTE.mint, 0.8);
         ctx.lineWidth = 2 * scale;
         ctx.globalAlpha = 0.9;
         ctx.beginPath();
@@ -809,21 +811,21 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.font = `${mobile ? 7 : 9}px 'Press Start 2P', monospace`;
         ctx.fillStyle = barColor;
         ctx.shadowBlur = 8;
-        ctx.shadowColor = alpha(PALETTE.hot, 0.7);
+        ctx.shadowColor = rgba(PALETTE.hot, 0.7);
         ctx.fillText(
           enraged ? `${bossLabel(b.level)} !!` : bossLabel(b.level),
           cx,
           barY - (mobile ? 12 : 16),
         );
         ctx.shadowBlur = 0;
-        ctx.strokeStyle = alpha(PALETTE.hot, 0.5);
+        ctx.strokeStyle = rgba(PALETTE.hot, 0.5);
         ctx.lineWidth = 1;
         ctx.strokeRect(cx - barW / 2, barY, barW, barH);
         const hpFrac = Math.max(0, b.hp / b.maxHp);
         if (hpFrac > 0) {
           ctx.fillStyle = barColor;
           ctx.shadowBlur = 6;
-          ctx.shadowColor = alpha(PALETTE.hot, 0.8);
+          ctx.shadowColor = rgba(PALETTE.hot, 0.8);
           ctx.fillRect(
             cx - barW / 2 + 1,
             barY + 1,
@@ -862,7 +864,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "bottom";
         ctx.font = `8px 'Press Start 2P', monospace`;
-        ctx.fillStyle = alpha(GAME.hud, 0.28);
+        ctx.fillStyle = rgba(GAME.hud, 0.28);
         ctx.fillText(
           "◄ ► MOVE  ·  SPACE FIRE  ·  ESC/B END  ·  P PAUSE",
           cx,
@@ -1216,7 +1218,7 @@ function OverlayButton({ label, color, onPress }) {
         letterSpacing: "0.06em",
         padding: "8px 10px",
         borderRadius: 6,
-        background: alpha(GAME.shade, 0.62),
+        background: rgba(GAME.shade, 0.62),
         border: `1.5px solid ${color}59`,
         color,
         cursor: "pointer",
@@ -1253,7 +1255,7 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
         zIndex: 20,
         width: mobile ? "calc(100% - 32px)" : 470,
         maxWidth: 470,
-        background: alpha(GAME.shade, 0.94),
+        background: rgba(GAME.shade, 0.94),
         border: `1.5px solid ${PALETTE.voice}88`,
         borderRadius: 8,
         boxShadow: `0 0 24px ${PALETTE.voice}33`,
@@ -1318,7 +1320,7 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
             fontFamily: "inherit",
             color: GAME.hud,
             background: "transparent",
-            border: `1.5px solid ${alpha(GAME.hud, 0.4)}`,
+            border: `1.5px solid ${rgba(GAME.hud, 0.4)}`,
             borderRadius: 5,
             padding: "10px 12px",
             cursor: "pointer",
@@ -1410,7 +1412,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
     width: mobile ? 44 : 52,
     height: mobile ? 34 : 38,
     borderRadius: 6,
-    background: alpha(PALETTE.voice, 0.08),
+    background: rgba(PALETTE.voice, 0.08),
     border: `1.5px solid ${color}55`,
     color,
     cursor: "pointer",
@@ -1434,7 +1436,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
         gap: mobile ? 12 : 16,
         padding: 20,
         textAlign: "center",
-        background: alpha(GAME.shade, 0.85),
+        background: rgba(GAME.shade, 0.85),
         backdropFilter: "blur(3px)",
         touchAction: "manipulation",
         fontFamily: "'Press Start 2P', monospace",
@@ -1495,7 +1497,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
                 justifyContent: "center",
                 borderRadius: 8,
                 color: i === slot ? GAME.ink : color,
-                background: i === slot ? color : alpha(PALETTE.voice, 0.06),
+                background: i === slot ? color : rgba(PALETTE.voice, 0.06),
                 border: `2px solid ${color}${i === slot ? "" : "44"}`,
                 boxShadow: i === slot ? `0 0 18px ${color}88` : "none",
                 cursor: "pointer",
@@ -1543,7 +1545,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
 
       <div
         style={{
-          color: alpha(GAME.hud, 0.55),
+          color: rgba(GAME.hud, 0.55),
           fontSize: mobile ? 6 : 8,
           letterSpacing: "0.08em",
           marginTop: 2,
@@ -1567,13 +1569,13 @@ function drawControlsLegend(ctx, cx, h, mobile) {
   ctx.textBaseline = "middle";
   ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
   const y = mobile ? h * 0.7 : h * 0.66;
-  ctx.fillStyle = alpha(GAME.hud, 0.72);
+  ctx.fillStyle = rgba(GAME.hud, 0.72);
   ctx.fillText(
     mobile ? "SLIDE: MOVE   TAP: FIRE" : "◄ ►  MOVE       SPACE / ▲  FIRE",
     cx,
     y,
   );
-  ctx.fillStyle = alpha(GAME.hud, 0.45);
+  ctx.fillStyle = rgba(GAME.hud, 0.45);
   ctx.fillText(
     mobile ? "✕ END    ❚❚ PAUSE" : "ESC / B  END       P  PAUSE",
     cx,
@@ -1593,10 +1595,10 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
       ctx.font = `${mobile ? 11 : 16}px 'Press Start 2P', monospace`;
       ctx.fillStyle = PALETTE.hot;
       ctx.shadowBlur = 18;
-      ctx.shadowColor = alpha(PALETTE.hot, 0.8);
+      ctx.shadowColor = rgba(PALETTE.hot, 0.8);
       ctx.fillText("SIGNAL ANOMALY DETECTED", cx, cy - (mobile ? 60 : 90));
       ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
-      ctx.fillStyle = alpha(PALETTE.hot, 0.7);
+      ctx.fillStyle = rgba(PALETTE.hot, 0.7);
       ctx.shadowBlur = 0;
       ctx.fillText(QUOTES.boss, cx, cy - (mobile ? 42 : 64));
       ctx.restore();
@@ -1660,7 +1662,7 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
   ctx.translate(-3, 0);
   trace(s);
   ctx.restore();
-  ctx.strokeStyle = alpha(FRINGE.cool, 0.9);
+  ctx.strokeStyle = rgba(FRINGE.cool, 0.9);
   ctx.save();
   ctx.translate(3, 0);
   trace(s);
@@ -1671,7 +1673,7 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
   ctx.strokeStyle = PALETTE.hot;
   ctx.lineWidth = 3.5;
   ctx.shadowBlur = 20;
-  ctx.shadowColor = alpha(PALETTE.hot, 0.7);
+  ctx.shadowColor = rgba(PALETTE.hot, 0.7);
   trace(s);
 
   ctx.restore();
@@ -1687,18 +1689,18 @@ function drawGameOver(ctx, gs, w, h, mobile) {
 
   // The crash line, then GAME OVER.
   ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
-  ctx.fillStyle = alpha(GAME.hud, 0.7);
+  ctx.fillStyle = rgba(GAME.hud, 0.7);
   ctx.shadowBlur = 0;
   ctx.fillText(QUOTES.gameOver, cx, goY - (mobile ? 22 : 34));
 
   // GAME OVER
   ctx.font = `${mobile ? 20 : 34}px 'Press Start 2P', monospace`;
   ctx.shadowBlur = 22;
-  ctx.shadowColor = alpha(GAME.hit, 0.8);
+  ctx.shadowColor = rgba(GAME.hit, 0.8);
   ctx.strokeStyle = GAME.hit;
   ctx.lineWidth = 2;
   ctx.strokeText("GAME OVER", cx, goY);
-  ctx.fillStyle = alpha(GAME.hit, 0.2);
+  ctx.fillStyle = rgba(GAME.hit, 0.2);
   ctx.fillText("GAME OVER", cx, goY);
   ctx.shadowBlur = 0;
 

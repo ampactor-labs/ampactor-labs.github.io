@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { settled } from "./settled";
 // What scripts/audit.mjs measured; the page must show these numbers.
 import audit from "../src/data/audit.json" with { type: "json" };
 
@@ -25,6 +26,7 @@ test("the case study is accessible and quotes the measured numbers", async ({
   await expect(
     tiles.getByRole("listitem").filter({ hasText: "Browser test runs" }),
   ).toContainText(n(audit.tests.browserRuns));
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -47,6 +49,7 @@ test("with the lights on, the case study still passes axe", async ({
   await page
     .getByRole("heading", { name: "Tradeoffs and next steps" })
     .scrollIntoViewIfNeeded();
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -60,7 +63,7 @@ test("the contents go to each chapter, and HOW TO PLAY links here", async ({
   await page.addInitScript(() => localStorage.setItem("ampactor_visited", "1"));
   await page.goto("/arcade/#how-to-play");
   await expect(
-    page.getByRole("heading", { level: 2, name: "HOW TO PLAY" }),
+    page.getByRole("heading", { level: 1, name: "HOW TO PLAY" }),
   ).toBeVisible();
   await page.getByRole("link", { name: /HOW THIS CABINET IS BUILT/ }).click();
   await expect(page).toHaveURL(/\/craft\/$/);

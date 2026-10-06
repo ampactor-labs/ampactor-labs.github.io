@@ -350,7 +350,7 @@ export default function SystemScreen({
         </div>
         <div style={{ fontSize: fs(20), color }}>{p.icon}</div>
         <div style={{ flex: 1, minWidth: 140 }}>
-          <h2
+          <h1
             className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
@@ -362,7 +362,7 @@ export default function SystemScreen({
             }}
           >
             {p.title}
-          </h2>
+          </h1>
           <div style={{ fontSize: fs(10), color: "var(--cab-text)", letterSpacing: "0.1em", marginTop: 3 }}>
             {p.subtitle}
           </div>
