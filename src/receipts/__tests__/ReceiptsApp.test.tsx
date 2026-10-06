@@ -225,7 +225,8 @@ describe("ReceiptsApp", () => {
     await waitFor(() =>
       expect(screen.getByText(/Showing/)).toBeInTheDocument(),
     );
-    expect(screen.getByText(/2 rows/)).toBeInTheDocument();
+    // The preview follows the selection at low priority, a render behind.
+    expect(await screen.findByText(/2 rows/)).toBeInTheDocument();
     const button = screen.getByRole("button", {
       name: /Download receipts-mentl\.csv/,
     });

@@ -1,25 +1,11 @@
-import README_CONTENT from "./readme-content.generated.json";
-
 // Content fields below (outcome, desc, operatorNote, status) are overridden
-// at build time by the project's own README, field by field, when that field
-// passes docs/README-STANDARD.md (scripts/sync-readmes.mjs decides; the card
-// line waits for the whole README to meet the standard). Presentation fields
-// (color, icon, category, highlights, tagline) always come from this file.
-// Edit a README to change what a project claims; edit here to change how it
-// looks, or to hold a fallback until its README is updated.
-const fromReadme = (project) => {
-  const c = README_CONTENT[project.id];
-  if (!c) return project;
-  return {
-    ...project,
-    outcome: c.summary || project.outcome,
-    desc: c.desc || project.desc,
-    operatorNote: c.operatorNote || project.operatorNote,
-    readmeStatus: c.status,
-    readmeStatusNote: c.statusNote,
-  };
-};
-
+// by the project's own README, field by field, when that field passes
+// docs/README-STANDARD.md: withReadme (readme.js) applies them where they
+// are read, the cartridge readout and the noscript list, so the first
+// screen does not carry them. Presentation fields (color, icon, category,
+// highlights, tagline) always come from this file. Edit a README to change
+// what a project claims; edit here to change how it looks, or to hold a
+// fallback until its README is updated.
 const RAW_PROJECTS = [
   {
     id: "mentl",
@@ -561,7 +547,7 @@ const RAW_PROJECTS = [
   },
 ];
 
-export const PROJECTS = RAW_PROJECTS.map(fromReadme);
+export const PROJECTS = RAW_PROJECTS;
 
 export const HIDDEN_PROJECTS = [
   {

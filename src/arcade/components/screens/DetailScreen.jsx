@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
+import { withReadme } from "../../../data/readme";
 import { PALETTE, alpha } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
@@ -8,7 +9,7 @@ const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
 
 export default function DetailScreen({
-  project: p,
+  project,
   onBack,
   screenWidth,
   screenHeight,
@@ -17,6 +18,9 @@ export default function DetailScreen({
   linkRefs,
   focusedLink = 0,
 }) {
+  // The README's word on what the project is, applied here: nothing before
+  // the readout needs it (src/data/readme.js).
+  const p = withReadme(project);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
   // Standalone render (tests, stories) still works: fall back to local refs.

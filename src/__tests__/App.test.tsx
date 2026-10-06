@@ -9,7 +9,7 @@ import {
 } from "../arcade/hooks/useCabinetState";
 
 // The power-on is a GSAP timeline; here it completes on the spot.
-vi.mock("gsap", () => {
+vi.mock("gsap/gsap-core", () => {
   const complete = (vars: { onComplete?: () => void }) => {
     vars.onComplete?.();
     return {};
@@ -166,8 +166,9 @@ describe("App", () => {
     returning();
     window.history.replaceState(null, "", "/arcade/#mentl");
     render(<App />);
+    // The readout loads on demand, so the first look waits for it.
     expect(
-      screen.getByRole("heading", { level: 1, name: "MENTL" }),
+      await screen.findByRole("heading", { level: 1, name: "MENTL" }),
     ).toBeInTheDocument();
     expect(window.history.state).toMatchObject({ screen: "project", id: "mentl" });
     await pressBack();
@@ -175,12 +176,12 @@ describe("App", () => {
     expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
   });
 
-  it("a deep link opens an operator program", () => {
+  it("a deep link opens an operator program", async () => {
     returning();
     window.history.replaceState(null, "", "/arcade/#credits");
     render(<App />);
     expect(
-      screen.getByRole("heading", { level: 1, name: "CREDITS" }),
+      await screen.findByRole("heading", { level: 1, name: "CREDITS" }),
     ).toBeInTheDocument();
     expect(screen.getByText("MAKE ART WITH YOUR FRIENDS")).toBeInTheDocument();
   });

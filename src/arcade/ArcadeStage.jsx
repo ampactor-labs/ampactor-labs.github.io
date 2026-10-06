@@ -1,5 +1,12 @@
-import { useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 const TunnelGame = lazy(() => import("./TunnelGame"));
+// The readout and the operator programs are a press or two away, never the
+// first screen: they load once the machine has booted and the page is idle
+// (below), so the title card ships without them.
+const loadDetail = () => import("./components/screens/DetailScreen");
+const loadSystem = () => import("./components/screens/SystemScreen");
+const DetailScreen = lazy(loadDetail);
+const SystemScreen = lazy(loadSystem);
 import TunnelCanvas from "./TunnelCanvas";
 import { crtStyles } from "./styles/crtStyles";
 import styles from "./styles/stage.module.css";
@@ -9,8 +16,6 @@ import { hasVisited } from "./visited";
 import { QUOTES } from "../data/quotes";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
-import DetailScreen from "./components/screens/DetailScreen";
-import SystemScreen from "./components/screens/SystemScreen";
 import AttractScreen from "./components/screens/AttractScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
@@ -40,8 +45,26 @@ function AMarkOverlay({ logoRef }) {
         height="200"
         style={{ filter: `drop-shadow(0 0 20px ${alpha(PALETTE.mark, 0.3)})` }}
       >
-        <line x1="108" y1="408" x2="256" y2="104" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
-        <line x1="404" y1="408" x2="256" y2="104" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line
+          x1="108"
+          y1="408"
+          x2="256"
+          y2="104"
+          stroke={PALETTE.mark}
+          strokeWidth="36"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <line
+          x1="404"
+          y1="408"
+          x2="256"
+          y2="104"
+          stroke={PALETTE.mark}
+          strokeWidth="36"
+          strokeLinecap="round"
+          fill="none"
+        />
         <path
           d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
           stroke={PALETTE.mark}
@@ -49,8 +72,26 @@ function AMarkOverlay({ logoRef }) {
           strokeLinecap="round"
           fill="none"
         />
-        <line x1="76" y1="408" x2="140" y2="408" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
-        <line x1="372" y1="408" x2="436" y2="408" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line
+          x1="76"
+          y1="408"
+          x2="140"
+          y2="408"
+          stroke={PALETTE.mark}
+          strokeWidth="36"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <line
+          x1="372"
+          y1="408"
+          x2="436"
+          y2="408"
+          stroke={PALETTE.mark}
+          strokeWidth="36"
+          strokeLinecap="round"
+          fill="none"
+        />
       </svg>
     </div>
   );
@@ -72,7 +113,11 @@ export default function ArcadeStage({
   // hidden and the intro brings it up. Decided once, so React never
   // re-applies it over the animation.
   const [darkStart] = useState(
-    () => !(hasVisited() || (route.view === "arcade" && route.screen === "project")),
+    () =>
+      !(
+        hasVisited() ||
+        (route.view === "arcade" && route.screen === "project")
+      ),
   );
   // Read once: the boot marks the visit, and the title card after a first
   // boot must still greet a first visitor.
@@ -121,6 +166,23 @@ export default function ArcadeStage({
     route,
     onNavigate,
   });
+
+  // Once the boot is over, the idle page fetches the readout and the
+  // programs, so the first one opened is already here.
+  const booted = introComplete && screen !== "boot";
+  useEffect(() => {
+    if (!booted) return;
+    const warm = () => {
+      loadDetail().catch(() => {});
+      loadSystem().catch(() => {});
+    };
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(warm, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(warm, 1000);
+    return () => clearTimeout(t);
+  }, [booted]);
 
   return (
     <div className={styles.stage} data-screen={screen}>
@@ -260,27 +322,31 @@ export default function ArcadeStage({
                 />
               )}
               {screen === "detail" && detailProject && (
-                <DetailScreen
-                  project={detailProject}
-                  onBack={goBack}
-                  screenWidth={dims.w}
-                  screenHeight={dims.h}
-                  fs={fs}
-                  bodyRef={detailBodyRef}
-                  linkRefs={linkRefs}
-                  focusedLink={linkIdx}
-                />
+                <Suspense fallback={null}>
+                  <DetailScreen
+                    project={detailProject}
+                    onBack={goBack}
+                    screenWidth={dims.w}
+                    screenHeight={dims.h}
+                    fs={fs}
+                    bodyRef={detailBodyRef}
+                    linkRefs={linkRefs}
+                    focusedLink={linkIdx}
+                  />
+                </Suspense>
               )}
               {screen === "system" && detailProject && (
-                <SystemScreen
-                  program={detailProject}
-                  onBack={goBack}
-                  fs={fs}
-                  bodyRef={detailBodyRef}
-                  linkRefs={linkRefs}
-                  focusedLink={linkIdx}
-                  reducedMotion={reducedMotion}
-                />
+                <Suspense fallback={null}>
+                  <SystemScreen
+                    program={detailProject}
+                    onBack={goBack}
+                    fs={fs}
+                    bodyRef={detailBodyRef}
+                    linkRefs={linkRefs}
+                    focusedLink={linkIdx}
+                    reducedMotion={reducedMotion}
+                  />
+                </Suspense>
               )}
             </div>
           </div>

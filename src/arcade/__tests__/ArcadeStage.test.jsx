@@ -73,15 +73,20 @@ describe("ArcadeStage", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
-  it("opens an operator program from its route", () => {
+  // The readout and the programs load on demand, so the first look waits.
+  it("opens an operator program from its route", async () => {
     renderStage(project("high-scores"));
-    expect(screen.getByRole("heading", { level: 1, name: "HIGH SCORES" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "HIGH SCORES" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /FULL LEDGER/ })).toHaveAttribute("href", "/receipts/");
     expect(screen.getByRole("region", { name: "HIGH SCORES" })).toBeInTheDocument();
   });
 
-  it("opens a cartridge from its route", () => {
+  it("opens a cartridge from its route", async () => {
     renderStage(project("mentl"));
-    expect(screen.getByRole("heading", { level: 1, name: "MENTL" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "MENTL" }),
+    ).toBeInTheDocument();
   });
 });

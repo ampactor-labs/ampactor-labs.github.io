@@ -4,6 +4,7 @@
 // profile.js; the noscript project list comes from projects.js.
 import { CONTACT } from "./profile.js";
 import { PROJECTS } from "./projects.js";
+import { withReadme } from "./readme.js";
 import receipts from "./receipts.summary.json" with { type: "json" };
 import { PALETTE, cabinetCss } from "../arcade/palette.js";
 
@@ -202,7 +203,7 @@ export function renderNoscript(entry) {
     `<a href="${CONTACT.github}">github.com/ampactor-labs</a>`,
     `<a href="/resume.html">Résumé</a>`,
   ].join(" &middot; ");
-  const projects = PROJECTS.map(
+  const projects = PROJECTS.map(withReadme).map(
     (p) =>
       `<li><strong>${escapeHtml(p.title)}</strong> &mdash; ${escapeHtml(
         p.outcome || p.desc,
