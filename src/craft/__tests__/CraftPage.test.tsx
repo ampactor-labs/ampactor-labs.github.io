@@ -52,19 +52,13 @@ describe("CraftPage", () => {
     ).toBeTruthy();
   });
 
-  it("marks itself as the current page in the header", () => {
+  it("wears one line of frame: the A-mark home, no site nav", () => {
     render(<CraftPage />);
-    const site = screen.getByRole("navigation", { name: "Site" });
     expect(
-      within(site)
-        .getByRole("link", { name: "CRAFT" })
-        .getAttribute("aria-current"),
-    ).toBe("page");
-    expect(
-      within(site)
-        .getByRole("link", { name: "COMMITS" })
-        .getAttribute("aria-current"),
-    ).toBeNull();
+      screen.getByRole("link", { name: "Ampactor Labs, home" }).getAttribute("href"),
+    ).toBe("/");
+    expect(screen.queryByRole("navigation", { name: "Site" })).toBeNull();
+    expect(screen.queryByRole("contentinfo")).toBeNull();
   });
 
   it("tells the boot's length as the code has it", () => {

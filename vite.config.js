@@ -74,7 +74,7 @@ function inlineCss() {
   };
 }
 
-// Every page loads the same shell as one file: React, the header and footer,
+// Every page loads the same shell as one file: React, the pages' frame,
 // the theme, the formatters, the ledger's summary and the chart scale the
 // floor's teaser borrows. Left to the automatic splitter, a module that some
 // pages share but not all gets a chunk of its own, so adding a page can add a
@@ -89,7 +89,6 @@ const SHELL = [
   /[\\/]src[\\/](ui|styles)[\\/]/,
   /[\\/]src[\\/]lib[\\/](format|theme)\.ts$/,
   /[\\/]src[\\/]data[\\/](profile\.js|receiptsSummary\.ts|receipts\.summary\.json)$/,
-  /[\\/]src[\\/]floor[\\/](Header\.tsx|Footer\.tsx|Floor\.module\.css)$/,
   /[\\/]src[\\/]receipts[\\/]charts[\\/]scale\.ts$/,
 ];
 

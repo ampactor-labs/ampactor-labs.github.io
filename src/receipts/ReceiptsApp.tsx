@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { QUOTES } from "../data/quotes";
-import Header from "../floor/Header";
-import Footer from "../floor/Footer";
+import Frame from "../ui/Frame";
 import {
   aggregateByMonth,
   aggregateByRepo,
@@ -44,7 +43,7 @@ export default function ReceiptsApp() {
 
   return (
     <>
-      <Header current="receipts" />
+      <Frame />
       <main id="main" className={styles.main} tabIndex={-1}>
         <header className={styles.pageHead}>
           <p className={styles.eyebrow} aria-hidden="true">
@@ -77,7 +76,6 @@ export default function ReceiptsApp() {
           />
         ) : null}
       </main>
-      <Footer inert={false} />
     </>
   );
 }

@@ -14,10 +14,8 @@ test("the case study is accessible and quotes the measured numbers", async ({
     page.getByRole("heading", { level: 1, name: "How this site is built" }),
   ).toBeVisible();
   await expect(
-    page
-      .getByRole("navigation", { name: "Site" })
-      .getByRole("link", { name: "CRAFT", exact: true }),
-  ).toHaveAttribute("aria-current", "page");
+    page.getByRole("link", { name: "Ampactor Labs, home" }),
+  ).toHaveAttribute("href", "/");
 
   const tiles = page.getByRole("list", { name: "Measured" });
   await expect(
@@ -37,9 +35,7 @@ test("the case study is accessible and quotes the measured numbers", async ({
 test("with the lights on, the case study still passes axe", async ({
   page,
 }) => {
-  await page.addInitScript(() =>
-    localStorage.setItem("ampactor_theme", "patina-light"),
-  );
+  await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/craft/");
   await expect(page.locator("html")).toHaveAttribute(
     "data-theme",

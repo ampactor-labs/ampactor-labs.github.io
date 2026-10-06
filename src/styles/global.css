@@ -18,15 +18,9 @@ body {
   margin: 0;
   min-height: 100dvh;
   color: var(--fg);
-  /* Light pooling at the centre of a dark room; the same radial the cabinet
-     used to paint, now token-driven so it follows the theme. */
-  background: radial-gradient(
-    ellipse at 50% 30%,
-    var(--color-charcoal) 0%,
-    var(--color-dim) 55%,
-    var(--color-void) 100%
-  );
-  background-attachment: fixed;
+  /* The cabinet's room: indigo falling into the void down the page, token
+     driven so it follows the theme. No radial, nothing fixed to repaint. */
+  background: linear-gradient(180deg, var(--color-charcoal) 0%, var(--color-void) 100%);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.55;
@@ -48,7 +42,7 @@ html[data-stage] body {
 
 /* Every interactive element gets the same visible focus ring. */
 :focus-visible {
-  outline: 2px solid var(--accent-text);
+  outline: 2px solid var(--focus-ring, var(--accent-text));
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }

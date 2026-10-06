@@ -1,0 +1,29 @@
+/* One line across the top of the page: the A-mark home, in the cabinet's
+   cyan on its 8 px grid, and the sunset rule (cyan, violet, magenta) under
+   it. It holds still while the page under it changes (global.css). */
+.frame {
+  view-transition-name: page-frame;
+  display: flex;
+  align-items: center;
+  padding: 6px var(--gutter);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      var(--cab-mark),
+      var(--cab-quiet) 50%,
+      var(--cab-voice)
+    )
+    1;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--mark-ink);
+  text-decoration: none;
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  letter-spacing: 0.125em;
+}
