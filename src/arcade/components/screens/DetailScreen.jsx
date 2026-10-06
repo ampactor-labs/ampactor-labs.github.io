@@ -101,7 +101,7 @@ export default function DetailScreen({
           {p.icon}
         </div>
         <div style={{ flex: 1 }}>
-          <h2
+          <h1
             className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
@@ -113,7 +113,7 @@ export default function DetailScreen({
             }}
           >
             {p.title}
-          </h2>
+          </h1>
           <div
             style={{
               fontSize: fs(10),

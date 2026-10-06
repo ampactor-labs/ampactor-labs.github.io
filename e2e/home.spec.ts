@@ -1,5 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { settled } from "./settled";
 
 // The cabinet is the page. "/" is its title card (attract mode); PRESS START
 // is the select screen at "/arcade/"; a cartridge or an operator program is
@@ -30,6 +31,7 @@ test("the title card is accessible, and says who", async ({
   await expect(titleCard(page).getByText("KEPT YOU WAITING, HUH?")).toBeVisible();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator("html")).toHaveAttribute("data-stage", "");
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -100,7 +102,7 @@ test("browser Back walks cartridge → list → title card", async ({ page }) =>
   await page.getByRole("option", { name: /MENTL/ }).click();
   await expect(page).toHaveURL(/\/arcade\/#mentl$/);
   await expect(
-    page.getByRole("heading", { level: 2, name: "MENTL" }),
+    page.getByRole("heading", { level: 1, name: "MENTL" }),
   ).toBeVisible();
 
   await page.goBack();
@@ -118,7 +120,7 @@ test("a deep link opens the cartridge, and Back lands on the list, not off-site"
   await landOnTitleCard(page);
   await page.goto("/arcade/#sonido");
   await expect(
-    page.getByRole("heading", { level: 2, name: "SONIDO" }),
+    page.getByRole("heading", { level: 1, name: "SONIDO" }),
   ).toBeVisible();
   await page.goBack();
   await expect(page).toHaveURL(/\/arcade\/$/);
@@ -137,7 +139,7 @@ test("the operator programs open by deep link", async ({ page }) => {
   await landOnTitleCard(page);
   await page.goto("/arcade/#high-scores");
   await expect(
-    page.getByRole("heading", { level: 2, name: "HIGH SCORES" }),
+    page.getByRole("heading", { level: 1, name: "HIGH SCORES" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /FULL LEDGER/ })).toHaveAttribute(
     "href",
@@ -145,7 +147,7 @@ test("the operator programs open by deep link", async ({ page }) => {
   );
   await page.goto("/arcade/#credits");
   await expect(
-    page.getByRole("heading", { level: 2, name: "CREDITS" }),
+    page.getByRole("heading", { level: 1, name: "CREDITS" }),
   ).toBeVisible();
   await expect(page.getByText("MAKE ART WITH YOUR FRIENDS")).toBeVisible();
   await expect(page.getByRole("link", { name: /FULL RÉSUMÉ/ })).toHaveAttribute(

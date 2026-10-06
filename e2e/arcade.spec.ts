@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { settled } from "./settled";
 import { PALETTE } from "../src/arcade/palette.js";
 
 // The title card's address: the origin and nothing else.
@@ -31,7 +32,7 @@ test("the whole cabinet is playable from the keyboard", async ({ page }) => {
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#sonido$/);
   await expect(
-    page.getByRole("heading", { level: 2, name: "SONIDO" }),
+    page.getByRole("heading", { level: 1, name: "SONIDO" }),
   ).toBeVisible();
 
   await page.keyboard.press("Escape");
@@ -54,6 +55,7 @@ test("the list is accessible, and the operator's programs end it", async ({
     "HIGH SCORES",
     "CREDITS",
   ]);
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -75,7 +77,7 @@ test("up from the top wraps to CREDITS; B steps out to the list, then the title 
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#credits$/);
   await expect(
-    page.getByRole("heading", { level: 2, name: "CREDITS" }),
+    page.getByRole("heading", { level: 1, name: "CREDITS" }),
   ).toBeVisible();
   await expect(page.getByText("MAKE ART WITH YOUR FRIENDS")).toBeAttached();
 
@@ -99,17 +101,22 @@ test("HIGH SCORES is the ledger in the cabinet's own words", async ({
 }) => {
   await page.goto("/arcade/#high-scores");
   await expect(
-    page.getByRole("heading", { level: 2, name: "HIGH SCORES" }),
+    page.getByRole("heading", { level: 1, name: "HIGH SCORES" }),
   ).toBeVisible();
   const table = page.getByRole("table");
   await expect(table.getByRole("columnheader", { name: "RANK" })).toBeVisible();
-  await expect(table.getByRole("columnheader", { name: "SCORE" })).toBeVisible();
+  await expect(
+    table.getByRole("columnheader", { name: "SCORE" }),
+  ).toBeVisible();
   await expect(table.getByRole("row")).toHaveCount(11); // header + top 10
-  await expect(page.getByRole("img", { name: /Commits per month/ })).toBeVisible();
+  await expect(
+    page.getByRole("img", { name: /Commits per month/ }),
+  ).toBeVisible();
   await expect(page.getByRole("link", { name: /FULL LEDGER/ })).toHaveAttribute(
     "href",
     "/receipts/",
   );
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -126,7 +133,23 @@ test("the coin slot still unlocks the hidden programs", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("the page never scrolls: the cabinet is the viewport", async ({ page }) => {
+test("TUNNEL_RUN runs: the countdown flies into the game without an error", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/arcade/");
+  await page.getByRole("button", { name: "Insert coin" }).click();
+  await page.getByRole("option", { name: /TUNNEL_RUN/ }).click();
+  await expect(page.getByRole("button", { name: "PAUSE" })).toBeVisible();
+  // Three seconds of countdown, then the ship flies: every frame draws it.
+  await page.waitForTimeout(4500);
+  expect(errors).toEqual([]);
+});
+
+test("the page never scrolls: the cabinet is the viewport", async ({
+  page,
+}) => {
   await page.goto("/arcade/");
   await expect(
     page.getByRole("listbox", { name: "Project list" }),

@@ -1,5 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { settled } from "./settled";
 
 async function openLedger(page: Page, search = "") {
   await page.goto(`/receipts/${search}`);
@@ -15,6 +16,7 @@ test("the ledger is accessible and answers the URL", async ({ page }) => {
   const text = (await summary.textContent()) ?? "";
   const [, shown, total] = text.match(/Showing ([\d,]+) of ([\d,]+)/) ?? [];
   expect(shown).toBe(total);
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,
@@ -166,6 +168,7 @@ test("with the lights on, the charts still pass axe", async ({ page }) => {
     "data-theme",
     "patina-light",
   );
+  await settled(page);
   const results = await new AxeBuilder({ page }).analyze();
   expect(
     results.violations,

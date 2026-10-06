@@ -24,12 +24,12 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     <div
       style="flex: 1 1 0%;"
     >
-      <h2
+      <h1
         class="signage"
         style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(224, 255, 0); letter-spacing: 0.05em; margin: 0px;"
       >
         MENTL
-      </h2>
+      </h1>
       <div
         style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
       >
@@ -318,12 +318,12 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     <div
       style="flex: 1 1 0%;"
     >
-      <h2
+      <h1
         class="signage"
         style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(255, 184, 0); letter-spacing: 0.05em; margin: 0px;"
       >
         SYS/RESONANCE
-      </h2>
+      </h1>
       <div
         style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
       >
