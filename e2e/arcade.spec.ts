@@ -40,6 +40,30 @@ test("the whole cabinet is playable from the keyboard", async ({ page }) => {
   await expect(list).toBeVisible();
 });
 
+// The deck's keys are keys. Tabbed to, Enter presses that key and only that
+// key; pressed with the mouse, a key hands focus back, so Enter still means A.
+test("a deck key answers its own Enter, and a click on one leaves Enter to A", async ({
+  page,
+}) => {
+  await page.goto("/arcade/");
+  const list = page.getByRole("listbox", { name: "Project list" });
+  await expect(list).toBeVisible();
+  await page.getByRole("button", { name: "Navigate down", exact: true }).click();
+  await expect(
+    page.getByRole("option", { selected: true }),
+  ).toHaveAccessibleName(/SONIDO/);
+  await expect(list).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#sonido$/);
+
+  await page.goto("/arcade/");
+  await expect(list).toBeVisible();
+  await page.getByRole("button", { name: "Back", exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(HOME_URL);
+  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+});
+
 test("the list is accessible, and the operator's programs end it", async ({
   page,
 }) => {

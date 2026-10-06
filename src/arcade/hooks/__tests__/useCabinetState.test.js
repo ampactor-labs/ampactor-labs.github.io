@@ -180,6 +180,24 @@ describe("useCabinetState", () => {
       expect(result.current.screen).toBe("detail");
     });
 
+    // Tabbed to, a key on the deck presses itself; the list must not take the
+    // same Enter as an open.
+    it("a focused key on the deck answers its own Enter; the list stays put", () => {
+      const { intents } = renderCabinet({ initialRoute: SELECT });
+      const key = document.createElement("div");
+      key.setAttribute("role", "button");
+      document.body.append(key);
+      try {
+        act(() => {
+          for (const k of ["Enter", " "])
+            key.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true }));
+        });
+      } finally {
+        key.remove();
+      }
+      expect(intents).toEqual([]);
+    });
+
     it("arrow keys on the select screen are consumed, not scrolled", () => {
       const { result } = renderCabinet();
       bootToSelect(result);
