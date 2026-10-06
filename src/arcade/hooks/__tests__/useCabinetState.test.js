@@ -16,7 +16,10 @@ vi.mock("../../useAmbientHum", () => ({
     playBlip: vi.fn(),
     playEnter: vi.fn(),
     playBack: vi.fn(),
+    playStart: vi.fn(),
     playInsertSting: vi.fn(),
+    sound: true,
+    toggleSound: vi.fn(),
   }),
 }));
 

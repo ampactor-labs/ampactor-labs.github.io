@@ -169,19 +169,27 @@ test("on a touch screen every panel control is a 44 px target", async ({
     "Select",
     "Insert coin",
   ];
-  for (const name of controls) {
-    const box = await page
-      .getByRole("button", { name, exact: true })
-      .boundingBox();
+  const targets = [
+    ...controls.map((name) => ({
+      name,
+      locator: page.getByRole("button", { name, exact: true }),
+      selector: `[role="button"][aria-label="${name}"]`,
+    })),
+    {
+      name: "SOUND",
+      locator: page.getByRole("switch", { name: "SOUND" }),
+      selector: ".sound-toggle",
+    },
+  ];
+  for (const { name, locator, selector } of targets) {
+    const box = await locator.boundingBox();
     expect(box, name).not.toBeNull();
     const cx = box!.x + box!.width / 2;
     const cy = box!.y + box!.height / 2;
     // A tap 21 px from the centre, in each direction, still lands on it.
     const hits = await page.evaluate(
-      ({ cx, cy, name }) => {
-        const control = [...document.querySelectorAll('[role="button"]')].find(
-          (el) => el.getAttribute("aria-label") === name,
-        );
+      ({ cx, cy, selector }) => {
+        const control = document.querySelector(selector);
         const taps: [number, number][] = [
           [cx - 21, cy],
           [cx + 21, cy],
@@ -193,16 +201,55 @@ test("on a touch screen every panel control is a 44 px target", async ({
           return Boolean(control && hit && control.contains(hit));
         });
       },
-      { cx, cy, name },
+      { cx, cy, selector },
     );
     expect(hits, name).toEqual([true, true, true, true]);
   }
+  // The INSERT COIN words never reach the SOUND switch.
+  const words = await page.getByText("INSERT COIN", { exact: true }).boundingBox();
+  const wordHits = await page.evaluate(
+    ({ x, y, w, h }) =>
+      [0.25, 0.5, 0.75].map((f) => {
+        const hit = document.elementFromPoint(x + w / 2, y + h * f);
+        return Boolean(hit?.closest(".sound-toggle"));
+      }),
+    { x: words!.x, y: words!.y, w: words!.width, h: words!.height },
+  );
+  expect(wordHits).toEqual([false, false, false]);
   for (const name of ["RESUME", "GITHUB", "LINKEDIN"]) {
     const box = await page
       .getByRole("link", { name, exact: true })
       .boundingBox();
     expect(box!.height, name).toBeGreaterThanOrEqual(40);
   }
+});
+
+// SOUND ON / SOUND OFF on the deck: Enter on the switch flips it and does
+// nothing else, and the choice outlives a reload.
+test("the SOUND switch answers its own Enter and is remembered", async ({
+  page,
+}) => {
+  await page.goto("/arcade/");
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
+  const sound = page.getByRole("switch", { name: "SOUND" });
+  await expect(sound).toHaveAttribute("aria-checked", "true");
+  await expect(sound).toHaveText("SOUND ON");
+  await sound.focus();
+  await page.keyboard.press("Enter");
+  await expect(sound).toHaveAttribute("aria-checked", "false");
+  await expect(sound).toHaveText("SOUND OFF");
+  // The list did not take the Enter as its own.
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
+  expect(new URL(page.url()).hash).toBe("");
+  await page.reload();
+  await expect(page.getByRole("switch", { name: "SOUND" })).toHaveAttribute(
+    "aria-checked",
+    "false",
+  );
 });
 
 // Press Start 2P is drawn on an 8 px grid; off it, the pixels smear. Every

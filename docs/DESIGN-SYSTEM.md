@@ -271,6 +271,29 @@ the plain page.
 - Page links: colour fade to the accent, `0.15 s`. Primary CTA: bloom +
   `translateY(-1px)`, `0.18 s`.
 
+### Sound
+
+One `AudioContext` for the whole cabinet (`src/arcade/audio/bus.js`): every voice runs
+into one master gain and a compressor, with a short delay send (`0.18 s`, a little
+feedback) for the room. The master gives back the compressor's makeup gain, so a voice
+plays at the level it was written at and only the peaks are caught. Nothing exists until the machine is started, so the power-on,
+the BIOS and the title card are silent.
+
+- **START** is the ignition: a `0.9 s` swell through an opening filter, then a power
+  chord, and the room's bed comes up under it.
+- **The bed:** two triangles a fifth apart (55 and 82.6 Hz) under a slow lowpass, and a
+  quiet band of noise, about 38 dB under full scale and under every other sound. It
+  fades in over `2.5 s`, opens with the tunnel's speed (the run and the boss brighten
+  it) and fades out on the way back to the title card.
+- **Into a cartridge:** a resonant sweep keyed by the cartridge's colour. Back out is
+  the same sweep falling. A row under the pointer blips.
+- **The coin:** a clink, then a chord.
+- **TUNNEL_RUN** plays on the same bus; its laser and blasts climb with the run's speed.
+- **SOUND ON / SOUND OFF** on the deck mutes the master with a `0.12 s` ramp, never a
+  click, then stops the room and puts the context to sleep. It is remembered
+  (`localStorage`, `ampactor_sound`), and while it is off nothing is made or played:
+  no context, no notes, no bed. Flipping it on the title card makes no context.
+
 ### Reduced motion — non-negotiable
 
 Every animated surface honours it: the power-on is a cut (the BIOS still prints),
@@ -319,7 +342,7 @@ off (`global.css`).
 | **Cartridge readout** (`DetailScreen.jsx`) | `◄` back, icon, `<h1>` title, subtitle, the link rail (demo first, then source; the header wraps before it clips, and under 420 px the rail is two tiles the width of the tube), then `outcome` → `desc` → highlights → stack → operator notes in a scrolling, focusable region, each section under a sign. |
 | **Sign** (`Sign.jsx`) | A section label in lilac Press Start, then the sunset bar (cyan → violet → magenta, 3 px) running out to the edge. Pit Viper's band, kept as one rule: the list's categories, the readout's sections, the programs' parts, and under HIGH SCORES on the loop. NOW SHOWING sets the cartridge as a card in its own light with its icon in a 64 px tile; HIGH SCORES on the loop is a scoreboard with alternating row fills. |
 | **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, in the quiet violet. `HOW TO PLAY`: IT'S DANGEROUS TO GO ALONE! TAKE THIS., then `CONTROLS`, what the panel does; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, and the operator's sign-off (`WORDS.credits`) where `THANK YOU FOR PLAYING` would be; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
-| **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. The deck is the band: dusk into violet, a 12 px lit grid and four brightness steps; black keys with a lilac edge that light magenta when pressed; flat rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a touch screen the d-pad keys grow to 36 px and every key, button and the coin slot take a 44 px tap; the header's pills and the readout's chips stand 40 px tall. Under 480 px the Salt Lake City line goes and the deck tightens. |
+| **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`), and under INSERT COIN the `SOUND` switch (`role="switch"`; `SOUND ON` lit in the text colour with the halo, `SOUND OFF` in lilac; remembered). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. The deck is the band: dusk into violet, a 12 px lit grid and four brightness steps; black keys with a lilac edge that light magenta when pressed; flat rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a touch screen the d-pad keys grow to 36 px and every key, button, the coin slot and the SOUND switch take a 44 px tap (the switch drops a few pixels so its tap starts below the INSERT COIN words); the header's pills and the readout's chips stand 40 px tall. Under 480 px the Salt Lake City line goes and the deck tightens. |
 | **Hidden programs** | Unlocked by the coin, wherever it is dropped, or by the Konami code on a keyboard; the ceremony says CREDIT ACCEPTED and IT'S A SECRET TO EVERYBODY.; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
 
 ### The pages' frame (`src/ui/Frame.tsx`)
@@ -420,17 +443,21 @@ power-on plays.
   in both themes (`e2e/*.spec.ts`).
 - Every screen has one `<h1>`: the name on the title card, `NAME · ROLE` on the select
   screen, the title of an open cartridge or program on its readout.
-- One focus ring everywhere (`:focus-visible`, `--accent-text`); in the listbox the
-  lit row is the indicator.
+- One focus ring everywhere (`:focus-visible`, `--focus-ring`: cyan in the dark and
+  on the cabinet in either theme, violet on paper); in the listbox the lit row is the
+  indicator.
 - The list is a `listbox` that takes focus when it comes up and names its active row;
-  readouts scroll in focusable regions; every panel control is a named `button`.
+  readouts scroll in focusable regions; every panel control is a named `button`, and
+  SOUND a `switch`. A real button answers its own Enter and Space; the cabinet's keys
+  never answer them a second time.
 - Escape and B step back; browser Back steps back; the title card's `PRESS START` is a
   real button and the email a real link.
 - Decorative SVG and glyphs are `aria-hidden`; the HIGH SCORES bars carry their
   numbers in the image's name.
 - External links: `target="_blank"` + `rel="noopener noreferrer"`.
 - `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` is created on
-  the title card; audio starts only once the machine is started.
+  the title card; audio starts only once the machine is started, and SOUND OFF on the
+  deck is remembered.
 - Contrast: parchment on charcoal and the deepened accent on parchment both clear AA at
   the sizes used; keep muted/comment text at ≥ 11 px mono / 12 px sans.
 

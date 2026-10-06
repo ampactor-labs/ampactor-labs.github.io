@@ -6,6 +6,7 @@ import {
   useImperativeHandle,
 } from "react";
 import { PALETTE, TUNNEL, alpha } from "./palette";
+import { setBedOpen } from "./audio/bus";
 
 const RING_COUNT = 12;
 const DUST_COUNT = 30;
@@ -70,6 +71,9 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
   useImperativeHandle(ref, () => ({
     setSpeed(s) {
       stateRef.current.speed = s;
+      // The room hears the tunnel: idle, the run and the boss (0.0016) open
+      // the bed's filter in proportion.
+      setBedOpen(s / 0.0016);
     },
     getSpeed() {
       return stateRef.current.speed;

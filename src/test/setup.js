@@ -1,68 +1,75 @@
 import "@testing-library/jest-dom";
 
-// Mock AudioContext
+// Mock AudioContext: every node the cabinet's bus builds (src/arcade/audio/
+// bus.js), with automation that does nothing. Each context made is kept in
+// MockAudioContext.instances, so a test can count them.
+const param = (value) => ({
+  value,
+  setValueAtTime: () => {},
+  linearRampToValueAtTime: () => {},
+  exponentialRampToValueAtTime: () => {},
+  setTargetAtTime: () => {},
+  cancelScheduledValues: () => {},
+});
+const audioNode = (extra = {}) => ({
+  connect: () => {},
+  disconnect: () => {},
+  ...extra,
+});
+
 class MockAudioContext {
+  static instances = [];
+  constructor() {
+    this.state = "running";
+    this.sampleRate = 44100;
+    this.currentTime = 0;
+    this.destination = audioNode();
+    MockAudioContext.instances.push(this);
+  }
   createOscillator() {
-    return {
+    return audioNode({
       type: "sine",
-      frequency: {
-        value: 440,
-        setValueAtTime: () => {},
-        exponentialRampToValueAtTime: () => {},
-      },
-      connect: () => {},
-      disconnect: () => {},
+      frequency: param(440),
       start: () => {},
       stop: () => {},
-    };
+    });
   }
   createGain() {
-    return {
-      gain: {
-        value: 1,
-        setValueAtTime: () => {},
-        linearRampToValueAtTime: () => {},
-        exponentialRampToValueAtTime: () => {},
-      },
-      connect: () => {},
-      disconnect: () => {},
-    };
+    return audioNode({ gain: param(1) });
   }
   createBiquadFilter() {
-    return {
-      type: "lowpass",
-      frequency: { value: 440, setValueAtTime: () => {} },
-      Q: { value: 1 },
-      connect: () => {},
-      disconnect: () => {},
-    };
+    return audioNode({ type: "lowpass", frequency: param(350), Q: param(1) });
   }
   createDelay() {
-    return {
-      delayTime: { value: 0 },
-      connect: () => {},
-      disconnect: () => {},
-    };
+    return audioNode({ delayTime: param(0) });
   }
   createDynamicsCompressor() {
-    return { connect: () => {}, disconnect: () => {} };
+    return audioNode();
   }
-  get destination() {
-    return {};
+  createBuffer(channels, length, sampleRate) {
+    const data = Array.from({ length: channels }, () => new Float32Array(length));
+    return {
+      length,
+      sampleRate,
+      numberOfChannels: channels,
+      getChannelData: (i) => data[i],
+    };
   }
-  get currentTime() {
-    return 0;
-  }
-  get state() {
-    return "running";
+  createBufferSource() {
+    return audioNode({ buffer: null, loop: false, start: () => {}, stop: () => {} });
   }
   resume() {
+    this.state = "running";
     return Promise.resolve();
   }
   suspend() {
+    this.state = "suspended";
     return Promise.resolve();
   }
-  close() {}
+  close() {
+    this.state = "closed";
+    return Promise.resolve();
+  }
 }
 
 global.AudioContext = MockAudioContext;
