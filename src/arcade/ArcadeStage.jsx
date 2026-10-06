@@ -1,6 +1,5 @@
 import { useRef, useState, lazy, Suspense } from "react";
 const TunnelGame = lazy(() => import("./TunnelGame"));
-import CrtSvgDefs from "./CrtEffects";
 import TunnelCanvas from "./TunnelCanvas";
 import { crtStyles } from "./styles/crtStyles";
 import styles from "./styles/stage.module.css";
@@ -124,7 +123,6 @@ export default function ArcadeStage({
 
   return (
     <div className={styles.stage} data-screen={screen}>
-      <CrtSvgDefs />
       <style>{crtStyles}</style>
       <div className={styles.backdrop} data-backdrop="">
         <TunnelCanvas ref={tunnelRef} />
@@ -151,40 +149,19 @@ export default function ArcadeStage({
             border: "3px solid var(--cab-line)",
             borderTop: "3px solid var(--cab-line)",
             borderBottom: "none",
-            background:
-              "radial-gradient(ellipse at center, var(--cab-tube) 0%, var(--cab-void) 80%)",
+            background: "var(--cab-void)",
             position: "relative",
             overflow: "hidden",
-            boxShadow:
-              `inset 0 0 80px ${alpha(PALETTE.black, 0.6)}, 0 0 40px ${alpha(PALETTE.mark, 0.08)}, 0 0 80px ${alpha(PALETTE.mark, 0.04)}, 0 0 120px ${alpha(PALETTE.mint, 0.02)}`,
+            boxShadow: `inset 0 0 80px ${alpha(PALETTE.void, 0.6)}, 0 0 40px ${alpha(PALETTE.mark, 0.08)}`,
             willChange: "clip-path, filter",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                `repeating-linear-gradient(0deg, transparent, transparent 2px, ${alpha(PALETTE.black, 0.08)} 2px, ${alpha(PALETTE.black, 0.08)} 4px)`,
-              pointerEvents: "none",
-              zIndex: 90,
-            }}
-          />
-          <div className="scanline-bar" />
-          <div className="crt-glass" />
-          <div className="crt-curvature" />
-          <div className="crt-noise" />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                `radial-gradient(ellipse at center, transparent 50%, ${alpha(PALETTE.black, 0.5)} 100%)`,
-              pointerEvents: "none",
-              zIndex: 80,
-            }}
-          />
-          <div className="crt-grid" />
+          {/* The tube's layers, bottom to top: the lit ground, the cartridge's
+              bleed, the shade, the content, then the flash and the coin's
+              stamp when they happen. Nothing that darkens sits above the
+              content. */}
+          <div className="tube-ground" />
+          <div className="tube-shade" />
           {glitching && (
             <div
               style={{

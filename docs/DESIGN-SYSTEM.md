@@ -40,7 +40,7 @@ hands make.
 
 | Surface | Role | Feel |
 |---|---|---|
-| **Cabinet** (`src/arcade/`, `src/App.tsx`) | The whole page at `/` and `/arcade/`. Title card, boot, select, cartridge readouts, the operator's programs, hidden games. | Full CRT theatre: heavy glow, scanlines, ambient audio once started. Always dark, whatever the theme. |
+| **Cabinet** (`src/arcade/`, `src/App.tsx`) | The whole page at `/` and `/arcade/`. Title card, boot, select, cartridge readouts, the operator's programs, hidden games. | The lit ground, every colour blooming in its own light, ambient audio once started. Always dark, whatever the theme. |
 | **Pages** (`src/receipts/`, `src/craft/`, `public/resume.html`, `src/floor/` for their header and footer) | The paper: the commit log, the case study, the résumé and the 404. Fast, skimmable, light or dark. | Same palette; prose in a reading face; signage in the arcade face, tiny. |
 
 The cabinet converts and rewards; the pages are the receipts. Design changes to one

@@ -203,12 +203,12 @@ export default function Cabinet({
             />
           </svg>
           <div
+            className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(9),
               color: PALETTE.mark,
               letterSpacing: "0.2em",
-              textShadow: `0 0 8px ${alpha(PALETTE.mark, 0.4)}`,
             }}
           >
             AMPACTOR
