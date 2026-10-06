@@ -288,14 +288,9 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       Ⓑ
        BACK ]
     </span>
-    <a
-      href="https://github.com/ampactor-labs/mentl"
-      rel="noopener noreferrer"
-      style="color: rgba(224, 255, 0, 0.667); text-decoration: underline; text-underline-offset: 3px;"
-      target="_blank"
-    >
+    <span>
       ampactor-labs/mentl
-    </a>
+    </span>
   </div>
 </div>
 `;
