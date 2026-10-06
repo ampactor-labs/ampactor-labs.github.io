@@ -35,6 +35,8 @@ export default function Cabinet({
   coinCount,
   introComplete,
   fs,
+  sound = true,
+  onToggleSound,
   // On the floor the panel is decoration: it looks live but takes no input.
   attract = false,
   inert = false,
@@ -281,19 +283,19 @@ export default function Cabinet({
             </div>
           </div>
         )}
-        <div
-          style={{
-            fontSize: pixel(fs(6)),
-            color: coinCount > 0 ? alpha(PALETTE.coin, 0.5) : "var(--cab-line)",
-            letterSpacing: "var(--track-pixel)",
-            transition: "color 0.3s ease",
-            animation:
-              coinCount > 0 ? "none" : "coinTextPulse 3s ease-in-out infinite",
-            fontFamily: "'Press Start 2P', monospace",
-          }}
+        {/* The cabinet's one setting, remembered (audio/bus.js). The words
+            are the lamp: lit when the sound is on. */}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={sound}
+          className={`sound-toggle${sound ? " on" : ""}`}
+          onClick={onToggleSound}
+          disabled={!panelLive}
+          style={{ fontSize: pixel(fs(6)) }}
         >
-          {coinCount >= 1 ? "\u25c9" : "\u25ce"}
-        </div>
+          SOUND<span aria-hidden="true">{sound ? " ON" : " OFF"}</span>
+        </button>
       </div>
 
       {/* Action buttons */}

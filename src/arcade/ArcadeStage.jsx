@@ -109,6 +109,8 @@ export default function ArcadeStage({
     linkRefs,
     detailBodyRef,
     playBlip,
+    sound,
+    toggleSound,
     isBootTransitioning,
   } = useCabinetState({
     screenRef,
@@ -296,6 +298,8 @@ export default function ArcadeStage({
           coinCount={coinCount}
           introComplete={introComplete}
           fs={fs}
+          sound={sound}
+          onToggleSound={toggleSound}
         />
       </div>
     </div>

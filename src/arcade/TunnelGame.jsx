@@ -96,6 +96,12 @@ function bloomText(ctx, text, x, y, color, width) {
   ctx.restore();
 }
 
+// The run's speed against its start (baseSpeed begins at 1.5), from 1 to 2:
+// the laser and the blasts climb with it.
+function runRate(gs) {
+  return Math.min(2, Math.max(1, gs.baseSpeed / 1.5));
+}
+
 function depthScale(depth) {
   return FOV / (FOV + (1 - depth) * DEPTH_RANGE);
 }
@@ -474,7 +480,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ) {
         gs.projectiles.push({ x: gs.player.x, y: shipY, depth: 0.95 });
         gs.lastFireTime = gs.elapsed;
-        audio.playLaser();
+        audio.playLaser(runRate(gs));
       }
 
       // Update projectiles (move toward center / deeper)
@@ -554,7 +560,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             gs.obstacles.push(
               ...bossVolley(b.volleyIdx++, b.x, gs.player.x, w, b.level),
             );
-            audio.playLaser();
+            audio.playLaser(runRate(gs) * 0.5);
           }
           // Projectiles vs the boss body
           const bScale = depthScale(b.depth);
@@ -571,7 +577,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
                 b.hitFlash = gs.elapsed;
                 gs.score += Math.round(5 * gs.combo);
                 spawnExplosion(gs, pScreenX, bScreenY, PALETTE.hot, 4);
-                audio.playExplosion();
+                audio.playExplosion(runRate(gs));
                 if (b.hp <= 0) {
                   b.phase = "dying";
                   b.timer = 0;
@@ -678,7 +684,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
               o.alive = false;
               gs.projectiles.splice(j, 1);
               gs.score += Math.round((o.points || 100) * gs.combo);
-              audio.playExplosion();
+              audio.playExplosion(runRate(gs));
 
               // Spawn text explosion particles
               const oDrawX = cx + o.x * scale;

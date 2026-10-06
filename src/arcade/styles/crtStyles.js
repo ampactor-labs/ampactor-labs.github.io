@@ -9,7 +9,6 @@ export const crtStyles = `
   @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 6px ${alpha(PALETTE.coin, 0.25)},0 0 4px ${alpha(PALETTE.coin, 0.1)}} 50%{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}} }
   @keyframes hiddenPulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
   @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
-  @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%,60%{opacity:1} 100%{opacity:0} }
   /* The tube's ground: indigo over void, the lit grid (8 px cells, 6 px on a
@@ -70,6 +69,13 @@ export const crtStyles = `
   .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
   .btn-action:active{transform:scale(0.92);filter:brightness(0.8)}
   .panel-label{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--cab-muted);letter-spacing:var(--track-pixel);user-select:none}
+  /* SOUND ON / SOUND OFF: the words are the lamp, lit in the text colour
+     with the halo when on, the labels' lilac when off. The padding is the
+     click area; the negative margin keeps it out of the layout. */
+  .sound-toggle{position:relative;margin:-4px -8px;padding:4px 8px;background:none;border:0;border-radius:4px;font-family:'Press Start 2P',monospace;line-height:1;letter-spacing:var(--track-pixel);color:var(--cab-muted);cursor:pointer;user-select:none;transition:color 0.2s ease,text-shadow 0.2s ease}
+  .sound-toggle.on{color:var(--cab-text);text-shadow:0 0 6px ${alpha(PALETTE.halo, 0.7)}}
+  .sound-toggle:hover{color:var(--cab-text)}
+  .sound-toggle:disabled{opacity:0.3;cursor:default}
   /* A narrow deck: the 8 px labels are wider than their buttons, so the
      padding, the gap between B and A and the tracking come in, and the
      AMPACTOR sign keeps its room between the d-pad and the buttons. */
@@ -91,6 +97,10 @@ export const crtStyles = `
        layer over the slot's margin; the slot stays on top, so a tap on the
        words drops the coin too. */
     .coin-slot{z-index:1}
+    /* The SOUND switch: 16 + 2 x 14 = 44, and the margin drops it far
+       enough that its tap starts below the INSERT COIN words. */
+    .sound-toggle{margin-top:9px}
+    .sound-toggle::before{content:'';position:absolute;inset:-14px 0}
     .pill{padding:16px 10px!important}
     .chip{padding:13px 12px!important}
   }

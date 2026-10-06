@@ -106,4 +106,6 @@
    so no theme can reach it. The scope keeps the controls inside it dark. */
 .cabinet-scope {
   color-scheme: dark;
+  /* The page's violet ring is for paper; on the cabinet it would vanish. */
+  --focus-ring: var(--cab-mark);
 }

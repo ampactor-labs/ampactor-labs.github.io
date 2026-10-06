@@ -1,164 +1,185 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import {
+  hasBus,
+  noise,
+  setSound,
+  soundOn,
+  startBed,
+  stopBed,
+  suspendBus,
+  voice,
+  withClock,
+} from "./audio/bus";
 
-// Nav blips and stings on the Web Audio clock. `enabled` is false while the
-// cabinet stands on the floor in attract mode: no AudioContext is created by
-// a tap or keypress anywhere on the page until the visitor has entered the
-// arcade, and the context is suspended again when they leave.
+// A cartridge's colour keys its sweep: the hue sets where the filter lands.
+function keyOf(color) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(color || "");
+  if (!m) return 0.5;
+  const n = parseInt(m[1], 16);
+  const r = ((n >> 16) & 255) / 255;
+  const g = ((n >> 8) & 255) / 255;
+  const b = (n & 255) / 255;
+  const max = Math.max(r, g, b);
+  const d = max - Math.min(r, g, b);
+  if (d === 0) return 0.5;
+  let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  h /= 6;
+  return h < 0 ? h + 1 : h;
+}
+
+// The cabinet's sounds, on the shared bus (audio/bus.js). Silent until the
+// machine is started: `enabled` is false on the title card, where no context
+// exists until START asks for one, and going back there fades the room out.
 export default function useAmbientHum({ enabled = true } = {}) {
-  const ctxRef = useRef(null);
-
-  const getCtx = useCallback(() => {
-    if (!ctxRef.current) {
-      ctxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    return ctxRef.current;
-  }, []);
-
-  // Run `fn(ctx, t0)` against a LIVE audio clock. The old code scheduled notes
-  // immediately after calling resume() (which is async): while the context was
-  // still suspended, ctx.currentTime stayed frozen, so the gain envelope could
-  // fully elapse before the clock ever advanced — the note never sounded. That
-  // is the "sometimes not at all". Gating on ctx.state (and deferring to
-  // resume() when suspended) guarantees t0 is a real, advancing timestamp.
-  const withClock = useCallback(
-    (fn) => {
-      let ctx;
-      try {
-        ctx = getCtx();
-      } catch {
-        return;
-      }
-      const run = () => {
-        try {
-          fn(ctx, ctx.currentTime);
-        } catch {
-          /* context closed mid-flight */
-        }
-      };
-      if (ctx.state === "running") run();
-      else ctx.resume().then(run).catch(() => {});
-    },
-    [getCtx],
-  );
-
-  // Schedule a set of tones on the Web Audio clock. setTimeout staggering was
-  // the other bug: under canvas + React load those timers fired late or were
-  // dropped entirely — that is the "firing way too late". Audio-clock offsets
-  // (osc.start(t0 + at)) are sample-accurate and immune to main-thread jank.
-  const scheduleNotes = useCallback(
-    (notes) =>
-      withClock((ctx, t0) => {
-        for (const n of notes) {
-          const start = t0 + (n.at ?? 0);
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = n.type ?? "square";
-          if (n.sweepTo != null) {
-            osc.frequency.setValueAtTime(n.freq, start);
-            osc.frequency.linearRampToValueAtTime(n.sweepTo, start + n.dur);
-          } else {
-            osc.frequency.value = n.freq;
-          }
-          gain.gain.setValueAtTime(n.peak, start);
-          gain.gain.exponentialRampToValueAtTime(0.001, start + n.dur);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(start);
-          osc.stop(start + n.dur);
-        }
-      }),
-    [withClock],
-  );
+  const [sound, setSoundState] = useState(soundOn);
 
   const playBlip = useCallback(
-    () => scheduleNotes([{ freq: 960, dur: 0.022, peak: 0.012 }]),
-    [scheduleNotes],
-  );
-
-  const playEnter = useCallback(
     () =>
-      // Two ascending tones: 440 → 660 Hz, crisp select sound
-      scheduleNotes([
-        { freq: 440, at: 0, dur: 0.06, peak: 0.05 },
-        { freq: 660, at: 0.055, dur: 0.06, peak: 0.05 },
-      ]),
-    [scheduleNotes],
+      withClock((b, t0) =>
+        voice(b, t0, { freq: 960, type: "square", dur: 0.022, peak: 0.012 }),
+      ),
+    [],
   );
 
+  // Into a cartridge: a resonant filter sweeping up, keyed by its colour.
+  const playEnter = useCallback(
+    (color) =>
+      withClock((b, t0) => {
+        const k = keyOf(color);
+        voice(b, t0, {
+          freq: 110 * (1 + k),
+          type: "sawtooth",
+          dur: 0.22,
+          peak: 0.05,
+          cutoff: 300,
+          cutoffTo: 2200 + k * 2400,
+          q: 9,
+          send: 0.25,
+        });
+        voice(b, t0, {
+          freq: 220 * (1 + k),
+          type: "square",
+          at: 0.02,
+          dur: 0.12,
+          peak: 0.02,
+          cutoff: 1200,
+          cutoffTo: 4000,
+          q: 4,
+        });
+      }),
+    [],
+  );
+
+  // Out again: the same sweep, falling.
   const playBack = useCallback(
     () =>
-      // Two descending tones: 550 → 330 Hz
-      scheduleNotes([
-        { freq: 550, at: 0, dur: 0.055, peak: 0.04 },
-        { freq: 330, at: 0.05, dur: 0.055, peak: 0.04 },
-      ]),
-    [scheduleNotes],
+      withClock((b, t0) =>
+        voice(b, t0, {
+          freq: 165,
+          type: "sawtooth",
+          dur: 0.2,
+          peak: 0.045,
+          cutoff: 2600,
+          cutoffTo: 260,
+          q: 9,
+          send: 0.15,
+        }),
+      ),
+    [],
   );
 
+  // START is the one ignition: a 0.9 s swell, then a power chord with the
+  // room behind it, and the bed comes up under it.
+  const playStart = useCallback(
+    () =>
+      withClock((b, t0) => {
+        for (const [freq, peak] of [
+          [55, 0.05],
+          [110.4, 0.03],
+        ])
+          voice(b, t0, {
+            freq,
+            type: "sawtooth",
+            dur: 0.9,
+            peak,
+            attack: 0.75,
+            cutoff: 180,
+            cutoffTo: 2400,
+            q: 6,
+          });
+        for (const [freq, peak] of [
+          [110, 0.06],
+          [165, 0.05],
+          [220, 0.045],
+        ])
+          voice(b, t0, {
+            freq,
+            type: "sawtooth",
+            at: 0.82,
+            dur: 1.1,
+            peak,
+            cutoff: 3200,
+            cutoffTo: 600,
+            q: 2,
+            send: 0.35,
+          });
+        startBed();
+      }),
+    [],
+  );
+
+  // The coin: a clink, then a chord.
   const playInsertSting = useCallback(
-    (tier) => {
-      if (tier === 1) {
-        // Three ascending sine tones: 600 → 800 → 1000 Hz staggered 100ms
-        scheduleNotes([
-          { freq: 600, type: "sine", at: 0, dur: 0.12, peak: 0.06 },
-          { freq: 800, type: "sine", at: 0.1, dur: 0.12, peak: 0.06 },
-          { freq: 1000, type: "sine", at: 0.2, dur: 0.12, peak: 0.06 },
-        ]);
-      } else if (tier === 2) {
-        // White noise burst + low sine thump
-        withClock((ctx, t0) => {
-          const buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
-          const data = buf.getChannelData(0);
-          for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-          const src = ctx.createBufferSource();
-          const noiseGain = ctx.createGain();
-          src.buffer = buf;
-          noiseGain.gain.setValueAtTime(0.08, t0);
-          noiseGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.08);
-          src.connect(noiseGain);
-          noiseGain.connect(ctx.destination);
-          src.start(t0);
-          const osc = ctx.createOscillator();
-          const g = ctx.createGain();
-          osc.type = "sine";
-          osc.frequency.value = 90;
-          g.gain.setValueAtTime(0.1, t0);
-          g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.15);
-          osc.connect(g);
-          g.connect(ctx.destination);
-          osc.start(t0);
-          osc.stop(t0 + 0.15);
-        });
-      } else if (tier === 3) {
-        // Dramatic sawtooth power chord: 220 + 330 + 440 Hz swept up 20%
-        scheduleNotes([
-          { freq: 220, type: "sawtooth", dur: 0.5, peak: 0.05, sweepTo: 264 },
-          { freq: 330, type: "sawtooth", dur: 0.5, peak: 0.05, sweepTo: 396 },
-          { freq: 440, type: "sawtooth", dur: 0.5, peak: 0.05, sweepTo: 528 },
-        ]);
-      }
-    },
-    [scheduleNotes, withClock],
+    () =>
+      withClock((b, t0) => {
+        noise(b, t0, { dur: 0.03, peak: 0.05, freq: 5200, q: 3 });
+        voice(b, t0, { freq: 2637, type: "sine", dur: 0.12, peak: 0.05 });
+        voice(b, t0, { freq: 3951, type: "sine", at: 0.06, dur: 0.16, peak: 0.04, send: 0.3 });
+        for (const [freq, peak] of [
+          [220, 0.05],
+          [277.2, 0.04],
+          [329.6, 0.04],
+          [440, 0.035],
+        ])
+          voice(b, t0, {
+            freq,
+            type: "sawtooth",
+            at: 0.22,
+            dur: 0.9,
+            peak,
+            cutoff: 900,
+            cutoffTo: 3600,
+            q: 3,
+            send: 0.35,
+          });
+      }),
+    [],
   );
 
-  // Prime the context on the first user gesture so the very first nav blip is
-  // instant. A fresh AudioContext starts suspended; creating + resuming it
-  // lazily inside the first playBlip added audible latency or dropped that blip
-  // outright. One warm-up gesture is enough — afterwards the clock is live and
-  // the resume-guard above covers any later mobile re-suspend. Only while the
-  // arcade is live: a floor visitor who never enters never gets a context.
+  // SOUND ON / SOUND OFF on the panel, remembered. Off stops the room
+  // (bus.js); back on in the arcade, it comes up again.
+  const toggleSound = useCallback(() => {
+    const next = !soundOn();
+    setSound(next);
+    setSoundState(next);
+    if (next && enabled) startBed();
+  }, [enabled]);
+
   useEffect(() => {
     if (!enabled) {
-      ctxRef.current?.suspend?.().catch?.(() => {});
-      return;
+      // Back on the title card: the room fades rather than cuts, then the
+      // context sleeps. Nothing to do for a visitor who never started.
+      if (!hasBus()) return;
+      stopBed(1.2);
+      const t = setTimeout(suspendBus, 1400);
+      return () => clearTimeout(t);
     }
+    // In the arcade the first gesture wakes the clock, so the first sound is
+    // instant, and brings the bed up for a visitor who came straight to the
+    // list and never pressed START.
     const warm = () => {
-      try {
-        const ctx = getCtx();
-        if (ctx.state === "suspended") ctx.resume().catch(() => {});
-      } catch {
-        /* AudioContext unavailable */
-      }
+      withClock(() => {});
+      startBed();
       window.removeEventListener("pointerdown", warm);
       window.removeEventListener("keydown", warm);
       window.removeEventListener("touchstart", warm);
@@ -172,22 +193,18 @@ export default function useAmbientHum({ enabled = true } = {}) {
       window.removeEventListener("keydown", warm);
       window.removeEventListener("touchstart", warm);
     };
-  }, [enabled, getCtx]);
+  }, [enabled]);
 
-  useEffect(() => {
-    return () => {
-      ctxRef.current?.close();
-      ctxRef.current = null;
-    };
-  }, []);
+  // The cabinet leaving the page takes its room with it.
+  useEffect(() => () => stopBed(0.2), []);
 
   return {
-    humming: false,
-    toggleHum: () => {},
-    initHum: () => {},
     playBlip,
     playEnter,
     playBack,
+    playStart,
     playInsertSting,
+    sound,
+    toggleSound,
   };
 }

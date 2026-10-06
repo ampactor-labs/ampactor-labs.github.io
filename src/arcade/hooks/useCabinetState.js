@@ -110,7 +110,15 @@ export default function useCabinetState({
   screenRefState.current = screen;
 
   // No AudioContext for a visitor who only looks at the title card.
-  const { playBlip, playEnter, playBack, playInsertSting } = useAmbientHum({
+  const {
+    playBlip,
+    playEnter,
+    playBack,
+    playStart,
+    playInsertSting,
+    sound,
+    toggleSound,
+  } = useAmbientHum({
     enabled: screen !== "attract",
   });
   const { introComplete, skipIntro } = useIntroSequence(
@@ -334,7 +342,7 @@ export default function useCabinetState({
   // next press on the list is meant.
   const start = () => {
     if (screenRefState.current !== "attract") return;
-    playEnter();
+    playStart();
     onNavigate({ type: "enter" });
   };
 
@@ -342,7 +350,7 @@ export default function useCabinetState({
     const project = allProjects[idx];
     if (!project) return;
     setSelectedIdx(idx);
-    playEnter();
+    playEnter(project.color);
     onNavigate({ type: "open", id: project.id });
   };
 
@@ -377,6 +385,15 @@ export default function useCabinetState({
       insertCoin();
       return;
     }
+    // A real button (PRESS START, the SOUND switch, a cartridge's own
+    // controls) answers its own Enter and Space; the cabinet must not answer
+    // them a second time.
+    if (
+      (e.key === "Enter" || e.key === " ") &&
+      e.target instanceof Element &&
+      e.target.closest("button")
+    )
+      return;
     if (screen === "game" || screen === "boot") return;
     if (screen === "attract") {
       // A link on the title card keeps its own Enter.
@@ -591,6 +608,8 @@ export default function useCabinetState({
     linkRefs,
     detailBodyRef,
     playBlip,
+    sound,
+    toggleSound,
     isBootTransitioning,
   };
 }
