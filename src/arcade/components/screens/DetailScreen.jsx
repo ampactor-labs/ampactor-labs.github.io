@@ -393,22 +393,11 @@ export default function DetailScreen({
         }}
       >
         <span>[ {"\u24b7"} BACK ]</span>
-        {p.github ? (
-          <a
-            href={p.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: `${p.color}aa`,
-              textDecoration: "underline",
-              textUnderlineOffset: 3,
-            }}
-          >
-            {p.github.replace("https://github.com/", "")}
-          </a>
-        ) : (
-          <span>{p.id}</span>
-        )}
+        {/* The cartridge's label: where its code lives, or its name when
+            the source is private. SOURCE in the rail is the way there. */}
+        <span>
+          {p.github ? p.github.replace("https://github.com/", "") : p.id}
+        </span>
       </div>
     </div>
   );
