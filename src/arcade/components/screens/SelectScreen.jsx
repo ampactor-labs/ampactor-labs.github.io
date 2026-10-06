@@ -126,13 +126,13 @@ export default function SelectScreen({
         >
           {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
               that is also its name for a voice-control user. */}
-          <a href="/resume.html" style={pill}>
+          <a href="/resume.html" className="pill" style={pill}>
             RESUME
           </a>
-          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" style={pill}>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="pill" style={pill}>
             GITHUB
           </a>
-          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" style={pill}>
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="pill" style={pill}>
             LINKEDIN
           </a>
         </nav>

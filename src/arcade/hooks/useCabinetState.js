@@ -453,13 +453,17 @@ export default function useCabinetState({
   useEffect(() => {
     const el = consoleRef.current;
     if (!el || !introComplete) return;
+    // Hidden, not just faded: a transparent console still composites its
+    // layers under the game, which a phone's GPU can feel.
     if (screen === "game") {
-      el.style.transition = "opacity 0.6s ease";
+      el.style.transition = "opacity 0.6s ease, visibility 0s linear 0.6s";
       el.style.opacity = "0";
+      el.style.visibility = "hidden";
       el.style.pointerEvents = "none";
     } else {
-      el.style.transition = "opacity 0.6s ease";
+      el.style.transition = "opacity 0.6s ease, visibility 0s";
       el.style.opacity = "1";
+      el.style.visibility = "";
       el.style.pointerEvents = "";
     }
   }, [screen, introComplete, consoleRef]);

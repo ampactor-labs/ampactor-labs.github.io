@@ -375,6 +375,7 @@ export default function SystemScreen({
               const external = /^https?:/.test(link.href);
               return (
                 <a
+                  className="chip"
                   key={link.href}
                   ref={(el) => {
                     links.current[i] = el;

@@ -81,6 +81,20 @@ const LOGO_LINES = [
   { x1: 0.453, y1: 0.594, x2: 0.703, y2: 0.594 },
 ];
 
+// Bloom for canvas text as a second additive pass: the glyphs stroked wide and
+// faint under `lighter`, then drawn sharp by the caller. Cheaper than
+// shadowBlur on a phone's GPU, and the same light the ship and the bugs carry.
+function bloomText(ctx, text, x, y, color, width) {
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha *= 0.3;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineJoin = "round";
+  ctx.strokeText(text, x, y);
+  ctx.restore();
+}
+
 function depthScale(depth) {
   return FOV / (FOV + (1 - depth) * DEPTH_RANGE);
 }
@@ -285,40 +299,45 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     ctx.globalAlpha = alpha;
     const s = size;
 
-    // Glow
-    if (glow) {
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = rgba(PALETTE.mark, 0.6);
-    }
     ctx.strokeStyle = PALETTE.mark;
-    ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // Draw the A-frame beams and feet
-    for (const l of LOGO_LINES) {
+    // The mark: the A-frame beams and feet, then the sine-wave crossbar
+    // matched to the SVG (two full periods rising first, seated at y+0.172,
+    // amplitude 0.094, stroke 0.56× the beams, 20/36 in the source mark).
+    const trace = (beam) => {
+      ctx.lineWidth = beam;
+      for (const l of LOGO_LINES) {
+        ctx.beginPath();
+        ctx.moveTo(l.x1 * s, l.y1 * s);
+        ctx.lineTo(l.x2 * s, l.y2 * s);
+        ctx.stroke();
+      }
+      ctx.lineWidth = beam * 0.56;
       ctx.beginPath();
-      ctx.moveTo(l.x1 * s, l.y1 * s);
-      ctx.lineTo(l.x2 * s, l.y2 * s);
+      const steps = 24;
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const x = (-0.344 + t * 0.688) * s;
+        const y = (0.172 - Math.sin(t * Math.PI * 4) * 0.094) * s;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
       ctx.stroke();
-    }
+    };
 
-    // Sine-wave crossbar, matched to the SVG mark: two full periods rising
-    // first, seated at y+0.172 (the logo's bar sits below center), amplitude
-    // 0.094, stroke 0.56× the beams (20/36 in the source mark).
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    const steps = 24;
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps;
-      const x = (-0.344 + t * 0.688) * s;
-      const y = (0.172 - Math.sin(t * Math.PI * 4) * 0.094) * s;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    // Bloom as a second additive pass: the mark wide and faint under
+    // `lighter`, then sharp. Cheaper than shadowBlur on a phone's GPU, and
+    // the Polybius trail.
+    if (glow) {
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.globalAlpha = alpha * 0.28;
+      trace(8);
+      ctx.restore();
     }
-    ctx.stroke();
-
-    ctx.shadowBlur = 0;
+    trace(2.5);
     ctx.restore();
   }, []);
 
@@ -346,11 +365,10 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillStyle = PALETTE.mark;
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = rgba(PALETTE.mark, 0.7);
         ctx.font = `${mobile ? 22 : 34}px 'Press Start 2P', monospace`;
-        ctx.fillText("PAUSED", cx, cy - (mobile ? 14 : 20));
-        ctx.shadowBlur = 0;
+        const pausedY = cy - (mobile ? 14 : 20);
+        bloomText(ctx, "PAUSED", cx, pausedY, PALETTE.mark, mobile ? 6 : 8);
+        ctx.fillText("PAUSED", cx, pausedY);
         ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
         ctx.fillStyle = rgba(GAME.hud, 0.8);
         ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
@@ -398,16 +416,14 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.font = `${mobile ? 48 : 72}px 'Press Start 2P', monospace`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = rgba(PALETTE.mark, 0.8);
-        ctx.strokeStyle = PALETTE.mark;
-        ctx.lineWidth = 2;
         const countText =
           gs.countdownLeft > 0 ? String(gs.countdownLeft) : "COMPILE";
+        bloomText(ctx, countText, cx, cy, PALETTE.mark, mobile ? 8 : 12);
+        ctx.strokeStyle = PALETTE.mark;
+        ctx.lineWidth = 2;
         ctx.strokeText(countText, cx, cy);
         ctx.fillStyle = rgba(PALETTE.mark, 0.15);
         ctx.fillText(countText, cx, cy);
-        ctx.shadowBlur = 0;
 
         // Draw ship during countdown
         const shipY = h - (mobile ? 60 : 80);
@@ -716,9 +732,14 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.globalAlpha = 0.3 + o.depth * 0.7;
-        ctx.shadowBlur = 6 + o.depth * 12;
-        ctx.shadowColor = o.color;
         ctx.strokeStyle = o.color;
+        // Bloom as a wide additive pass, then the sharp stroke.
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha *= 0.3;
+        ctx.lineWidth = 4 + o.depth * 6;
+        ctx.strokeText(o.text, oScreenX, oScreenY);
+        ctx.restore();
         ctx.lineWidth = 0.8 + o.depth * 0.8;
         ctx.strokeText(o.text, oScreenX, oScreenY);
         // Faint fill for readability at larger sizes
@@ -901,7 +922,11 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     if (tunnelRef?.current) tunnelRef.current.setSpeed(0.0008);
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // A phone renders at 1.5 at most: the bloom pass is the expensive part.
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        window.innerWidth <= 600 ? 1.5 : 2,
+      );
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1116,39 +1141,47 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             height: "100%",
           }}
         />
-        {/* Mobile touch zone hints - fade after 4s */}
+        {/* The two touch halves, washed and named during the countdown, then
+            gone: the left half steers, the right half fires. */}
         {isMobileRef.current && uiPhase === "countdown" && (
           <div
             style={{
               position: "absolute",
-              bottom: 20,
-              left: 0,
-              right: 0,
+              inset: 0,
               display: "flex",
-              justifyContent: "space-around",
               pointerEvents: "none",
-              opacity: 0.4,
               animation: "fadeHints 4s ease-out forwards",
             }}
           >
-            <span
-              style={{
-                color: PALETTE.mark,
-                fontSize: 10,
-                fontFamily: "'Press Start 2P'",
-              }}
-            >
-              {"< SLIDE TO STEER >"}
-            </span>
-            <span
-              style={{
-                color: PALETTE.mint,
-                fontSize: 10,
-                fontFamily: "'Press Start 2P'",
-              }}
-            >
-              TAP TO FIRE
-            </span>
+            {[
+              ["\u25c4 STEER \u25ba", PALETTE.voice],
+              ["FIRE", PALETTE.mark],
+            ].map(([word, color], i) => (
+              <div
+                key={word}
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "center",
+                  paddingBottom: 28,
+                  background: `linear-gradient(180deg, transparent 55%, ${rgba(color, 0.22)})`,
+                  borderLeft:
+                    i === 1 ? `1px solid ${rgba(PALETTE.text, 0.18)}` : undefined,
+                }}
+              >
+                <span
+                  style={{
+                    color,
+                    fontSize: 10,
+                    letterSpacing: "0.2em",
+                    fontFamily: "'Press Start 2P'",
+                  }}
+                >
+                  {word}
+                </span>
+              </div>
+            ))}
           </div>
         )}
       </div>

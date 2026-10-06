@@ -53,15 +53,6 @@ export const PALETTE = {
 // to the right.
 export const FRINGE = { warm: PALETTE.voice, cool: PALETTE.mark };
 
-// The panel's plastics: each key as its highlight, body and shadow, and the
-// action buttons with their ring.
-export const CHROME = {
-  dpad: ["#352a66", "#2a2052", "#1c1538"],
-  centre: ["#1c1538", "#120e28", "#2f2460"],
-  b: ["#5a1f4a", "#3e1433", "#2c0d24", "#7a2a66"],
-  a: ["#164458", "#0c2a3a", "#071828", "#1e6888"],
-};
-
 // The game's chrome: the HUD, the overlays, the hits. The bugs keep their own.
 export const GAME = {
   hud: PALETTE.muted,

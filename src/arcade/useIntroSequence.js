@@ -41,7 +41,7 @@ export default function useIntroSequence(
     const target = variant === "screen" ? tubeRef?.current : console_;
 
     const finish = () => {
-      if (logo) gsap.set(logo, { opacity: 0.03 });
+      if (logo) gsap.set(logo, { opacity: 0.1 });
       gsap.set(console_, { opacity: 1, clearProps: "clipPath,filter" });
       if (target && target !== console_) {
         gsap.set(target, { clearProps: "opacity,clipPath,filter" });
@@ -90,7 +90,7 @@ export default function useIntroSequence(
     // 0.05–0.27s: the A-mark snaps on, one rise; 0.55–0.9s it dims to ambient.
     if (logo) {
       tl.to(logo, { opacity: 0.9, duration: 0.22, ease: "power3.out" }, 0.05);
-      tl.to(logo, { opacity: 0.03, duration: 0.35, ease: "power2.in" }, 0.55);
+      tl.to(logo, { opacity: 0.1, duration: 0.35, ease: "power2.in" }, 0.55);
     }
 
     // 0.5–1.27s: the tube ignites as a stepped wipe, twelve lit bands left to

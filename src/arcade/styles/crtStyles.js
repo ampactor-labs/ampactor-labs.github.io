@@ -55,21 +55,53 @@ export const crtStyles = `
   .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;text-shadow:none;animation:marquee 90s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
   .project-row:hover{background:${alpha(FRINGE.warm, 0.03)}!important;transform:translateX(4px)}
-  .btn-cabinet{transition:all 0.15s ease;cursor:pointer;user-select:none}
-  .btn-cabinet:hover{transform:scale(1.1);filter:brightness(1.3)}
-  .btn-cabinet:active{transform:scale(0.95);filter:brightness(0.8)}
-  @keyframes btnGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.04)}}
-  .btn-action{animation:btnGlow 5s ease-in-out infinite;transition:transform 0.12s ease,filter 0.12s ease;cursor:pointer;user-select:none}
-  .btn-action:hover{transform:scale(1.10);filter:brightness(1.35)!important}
-  .btn-action:active{transform:scale(0.92);filter:brightness(0.75)!important}
+  /* The deck's keys: black with a lilac edge, lit magenta while pressed; flat
+     rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a coarse
+     pointer every key, the coin, the pills and the chips grow to a 44 px
+     hit area. */
+  .btn-cabinet{transition:transform 0.12s ease,background 0.12s ease,border-color 0.12s ease;cursor:pointer;user-select:none}
+  .btn-cabinet:hover{transform:scale(1.08)}
+  .btn-cabinet:active{transform:scale(0.95);background:${alpha(PALETTE.voice, 0.35)};border-color:var(--cab-voice);color:var(--cab-text)}
+  .dpad-key{position:relative;width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,${alpha(PALETTE.raised, 0.9)},var(--cab-void));color:var(--cab-muted);border:1px solid ${alpha(PALETTE.muted, 0.35)};box-shadow:inset 0 1px 0 ${alpha(PALETTE.white, 0.06)}}
+  .dpad-centre{width:30px;height:30px;border-radius:4px;background:var(--cab-void);border:1px solid ${alpha(PALETTE.muted, 0.18)}}
+  .btn-action{position:relative;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--cab-void);transition:transform 0.12s ease,filter 0.12s ease;cursor:pointer;user-select:none}
+  .btn-action.btn-b{border:2px solid var(--cab-hot);color:var(--cab-danger);box-shadow:0 0 14px ${alpha(PALETTE.hot, 0.45)},inset 0 0 10px ${alpha(PALETTE.hot, 0.18)}}
+  .btn-action.btn-a{border:2px solid var(--cab-mark);color:var(--cab-mark);box-shadow:0 0 14px ${alpha(PALETTE.mark, 0.45)},inset 0 0 10px ${alpha(PALETTE.mark, 0.18)}}
+  .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
+  .btn-action:active{transform:scale(0.92);filter:brightness(0.8)}
+  .panel-label{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--cab-muted);letter-spacing:0.12em;user-select:none}
+  /* A narrow deck: the 8 px labels are wider than their buttons, so the
+     padding, the gap between B and A and the tracking come in, and the
+     AMPACTOR sign keeps its room between the d-pad and the buttons. */
+  @media (max-width: 480px) {
+    .est-line{display:none}
+    .cabinet-body{padding:10px 12px 12px!important}
+    .action-cluster{gap:8px!important}
+    .panel-label{letter-spacing:0.04em}
+    .brand-sign{letter-spacing:0.1em!important}
+  }
+  @media (pointer: coarse) {
+    .dpad-key,.dpad-centre{width:36px;height:36px}
+    /* An absolute child is placed from inside the border, so each inset is
+       the margin plus the border: 36 + 2 x (4 + 1) = 44 for a key, and
+       20 + 2 x (12 + 2) = 44 tall for the coin slot. */
+    .dpad-key::before,.coin-slot::before,.btn-action::before{content:'';position:absolute;inset:-5px}
+    .coin-slot::before{inset:-14px -5px}
+    /* INSERT COIN breathes, and while its opacity dips it paints as its own
+       layer over the slot's margin; the slot stays on top, so a tap on the
+       words drops the coin too. */
+    .coin-slot{z-index:1}
+    .pill{padding:16px 10px!important}
+    .chip{padding:13px 12px!important}
+  }
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   @keyframes gameHighlight { 0%{box-shadow:0 0 20px ${alpha(PALETTE.hot, 0.6)},inset 0 0 10px ${alpha(PALETTE.hot, 0.15)}} 100%{box-shadow:none} }
   .game-highlight{animation:gameHighlight 2s ease-out forwards}
   .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
   .coin-slot:hover{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}!important}
   .coin-slot:active{transform:scale(0.95)}
-  .cabinet-body{box-shadow:0 20px 80px ${alpha(PALETTE.mark, 0.07)},0 0 120px ${alpha(PALETTE.mark, 0.04)},0 40px 60px ${alpha(PALETTE.black, 0.5)};position:relative}
-  .cabinet-body::after{content:'';position:absolute;bottom:-40px;left:10%;right:10%;height:40px;background:radial-gradient(ellipse at center,${alpha(PALETTE.mark, 0.08)} 0%,transparent 70%);pointer-events:none;filter:blur(10px)}
+  .cabinet-body{box-shadow:0 20px 80px ${alpha(PALETTE.voice, 0.10)},0 0 120px ${alpha(PALETTE.lit, 0.14)},0 40px 60px ${alpha(PALETTE.black, 0.5)};position:relative}
+  .cabinet-body::after{content:'';position:absolute;bottom:-40px;left:10%;right:10%;height:40px;background:radial-gradient(ellipse at center,${alpha(PALETTE.voice, 0.14)} 0%,transparent 70%);pointer-events:none;filter:blur(10px)}
   .crt-screen ::-webkit-scrollbar{width:4px}
   .crt-screen ::-webkit-scrollbar-track{background:${alpha(PALETTE.black, 0.3)}}
   .crt-screen ::-webkit-scrollbar-thumb{background:${alpha(PALETTE.mark, 0.2)};border-radius:2px}
