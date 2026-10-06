@@ -1,17 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-
-const PATINA = {
-  amber: "#d8a657",
-  charcoal: "#1d2021",
-  dim: "#2a2826",
-  void: "#0f0e0d",
-  umber: "#45403d",
-  muted: "#a89984",
-  comment: "#5a524c",
-  parchment: "#d4be98",
-  coral: "#ea6962",
-  teal: "#7daea3",
-};
+import { GAME, PALETTE, SYNTH, alpha } from "./palette";
 
 const NOTE_MAP = {
   a: 261.63,
@@ -38,7 +26,7 @@ function Knob({
   max,
   step,
   onChange,
-  color = PATINA.amber,
+  color = PALETTE.voice,
 }) {
   const pct = (value - min) / (max - min);
   return (
@@ -55,8 +43,8 @@ function Knob({
           width: 34,
           height: 34,
           borderRadius: "50%",
-          background: `conic-gradient(${color} ${pct * 270}deg, ${PATINA.charcoal} ${pct * 270}deg)`,
-          border: `2px solid ${PATINA.umber}`,
+          background: `conic-gradient(${color} ${pct * 270}deg, ${PALETTE.room} ${pct * 270}deg)`,
+          border: `2px solid ${PALETTE.line}`,
           position: "relative",
           boxShadow: `0 0 ${pct * 8}px ${color}33`,
         }}
@@ -66,7 +54,7 @@ function Knob({
             position: "absolute",
             inset: 4,
             borderRadius: "50%",
-            background: PATINA.void,
+            background: PALETTE.void,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -94,7 +82,7 @@ function Knob({
         style={{ width: 40, height: 3, accentColor: color, opacity: 0.5 }}
       />
       <div
-        style={{ fontSize: 7, color: PATINA.comment, letterSpacing: "0.05em" }}
+        style={{ fontSize: 7, color: PALETTE.faint, letterSpacing: "0.05em" }}
       >
         {label}
       </div>
@@ -254,7 +242,7 @@ export default function SynthEngine({ width }) {
     const draw = () => {
       ctx.save();
       ctx.scale(dpr, dpr);
-      ctx.fillStyle = "rgba(8,8,12,0.4)";
+      ctx.fillStyle = alpha(GAME.shade, 0.4);
       ctx.fillRect(0, 0, w, h);
       if (analyserRef.current) {
         if (!buf) buf = new Uint8Array(analyserRef.current.frequencyBinCount);
@@ -268,14 +256,14 @@ export default function SynthEngine({ width }) {
           else ctx.lineTo(x, y);
           x += sw;
         }
-        ctx.strokeStyle = PATINA.amber;
+        ctx.strokeStyle = PALETTE.voice;
         ctx.lineWidth = 1.5;
         ctx.stroke();
       } else {
         ctx.beginPath();
         ctx.moveTo(0, h / 2);
         ctx.lineTo(w, h / 2);
-        ctx.strokeStyle = "rgba(216,166,87,0.2)";
+        ctx.strokeStyle = alpha(PALETTE.voice, 0.2);
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -330,7 +318,7 @@ export default function SynthEngine({ width }) {
           width,
           height: 70,
           borderRadius: 4,
-          border: "1px solid rgba(216,166,87,0.1)",
+          border: `1px solid ${alpha(PALETTE.voice, 0.1)}`,
         }}
       />
       <div style={{ display: "flex", gap: 3 }}>
@@ -344,13 +332,13 @@ export default function SynthEngine({ width }) {
             style={{
               background:
                 params.waveform === w
-                  ? "rgba(216,166,87,0.15)"
-                  : "rgba(255,255,255,0.03)",
-              border: `1px solid ${params.waveform === w ? "rgba(216,166,87,0.3)" : "rgba(255,255,255,0.06)"}`,
+                  ? alpha(PALETTE.voice, 0.15)
+                  : alpha(PALETTE.white, 0.03),
+              border: `1px solid ${params.waveform === w ? alpha(PALETTE.voice, 0.3) : alpha(PALETTE.white, 0.06)}`,
               borderRadius: 3,
               padding: "4px 7px",
               cursor: "pointer",
-              color: params.waveform === w ? PATINA.amber : PATINA.comment,
+              color: params.waveform === w ? PALETTE.voice : PALETTE.faint,
               fontSize: 8,
               fontFamily: "'JetBrains Mono', monospace",
             }}
@@ -396,7 +384,7 @@ export default function SynthEngine({ width }) {
           max={1}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, attack: v }))}
-          color="#44aaff"
+          color={SYNTH.cool}
         />
         <Knob
           label="DEC"
@@ -405,7 +393,7 @@ export default function SynthEngine({ width }) {
           max={1}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, decay: v }))}
-          color="#44aaff"
+          color={SYNTH.cool}
         />
         <Knob
           label="SUS"
@@ -414,7 +402,7 @@ export default function SynthEngine({ width }) {
           max={1}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, sustain: v }))}
-          color="#44aaff"
+          color={SYNTH.cool}
         />
         <Knob
           label="REL"
@@ -423,7 +411,7 @@ export default function SynthEngine({ width }) {
           max={2}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, release: v }))}
-          color="#44aaff"
+          color={SYNTH.cool}
         />
         <Knob
           label="DLY"
@@ -432,7 +420,7 @@ export default function SynthEngine({ width }) {
           max={1}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, delayTime: v }))}
-          color="#ff6644"
+          color={SYNTH.warm}
         />
         <Knob
           label="FDBK"
@@ -441,7 +429,7 @@ export default function SynthEngine({ width }) {
           max={0.85}
           step={0.01}
           onChange={(v) => setParams((p) => ({ ...p, delayFeed: v }))}
-          color="#ff6644"
+          color={SYNTH.warm}
         />
       </div>
       <div
@@ -501,9 +489,9 @@ export default function SynthEngine({ width }) {
                 width: keyW,
                 height: 52,
                 background: pressed
-                  ? "rgba(216,166,87,0.3)"
-                  : `linear-gradient(180deg, ${PATINA.dim}, ${PATINA.charcoal})`,
-                border: `1px solid ${pressed ? PATINA.amber : PATINA.dim}`,
+                  ? alpha(PALETTE.voice, 0.3)
+                  : `linear-gradient(180deg, ${PALETTE.raised}, ${PALETTE.room})`,
+                border: `1px solid ${pressed ? PALETTE.voice : PALETTE.raised}`,
                 borderRadius: "0 0 4px 4px",
                 display: "flex",
                 flexDirection: "column",
@@ -512,8 +500,8 @@ export default function SynthEngine({ width }) {
                 paddingBottom: 3,
                 cursor: "pointer",
                 boxShadow: pressed
-                  ? "0 0 8px rgba(216,166,87,0.3)"
-                  : "0 2px 4px rgba(0,0,0,0.3)",
+                  ? `0 0 8px ${alpha(PALETTE.voice, 0.3)}`
+                  : `0 2px 4px ${alpha(PALETTE.black, 0.3)}`,
                 transition: "all 0.05s ease",
                 touchAction: "none",
               }}
@@ -521,7 +509,7 @@ export default function SynthEngine({ width }) {
               <div
                 style={{
                   fontSize: 7,
-                  color: pressed ? PATINA.amber : PATINA.comment,
+                  color: pressed ? PALETTE.voice : PALETTE.faint,
                   fontFamily: "'JetBrains Mono', monospace",
                 }}
               >
@@ -581,8 +569,8 @@ export default function SynthEngine({ width }) {
                 top: 0,
                 width: keyW * 0.6,
                 height: 32,
-                background: pressed ? "rgba(216,166,87,0.4)" : PATINA.void,
-                border: `1px solid ${pressed ? PATINA.amber : PATINA.charcoal}`,
+                background: pressed ? alpha(PALETTE.voice, 0.4) : PALETTE.void,
+                border: `1px solid ${pressed ? PALETTE.voice : PALETTE.room}`,
                 borderRadius: "0 0 3px 3px",
                 zIndex: 2,
                 cursor: "pointer",
@@ -591,8 +579,8 @@ export default function SynthEngine({ width }) {
                 justifyContent: "center",
                 paddingBottom: 2,
                 boxShadow: pressed
-                  ? "0 0 6px rgba(216,166,87,0.3)"
-                  : "0 2px 4px rgba(0,0,0,0.5)",
+                  ? `0 0 6px ${alpha(PALETTE.voice, 0.3)}`
+                  : `0 2px 4px ${alpha(PALETTE.black, 0.5)}`,
                 transition: "all 0.05s ease",
                 touchAction: "none",
               }}
@@ -600,7 +588,7 @@ export default function SynthEngine({ width }) {
               <div
                 style={{
                   fontSize: 6,
-                  color: pressed ? PATINA.amber : PATINA.dim,
+                  color: pressed ? PALETTE.voice : PALETTE.raised,
                 }}
               >
                 {k.key.toUpperCase()}
@@ -613,7 +601,7 @@ export default function SynthEngine({ width }) {
         <div
           style={{
             fontSize: 9,
-            color: PATINA.comment,
+            color: PALETTE.faint,
             letterSpacing: "0.08em",
             textAlign: "center",
           }}

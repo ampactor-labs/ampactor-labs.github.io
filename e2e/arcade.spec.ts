@@ -1,8 +1,13 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { PALETTE } from "../src/arcade/palette.js";
 
 // The title card's address: the origin and nothing else.
 const HOME_URL = /^https?:\/\/[^/]+\/$/;
+
+// A palette token the way the browser reports a computed colour.
+const rgb = (hex: string) =>
+  `rgb(${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(", ")})`;
 
 // The select screen at /arcade/ and the programs it opens, driven from the
 // keyboard and the panel. A returning visitor: the machine has booted before.
@@ -147,7 +152,7 @@ test("with the lights on, the cabinet still stands in the dark", async ({
   );
   await expect(page.locator(".cabinet-scope")).toHaveCSS(
     "background-color",
-    "rgb(42, 40, 38)",
+    rgb(PALETTE.raised),
   );
   await expect(page.locator("[data-backdrop]")).toHaveCSS("opacity", "1");
 });

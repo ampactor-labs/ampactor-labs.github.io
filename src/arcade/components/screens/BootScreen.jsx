@@ -1,5 +1,6 @@
 import TestPattern from "../TestPattern";
 import { WORDS } from "../../../data/profile";
+import { PALETTE } from "../../palette";
 
 export default function BootScreen({
   lines,
@@ -36,7 +37,7 @@ export default function BootScreen({
           top: 12,
           right: 16,
           fontSize: fs(10),
-          color: "var(--color-amber)",
+          color: "var(--cab-voice)",
           cursor: "pointer",
           letterSpacing: "0.1em",
           zIndex: 60,
@@ -67,20 +68,20 @@ export default function BootScreen({
               visibility: i > currentLine ? "hidden" : undefined,
               color:
                 i === 0
-                  ? "#00E5FF"
+                  ? PALETTE.mark
                   : line === "ALL SYSTEMS NOMINAL" || line === WORDS.boot
-                    ? "#00E5FF"
+                    ? PALETTE.mark
                     : i === lines.length - 1
-                      ? "var(--color-amber)"
+                      ? "var(--cab-voice)"
                       : line.startsWith("OPERATOR:")
-                        ? "#00E5FF"
+                        ? PALETTE.mark
                         : line.startsWith("FOCUS:")
-                          ? "var(--color-teal)"
+                          ? "var(--cab-ok)"
                           : line.startsWith("STATUS:")
-                            ? "var(--color-amber)"
+                            ? "var(--cab-voice)"
                             : line.includes("OK")
-                              ? "var(--color-teal)"
-                              : "var(--color-muted)",
+                              ? "var(--cab-ok)"
+                              : "var(--cab-muted)",
               animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 i === lines.length - 1
@@ -92,7 +93,7 @@ export default function BootScreen({
           >
             {line}
             {i === currentLine && line !== "" && (
-              <span className="blink-cursor" style={{ color: "#00E5FF" }}>
+              <span className="blink-cursor" style={{ color: PALETTE.mark }}>
                 {" "}
                 {"\u2588"}
               </span>
@@ -106,7 +107,7 @@ export default function BootScreen({
             textAlign: "center",
             marginTop: 14,
             fontSize: fs(9),
-            color: "var(--color-muted)",
+            color: "var(--cab-muted)",
             cursor: "pointer",
           }}
           onClick={onSkip}

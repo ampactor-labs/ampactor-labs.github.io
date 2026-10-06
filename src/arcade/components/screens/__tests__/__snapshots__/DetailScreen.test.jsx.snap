@@ -11,7 +11,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       aria-label="Back to project list"
       class="btn-cabinet"
       role="button"
-      style="font-size: 12px; color: var(--fg); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
       tabindex="0"
     >
       ◄
@@ -30,7 +30,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         MENTL
       </h2>
       <div
-        style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
       >
         SELF-HOSTING COMPILER
       </div>
@@ -42,7 +42,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         aria-current="true"
         href="https://github.com/ampactor-labs/mentl"
         rel="noopener noreferrer"
-        style="font-size: 10px; letter-spacing: 0.08em; text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
+        style="font-size: 10px; letter-spacing: 0.08em; text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
         target="_blank"
       >
         › SOURCE
@@ -81,7 +81,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         />
       </div>
       <div
-        style="font-size: 11px; line-height: 1.75; color: var(--fg); max-width: 520px;"
+        style="font-size: 11px; line-height: 1.75; color: var(--cab-text); max-width: 520px;"
       >
         <span
           style="color: rgb(224, 255, 0);"
@@ -110,7 +110,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           />
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -120,7 +120,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           BYTE-IDENTICAL SELF-COMPILE, EVERY PIN
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -130,7 +130,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           FULL EFFECT ALGEBRA (+, -, &, !, Pure)
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -140,7 +140,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           SELF-HOSTED: MENTL COMPILES MENTL
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -150,7 +150,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           ONE GRAPH, ONE WRITER: INFERENCE
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -160,7 +160,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           ROW-POLYMORPHIC TYPE SYSTEM
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(224, 255, 0, 0.533);"
@@ -227,7 +227,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         />
       </div>
       <div
-        style="font-size: 10px; line-height: 1.75; color: var(--fg); font-style: italic; max-width: 520px;"
+        style="font-size: 10px; line-height: 1.75; color: var(--cab-text); font-style: italic; max-width: 520px;"
       >
         The verifier is sound and incomplete: a claim it cannot decide is recorded as pending debt, reported at compile time, and the program still builds. The absence proof !E is keyed by effect name, its soundness under polymorphism is an open item (PLAN.md §4③), and on the compiler's own source an effect operation with no handler installed anywhere still compiled with zero diagnostics (PLAN.md §7). The compiler emits WebAssembly only and runs through the bundled Rust host; there is no published package, and no CI service runs the gates.
       </div>
@@ -236,14 +236,14 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
-        style="font-size: 10px; color: var(--ui-signal-ok);"
+        style="font-size: 10px; color: var(--cab-ok);"
       >
         ●
          
         ACTIVE
       </span>
       <span
-        style="color: var(--color-comment); font-size: 10px;"
+        style="color: var(--cab-faint); font-size: 10px;"
       >
         │
       </span>
@@ -274,7 +274,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     </div>
   </div>
   <div
-    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
+    style="padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 
@@ -304,7 +304,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       aria-label="Back to project list"
       class="btn-cabinet"
       role="button"
-      style="font-size: 12px; color: var(--fg); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
       tabindex="0"
     >
       ◄
@@ -323,7 +323,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         SYS/RESONANCE
       </h2>
       <div
-        style="font-size: 10px; color: var(--fg); letter-spacing: 0.1em; margin-top: 3px;"
+        style="font-size: 10px; color: var(--cab-text); letter-spacing: 0.1em; margin-top: 3px;"
       >
         SUBTRACTIVE SYNTH
       </div>
@@ -356,7 +356,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         />
       </div>
       <div
-        style="font-size: 11px; line-height: 1.75; color: var(--fg); max-width: 520px;"
+        style="font-size: 11px; line-height: 1.75; color: var(--cab-text); max-width: 520px;"
       >
         <span
           style="color: rgb(255, 184, 0);"
@@ -385,7 +385,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           />
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -395,7 +395,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           OSC → FILTER → AMP → DELAY
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -405,7 +405,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           KEYBOARD MAPPED
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -415,7 +415,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           REAL-TIME PARAMETER CONTROL
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -425,7 +425,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           WEB AUDIO SYNTHESIS
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -435,7 +435,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           SUBTRACTIVE SIGNAL CHAIN
         </div>
         <div
-          style="font-size: 10px; color: var(--fg); line-height: 1.8; letter-spacing: 0.04em;"
+          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: 0.04em;"
         >
           <span
             style="color: rgba(255, 184, 0, 0.533);"
@@ -485,14 +485,14 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
-        style="font-size: 10px; color: var(--color-steel);"
+        style="font-size: 10px; color: var(--cab-quiet);"
       >
         ●
          
         INTERACTIVE
       </span>
       <span
-        style="color: var(--color-comment); font-size: 10px;"
+        style="color: var(--cab-faint); font-size: 10px;"
       >
         │
       </span>
@@ -523,7 +523,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     </div>
   </div>
   <div
-    style="padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: var(--color-muted); display: flex; justify-content: space-between;"
+    style="padding-top: 10px; border-top: 1px solid rgba(255, 184, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 

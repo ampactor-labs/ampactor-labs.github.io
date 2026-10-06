@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
+import { PALETTE, alpha } from "../../palette";
 
 export default function SelectScreen({
   projects,
@@ -44,14 +45,14 @@ export default function SelectScreen({
 
   const pill = {
     fontFamily: "'Press Start 2P', monospace",
-    color: "#00E5FF",
+    color: PALETTE.mark,
     textDecoration: "none",
     display: "inline-block",
     fontSize: fs(8),
     lineHeight: 1,
-    border: "1px solid rgba(0,229,255,0.35)",
+    border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
     borderRadius: 3,
-    background: "rgba(0,229,255,0.06)",
+    background: alpha(PALETTE.mark, 0.06),
     padding: "7px 8px",
     letterSpacing: "0.06em",
     whiteSpace: "nowrap",
@@ -70,7 +71,7 @@ export default function SelectScreen({
           gap: "10px 16px",
           marginBottom: 12,
           paddingBottom: 10,
-          borderBottom: "1px solid rgba(0,229,255,0.1)",
+          borderBottom: `1px solid ${alpha(PALETTE.mark, 0.1)}`,
         }}
       >
         <div style={{ flex: "1 1 260px", minWidth: 0 }}>
@@ -79,8 +80,8 @@ export default function SelectScreen({
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(16),
               lineHeight: 1.5,
-              color: "#00E5FF",
-              textShadow: "0 0 12px rgba(0,229,255,0.4)",
+              color: PALETTE.mark,
+              textShadow: `0 0 12px ${alpha(PALETTE.mark, 0.4)}`,
               letterSpacing: "0.1em",
             }}
           >
@@ -90,7 +91,7 @@ export default function SelectScreen({
             style={{
               fontSize: fs(10),
               fontWeight: 400,
-              color: "var(--fg)",
+              color: "var(--cab-text)",
               letterSpacing: "0.12em",
               margin: "6px 0 0",
             }}
@@ -103,7 +104,7 @@ export default function SelectScreen({
               flexWrap: "wrap",
               columnGap: 10,
               fontSize: fs(11),
-              color: "var(--color-muted)",
+              color: "var(--cab-muted)",
               letterSpacing: "0.08em",
               marginTop: 2,
             }}
@@ -185,7 +186,7 @@ export default function SelectScreen({
                     style={{
                       fontFamily: "'Press Start 2P', monospace",
                       fontSize: fs(7),
-                      color: "rgba(0,229,255,0.3)",
+                      color: alpha(PALETTE.mark, 0.3),
                       letterSpacing: "0.3em",
                       whiteSpace: "nowrap",
                     }}
@@ -196,7 +197,7 @@ export default function SelectScreen({
                     style={{
                       flex: 1,
                       height: 1,
-                      background: "rgba(0,229,255,0.08)",
+                      background: alpha(PALETTE.mark, 0.08),
                     }}
                   />
                 </div>
@@ -222,11 +223,11 @@ export default function SelectScreen({
                   borderRadius: 6,
                   background: active
                     ? isH
-                      ? "rgba(255,200,0,0.04)"
-                      : "rgba(0,229,255,0.05)"
+                      ? alpha(PALETTE.coin, 0.04)
+                      : alpha(PALETTE.mark, 0.05)
                     : "transparent",
                   border: active
-                    ? `1px solid ${isH ? "rgba(255,200,0,0.15)" : "rgba(0,229,255,0.15)"}`
+                    ? `1px solid ${isH ? alpha(PALETTE.coin, 0.15) : alpha(PALETTE.mark, 0.15)}`
                     : "1px solid transparent",
                   position: "relative",
                   borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
@@ -272,7 +273,7 @@ export default function SelectScreen({
                       style={{
                         fontFamily: "'Share Tech Mono', monospace",
                         fontSize: fs(14),
-                        color: active ? p.color : "var(--fg)",
+                        color: active ? p.color : "var(--cab-text)",
                         textShadow: active ? `0 0 8px ${p.color}44` : "none",
                         transition: "color 0.2s ease",
                       }}
@@ -282,11 +283,11 @@ export default function SelectScreen({
                     <span
                       style={{
                         fontSize: fs(9),
-                        color: "var(--color-muted)",
+                        color: "var(--cab-muted)",
                         padding: "1px 5px",
-                        background: "rgba(255,255,255,0.03)",
+                        background: alpha(PALETTE.white, 0.03),
                         borderRadius: 3,
-                        border: "1px solid rgba(255,255,255,0.05)",
+                        border: `1px solid ${alpha(PALETTE.white, 0.05)}`,
                         flexShrink: 0,
                       }}
                     >
@@ -296,7 +297,7 @@ export default function SelectScreen({
                   <div
                     style={{
                       fontSize: fs(10),
-                      color: "var(--fg)",
+                      color: "var(--cab-text)",
                       marginTop: 1,
                       letterSpacing: "0.08em",
                     }}
@@ -332,7 +333,7 @@ export default function SelectScreen({
                 borderRadius: 6,
                 opacity: 0.3,
                 pointerEvents: "none",
-                borderLeft: "2px dashed rgba(255,184,0,0.2)",
+                borderLeft: `2px dashed ${alpha(PALETTE.coin, 0.2)}`,
                 userSelect: "none",
               }}
             >
@@ -344,10 +345,10 @@ export default function SelectScreen({
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: fs(14),
-                  color: "var(--color-comment)",
-                  background: "rgba(255,184,0,0.05)",
+                  color: "var(--cab-faint)",
+                  background: alpha(PALETTE.coin, 0.05),
                   borderRadius: 5,
-                  border: "1px solid rgba(255,184,0,0.1)",
+                  border: `1px solid ${alpha(PALETTE.coin, 0.1)}`,
                   flexShrink: 0,
                 }}
               >
@@ -357,7 +358,7 @@ export default function SelectScreen({
                 <div
                   style={{
                     fontSize: fs(11),
-                    color: "var(--color-comment)",
+                    color: "var(--cab-faint)",
                     letterSpacing: "0.1em",
                     fontFamily: "'Share Tech Mono', monospace",
                   }}
@@ -367,7 +368,7 @@ export default function SelectScreen({
                 <div
                   style={{
                     fontSize: fs(9),
-                    color: "var(--color-comment)",
+                    color: "var(--cab-faint)",
                     letterSpacing: "0.08em",
                     marginTop: 1,
                   }}
@@ -382,7 +383,7 @@ export default function SelectScreen({
         style={{
           marginTop: 10,
           paddingTop: 8,
-          borderTop: "1px solid rgba(0,229,255,0.06)",
+          borderTop: `1px solid ${alpha(PALETTE.mark, 0.06)}`,
           overflow: "hidden",
           height: 24,
           position: "relative",
@@ -392,7 +393,7 @@ export default function SelectScreen({
           className="marquee-track"
           style={{
             fontSize: fs(8),
-            color: "var(--color-comment)",
+            color: "var(--cab-faint)",
             letterSpacing: "0.1em",
             animationDuration: `${MARQUEE_SECONDS}s`,
           }}

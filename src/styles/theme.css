@@ -71,22 +71,9 @@
 }
 
 /* The cabinet is a physical object. In a lit room it keeps its own dark
-   palette, so every token the arcade reads is pinned here to its dark
-   value (the list is the output of grepping `var(--` across src/arcade). */
+   palette: every colour the arcade paints is a --cab-* custom property from
+   src/arcade/palette.js, written on :root by the document head (site.js),
+   so no theme can reach it. The scope keeps the controls inside it dark. */
 .cabinet-scope {
   color-scheme: dark;
-  --fg: #d4be98;
-  --color-muted: #a89984;
-  --color-comment: #5a524c;
-  --color-umber: #45403d;
-  --color-amber: #d8a657;
-  --color-teal: #7daea3;
-  --color-void: #0f0e0d;
-  --color-dim: #2a2826;
-  --color-charcoal: #1d2021;
-  --color-steel: #6a95a8;
-  --color-verdigris: #89bfad;
-  --color-cyan: #00e5ff;
-  --ui-danger: #ea6962;
-  --ui-signal-ok: #89bfad;
 }

@@ -3,6 +3,7 @@ import { CONTACT } from "../../../data/profile";
 import { QUOTES } from "../../../data/quotes";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
+import { PALETTE, alpha } from "../../palette";
 
 // The loop a real machine runs when nobody is playing, and this site's front
 // door: the title card, a few cartridges, the high score table, the splash
@@ -32,7 +33,7 @@ export function nextFrame(frame) {
   return (frame + 1) % FRAMES.length;
 }
 
-const label = (fs, color = "rgba(0,229,255,0.45)") => ({
+const label = (fs, color = alpha(PALETTE.mark, 0.45)) => ({
   fontFamily: "'Press Start 2P', monospace",
   fontSize: fs(8),
   color,
@@ -64,10 +65,10 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
           fontWeight: 400,
           fontSize: nameSize,
           lineHeight: 1.5,
-          color: "#00E5FF",
+          color: PALETTE.mark,
           letterSpacing: "0.06em",
           textShadow:
-            "0 0 8px rgba(0,229,255,0.55), 0 0 28px rgba(0,229,255,0.22)",
+            `0 0 8px ${alpha(PALETTE.mark, 0.55)}, 0 0 28px ${alpha(PALETTE.mark, 0.22)}`,
         }}
       >
         {CONTACT.name}
@@ -76,9 +77,9 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
         style={{
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(15),
-          color: "var(--color-amber)",
+          color: "var(--cab-voice)",
           letterSpacing: "0.24em",
-          textShadow: "0 0 10px rgba(216,166,87,0.35)",
+          textShadow: `0 0 10px ${alpha(PALETTE.voice, 0.35)}`,
         }}
       >
         {CONTACT.role}
@@ -89,7 +90,7 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
         style={{
           marginTop: 10,
           fontSize: fs(11),
-          color: "var(--fg)",
+          color: "var(--cab-text)",
           letterSpacing: "0.12em",
           lineHeight: 1.9,
         }}
@@ -138,7 +139,7 @@ function NowShowing({ cartridge, fs }) {
       >
         {cartridge.title}
       </div>
-      <div style={{ fontSize: fs(12), color: "var(--fg)", letterSpacing: "0.12em" }}>
+      <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "0.12em" }}>
         {cartridge.tagline || cartridge.subtitle}
       </div>
     </div>
@@ -167,13 +168,13 @@ function Winners({ fs }) {
           fontFamily: "'Press Start 2P', monospace",
           fontSize: fs(14),
           lineHeight: 1.7,
-          color: "var(--fg)",
+          color: "var(--cab-text)",
           letterSpacing: "0.1em",
         }}
       >
         {QUOTES.winners}
       </div>
-      <div style={{ ...label(fs, "var(--color-muted)"), letterSpacing: "0.2em" }}>
+      <div style={{ ...label(fs, "var(--cab-muted)"), letterSpacing: "0.2em" }}>
         {QUOTES.winnersBy}
       </div>
     </div>
@@ -199,10 +200,10 @@ function HighScores({ fs }) {
         padding: "0 12px",
       }}
     >
-      <div style={{ ...label(fs, "var(--color-amber)"), textShadow: "0 0 10px rgba(216,166,87,0.35)" }}>
+      <div style={{ ...label(fs, "var(--cab-voice)"), textShadow: `0 0 10px ${alpha(PALETTE.voice, 0.35)}` }}>
         HIGH SCORES
       </div>
-      <div style={{ fontSize: fs(9), color: "var(--color-muted)", letterSpacing: "0.14em" }}>
+      <div style={{ fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em" }}>
         {int(summary.totals.commits)} COMMITS · {summary.totals.repos} REPOSITORIES
       </div>
       <table
@@ -216,8 +217,8 @@ function HighScores({ fs }) {
       >
         <tbody>
           {rows.map((r, i) => (
-            <tr key={r.repo} style={{ color: i === 0 ? "var(--color-amber)" : "var(--fg)" }}>
-              <td style={{ padding: "3px 10px 3px 0", color: "var(--color-muted)" }}>
+            <tr key={r.repo} style={{ color: i === 0 ? "var(--cab-voice)" : "var(--cab-text)" }}>
+              <td style={{ padding: "3px 10px 3px 0", color: "var(--cab-muted)" }}>
                 {String(i + 1).padStart(2, "0")}
               </td>
               <td style={{ padding: "3px 18px 3px 0", textTransform: "uppercase" }}>{r.repo}</td>
@@ -228,7 +229,7 @@ function HighScores({ fs }) {
           ))}
         </tbody>
       </table>
-      <div style={{ fontSize: fs(8), color: "var(--color-comment)", letterSpacing: "0.14em", marginTop: 4 }}>
+      <div style={{ fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "0.14em", marginTop: 4 }}>
         CO-OP · {int(summary.totals.withClaude)} WITH CLAUDE
       </div>
     </div>
@@ -345,9 +346,9 @@ export default function AttractScreen({
           style={{
             fontFamily: "'Press Start 2P', monospace",
             fontSize: fs(14),
-            color: "var(--color-amber)",
+            color: "var(--cab-voice)",
             letterSpacing: "0.14em",
-            textShadow: "0 0 14px rgba(216,166,87,0.45)",
+            textShadow: `0 0 14px ${alpha(PALETTE.voice, 0.45)}`,
             animation: reducedMotion ? undefined : "startBlink 1.1s step-end infinite",
             background: "transparent",
             border: 0,

@@ -1,3 +1,4 @@
+import { CHROME, FRINGE, PALETTE, alpha } from "../palette";
 // Every d-pad key goes through here, so none of them can ship as a bare div with
 // no handler again — which is how ► stayed dead on every screen.
 function DpadButton({ label, glyph, onPress, style }) {
@@ -42,18 +43,18 @@ export default function Cabinet({
     width: 30,
     height: 30,
     background:
-      "linear-gradient(145deg, #3a3632 0%, #2e2a27 55%, #241f1c 100%)",
+      `linear-gradient(145deg, ${CHROME.dpad[0]} 0%, ${CHROME.dpad[1]} 55%, ${CHROME.dpad[2]} 100%)`,
     borderRadius: 4,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "var(--color-muted)",
+    color: "var(--cab-muted)",
     fontSize: fs(9),
-    border: "1.5px solid var(--color-umber)",
+    border: "1.5px solid var(--cab-line)",
     boxShadow: [
-      "0 3px 6px rgba(0,0,0,0.5)",
-      "inset 0 1px 0 rgba(255,255,255,0.10)",
-      "inset 0 -1px 0 rgba(0,0,0,0.4)",
+      `0 3px 6px ${alpha(PALETTE.black, 0.5)}`,
+      `inset 0 1px 0 ${alpha(PALETTE.white, 0.10)}`,
+      `inset 0 -1px 0 ${alpha(PALETTE.black, 0.4)}`,
     ].join(", "),
   };
 
@@ -64,18 +65,18 @@ export default function Cabinet({
       style={{
         margin: "0 10px 10px",
         background:
-          "linear-gradient(180deg, #2a2826 0%, #1d2021 40%, #0f0e0d 100%)",
+          `linear-gradient(180deg, ${PALETTE.raised} 0%, ${PALETTE.room} 40%, ${PALETTE.void} 100%)`,
         borderRadius: "0 0 16px 16px",
-        border: "3px solid var(--color-umber)",
-        borderTop: "2px solid var(--color-umber)",
+        border: "3px solid var(--cab-line)",
+        borderTop: "2px solid var(--cab-line)",
         padding: "10px 20px 12px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         boxShadow: [
-          "inset 0 2px 0 rgba(255,255,255,0.06)",
-          "inset 0 -4px 14px rgba(0,0,0,0.65)",
-          "0 4px 0 rgba(0,0,0,0.55)",
+          `inset 0 2px 0 ${alpha(PALETTE.white, 0.06)}`,
+          `inset 0 -4px 14px ${alpha(PALETTE.black, 0.65)}`,
+          `0 4px 0 ${alpha(PALETTE.black, 0.55)}`,
         ].join(", "),
       }}
     >
@@ -100,10 +101,10 @@ export default function Cabinet({
             style={{
               width: 30,
               height: 30,
-              background: "radial-gradient(circle, #1c1e2e, #121420)",
+              background: `radial-gradient(circle, ${CHROME.centre[0]}, ${CHROME.centre[1]})`,
               borderRadius: 4,
-              border: "1.5px solid #242636",
-              boxShadow: "inset 0 2px 8px rgba(0,0,0,0.7)",
+              border: `1.5px solid ${CHROME.centre[2]}`,
+              boxShadow: `inset 0 2px 8px ${alpha(PALETTE.black, 0.7)}`,
             }}
           />
           <DpadButton
@@ -145,7 +146,7 @@ export default function Cabinet({
             height="28"
             style={{
               filter:
-                "drop-shadow(-1.5px 0 0 rgba(219,116,151,0.35)) drop-shadow(1.5px 0 0 rgba(0,80,255,0.3)) drop-shadow(0 0 6px rgba(0,229,255,0.4))",
+                `drop-shadow(-1.5px 0 0 ${alpha(FRINGE.warm, 0.35)}) drop-shadow(1.5px 0 0 ${alpha(FRINGE.cool, 0.3)}) drop-shadow(0 0 6px ${alpha(PALETTE.mark, 0.4)})`,
             }}
           >
             <line
@@ -153,7 +154,7 @@ export default function Cabinet({
               y1="408"
               x2="256"
               y2="104"
-              stroke="#00E5FF"
+              stroke={PALETTE.mark}
               strokeWidth="36"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -164,7 +165,7 @@ export default function Cabinet({
               y1="408"
               x2="256"
               y2="104"
-              stroke="#00E5FF"
+              stroke={PALETTE.mark}
               strokeWidth="36"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -172,7 +173,7 @@ export default function Cabinet({
             />
             <path
               d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
-              stroke="#00E5FF"
+              stroke={PALETTE.mark}
               strokeWidth="20"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -183,7 +184,7 @@ export default function Cabinet({
               y1="408"
               x2="140"
               y2="408"
-              stroke="#00E5FF"
+              stroke={PALETTE.mark}
               strokeWidth="36"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -194,7 +195,7 @@ export default function Cabinet({
               y1="408"
               x2="436"
               y2="408"
-              stroke="#00E5FF"
+              stroke={PALETTE.mark}
               strokeWidth="36"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -205,9 +206,9 @@ export default function Cabinet({
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(9),
-              color: "#00E5FF",
+              color: PALETTE.mark,
               letterSpacing: "0.2em",
-              textShadow: "0 0 8px rgba(0,229,255,0.4)",
+              textShadow: `0 0 8px ${alpha(PALETTE.mark, 0.4)}`,
             }}
           >
             AMPACTOR
@@ -215,7 +216,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(7),
-              color: "var(--fg)",
+              color: "var(--cab-text)",
               letterSpacing: "0.15em",
             }}
           >
@@ -240,10 +241,10 @@ export default function Cabinet({
             height: 20,
             background:
               coinCount > 0
-                ? "rgba(255,184,0,0.08)"
-                : "linear-gradient(180deg, #0f0e0d 0%, #2a2826 60%, #0f0e0d 100%)",
+                ? alpha(PALETTE.coin, 0.08)
+                : `linear-gradient(180deg, ${PALETTE.void} 0%, ${PALETTE.raised} 60%, ${PALETTE.void} 100%)`,
             borderRadius: 10,
-            border: `2px solid ${coinCount > 0 ? "rgba(255,184,0,0.45)" : "var(--color-umber)"}`,
+            border: `2px solid ${coinCount > 0 ? alpha(PALETTE.coin, 0.45) : "var(--cab-line)"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -251,10 +252,10 @@ export default function Cabinet({
             overflow: "hidden",
             boxShadow:
               coinCount > 0
-                ? "inset 0 2px 6px rgba(255,184,0,0.2), 0 0 10px rgba(255,184,0,0.15)"
+                ? `inset 0 2px 6px ${alpha(PALETTE.coin, 0.2)}, 0 0 10px ${alpha(PALETTE.coin, 0.15)}`
                 : [
-                    "inset 0 2px 8px rgba(0,0,0,0.7)",
-                    "0 1px 0 rgba(255,255,255,0.05)",
+                    `inset 0 2px 8px ${alpha(PALETTE.black, 0.7)}`,
+                    `0 1px 0 ${alpha(PALETTE.white, 0.05)}`,
                   ].join(", "),
             opacity: panelLive ? 1 : 0.3,
             pointerEvents: panelLive ? "auto" : "none",
@@ -267,13 +268,13 @@ export default function Cabinet({
               height: 4,
               background:
                 coinCount > 0
-                  ? "rgba(255,184,0,0.65)"
-                  : "linear-gradient(90deg, #0f0e0d, #2a2826 35%, #45403d 50%, #2a2826 65%, #0f0e0d)",
+                  ? alpha(PALETTE.coin, 0.65)
+                  : `linear-gradient(90deg, ${PALETTE.void}, ${PALETTE.raised} 35%, ${PALETTE.line} 50%, ${PALETTE.raised} 65%, ${PALETTE.void})`,
               borderRadius: 2,
               boxShadow:
                 coinCount > 0
-                  ? "0 0 8px rgba(255,184,0,0.5)"
-                  : "inset 0 1px 3px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.07)",
+                  ? `0 0 8px ${alpha(PALETTE.coin, 0.5)}`
+                  : `inset 0 1px 3px ${alpha(PALETTE.black, 0.7)}, 0 1px 0 ${alpha(PALETTE.white, 0.07)}`,
             }}
           />
         </div>
@@ -290,7 +291,7 @@ export default function Cabinet({
               style={{
                 fontSize: fs(7),
                 fontFamily: "'Press Start 2P', monospace",
-                color: "var(--color-amber)",
+                color: "var(--cab-voice)",
                 letterSpacing: "0.12em",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
@@ -304,7 +305,7 @@ export default function Cabinet({
         <div
           style={{
             fontSize: fs(6),
-            color: coinCount > 0 ? "rgba(255,184,0,0.5)" : "var(--color-umber)",
+            color: coinCount > 0 ? alpha(PALETTE.coin, 0.5) : "var(--cab-line)",
             letterSpacing: "0.15em",
             transition: "color 0.3s ease",
             animation:
@@ -343,20 +344,20 @@ export default function Cabinet({
               height: 46,
               borderRadius: "50%",
               background:
-                "radial-gradient(circle at 38% 32%, #5a2a28 0%, #3e1a18 50%, #2c1210 100%)",
-              border: "2.5px solid #5a3a38",
+                `radial-gradient(circle at 38% 32%, ${CHROME.b[0]} 0%, ${CHROME.b[1]} 50%, ${CHROME.b[2]} 100%)`,
+              border: `2.5px solid ${CHROME.b[3]}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: fs(9),
-              color: "var(--ui-danger)",
+              color: "var(--cab-danger)",
               fontFamily: "'Press Start 2P', monospace",
               boxShadow: [
-                "0 0 16px rgba(234,105,98,0.40)",
-                "0 0 6px rgba(234,105,98,0.70)",
-                "0 4px 10px rgba(0,0,0,0.55)",
-                "inset 0 1px 0 rgba(255,255,255,0.12)",
-                "inset 0 -3px 6px rgba(0,0,0,0.45)",
+                `0 0 16px ${alpha(PALETTE.danger, 0.40)}`,
+                `0 0 6px ${alpha(PALETTE.danger, 0.70)}`,
+                `0 4px 10px ${alpha(PALETTE.black, 0.55)}`,
+                `inset 0 1px 0 ${alpha(PALETTE.white, 0.12)}`,
+                `inset 0 -3px 6px ${alpha(PALETTE.black, 0.45)}`,
               ].join(", "),
             }}
           >
@@ -365,7 +366,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(5),
-              color: "rgba(168,153,132,0.45)",
+              color: alpha(PALETTE.muted, 0.45),
               letterSpacing: "0.12em",
               fontFamily: "'Press Start 2P', monospace",
               userSelect: "none",
@@ -399,20 +400,20 @@ export default function Cabinet({
               height: 46,
               borderRadius: "50%",
               background:
-                "radial-gradient(circle at 38% 32%, #164458 0%, #0c2a3a 50%, #071828 100%)",
-              border: "2.5px solid #1e6888",
+                `radial-gradient(circle at 38% 32%, ${CHROME.a[0]} 0%, ${CHROME.a[1]} 50%, ${CHROME.a[2]} 100%)`,
+              border: `2.5px solid ${CHROME.a[3]}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: fs(9),
-              color: "#00E5FF",
+              color: PALETTE.mark,
               fontFamily: "'Press Start 2P', monospace",
               boxShadow: [
-                "0 0 16px rgba(0,200,240,0.40)",
-                "0 0 6px rgba(0,200,240,0.70)",
-                "0 4px 10px rgba(0,0,0,0.55)",
-                "inset 0 1px 0 rgba(255,255,255,0.12)",
-                "inset 0 -3px 6px rgba(0,0,0,0.45)",
+                `0 0 16px ${alpha(PALETTE.mark, 0.40)}`,
+                `0 0 6px ${alpha(PALETTE.mark, 0.70)}`,
+                `0 4px 10px ${alpha(PALETTE.black, 0.55)}`,
+                `inset 0 1px 0 ${alpha(PALETTE.white, 0.12)}`,
+                `inset 0 -3px 6px ${alpha(PALETTE.black, 0.45)}`,
               ].join(", "),
             }}
           >
@@ -421,7 +422,7 @@ export default function Cabinet({
           <div
             style={{
               fontSize: fs(5),
-              color: "rgba(168,153,132,0.45)",
+              color: alpha(PALETTE.muted, 0.45),
               letterSpacing: "0.12em",
               fontFamily: "'Press Start 2P', monospace",
               userSelect: "none",

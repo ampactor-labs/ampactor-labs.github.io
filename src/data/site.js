@@ -5,6 +5,7 @@
 import { CONTACT } from "./profile.js";
 import { PROJECTS } from "./projects.js";
 import receipts from "./receipts.summary.json" with { type: "json" };
+import { PALETTE, cabinetCss } from "../arcade/palette.js";
 
 const n = (v) => Number(v).toLocaleString("en-US");
 const monthName = (iso) =>
@@ -151,8 +152,8 @@ export function renderHead(entry, { prepaint, bootShim, tokens }) {
     `<meta name="twitter:description" content="${description}" />`,
     `<meta name="twitter:image" content="${image}" />`,
     `<meta name="color-scheme" content="dark light" />`,
-    `<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d2021" />`,
-    `<meta name="theme-color" media="(prefers-color-scheme: light)" content="${entry.stage ? "#1d2021" : "#f2e5bc"}" />`,
+    `<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${PALETTE.room}" />`,
+    `<meta name="theme-color" media="(prefers-color-scheme: light)" content="${entry.stage ? PALETTE.room : "#f2e5bc"}" />`,
   ];
   if (entry.person) {
     lines.push(
@@ -161,11 +162,15 @@ export function renderHead(entry, { prepaint, bootShim, tokens }) {
   }
   lines.push(`<script>${prepaint}</script>`);
   if (entry.stage)
-    lines.push(`<script>document.documentElement.setAttribute("data-stage","")</script>`);
+    lines.push(
+      `<script>document.documentElement.setAttribute("data-stage","")</script>`,
+    );
   lines.push(
     tokens
       ? `<style>${tokens.trim()}</style>`
       : `<link rel="stylesheet" href="/tokens.css" />`,
+    // The cabinet's own colours, so the room is right from the first paint.
+    `<style>${cabinetCss}</style>`,
     ...SITE.preloadFonts.map(
       (href) =>
         `<link rel="preload" href="${href}" as="font" type="font/woff2" crossorigin />`,
@@ -205,14 +210,13 @@ export function renderNoscript(entry) {
         p.github ? ` <a href="${p.github}">Source</a>` : ""
       }</li>`,
   ).join("\n          ");
-  const arcadeNote =
-    entry.stage
-      ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
-      : entry.path === "/receipts/"
-        ? `<p>The commit log needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
-        : entry.path === "/craft/"
-          ? `<p>This page needs JavaScript to show its measurements. The source and its full history are on <a href="${CONTACT.github}/ampactor-labs.github.io">GitHub</a>.</p>`
-          : "";
+  const arcadeNote = entry.stage
+    ? `<p>The arcade cabinet needs JavaScript. Here is the same work as a list.</p>`
+    : entry.path === "/receipts/"
+      ? `<p>The commit log needs JavaScript to filter and chart. The data it reads is plain JSON at <a href="/receipts/data.json">/receipts/data.json</a>.</p>`
+      : entry.path === "/craft/"
+        ? `<p>This page needs JavaScript to show its measurements. The source and its full history are on <a href="${CONTACT.github}/ampactor-labs.github.io">GitHub</a>.</p>`
+        : "";
   return `<noscript>
       <div style="max-width: 760px; margin: 0 auto; padding: 40px 20px; font: 16px/1.6 system-ui, sans-serif">
         <h1 style="margin: 0 0 6px">${escapeHtml(SITE.name)}</h1>

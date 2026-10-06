@@ -3,6 +3,8 @@
 // shape as a cartridge so the list, the router and the d-pad treat them
 // alike; `kind` picks the screen (SystemScreen.jsx) and `links` is the rail
 // the A button walks, in focus order.
+import { PALETTE } from "../arcade/palette.js";
+
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 
 export const SYSTEM_PROGRAMS = [
@@ -12,12 +14,16 @@ export const SYSTEM_PROGRAMS = [
     title: "HOW TO PLAY",
     subtitle: "THE CONTROLS",
     lang: "OPERATOR",
-    color: "#d8a657",
+    color: PALETTE.voice,
     icon: "?",
     category: "operator",
     links: [
       { kind: "live", href: "/craft/", label: "▸ HOW THIS CABINET IS BUILT" },
-      { kind: "github", href: `${REPO}/blob/main/docs/README-STANDARD.md`, label: "› THE README STANDARD" },
+      {
+        kind: "github",
+        href: `${REPO}/blob/main/docs/README-STANDARD.md`,
+        label: "› THE README STANDARD",
+      },
     ],
   },
   {
@@ -26,12 +32,16 @@ export const SYSTEM_PROGRAMS = [
     title: "HIGH SCORES",
     subtitle: "EVERY PUBLIC COMMIT",
     lang: "OPERATOR",
-    color: "#d8a657",
+    color: PALETTE.voice,
     icon: "★",
     category: "operator",
     links: [
       { kind: "live", href: "/receipts/", label: "▸ FULL LEDGER" },
-      { kind: "github", href: "https://github.com/ampactor-labs", label: "› GITHUB" },
+      {
+        kind: "github",
+        href: "https://github.com/ampactor-labs",
+        label: "› GITHUB",
+      },
     ],
   },
   {
@@ -40,7 +50,7 @@ export const SYSTEM_PROGRAMS = [
     title: "CREDITS",
     subtitle: "",
     lang: "OPERATOR",
-    color: "#d8a657",
+    color: PALETTE.voice,
     icon: "≡",
     category: "operator",
     links: [

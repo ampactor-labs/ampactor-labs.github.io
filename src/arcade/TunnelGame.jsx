@@ -29,8 +29,8 @@ import {
   bossLabel,
   bossVolley,
 } from "./tunnelBoss";
+import { FRINGE, GAME, PALETTE, alpha } from "./palette";
 
-const AMBER = "#d8a657";
 
 // Debug hook: ?boss=<score> summons the first ANOMALY early. Used for
 // balance tuning and the headless E2E run; harmless in normal play.
@@ -284,9 +284,9 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     // Glow
     if (glow) {
       ctx.shadowBlur = 12;
-      ctx.shadowColor = "rgba(0,229,255,0.6)";
+      ctx.shadowColor = alpha(PALETTE.mark, 0.6);
     }
-    ctx.strokeStyle = "#00E5FF";
+    ctx.strokeStyle = PALETTE.mark;
     ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -337,22 +337,22 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // ── PAUSED ── (freeze time + the battlefield; show a pause card)
       if (gs.phase === "paused") {
         ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = "rgba(8,10,14,0.6)";
+        ctx.fillStyle = alpha(GAME.shade, 0.6);
         ctx.fillRect(0, 0, w, h);
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillStyle = "#00E5FF";
+        ctx.fillStyle = PALETTE.mark;
         ctx.shadowBlur = 18;
-        ctx.shadowColor = "rgba(0,229,255,0.7)";
+        ctx.shadowColor = alpha(PALETTE.mark, 0.7);
         ctx.font = `${mobile ? 22 : 34}px 'Press Start 2P', monospace`;
         ctx.fillText("PAUSED", cx, cy - (mobile ? 14 : 20));
         ctx.shadowBlur = 0;
         ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
-        ctx.fillStyle = "rgba(143,160,179,0.8)";
+        ctx.fillStyle = alpha(GAME.hud, 0.8);
         ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
-        ctx.fillStyle = "rgba(143,160,179,0.5)";
+        ctx.fillStyle = alpha(GAME.hud, 0.5);
         ctx.fillText("ESC / B TO END", cx, cy + (mobile ? 34 : 48));
-        ctx.fillStyle = "rgba(143,160,179,0.35)";
+        ctx.fillStyle = alpha(GAME.hud, 0.35);
         ctx.fillText(QUOTES.paused, cx, cy + (mobile ? 56 : 78));
         return;
       }
@@ -395,13 +395,13 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.shadowBlur = 20;
-        ctx.shadowColor = "rgba(0,229,255,0.8)";
-        ctx.strokeStyle = "#00E5FF";
+        ctx.shadowColor = alpha(PALETTE.mark, 0.8);
+        ctx.strokeStyle = PALETTE.mark;
         ctx.lineWidth = 2;
         const countText =
           gs.countdownLeft > 0 ? String(gs.countdownLeft) : "COMPILE";
         ctx.strokeText(countText, cx, cy);
-        ctx.fillStyle = "rgba(0,229,255,0.15)";
+        ctx.fillStyle = alpha(PALETTE.mark, 0.15);
         ctx.fillText(countText, cx, cy);
         ctx.shadowBlur = 0;
 
@@ -549,7 +549,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
                 b.hp--;
                 b.hitFlash = gs.elapsed;
                 gs.score += Math.round(5 * gs.combo);
-                spawnExplosion(gs, pScreenX, bScreenY, "#ff2266", 4);
+                spawnExplosion(gs, pScreenX, bScreenY, PALETTE.hot, 4);
                 audio.playExplosion();
                 if (b.hp <= 0) {
                   b.phase = "dying";
@@ -567,7 +567,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
               cx + b.x * bScale,
               cy + (shipY - cy) * b.depth,
               "SEGFAULT",
-              "#ff2266",
+              PALETTE.hot,
             );
             gs.score += bossKillBonus(b.level);
             gs.bossesDown++;
@@ -625,7 +625,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             gs.shakeUntil = gs.elapsed + 300;
             gs.shakeIntensity = 8;
             audio.playHit();
-            spawnExplosion(gs, shipX, shipY, "#ff2222", 15);
+            spawnExplosion(gs, shipX, shipY, GAME.hit, 15);
             o.alive = false;
 
             if (gs.lives <= 0) {
@@ -733,9 +733,9 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         const len = 12 * scale;
 
         ctx.save();
-        ctx.strokeStyle = "#00FFD0";
+        ctx.strokeStyle = PALETTE.mint;
         ctx.shadowBlur = 8;
-        ctx.shadowColor = "rgba(0,255,208,0.8)";
+        ctx.shadowColor = alpha(PALETTE.mint, 0.8);
         ctx.lineWidth = 2 * scale;
         ctx.globalAlpha = 0.9;
         ctx.beginPath();
@@ -776,7 +776,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           life: 400,
           maxLife: 400,
           char: null,
-          color: "#00E5FF",
+          color: PALETTE.mark,
           size: 1 + Math.random() * 2,
         });
       }
@@ -789,7 +789,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       ctx.textBaseline = "top";
 
       // Score
-      ctx.fillStyle = "#00E5FF";
+      ctx.fillStyle = PALETTE.mark;
       ctx.fillText(`SCORE: ${String(gs.score).padStart(6, "0")}`, 16, 16);
 
       // ANOMALY health bar (fight + dying); flashes orange while enraged
@@ -798,8 +798,8 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         const enraged = bossEnraged(b);
         const barColor =
           enraged && Math.floor(gs.elapsed / 150) % 2 === 0
-            ? "#ff6600"
-            : "#ff2266";
+            ? GAME.enraged
+            : PALETTE.hot;
         const barW = mobile ? 150 : 240;
         const barH = mobile ? 5 : 7;
         const barY = mobile ? 42 : 52;
@@ -807,21 +807,21 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.font = `${mobile ? 7 : 9}px 'Press Start 2P', monospace`;
         ctx.fillStyle = barColor;
         ctx.shadowBlur = 8;
-        ctx.shadowColor = "rgba(255,34,102,0.7)";
+        ctx.shadowColor = alpha(PALETTE.hot, 0.7);
         ctx.fillText(
           enraged ? `${bossLabel(b.level)} !!` : bossLabel(b.level),
           cx,
           barY - (mobile ? 12 : 16),
         );
         ctx.shadowBlur = 0;
-        ctx.strokeStyle = "rgba(255,34,102,0.5)";
+        ctx.strokeStyle = alpha(PALETTE.hot, 0.5);
         ctx.lineWidth = 1;
         ctx.strokeRect(cx - barW / 2, barY, barW, barH);
         const hpFrac = Math.max(0, b.hp / b.maxHp);
         if (hpFrac > 0) {
           ctx.fillStyle = barColor;
           ctx.shadowBlur = 6;
-          ctx.shadowColor = "rgba(255,34,102,0.8)";
+          ctx.shadowColor = alpha(PALETTE.hot, 0.8);
           ctx.fillRect(
             cx - barW / 2 + 1,
             barY + 1,
@@ -835,7 +835,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
       // Hi score (with the reigning champion's initials)
       ctx.textAlign = "right";
-      ctx.fillStyle = "#778899";
+      ctx.fillStyle = GAME.hudDim;
       const hiText = `HI: ${String(gs.hiScore).padStart(6, "0")}${
         gs.hiInitials ? " " + gs.hiInitials : ""
       }`;
@@ -844,7 +844,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // Combo
       if (gs.combo > 1.0) {
         ctx.textAlign = "center";
-        ctx.fillStyle = AMBER;
+        ctx.fillStyle = PALETTE.voice;
         const comboText = `COMBO x${gs.combo.toFixed(1)}`;
         ctx.fillText(comboText, cx, 16);
       }
@@ -860,7 +860,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.textAlign = "center";
         ctx.textBaseline = "bottom";
         ctx.font = `8px 'Press Start 2P', monospace`;
-        ctx.fillStyle = "rgba(143,160,179,0.28)";
+        ctx.fillStyle = alpha(GAME.hud, 0.28);
         ctx.fillText(
           "◄ ► MOVE  ·  SPACE FIRE  ·  ESC/B END  ·  P PAUSE",
           cx,
@@ -870,7 +870,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
 
       // Scanline overlay (single pattern fill instead of per-line rects)
       ctx.globalAlpha = 0.03;
-      ctx.fillStyle = "#000";
+      ctx.fillStyle = PALETTE.black;
       ctx.beginPath();
       for (let y = 0; y < h; y += 3) {
         ctx.rect(0, y, w, 1);
@@ -1129,7 +1129,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           >
             <span
               style={{
-                color: "#00E5FF",
+                color: PALETTE.mark,
                 fontSize: 10,
                 fontFamily: "'Press Start 2P'",
               }}
@@ -1138,7 +1138,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
             </span>
             <span
               style={{
-                color: "#00FFD0",
+                color: PALETTE.mint,
                 fontSize: 10,
                 fontFamily: "'Press Start 2P'",
               }}
@@ -1166,12 +1166,12 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         >
           <OverlayButton
             label={uiPhase === "paused" ? "▶ RESUME" : "❚❚ PAUSE"}
-            color="#00E5FF"
+            color={PALETTE.mark}
             onPress={handlePauseButton}
           />
           <OverlayButton
             label="✕ END"
-            color="#ff5a6a"
+            color={GAME.end}
             onPress={handleEndButton}
           />
         </div>
@@ -1183,7 +1183,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
           score={entry.score}
           rank={entry.rank}
           global={entry.global}
-          color={AMBER}
+          color={PALETTE.voice}
           onSubmit={handleSubmitInitials}
         />
       )}
@@ -1214,7 +1214,7 @@ function OverlayButton({ label, color, onPress }) {
         letterSpacing: "0.06em",
         padding: "8px 10px",
         borderRadius: 6,
-        background: "rgba(10,14,20,0.62)",
+        background: alpha(GAME.shade, 0.62),
         border: `1.5px solid ${color}59`,
         color,
         cursor: "pointer",
@@ -1251,10 +1251,10 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
         zIndex: 20,
         width: mobile ? "calc(100% - 32px)" : 470,
         maxWidth: 470,
-        background: "rgba(10,12,10,0.94)",
-        border: `1.5px solid ${AMBER}88`,
+        background: alpha(GAME.shade, 0.94),
+        border: `1.5px solid ${PALETTE.voice}88`,
         borderRadius: 8,
-        boxShadow: `0 0 24px ${AMBER}33`,
+        boxShadow: `0 0 24px ${PALETTE.voice}33`,
         padding: mobile ? "14px 14px" : "16px 20px",
         textAlign: "center",
         fontFamily: "'Press Start 2P', monospace",
@@ -1263,9 +1263,9 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
       <div
         style={{
           fontSize: mobile ? 10 : 12,
-          color: AMBER,
+          color: PALETTE.voice,
           letterSpacing: "0.08em",
-          textShadow: `0 0 12px ${AMBER}66`,
+          textShadow: `0 0 12px ${PALETTE.voice}66`,
         }}
       >
         GLOBAL RANK #{offer.rank}
@@ -1273,7 +1273,7 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
       <div
         style={{
           fontSize: mobile ? 6 : 7,
-          color: "#8fa0b3",
+          color: GAME.hud,
           lineHeight: 2,
           marginTop: 8,
           letterSpacing: "0.06em",
@@ -1297,13 +1297,13 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
           style={{
             fontSize: mobile ? 8 : 9,
             fontFamily: "inherit",
-            color: "#1a1410",
-            background: AMBER,
+            color: GAME.ink,
+            background: PALETTE.voice,
             borderRadius: 5,
             padding: "10px 12px",
             textDecoration: "none",
             letterSpacing: "0.06em",
-            boxShadow: `0 0 14px ${AMBER}66`,
+            boxShadow: `0 0 14px ${PALETTE.voice}66`,
           }}
         >
           SUBMIT VIA GITHUB
@@ -1314,9 +1314,9 @@ function GlobalSubmitPanel({ offer, onDismiss }) {
           style={{
             fontSize: mobile ? 8 : 9,
             fontFamily: "inherit",
-            color: "#8fa0b3",
+            color: GAME.hud,
             background: "transparent",
-            border: "1.5px solid rgba(143,160,179,0.4)",
+            border: `1.5px solid ${alpha(GAME.hud, 0.4)}`,
             borderRadius: 5,
             padding: "10px 12px",
             cursor: "pointer",
@@ -1408,7 +1408,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
     width: mobile ? 44 : 52,
     height: mobile ? 34 : 38,
     borderRadius: 6,
-    background: "rgba(216,166,87,0.08)",
+    background: alpha(PALETTE.voice, 0.08),
     border: `1.5px solid ${color}55`,
     color,
     cursor: "pointer",
@@ -1432,7 +1432,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
         gap: mobile ? 12 : 16,
         padding: 20,
         textAlign: "center",
-        background: "rgba(6,8,12,0.85)",
+        background: alpha(GAME.shade, 0.85),
         backdropFilter: "blur(3px)",
         touchAction: "manipulation",
         fontFamily: "'Press Start 2P', monospace",
@@ -1448,14 +1448,14 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
       >
         {global ? "GLOBAL TOP 10" : "NEW HIGH SCORE"}
       </div>
-      <div style={{ color: "#00E5FF", fontSize: mobile ? 10 : 13 }}>
+      <div style={{ color: PALETTE.mark, fontSize: mobile ? 10 : 13 }}>
         SCORE {String(score).padStart(6, "0")}
       </div>
-      <div style={{ color: "#778899", fontSize: mobile ? 8 : 10 }}>
+      <div style={{ color: GAME.hudDim, fontSize: mobile ? 8 : 10 }}>
         {global ? "GLOBAL RANK" : "RANK"} #{rank}
       </div>
       {global && (
-        <div style={{ color: "#ff2266", fontSize: mobile ? 8 : 10, letterSpacing: "0.08em" }}>
+        <div style={{ color: PALETTE.hot, fontSize: mobile ? 8 : 10, letterSpacing: "0.08em" }}>
           {QUOTES.challenger}
         </div>
       )}
@@ -1492,8 +1492,8 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 8,
-                color: i === slot ? "#1a1410" : color,
-                background: i === slot ? color : "rgba(216,166,87,0.06)",
+                color: i === slot ? GAME.ink : color,
+                background: i === slot ? color : alpha(PALETTE.voice, 0.06),
                 border: `2px solid ${color}${i === slot ? "" : "44"}`,
                 boxShadow: i === slot ? `0 0 18px ${color}88` : "none",
                 cursor: "pointer",
@@ -1529,7 +1529,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
           borderRadius: 8,
           background: color,
           border: "none",
-          color: "#1a1410",
+          color: GAME.ink,
           cursor: "pointer",
           touchAction: "manipulation",
           WebkitTapHighlightColor: "transparent",
@@ -1541,7 +1541,7 @@ function InitialsEntry({ score, rank, global, color, onSubmit }) {
 
       <div
         style={{
-          color: "rgba(143,160,179,0.55)",
+          color: alpha(GAME.hud, 0.55),
           fontSize: mobile ? 6 : 8,
           letterSpacing: "0.08em",
           marginTop: 2,
@@ -1565,13 +1565,13 @@ function drawControlsLegend(ctx, cx, h, mobile) {
   ctx.textBaseline = "middle";
   ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
   const y = mobile ? h * 0.7 : h * 0.66;
-  ctx.fillStyle = "rgba(143,160,179,0.72)";
+  ctx.fillStyle = alpha(GAME.hud, 0.72);
   ctx.fillText(
     mobile ? "SLIDE: MOVE   TAP: FIRE" : "◄ ►  MOVE       SPACE / ▲  FIRE",
     cx,
     y,
   );
-  ctx.fillStyle = "rgba(143,160,179,0.45)";
+  ctx.fillStyle = alpha(GAME.hud, 0.45);
   ctx.fillText(
     mobile ? "✕ END    ❚❚ PAUSE" : "ESC / B  END       P  PAUSE",
     cx,
@@ -1589,12 +1589,12 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = `${mobile ? 11 : 16}px 'Press Start 2P', monospace`;
-      ctx.fillStyle = "#ff2266";
+      ctx.fillStyle = PALETTE.hot;
       ctx.shadowBlur = 18;
-      ctx.shadowColor = "rgba(255,34,102,0.8)";
+      ctx.shadowColor = alpha(PALETTE.hot, 0.8);
       ctx.fillText("SIGNAL ANOMALY DETECTED", cx, cy - (mobile ? 60 : 90));
       ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
-      ctx.fillStyle = "rgba(255,34,102,0.7)";
+      ctx.fillStyle = alpha(PALETTE.hot, 0.7);
       ctx.shadowBlur = 0;
       ctx.fillText(QUOTES.boss, cx, cy - (mobile ? 42 : 64));
       ctx.restore();
@@ -1652,12 +1652,12 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
   // Chromatic ghosts (echo of the cabinet logo's fringe)
   ctx.lineWidth = 2.5;
   ctx.globalAlpha = alpha * 0.35;
-  ctx.strokeStyle = "#d3869b";
+  ctx.strokeStyle = PALETTE.rose;
   ctx.save();
   ctx.translate(-3, 0);
   trace(s);
   ctx.restore();
-  ctx.strokeStyle = "rgba(0,80,255,0.9)";
+  ctx.strokeStyle = alpha(FRINGE.cool, 0.9);
   ctx.save();
   ctx.translate(3, 0);
   trace(s);
@@ -1665,10 +1665,10 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
 
   // Body
   ctx.globalAlpha = alpha;
-  ctx.strokeStyle = "#ff2266";
+  ctx.strokeStyle = PALETTE.hot;
   ctx.lineWidth = 3.5;
   ctx.shadowBlur = 20;
-  ctx.shadowColor = "rgba(255,34,102,0.7)";
+  ctx.shadowColor = alpha(PALETTE.hot, 0.7);
   trace(s);
 
   ctx.restore();
@@ -1684,24 +1684,24 @@ function drawGameOver(ctx, gs, w, h, mobile) {
 
   // The crash line, then GAME OVER.
   ctx.font = `${mobile ? 7 : 10}px 'Press Start 2P', monospace`;
-  ctx.fillStyle = "rgba(143,160,179,0.7)";
+  ctx.fillStyle = alpha(GAME.hud, 0.7);
   ctx.shadowBlur = 0;
   ctx.fillText(QUOTES.gameOver, cx, goY - (mobile ? 22 : 34));
 
   // GAME OVER
   ctx.font = `${mobile ? 20 : 34}px 'Press Start 2P', monospace`;
   ctx.shadowBlur = 22;
-  ctx.shadowColor = "rgba(255,34,34,0.8)";
-  ctx.strokeStyle = "#ff2222";
+  ctx.shadowColor = alpha(GAME.hit, 0.8);
+  ctx.strokeStyle = GAME.hit;
   ctx.lineWidth = 2;
   ctx.strokeText("GAME OVER", cx, goY);
-  ctx.fillStyle = "rgba(255,34,34,0.2)";
+  ctx.fillStyle = alpha(GAME.hit, 0.2);
   ctx.fillText("GAME OVER", cx, goY);
   ctx.shadowBlur = 0;
 
   // Final score
   ctx.font = `${mobile ? 10 : 14}px 'Press Start 2P', monospace`;
-  ctx.fillStyle = "#00E5FF";
+  ctx.fillStyle = PALETTE.mark;
   ctx.fillText(
     `SCORE ${String(gs.score).padStart(6, "0")}`,
     cx,
@@ -1716,7 +1716,7 @@ function drawGameOver(ctx, gs, w, h, mobile) {
   };
   const lbHeaderY = goY + (mobile ? 44 : 66);
   ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
-  ctx.fillStyle = AMBER;
+  ctx.fillStyle = PALETTE.voice;
   ctx.fillText(board.title, cx, lbHeaderY);
 
   const rowH = mobile ? 15 : 20;
@@ -1729,14 +1729,14 @@ function drawGameOver(ctx, gs, w, h, mobile) {
   const bx = cx - bandW / 2;
   ctx.font = `${mobile ? 8 : 11}px 'Press Start 2P', monospace`;
   if (board.rows.length === 0) {
-    ctx.fillStyle = "#8fa0b3";
+    ctx.fillStyle = GAME.hud;
     ctx.fillText("NO SCORES YET - BE FIRST", cx, startY);
   }
   for (let i = 0; i < maxRows; i++) {
     const e = board.rows[i];
     const y = startY + i * rowH;
     const isNew = e === gs.newEntry;
-    ctx.fillStyle = isNew ? AMBER : "#8fa0b3";
+    ctx.fillStyle = isNew ? PALETTE.voice : GAME.hud;
     ctx.textAlign = "left";
     ctx.fillText(String(i + 1).padStart(2, " "), bx, y);
     ctx.textAlign = "center";
@@ -1757,7 +1757,7 @@ function drawGameOver(ctx, gs, w, h, mobile) {
     Math.floor(gs.elapsed / 600) % 2 === 0
   ) {
     ctx.font = `${mobile ? 6 : 10}px 'Press Start 2P', monospace`;
-    ctx.fillStyle = "#667";
+    ctx.fillStyle = GAME.hudFaint;
     ctx.fillText("PRESS ANY KEY / TAP TO RETURN", cx, h - (mobile ? 14 : 24));
   }
 }

@@ -1,3 +1,4 @@
+import { PALETTE } from "./palette";
 /* ── ANOMALY: the corrupted A-mark boss for TUNNEL_RUN ──────
  * Pure data + math so the encounter is unit-testable apart from the canvas
  * loop: spawn thresholds, HP scaling, fire cadence, and volley patterns.
@@ -69,11 +70,18 @@ export function makeBoss(level, rand = Math.random) {
  * the ambient spawner pushes, so collision, scoring, and drawing are shared.
  * They spawn just past the boss so the shots visibly leave its body.
  */
-export function bossVolley(volleyIdx, bossX, playerX, w, level, rand = Math.random) {
+export function bossVolley(
+  volleyIdx,
+  bossX,
+  playerX,
+  w,
+  level,
+  rand = Math.random,
+) {
   const speed = 1.2 + level * 0.1;
   const mk = (x, over = {}) => ({
     text: "FAULT",
-    color: "#ff2266",
+    color: PALETTE.hot,
     speed,
     points: 80,
     x,
