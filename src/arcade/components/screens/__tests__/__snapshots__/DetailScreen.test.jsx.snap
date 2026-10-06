@@ -9,9 +9,9 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
   >
     <div
       aria-label="Back to project list"
-      class="btn-cabinet"
+      class="btn-cabinet frost"
       role="button"
-      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 255, 255, 0.06);"
       tabindex="0"
     >
       ◄
@@ -42,10 +42,10 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     >
       <a
         aria-current="true"
-        class="chip"
+        class="chip frost"
         href="https://github.com/ampactor-labs/mentl"
         rel="noopener noreferrer"
-        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
+        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: linear-gradient(rgba(224, 255, 0, 0.067), rgba(224, 255, 0, 0.067)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
         target="_blank"
       >
         › SOURCE
@@ -69,7 +69,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly.
     </div>
     <div
-      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: linear-gradient(rgba(224, 255, 0, 0.02), rgba(224, 255, 0, 0.02)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.04);"
     >
       <div
         class="sign"
@@ -195,22 +195,22 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             WASM
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             WAT
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             Hindley-Milner
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(224, 255, 0, 0.082); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
           >
             row polymorphism
           </span>
@@ -218,7 +218,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       </div>
     </div>
     <div
-      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
+      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: linear-gradient(rgba(224, 255, 0, 0.024), rgba(224, 255, 0, 0.024)), rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
     >
       <div
         class="sign"
@@ -258,22 +258,22 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           compiler
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           effects
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           self-hosting
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(224, 255, 0, 0.04); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
         >
           wasm
         </span>
@@ -309,9 +309,9 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
   >
     <div
       aria-label="Back to project list"
-      class="btn-cabinet"
+      class="btn-cabinet frost"
       role="button"
-      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);"
+      style="font-size: 12px; color: var(--cab-text); padding: 3px 7px; border-radius: 4px; background: linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 255, 255, 0.06);"
       tabindex="0"
     >
       ◄
@@ -349,7 +349,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       THE CHAIN SPEAKS
     </span>
     <div
-      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(255, 184, 0, 0.02); border: 1px solid rgba(255, 184, 0, 0.04);"
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: linear-gradient(rgba(255, 184, 0, 0.02), rgba(255, 184, 0, 0.02)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.04);"
     >
       <div
         class="sign"
@@ -475,17 +475,17 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.082), rgba(255, 184, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             Web Audio API
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.082), rgba(255, 184, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             React
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: rgba(255, 184, 0, 0.082); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.082), rgba(255, 184, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.19); color: rgba(255, 184, 0, 0.8); letter-spacing: var(--track-display);"
           >
             keyboard events
           </span>
@@ -511,22 +511,22 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.04), rgba(255, 184, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           oscillator
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.04), rgba(255, 184, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           filter
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.04), rgba(255, 184, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           envelope
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: rgba(255, 184, 0, 0.04); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(255, 184, 0, 0.04), rgba(255, 184, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.125); color: rgba(255, 184, 0, 0.667); letter-spacing: var(--track-display);"
         >
           delay
         </span>

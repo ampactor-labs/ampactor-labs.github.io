@@ -1,7 +1,7 @@
 import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
 import { bodyAfterHeadline, withReadme } from "../../../data/readme";
-import { PALETTE, alpha } from "../../palette";
+import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
@@ -58,7 +58,7 @@ export default function DetailScreen({
         }}
       >
         <div
-          className="btn-cabinet"
+          className="btn-cabinet frost"
           role="button"
           aria-label="Back to project list"
           tabIndex={0}
@@ -74,7 +74,7 @@ export default function DetailScreen({
             color: "var(--cab-text)",
             padding: "3px 7px",
             borderRadius: 4,
-            background: alpha(PALETTE.white, 0.03),
+            background: onCard(alpha(PALETTE.white, 0.03)),
             border: `1px solid ${alpha(PALETTE.white, 0.06)}`,
           }}
         >
@@ -139,7 +139,7 @@ export default function DetailScreen({
               );
               return (
                 <a
-                  className="chip"
+                  className="chip frost"
                   key={link.kind}
                   ref={(el) => {
                     links.current[i] = el;
@@ -157,7 +157,7 @@ export default function DetailScreen({
                     whiteSpace: "nowrap",
                     fontWeight: demo ? 700 : 600,
                     color: demo ? "var(--cab-void)" : p.color,
-                    background: demo ? p.color : `${p.color}11`,
+                    background: demo ? p.color : onCard(`${p.color}11`),
                     border: demo
                       ? "1px solid transparent"
                       : `1px solid ${p.color}55`,
@@ -230,7 +230,7 @@ export default function DetailScreen({
               marginBottom: 14,
               padding: "10px 12px",
               borderRadius: 4,
-              background: `${p.color}05`,
+              background: onCard(`${p.color}05`),
               border: `1px solid ${p.color}0a`,
             }}
           >
@@ -289,7 +289,7 @@ export default function DetailScreen({
                         fontSize: fs(9),
                         padding: "2px 7px",
                         borderRadius: 3,
-                        background: `${p.color}15`,
+                        background: onCard(`${p.color}15`),
                         border: `1px solid ${p.color}30`,
                         color: `${p.color}cc`,
                         letterSpacing: "var(--track-display)",
@@ -310,7 +310,7 @@ export default function DetailScreen({
               marginBottom: 14,
               padding: "8px 12px",
               borderRadius: 4,
-              background: `${p.color}06`,
+              background: onCard(`${p.color}06`),
               border: `1px solid ${p.color}15`,
               borderLeft: `3px solid ${p.color}40`,
             }}
@@ -358,7 +358,7 @@ export default function DetailScreen({
                   fontSize: fs(8),
                   padding: "2px 6px",
                   borderRadius: 3,
-                  background: `${p.color}0a`,
+                  background: onCard(`${p.color}0a`),
                   border: `1px solid ${p.color}20`,
                   color: `${p.color}aa`,
                   letterSpacing: "var(--track-display)",

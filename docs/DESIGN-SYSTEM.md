@@ -118,6 +118,15 @@ has every ratio). Text sits only on void, room, raised and the band; never on
 | `ember` | `#ff8a5c` | The one warm accent. |
 | `danger` / `hot` | `#ff3b7a` / `#ff2266` | Danger text and B's label; strokes and glows only. |
 
+Cards and controls stand on the tube's lit grid on one fill, `CARD`: the void at
+72%. The list's programs, the pills and chips, the readout's back key, rail and
+panels, and the cartridge on the title card all use it, a tint laid over it
+where the thing has a colour (`onCard`). The grid recedes behind them. The
+`frost` class (a 2 px backdrop blur) softens it around the ones that hold
+still, and between the cards of the list, which scrolls inside itself.
+Solid buttons (`DEMO`, `FULL LEDGER`) and the data (the scoreboard, the bars)
+stay as they are.
+
 The pages (`/receipts/`, `/craft/`, the résumé) still paint the Patina palette
 below until their own step of the audit.
 

@@ -5,7 +5,7 @@ import resume from "../../../data/resume.json";
 import { WORDS } from "../../../data/profile";
 import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
-import { PALETTE, alpha } from "../../palette";
+import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
@@ -310,7 +310,7 @@ export default function SystemScreen({
         }}
       >
         <div
-          className="btn-cabinet"
+          className="btn-cabinet frost"
           role="button"
           aria-label="Back to program list"
           tabIndex={0}
@@ -326,7 +326,7 @@ export default function SystemScreen({
             color: "var(--cab-text)",
             padding: "3px 7px",
             borderRadius: 4,
-            background: alpha(PALETTE.white, 0.03),
+            background: onCard(alpha(PALETTE.white, 0.03)),
             border: `1px solid ${alpha(PALETTE.white, 0.06)}`,
           }}
         >
@@ -359,7 +359,7 @@ export default function SystemScreen({
               const external = /^https?:/.test(link.href);
               return (
                 <a
-                  className="chip"
+                  className="chip frost"
                   key={link.href}
                   ref={(el) => {
                     links.current[i] = el;
@@ -377,7 +377,7 @@ export default function SystemScreen({
                     whiteSpace: "nowrap",
                     fontWeight: primary ? 700 : 600,
                     color: primary ? "var(--cab-void)" : color,
-                    background: primary ? color : `${color}11`,
+                    background: primary ? color : onCard(`${color}11`),
                     border: primary ? "1px solid transparent" : `1px solid ${color}55`,
                     boxShadow: focused
                       ? `0 0 0 2px var(--cab-void), 0 0 0 4px ${color}, 0 0 18px ${color}99`

@@ -1,4 +1,4 @@
-import { FRINGE, PALETTE, alpha } from "../palette";
+import { CARD, FRINGE, PALETTE, alpha } from "../palette";
 // CRT visual styles — keyframe animations and class rules for the arcade cabinet UI.
 // Fonts are loaded via <link> in index.html (not @import here).
 export const crtStyles = `
@@ -52,7 +52,11 @@ export const crtStyles = `
   /* The marquee sets its own duration inline from its text's length (constants.js). */
   .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;text-shadow:none;animation:marquee 90s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
-  .project-row:hover{background:linear-gradient(${alpha(FRINGE.warm, 0.04)},${alpha(FRINGE.warm, 0.04)}),${alpha(PALETTE.void, 0.55)}!important;transform:translateX(4px)}
+  .project-row:hover{background:linear-gradient(${alpha(FRINGE.warm, 0.04)},${alpha(FRINGE.warm, 0.04)}),${CARD}!important;transform:translateX(4px)}
+  /* Cards and controls stand on the grid: their fill (CARD in palette.js)
+     dims it, and frost softens what shows through around them. Only on
+     things that hold still, or on a list that scrolls inside itself. */
+  .frost{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
   /* The deck's keys: black with a lilac edge, lit magenta while pressed; flat
      rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a coarse
      pointer every key, the coin, the pills and the chips grow to a 44 px

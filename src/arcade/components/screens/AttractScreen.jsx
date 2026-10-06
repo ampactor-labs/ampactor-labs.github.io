@@ -3,7 +3,7 @@ import { CONTACT } from "../../../data/profile";
 import { QUOTES } from "../../../data/quotes";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
-import { PALETTE, alpha } from "../../palette";
+import { CARD, PALETTE, alpha } from "../../palette";
 import { pixel } from "../../type";
 
 // The loop a real machine runs when nobody is playing, and this site's front
@@ -124,6 +124,7 @@ function NowShowing({ cartridge, fs }) {
       <div style={label(fs)}>NOW SHOWING</div>
       {/* The cartridge as a card in its own light, its icon in a tile. */}
       <div
+        className="frost"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -132,7 +133,7 @@ function NowShowing({ cartridge, fs }) {
           padding: "22px 28px",
           borderRadius: 12,
           border: `1px solid ${alpha(cartridge.color, 0.45)}`,
-          background: `linear-gradient(180deg, ${alpha(cartridge.color, 0.1)}, ${alpha(cartridge.color, 0.03)})`,
+          background: `linear-gradient(180deg, ${alpha(cartridge.color, 0.1)}, ${alpha(cartridge.color, 0.03)}), ${CARD}`,
           boxShadow: `0 0 28px ${alpha(cartridge.color, 0.16)}`,
         }}
       >
