@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
-import { withReadme } from "../../../data/readme";
+import { bodyAfterHeadline, withReadme } from "../../../data/readme";
 import { PALETTE, alpha } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
@@ -21,6 +21,7 @@ export default function DetailScreen({
   // The README's word on what the project is, applied here: nothing before
   // the readout needs it (src/data/readme.js).
   const p = withReadme(project);
+  const readout = bodyAfterHeadline(p.desc, p.outcome);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
   // Standalone render (tests, stories) still works: fall back to local refs.
@@ -222,29 +223,31 @@ export default function DetailScreen({
             {p.outcome}
           </div>
         )}
-        {/* Zone A — SYS/READOUT */}
-        <div
-          style={{
-            marginBottom: 14,
-            padding: "10px 12px",
-            borderRadius: 4,
-            background: `${p.color}05`,
-            border: `1px solid ${p.color}0a`,
-          }}
-        >
-          <Sign text="SYS/READOUT" fs={fs} />
+        {/* Zone A — SYS/READOUT: the rest of the lead, after the headline */}
+        {readout && (
           <div
             style={{
-              fontSize: fs(11),
-              lineHeight: 1.75,
-              color: "var(--cab-text)",
-              maxWidth: 520,
+              marginBottom: 14,
+              padding: "10px 12px",
+              borderRadius: 4,
+              background: `${p.color}05`,
+              border: `1px solid ${p.color}0a`,
             }}
           >
-            <span style={{ color: p.color }}>&gt; </span>
-            {p.desc}
+            <Sign text="SYS/READOUT" fs={fs} />
+            <div
+              style={{
+                fontSize: fs(11),
+                lineHeight: 1.75,
+                color: "var(--cab-text)",
+                maxWidth: 520,
+              }}
+            >
+              <span style={{ color: p.color }}>&gt; </span>
+              {readout}
+            </div>
           </div>
-        </div>
+        )}
         {/* Zone B — SPECIFICATIONS + STACK */}
         {(p.highlights || p.stack) && (
           <div

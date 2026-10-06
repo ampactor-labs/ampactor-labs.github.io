@@ -155,6 +155,20 @@ test("the coin slot still unlocks the hidden programs", async ({ page }) => {
   await expect(
     page.getByRole("option", { name: /SYS\/RESONANCE/ }),
   ).toBeVisible();
+  // They dash in once and then hold still: no entrance left on them once
+  // they have landed, and none restarted when TUNNEL_RUN's highlight ends.
+  const animations = () =>
+    page.evaluate(() =>
+      ["resonance", "coherence", "tunnel-run"].flatMap((id) =>
+        (document.getElementById(`program-${id}`)?.getAnimations() ?? [])
+          .filter((a) => "animationName" in a)
+          .map((a) => `${id}: ${(a as CSSAnimation).animationName}`),
+      ),
+    );
+  await page.waitForTimeout(1500);
+  expect(await animations()).toEqual([]);
+  await page.waitForTimeout(4200);
+  expect(await animations()).toEqual([]);
 });
 
 test("TUNNEL_RUN runs: the countdown flies into the game without an error", async ({

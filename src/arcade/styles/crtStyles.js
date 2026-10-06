@@ -7,7 +7,6 @@ export const crtStyles = `
   @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
   @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
   @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 6px ${alpha(PALETTE.coin, 0.25)},0 0 4px ${alpha(PALETTE.coin, 0.1)}} 50%{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}} }
-  @keyframes hiddenPulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
   @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%,60%{opacity:1} 100%{opacity:0} }
@@ -53,7 +52,7 @@ export const crtStyles = `
   /* The marquee sets its own duration inline from its text's length (constants.js). */
   .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;text-shadow:none;animation:marquee 90s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
-  .project-row:hover{background:${alpha(FRINGE.warm, 0.03)}!important;transform:translateX(4px)}
+  .project-row:hover{background:linear-gradient(${alpha(FRINGE.warm, 0.04)},${alpha(FRINGE.warm, 0.04)}),${alpha(PALETTE.void, 0.55)}!important;transform:translateX(4px)}
   /* The deck's keys: black with a lilac edge, lit magenta while pressed; flat
      rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a coarse
      pointer every key, the coin, the pills and the chips grow to a 44 px
@@ -104,7 +103,6 @@ export const crtStyles = `
     .pill{padding:16px 10px!important}
     .chip{padding:13px 12px!important}
   }
-  .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   /* The sunset bar, and the sign that hangs a label on it (Sign.jsx). */
   .sunset{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--cab-mark),var(--cab-quiet) 50%,var(--cab-voice))}
   .sign{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -158,7 +156,7 @@ export const crtStyles = `
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:16px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
   .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:8px;letter-spacing:var(--track-pixel);white-space:nowrap;color:var(--cab-text)}
   @media (prefers-reduced-motion: reduce) {
-    .blink-cursor, .hidden-row, .coin-slot, .btn-action, .tube-sweep,
+    .blink-cursor, .coin-slot, .btn-action, .tube-sweep,
     .dash-in, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,
     .coin-slot.lit .slit, .coin-slot.lit::after,
     .marquee-track, .attract-start { animation: none !important; }

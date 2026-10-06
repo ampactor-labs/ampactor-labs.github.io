@@ -1,10 +1,18 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
 import Sign from "../Sign";
 import { PALETTE, alpha } from "../../palette";
 import { pixel } from "../../type";
+
+// Long enough for the last of the three staggered entrances to land.
+const UNLOCK_MS = 800;
+
+// Every row is a card on a dark fill, so the tube's grid recedes behind the
+// programs; the list blurs what shows between them.
+const CARD = alpha(PALETTE.void, 0.55);
+const litCard = (tint) => `linear-gradient(${tint}, ${tint}), ${CARD}`;
 
 export default function SelectScreen({
   projects,
@@ -31,6 +39,22 @@ export default function SelectScreen({
   useEffect(() => {
     listRef.current?.focus({ preventScroll: true });
   }, []);
+
+  // The three secret programs dash in once, staggered, when the coin unlocks
+  // them on this screen. The entrance comes off once they have landed, so
+  // neither TUNNEL_RUN's highlight ending nor a later visit to the list
+  // replays it.
+  const [seenCoins, setSeenCoins] = useState(coinCount);
+  const [unlocking, setUnlocking] = useState(false);
+  if (coinCount !== seenCoins) {
+    setSeenCoins(coinCount);
+    if (!seenCoins && coinCount > 0) setUnlocking(true);
+  }
+  useEffect(() => {
+    if (!unlocking) return;
+    const t = setTimeout(() => setUnlocking(false), UNLOCK_MS);
+    return () => clearTimeout(t);
+  }, [unlocking]);
 
   useEffect(() => {
     if (coinCount > 0 && listRef.current) {
@@ -195,6 +219,9 @@ export default function SelectScreen({
           display: "flex",
           flexDirection: "column",
           gap: 3,
+          // The tube's grid shows softened between the cards.
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
           // The lit row is the focus indicator, as in a listbox.
           outline: "none",
         }}
@@ -228,7 +255,7 @@ export default function SelectScreen({
                 role="option"
                 aria-selected={active}
                 aria-label={`${p.title} — ${p.subtitle}`}
-                className={`project-row${isH ? ` hidden-row tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
+                className={`project-row${isH && unlocking ? ` tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
                 onClick={() => onSelect(i)}
                 onMouseEnter={() => {
                   onHoverSelect(i);
@@ -243,13 +270,11 @@ export default function SelectScreen({
                   padding: "8px 12px",
                   borderRadius: 6,
                   background: active
-                    ? isH
-                      ? alpha(PALETTE.coin, 0.04)
-                      : alpha(PALETTE.mark, 0.05)
-                    : "transparent",
+                    ? litCard(isH ? alpha(PALETTE.coin, 0.05) : alpha(PALETTE.mark, 0.06))
+                    : CARD,
                   border: active
                     ? `1px solid ${isH ? alpha(PALETTE.coin, 0.15) : alpha(PALETTE.mark, 0.15)}`
-                    : "1px solid transparent",
+                    : `1px solid ${alpha(PALETTE.muted, 0.08)}`,
                   position: "relative",
                   borderLeft: isH ? `2px dashed ${p.color}33` : undefined,
                   boxShadow: isGame && isH ? `0 0 8px ${p.color}22` : undefined,
@@ -299,20 +324,24 @@ export default function SelectScreen({
                     >
                       {p.title}
                     </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: fs(9),
-                        color: "var(--cab-muted)",
-                        padding: "1px 5px",
-                        background: alpha(PALETTE.white, 0.03),
-                        borderRadius: 3,
-                        border: `1px solid ${alpha(PALETTE.white, 0.05)}`,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {p.lang}
-                    </span>
+                    {/* The language chip, unless it would only repeat the
+                        category sign above the row (the operator's programs). */}
+                    {p.lang && p.lang !== CATEGORY_LABELS[p.category] && (
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: fs(9),
+                          color: "var(--cab-muted)",
+                          padding: "1px 5px",
+                          background: alpha(PALETTE.white, 0.03),
+                          borderRadius: 3,
+                          border: `1px solid ${alpha(PALETTE.white, 0.05)}`,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {p.lang}
+                      </span>
+                    )}
                   </div>
                   <div
                     style={{

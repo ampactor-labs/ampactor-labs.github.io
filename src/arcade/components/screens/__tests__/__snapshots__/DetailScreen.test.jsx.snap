@@ -92,7 +92,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         >
           &gt; 
         </span>
-        A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly. An effect is something a function does besides return a value, such as allocating or printing, and each function's type lists them. A negated effect such as !Network is a claim the compiler proves through every call, or it refuses to build. The compiler is written in Mentl: the pinned binary in boot/ compiles src/ and lib/ into a compiler that reproduces it byte for byte, and that fixed point is the release.
+        An effect is something a function does besides return a value, such as allocating or printing, and each function's type lists them. A negated effect such as !Network is a claim the compiler proves through every call, or it refuses to build. The compiler is written in Mentl: the pinned binary in boot/ compiles src/ and lib/ into a compiler that reproduces it byte for byte, and that fixed point is the release.
       </div>
     </div>
     <div

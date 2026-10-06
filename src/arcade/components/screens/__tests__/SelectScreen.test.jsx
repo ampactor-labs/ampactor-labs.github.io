@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import SelectScreen from "../SelectScreen";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../../../data/projects";
 
@@ -41,6 +41,36 @@ describe("SelectScreen", () => {
       <SelectScreen {...baseProps} projects={allProjects} />,
     );
     expect(container.firstChild).toMatchSnapshot();
+  });
+
+  // The secret programs dash in once, when the coin unlocks them on this
+  // screen, and the entrance comes off once they have landed.
+  it("dashes the secret programs in once, only when the coin unlocks them", () => {
+    vi.useFakeTimers();
+    // The coin scrolls the list to the programs; jsdom has no scrollTo.
+    const hadScrollTo = "scrollTo" in Element.prototype;
+    if (!hadScrollTo) Element.prototype.scrollTo = () => {};
+    try {
+      const all = [...PROJECTS, ...HIDDEN_PROJECTS];
+      const entering = (container) =>
+        container.querySelectorAll('[class*="-enter"]').length;
+      const { container, rerender } = render(
+        <SelectScreen {...baseProps} coinCount={0} />,
+      );
+      rerender(<SelectScreen {...baseProps} projects={all} coinCount={3} />);
+      expect(entering(container)).toBe(HIDDEN_PROJECTS.length);
+      act(() => vi.advanceTimersByTime(1000));
+      expect(entering(container)).toBe(0);
+
+      // Back on the list later, they are simply there.
+      const again = render(
+        <SelectScreen {...baseProps} projects={all} coinCount={3} />,
+      );
+      expect(entering(again.container)).toBe(0);
+    } finally {
+      vi.useRealTimers();
+      if (!hadScrollTo) delete Element.prototype.scrollTo;
+    }
   });
 
   it("highlights selected project", () => {

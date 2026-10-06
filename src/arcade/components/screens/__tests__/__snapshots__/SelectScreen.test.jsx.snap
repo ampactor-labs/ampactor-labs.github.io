@@ -117,7 +117,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     aria-activedescendant="program-mentl"
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; backdrop-filter: blur(2px); outline: none;"
     tabindex="0"
   >
     <div>
@@ -141,7 +141,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-mentl"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
@@ -188,7 +188,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-sonido"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -230,7 +230,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-turbosort"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -272,7 +272,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-two-top"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -314,7 +314,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-clob"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -370,7 +370,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-tokensafe"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -426,7 +426,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-landed"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -482,7 +482,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-perennials"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -524,7 +524,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-bits"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -566,7 +566,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-noodles"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -608,7 +608,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-copycats"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -650,7 +650,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-stoop"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -692,7 +692,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-understory"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -734,7 +734,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-celezdial"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -776,7 +776,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-freestyle-engine"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -818,7 +818,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-slot"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -860,7 +860,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-comma"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -902,7 +902,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         class="project-row"
         id="program-apapacho"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -941,10 +941,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="SYS/RESONANCE — SUBTRACTIVE SYNTH"
         aria-selected="false"
-        class="project-row hidden-row tier-1-enter"
+        class="project-row"
         id="program-resonance"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(255, 184, 0, 0.2); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -983,10 +983,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="COHERENCE FIELD — CONSERVATION LAWS"
         aria-selected="false"
-        class="project-row hidden-row tier-2-enter"
+        class="project-row"
         id="program-coherence"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(0, 221, 187, 0.2); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -1025,10 +1025,10 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <div
         aria-label="TUNNEL_RUN — VECTOR SHOOTER"
         aria-selected="false"
-        class="project-row hidden-row tier-3-enter"
+        class="project-row"
         id="program-tunnel-run"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: transparent transparent transparent rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-width: 1px 1px 1px 2px; border-style: solid solid solid dashed; border-color: rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(185, 166, 232, 0.08) rgba(255, 34, 102, 0.2); border-image: none; position: relative; box-shadow: 0 0 8px #ff226622;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: -1px; box-shadow: none; transition: all 0.2s ease;"
@@ -1210,7 +1210,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     aria-activedescendant="program-mentl"
     aria-label="Project list"
     role="listbox"
-    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
+    style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; backdrop-filter: blur(2px); outline: none;"
     tabindex="0"
   >
     <div>
@@ -1234,7 +1234,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-mentl"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
@@ -1281,7 +1281,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-sonido"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1323,7 +1323,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-turbosort"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1365,7 +1365,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-two-top"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1407,7 +1407,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-clob"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1463,7 +1463,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-tokensafe"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1519,7 +1519,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-landed"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1575,7 +1575,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-perennials"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1617,7 +1617,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-bits"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1659,7 +1659,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-noodles"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1701,7 +1701,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-copycats"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1743,7 +1743,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-stoop"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1785,7 +1785,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-understory"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1827,7 +1827,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-celezdial"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1869,7 +1869,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-freestyle-engine"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1911,7 +1911,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-slot"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1953,7 +1953,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-comma"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
@@ -1995,7 +1995,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         class="project-row"
         id="program-apapacho"
         role="option"
-        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-image: none; position: relative;"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.55); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
       >
         <div
           style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
