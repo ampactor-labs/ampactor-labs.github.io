@@ -12,7 +12,11 @@ import {
   tableFeatures,
   useTable,
 } from "@tanstack/react-table";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import {
+  elementScroll,
+  useVirtualizer,
+  type Virtualizer,
+} from "@tanstack/react-virtual";
 import {
   isClaude,
   type LedgerCommit,
@@ -79,6 +83,61 @@ const DESC_FIRST = new Set<SortKey>([
 ]);
 const ROW_ESTIMATE = 44;
 
+// The scroller's size, from its ResizeObserver, which reports after the
+// browser's own layout. The library's default also reads the size as the
+// table mounts, which forced a layout of the whole page inside the render;
+// until the first report, the initial rect (the scroller's CSS height)
+// stands in. Without ResizeObserver it reads the size once, as before.
+function observeScrollerRect(
+  instance: Virtualizer<HTMLDivElement, Element>,
+  cb: (rect: { width: number; height: number }) => void,
+) {
+  const element = instance.scrollElement;
+  const win = instance.targetWindow;
+  if (!element || !win) return;
+  const report = (width: number, height: number) =>
+    cb({ width: Math.round(width), height: Math.round(height) });
+  if (!win.ResizeObserver) {
+    const rect = element.getBoundingClientRect();
+    report(rect.width, rect.height);
+    return;
+  }
+  const observer = new win.ResizeObserver((entries) => {
+    const box = entries[0]?.borderBoxSize?.[0];
+    if (box) report(box.inlineSize, box.blockSize);
+    else {
+      const rect = element.getBoundingClientRect();
+      report(rect.width, rect.height);
+    }
+  });
+  observer.observe(element, { box: "border-box" });
+  return () => observer.unobserve(element);
+}
+
+// As the table mounts, the library scrolls the new scroller to where it
+// already is, the top, and that too forced a layout of the whole page inside
+// the render. The first scroll to the top is skipped; every other one goes
+// through.
+const scrolledOnce = new WeakSet<object>();
+function scrollScroller(
+  offset: number,
+  options: { adjustments?: number; behavior?: ScrollBehavior },
+  instance: Virtualizer<HTMLDivElement, Element>,
+) {
+  if (!scrolledOnce.has(instance)) {
+    scrolledOnce.add(instance);
+    if (offset + (options.adjustments ?? 0) === 0) return;
+  }
+  elementScroll(offset, options, instance);
+}
+
+// The scroller's height before it is measured: its CSS max-height,
+// min(72vh, 760px), which a full ledger always reaches.
+const initialScrollerRect = () => ({
+  width: 0,
+  height: Math.min(window.innerHeight * 0.72, 760),
+});
+
 export default function LedgerTable({
   commits,
   total,
@@ -115,7 +174,21 @@ export default function LedgerTable({
   const virtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => scrollRef.current,
+    observeElementRect: observeScrollerRect,
+    scrollToFn: scrollScroller,
+    initialRect: initialScrollerRect(),
     estimateSize: () => ROW_ESTIMATE,
+    // A row's real height comes from the ResizeObserver's first report,
+    // after the browser's own layout. Read as each row mounts, it forced a
+    // layout of the whole page inside the render: the page's longest task.
+    // Until the report, a row keeps the size it last had, or the estimate.
+    measureElement: (el, entry, instance) => {
+      const box = entry?.borderBoxSize?.[0];
+      if (box) return Math.round(box.blockSize);
+      if (entry) return el.getBoundingClientRect().height;
+      const key = instance.options.getItemKey(instance.indexFromElement(el));
+      return instance.itemSizeCache.get(key) ?? ROW_ESTIMATE;
+    },
     overscan: 8,
     getItemKey: (i) => rows[i]?.id ?? i,
   });

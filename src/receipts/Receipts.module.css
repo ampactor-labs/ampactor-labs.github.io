@@ -380,10 +380,26 @@
   margin-top: 14px;
 }
 
+/* On a phone the charts and the table start a screen or more below the
+   fold: the browser lays them out as they come near the viewport, not in
+   the first frame after the ledger lands. Until then a section holds the
+   size it last rendered at, or this estimate. Neither section paints
+   outside itself (the chart tooltips live inside their figures, the
+   commit drawer is a dialog in the top layer). */
+.charts,
+.ledgerSection {
+  content-visibility: auto;
+}
+
+.charts {
+  contain-intrinsic-block-size: auto 1200px;
+}
+
 /* ---- Table -------------------------------------------------------------- */
 
 .ledgerSection {
   margin-top: 14px;
+  contain-intrinsic-block-size: auto 660px;
 }
 
 .tableWrap {

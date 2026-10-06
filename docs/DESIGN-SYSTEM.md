@@ -356,6 +356,12 @@ off (`global.css`).
 The data surface. Same room, same tokens, working furniture: tabular numerals
 wherever a number sits, hairline cards, the cyan spent on the marks.
 
+The ledger lands after the first paint and renders as a React transition, in
+slices, so the page never blocks on it. The charts and the table, below the
+fold on a phone, are laid out as they come near the viewport
+(`content-visibility: auto`), and the export form is built when its section
+does.
+
 | Component | Spec |
 |---|---|
 | **FilterBar** | One row: range presets (`All · 3 mo · 6 mo`, measured from the ledger's last month so a link means the same thing next week), From/To month selects, subject search (debounced 150 ms), `Include merges`, `Reset` when anything is set. Below it, every repository as an `aria-pressed` chip with a live count of what the other filters leave. Everything writes to the URL. |
@@ -363,7 +369,7 @@ wherever a number sits, hairline cards, the cyan spent on the marks.
 | **Charts** | Hand-rolled SVG, drawn at real pixel width (never a stretched viewBox). Every figure: title, unit line, `Chart | Table` switch, `<title>`/`<desc>`, a hover tooltip inside the figure, hit targets the height of the column. Commits per month (one hue, the highest month labelled, click narrows the range); lines added and removed (diverging, shared scale, legend + direct labels); commits by repository (ranked bars with values, click toggles the repository). Thin marks, rounded at the data end, square at the baseline; recessive grid. |
 | **LedgerTable** | TanStack Table for the column model and header state, TanStack Virtual for the rows, a real `<table>` with explicit roles because flex rows lose their semantics. Sortable headers with `aria-sort` (dates and numbers descend first; the sort lives in the URL and is applied once, so the export matches the screen). One tab stop per row; arrows, PageUp/Down, Home/End walk rows that may not be drawn yet. Badges: `merge`, `∿ claude`, `✓ checked`. Under 640 px each row is a card with labelled numbers. |
 | **CommitDrawer** | A native `<dialog>`: repo · sha (link), the subject as `<h2>`, date in the commit's own zone, author and co-authors, `+a −d · n files`, the message body from its shard reflowed into paragraphs (lists, indents and trailers keep their breaks), the `Checked:` paragraph set apart, `View on GitHub →`, `Only <repo>`. Escape, backdrop, focus trap and focus return are the browser's. |
-| **ExportForm** | zod over the raw form values, built against the slice (a row limit cannot exceed it): format, rows (commits / by month / by repository), line counts, file name (safe characters, auto-named after the slice until typed), optional row limit. Errors inline under the field via `aria-describedby` + `aria-invalid`, shown once a field is visited; the button is disabled until valid and names the file it will write. The preview is the real output's first lines with its size. The file is a Blob; a `role="status"` toast confirms it. |
+| **ExportForm** | zod over the raw form values, built against the slice (a row limit cannot exceed it): format, rows (commits / by month / by repository), line counts, file name (safe characters, auto-named after the slice until typed), optional row limit. Errors inline under the field via `aria-describedby` + `aria-invalid`, shown once a field is visited; the button is disabled until valid and names the file it will write. The preview is the real output's first lines with its size, following the selection at low priority; a download always serializes afresh. The file is a Blob; a `role="status"` toast confirms it. |
 
 ### Craft (`/craft/`)
 

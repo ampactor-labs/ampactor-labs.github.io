@@ -31,18 +31,32 @@ export function percent(part: number, whole: number): string {
   return `${p < 10 ? p.toFixed(1) : Math.round(p)}%`;
 }
 
+// Date formatters are costly to build and the ledger asks for hundreds of
+// labels at once, so each is built on first use and kept.
+const dateFormats = new Map<string, Intl.DateTimeFormat>();
+function dateFormat(
+  key: string,
+  options: Intl.DateTimeFormatOptions,
+): Intl.DateTimeFormat {
+  let format = dateFormats.get(key);
+  if (!format) {
+    format = new Intl.DateTimeFormat(LOCALE, { ...options, timeZone: "UTC" });
+    dateFormats.set(key, format);
+  }
+  return format;
+}
+
 // "Sep 24, 2026". The commit's own date, not the reader's timezone: the day
 // the author committed is the fact, and shifting it can move a commit across
 // a month boundary in the charts.
 export function shortDate(iso: string): string {
   const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
   if (!y || !m || !d) return iso;
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(LOCALE, {
+  return dateFormat("day", {
     month: "short",
     day: "numeric",
     year: "numeric",
-    timeZone: "UTC",
-  });
+  }).format(new Date(Date.UTC(y, m - 1, d)));
 }
 
 // "Mar 2026" from "2026-03".
@@ -52,11 +66,9 @@ export function monthLabel(
 ): string {
   const [y, m] = month.split("-").map(Number);
   if (!y || !m) return month;
-  return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString(LOCALE, {
-    month: style,
-    year: "numeric",
-    timeZone: "UTC",
-  });
+  return dateFormat(style, { month: style, year: "numeric" }).format(
+    new Date(Date.UTC(y, m - 1, 1)),
+  );
 }
 
 export function bytes(n: number): string {

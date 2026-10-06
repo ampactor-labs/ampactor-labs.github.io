@@ -87,6 +87,8 @@ export function applyFilter(
 ): LedgerCommit[] {
   const q = f.q.trim().toLowerCase();
   const repoSet = f.repos.length ? new Set(f.repos) : null;
+  // No bounds, no repositories, merges in and no search: every commit, as is.
+  if (!f.from && !f.to && !repoSet && f.merges && !q) return commits;
   return commits.filter((c) => {
     const m = monthOf(c.date);
     if (f.from && m < f.from) return false;
@@ -384,14 +386,22 @@ export function exportRows(
   };
 }
 
+// The file's text from rows already built, so a caller that also wants the
+// row count builds them once.
+export function serializeRows(
+  { header, rows, objects }: ReturnType<typeof exportRows>,
+  format: ExportOptions["format"],
+): string {
+  return format === "csv"
+    ? toCsv(header, rows)
+    : JSON.stringify(objects, null, 2) + "\n";
+}
+
 export function serializeExport(
   commits: LedgerCommit[],
   options: ExportOptions,
 ): string {
-  const { header, rows, objects } = exportRows(commits, options);
-  return options.format === "csv"
-    ? toCsv(header, rows)
-    : JSON.stringify(objects, null, 2) + "\n";
+  return serializeRows(exportRows(commits, options), options.format);
 }
 
 export function exportFilename(
@@ -440,10 +450,15 @@ export function sortCommits(
   sort: SortSpec,
 ): LedgerCommit[] {
   const dir: 1 | -1 = sort.desc ? -1 : 1;
+  // Each commit's time, parsed once: parsing both dates in every comparison
+  // spent most of the sort in Date.parse.
+  const time = new Map<LedgerCommit, number>();
+  for (const c of commits) time.set(c, Date.parse(c.date));
+  const at = (c: LedgerCommit) => time.get(c) ?? NaN;
   const primary = (a: LedgerCommit, b: LedgerCommit): number => {
     switch (sort.key) {
       case "date":
-        return dir * (Date.parse(a.date) - Date.parse(b.date));
+        return dir * (at(a) - at(b));
       case "repo":
         return dir * byText(a.repo, b.repo);
       case "subject":
@@ -459,9 +474,6 @@ export function sortCommits(
     }
   };
   return [...commits].sort(
-    (a, b) =>
-      primary(a, b) ||
-      Date.parse(b.date) - Date.parse(a.date) ||
-      a.sha.localeCompare(b.sha),
+    (a, b) => primary(a, b) || at(b) - at(a) || a.sha.localeCompare(b.sha),
   );
 }

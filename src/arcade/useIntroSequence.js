@@ -1,10 +1,23 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import gsap from "gsap";
+// GSAP's core: it tweens plain numbers, and the styles are written here by
+// hand, so its CSS plugin (a third of its weight) stays off the first screen.
+import gsap from "gsap/gsap-core";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Inline styles, written and cleared by hand.
+const style = (el, props) => {
+  if (!el) return;
+  for (const [name, value] of Object.entries(props))
+    el.style.setProperty(name, value);
+};
+const clear = (el, ...names) => {
+  if (!el) return;
+  for (const name of names) el.style.removeProperty(name);
+};
 
 // The power-on. Two variants of the same timeline:
 //
@@ -41,11 +54,11 @@ export default function useIntroSequence(
     const target = variant === "screen" ? tubeRef?.current : console_;
 
     const finish = () => {
-      if (logo) gsap.set(logo, { opacity: 0.1 });
-      gsap.set(console_, { opacity: 1, clearProps: "clipPath,filter" });
-      if (target && target !== console_) {
-        gsap.set(target, { clearProps: "opacity,clipPath,filter" });
-      }
+      style(logo, { opacity: "0.1" });
+      style(console_, { opacity: "1" });
+      clear(console_, "clip-path", "filter");
+      if (target && target !== console_)
+        clear(target, "opacity", "clip-path", "filter");
       if (tunnel) tunnel.setRevealRadius(9999);
       setIntroComplete(true);
     };
@@ -58,8 +71,8 @@ export default function useIntroSequence(
     }
 
     // Start with everything hidden
-    if (logo) gsap.set(logo, { opacity: 0 });
-    if (target) gsap.set(target, { opacity: 0 });
+    style(logo, { opacity: "0" });
+    style(target, { opacity: "0" });
 
     let mounted = true;
     const tl = gsap.timeline({
@@ -71,7 +84,8 @@ export default function useIntroSequence(
     // 0.0–0.8s: Radial reveal — tunnel already running at default speed. When
     // the zoom has already opened the tunnel behind the arriving cabinet, the
     // reveal is done and this step has nothing to add.
-    const rMax = Math.hypot(window.innerWidth / 2, window.innerHeight / 2) * 1.1;
+    const rMax =
+      Math.hypot(window.innerWidth / 2, window.innerHeight / 2) * 1.1;
     const revealed = tunnel?.getRevealRadius?.() ?? 0;
     if (tunnel && revealed < rMax) {
       const proxy = { r: revealed };
@@ -89,8 +103,18 @@ export default function useIntroSequence(
 
     // 0.05–0.27s: the A-mark snaps on, one rise; 0.55–0.9s it dims to ambient.
     if (logo) {
-      tl.to(logo, { opacity: 0.9, duration: 0.22, ease: "power3.out" }, 0.05);
-      tl.to(logo, { opacity: 0.1, duration: 0.35, ease: "power2.in" }, 0.55);
+      const glow = { opacity: 0 };
+      const paint = () => style(logo, { opacity: String(glow.opacity) });
+      tl.to(
+        glow,
+        { opacity: 0.9, duration: 0.22, ease: "power3.out", onUpdate: paint },
+        0.05,
+      );
+      tl.to(
+        glow,
+        { opacity: 0.1, duration: 0.35, ease: "power2.in", onUpdate: paint },
+        0.55,
+      );
     }
 
     // 0.5–1.27s: the tube ignites as a stepped wipe, twelve lit bands left to
@@ -100,25 +124,38 @@ export default function useIntroSequence(
     if (target) {
       const radius = variant === "screen" ? "0px" : "16px";
       const wipe = { bands: 0 };
-      const clip = (n) => `inset(0 ${100 - (n / 12) * 100}% 0 0 round ${radius})`;
-      tl.set(target, { opacity: 1, clipPath: clip(0), filter: "brightness(2.4)" }, 0.5);
+      const light = { brightness: 2.4 };
+      const clip = (n) =>
+        `inset(0 ${100 - (n / 12) * 100}% 0 0 round ${radius})`;
+      tl.call(
+        () =>
+          style(target, {
+            opacity: "1",
+            "clip-path": clip(0),
+            filter: `brightness(${light.brightness})`,
+          }),
+        null,
+        0.5,
+      );
       tl.to(
         wipe,
         {
           bands: 12,
           duration: 0.7,
           ease: "steps(12)",
-          onUpdate: () => gsap.set(target, { clipPath: clip(wipe.bands) }),
+          onUpdate: () => style(target, { "clip-path": clip(wipe.bands) }),
         },
         0.52,
       );
       tl.to(
-        target,
+        light,
         {
-          filter: "brightness(1)",
+          brightness: 1,
           duration: 0.75,
           ease: "power2.out",
-          clearProps: "clipPath,filter",
+          onUpdate: () =>
+            style(target, { filter: `brightness(${light.brightness})` }),
+          onComplete: () => clear(target, "clip-path", "filter"),
         },
         0.52,
       );
@@ -132,10 +169,9 @@ export default function useIntroSequence(
       tlRef.current = null;
       // Leave nothing behind: the next activation starts from a clean slate,
       // and a cabinet that shrank back to the floor must not stay half-clipped.
-      gsap.set(console_, { clearProps: "opacity,clipPath,filter" });
-      if (target && target !== console_) {
-        gsap.set(target, { clearProps: "opacity,clipPath,filter" });
-      }
+      clear(console_, "opacity", "clip-path", "filter");
+      if (target && target !== console_)
+        clear(target, "opacity", "clip-path", "filter");
       setIntroComplete(false);
     };
     // `skip` and `variant` are read when the sequence starts; changing them

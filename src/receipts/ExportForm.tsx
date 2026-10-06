@@ -1,8 +1,16 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   exportFilename,
   exportRows,
   serializeExport,
+  serializeRows,
   type ExportFormat,
   type ExportGroup,
   type ExportOptions,
@@ -33,8 +41,14 @@ const asFormat = (v: string): ExportFormat => (v === "json" ? "json" : "csv");
 const asGroup = (v: string): ExportGroup =>
   v === "month" || v === "repo" ? v : "none";
 
+// What the preview shows before the selection has been serialized.
+const NO_COMMITS: LedgerCommit[] = [];
+
 // Takes the current slice out of the page as a file built in the browser.
-// The preview is the real output, so what you read is what you get.
+// The preview is the real output, so what you read is what you get. The form
+// and its preview are the heaviest part of the page and sit at the bottom of
+// it, so they are built as the section comes within a screen of the
+// viewport; the heading and the count are there from the start.
 export default function ExportForm({
   commits,
   filter,
@@ -43,6 +57,67 @@ export default function ExportForm({
   filter: LedgerFilter;
 }) {
   const uid = useId();
+  const [ref, near] = useNearViewport<HTMLElement>();
+  return (
+    <section
+      ref={ref}
+      className={styles.export}
+      aria-labelledby={`${uid}-heading`}
+    >
+      <div className={styles.exportIntro}>
+        <p className={styles.eyebrow} aria-hidden="true">
+          EXPORT
+        </p>
+        <h2 id={`${uid}-heading`} className={styles.h2}>
+          Export
+        </h2>
+        <p className={styles.lede}>
+          Download the current selection,{" "}
+          <strong>{int(commits.length)} commits</strong>, as CSV or JSON. The
+          file is built in your browser; nothing is uploaded.
+        </p>
+      </div>
+      {near ? (
+        <ExportBody uid={uid} commits={commits} filter={filter} />
+      ) : null}
+    </section>
+  );
+}
+
+// True once the element is within a screen of the viewport, and from the
+// start where IntersectionObserver is missing.
+function useNearViewport<T extends Element>() {
+  const ref = useRef<T | null>(null);
+  const [near, setNear] = useState(
+    () => typeof IntersectionObserver === "undefined",
+  );
+  useEffect(() => {
+    const el = ref.current;
+    if (near || !el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "100% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [near]);
+  return [ref, near] as const;
+}
+
+function ExportBody({
+  uid,
+  commits,
+  filter,
+}: {
+  uid: string;
+  commits: LedgerCommit[];
+  filter: LedgerFilter;
+}) {
   const [toast, setToast] = useState<string | null>(null);
 
   // The file is named after the slice until the visitor names it.
@@ -72,15 +147,20 @@ export default function ExportForm({
     () => (limit && group === "none" ? commits.slice(0, limit) : commits),
     [commits, limit, group],
   );
+  // The preview serializes the whole selection, the heaviest thing this form
+  // does. It follows the form at low priority, starting from nothing when the
+  // ledger first arrives, so the page's first render never waits on it; a
+  // download always serializes afresh.
+  const previewSlice = useDeferredValue(slice, NO_COMMITS);
   const preview = useMemo(() => {
-    const text = serializeExport(slice, options);
-    const rows = exportRows(slice, options).rows.length;
+    const built = exportRows(previewSlice, options);
+    const text = serializeRows(built, format);
     const size = new TextEncoder().encode(text).length;
     const head = text.split(/\r?\n/).filter(Boolean).slice(0, 4).join("\n");
-    return { text, rows, size, head };
+    return { rows: built.rows.length, size, head };
     // options is rebuilt each render; its three fields are the real inputs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slice, format, group, values.stats]);
+  }, [previewSlice, format, group, values.stats]);
 
   useEffect(() => {
     if (!toast) return;
@@ -89,7 +169,7 @@ export default function ExportForm({
   }, [toast]);
 
   const download = (request: ExportRequest) => {
-    const blob = new Blob([preview.text], {
+    const blob = new Blob([serializeExport(slice, options)], {
       type:
         request.format === "csv"
           ? "text/csv;charset=utf-8"
@@ -111,20 +191,7 @@ export default function ExportForm({
   const hintId = (field: string) => `${uid}-${field}-hint`;
 
   return (
-    <section className={styles.export} aria-labelledby={`${uid}-heading`}>
-      <div className={styles.exportIntro}>
-        <p className={styles.eyebrow} aria-hidden="true">
-          EXPORT
-        </p>
-        <h2 id={`${uid}-heading`} className={styles.h2}>
-          Export
-        </h2>
-        <p className={styles.lede}>
-          Download the current selection,{" "}
-          <strong>{int(commits.length)} commits</strong>, as CSV or JSON. The
-          file is built in your browser; nothing is uploaded.
-        </p>
-      </div>
+    <>
       <div className={styles.exportGrid}>
         <form
           className={styles.form}
@@ -265,6 +332,6 @@ export default function ExportForm({
       >
         {toast}
       </p>
-    </section>
+    </>
   );
 }

@@ -142,7 +142,11 @@ function LedgerView({
     [ledger, filter],
   );
   const sorted = useMemo(() => sortCommits(filtered, sort), [filtered, sort]);
-  const slice = useMemo(() => totals(filtered), [filtered]);
+  // The default view filters nothing, and then its totals are the ledger's.
+  const slice = useMemo(
+    () => (filtered === ledger.commits ? all : totals(filtered)),
+    [filtered, ledger, all],
+  );
   const facet = useMemo(() => {
     const counts = new Map<string, number>();
     for (const c of applyFilter(ledger.commits, { ...filter, repos: [] })) {

@@ -75,7 +75,10 @@ theme and the formatters. `vite.config.js` defines it with a Rolldown
 `codeSplitting` group. Without it, the automatic splitter gives any module
 shared by some pages but not all a chunk of its own; adding `/craft/` once
 added a request to the home page and 160 ms to its largest paint on
-Lighthouse's simulated phone.
+Lighthouse's simulated phone. The cabinet's readout and operator programs
+load once the machine has booted and the page is idle, so the title card
+ships without them, and the power-on uses GSAP's core alone, with the styles
+written by hand.
 
 ### Project cards from READMEs
 
@@ -84,7 +87,9 @@ Presentation fields (color, icon, subtitle, highlights) live in
 time, field by field, when that field passes `docs/README-STANDARD.md`: the
 first sentence of the lead becomes the card, the lead becomes the cabinet
 page, and the status line and the first paragraph of Limitations become the
-status and the known-limitations note. `scripts/sync-readmes.mjs` fetches the
+status and the known-limitations note. `src/data/readme.js` lays that content
+over a project where it is read, the cartridge readout and the noscript list,
+so the cabinet's first screen does not load it. `scripts/sync-readmes.mjs` fetches the
 READMEs from GitHub without credentials; when the network is down it keeps the
 last synced content. A project whose source is private (`github: null`) keeps
 its hand-written text. `docs/ADDING-A-PROJECT.md` has the two commands for

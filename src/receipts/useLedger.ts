@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import { LEDGER_URL, type Ledger } from "./ledger";
 
 // Loads the ledger once per page. The three states are the page's three
@@ -79,7 +79,11 @@ export function useLedger(url: string = LEDGER_URL): {
           return json;
         })
         .then((ledger) => {
-          if (!cancelled) setStatus({ state: "ready", ledger });
+          // Thousands of commits become tiles, charts and a table: built as
+          // a transition, React renders them in slices and yields between
+          // them, so the page never blocks on one long task.
+          if (!cancelled)
+            startTransition(() => setStatus({ state: "ready", ledger }));
         })
         .catch((err: unknown) => {
           if (cancelled) return;

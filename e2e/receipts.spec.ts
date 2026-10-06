@@ -127,6 +127,10 @@ test("the export refuses a bad name, then downloads the slice", async ({
   page,
 }) => {
   await openLedger(page, "?repo=mentl");
+  // The form is built as its section comes near the viewport.
+  await page
+    .getByRole("heading", { level: 2, name: "Export" })
+    .scrollIntoViewIfNeeded();
   const name = page.getByLabel("File name");
   await name.fill("../etc/passwd");
   await name.blur();
