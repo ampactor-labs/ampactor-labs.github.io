@@ -109,6 +109,6 @@ describe("BootScreen", () => {
     );
     expect(BOOT_LINES.slice(-3)).toEqual([WORDS.boot, "", "READY."]);
     expect(getByText(WORDS.boot).style.color).toBe("rgb(0, 229, 255)");
-    expect(getByText("READY.").style.color).toBe("var(--color-amber)");
+    expect(getByText("READY.").style.color).toBe("var(--cab-voice)");
   });
 });

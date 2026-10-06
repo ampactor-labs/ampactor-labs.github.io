@@ -5,6 +5,7 @@ import {
   forwardRef,
   useImperativeHandle,
 } from "react";
+import { PALETTE, TUNNEL, alpha } from "./palette";
 
 const RING_COUNT = 12;
 const DUST_COUNT = 30;
@@ -13,22 +14,13 @@ const DEPTH_RANGE = 800;
 const TWO_PI = Math.PI * 2;
 const MAX_DPR = 1; // Background effect — no need for retina resolution
 
-const COLORS = [
-  { stroke: "#00E5FF", glow: "rgba(0,229,255," },
-  { stroke: "#00FFD0", glow: "rgba(0,255,208," },
-  { stroke: "#00E5FF", glow: "rgba(0,229,255," },
-  { stroke: "#44aaff", glow: "rgba(68,170,255," },
-  { stroke: "#4488FF", glow: "rgba(68,136,255," },
-  { stroke: "#4466dd", glow: "rgba(68,102,221," },
-  { stroke: "#5544cc", glow: "rgba(85,68,204," },
-  { stroke: "#6644FF", glow: "rgba(102,68,255," },
-  { stroke: "#5533bb", glow: "rgba(85,51,187," },
-  { stroke: "#4422aa", glow: "rgba(68,34,170," },
-  { stroke: "#331199", glow: "rgba(51,17,153," },
-  { stroke: "#221088", glow: "rgba(34,16,136," },
-];
+// Each ring's stroke and the glow pass behind it, near to far (palette.js).
+const COLORS = TUNNEL.rings.map((stroke) => ({
+  stroke,
+  glow: alpha(stroke, 0.4),
+}));
 
-const DUST_COLORS = ["#00FFD0", "#00E5FF", "#4488FF", "#6644FF"];
+const DUST_COLORS = TUNNEL.dust;
 
 function pentagonVertices(cx, cy, radius, rotation) {
   const verts = [];
@@ -163,7 +155,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       const r = rings[i];
       if (r.nearness <= 0.15) continue;
       ctx.globalAlpha = r.alpha * 0.25;
-      ctx.strokeStyle = r.color.glow + "0.4)";
+      ctx.strokeStyle = r.color.glow;
       ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
       ctx.beginPath();
       ctx.moveTo(r.verts[0][0], r.verts[0][1]);
@@ -189,7 +181,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     }
 
     // Radar sweep
-    ctx.strokeStyle = "#00E5FF";
+    ctx.strokeStyle = PALETTE.mark;
     ctx.globalAlpha = 0.035;
     ctx.lineWidth = 1;
     ctx.beginPath();

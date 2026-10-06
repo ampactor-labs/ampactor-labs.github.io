@@ -127,10 +127,14 @@ colour; the ledger's repository chips are monochrome.
 The pages are fully themed; `src/lib/theme.ts` resolves stored choice > system
 preference, an inline pre-paint script in every `<head>` applies it before first
 paint, and the pages' header has the light switch, which stores `ampactor_theme`.
-**The cabinet is a physical object and stays dark in a lit room:** `.cabinet-scope` in
-`theme.css` pins every token the arcade reads to its dark value, and `/` and
-`/arcade/` mark `html[data-stage]` from an inline script so the dark behind the
-machine is painted before the first frame in either theme.
+**The cabinet is a physical object and stays dark in a lit room:** every colour
+the arcade paints comes from `src/arcade/palette.js`, by role (`PALETTE.voice`,
+`PALETTE.mark`, `alpha(PALETTE.coin, 0.4)`), and the same set reaches the
+stylesheets as `--cab-*` custom properties written on `:root` by the document
+head, so no theme can reach them. `src/arcade/__tests__/palette.test.js` holds
+every text role against every ground to 4.5:1 and lists the pairs that still
+fall short. `/` and `/arcade/` mark `html[data-stage]` from an inline script so
+the dark behind the machine is painted before the first frame in either theme.
 
 ### Usage rules
 
@@ -406,8 +410,12 @@ power-on plays.
 - **Tokens** (palette/type/motion): edit the upstream `ampactor-theme` YAML and re-run
   `export/to-css.sh` → regenerates `public/tokens.css`.
 - **Semantic tokens and theming** (`src/styles/theme.css`): hairlines, surfaces,
-  `--accent-text`, the light overrides, the cabinet's dark island. Add new semantic
-  colours here, derived from the palette, not as literals in components.
+  `--accent-text`, the light overrides. Add new semantic colours here, derived
+  from the palette, not as literals in components.
+- **The cabinet's colours** (`src/arcade/palette.js`): the machine's own set, by
+  role, and the `--cab-*` properties the head writes from it. A new hue in the
+  arcade is a new role here, never a literal in a component; the contrast test
+  runs on every change.
 - **Heads**: `src/data/site.js`. Rendered into every entry by `vite.config.js`.
 - **Identity, contact and Morgan's words**: `src/data/profile.js` (`WORDS`).
 - **Borrowed lines**: `src/data/quotes.js`, each with its source in a comment.

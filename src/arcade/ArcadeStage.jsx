@@ -15,6 +15,7 @@ import SystemScreen from "./components/screens/SystemScreen";
 import AttractScreen from "./components/screens/AttractScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
+import { PALETTE, alpha } from "./palette";
 
 // The A-mark that flickers in during the power-on and then sits, nearly
 // dark, in the room behind the console.
@@ -38,19 +39,19 @@ function AMarkOverlay({ logoRef }) {
         viewBox="0 0 512 512"
         width="200"
         height="200"
-        style={{ filter: "drop-shadow(0 0 20px rgba(0,229,255,0.3))" }}
+        style={{ filter: `drop-shadow(0 0 20px ${alpha(PALETTE.mark, 0.3)})` }}
       >
-        <line x1="108" y1="408" x2="256" y2="104" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
-        <line x1="404" y1="408" x2="256" y2="104" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="108" y1="408" x2="256" y2="104" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="404" y1="408" x2="256" y2="104" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
         <path
           d="M 168,300 C 183,268 197,268 212,300 C 227,332 241,332 256,300 C 271,268 285,268 300,300 C 315,332 329,332 344,300"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="20"
           strokeLinecap="round"
           fill="none"
         />
-        <line x1="76" y1="408" x2="140" y2="408" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
-        <line x1="372" y1="408" x2="436" y2="408" stroke="#00E5FF" strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="76" y1="408" x2="140" y2="408" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
+        <line x1="372" y1="408" x2="436" y2="408" stroke={PALETTE.mark} strokeWidth="36" strokeLinecap="round" fill="none" />
       </svg>
     </div>
   );
@@ -147,15 +148,15 @@ export default function ArcadeStage({
             flex: 1,
             margin: "10px 10px 0",
             borderRadius: "16px 16px 0 0",
-            border: "3px solid var(--color-umber)",
-            borderTop: "3px solid var(--color-umber)",
+            border: "3px solid var(--cab-line)",
+            borderTop: "3px solid var(--cab-line)",
             borderBottom: "none",
             background:
-              "radial-gradient(ellipse at center, var(--color-dim) 0%, var(--color-void) 80%)",
+              "radial-gradient(ellipse at center, var(--cab-tube) 0%, var(--cab-void) 80%)",
             position: "relative",
             overflow: "hidden",
             boxShadow:
-              "inset 0 0 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,229,255,0.08), 0 0 80px rgba(0,229,255,0.04), 0 0 120px rgba(0,255,140,0.02)",
+              `inset 0 0 80px ${alpha(PALETTE.black, 0.6)}, 0 0 40px ${alpha(PALETTE.mark, 0.08)}, 0 0 80px ${alpha(PALETTE.mark, 0.04)}, 0 0 120px ${alpha(PALETTE.mint, 0.02)}`,
             willChange: "clip-path, filter",
           }}
         >
@@ -164,7 +165,7 @@ export default function ArcadeStage({
               position: "absolute",
               inset: 0,
               background:
-                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+                `repeating-linear-gradient(0deg, transparent, transparent 2px, ${alpha(PALETTE.black, 0.08)} 2px, ${alpha(PALETTE.black, 0.08)} 4px)`,
               pointerEvents: "none",
               zIndex: 90,
             }}
@@ -178,7 +179,7 @@ export default function ArcadeStage({
               position: "absolute",
               inset: 0,
               background:
-                "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)",
+                `radial-gradient(ellipse at center, transparent 50%, ${alpha(PALETTE.black, 0.5)} 100%)`,
               pointerEvents: "none",
               zIndex: 80,
             }}
@@ -232,7 +233,7 @@ export default function ArcadeStage({
                   right: 0,
                   textAlign: "center",
                   fontSize: fs(7),
-                  color: "rgba(212,190,152,0.25)",
+                  color: alpha(PALETTE.text, 0.25),
                   letterSpacing: "0.15em",
                   animation: "blink 2s step-end infinite",
                   cursor: "pointer",

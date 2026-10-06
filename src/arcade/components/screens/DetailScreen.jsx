@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState, useEffect, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
+import { PALETTE, alpha } from "../../palette";
 
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
@@ -49,10 +50,10 @@ export default function DetailScreen({
   const rail = detailLinksOf(p);
   const statusColor =
     p.status === "active"
-      ? "var(--ui-signal-ok)"
+      ? "var(--cab-ok)"
       : p.status === "deployed"
-        ? "var(--color-amber)"
-        : "var(--color-steel)";
+        ? "var(--cab-voice)"
+        : "var(--cab-quiet)";
   return (
     <div
       style={{
@@ -89,11 +90,11 @@ export default function DetailScreen({
           }}
           style={{
             fontSize: fs(12),
-            color: "var(--fg)",
+            color: "var(--cab-text)",
             padding: "3px 7px",
             borderRadius: 4,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: alpha(PALETTE.white, 0.03),
+            border: `1px solid ${alpha(PALETTE.white, 0.06)}`,
           }}
         >
           {"\u25c4"}
@@ -124,7 +125,7 @@ export default function DetailScreen({
           <div
             style={{
               fontSize: fs(10),
-              color: "var(--fg)",
+              color: "var(--cab-text)",
               letterSpacing: "0.1em",
               marginTop: 3,
             }}
@@ -173,14 +174,14 @@ export default function DetailScreen({
                     borderRadius: 4,
                     whiteSpace: "nowrap",
                     fontWeight: demo ? 700 : 600,
-                    color: demo ? "var(--color-void)" : p.color,
+                    color: demo ? "var(--cab-void)" : p.color,
                     background: demo ? p.color : `${p.color}11`,
                     border: demo
                       ? "1px solid transparent"
                       : `1px solid ${p.color}55`,
                     // The focus ring is what tells you A will open this one.
                     boxShadow: focused
-                      ? `0 0 0 2px var(--color-void), 0 0 0 4px ${p.color}, 0 0 18px ${p.color}99`
+                      ? `0 0 0 2px var(--cab-void), 0 0 0 4px ${p.color}, 0 0 18px ${p.color}99`
                       : demo
                         ? `0 0 14px ${p.color}66`
                         : "none",
@@ -256,7 +257,7 @@ export default function DetailScreen({
             style={{
               fontSize: fs(11),
               lineHeight: 1.75,
-              color: "var(--fg)",
+              color: "var(--cab-text)",
               maxWidth: 520,
             }}
           >
@@ -282,7 +283,7 @@ export default function DetailScreen({
                     key={i}
                     style={{
                       fontSize: fs(10),
-                      color: "var(--fg)",
+                      color: "var(--cab-text)",
                       lineHeight: 1.8,
                       letterSpacing: "0.04em",
                     }}
@@ -335,7 +336,7 @@ export default function DetailScreen({
               style={{
                 fontSize: fs(10),
                 lineHeight: 1.75,
-                color: "var(--fg)",
+                color: "var(--cab-text)",
                 fontStyle: "italic",
                 maxWidth: 520,
               }}
@@ -359,7 +360,7 @@ export default function DetailScreen({
               <span style={{ fontSize: fs(10), color: statusColor }}>
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
-              <span style={{ color: "var(--color-comment)", fontSize: fs(10) }}>
+              <span style={{ color: "var(--cab-faint)", fontSize: fs(10) }}>
                 {"\u2502"}
               </span>
             </>
@@ -400,7 +401,7 @@ export default function DetailScreen({
           paddingTop: 10,
           borderTop: `1px solid ${p.color}11`,
           fontSize: fs(8),
-          color: "var(--color-muted)",
+          color: "var(--cab-muted)",
           display: "flex",
           justifyContent: "space-between",
         }}

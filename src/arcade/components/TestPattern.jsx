@@ -1,3 +1,4 @@
+import { PALETTE, alpha } from "../palette";
 // The CRT test pattern: concentric rings, crosshairs, and the A-mark. It is
 // the boot sequence's phase 0 and the attract loop's first frame, so the
 // markup lives here once. BootScreen's phase-0 output must stay identical to
@@ -34,7 +35,7 @@ export default function TestPattern({
             cy="100"
             r={r}
             fill="none"
-            stroke="#00E5FF"
+            stroke={PALETTE.mark}
             strokeWidth="0.5"
             opacity="0.4"
           />
@@ -44,7 +45,7 @@ export default function TestPattern({
           y1="0"
           x2="100"
           y2="200"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="0.5"
           opacity="0.3"
         />
@@ -53,7 +54,7 @@ export default function TestPattern({
           y1="100"
           x2="200"
           y2="100"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="0.5"
           opacity="0.3"
         />
@@ -62,7 +63,7 @@ export default function TestPattern({
           y1="29"
           x2="171"
           y2="171"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="0.3"
           opacity="0.2"
         />
@@ -71,7 +72,7 @@ export default function TestPattern({
           y1="29"
           x2="29"
           y2="171"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="0.3"
           opacity="0.2"
         />
@@ -81,7 +82,7 @@ export default function TestPattern({
           y1="118"
           x2="100"
           y2="88"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="2"
           strokeLinecap="round"
           opacity="0.5"
@@ -91,14 +92,14 @@ export default function TestPattern({
           y1="118"
           x2="100"
           y2="88"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="2"
           strokeLinecap="round"
           opacity="0.5"
         />
         <path
           d="M 93,108 C 95,102 97,102 99,108 C 101,114 103,114 105,108"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="1.2"
           strokeLinecap="round"
           fill="none"
@@ -109,7 +110,7 @@ export default function TestPattern({
           y1="118"
           x2="91"
           y2="118"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="2"
           strokeLinecap="round"
           opacity="0.5"
@@ -119,7 +120,7 @@ export default function TestPattern({
           y1="118"
           x2="115"
           y2="118"
-          stroke="#00E5FF"
+          stroke={PALETTE.mark}
           strokeWidth="2"
           strokeLinecap="round"
           opacity="0.5"
@@ -129,7 +130,7 @@ export default function TestPattern({
         <div
           style={{
             fontSize: fs(9),
-            color: "rgba(212,190,152,0.6)",
+            color: alpha(PALETTE.text, 0.6),
             letterSpacing: "0.15em",
             animation: "blink 2s step-end infinite",
             userSelect: "none",

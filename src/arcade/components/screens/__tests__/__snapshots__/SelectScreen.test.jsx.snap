@@ -16,14 +16,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         SELECT PROGRAM
       </div>
       <h1
-        style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
+        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
         MORGAN ESPITIA
          · 
         SOFTWARE ENGINEER
       </h1>
       <div
-        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -115,13 +115,13 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
               MENTL
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Mentl/WASM
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SELF-HOSTING COMPILER
           </div>
@@ -157,18 +157,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               SONIDO
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             CROSS-PLATFORM DSP KERNEL
           </div>
@@ -199,18 +199,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               TURBOSORT
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SIMD-ACCELERATED RADIX SORT
           </div>
@@ -241,18 +241,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               2-TOP
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust/Bevy
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             ROLLBACK NETCODE BRAWLER
           </div>
@@ -283,18 +283,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               CLOB
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             TERNARY INTELLIGENCE KERNEL
           </div>
@@ -337,18 +337,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               TOKENSAFE + SCRY
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript/Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SOLANA SECURITY SCANNER
           </div>
@@ -391,18 +391,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               LANDED
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SOLANA EXECUTION GATEWAY
           </div>
@@ -445,18 +445,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               PERENNIALS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/TS
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             CONSTRAINT-SPACE FIELD GUIDE
           </div>
@@ -487,18 +487,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               BITS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TS/React
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             PUPPET-SHOW INSTRUMENT
           </div>
@@ -529,18 +529,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               NOODLES
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JS/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             MOBILE DAW
           </div>
@@ -571,18 +571,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               COPYCATS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Godot 4.7
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             REPLAY-GHOST PARTY RACER
           </div>
@@ -613,18 +613,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               STOOP
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             A PRESS FOR A PERIODICAL
           </div>
@@ -655,18 +655,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               UNDERSTORY
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             LYRIC X-RAY
           </div>
@@ -697,18 +697,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               CELEZDIAL SELEKTA
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             ZODIAC-MAPPED SYNTHESIZER
           </div>
@@ -739,18 +739,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               FREESTYLE ENGINE
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             FREESTYLE RAP PRACTICE
           </div>
@@ -781,18 +781,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               SLOT
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             B♭ TRUMPET TUNING LATTICE
           </div>
@@ -823,18 +823,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               COMMA
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             THE PYTHAGOREAN COMMA, PLAYED
           </div>
@@ -865,18 +865,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               APAPACHO
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             WORDS · FRASES · SEÑAS
           </div>
@@ -907,18 +907,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               SYS/RESONANCE
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               WebAudio
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SUBTRACTIVE SYNTH
           </div>
@@ -949,18 +949,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               COHERENCE FIELD
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               —
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             CONSERVATION LAWS
           </div>
@@ -991,18 +991,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               TUNNEL_RUN
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Canvas
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             VECTOR SHOOTER
           </div>
@@ -1015,7 +1015,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-size: 8px; color: var(--color-comment); letter-spacing: 0.1em; animation-duration: 247s;"
+      style="font-size: 8px; color: var(--cab-faint); letter-spacing: 0.1em; animation-duration: 247s;"
     >
       <span
         style="padding-right: 48px;"
@@ -1049,14 +1049,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         SELECT PROGRAM
       </div>
       <h1
-        style="font-size: 10px; font-weight: 400; color: var(--fg); letter-spacing: 0.12em; margin: 6px 0px 0px;"
+        style="font-size: 10px; font-weight: 400; color: var(--cab-text); letter-spacing: 0.12em; margin: 6px 0px 0px;"
       >
         MORGAN ESPITIA
          · 
         SOFTWARE ENGINEER
       </h1>
       <div
-        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--color-muted); letter-spacing: 0.08em; margin-top: 2px;"
+        style="display: flex; flex-wrap: wrap; column-gap: 10px; font-size: 11px; color: var(--cab-muted); letter-spacing: 0.08em; margin-top: 2px;"
       >
         <a
           href="mailto:ampactorlabs@gmail.com"
@@ -1148,13 +1148,13 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
               MENTL
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Mentl/WASM
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SELF-HOSTING COMPILER
           </div>
@@ -1190,18 +1190,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               SONIDO
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             CROSS-PLATFORM DSP KERNEL
           </div>
@@ -1232,18 +1232,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               TURBOSORT
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SIMD-ACCELERATED RADIX SORT
           </div>
@@ -1274,18 +1274,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               2-TOP
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust/Bevy
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             ROLLBACK NETCODE BRAWLER
           </div>
@@ -1316,18 +1316,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               CLOB
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             TERNARY INTELLIGENCE KERNEL
           </div>
@@ -1370,18 +1370,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               TOKENSAFE + SCRY
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript/Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SOLANA SECURITY SCANNER
           </div>
@@ -1424,18 +1424,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               LANDED
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Rust
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             SOLANA EXECUTION GATEWAY
           </div>
@@ -1478,18 +1478,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               PERENNIALS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/TS
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             CONSTRAINT-SPACE FIELD GUIDE
           </div>
@@ -1520,18 +1520,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               BITS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TS/React
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             PUPPET-SHOW INSTRUMENT
           </div>
@@ -1562,18 +1562,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               NOODLES
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JS/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             MOBILE DAW
           </div>
@@ -1604,18 +1604,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               COPYCATS
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               Godot 4.7
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             REPLAY-GHOST PARTY RACER
           </div>
@@ -1646,18 +1646,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               STOOP
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             A PRESS FOR A PERIODICAL
           </div>
@@ -1688,18 +1688,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               UNDERSTORY
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             LYRIC X-RAY
           </div>
@@ -1730,18 +1730,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               CELEZDIAL SELEKTA
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               React/Tone.js
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             ZODIAC-MAPPED SYNTHESIZER
           </div>
@@ -1772,18 +1772,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               FREESTYLE ENGINE
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               TypeScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             FREESTYLE RAP PRACTICE
           </div>
@@ -1814,18 +1814,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               SLOT
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             B♭ TRUMPET TUNING LATTICE
           </div>
@@ -1856,18 +1856,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               COMMA
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             THE PYTHAGOREAN COMMA, PLAYED
           </div>
@@ -1898,18 +1898,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--fg); text-shadow: none; transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); text-shadow: none; transition: color 0.2s ease;"
             >
               APAPACHO
             </span>
             <span
-              style="font-size: 9px; color: var(--color-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+              style="font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
             >
               JavaScript
             </span>
           </div>
           <div
-            style="font-size: 10px; color: var(--fg); margin-top: 1px; letter-spacing: 0.08em;"
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: 0.08em;"
           >
             WORDS · FRASES · SEÑAS
           </div>
@@ -1922,7 +1922,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-size: 8px; color: var(--color-comment); letter-spacing: 0.1em; animation-duration: 247s;"
+      style="font-size: 8px; color: var(--cab-faint); letter-spacing: 0.1em; animation-duration: 247s;"
     >
       <span
         style="padding-right: 48px;"

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { FIELD, GAME, alpha } from "./palette";
 
 export default function CoherenceField({ width, height }) {
   const canvasRef = useRef(null);
@@ -48,7 +49,7 @@ export default function CoherenceField({ width, height }) {
     const tick = () => {
       ctx.save();
       ctx.scale(dpr, dpr);
-      ctx.fillStyle = "rgba(8,8,12,0.18)";
+      ctx.fillStyle = alpha(GAME.shade, 0.18);
       ctx.fillRect(0, 0, width, height);
       const v = vRef.current;
       t++;
@@ -225,7 +226,7 @@ export default function CoherenceField({ width, height }) {
           width,
           height,
           borderRadius: 6,
-          border: "1px solid rgba(0,220,180,0.1)",
+          border: `1px solid ${alpha(FIELD.live, 0.1)}`,
         }}
       />
       <div
@@ -244,13 +245,13 @@ export default function CoherenceField({ width, height }) {
               onClick={() => toggle(k)}
               style={{
                 background: on
-                  ? "rgba(220,70,50,0.15)"
-                  : "rgba(0,220,180,0.06)",
-                border: `1px solid ${on ? "rgba(220,70,50,0.3)" : "rgba(0,220,180,0.12)"}`,
+                  ? alpha(FIELD.on, 0.15)
+                  : alpha(FIELD.live, 0.06),
+                border: `1px solid ${on ? alpha(FIELD.on, 0.3) : alpha(FIELD.live, 0.12)}`,
                 borderRadius: 4,
                 padding: "5px 12px",
                 cursor: "pointer",
-                color: on ? "#dc4632" : "#5a8a7a",
+                color: on ? FIELD.on : FIELD.off,
                 fontSize: 9,
                 letterSpacing: "0.1em",
                 fontFamily: "'JetBrains Mono', monospace",
@@ -266,7 +267,7 @@ export default function CoherenceField({ width, height }) {
         <div
           style={{
             fontSize: 8,
-            color: "rgba(220,70,50,0.5)",
+            color: alpha(FIELD.on, 0.5),
             letterSpacing: "0.15em",
           }}
         >

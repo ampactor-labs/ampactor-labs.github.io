@@ -41,9 +41,9 @@ body {
 html[data-stage] body {
   background: radial-gradient(
     ellipse at 50% 40%,
-    #1d2021 0%,
-    #2a2826 50%,
-    #0f0e0d 100%
+    var(--cab-room) 0%,
+    var(--cab-raised) 50%,
+    var(--cab-void) 100%
   );
 }
 

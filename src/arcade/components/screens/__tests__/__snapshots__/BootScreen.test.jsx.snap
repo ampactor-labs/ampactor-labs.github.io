@@ -16,7 +16,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       fill="none"
       opacity="0.4"
       r="20"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
     />
     <circle
@@ -25,7 +25,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       fill="none"
       opacity="0.4"
       r="40"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
     />
     <circle
@@ -34,7 +34,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       fill="none"
       opacity="0.4"
       r="60"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
     />
     <circle
@@ -43,7 +43,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       fill="none"
       opacity="0.4"
       r="80"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
     />
     <circle
@@ -52,12 +52,12 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       fill="none"
       opacity="0.4"
       r="100"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
     />
     <line
       opacity="0.3"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
       x1="100"
       x2="100"
@@ -66,7 +66,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.3"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.5"
       x1="0"
       x2="200"
@@ -75,7 +75,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.2"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.3"
       x1="29"
       x2="171"
@@ -84,7 +84,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.2"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-width="0.3"
       x1="171"
       x2="29"
@@ -93,7 +93,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.5"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-linecap="round"
       stroke-width="2"
       x1="88"
@@ -103,7 +103,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.5"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-linecap="round"
       stroke-width="2"
       x1="112"
@@ -115,13 +115,13 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
       d="M 93,108 C 95,102 97,102 99,108 C 101,114 103,114 105,108"
       fill="none"
       opacity="0.4"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-linecap="round"
       stroke-width="1.2"
     />
     <line
       opacity="0.5"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-linecap="round"
       stroke-width="2"
       x1="85"
@@ -131,7 +131,7 @@ exports[`BootScreen > matches snapshot in phase 0 1`] = `
     />
     <line
       opacity="0.5"
-      stroke="#00E5FF"
+      stroke="#00e5ff"
       stroke-linecap="round"
       stroke-width="2"
       x1="109"
@@ -153,7 +153,7 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
   style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;"
 >
   <div
-    style="position: absolute; top: 12px; right: 16px; font-size: 10px; color: var(--color-amber); cursor: pointer; letter-spacing: 0.1em; z-index: 60; opacity: 0.7;"
+    style="position: absolute; top: 12px; right: 16px; font-size: 10px; color: var(--cab-voice); cursor: pointer; letter-spacing: 0.1em; z-index: 60; opacity: 0.7;"
   />
   <div
     style="font-size: 14px; line-height: 2; max-width: 100%; text-align: left; white-space: nowrap; width: 34ch;"
@@ -164,17 +164,17 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
       AMPACTOR BIOS v4.2.0
     </div>
     <div
-      style="color: var(--color-teal);"
+      style="color: var(--cab-ok);"
     >
       Loading DSP subsystem.......... OK
     </div>
     <div
-      style="color: var(--color-teal);"
+      style="color: var(--cab-ok);"
     >
       Mounting effect algebra........ OK
     </div>
     <div
-      style="color: var(--color-teal); animation: slideUp 0.2s ease;"
+      style="color: var(--cab-ok); animation: slideUp 0.2s ease;"
     >
       Calibrating resonance field.... OK
       <span
@@ -186,22 +186,22 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
       </span>
     </div>
     <div
-      style="visibility: hidden; color: var(--color-teal);"
+      style="visibility: hidden; color: var(--cab-ok);"
     >
       Linking x402 payment layer..... OK
     </div>
     <div
-      style="visibility: hidden; color: var(--color-teal);"
+      style="visibility: hidden; color: var(--cab-ok);"
     >
       Scanning 9 security verticals.. OK
     </div>
     <div
-      style="visibility: hidden; color: var(--color-teal);"
+      style="visibility: hidden; color: var(--cab-ok);"
     >
       Phase coupling established..... OK
     </div>
     <div
-      style="visibility: hidden; color: var(--color-muted);"
+      style="visibility: hidden; color: var(--cab-muted);"
     />
     <div
       style="visibility: hidden; color: rgb(0, 229, 255);"
@@ -209,10 +209,10 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
       ALL SYSTEMS NOMINAL
     </div>
     <div
-      style="visibility: hidden; color: var(--color-muted);"
+      style="visibility: hidden; color: var(--cab-muted);"
     />
     <div
-      style="visibility: hidden; color: var(--color-amber); font-family: "Press Start 2P", monospace; font-size: 12px; margin-top: 8px;"
+      style="visibility: hidden; color: var(--cab-voice); font-family: "Press Start 2P", monospace; font-size: 12px; margin-top: 8px;"
     >
       PRESS ANY KEY
     </div>

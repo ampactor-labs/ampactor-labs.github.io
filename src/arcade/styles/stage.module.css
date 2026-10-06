@@ -26,9 +26,9 @@
   z-index: 0;
   background: radial-gradient(
     ellipse at 50% 40%,
-    #1d2021 0%,
-    #2a2826 50%,
-    #0f0e0d 100%
+    var(--cab-room) 0%,
+    var(--cab-raised) 50%,
+    var(--cab-void) 100%
   );
 }
 
@@ -40,7 +40,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-dim);
+  background: var(--cab-raised);
   border-radius: 16px;
   font-family: "JetBrains Mono", monospace;
   outline: none;

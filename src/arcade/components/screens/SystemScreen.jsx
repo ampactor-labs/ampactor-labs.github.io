@@ -5,6 +5,7 @@ import resume from "../../../data/resume.json";
 import { WORDS } from "../../../data/profile";
 import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
+import { PALETTE, alpha } from "../../palette";
 
 // The operator's programs: HOW TO PLAY, HIGH SCORES and CREDITS. Same frame
 // as a cartridge (back, title, the link rail the A button walks, a scrolling
@@ -77,7 +78,7 @@ function HowToPlay({ color, fs }) {
               >
                 {c.keys}
               </th>
-              <td style={{ padding: "7px 0", color: "var(--fg)", lineHeight: 1.5 }}>{c.does}</td>
+              <td style={{ padding: "7px 0", color: "var(--cab-text)", lineHeight: 1.5 }}>{c.does}</td>
             </tr>
           ))}
         </tbody>
@@ -103,7 +104,7 @@ function HighScores({ color, fs }) {
           flexWrap: "wrap",
           gap: "4px 18px",
           fontSize: fs(9),
-          color: "var(--color-muted)",
+          color: "var(--cab-muted)",
           letterSpacing: "0.14em",
           marginBottom: 14,
         }}
@@ -125,7 +126,7 @@ function HighScores({ color, fs }) {
         }}
       >
         <thead>
-          <tr style={{ fontSize: fs(8), color: "var(--color-comment)", letterSpacing: "0.2em" }}>
+          <tr style={{ fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "0.2em" }}>
             <th scope="col" style={{ textAlign: "left", fontWeight: 400, padding: "0 0 6px" }}>RANK</th>
             <th scope="col" style={{ textAlign: "left", fontWeight: 400, padding: "0 0 6px" }}>NAME</th>
             <th scope="col" style={{ textAlign: "right", fontWeight: 400, padding: "0 0 6px" }}>SCORE</th>
@@ -133,8 +134,8 @@ function HighScores({ color, fs }) {
         </thead>
         <tbody>
           {rows.map((r, i) => (
-            <tr key={r.repo} style={{ color: i === 0 ? color : "var(--fg)" }}>
-              <td style={{ padding: "4px 12px 4px 0", color: "var(--color-muted)", width: "3ch" }}>
+            <tr key={r.repo} style={{ color: i === 0 ? color : "var(--cab-text)" }}>
+              <td style={{ padding: "4px 12px 4px 0", color: "var(--cab-muted)", width: "3ch" }}>
                 {String(i + 1).padStart(2, "0")}
               </td>
               <td style={{ padding: "4px 12px 4px 0", textTransform: "uppercase" }}>{r.repo}</td>
@@ -166,12 +167,12 @@ function HighScores({ color, fs }) {
             />
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", maxWidth: 460, fontSize: fs(8), color: "var(--color-comment)", letterSpacing: "0.14em", marginTop: 6 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", maxWidth: 460, fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "0.14em", marginTop: 6 }}>
           <span>{months[0] ? monthLabel(months[0].month, "short").toUpperCase() : ""}</span>
           <span>{months.at(-1) ? monthLabel(months.at(-1).month, "short").toUpperCase() : ""}</span>
         </div>
       </div>
-      <p style={{ margin: "18px 0 0", fontSize: fs(10), color: "var(--color-muted)", lineHeight: 1.6, letterSpacing: "0.06em" }}>
+      <p style={{ margin: "18px 0 0", fontSize: fs(10), color: "var(--cab-muted)", lineHeight: 1.6, letterSpacing: "0.06em" }}>
         CO-OP MODE: {int(summary.totals.withClaude)} of these commits list Claude as
         author or co-author.
       </p>
@@ -269,10 +270,10 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
         if (l.kind === "title")
           return (
             <div key={i} style={{ marginBottom: 10 }}>
-              <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(14), color: "#00E5FF", letterSpacing: "0.08em", textShadow: "0 0 12px rgba(0,229,255,0.4)" }}>
+              <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(14), color: PALETTE.mark, letterSpacing: "0.08em", textShadow: `0 0 12px ${alpha(PALETTE.mark, 0.4)}` }}>
                 {l.head}
               </div>
-              <div style={{ marginTop: 8, fontSize: fs(10), color: "var(--color-amber)", letterSpacing: "0.22em" }}>{l.sub}</div>
+              <div style={{ marginTop: 8, fontSize: fs(10), color: "var(--cab-voice)", letterSpacing: "0.22em" }}>{l.sub}</div>
             </div>
           );
         if (l.kind === "end")
@@ -283,11 +284,11 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
           );
         return (
           <div key={i} style={{ maxWidth: 460 }}>
-            <div style={{ fontFamily: l.kind === "role" ? "'Share Tech Mono', monospace" : undefined, fontSize: l.kind === "role" ? fs(15) : fs(11), color: "var(--fg)", letterSpacing: l.kind === "role" ? "0.1em" : "0.04em", lineHeight: 1.6 }}>
+            <div style={{ fontFamily: l.kind === "role" ? "'Share Tech Mono', monospace" : undefined, fontSize: l.kind === "role" ? fs(15) : fs(11), color: "var(--cab-text)", letterSpacing: l.kind === "role" ? "0.1em" : "0.04em", lineHeight: 1.6 }}>
               {l.head}
             </div>
             {l.sub && (
-              <div style={{ marginTop: 3, fontSize: fs(9), color: "var(--color-muted)", letterSpacing: "0.14em", lineHeight: 1.6 }}>{l.sub}</div>
+              <div style={{ marginTop: 3, fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em", lineHeight: 1.6 }}>{l.sub}</div>
             )}
           </div>
         );
@@ -338,11 +339,11 @@ export default function SystemScreen({
           }}
           style={{
             fontSize: fs(12),
-            color: "var(--fg)",
+            color: "var(--cab-text)",
             padding: "3px 7px",
             borderRadius: 4,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: alpha(PALETTE.white, 0.03),
+            border: `1px solid ${alpha(PALETTE.white, 0.06)}`,
           }}
         >
           {"◄"}
@@ -362,7 +363,7 @@ export default function SystemScreen({
           >
             {p.title}
           </h2>
-          <div style={{ fontSize: fs(10), color: "var(--fg)", letterSpacing: "0.1em", marginTop: 3 }}>
+          <div style={{ fontSize: fs(10), color: "var(--cab-text)", letterSpacing: "0.1em", marginTop: 3 }}>
             {p.subtitle}
           </div>
         </div>
@@ -390,11 +391,11 @@ export default function SystemScreen({
                     borderRadius: 4,
                     whiteSpace: "nowrap",
                     fontWeight: primary ? 700 : 600,
-                    color: primary ? "var(--color-void)" : color,
+                    color: primary ? "var(--cab-void)" : color,
                     background: primary ? color : `${color}11`,
                     border: primary ? "1px solid transparent" : `1px solid ${color}55`,
                     boxShadow: focused
-                      ? `0 0 0 2px var(--color-void), 0 0 0 4px ${color}, 0 0 18px ${color}99`
+                      ? `0 0 0 2px var(--cab-void), 0 0 0 4px ${color}, 0 0 18px ${color}99`
                       : primary
                         ? `0 0 14px ${color}66`
                         : "none",
