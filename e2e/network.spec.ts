@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 // first paint that waits on nobody else's server, and no visitor data handed
 // to one. The faces each page sets its first screen in, all self-hosted: the
 // cabinet's prose is Inter and its signage Press Start; JetBrains Mono comes
-// later, with the BIOS and the list's chips.
+// with the power-on of a first visit, for the BIOS, or with the list's chips.
 const FACES: Record<string, string[]> = {
   "/": ["Press Start 2P", "Inter"],
   "/arcade/": ["Press Start 2P", "Inter"],

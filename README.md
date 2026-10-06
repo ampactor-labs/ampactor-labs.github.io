@@ -35,7 +35,7 @@ npm run readmes:report # how each project's README measures against docs/README-
 npm run readme:check -- path/to/README.md   # check one README before it is pushed
 npm run sync:receipts  # rebuild the commit data from git
 npm run resume:build   # src/data/resume.json → public/resume.html
-npm run audit          # Lighthouse (median of 5), test counts and weights → src/data/audit.json
+npm run audit          # Lighthouse (median of 5), test counts and weights → src/data/audit.json; fails under the gate
 ```
 
 ## How it works
@@ -145,6 +145,17 @@ date. The last run, 2026-09-25, on one laptop:
 The cost is the cabinet: the home page ships the most JavaScript and paints
 its largest element last, because a first visit powers the machine on and
 prints the BIOS before the title card.
+
+The audit is also the gate (`docs/AUDIT-NEON.md`, step 10). After writing what
+it measured, it exits non-zero when a measured page scores under 95 for
+performance, paints its largest element after 2.5 s, blocks for more than
+150 ms or shifts at all, when the home page ships more than 135 KB of gzipped
+JavaScript, or when the fonts weigh more than 130 KB. Blocking time and the
+performance score scale with the machine, so each page's numbers carry
+Lighthouse's benchmark of the host (`benchmarkIndex`); the gate is meant for
+the machine the published numbers come from. On a four-core cloud container
+(benchmark index about 1,400) the commit log scores 93 with over 200 ms of
+blocking time, before the neon audit and after it alike.
 
 ## Project layout
 

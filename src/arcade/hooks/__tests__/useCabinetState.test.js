@@ -338,6 +338,28 @@ describe("useCabinetState", () => {
       expect(localStorage.getItem("ampactor_visited")).toBe("1");
     });
 
+    // Nothing on the first screen asks for the BIOS's face, so the power-on
+    // does; a returning visitor skips the boot and never needs it here.
+    it("a first visit asks for the BIOS's face at power-on; a returning one does not", () => {
+      const load = vi.fn(() => Promise.resolve([]));
+      Object.defineProperty(document, "fonts", {
+        value: { load },
+        configurable: true,
+      });
+      try {
+        localStorage.clear();
+        renderCabinet({ initialRoute: HOME });
+        expect(load).toHaveBeenCalledWith('1em "JetBrains Mono"');
+        load.mockClear();
+        localStorage.setItem("ampactor_visited", "1");
+        const { result } = renderCabinet({ initialRoute: HOME });
+        expect(result.current.screen).toBe("attract");
+        expect(load).not.toHaveBeenCalled();
+      } finally {
+        delete document.fonts;
+      }
+    });
+
     // Each act() flushes the state the timers queued, so the BIOS lines, the
     // beat after the last one, and the landing are three separate advances.
     it("the boot moves on by itself after the last line", () => {

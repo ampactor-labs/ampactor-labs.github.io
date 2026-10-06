@@ -240,6 +240,30 @@ test.describe("the first visit", () => {
     expect(await visited(page)).toBe("1");
   });
 
+  // Every line is laid out before it prints, so nothing on the tube moves
+  // while the BIOS prints: no layout shift from the power-on to READY.
+  test("the BIOS prints in place", async ({ page }) => {
+    type Shift = PerformanceEntry & { value: number; hadRecentInput: boolean };
+    await page.addInitScript(() => {
+      const shifts: number[] = [];
+      Object.assign(window, { __shifts: shifts });
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries() as Shift[])
+          if (!entry.hadRecentInput) shifts.push(entry.value);
+      }).observe({ type: "layout-shift", buffered: true });
+    });
+    await page.goto("/");
+    await page.waitForFunction(
+      () => /READY\./.test(document.body.innerText),
+      null,
+      { polling: 40, timeout: 15_000 },
+    );
+    const shifts = await page.evaluate(
+      () => (window as unknown as { __shifts: number[] }).__shifts,
+    );
+    expect(shifts).toEqual([]);
+  });
+
   test("with reduced motion the machine still boots, without the power-on", async ({
     page,
   }) => {

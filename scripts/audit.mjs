@@ -203,6 +203,9 @@ async function lighthouse(url) {
     tbtMs: Math.round(metric("total-blocking-time")),
     cls: Number((metric("cumulative-layout-shift") ?? 0).toFixed(3)),
     speedIndexMs: Math.round(metric("speed-index")),
+    // How fast the host ran Lighthouse's own benchmark. Blocking time and
+    // the performance score scale with it, so a slower machine reads worse.
+    benchmarkIndex: Math.round(report.environment?.benchmarkIndex ?? 0),
   };
 }
 
@@ -231,7 +234,7 @@ try {
     const r = results[path];
     console.log(
       `${path.padEnd(12)} perf ${r.performance} (runs: ${spread[path].join(", ")})  a11y ${r.accessibility}  best ${r.bestPractices}  seo ${r.seo}  ` +
-        `LCP ${r.lcpMs} ms  TBT ${r.tbtMs} ms  CLS ${r.cls}  JS ${r.jsGzipKb} KB gz`,
+        `LCP ${r.lcpMs} ms  TBT ${r.tbtMs} ms  CLS ${r.cls}  JS ${r.jsGzipKb} KB gz  host ${r.benchmarkIndex}`,
     );
   }
 } finally {
