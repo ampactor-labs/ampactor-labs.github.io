@@ -15,33 +15,44 @@ const contrast = (a, b) => {
 };
 
 // The grounds text sits on, and every role that is ever text.
-const GROUNDS = ["void", "room", "tube"];
+const GROUNDS = ["void", "room", "tube", "raised", "band"];
 const TEXT = [
   "text",
   "muted",
   "faint",
   "mark",
   "voice",
+  "voiceLt",
   "ok",
   "halo",
   "quiet",
   "coin",
+  "ember",
   "danger",
   "mint",
 ];
-// Pairs under 4.5:1 today, listed so they cannot hide. The palette swap
-// (step 2 of docs/AUDIT-NEON.md) empties this list.
-const BELOW = new Set(["faint/void", "faint/room", "faint/tube"]);
+// Pairs under 4.5:1 that the rules forbid (docs/AUDIT-NEON.md section 3):
+// the faint tier and danger never sit on the title band. Held below 4.5 so
+// the rule is removed the day the numbers no longer need it.
+const FORBIDDEN = new Set(["faint/band", "danger/band"]);
+// Pairs under 4.5:1 that are debt. Empty since the palette swap.
+const BELOW = new Set();
 
 describe("the cabinet's palette", () => {
-  it("every text role clears 4.5:1 on every ground, except the listed debt", () => {
+  it("every text role clears 4.5:1 on every ground it may sit on", () => {
     for (const t of TEXT)
       for (const g of GROUNDS) {
         const ratio = contrast(PALETTE[t], PALETTE[g]);
-        if (BELOW.has(`${t}/${g}`))
-          expect(ratio, `${t} on ${g} is listed as debt`).toBeLessThan(4.5);
-        else expect(ratio, `${t} on ${g}`).toBeGreaterThanOrEqual(4.5);
+        const pair = `${t}/${g}`;
+        if (FORBIDDEN.has(pair) || BELOW.has(pair))
+          expect(ratio, `${pair} is listed`).toBeLessThan(4.5);
+        else expect(ratio, pair).toBeGreaterThanOrEqual(4.5);
       }
+  });
+
+  it("void ink reads on every lit pill", () => {
+    for (const pill of ["voice", "mark", "coin", "mint"])
+      expect(contrast(PALETTE.void, PALETTE[pill]), pill).toBeGreaterThanOrEqual(4.5);
   });
 
   it("every value is a six-digit hex", () => {
