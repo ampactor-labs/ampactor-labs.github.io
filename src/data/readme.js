@@ -1,4 +1,4 @@
-import README_CONTENT from "./readme-content.generated.json";
+import README_CONTENT from "./readme-content.generated.json" with { type: "json" };
 
 // A project with its README's word on what it is (scripts/sync-readmes.mjs
 // decides, field by field, against docs/README-STANDARD.md; the card line
