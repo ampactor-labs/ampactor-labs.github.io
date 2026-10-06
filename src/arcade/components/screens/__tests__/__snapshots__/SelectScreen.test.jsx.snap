@@ -45,12 +45,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
       <a
+        class="pill"
         href="/resume.html"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
       >
         RESUME
       </a>
       <a
+        class="pill"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
@@ -59,6 +61,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         GITHUB
       </a>
       <a
+        class="pill"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
@@ -1079,12 +1082,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"
     >
       <a
+        class="pill"
         href="/resume.html"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
       >
         RESUME
       </a>
       <a
+        class="pill"
         href="https://github.com/ampactor-labs"
         rel="noopener noreferrer"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"
@@ -1093,6 +1098,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         GITHUB
       </a>
       <a
+        class="pill"
         href="https://www.linkedin.com/in/ampactor-labs/"
         rel="noopener noreferrer"
         style="font-family: "Press Start 2P", monospace; color: rgb(0, 229, 255); text-decoration: none; display: inline-block; font-size: 8px; line-height: 1; border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 3px; background: rgba(0, 229, 255, 0.06); padding: 7px 8px; letter-spacing: 0.06em; white-space: nowrap;"

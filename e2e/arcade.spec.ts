@@ -147,6 +147,64 @@ test("TUNNEL_RUN runs: the countdown flies into the game without an error", asyn
   expect(errors).toEqual([]);
 });
 
+// On a touch screen the panel's controls take a 44 px tap (the key plus its
+// invisible margin) and the header's pills stand 40 px tall.
+test("on a touch screen every panel control is a 44 px target", async ({
+  page,
+}, testInfo) => {
+  test.skip(!testInfo.project.use.hasTouch, "the sizes are for touch screens");
+  await page.goto("/arcade/");
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(() => matchMedia("(pointer: coarse)").matches),
+  ).toBe(true);
+  const controls = [
+    "Navigate up",
+    "Navigate down",
+    "Navigate left",
+    "Navigate right",
+    "Back",
+    "Select",
+    "Insert coin",
+  ];
+  for (const name of controls) {
+    const box = await page
+      .getByRole("button", { name, exact: true })
+      .boundingBox();
+    expect(box, name).not.toBeNull();
+    const cx = box!.x + box!.width / 2;
+    const cy = box!.y + box!.height / 2;
+    // A tap 21 px from the centre, in each direction, still lands on it.
+    const hits = await page.evaluate(
+      ({ cx, cy, name }) => {
+        const control = [...document.querySelectorAll('[role="button"]')].find(
+          (el) => el.getAttribute("aria-label") === name,
+        );
+        const taps: [number, number][] = [
+          [cx - 21, cy],
+          [cx + 21, cy],
+          [cx, cy - 21],
+          [cx, cy + 21],
+        ];
+        return taps.map(([x, y]) => {
+          const hit = document.elementFromPoint(x, y);
+          return Boolean(control && hit && control.contains(hit));
+        });
+      },
+      { cx, cy, name },
+    );
+    expect(hits, name).toEqual([true, true, true, true]);
+  }
+  for (const name of ["RESUME", "GITHUB", "LINKEDIN"]) {
+    const box = await page
+      .getByRole("link", { name, exact: true })
+      .boundingBox();
+    expect(box!.height, name).toBeGreaterThanOrEqual(40);
+  }
+});
+
 test("the page never scrolls: the cabinet is the viewport", async ({
   page,
 }) => {

@@ -1,10 +1,10 @@
-import { CHROME, FRINGE, PALETTE, alpha } from "../palette";
+import { FRINGE, PALETTE, alpha } from "../palette";
 // Every d-pad key goes through here, so none of them can ship as a bare div with
 // no handler again — which is how ► stayed dead on every screen.
 function DpadButton({ label, glyph, onPress, style }) {
   return (
     <div
-      className="btn-cabinet"
+      className="btn-cabinet dpad-key"
       role="button"
       aria-label={label}
       tabIndex={0}
@@ -39,24 +39,7 @@ export default function Cabinet({
   inert = false,
 }) {
   const panelLive = attract || (introComplete && screen !== "boot");
-  const dpadBtn = {
-    width: 30,
-    height: 30,
-    background:
-      `linear-gradient(145deg, ${CHROME.dpad[0]} 0%, ${CHROME.dpad[1]} 55%, ${CHROME.dpad[2]} 100%)`,
-    borderRadius: 4,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "var(--cab-muted)",
-    fontSize: fs(9),
-    border: "1.5px solid var(--cab-line)",
-    boxShadow: [
-      `0 3px 6px ${alpha(PALETTE.black, 0.5)}`,
-      `inset 0 1px 0 ${alpha(PALETTE.white, 0.10)}`,
-      `inset 0 -1px 0 ${alpha(PALETTE.black, 0.4)}`,
-    ].join(", "),
-  };
+  const dpadBtn = { fontSize: fs(9) };
 
   return (
     <div
@@ -64,20 +47,23 @@ export default function Cabinet({
       inert={inert || undefined}
       style={{
         margin: "0 10px 10px",
-        background:
-          `linear-gradient(180deg, ${PALETTE.raised} 0%, ${PALETTE.room} 40%, ${PALETTE.void} 100%)`,
+        // The deck as the band: dusk into the band's violet, a 12 px lit grid
+        // and four brightness steps, hard-edged as in the reference. Static
+        // gradients, nothing to repaint.
+        background: [
+          `linear-gradient(180deg, transparent 0 25%, ${alpha(PALETTE.lit, 0.06)} 25% 50%, ${alpha(PALETTE.lit, 0.11)} 50% 75%, ${alpha(PALETTE.lit, 0.17)} 75% 100%)`,
+          `linear-gradient(${alpha(PALETTE.muted, 0.1)} 1px, transparent 1px)`,
+          `linear-gradient(90deg, ${alpha(PALETTE.muted, 0.1)} 1px, transparent 1px)`,
+          `linear-gradient(180deg, ${PALETTE.raised} 0%, ${PALETTE.band} 100%)`,
+        ].join(", "),
+        backgroundSize: "100% 100%, 12px 12px, 12px 12px, 100% 100%",
         borderRadius: "0 0 16px 16px",
-        border: "3px solid var(--cab-line)",
-        borderTop: "2px solid var(--cab-line)",
+        border: `1px solid ${alpha(PALETTE.muted, 0.28)}`,
         padding: "10px 20px 12px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        boxShadow: [
-          `inset 0 2px 0 ${alpha(PALETTE.white, 0.06)}`,
-          `inset 0 -4px 14px ${alpha(PALETTE.black, 0.65)}`,
-          `0 4px 0 ${alpha(PALETTE.black, 0.55)}`,
-        ].join(", "),
+        boxShadow: `inset 0 1px 0 ${alpha(PALETTE.white, 0.08)}`,
       }}
     >
       {/* D-pad */}
@@ -97,16 +83,7 @@ export default function Cabinet({
             onPress={navLeft}
             style={dpadBtn}
           />
-          <div
-            style={{
-              width: 30,
-              height: 30,
-              background: `radial-gradient(circle, ${CHROME.centre[0]}, ${CHROME.centre[1]})`,
-              borderRadius: 4,
-              border: `1.5px solid ${CHROME.centre[2]}`,
-              boxShadow: `inset 0 2px 8px ${alpha(PALETTE.black, 0.7)}`,
-            }}
-          />
+          <div className="dpad-centre" />
           <DpadButton
             label="Navigate right"
             glyph={"\u25ba"}
@@ -203,7 +180,7 @@ export default function Cabinet({
             />
           </svg>
           <div
-            className="signage"
+            className="signage brand-sign"
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(9),
@@ -214,6 +191,7 @@ export default function Cabinet({
             AMPACTOR
           </div>
           <div
+            className="est-line"
             style={{
               fontSize: fs(7),
               color: "var(--cab-text)",
@@ -318,7 +296,10 @@ export default function Cabinet({
       </div>
 
       {/* Action buttons */}
-      <div style={{ display: "flex", gap: 14, alignItems: "flex-end" }}>
+      <div
+        className="action-cluster"
+        style={{ display: "flex", gap: 14, alignItems: "flex-end" }}
+      >
         <div
           style={{
             display: "flex",
@@ -328,7 +309,7 @@ export default function Cabinet({
           }}
         >
           <div
-            className="btn-action"
+            className="btn-action btn-b"
             role="button"
             aria-label="Back"
             tabIndex={0}
@@ -340,38 +321,13 @@ export default function Cabinet({
               }
             }}
             style={{
-              width: 46,
-              height: 46,
-              borderRadius: "50%",
-              background:
-                `radial-gradient(circle at 38% 32%, ${CHROME.b[0]} 0%, ${CHROME.b[1]} 50%, ${CHROME.b[2]} 100%)`,
-              border: `2.5px solid ${CHROME.b[3]}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               fontSize: fs(9),
-              color: "var(--cab-danger)",
               fontFamily: "'Press Start 2P', monospace",
-              boxShadow: [
-                `0 0 16px ${alpha(PALETTE.danger, 0.40)}`,
-                `0 0 6px ${alpha(PALETTE.danger, 0.70)}`,
-                `0 4px 10px ${alpha(PALETTE.black, 0.55)}`,
-                `inset 0 1px 0 ${alpha(PALETTE.white, 0.12)}`,
-                `inset 0 -3px 6px ${alpha(PALETTE.black, 0.45)}`,
-              ].join(", "),
             }}
           >
             B
           </div>
-          <div
-            style={{
-              fontSize: fs(5),
-              color: alpha(PALETTE.muted, 0.45),
-              letterSpacing: "0.12em",
-              fontFamily: "'Press Start 2P', monospace",
-              userSelect: "none",
-            }}
-          >
+          <div className="panel-label">
             BACK
           </div>
         </div>
@@ -384,7 +340,7 @@ export default function Cabinet({
           }}
         >
           <div
-            className="btn-action"
+            className="btn-action btn-a"
             role="button"
             aria-label={screen === "detail" ? "Open link" : "Select"}
             tabIndex={0}
@@ -396,38 +352,13 @@ export default function Cabinet({
               }
             }}
             style={{
-              width: 46,
-              height: 46,
-              borderRadius: "50%",
-              background:
-                `radial-gradient(circle at 38% 32%, ${CHROME.a[0]} 0%, ${CHROME.a[1]} 50%, ${CHROME.a[2]} 100%)`,
-              border: `2.5px solid ${CHROME.a[3]}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               fontSize: fs(9),
-              color: PALETTE.mark,
               fontFamily: "'Press Start 2P', monospace",
-              boxShadow: [
-                `0 0 16px ${alpha(PALETTE.mark, 0.40)}`,
-                `0 0 6px ${alpha(PALETTE.mark, 0.70)}`,
-                `0 4px 10px ${alpha(PALETTE.black, 0.55)}`,
-                `inset 0 1px 0 ${alpha(PALETTE.white, 0.12)}`,
-                `inset 0 -3px 6px ${alpha(PALETTE.black, 0.45)}`,
-              ].join(", "),
             }}
           >
             A
           </div>
-          <div
-            style={{
-              fontSize: fs(5),
-              color: alpha(PALETTE.muted, 0.45),
-              letterSpacing: "0.12em",
-              fontFamily: "'Press Start 2P', monospace",
-              userSelect: "none",
-            }}
-          >
+          <div className="panel-label">
             {screen === "detail" ? "OPEN" : "SELECT"}
           </div>
         </div>

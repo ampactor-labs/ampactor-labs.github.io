@@ -132,7 +132,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
         radius: baseRadius * scale,
         rotation,
         color: COLORS[colorIdx],
-        alpha: 0.04 + nearness * 0.25,
+        alpha: 0.06 + nearness * 0.4,
         lineWidth: 0.4 + nearness * 2.2,
         verts: pentagonVertices(cx, cy, baseRadius * scale, rotation),
       });
@@ -156,7 +156,7 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     for (let i = 0; i < rings.length; i++) {
       const r = rings[i];
       if (r.nearness <= 0.15) continue;
-      ctx.globalAlpha = r.alpha * 0.25;
+      ctx.globalAlpha = r.alpha * 0.4;
       ctx.strokeStyle = r.color.glow;
       ctx.lineWidth = r.lineWidth + 4 + r.nearness * 6;
       ctx.beginPath();

@@ -150,6 +150,7 @@ export default function DetailScreen({
               );
               return (
                 <a
+                  className="chip"
                   key={link.kind}
                   ref={(el) => {
                     links.current[i] = el;
