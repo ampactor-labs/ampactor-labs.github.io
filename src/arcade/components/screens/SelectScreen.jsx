@@ -76,12 +76,12 @@ export default function SelectScreen({
       >
         <div style={{ flex: "1 1 260px", minWidth: 0 }}>
           <div
+            className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(16),
               lineHeight: 1.5,
               color: PALETTE.mark,
-              textShadow: `0 0 12px ${alpha(PALETTE.mark, 0.4)}`,
               letterSpacing: "0.1em",
             }}
           >
@@ -258,8 +258,6 @@ export default function SelectScreen({
                     background: `${p.color}${isGame ? "1a" : "11"}`,
                     borderRadius: 5,
                     border: `1px solid ${p.color}${isGame ? "44" : "22"}`,
-                    textShadow:
-                      active || isGame ? `0 0 8px ${p.color}` : "none",
                     flexShrink: 0,
                   }}
                 >
@@ -274,7 +272,6 @@ export default function SelectScreen({
                         fontFamily: "'Share Tech Mono', monospace",
                         fontSize: fs(14),
                         color: active ? p.color : "var(--cab-text)",
-                        textShadow: active ? `0 0 8px ${p.color}44` : "none",
                         transition: "color 0.2s ease",
                       }}
                     >

@@ -157,20 +157,6 @@ export default function useIntroSequence(
       );
     }
 
-    // 1.2s: Restart flicker animation
-    tl.call(
-      () => {
-        const screenEl = console_.querySelector(".crt-screen");
-        if (screenEl) {
-          screenEl.style.animation = "none";
-          void screenEl.offsetWidth; // force reflow
-          screenEl.style.animation = "flicker 14s infinite";
-        }
-      },
-      [],
-      1.2,
-    );
-
     tlRef.current = tl;
 
     return () => {

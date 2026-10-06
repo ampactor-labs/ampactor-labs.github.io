@@ -59,6 +59,7 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
       }}
     >
       <h1
+        className="signage"
         style={{
           margin: 0,
           fontFamily: "'Press Start 2P', monospace",
@@ -67,8 +68,6 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
           lineHeight: 1.5,
           color: PALETTE.mark,
           letterSpacing: "0.06em",
-          textShadow:
-            `0 0 8px ${alpha(PALETTE.mark, 0.55)}, 0 0 28px ${alpha(PALETTE.mark, 0.22)}`,
         }}
       >
         {CONTACT.name}
@@ -79,7 +78,6 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
           fontSize: fs(15),
           color: "var(--cab-voice)",
           letterSpacing: "0.24em",
-          textShadow: `0 0 10px ${alpha(PALETTE.voice, 0.35)}`,
         }}
       >
         {CONTACT.role}
@@ -123,18 +121,17 @@ function NowShowing({ cartridge, fs }) {
           fontSize: fs(44),
           lineHeight: 1,
           color: cartridge.color,
-          textShadow: `0 0 18px ${cartridge.color}66`,
         }}
       >
         {cartridge.icon}
       </div>
       <div
+        className="signage"
         style={{
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(28),
           color: cartridge.color,
           letterSpacing: "0.06em",
-          textShadow: `0 0 12px ${cartridge.color}55`,
         }}
       >
         {cartridge.title}
@@ -200,7 +197,7 @@ function HighScores({ fs }) {
         padding: "0 12px",
       }}
     >
-      <div style={{ ...label(fs, "var(--cab-voice)"), textShadow: `0 0 10px ${alpha(PALETTE.voice, 0.35)}` }}>
+      <div className="signage" style={label(fs, "var(--cab-voice)")}>
         HIGH SCORES
       </div>
       <div style={{ fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em" }}>
@@ -341,14 +338,13 @@ export default function AttractScreen({
       >
         <button
           type="button"
-          className="attract-start"
+          className="attract-start signage"
           onClick={() => onStart?.()}
           style={{
             fontFamily: "'Press Start 2P', monospace",
             fontSize: fs(14),
             color: "var(--cab-voice)",
             letterSpacing: "0.14em",
-            textShadow: `0 0 14px ${alpha(PALETTE.voice, 0.45)}`,
             animation: reducedMotion ? undefined : "startBlink 1.1s step-end infinite",
             background: "transparent",
             border: 0,

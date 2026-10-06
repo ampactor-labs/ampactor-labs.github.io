@@ -103,19 +103,18 @@ export default function DetailScreen({
           style={{
             fontSize: fs(20),
             color: p.color,
-            textShadow: `0 0 12px ${p.color}44`,
           }}
         >
           {p.icon}
         </div>
         <div style={{ flex: 1 }}>
           <h2
+            className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(12),
               fontWeight: 400,
               color: p.color,
-              textShadow: `0 0 10px ${p.color}44`,
               letterSpacing: "0.05em",
               margin: 0,
             }}
@@ -236,7 +235,6 @@ export default function DetailScreen({
               color: p.color,
               fontWeight: 600,
               maxWidth: 520,
-              textShadow: `0 0 12px ${p.color}22`,
             }}
           >
             {p.outcome}

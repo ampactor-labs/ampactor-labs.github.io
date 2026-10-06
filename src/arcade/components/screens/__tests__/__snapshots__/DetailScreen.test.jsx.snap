@@ -17,7 +17,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       ◄
     </div>
     <div
-      style="font-size: 20px; color: rgb(224, 255, 0); text-shadow: 0 0 12px #E0FF0044;"
+      style="font-size: 20px; color: rgb(224, 255, 0);"
     >
       ☀
     </div>
@@ -25,7 +25,8 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="flex: 1 1 0%;"
     >
       <h2
-        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(224, 255, 0); text-shadow: 0 0 10px #E0FF0044; letter-spacing: 0.05em; margin: 0px;"
+        class="signage"
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(224, 255, 0); letter-spacing: 0.05em; margin: 0px;"
       >
         MENTL
       </h2>
@@ -61,7 +62,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       THE COMPILER BOOTSTRAPS ITSELF
     </span>
     <div
-      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px; text-shadow: 0 0 12px #E0FF0022;"
+      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px;"
     >
       A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly.
     </div>
@@ -310,7 +311,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       ◄
     </div>
     <div
-      style="font-size: 20px; color: rgb(255, 184, 0); text-shadow: 0 0 12px #FFB80044;"
+      style="font-size: 20px; color: rgb(255, 184, 0);"
     >
       ∿
     </div>
@@ -318,7 +319,8 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       style="flex: 1 1 0%;"
     >
       <h2
-        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(255, 184, 0); text-shadow: 0 0 10px #FFB80044; letter-spacing: 0.05em; margin: 0px;"
+        class="signage"
+        style="font-family: "Press Start 2P", monospace; font-size: 12px; font-weight: 400; color: rgb(255, 184, 0); letter-spacing: 0.05em; margin: 0px;"
       >
         SYS/RESONANCE
       </h2>

@@ -2,8 +2,6 @@ import { FRINGE, PALETTE, alpha } from "../palette";
 // CRT visual styles — keyframe animations and class rules for the arcade cabinet UI.
 // Fonts are loaded via <link> in index.html (not @import here).
 export const crtStyles = `
-  @keyframes flicker { 0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:0.8} 94%{opacity:1} 96%{opacity:0.9} 97%{opacity:1} }
-  @keyframes scanmove { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   @keyframes startBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .attract-start:hover, .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
@@ -14,19 +12,23 @@ export const crtStyles = `
   @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 6px ${alpha(PALETTE.coin, 0.25)},0 0 4px ${alpha(PALETTE.coin, 0.1)}} 50%{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}} }
   @keyframes hiddenPulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
   @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
-  @keyframes phosphorPulse { 0%,100%{text-shadow:0 0 4px ${alpha(PALETTE.halo, 0.36)},0 0 12px ${alpha(PALETTE.halo, 0.12)}} 50%{text-shadow:0 0 6px ${alpha(PALETTE.halo, 0.48)},0 0 18px ${alpha(PALETTE.halo, 0.18)}} }
   @keyframes coinTextPulse { 0%,100%{opacity:0.5} 50%{opacity:0.8} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%{opacity:1} 60%{opacity:1} 100%{opacity:0} }
-  .crt-screen{animation:flicker 14s infinite}
-  .crt-glass{position:absolute;inset:0;background:linear-gradient(135deg,${alpha(PALETTE.white, 0.03)} 0%,transparent 40%,transparent 60%,${alpha(PALETTE.white, 0.01)} 100%);pointer-events:none;z-index:91;border-radius:inherit}
-  .crt-curvature{position:absolute;inset:0;border-radius:50%/3%;box-shadow:inset 0 0 60px ${alpha(PALETTE.black, 0.4)};pointer-events:none;z-index:89}
-  .crt-phosphor{text-shadow:0 0 4px ${alpha(PALETTE.halo, 0.3)},0 0 12px ${alpha(PALETTE.halo, 0.1)},-0.7px 0 0 ${alpha(FRINGE.warm, 0.2)},0.7px 0 0 ${alpha(FRINGE.cool, 0.15)}}
-  .crt-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:128px;pointer-events:none;z-index:88;opacity:0.04;mix-blend-mode:screen}
-  .scanline-bar{position:absolute;top:0;left:0;right:0;height:4px;background:${alpha(PALETTE.white, 0.03)};animation:scanmove 8s linear infinite;pointer-events:none;z-index:100}
+  /* The tube's ground: indigo over void, the lit grid (8 px cells, 6 px on a
+     phone) and four brightness bands, painted once. Above it, under the
+     content, one shade pulls the edges down into the void. */
+  .tube-ground{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(180deg,transparent 0 58%,${alpha(PALETTE.lit, 0.05)} 58% 72%,${alpha(PALETTE.lit, 0.09)} 72% 86%,${alpha(PALETTE.lit, 0.13)} 86% 100%),linear-gradient(${alpha(PALETTE.muted, 0.11)} 1px,transparent 1px),linear-gradient(90deg,${alpha(PALETTE.muted, 0.11)} 1px,transparent 1px),radial-gradient(ellipse at center,var(--cab-tube) 0%,var(--cab-void) 80%);background-size:100% 100%,8px 8px,8px 8px,100% 100%}
+  @media (max-width: 480px) { .tube-ground{background-size:100% 100%,6px 6px,6px 6px,100% 100%} }
+  .tube-shade{position:absolute;inset:0;z-index:40;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,${alpha(PALETTE.void, 0.55)} 100%)}
+  /* Bloom in the text's own colour: a soft stop on every readout, two on the
+     signage, and the chromatic split (magenta left, cyan right) on signage. */
+  .cabinet-scope{--bloom-text:0 0 4px color-mix(in srgb, currentColor 35%, transparent);--bloom-signage:0 0 6px color-mix(in srgb, currentColor 60%, transparent),0 0 24px color-mix(in srgb, currentColor 28%, transparent);--fringe:-1.5px 0 0 ${alpha(PALETTE.voice, 0.5)},1.5px 0 0 ${alpha(PALETTE.mark, 0.5)}}
+  .crt-phosphor{text-shadow:var(--bloom-text)}
+  .signage{text-shadow:var(--bloom-signage),var(--fringe)}
   .blink-cursor{animation:blink 1s step-end infinite}
   /* The marquee sets its own duration inline from its text's length (constants.js). */
-  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;animation:marquee 90s linear infinite}
+  .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;text-shadow:none;animation:marquee 90s linear infinite}
   .project-row{transition:all 0.2s ease;cursor:pointer}
   .project-row:hover{background:${alpha(FRINGE.warm, 0.03)}!important;transform:translateX(4px)}
   .btn-cabinet{transition:all 0.15s ease;cursor:pointer;user-select:none}
@@ -38,7 +40,6 @@ export const crtStyles = `
   .btn-action:active{transform:scale(0.92);filter:brightness(0.75)!important}
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
   .glitch-enter{animation:glitchIn 0.5s ease-out}
-  .crt-grid{position:absolute;inset:0;background-image:linear-gradient(${alpha(PALETTE.mark, 0.01)} 1px,transparent 1px),linear-gradient(90deg,${alpha(PALETTE.mark, 0.01)} 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:42}
   @keyframes gameHighlight { 0%{box-shadow:0 0 20px ${alpha(PALETTE.hot, 0.6)},inset 0 0 10px ${alpha(PALETTE.hot, 0.15)}} 100%{box-shadow:none} }
   .game-highlight{animation:gameHighlight 2s ease-out forwards}
   .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
@@ -50,7 +51,7 @@ export const crtStyles = `
   .crt-screen ::-webkit-scrollbar-track{background:${alpha(PALETTE.black, 0.3)}}
   .crt-screen ::-webkit-scrollbar-thumb{background:${alpha(PALETTE.mark, 0.2)};border-radius:2px}
   /* A cabinet scrolled off the floor stops running its tube effects. */
-  .arcade-offscreen .crt-screen,.arcade-offscreen .scanline-bar,.arcade-offscreen .marquee-track,
+  .arcade-offscreen .marquee-track,
   .arcade-offscreen .coin-slot,.arcade-offscreen .btn-action{animation-play-state:paused!important}
   @keyframes synthEnter { 0%{transform:translateX(-6px);opacity:0;filter:hue-rotate(30deg) brightness(2)} 40%{transform:translateX(2px);opacity:0.8;filter:hue-rotate(-10deg) brightness(1.3)} 100%{transform:none;opacity:1;filter:none} }
   @keyframes coherenceEnter { 0%{opacity:0;letter-spacing:0.4em;filter:blur(3px)} 60%{opacity:0.9;letter-spacing:0.05em;filter:blur(0.5px)} 100%{opacity:1;letter-spacing:inherit;filter:none} }
@@ -66,17 +67,16 @@ export const crtStyles = `
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:14px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease forwards;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
   .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:9px;letter-spacing:0.12em;white-space:nowrap;color:var(--cab-text)}
   @media (prefers-reduced-motion: reduce) {
-    .crt-screen, .scanline-bar, .blink-cursor, .hidden-row, .coin-slot, .btn-action,
+    .blink-cursor, .hidden-row, .coin-slot, .btn-action,
     .glitch-enter, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,
     .marquee-track, .attract-start { animation: none !important; }
   }
-  /* Mobile: drop the continuous filter / box-shadow / blend effects that jank
-     low-power GPUs. These repaint every frame; the static look is nearly identical. */
+  /* Mobile: drop the continuous animations that jank low-power GPUs. */
   .desktop-only-flex { display: flex; }
   .mobile-only-block { display: none; }
   @media (max-width: 600px) {
-    .crt-screen, .btn-action, .coin-slot { animation: none !important; }
-    .crt-noise, .cabinet-body::after { display: none !important; }
+    .btn-action, .coin-slot { animation: none !important; }
+    .cabinet-body::after { display: none !important; }
     .desktop-only-flex { display: none !important; }
     .mobile-only-block { display: block !important; }
   }

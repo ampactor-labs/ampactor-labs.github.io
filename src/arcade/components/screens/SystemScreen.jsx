@@ -270,7 +270,7 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
         if (l.kind === "title")
           return (
             <div key={i} style={{ marginBottom: 10 }}>
-              <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(14), color: PALETTE.mark, letterSpacing: "0.08em", textShadow: `0 0 12px ${alpha(PALETTE.mark, 0.4)}` }}>
+              <div className="signage" style={{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(14), color: PALETTE.mark, letterSpacing: "0.08em" }}>
                 {l.head}
               </div>
               <div style={{ marginTop: 8, fontSize: fs(10), color: "var(--cab-voice)", letterSpacing: "0.22em" }}>{l.sub}</div>
@@ -278,7 +278,7 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
           );
         if (l.kind === "end")
           return (
-            <div key={i} style={{ marginTop: 30, fontFamily: "'Press Start 2P', monospace", fontSize: fs(12), color, letterSpacing: "0.12em", textShadow: `0 0 14px ${color}66` }}>
+            <div key={i} className="signage" style={{ marginTop: 30, fontFamily: "'Press Start 2P', monospace", fontSize: fs(12), color, letterSpacing: "0.12em" }}>
               {l.head}
             </div>
           );
@@ -348,15 +348,15 @@ export default function SystemScreen({
         >
           {"◄"}
         </div>
-        <div style={{ fontSize: fs(20), color, textShadow: `0 0 12px ${color}44` }}>{p.icon}</div>
+        <div style={{ fontSize: fs(20), color }}>{p.icon}</div>
         <div style={{ flex: 1, minWidth: 140 }}>
           <h2
+            className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
               fontSize: fs(12),
               fontWeight: 400,
               color,
-              textShadow: `0 0 10px ${color}44`,
               letterSpacing: "0.05em",
               margin: 0,
             }}
