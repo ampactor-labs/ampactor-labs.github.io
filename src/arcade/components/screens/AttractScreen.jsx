@@ -33,7 +33,7 @@ export function nextFrame(frame) {
   return (frame + 1) % FRAMES.length;
 }
 
-const label = (fs, color = alpha(PALETTE.mark, 0.45)) => ({
+const label = (fs, color = "var(--cab-muted)") => ({
   fontFamily: "'Press Start 2P', monospace",
   fontSize: fs(8),
   color,
@@ -58,25 +58,28 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
         textAlign: "center",
       }}
     >
-      <h1
-        className="signage"
-        style={{
-          margin: 0,
-          fontFamily: "'Press Start 2P', monospace",
-          fontWeight: 400,
-          fontSize: nameSize,
-          lineHeight: 1.5,
-          color: PALETTE.mark,
-          letterSpacing: "0.06em",
-        }}
-      >
-        {CONTACT.name}
-      </h1>
+      {/* The name on the band, flat: the band is its light. */}
+      <div className="title-band">
+        <h1
+          style={{
+            margin: 0,
+            fontFamily: "'Press Start 2P', monospace",
+            fontWeight: 400,
+            fontSize: nameSize,
+            lineHeight: 1.5,
+            color: "var(--cab-text)",
+            letterSpacing: "0.06em",
+            textShadow: "none",
+          }}
+        >
+          {CONTACT.name}
+        </h1>
+      </div>
       <div
         style={{
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(15),
-          color: "var(--cab-voice)",
+          color: "var(--cab-ember)",
           letterSpacing: "0.24em",
         }}
       >
@@ -87,7 +90,9 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
       <div
         style={{
           marginTop: 10,
-          fontSize: fs(11),
+          fontFamily: "var(--font-sans)",
+          fontSize: fs(13),
+          fontWeight: 500,
           color: "var(--cab-text)",
           letterSpacing: "0.12em",
           lineHeight: 1.9,
@@ -116,28 +121,51 @@ function NowShowing({ cartridge, fs }) {
       }}
     >
       <div style={label(fs)}>NOW SHOWING</div>
+      {/* The cartridge as a card in its own light, its icon in a tile. */}
       <div
         style={{
-          fontSize: fs(44),
-          lineHeight: 1,
-          color: cartridge.color,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 12,
+          padding: "22px 28px",
+          borderRadius: 12,
+          border: `1px solid ${alpha(cartridge.color, 0.45)}`,
+          background: `linear-gradient(180deg, ${alpha(cartridge.color, 0.1)}, ${alpha(cartridge.color, 0.03)})`,
+          boxShadow: `0 0 28px ${alpha(cartridge.color, 0.16)}`,
         }}
       >
-        {cartridge.icon}
-      </div>
-      <div
-        className="signage"
-        style={{
-          fontFamily: "'Share Tech Mono', monospace",
-          fontSize: fs(28),
-          color: cartridge.color,
-          letterSpacing: "0.06em",
-        }}
-      >
-        {cartridge.title}
-      </div>
-      <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "0.12em" }}>
-        {cartridge.tagline || cartridge.subtitle}
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: fs(34),
+            lineHeight: 1,
+            color: cartridge.color,
+            borderRadius: 10,
+            background: alpha(cartridge.color, 0.14),
+            border: `1px solid ${alpha(cartridge.color, 0.5)}`,
+          }}
+        >
+          {cartridge.icon}
+        </div>
+        <div
+          className="signage"
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: fs(28),
+            color: cartridge.color,
+            letterSpacing: "0.06em",
+          }}
+        >
+          {cartridge.title}
+        </div>
+        <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "0.12em" }}>
+          {cartridge.tagline || cartridge.subtitle}
+        </div>
       </div>
     </div>
   );
@@ -200,6 +228,7 @@ function HighScores({ fs }) {
       <div className="signage" style={label(fs, "var(--cab-voice)")}>
         HIGH SCORES
       </div>
+      <div className="sunset" aria-hidden="true" style={{ width: "min(280px, 80%)" }} />
       <div style={{ fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em" }}>
         {int(summary.totals.commits)} COMMITS · {summary.totals.repos} REPOSITORIES
       </div>
@@ -214,12 +243,18 @@ function HighScores({ fs }) {
       >
         <tbody>
           {rows.map((r, i) => (
-            <tr key={r.repo} style={{ color: i === 0 ? "var(--cab-voice)" : "var(--cab-text)" }}>
-              <td style={{ padding: "3px 10px 3px 0", color: "var(--cab-muted)" }}>
+            <tr
+              key={r.repo}
+              style={{
+                color: i === 0 ? "var(--cab-voice)" : "var(--cab-text)",
+                background: i % 2 === 0 ? alpha(PALETTE.lit, 0.12) : "transparent",
+              }}
+            >
+              <td style={{ padding: "4px 10px 4px 8px", color: "var(--cab-muted)" }}>
                 {String(i + 1).padStart(2, "0")}
               </td>
-              <td style={{ padding: "3px 18px 3px 0", textTransform: "uppercase" }}>{r.repo}</td>
-              <td style={{ padding: "3px 0", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+              <td style={{ padding: "4px 18px 4px 0", textTransform: "uppercase" }}>{r.repo}</td>
+              <td style={{ padding: "4px 8px 4px 0", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
                 {int(r.commits)}
               </td>
             </tr>

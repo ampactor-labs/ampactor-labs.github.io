@@ -95,6 +95,38 @@ export const crtStyles = `
     .chip{padding:13px 12px!important}
   }
   .hidden-row{animation:hiddenPulse 3s ease-in-out infinite}
+  /* The sunset bar, and the sign that hangs a label on it (Sign.jsx). */
+  .sunset{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--cab-mark),var(--cab-quiet) 50%,var(--cab-voice))}
+  .sign{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .sign .sunset{flex:1;min-width:24px}
+  /* The title band: the name on the reference's band, lit cells with dark
+     gaps brightening in four steps to the right. The name is mist, which
+     clears 6.4:1 on the brightest cell; nothing smaller sits on the band. */
+  .title-band{position:relative;align-self:stretch;margin:0 -36px;padding:20px 36px;display:flex;justify-content:center;background:linear-gradient(90deg,var(--cab-band) 0,var(--cab-band) 25%,var(--cab-bandBright) 100%)}
+  .title-band::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(90deg,transparent 0 25%,${alpha(PALETTE.muted, 0.05)} 25% 50%,${alpha(PALETTE.muted, 0.09)} 50% 75%,${alpha(PALETTE.muted, 0.14)} 75% 100%),linear-gradient(${alpha(PALETTE.void, 0.55)} 1px,transparent 1px),linear-gradient(90deg,${alpha(PALETTE.void, 0.55)} 1px,transparent 1px);background-size:100% 100%,8px 8px,8px 8px}
+  .title-band>*{position:relative}
+  /* A readout's header wraps before it clips, and under 420 px its links
+     become two tiles the width of the tube. */
+  @media (max-width: 420px) {
+    .readout-rail{flex-basis:100%;margin-left:0!important}
+    .readout-rail>a{flex:1;justify-content:center;text-align:center}
+  }
+  /* The select screen on a phone: the links and the contact as one set of
+     40 px chips (the links first, all of it in view), and a 3 px band in the
+     lit row's colour instead of the marquee (the taglines are on the
+     readouts and in NOW SHOWING). */
+  .phone-rail{gap:6px;flex-wrap:wrap;margin-top:10px}
+  .phone-rail a{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:6px;white-space:nowrap;text-decoration:none}
+  @media (max-width: 600px) {
+    .desk-only{display:none!important}
+    .phone-rail{display:flex!important}
+    .marquee-wrap{display:none!important}
+    .marquee-band{display:block!important}
+  }
+  /* The BIOS as a lit checklist: name, verb and a mint OK cell. */
+  .bios{display:grid;grid-template-columns:auto auto auto;column-gap:1.5ch;align-items:center;justify-content:start}
+  .bios>.wide{grid-column:1/-1}
+  .ok-cell{justify-self:start;padding:0 6px;border-radius:3px;line-height:1.6;color:var(--cab-ok);background:${alpha(PALETTE.ok, 0.14)};border:1px solid ${alpha(PALETTE.ok, 0.5)}}
   @keyframes gameHighlight { 0%{box-shadow:0 0 20px ${alpha(PALETTE.hot, 0.6)},inset 0 0 10px ${alpha(PALETTE.hot, 0.15)}} 100%{box-shadow:none} }
   .game-highlight{animation:gameHighlight 2s ease-out forwards}
   .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}

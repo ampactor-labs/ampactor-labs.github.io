@@ -156,62 +156,67 @@ exports[`BootScreen > matches snapshot in phase 1 1`] = `
     style="position: absolute; top: 12px; right: 16px; font-size: 10px; color: var(--cab-voice); cursor: pointer; letter-spacing: 0.1em; z-index: 60; opacity: 0.7;"
   />
   <div
-    style="font-size: 14px; line-height: 2; max-width: 100%; text-align: left; white-space: nowrap; width: 34ch;"
+    class="bios"
+    style="font-size: 14px; line-height: 2; max-width: 100%; white-space: nowrap;"
   >
     <div
+      class="wide"
       style="color: rgb(0, 229, 255);"
     >
       AMPACTOR BIOS v4.2.0
     </div>
     <div
+      class="wide"
       style="color: var(--cab-ok);"
     >
       Loading DSP subsystem.......... OK
     </div>
     <div
+      class="wide"
       style="color: var(--cab-ok);"
     >
       Mounting effect algebra........ OK
     </div>
     <div
+      class="wide"
       style="color: var(--cab-ok);"
     >
       Calibrating resonance field.... OK
-      <span
-        class="blink-cursor"
-        style="color: rgb(0, 229, 255);"
-      >
-         
-        █
-      </span>
     </div>
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-ok);"
     >
       Linking x402 payment layer..... OK
     </div>
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-ok);"
     >
       Scanning 9 security verticals.. OK
     </div>
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-ok);"
     >
       Phase coupling established..... OK
     </div>
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-muted);"
     />
     <div
+      class="wide"
       style="visibility: hidden; color: rgb(0, 229, 255);"
     >
       ALL SYSTEMS NOMINAL
     </div>
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-muted);"
     />
     <div
+      class="wide"
       style="visibility: hidden; color: var(--cab-voice); font-family: "Press Start 2P", monospace; font-size: 12px; margin-top: 8px;"
     >
       PRESS ANY KEY

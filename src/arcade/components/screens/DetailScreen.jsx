@@ -1,29 +1,10 @@
 import { lazy, Suspense, useRef } from "react";
 import { detailLinksOf } from "../../hooks/useCabinetState";
 import { PALETTE, alpha } from "../../palette";
+import Sign from "../Sign";
 
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
-
-function SectionLabel({ text, color, fs }) {
-  return (
-    <div
-      style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}
-    >
-      <span
-        style={{
-          fontFamily: "'Press Start 2P'",
-          fontSize: fs(7),
-          color: `${color}55`,
-          letterSpacing: "0.2em",
-        }}
-      >
-        {text}
-      </span>
-      <div style={{ flex: 1, height: 1, background: `${color}15` }} />
-    </div>
-  );
-}
 
 export default function DetailScreen({
   project: p,
@@ -64,6 +45,7 @@ export default function DetailScreen({
           display: "flex",
           alignItems: "center",
           gap: 10,
+          flexWrap: "wrap",
           marginBottom: 14,
           paddingBottom: 12,
           borderBottom: `1px solid ${p.color}22`,
@@ -127,6 +109,7 @@ export default function DetailScreen({
         </div>
         {rail.length > 0 && (
           <div
+            className="readout-rail"
             style={{
               display: "flex",
               alignItems: "center",
@@ -244,7 +227,7 @@ export default function DetailScreen({
             border: `1px solid ${p.color}0a`,
           }}
         >
-          <SectionLabel color={p.color} text="SYS/READOUT" fs={fs} />
+          <Sign text="SYS/READOUT" fs={fs} />
           <div
             style={{
               fontSize: fs(11),
@@ -269,7 +252,7 @@ export default function DetailScreen({
           >
             {p.highlights && (
               <div style={{ flex: 1 }}>
-                <SectionLabel color={p.color} text="SPECIFICATIONS" fs={fs} />
+                <Sign text="SPECIFICATIONS" fs={fs} />
                 {p.highlights.map((h, i) => (
                   <div
                     key={i}
@@ -288,7 +271,7 @@ export default function DetailScreen({
             )}
             {p.stack && (
               <div style={{ minWidth: 90 }}>
-                <SectionLabel color={p.color} text="STACK" fs={fs} />
+                <Sign text="STACK" fs={fs} />
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                   {p.stack.map((s) => (
                     <span
@@ -323,7 +306,7 @@ export default function DetailScreen({
               borderLeft: `3px solid ${p.color}40`,
             }}
           >
-            <SectionLabel color={p.color} text="OPERATOR NOTES" fs={fs} />
+            <Sign text="OPERATOR NOTES" fs={fs} />
             <div
               style={{
                 fontSize: fs(10),

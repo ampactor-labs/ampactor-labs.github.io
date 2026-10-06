@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
+import Sign from "../Sign";
 import { PALETTE, alpha } from "../../palette";
 
 export default function SelectScreen({
@@ -57,6 +58,25 @@ export default function SelectScreen({
     letterSpacing: "0.06em",
     whiteSpace: "nowrap",
   };
+  const railChip = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: fs(8),
+    letterSpacing: "0.06em",
+    color: PALETTE.mark,
+    border: `1px solid ${alpha(PALETTE.mark, 0.35)}`,
+    background: alpha(PALETTE.mark, 0.06),
+  };
+  const contactChip = {
+    ...railChip,
+    fontFamily: "var(--font-body)",
+    fontSize: fs(10),
+    letterSpacing: "0.02em",
+    padding: "0 10px",
+    color: "var(--cab-muted)",
+    border: `1px solid ${alpha(PALETTE.muted, 0.3)}`,
+    background: alpha(PALETTE.muted, 0.05),
+  };
+  const lit = projects[selectedIdx]?.color ?? PALETTE.mark;
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -99,6 +119,7 @@ export default function SelectScreen({
             {CONTACT.name} · {CONTACT.role}
           </h1>
           <div
+            className="desk-only"
             style={{
               display: "flex",
               flexWrap: "wrap",
@@ -122,6 +143,7 @@ export default function SelectScreen({
         </div>
         <nav
           aria-label="Operator"
+          className="desk-only"
           style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}
         >
           {/* Press Start 2P draws É as a small é, so the sign reads RESUME, and
@@ -134,6 +156,25 @@ export default function SelectScreen({
           </a>
           <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="pill" style={pill}>
             LINKEDIN
+          </a>
+        </nav>
+        {/* On a phone the links and the contact are one set of chips under
+            the name (crtStyles.js shows it under 600 px; hidden otherwise). */}
+        <nav aria-label="Operator" className="phone-rail" style={{ display: "none", flexBasis: "100%" }}>
+          <a href="/resume.html" style={railChip}>
+            RESUME
+          </a>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" style={railChip}>
+            GITHUB
+          </a>
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" style={railChip}>
+            LINKEDIN
+          </a>
+          <a href={MAILTO} style={contactChip}>
+            {CONTACT.email}
+          </a>
+          <a href={`tel:${CONTACT.phoneTel}`} style={contactChip}>
+            {CONTACT.phoneDisplay}
           </a>
         </nav>
       </div>
@@ -173,34 +214,11 @@ export default function SelectScreen({
           return (
             <div key={p.id}>
               {showHeader && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "8px 4px 4px",
-                    marginTop: i === 0 ? 0 : 6,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Press Start 2P', monospace",
-                      fontSize: fs(7),
-                      color: alpha(PALETTE.mark, 0.3),
-                      letterSpacing: "0.3em",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {CATEGORY_LABELS[p.category] ?? p.category.toUpperCase()}
-                  </span>
-                  <div
-                    style={{
-                      flex: 1,
-                      height: 1,
-                      background: alpha(PALETTE.mark, 0.08),
-                    }}
-                  />
-                </div>
+                <Sign
+                  text={CATEGORY_LABELS[p.category] ?? p.category.toUpperCase()}
+                  fs={fs}
+                  style={{ padding: "8px 4px 2px", marginTop: i === 0 ? 0 : 6 }}
+                />
               )}
               <div
                 key={`row-${p.id}`}
@@ -219,7 +237,8 @@ export default function SelectScreen({
                   display: "flex",
                   alignItems: "center",
                   gap: 12,
-                  padding: isGame ? "14px 12px" : "10px 12px",
+                  minHeight: 56,
+                  padding: "8px 12px",
                   borderRadius: 6,
                   background: active
                     ? isH
@@ -237,7 +256,8 @@ export default function SelectScreen({
                 <div
                   style={{
                     width: 3,
-                    height: "70%",
+                    top: 0,
+                    bottom: 0,
                     background: active ? p.color : "transparent",
                     borderRadius: 2,
                     position: "absolute",
@@ -248,12 +268,12 @@ export default function SelectScreen({
                 />
                 <div
                   style={{
-                    width: isGame ? 40 : 32,
-                    height: isGame ? 40 : 32,
+                    width: 40,
+                    height: 40,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: isGame ? fs(20) : fs(16),
+                    fontSize: isGame ? fs(20) : fs(18),
                     color: p.color,
                     background: `${p.color}${isGame ? "1a" : "11"}`,
                     borderRadius: 5,
@@ -377,6 +397,12 @@ export default function SelectScreen({
           ))}
       </div>
       <div
+        aria-hidden="true"
+        className="marquee-band"
+        style={{ display: "none", height: 3, marginTop: 10, borderRadius: 2, background: lit, boxShadow: `0 0 10px ${alpha(lit, 0.6)}` }}
+      />
+      <div
+        className="marquee-wrap"
         style={{
           marginTop: 10,
           paddingTop: 8,

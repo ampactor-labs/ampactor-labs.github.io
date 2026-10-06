@@ -5,7 +5,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
   style="height: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;"
 >
   <div
-    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
+    style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
   >
     <div
       aria-label="Back to project list"
@@ -37,6 +37,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       </div>
     </div>
     <div
+      class="readout-rail"
       style="display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0;"
     >
       <a
@@ -71,15 +72,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.02); border: 1px solid rgba(224, 255, 0, 0.04);"
     >
       <div
-        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        class="sign"
       >
         <span
-          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
         >
           SYS/READOUT
         </span>
         <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          aria-hidden="true"
+          class="sunset"
         />
       </div>
       <div
@@ -100,15 +102,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="flex: 1 1 0%;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+          class="sign"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
           >
             SPECIFICATIONS
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+            aria-hidden="true"
+            class="sunset"
           />
         </div>
         <div
@@ -176,15 +179,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="min-width: 90px;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+          class="sign"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
           >
             STACK
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+            aria-hidden="true"
+            class="sunset"
           />
         </div>
         <div
@@ -217,15 +221,16 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: rgba(224, 255, 0, 0.024); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
     >
       <div
-        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        class="sign"
       >
         <span
-          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(224, 255, 0, 0.333); letter-spacing: 0.2em;"
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
         >
           OPERATOR NOTES
         </span>
         <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(224, 255, 0, 0.082);"
+          aria-hidden="true"
+          class="sunset"
         />
       </div>
       <div
@@ -300,7 +305,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
   style="height: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;"
 >
   <div
-    style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 184, 0, 0.133);"
+    style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 184, 0, 0.133);"
   >
     <div
       aria-label="Back to project list"
@@ -347,15 +352,16 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: rgba(255, 184, 0, 0.02); border: 1px solid rgba(255, 184, 0, 0.04);"
     >
       <div
-        style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+        class="sign"
       >
         <span
-          style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+          style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
         >
           SYS/READOUT
         </span>
         <div
-          style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+          aria-hidden="true"
+          class="sunset"
         />
       </div>
       <div
@@ -376,15 +382,16 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         style="flex: 1 1 0%;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+          class="sign"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
           >
             SPECIFICATIONS
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+            aria-hidden="true"
+            class="sunset"
           />
         </div>
         <div
@@ -452,15 +459,16 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         style="min-width: 90px;"
       >
         <div
-          style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;"
+          class="sign"
         >
           <span
-            style="font-family: "Press Start 2P"; font-size: 7px; color: rgba(255, 184, 0, 0.333); letter-spacing: 0.2em;"
+            style="font-family: "Press Start 2P", monospace; font-size: 7px; color: var(--cab-muted); letter-spacing: 0.2em; white-space: nowrap;"
           >
             STACK
           </span>
           <div
-            style="flex: 1 1 0%; height: 1px; background: rgba(255, 184, 0, 0.082);"
+            aria-hidden="true"
+            class="sunset"
           />
         </div>
         <div
