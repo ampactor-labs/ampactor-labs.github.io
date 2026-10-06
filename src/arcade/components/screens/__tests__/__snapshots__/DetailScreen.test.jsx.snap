@@ -2,7 +2,7 @@
 
 exports[`DetailScreen > matches snapshot for regular project 1`] = `
 <div
-  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+  style="height: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;"
 >
   <div
     style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
@@ -296,7 +296,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
 
 exports[`DetailScreen > matches snapshot for synth project 1`] = `
 <div
-  style="height: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(10px); transition: all 0.3s ease;"
+  style="height: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;"
 >
   <div
     style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 184, 0, 0.133);"

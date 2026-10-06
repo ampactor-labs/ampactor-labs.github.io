@@ -82,7 +82,6 @@ export default function BootScreen({
                             : line.includes("OK")
                               ? "var(--cab-ok)"
                               : "var(--cab-muted)",
-              animation: i === currentLine ? "slideUp 0.2s ease" : undefined,
               fontFamily:
                 i === lines.length - 1
                   ? "'Press Start 2P', monospace"

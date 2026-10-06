@@ -224,7 +224,7 @@ export default function Cabinet({
           </div>
         </div>
         <div
-          className="coin-slot"
+          className={`coin-slot${coinCount > 0 ? " lit" : ""}`}
           role="button"
           aria-label="Insert coin"
           tabIndex={0}
@@ -249,7 +249,6 @@ export default function Cabinet({
             alignItems: "center",
             justifyContent: "center",
             position: "relative",
-            overflow: "hidden",
             boxShadow:
               coinCount > 0
                 ? `inset 0 2px 6px ${alpha(PALETTE.coin, 0.2)}, 0 0 10px ${alpha(PALETTE.coin, 0.15)}`
@@ -263,6 +262,7 @@ export default function Cabinet({
           }}
         >
           <div
+            className="slit"
             style={{
               width: 38,
               height: 4,
@@ -295,7 +295,7 @@ export default function Cabinet({
                 letterSpacing: "0.12em",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
-                animation: coinCount > 0 ? "none" : "blink 1.2s step-end infinite",
+                animation: coinCount > 0 ? "none" : "breathe 2.4s ease-in-out infinite",
               }}
             >
               INSERT COIN

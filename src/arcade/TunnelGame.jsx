@@ -28,6 +28,8 @@ import {
   nextBossScore,
   bossLabel,
   bossVolley,
+  BLINK_MS,
+  DEATH_BLINK_ALPHA,
 } from "./tunnelBoss";
 import { FRINGE, GAME, PALETTE, alpha } from "./palette";
 
@@ -759,7 +761,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       // Draw player ship
       const invincible = gs.elapsed < gs.player.invincibleUntil;
       const shipAlpha = invincible
-        ? Math.floor(gs.elapsed / 80) % 2 === 0
+        ? Math.floor(gs.elapsed / BLINK_MS) % 2 === 0
           ? 0.3
           : 0.9
         : 1;
@@ -797,7 +799,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         const b = gs.boss;
         const enraged = bossEnraged(b);
         const barColor =
-          enraged && Math.floor(gs.elapsed / 150) % 2 === 0
+          enraged && Math.floor(gs.elapsed / BLINK_MS) % 2 === 0
             ? GAME.enraged
             : PALETTE.hot;
         const barW = mobile ? 150 : 240;
@@ -1611,7 +1613,8 @@ function drawBoss(ctx, b, cx, cy, shipY, w, elapsed, mobile) {
   if (b.phase === "enter") alpha = Math.min(1, b.timer / ENTER_MS);
   if (b.phase === "dying") {
     const fade = 1 - b.timer / DYING_MS;
-    alpha = (Math.floor(elapsed / 60) % 2 === 0 ? 0.25 : 0.9) * fade;
+    alpha =
+      DEATH_BLINK_ALPHA[Math.floor(elapsed / BLINK_MS) % 2 === 0 ? 0 : 1] * fade;
   }
 
   const agitated =

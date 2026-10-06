@@ -46,7 +46,7 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
   // each time the card comes up, like the other frames.
   return (
     <div
-      className={hidden ? "visually-hidden" : "glitch-enter"}
+      className={hidden ? "visually-hidden" : "dash-in"}
       style={{
         height: "100%",
         display: "flex",
@@ -103,7 +103,7 @@ function NowShowing({ cartridge, fs }) {
   return (
     <div
       key={cartridge.id}
-      className="glitch-enter"
+      className="dash-in"
       style={{
         height: "100%",
         display: "flex",
@@ -148,7 +148,7 @@ function NowShowing({ cartridge, fs }) {
 function Winners({ fs }) {
   return (
     <div
-      className="glitch-enter"
+      className="dash-in"
       style={{
         height: "100%",
         display: "flex",
@@ -186,7 +186,7 @@ function HighScores({ fs }) {
   const rows = topScores(5);
   return (
     <div
-      className="glitch-enter"
+      className="dash-in"
       style={{
         height: "100%",
         display: "flex",
@@ -345,7 +345,7 @@ export default function AttractScreen({
             fontSize: fs(14),
             color: "var(--cab-voice)",
             letterSpacing: "0.14em",
-            animation: reducedMotion ? undefined : "startBlink 1.1s step-end infinite",
+            animation: reducedMotion ? undefined : "breathe 2.4s ease-in-out infinite",
             background: "transparent",
             border: 0,
             padding: "10px 18px",

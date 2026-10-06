@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { flushSync } from "react-dom";
 import useAmbientHum from "../useAmbientHum";
 import useIntroSequence from "../useIntroSequence";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
@@ -67,13 +68,27 @@ export default function useCabinetState({
     if (hasVisited.current || deepLinked) return atHome ? "attract" : "select";
     return "boot";
   });
+  // A screen change as a cut and a dash (crtStyles.js): the tube's old frame
+  // cuts out and the new one dashes in through the view-transition API, where
+  // the browser has it and motion is welcome; a plain state change otherwise.
+  // `update` holds every state change of the move, so the old frame is
+  // captured whole and the new one lands whole.
+  const changeScreen = (update) => {
+    const still =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (still || typeof document.startViewTransition !== "function") {
+      update();
+      return;
+    }
+    document.startViewTransition(() => flushSync(update));
+  };
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [detailProject, setDetailProject] = useState(null);
   const [bootLine, setBootLine] = useState(0);
   const [coinCount, setCoinCount] = useState(0);
   const [announcing, setAnnouncing] = useState(null);
-  const [glitching, setGlitching] = useState(false);
   const [dims, setDims] = useState({ w: 360, h: 500 });
   const [gameHighlight, setGameHighlight] = useState(false);
   const [linkIdx, setLinkIdx] = useState(0);
@@ -140,8 +155,10 @@ export default function useCabinetState({
     if (screen === "boot") return;
     if (route.view === "home") {
       if (screen !== "attract") {
-        setDetailProject(null);
-        setScreen("attract");
+        changeScreen(() => {
+          setDetailProject(null);
+          setScreen("attract");
+        });
         if (screen !== "select") playBack();
       }
       return;
@@ -161,13 +178,17 @@ export default function useCabinetState({
       const project = allProjects[idx];
       const target = screenFor(project);
       if (detailProject?.id === project.id && screen === target) return;
-      setSelectedIdx(idx);
-      setDetailProject(project);
-      setScreen(target);
+      changeScreen(() => {
+        setSelectedIdx(idx);
+        setDetailProject(project);
+        setScreen(target);
+      });
     } else if (screen !== "select") {
       const wasOpen = screen === "detail" || screen === "game" || screen === "system";
-      setDetailProject(null);
-      setScreen("select");
+      changeScreen(() => {
+        setDetailProject(null);
+        setScreen("select");
+      });
       if (wasOpen) playBack();
     }
     // playBack and onNavigate are stable enough; screen and detailProject are
@@ -456,9 +477,7 @@ export default function useCabinetState({
   const insertCoin = () => {
     if (!introComplete || screen === "boot" || coinCount >= 1) return;
     setCoinCount(3);
-    setGlitching(true);
     setAnnouncing(3);
-    const t1 = setTimeout(() => setGlitching(false), 600);
     const t2 = setTimeout(() => setAnnouncing(null), 2800);
     playInsertSting(3);
     const t3 = setTimeout(() => {
@@ -469,7 +488,7 @@ export default function useCabinetState({
       const t4 = setTimeout(() => setGameHighlight(false), 2000);
       coinTimerRefs.current.push(t4);
     }, 3000);
-    coinTimerRefs.current.push(t1, t2, t3);
+    coinTimerRefs.current.push(t2, t3);
     if (screen === "attract") onNavigate({ type: "enter" });
   };
 
@@ -543,7 +562,6 @@ export default function useCabinetState({
     detailProject,
     coinCount,
     announcing,
-    glitching,
     dims,
     gameHighlight,
     allProjects,

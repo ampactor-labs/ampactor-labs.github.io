@@ -18,7 +18,7 @@ export default function TestPattern({
         alignItems: "center",
         justifyContent: "center",
         gap: 16,
-        animation: animate ? "testPattern 0.5s ease-out forwards" : undefined,
+        animation: animate ? "testPattern 0.5s steps(1, end) forwards" : undefined,
       }}
       onClick={onSkip}
     >
