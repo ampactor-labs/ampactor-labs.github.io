@@ -9,6 +9,12 @@
 // Serves dist/ with Vite's preview server, prints a table, and writes
 // src/data/audit.json, which /craft/ reads (with the date it was taken).
 //
+// Then it gates (docs/AUDIT-NEON.md, step 10): it exits non-zero, after
+// writing what it measured, when a measured page scores under 95 for
+// performance, paints its largest element after 2,500 ms, blocks for more
+// than 150 ms or shifts at all, when the home page ships more than 135 KB
+// of gzipped JavaScript, or when the fonts weigh more than 130 KB on disk.
+//
 //   npm run build && npm run audit
 //   node scripts/audit.mjs / /receipts/      (just these pages)
 //   node scripts/audit.mjs --no-write        (print only)
@@ -33,6 +39,14 @@ import { chromium } from "@playwright/test";
 import { preview } from "vite";
 
 const LIGHTHOUSE = "lighthouse@12";
+const GATE = {
+  performance: 95, // at least, on every page measured
+  lcpMs: 2500, // at most
+  tbtMs: 150, // at most
+  cls: 0, // exactly
+  homeJsGzipKb: 135, // at most: what / ships before it can run
+  fontsKb: 130, // at most: the self-hosted faces, on disk
+};
 const PORT = 4180;
 const args = process.argv.slice(2);
 const write = !args.includes("--no-write");
@@ -83,6 +97,25 @@ function assets() {
         )
       : null,
   };
+}
+
+// Every threshold the run breaks, in words; none is a pass.
+function gate(measured, home, weights) {
+  const broken = [];
+  for (const [path, r] of Object.entries(measured)) {
+    if (r.performance < GATE.performance)
+      broken.push(`${path} performance ${r.performance}, under ${GATE.performance}`);
+    if (r.lcpMs > GATE.lcpMs)
+      broken.push(`${path} LCP ${r.lcpMs} ms, over ${GATE.lcpMs} ms`);
+    if (r.tbtMs > GATE.tbtMs)
+      broken.push(`${path} TBT ${r.tbtMs} ms, over ${GATE.tbtMs} ms`);
+    if (r.cls !== GATE.cls) broken.push(`${path} CLS ${r.cls}, not ${GATE.cls}`);
+  }
+  if (home && home.jsGzipKb > GATE.homeJsGzipKb)
+    broken.push(`/ ships ${home.jsGzipKb} KB of JS gzipped, over ${GATE.homeJsGzipKb} KB`);
+  if (weights.fontsKb != null && weights.fontsKb > GATE.fontsKb)
+    broken.push(`the fonts weigh ${weights.fontsKb} KB, over ${GATE.fontsKb} KB`);
+  return broken;
 }
 
 function countTests() {
@@ -211,6 +244,8 @@ console.log(
 );
 rmSync(work, { recursive: true, force: true });
 
+const weights = assets();
+
 if (write && Object.keys(results).length) {
   const file = "src/data/audit.json";
   // A run over some of the pages replaces those and keeps the others.
@@ -224,8 +259,19 @@ if (write && Object.keys(results).length) {
     runs: RUNS,
     pages: pages.length ? { ...previous, ...results } : results,
     tests,
-    assets: assets(),
+    assets: weights,
   };
   writeFileSync(file, JSON.stringify(audit, null, 2) + "\n");
   console.log(`wrote ${file}`);
+}
+
+// The home page's JavaScript and the fonts are gated on every run, whichever
+// pages Lighthouse measured.
+const broken = gate(results, shipped("/"), weights);
+if (broken.length) {
+  console.log(`gate        FAILED`);
+  for (const line of broken) console.log(`  ${line}`);
+  process.exitCode = 1;
+} else {
+  console.log(`gate        passed`);
 }
