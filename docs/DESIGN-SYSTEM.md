@@ -448,8 +448,10 @@ power-on plays.
   indicator.
 - The list is a `listbox` that takes focus when it comes up and names its active row;
   readouts scroll in focusable regions; every panel control is a named `button`, and
-  SOUND a `switch`. A real button answers its own Enter and Space; the cabinet's keys
-  never answer them a second time.
+  SOUND a `switch`. A button answers its own Enter and Space, a panel key tabbed to
+  included, and the cabinet's keys never answer them a second time. A panel key pressed
+  with a mouse or a finger hands focus back to the list or the readout, so Enter
+  afterwards still means A.
 - Escape and B step back; browser Back steps back; the title card's `PRESS START` is a
   real button and the email a real link.
 - Decorative SVG and glyphs are `aria-hidden`; the HIGH SCORES bars carry their

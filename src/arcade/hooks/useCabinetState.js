@@ -394,13 +394,13 @@ export default function useCabinetState({
       insertCoin();
       return;
     }
-    // A real button (PRESS START, the SOUND switch, a cartridge's own
-    // controls) answers its own Enter and Space; the cabinet must not answer
-    // them a second time.
+    // A button (PRESS START, the deck's keys, the SOUND switch, a
+    // cartridge's own controls) answers its own Enter and Space; the cabinet
+    // must not answer them a second time.
     if (
       (e.key === "Enter" || e.key === " ") &&
       e.target instanceof Element &&
-      e.target.closest("button")
+      e.target.closest('button, [role="button"]')
     )
       return;
     if (screen === "game" || screen === "boot") return;

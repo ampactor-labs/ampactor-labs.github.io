@@ -1,5 +1,34 @@
 import { FRINGE, PALETTE, alpha } from "../palette";
 import { pixel } from "../type";
+
+// The deck's keys are pressed two ways. Tabbed to, Enter or Space presses
+// the key and only that key: the cabinet's own keys stand back for it
+// (useCabinetState). Pressed with a mouse or a finger, a key hands focus
+// back to wherever it was, the list or a readout, so Enter afterwards still
+// means A.
+let focusBefore = null;
+const rememberFocus = () => {
+  focusBefore = document.activeElement;
+};
+function handFocusBack(e) {
+  const before = focusBefore;
+  focusBefore = null;
+  // A real button pressed from the keyboard clicks with no detail.
+  if (e.detail === 0) return;
+  if (
+    before instanceof HTMLElement &&
+    before !== e.currentTarget &&
+    before !== document.body &&
+    before.isConnected
+  )
+    before.focus({ preventScroll: true });
+  else e.currentTarget.blur();
+}
+const pressWith = (action) => (e) => {
+  action();
+  handFocusBack(e);
+};
+
 // Every d-pad key goes through here, so none of them can ship as a bare div with
 // no handler again — which is how ► stayed dead on every screen.
 function DpadButton({ label, glyph, onPress, style }) {
@@ -9,7 +38,8 @@ function DpadButton({ label, glyph, onPress, style }) {
       role="button"
       aria-label={label}
       tabIndex={0}
-      onClick={onPress}
+      onMouseDown={rememberFocus}
+      onClick={pressWith(onPress)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -209,7 +239,8 @@ export default function Cabinet({
           role="button"
           aria-label="Insert coin"
           tabIndex={0}
-          onClick={insertCoin}
+          onMouseDown={rememberFocus}
+          onClick={pressWith(insertCoin)}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
@@ -290,7 +321,8 @@ export default function Cabinet({
           role="switch"
           aria-checked={sound}
           className={`sound-toggle${sound ? " on" : ""}`}
-          onClick={onToggleSound}
+          onMouseDown={rememberFocus}
+          onClick={pressWith(onToggleSound)}
           disabled={!panelLive}
           style={{ fontSize: pixel(fs(6)) }}
         >
@@ -316,7 +348,8 @@ export default function Cabinet({
             role="button"
             aria-label="Back"
             tabIndex={0}
-            onClick={goBack}
+            onMouseDown={rememberFocus}
+            onClick={pressWith(goBack)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -347,7 +380,8 @@ export default function Cabinet({
             role="button"
             aria-label={screen === "detail" ? "Open link" : "Select"}
             tabIndex={0}
-            onClick={pressA}
+            onMouseDown={rememberFocus}
+            onClick={pressWith(pressA)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
