@@ -268,9 +268,7 @@ test("the page never scrolls: the cabinet is the viewport", async ({
 test("with the lights on, the cabinet still stands in the dark", async ({
   page,
 }) => {
-  await page.addInitScript(() =>
-    localStorage.setItem("ampactor_theme", "patina-light"),
-  );
+  await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/arcade/");
   await expect(
     page.getByRole("listbox", { name: "Project list" }),

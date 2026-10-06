@@ -12,10 +12,8 @@
     // LIGHTS ON/OFF, else the operating system's.
     (function () {
       try {
-        var t = localStorage.getItem("ampactor_theme");
-        if (t !== "patina-light" && t !== "patina-dark")
-          t = matchMedia("(prefers-color-scheme: light)").matches ? "patina-light" : "patina-dark";
-        if (t === "patina-light") document.documentElement.setAttribute("data-theme", "patina-light");
+        if (matchMedia("(prefers-color-scheme: light)").matches)
+          document.documentElement.setAttribute("data-theme", "patina-light");
       } catch (e) {}
     })();
   </script>

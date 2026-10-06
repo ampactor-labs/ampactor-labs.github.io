@@ -640,45 +640,45 @@
   stroke-dasharray: 2 2;
 }
 
-/* The machine and its room, in the cabinet's own palette: these sit inside
-   .cabinet-scope groups, so they stay dark in the light theme too. */
+/* The machine and its room, in the cabinet's own palette (the --cab-*
+   properties the head writes), so they stay dark in the light theme too. */
 .dRoom {
-  fill: var(--color-void);
+  fill: var(--cab-void);
   stroke: var(--hairline-strong);
 }
 
 .dBody {
-  fill: var(--color-dim);
-  stroke: var(--color-umber);
+  fill: var(--cab-raised);
+  stroke: var(--cab-line);
   stroke-width: 0.8;
 }
 
 .dTube {
-  fill: var(--color-void);
-  stroke: color-mix(in srgb, var(--color-cyan) 45%, transparent);
+  fill: var(--cab-void);
+  stroke: color-mix(in srgb, var(--cab-mark) 45%, transparent);
   stroke-width: 0.6;
 }
 
 .dAmber {
-  fill: var(--color-amber);
+  fill: var(--cab-voice);
 }
 
 .dCyan {
-  fill: var(--color-cyan);
+  fill: var(--cab-mark);
 }
 
 .dRow {
-  fill: var(--color-muted);
+  fill: var(--cab-muted);
   opacity: 0.55;
 }
 
 .dKnob {
-  fill: var(--color-umber);
+  fill: var(--cab-line);
 }
 
 .dStage {
   fill: none;
-  stroke: var(--color-cyan);
+  stroke: var(--cab-mark);
   stroke-width: 1;
   stroke-dasharray: 3 2.5;
 }

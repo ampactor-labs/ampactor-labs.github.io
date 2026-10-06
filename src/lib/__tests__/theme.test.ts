@@ -3,9 +3,6 @@ import {
   applyTheme,
   currentTheme,
   resolveTheme,
-  setTheme,
-  toggleTheme,
-  THEME_STORAGE_KEY,
   PREPAINT_SCRIPT,
 } from "../theme";
 
@@ -28,49 +25,26 @@ describe("theme", () => {
     mockSystemPreference(false);
   });
 
-  it("defaults to the system preference when nothing is stored", () => {
+  it("follows the system preference", () => {
     expect(resolveTheme()).toBe("patina-dark");
     mockSystemPreference(true);
     expect(resolveTheme()).toBe("patina-light");
   });
 
-  it("lets a stored choice beat the system preference", () => {
-    mockSystemPreference(true);
-    localStorage.setItem(THEME_STORAGE_KEY, "patina-dark");
+  it("ignores a choice stored by the old light switch", () => {
+    localStorage.setItem("ampactor_theme", "patina-light");
     expect(resolveTheme()).toBe("patina-dark");
   });
 
-  it("ignores garbage in storage", () => {
-    localStorage.setItem(THEME_STORAGE_KEY, "neon-pink");
-    expect(resolveTheme()).toBe("patina-dark");
-  });
-
-  it("expresses dark as the absence of the attribute", () => {
+  it("marks <html> only for the light theme", () => {
     applyTheme("patina-light");
     expect(document.documentElement.getAttribute("data-theme")).toBe(
       "patina-light",
     );
+    expect(currentTheme()).toBe("patina-light");
     applyTheme("patina-dark");
     expect(document.documentElement.hasAttribute("data-theme")).toBe(false);
-  });
-
-  it("toggle persists and applies the next theme", () => {
-    expect(toggleTheme()).toBe("patina-light");
-    expect(currentTheme()).toBe("patina-light");
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe("patina-light");
-    expect(toggleTheme()).toBe("patina-dark");
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe("patina-dark");
-  });
-
-  it("setTheme survives blocked storage", () => {
-    const spy = vi
-      .spyOn(Storage.prototype, "setItem")
-      .mockImplementation(() => {
-        throw new Error("blocked");
-      });
-    expect(() => setTheme("patina-light")).not.toThrow();
-    expect(currentTheme()).toBe("patina-light");
-    spy.mockRestore();
+    expect(currentTheme()).toBe("patina-dark");
   });
 
   // The inline script must make the same decision as resolveTheme(), because
@@ -84,10 +58,7 @@ describe("theme", () => {
     expect(run()).toBe("patina-dark");
     mockSystemPreference(true);
     expect(run()).toBe("patina-light");
-    localStorage.setItem(THEME_STORAGE_KEY, "patina-dark");
-    expect(run()).toBe("patina-dark");
-    localStorage.setItem(THEME_STORAGE_KEY, "patina-light");
-    mockSystemPreference(false);
+    localStorage.setItem("ampactor_theme", "patina-dark");
     expect(run()).toBe("patina-light");
   });
 });

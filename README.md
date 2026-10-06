@@ -70,7 +70,7 @@ lands where the URL points. `docs/DESIGN-SYSTEM.md` covers the design.
 ### Shared code
 
 Each page is its own HTML file, because GitHub Pages has no SPA fallback, and
-all of them load the same `shell` chunk: React, the header and footer, the
+all of them load the same `shell` chunk: React, the pages' frame, the
 theme and the formatters. `vite.config.js` defines it with a Rolldown
 `codeSplitting` group. Without it, the automatic splitter gives any module
 shared by some pages but not all a chunk of its own; adding `/craft/` once
@@ -151,14 +151,13 @@ prints the BIOS before the title card.
 ```
 src/
   main.tsx, App.tsx        the cabinet page and its router
-  floor/                   the header and footer of the commit log and craft pages
   arcade/                  the cabinet (JavaScript): the screens (title card, boot,
                            select, cartridge, operator programs), the panel, the
                            game; zoom/ holds the URL scheme and the history
   receipts/                the commit log page: pure data model, URL state, charts,
                            the virtualized table, the drawer, the export form
   craft/                   the case study page
-  ui/, lib/, styles/       shared primitives, theme, tokens, number formatting
+  ui/, lib/, styles/       the pages' frame and the A-mark, theme, tokens, formatting
   data/                    projects.js, profile.js, site.js (each page's <head>),
                            resume.json, receipts.summary.json, audit.json,
                            readme-content.generated.json

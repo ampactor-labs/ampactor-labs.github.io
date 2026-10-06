@@ -41,7 +41,7 @@ hands make.
 | Surface | Role | Feel |
 |---|---|---|
 | **Cabinet** (`src/arcade/`, `src/App.tsx`) | The whole page at `/` and `/arcade/`. Title card, boot, select, cartridge readouts, the operator's programs, hidden games. | The lit ground, every colour blooming in its own light, ambient audio once started. Always dark, whatever the theme. |
-| **Pages** (`src/receipts/`, `src/craft/`, `public/resume.html`, `src/floor/` for their header and footer) | The paper: the commit log, the case study, the résumé and the 404. Fast, skimmable, light or dark. | Same palette; prose in a reading face; signage in the arcade face, tiny. |
+| **Pages** (`src/receipts/`, `src/craft/`, `public/resume.html`, `src/ui/Frame.tsx` for their one line of frame) | The machine's printout and its manual: the commit log, the case study, the résumé and the 404. Fast, skimmable, dark, or lilac paper when the system asks for light. | The cabinet's palette; prose in a reading face; signage in the arcade face, tiny. No nav, no footer: the cabinet is the site. |
 
 The cabinet converts and rewards; the pages are the receipts. Design changes to one
 must not flatten the other. **The pages are where design exploration belongs.** The
@@ -146,12 +146,15 @@ tile and its lit bar, the title when the row is active, the readout's faint blee
 behind the screen. The operator's programs share the quiet violet. The pages paint no project
 colour; the ledger's repository chips are monochrome.
 
-### Light theme — shipped
+### Light theme — the system's call
 
-`tokens.css` ships `[data-theme="patina-light"]` (parchment `#f2e5bc`, ink `#4f3829`).
-The pages are fully themed; `src/lib/theme.ts` resolves stored choice > system
-preference, an inline pre-paint script in every `<head>` applies it before first
-paint, and the pages' header has the light switch, which stores `ampactor_theme`.
+The pages wear the cabinet's palette (`src/styles/theme.css` overrides the generated
+Patina tokens): the indigo room, mist and lilac text, a magenta hand for links and the
+sort mark, cyan for the A-mark and the focus ring. When the system prefers light they
+turn to lilac paper (`[data-theme="patina-light"]`: ink `#221a3f`, the hand `#b5176f`,
+the ring violet). There is no light switch: `src/lib/theme.ts` follows
+`prefers-color-scheme`, an inline pre-paint script in every `<head>` applies it before
+first paint, and a choice stored by the old switch is ignored.
 **The cabinet is a physical object and stays dark in a lit room:** every colour
 the arcade paints comes from `src/arcade/palette.js`, by role (`PALETTE.voice`,
 `PALETTE.mark`, `alpha(PALETTE.coin, 0.4)`), and the same set reaches the
@@ -254,8 +257,8 @@ hold each state for `BLINK_MS`, 170 ms, with the boss's swing narrowed to 0.45�
 Leaving the cabinet for the ledger (`HIGH SCORES → FULL LEDGER`), the case study
 (`HOW TO PLAY → HOW THIS CABINET IS BUILT`) or the résumé, and coming back by the
 A-mark, is a cross-document view transition: the old page fades (`160 ms`) as the new
-one rises `10 px` into place (`240 ms`); between the two paper pages the header
-(`view-transition-name: site-header`) holds still. On the case study each block
+one rises `10 px` into place (`240 ms`); between the two paper pages the frame
+(`view-transition-name: page-frame`) holds still. On the case study each block
 settles `14 px` into place as it scrolls into view, driven by the scroll position
 itself (`animation-timeline: view()`, no script). Browsers without either feature get
 the plain page.
@@ -319,12 +322,11 @@ off (`global.css`).
 | **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. The deck is the band: dusk into violet, a 12 px lit grid and four brightness steps; black keys with a lilac edge that light magenta when pressed; flat rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a touch screen the d-pad keys grow to 36 px and every key, button and the coin slot take a 44 px tap; the header's pills and the readout's chips stand 40 px tall. Under 480 px the Salt Lake City line goes and the deck tightens. |
 | **Hidden programs** | Unlocked by the coin, wherever it is dropped, or by the Konami code on a keyboard; the ceremony says CREDIT ACCEPTED and IT'S A SECRET TO EVERYBODY.; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
 
-### Pages header and footer (`src/floor/`)
+### The pages' frame (`src/ui/Frame.tsx`)
 
 | Component | Spec |
 |---|---|
-| **Header** | Sticky, blurred. A-mark + `AMPACTOR` (a link home, `Ampactor Labs, home`); nav `ARCADE · COMMITS · CRAFT · RESUME · GITHUB` in Press Start 7 px, the current page marked `aria-current="page"`; the light switch (`ThemeToggle`, `aria-pressed`). On a phone it stays one line from 360 px: the brand is the A-mark alone and the nav tightens. |
-| **Footer** | Email, GitHub, LinkedIn, location; `React 19 · Vite 8 · TypeScript · source →`. |
+| **Frame** | One line: the A-mark and `AMPACTOR` in Press Start 8 px (a link home, `Ampactor Labs, home`, 44 px tall) over the sunset rule. No nav, no footer, no light switch; the cabinet has the contact and the links, one press from its title card. |
 
 ### Receipts (`/receipts/`)
 
@@ -511,8 +513,8 @@ _Paste this block into a design tool as the brand context. Scope any generation 
 > **Screens, in order:** title card (name → role → two lines of Morgan's → PRESS START)
 > → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
 > cartridges by category, then OPERATOR: HOW TO PLAY · HIGH SCORES · CREDITS) →
-> readouts. **Pages:** header (A-mark, nav, light switch) → the commit log / the case
-> study → footer.
+> readouts. **Pages:** the frame (the A-mark home over the sunset rule) → the commit log
+> / the case study.
 >
 > **Goal:** a machine a hiring manager wants to touch, that still gets them the résumé
 > in one press. Don't redesign the arcade; don't build a page around it; don't add a

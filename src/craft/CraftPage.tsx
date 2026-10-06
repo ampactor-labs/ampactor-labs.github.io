@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { QUOTES } from "../data/quotes";
-import Header from "../floor/Header";
-import Footer from "../floor/Footer";
+import Frame from "../ui/Frame";
 import { audit, type PageAudit } from "../data/audit";
 import { summary } from "../data/receiptsSummary";
 import { int, shortDate } from "../lib/format";
@@ -64,7 +63,7 @@ const kb = (v: number) => `${Math.round(v)} KB`;
 export default function CraftPage() {
   return (
     <>
-      <Header current="craft" />
+      <Frame />
       <main id="main" className={styles.main} tabIndex={-1}>
         <Head />
         <div className={styles.layout}>
@@ -94,7 +93,6 @@ export default function CraftPage() {
           </div>
         </div>
       </main>
-      <Footer inert={false} />
     </>
   );
 }

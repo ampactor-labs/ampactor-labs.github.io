@@ -160,9 +160,7 @@ test("the export refuses a bad name, then downloads the slice", async ({
 });
 
 test("with the lights on, the charts still pass axe", async ({ page }) => {
-  await page.addInitScript(() =>
-    localStorage.setItem("ampactor_theme", "patina-light"),
-  );
+  await page.emulateMedia({ colorScheme: "light" });
   await openLedger(page);
   await expect(page.locator("html")).toHaveAttribute(
     "data-theme",
