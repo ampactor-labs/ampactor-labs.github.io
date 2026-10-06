@@ -7,6 +7,7 @@ import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
 import { PALETTE, alpha } from "../../palette";
 import Sign from "../Sign";
+import { pixel } from "../../type";
 
 // The operator's programs: HOW TO PLAY, HIGH SCORES and CREDITS. Same frame
 // as a cartridge (back, title, the link rail the A button walks, a scrolling
@@ -28,10 +29,10 @@ function HowToPlay({ color, fs }) {
         style={{
           margin: "0 0 16px",
           fontFamily: "'Press Start 2P', monospace",
-          fontSize: fs(9),
+          fontSize: pixel(fs(9)),
           lineHeight: 1.8,
           color,
-          letterSpacing: "0.08em",
+          letterSpacing: "var(--track-pixel)",
         }}
       >
         {QUOTES.howto}
@@ -42,7 +43,7 @@ function HowToPlay({ color, fs }) {
           borderCollapse: "collapse",
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(12),
-          letterSpacing: "0.08em",
+          letterSpacing: "var(--track-ui)",
         }}
       >
         <tbody>
@@ -88,7 +89,7 @@ function HighScores({ color, fs }) {
           gap: "4px 18px",
           fontSize: fs(9),
           color: "var(--cab-muted)",
-          letterSpacing: "0.14em",
+          letterSpacing: "var(--track-ui)",
           marginBottom: 14,
         }}
       >
@@ -105,7 +106,7 @@ function HighScores({ color, fs }) {
           borderCollapse: "collapse",
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(13),
-          letterSpacing: "0.1em",
+          letterSpacing: "var(--track-ui)",
         }}
       >
         <thead>
@@ -150,12 +151,12 @@ function HighScores({ color, fs }) {
             />
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", maxWidth: 460, fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "0.14em", marginTop: 6 }}>
+        <div style={{ fontFamily: "var(--font-body)", display: "flex", justifyContent: "space-between", maxWidth: 460, fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "var(--track-ui)", marginTop: 6 }}>
           <span>{months[0] ? monthLabel(months[0].month, "short").toUpperCase() : ""}</span>
           <span>{months.at(-1) ? monthLabel(months.at(-1).month, "short").toUpperCase() : ""}</span>
         </div>
       </div>
-      <p style={{ margin: "18px 0 0", fontSize: fs(10), color: "var(--cab-muted)", lineHeight: 1.6, letterSpacing: "0.06em" }}>
+      <p style={{ margin: "18px 0 0", fontSize: fs(10), color: "var(--cab-muted)", lineHeight: 1.6, letterSpacing: "var(--track-display)" }}>
         CO-OP MODE: {int(summary.totals.withClaude)} of these commits list Claude as
         author or co-author.
       </p>
@@ -246,14 +247,14 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
       {lines.map((l, i) => {
         if (l.kind === "section")
           return (
-            <div key={i} style={{ ...{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(7), color: `${color}99`, letterSpacing: "0.3em" }, margin: "26px 0 6px" }}>
+            <div key={i} style={{ ...{ fontFamily: "'Press Start 2P', monospace", fontSize: pixel(fs(7)), color: `${color}99`, letterSpacing: "var(--track-pixel)" }, margin: "26px 0 6px" }}>
               {l.head}
             </div>
           );
         if (l.kind === "title")
           return (
             <div key={i} style={{ marginBottom: 10 }}>
-              <div className="signage" style={{ fontFamily: "'Press Start 2P', monospace", fontSize: fs(14), color: PALETTE.mark, letterSpacing: "0.08em" }}>
+              <div className="signage" style={{ fontFamily: "'Press Start 2P', monospace", fontSize: pixel(fs(14)), color: PALETTE.mark, letterSpacing: "var(--track-pixel)" }}>
                 {l.head}
               </div>
               <div style={{ marginTop: 8, fontSize: fs(10), color: "var(--cab-voice)", letterSpacing: "0.22em" }}>{l.sub}</div>
@@ -261,7 +262,7 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
           );
         if (l.kind === "end")
           return (
-            <div key={i} className="signage" style={{ marginTop: 30, fontFamily: "'Press Start 2P', monospace", fontSize: fs(12), color, letterSpacing: "0.12em" }}>
+            <div key={i} className="signage" style={{ marginTop: 30, fontFamily: "'Press Start 2P', monospace", fontSize: pixel(fs(12)), color, letterSpacing: "var(--track-pixel)" }}>
               {l.head}
             </div>
           );
@@ -271,7 +272,7 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
               {l.head}
             </div>
             {l.sub && (
-              <div style={{ marginTop: 3, fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em", lineHeight: 1.6 }}>{l.sub}</div>
+              <div style={{ marginTop: 3, fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "var(--track-ui)", lineHeight: 1.6 }}>{l.sub}</div>
             )}
           </div>
         );
@@ -337,16 +338,16 @@ export default function SystemScreen({
             className="signage"
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: fs(12),
+              fontSize: pixel(fs(12)),
               fontWeight: 400,
               color,
-              letterSpacing: "0.05em",
+              letterSpacing: "var(--track-pixel)",
               margin: 0,
             }}
           >
             {p.title}
           </h1>
-          <div style={{ fontSize: fs(10), color: "var(--cab-text)", letterSpacing: "0.1em", marginTop: 3 }}>
+          <div style={{ fontSize: fs(10), color: "var(--cab-text)", letterSpacing: "var(--track-ui)", marginTop: 3 }}>
             {p.subtitle}
           </div>
         </div>
@@ -369,7 +370,7 @@ export default function SystemScreen({
                   aria-current={focused ? "true" : undefined}
                   style={{
                     fontSize: fs(9),
-                    letterSpacing: "0.08em",
+                    letterSpacing: "var(--track-ui)",
                     textDecoration: "none",
                     padding: "5px 10px",
                     borderRadius: 4,

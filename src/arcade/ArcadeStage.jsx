@@ -200,7 +200,7 @@ export default function ArcadeStage({
                   textAlign: "center",
                   fontSize: fs(7),
                   color: alpha(PALETTE.text, 0.25),
-                  letterSpacing: "0.15em",
+                  letterSpacing: "var(--track-ui)",
                   animation: "breathe 2.4s ease-in-out infinite",
                   cursor: "pointer",
                   zIndex: 60,

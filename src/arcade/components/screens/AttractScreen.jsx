@@ -4,6 +4,7 @@ import { QUOTES } from "../../../data/quotes";
 import { summary } from "../../../data/receiptsSummary";
 import { int } from "../../../lib/format";
 import { PALETTE, alpha } from "../../palette";
+import { pixel } from "../../type";
 
 // The loop a real machine runs when nobody is playing, and this site's front
 // door: the title card, a few cartridges, the high score table, the splash
@@ -35,9 +36,9 @@ export function nextFrame(frame) {
 
 const label = (fs, color = "var(--cab-muted)") => ({
   fontFamily: "'Press Start 2P', monospace",
-  fontSize: fs(8),
+  fontSize: pixel(fs(8)),
   color,
-  letterSpacing: "0.3em",
+  letterSpacing: "var(--track-pixel)",
 });
 
 function TitleCard({ fs, hidden, nameSize, returning }) {
@@ -68,7 +69,7 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
             fontSize: nameSize,
             lineHeight: 1.5,
             color: "var(--cab-text)",
-            letterSpacing: "0.06em",
+            letterSpacing: "var(--track-pixel)",
             textShadow: "none",
           }}
         >
@@ -94,7 +95,7 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
           fontSize: fs(13),
           fontWeight: 500,
           color: "var(--cab-text)",
-          letterSpacing: "0.12em",
+          letterSpacing: "var(--track-ui)",
           lineHeight: 1.9,
         }}
       >
@@ -158,12 +159,12 @@ function NowShowing({ cartridge, fs }) {
             fontFamily: "'Share Tech Mono', monospace",
             fontSize: fs(28),
             color: cartridge.color,
-            letterSpacing: "0.06em",
+            letterSpacing: "var(--track-display)",
           }}
         >
           {cartridge.title}
         </div>
-        <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "0.12em" }}>
+        <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "var(--track-ui)" }}>
           {cartridge.tagline || cartridge.subtitle}
         </div>
       </div>
@@ -191,10 +192,10 @@ function Winners({ fs }) {
       <div
         style={{
           fontFamily: "'Press Start 2P', monospace",
-          fontSize: fs(14),
+          fontSize: pixel(fs(14)),
           lineHeight: 1.7,
           color: "var(--cab-text)",
-          letterSpacing: "0.1em",
+          letterSpacing: "var(--track-pixel)",
         }}
       >
         {QUOTES.winners}
@@ -229,7 +230,7 @@ function HighScores({ fs }) {
         HIGH SCORES
       </div>
       <div className="sunset" aria-hidden="true" style={{ width: "min(280px, 80%)" }} />
-      <div style={{ fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "0.14em" }}>
+      <div style={{ fontSize: fs(9), color: "var(--cab-muted)", letterSpacing: "var(--track-ui)" }}>
         {int(summary.totals.commits)} COMMITS · {summary.totals.repos} REPOSITORIES
       </div>
       <table
@@ -237,7 +238,7 @@ function HighScores({ fs }) {
           borderCollapse: "collapse",
           fontFamily: "'Share Tech Mono', monospace",
           fontSize: fs(13),
-          letterSpacing: "0.1em",
+          letterSpacing: "var(--track-ui)",
           marginTop: 6,
         }}
       >
@@ -261,7 +262,7 @@ function HighScores({ fs }) {
           ))}
         </tbody>
       </table>
-      <div style={{ fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "0.14em", marginTop: 4 }}>
+      <div style={{ fontSize: fs(8), color: "var(--cab-faint)", letterSpacing: "var(--track-ui)", marginTop: 4 }}>
         CO-OP · {int(summary.totals.withClaude)} WITH CLAUDE
       </div>
     </div>
@@ -281,7 +282,7 @@ export default function AttractScreen({
 }) {
   // The name fills the tube the way a title does: one line on a desktop tube,
   // two on a phone, never smaller than the rest of the card.
-  const nameSize = Math.round(Math.min(38, Math.max(fs(20), screenWidth / 16)));
+  const nameSize = pixel(Math.min(38, Math.max(fs(20), screenWidth / 16)));
   // Reduced motion holds on the title card; nothing cycles or blinks.
   const [frame, setFrame] = useState(0);
   // Which cartridges this pass of the loop shows.
@@ -377,9 +378,9 @@ export default function AttractScreen({
           onClick={() => onStart?.()}
           style={{
             fontFamily: "'Press Start 2P', monospace",
-            fontSize: fs(14),
+            fontSize: pixel(fs(14)),
             color: "var(--cab-voice)",
-            letterSpacing: "0.14em",
+            letterSpacing: "var(--track-pixel)",
             animation: reducedMotion ? undefined : "breathe 2.4s ease-in-out infinite",
             background: "transparent",
             border: 0,

@@ -1,3 +1,4 @@
+import { pixel } from "../type";
 // A sign: the label, then the sunset bar running out to the edge (Pit Viper's
 // band, kept as one 3 px rule of cyan, violet and magenta). Every section
 // heading on the tube hangs on it: the list's categories, a readout's
@@ -8,9 +9,9 @@ export default function Sign({ text, fs, style }) {
       <span
         style={{
           fontFamily: "'Press Start 2P', monospace",
-          fontSize: fs(7),
+          fontSize: pixel(fs(7)),
           color: "var(--cab-muted)",
-          letterSpacing: "0.2em",
+          letterSpacing: "var(--track-pixel)",
           whiteSpace: "nowrap",
         }}
       >

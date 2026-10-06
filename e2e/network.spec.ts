@@ -2,10 +2,12 @@ import { test, expect } from "@playwright/test";
 
 // Every byte the pages need comes from the site itself: fonts included. A
 // first paint that waits on nobody else's server, and no visitor data handed
-// to one. The faces each page sets its text in, all self-hosted.
+// to one. The faces each page sets its first screen in, all self-hosted: the
+// cabinet's prose is Inter and its signage Press Start; JetBrains Mono comes
+// later, with the BIOS and the list's chips.
 const FACES: Record<string, string[]> = {
-  "/": ["Press Start 2P", "JetBrains Mono"],
-  "/arcade/": ["Press Start 2P", "JetBrains Mono"],
+  "/": ["Press Start 2P", "Inter"],
+  "/arcade/": ["Press Start 2P", "Inter"],
   "/receipts/": ["Inter", "Press Start 2P"],
   "/craft/": ["Inter", "Press Start 2P"],
 };
