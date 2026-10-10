@@ -525,6 +525,48 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     </div>
     <div>
       <div
+        aria-label="ROOSTCAST — BAT HOUSE THERMAL SIMULATOR"
+        aria-selected="false"
+        class="project-row"
+        id="program-roostcast"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(255, 107, 53); background: rgba(255, 107, 53, 0.067); border-radius: 5px; border: 1px solid rgba(255, 107, 53, 0.133); flex-shrink: 0;"
+        >
+          🦇
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); transition: color 0.2s ease;"
+            >
+              ROOSTCAST
+            </span>
+            <span
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JavaScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
+          >
+            BAT HOUSE THERMAL SIMULATOR
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
         aria-label="BITS — PUPPET-SHOW INSTRUMENT"
         aria-selected="false"
         class="project-row"
@@ -1081,18 +1123,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 247s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 262s;"
     >
       <span
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · ROOSTCAST: BATS DO NOT DIE ON AVERAGES · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · ROOSTCAST: BATS DO NOT DIE ON AVERAGES · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
     </div>
   </div>
@@ -1624,6 +1666,48 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     </div>
     <div>
       <div
+        aria-label="ROOSTCAST — BAT HOUSE THERMAL SIMULATOR"
+        aria-selected="false"
+        class="project-row"
+        id="program-roostcast"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(255, 107, 53); background: rgba(255, 107, 53, 0.067); border-radius: 5px; border: 1px solid rgba(255, 107, 53, 0.133); flex-shrink: 0;"
+        >
+          🦇
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); transition: color 0.2s ease;"
+            >
+              ROOSTCAST
+            </span>
+            <span
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              JavaScript
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
+          >
+            BAT HOUSE THERMAL SIMULATOR
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
         aria-label="BITS — PUPPET-SHOW INSTRUMENT"
         aria-selected="false"
         class="project-row"
@@ -2054,18 +2138,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 247s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 262s;"
     >
       <span
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · ROOSTCAST: BATS DO NOT DIE ON AVERAGES · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · ROOSTCAST: BATS DO NOT DIE ON AVERAGES · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
     </div>
   </div>
