@@ -1,0 +1,34 @@
+name: Organization page
+
+# Sets the description, homepage and topics of every public repository, the
+# line under the organization's name and the profile README
+# (scripts/repo-metadata.mjs). Run by hand from the Actions tab: "apply" off
+# prints what would change. Applying needs a token that can edit the other
+# repositories and the organization, which GITHUB_TOKEN cannot: add one as the
+# ORG_PAGE_TOKEN secret (a classic token with repo and admin:org), run this,
+# then delete both.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Make the changes (off prints them)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  org-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # The cartridges' card lines come from their READMEs.
+      - run: node scripts/sync-readmes.mjs
+      - run: node scripts/repo-metadata.mjs ${{ inputs.apply && '--apply' || '' }}
+        env:
+          GH_TOKEN: ${{ inputs.apply && secrets.ORG_PAGE_TOKEN || github.token }}
