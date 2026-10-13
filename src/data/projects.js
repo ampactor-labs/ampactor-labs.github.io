@@ -488,13 +488,13 @@ const RAW_PROJECTS = [
     lang: "JavaScript",
     color: "#63C4E0",
     icon: "≋",
-    // The repository is private, so the sync cannot read its README; the
-    // content fields below are copied from it by hand (the lead, its first
-    // sentence, the first paragraph of Limitations). Add the github URL once
-    // the repository is public and the sync takes over.
-    github: null,
+    // The sync takes the README's description and limits. Its card line waits
+    // for a lead of four sentences, not six, so outcome stays here, with the
+    // fallbacks for the rest, copied from the README by hand (the lead, its
+    // first sentence, the first paragraph of Limitations).
+    github: "https://github.com/ampactor-labs/comma",
     live: "https://ampactor.dev/comma/",
-    desc: "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register. Twelve pure fifths overshoot seven octaves by 23.46 cents; the piano's tuning spreads that gap and leaves every interval but the octave slightly off. Eleven oscillators run at those errors, 0.37 to 8.63 Hz, and only a linear readout is trained, which makes them a reservoir computer. It is one HTML file with no dependencies; a Node script reruns its simulation to check 14 claims.",
+    desc: "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register. Twelve pure fifths overshoot seven octaves by 23.46 cents; the piano's tuning spreads that gap and leaves every interval but the octave slightly off. Eleven oscillators run at those errors, 0.37 to 8.63 Hz, and only a linear readout is trained, which makes them a reservoir computer. The main page is one HTML file with no dependencies. Behind it, lab/ holds eight more pages that take the idea further. A Node script reruns the simulations to check 41 claims, and a browser script drives every page.",
     tags: ["tuning", "oscillators", "reservoir", "web-audio"],
     tagline: "TWELVE FIFTHS, ONE LEFTOVER",
     outcome:
@@ -505,13 +505,13 @@ const RAW_PROJECTS = [
       "READ FAST: A RESERVOIR COMPUTER",
       "READ SLOW: A 50-BIT STORAGE REGISTER",
       "CAPACITY 9.69, OR 1.08 WITH THE ERRORS ZEROED",
-      "14 CLAIMS RE-MEASURED BY ONE SCRIPT",
+      "41 CLAIMS RE-MEASURED BY ONE SCRIPT",
     ],
     stack: ["JavaScript", "Web Audio API", "Canvas 2D", "Vanilla DOM"],
     status: "deployed",
     category: "creative",
     operatorNote:
-      "The oscillator bank is a demonstration and a weak computer: even at the strongest coupling its readout scores 0.115 out of 1 on a simple nonlinear task, and it uses under 60% of the memory its 34 readout numbers allow. Only the simulation is checked. A Node script reruns the page's simulation code, but nothing tests the page itself in a browser, and no listening test backs what the page says you will hear.",
+      "The oscillator bank is a demonstration and a weak computer: even at the strongest coupling its readout scores 0.115 out of 1 on a simple nonlinear task, and it uses under 60% of the memory its 34 readout numbers allow. The simulations are checked by a Node script and the pages by a headless browser, but no person has yet taken the listening test, and the microphone and two-phone modes have been tested only with simulated input.",
   },
 
   {

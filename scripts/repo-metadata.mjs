@@ -8,16 +8,19 @@
 //                                           the organization's own line also
 //                                           needs `gh auth refresh -s admin:org`)
 //
-// A cartridge's description is its README's card line from the last build
-// (src/data/readme-content.generated.json), so run `npm run build` first to
-// pick up README changes. This repository's comes from its own README. The
-// rest are written below.
+// A cartridge's description is the line the cabinet shows under its name: its
+// README's card line from the last build
+// (src/data/readme-content.generated.json) when the README meets the standard,
+// the one in projects.js until then. Run `npm run build` first to pick up
+// README changes. This repository's comes from its own README. The rest are
+// written below.
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CONTACT, WORDS } from "../src/data/profile.js";
 import { PROJECTS } from "../src/data/projects.js";
+import { withReadme } from "../src/data/readme.js";
 import { SITE } from "../src/data/site.js";
 import { summaryOf, writingErrors } from "./sync-readmes.mjs";
 
@@ -74,13 +77,10 @@ const TOPICS = {
   diskmon: ["rust", "systemd", "monitoring", "notifications"],
 };
 
-// The public repositories the site does not read: comma, whose README does
-// not meet the standard yet, and the ones that are not cartridges. Each line
-// says what its README says. Forks keep their upstream's line, and private
+// The public repositories that are not cartridges. Each line says what its
+// README says. Forks keep their upstream's line, and private
 // repositories are left alone: only their owner sees them.
 const WRITTEN = {
-  comma:
-    "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register.",
   flowpilot:
     "An automated Solana trading engine, retired in 2026. I shut it down because the strategy stopped clearing fees. Its execution core was rebuilt as landed.",
   artforrichpeople: "A storefront that sells one piece at a time.",
@@ -100,11 +100,16 @@ const WRITTEN = {
     "The profile README on github.com/ampactor-labs, generated from the cartridges in ampactor-labs.github.io.",
 };
 
-const REPO_OF = { celezdial: "celezdial-selekta" };
-
 // One line each, under 160 characters: a README's card line
 // (docs/README-STANDARD.md), and all GitHub takes for an organization.
 const MAX = 160;
+
+// Where the cabinet's line runs past a card line, the README's own first
+// sentence, copied. Each drops out when the cabinet's line is short enough.
+const SHORTER = {
+  turbosort:
+    "A Rust crate that sorts slices of primitive numbers, switching to radix sort (which orders keys one digit at a time) above 512 elements.",
+};
 
 // The line under the organization's name is the site's own: the name and the
 // line of range from the no-JavaScript page. The website and the city sit
@@ -115,14 +120,15 @@ export const ORG_PROFILE = {
   location: `${SITE.locality}, ${SITE.region}`,
 };
 
-export function planRepos(
-  cards = JSON.parse(
-    readFileSync(join(ROOT, "src/data/readme-content.generated.json"), "utf8"),
-  ),
-) {
+export function planRepos(projects = PROJECTS) {
   const plan = [];
-  for (const [id, card] of Object.entries(cards)) {
-    if (card.summary) plan.push({ repo: REPO_OF[id] ?? id, description: card.summary });
+  // The line the cabinet shows under each cartridge's name: its README's card
+  // line when the README meets the standard, the one in projects.js until then.
+  for (const project of projects) {
+    const repo = project.github?.replace(/\/+$/, "").split("/").pop();
+    if (!repo) continue;
+    const line = withReadme(project).outcome;
+    plan.push({ repo, description: line.length < MAX ? line : (SHORTER[repo] ?? line) });
   }
   plan.push({
     repo: "ampactor-labs.github.io",

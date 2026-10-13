@@ -1,10 +1,7 @@
 {
   "mentl": {
     "status": "working",
-    "statusNote": "The language and the command surface may still change, and the verifier is incomplete by design: a claim it cannot decide is reported as pending debt at compile time and the program still builds.",
-    "desc": "A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly. An effect is something a function does besides return a value, such as allocating or printing, and each function's type lists them. A negated effect such as !Network is a claim the compiler proves through every call, or it refuses to build. The compiler is written in Mentl: the pinned binary in boot/ compiles src/ and lib/ into a compiler that reproduces it byte for byte, and that fixed point is the release.",
-    "operatorNote": "The verifier is sound and incomplete: a claim it cannot decide is recorded as pending debt, reported at compile time, and the program still builds. The absence proof !E is keyed by effect name, its soundness under polymorphism is an open item (PLAN.md §4③), and on the compiler's own source an effect operation with no handler installed anywhere still compiled with zero diagnostics (PLAN.md §7). The compiler emits WebAssembly only and runs through the bundled Rust host; there is no published package, and no CI service runs the gates.",
-    "summary": "A programming language and self-hosting compiler with an algebraic effect system that compiles to WebAssembly."
+    "statusNote": "The language and the command surface may still change, and the verifier is incomplete by design: a claim it cannot decide is reported as pending debt at compile time and the program still builds."
   },
   "sonido": {
     "status": "working",
@@ -15,17 +12,15 @@
   },
   "turbosort": {
     "status": "working",
-    "statusNote": "Version 0.2.1 is on crates.io and the API can still change before 1.0; x86 CPUs without AVX2 run scalar code, because the planned SSE4.2 path is not written.",
-    "desc": "A Rust crate that sorts slices of primitive numbers, switching to radix sort (which orders keys one digit at a time) above 512 elements. Short slices of 32-bit types go through sorting networks, fixed compare-and-swap sequences run with SIMD instructions that handle several values at once (AVX2 on x86, NEON on ARM). On an Intel i7-8665U it sorts random 32-bit integers 2.2 to 3.2 times as fast as the standard library's unstable sort, from 1M to 100M keys. On random 64-bit keys it is slower at every size measured.",
-    "operatorNote": "The published speedups were measured on one laptop chip, an Intel i7-8665U, and a second machine did not reproduce them for large arrays. On the laptop, random 64-bit keys ran at 0.84x of the standard library's speed at 128 elements, 0.71x at 4K and 0.77x at 1M, and voracious, another Rust radix sort, beat turbosort at all three sizes. On a shared cloud VM, 1M random 64-bit keys ran at 0.30x to 0.32x, and 1M random 32-bit keys ranged from 1.62 times as fast as the standard library to 0.86 times its speed across three runs. For large arrays of random 64-bit keys, use voracious or the standard library.",
-    "summary": "A Rust crate that sorts slices of primitive numbers, switching to radix sort (which orders keys one digit at a time) above 512 elements."
+    "statusNote": "Version 0.2.2 is on crates.io (CHANGELOG), and the API can still change before 1.0; x86 CPUs without AVX2 run scalar code, because the planned SSE4.2 path is not written.",
+    "desc": "A Rust crate that sorts slices of primitive numbers, switching to radix sort (which orders keys one digit at a time) above 512 elements. Short slices of 32-bit types go through sorting networks, fixed compare-and-swap sequences run with SIMD instructions that handle several values at once (AVX2 on x86, NEON on ARM). On an Intel i7-8665U, release 0.2.1 sorted random 32-bit integers 2.2 to 3.2 times as fast as the standard library's unstable sort, from 1M to 100M keys. Random 64-bit keys are its weak spot: on a cloud VM, 0.2.2 beats the standard library on them at 128 and 4K keys and loses at 1M. sortbykey sorts any type by a key of one of those number types, stably.",
+    "operatorNote": "The published speedups were measured on one laptop chip, an Intel i7-8665U, for release 0.2.1, and a second machine did not reproduce them for large arrays. Random 64-bit keys are the weak spot. In 0.2.1 they ran at 0.84x of the standard library's speed at 128 elements, 0.71x at 4K and 0.77x at 1M on the laptop, and voracious, another Rust radix sort, beat turbosort at all three sizes; on a shared cloud VM, 1M of them ran at 0.30x to 0.32x. Release 0.2.2, on another cloud VM, reaches 1.07x at 128 and 1.18x at 4K but 0.90x at 1M. For large arrays of random 64-bit keys, measure voracious and the standard library against it."
   },
   "two-top": {
     "status": "working",
     "statusNote": "The two-phone test over Wi-Fi against mobile data passed at an earlier revision and has not been re-run since the netplay layer changed.",
     "desc": "A phone-vs-phone fighting game in Rust with rollback netcode over peer-to-peer WebRTC and a simulation that CI proves bit-identical on four platforms. The rules follow Boomerang Fu: throw and recall a boomerang, dash with a short invincibility window, one hit kills, first to five wins. The simulation uses fixed-point math instead of floats, which is what lets a per-frame state checksum match across platforms. Built on Bevy, the GGRS rollback library and Matchbox, it ships as an Android APK and a browser build.",
-    "operatorNote": "The two-phone test over Wi-Fi against mobile data passed once, at an earlier revision, and nobody has re-run it since the netplay layer changed: the prediction window, the disconnect and forfeit rules, the packet guards and the browser relay path are all newer than that test. Until it runs again, cross-carrier play is a path that was verified and then drifted. Loopback on one machine and the CI matrix cover the simulation and say nothing about a real network.",
-    "summary": "A phone-vs-phone fighting game in Rust with rollback netcode over peer-to-peer WebRTC and a simulation that CI proves bit-identical on four platforms."
+    "operatorNote": "The two-phone test over Wi-Fi against mobile data passed once, at an earlier revision, and nobody has re-run it since the netplay layer changed: the prediction window, the disconnect and forfeit rules, the packet guards and the browser relay path are all newer than that test. Until it runs again, cross-carrier play is a path that was verified and then drifted. Loopback on one machine and the CI matrix cover the simulation and say nothing about a real network."
   },
   "clob": {
     "status": "prototype",
@@ -57,10 +52,10 @@
   },
   "bits": {
     "status": "shipping",
-    "statusNote": "It has had little time in real use so far, and by design, edits made on two phones never merge.",
-    "desc": "A web app for making puppet shows on a phone: record the sound, turn photos into puppets, animate them by dragging in layers, and export a video. Each layer is a pass: you drag a puppet while the sound and earlier passes play, like a musician recording one track over another. A spring simulation makes each dragged puppet lag, lean, squash and settle, and puppets' mouths flap with the voices. Written in TypeScript and React, it runs entirely in the browser, with no server.",
+    "statusNote": "It has had little time in real use so far, no iPhone has run it, and edits made on two phones never merge.",
+    "desc": "A web app for making paper-cutout puppet shows on a phone, performed in layers over a recorded sound and exported as a video. Puppets come from photos, selfies, drawings, words and video clips, and a spring simulation makes every drag lag, lean and settle like paper on a stick. A camera, cuts, lighting, palettes and wires that let the sound move anything turn a single stage into a small film studio. Written in TypeScript and React, it runs entirely in the browser, with no server.",
     "operatorNote": "BITS never merges edits made on different phones. If two people change the same show on their own phones, they end up with two separate shows. This is deliberate: there is no server, so a show moves between people when they pass the phone or send its file. Its recipe is an append-only log of edits, which would make a merge feature possible later if one proves worth building.",
-    "summary": "A web app for making puppet shows on a phone: record the sound, turn photos into puppets, animate them by dragging in layers, and export a video."
+    "summary": "A web app for making paper-cutout puppet shows on a phone, performed in layers over a recorded sound and exported as a video."
   },
   "noodles": {
     "status": "working",
@@ -110,5 +105,11 @@
     "desc": "An interactive chart of B♭ trumpet fingerings that shows how sharp or flat each note plays and how far to pull a valve slide to fix the worst ones. Its 49 cells cross seven fingerings (the valves held down) with seven natural overtones, and a cell's error is the fingering's plus the overtone's. It is for a beginner who was told \"low C♯ is sharp, kick the slide\" and not how far or why. It is one dependency-free HTML file that plays each cell and listens through the microphone.",
     "operatorNote": "Nothing here has met a trumpet. The model is derived end to end. It reproduces the beginner's fingering chart and lands the slide throws in the range players are taught, which is encouraging and is not evidence. The experiment that would settle it: put a tuner on a King Cleveland 600, play written C♯4 with the slide fully in, and read the deviation. The prediction is +55.5 cents against a horn whose valve 3 is cut ideally, +38.2 at the maker's-compromise cut the page opens on, and less still on a horn whose maker already cut it longer than that. Set the cut slider until the page agrees with the tuner; that slider position is then a measurement of your horn.",
     "summary": "An interactive chart of B♭ trumpet fingerings that shows how sharp or flat each note plays and how far to pull a valve slide to fix the worst ones."
+  },
+  "comma": {
+    "status": "working",
+    "statusNote": "Every page runs from its files alone. Headless Chromium drives every page; no person has yet tested the audio or the microphone pages on real devices.",
+    "desc": "A web page that lets you hear the Pythagorean comma, then turns the piano's tuning errors into a reservoir computer and a storage register. Twelve pure fifths overshoot seven octaves by 23.46 cents; the piano's tuning spreads that gap and leaves every interval but the octave slightly off. Eleven oscillators run at those errors, 0.37 to 8.63 Hz, and only a linear readout is trained, which makes them a reservoir computer. The main page is one HTML file with no dependencies, written to be followed by anyone, with the technical detail layered underneath. Behind it, lab/ holds eight more pages that take the idea further. A Node script reruns the simulations to check 41 claims, and a browser script drives every page.",
+    "operatorNote": "The oscillator bank is a demonstration and a weak computer: even at the strongest coupling its readout scores 0.115 out of 1 on a simple nonlinear task, and it uses under 60% of the memory its 34 readout numbers allow. The simulations are checked by a Node script and the pages by a headless browser, but no person has yet taken the listening test, and the microphone and two-phone modes have been tested only with simulated input."
   }
 }
