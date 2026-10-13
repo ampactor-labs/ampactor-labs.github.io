@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { CONTACT } from "../../src/data/profile.js";
 import { HIDDEN_PROJECTS, PROJECTS } from "../../src/data/projects.js";
+import { withReadme } from "../../src/data/readme.js";
 import {
   ORG_PROFILE,
   planRepos,
@@ -15,6 +16,21 @@ describe("the organization page", () => {
     const repos = plan.map((r) => r.repo);
     expect(new Set(repos).size).toBe(repos.length);
     expect(repos).toContain("ampactor-labs.github.io");
+  });
+
+  it("describes each cartridge by the line the cabinet shows under its name", () => {
+    const plan = planRepos();
+    for (const p of PROJECTS.filter((x) => x.github)) {
+      const repo = p.github.split("/").pop();
+      const entry = plan.find((r) => r.repo === repo);
+      expect(entry, repo).toBeTruthy();
+      const line = withReadme(p).outcome;
+      // Past a card line, the README's own first sentence stands in.
+      if (line.length < 160) expect(entry.description).toBe(line);
+      else expect(entry.description.length).toBeLessThan(160);
+    }
+    // A cartridge without a repository, or a private one, has nothing to set.
+    expect(plan.some((r) => r.repo === "apapacho")).toBe(false);
   });
 
   it("catches a line the site would not show", () => {
