@@ -244,6 +244,35 @@ const RAW_PROJECTS = [
   },
 
   {
+    id: "roostcast",
+    title: "ROOSTCAST",
+    subtitle: "BAT HOUSE THERMAL SIMULATOR",
+    lang: "JavaScript",
+    color: "#FF6B35",
+    icon: "🦇",
+    github: "https://github.com/ampactor-labs/roostcast",
+    live: "https://ampactor.dev/roostcast/",
+    desc: "A browser tool that simulates the temperature inside a bat house, hour by hour and chamber by chamber, through a real summer at your coordinates. It tells you whether the box you are about to hang will cook the colony that moves into it. With no fitted constants, it lands within 1.6 °C of a roost measured in the 2021 heat dome. It is plain JavaScript in one HTML file, with hourly ERA5 weather from Open-Meteo.",
+    tags: ["thermal-model", "bats", "conservation", "era5"],
+    tagline: "BATS DO NOT DIE ON AVERAGES",
+    outcome:
+      "A browser tool that simulates the temperature inside a bat house, hour by hour and chamber by chamber, through a real summer at your coordinates.",
+    highlights: [
+      "1.6 °C FROM A MEASURED HEAT-DOME ROOST",
+      "NO FITTED CONSTANTS, 10/10 CHECKS",
+      "HOURLY ERA5 WEATHER, ANY COORDINATES",
+      "RANKS 80 COLOUR × MOUNT × FACING BOXES",
+      "HOURS WITH NO COOL CHAMBER, COUNTED",
+      "ONE HTML FILE, NO INSTALL",
+    ],
+    stack: ["JavaScript", "Canvas", "ERA5 via Open-Meteo", "GitHub Pages"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "Absolute temperatures carry roughly ±5 °C of uncertainty. Most of that is local shading and wind that a 9 km reanalysis grid cannot see; some of it is that I have no datalogger data of my own to test against, only what other people published in summary form.",
+  },
+
+  {
     id: "bits",
     title: "BITS",
     subtitle: "PUPPET-SHOW INSTRUMENT",
