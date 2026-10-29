@@ -5,6 +5,10 @@ import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
+// The five pipe operators, as a listing's lines are split around them; the
+// capture keeps each operator in the parts, at the odd indexes.
+const OPERATOR = /(\|>|<\||><|~>|<~)/;
+
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
 
@@ -223,6 +227,105 @@ export default function DetailScreen({
             {p.outcome}
           </div>
         )}
+        {/* A program from the project's repo, its operators lit, and their key */}
+        {p.listing && (
+          <div
+            style={{
+              marginBottom: 14,
+              padding: "10px 12px",
+              borderRadius: 4,
+              background: onCard(`${p.color}05`),
+              border: `1px solid ${p.color}0a`,
+            }}
+          >
+            <Sign text="PROGRAM LISTING" fs={fs} />
+            {/* A line wider than the screen wraps under its own indent, so
+                every operator stays in view on a phone. Ligatures are off:
+                the font would draw |> as one triangle, and the listing shows
+                what is typed. */}
+            <pre
+              role="region"
+              aria-label="Program listing"
+              style={{
+                margin: 0,
+                whiteSpace: "pre-wrap",
+                fontFamily: "var(--font-body)",
+                fontVariantLigatures: "none",
+                fontSize: fs(9),
+                lineHeight: 1.6,
+                color: "var(--cab-text)",
+              }}
+            >
+              <code>
+                {p.listing.code.split("\n").map((line, i) => {
+                  // The spaces stay in the text, so a copied line keeps its
+                  // indent; only the wrapped part hangs, 4ch past it.
+                  const indent = line.length - line.trimStart().length;
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: "block",
+                        minHeight: "1.6em",
+                        paddingLeft: `${indent + 4}ch`,
+                        textIndent: `-${indent + 4}ch`,
+                      }}
+                    >
+                      {line.trimStart().startsWith("//") ? (
+                        <span style={{ color: "var(--cab-muted)" }}>
+                          {line}
+                        </span>
+                      ) : (
+                        line.split(OPERATOR).map((part, j) =>
+                          j % 2 ? (
+                            <span
+                              key={j}
+                              style={{ color: p.color, fontWeight: 700 }}
+                            >
+                              {part}
+                            </span>
+                          ) : (
+                            part
+                          ),
+                        )
+                      )}
+                    </span>
+                  );
+                })}
+              </code>
+            </pre>
+            {p.listing.key && (
+              <dl
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "auto 1fr",
+                  columnGap: 10,
+                  rowGap: 2,
+                  margin: "10px 0 0",
+                  fontSize: fs(10),
+                  lineHeight: 1.6,
+                  color: "var(--cab-text)",
+                }}
+              >
+                {p.listing.key.map(([op, meaning]) => (
+                  <div key={op} style={{ display: "contents" }}>
+                    <dt
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontVariantLigatures: "none",
+                        color: p.color,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {op}
+                    </dt>
+                    <dd style={{ margin: 0 }}>{meaning}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </div>
+        )}
         {/* Zone A — SYS/READOUT: the rest of the lead, after the headline */}
         {readout && (
           <div
@@ -341,7 +444,13 @@ export default function DetailScreen({
         >
           {p.status && (
             <>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: fs(10), color: statusColor }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: fs(10),
+                  color: statusColor,
+                }}
+              >
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
               <span style={{ color: "var(--cab-faint)", fontSize: fs(10) }}>

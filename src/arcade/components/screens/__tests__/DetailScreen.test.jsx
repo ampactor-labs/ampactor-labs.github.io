@@ -31,6 +31,26 @@ describe("DetailScreen", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
+  it("shows MENTL's program with all five operators lit, and their key", () => {
+    const mentl = PROJECTS.find((p) => p.id === "mentl");
+    const { getByRole, getByText } = render(
+      <DetailScreen {...baseProps} project={mentl} />,
+    );
+    const listing = getByRole("region", { name: "Program listing" });
+    const lit = new Set(
+      [...listing.querySelectorAll("code span span")]
+        .map((el) => el.textContent)
+        .filter((t) => /^(\|>|<\||><|~>|<~)$/.test(t)),
+    );
+    expect([...lit].sort()).toEqual(["<|", "<~", "><", "|>", "~>"].sort());
+    expect(listing.textContent).toContain(
+      "{ prev => x + fb * prev } <~ delay(12000)",
+    );
+    for (const [op] of mentl.listing.key) {
+      expect(getByText(op, { selector: "dt" })).toBeTruthy();
+    }
+  });
+
   it("renders back button", () => {
     const project = PROJECTS[0];
     const { getByRole } = render(

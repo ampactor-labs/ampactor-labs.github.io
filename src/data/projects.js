@@ -52,21 +52,57 @@ const RAW_PROJECTS = [
     icon: "☀",
     // The README does not meet docs/README-STANDARD.md yet (no Status line,
     // and its lead runs long), so the content fields below are the ones the
-    // site shows, written from that README.
+    // site shows, written from that README. The desc is the headline alone,
+    // so the program listing stands where the readout would.
     github: "https://github.com/ampactor-labs/mentl",
     live: "https://space.ampactor.dev/",
-    desc: "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one. A function's signature says what it must never do and what range its values keep, and the compiler checks each rule through every function the code calls. HUM's grid controller is written in Mentl: its decision is proven never to reach the network, touch a file, call outside the program, allocate memory or stop with an error, and a copy with one price lookup added does not build. The compiler is written in Mentl and compiles to WebAssembly; the pinned binary rebuilds itself byte for byte, and that binary is what is released. It runs in a terminal under wasmtime, and in the browser at space.ampactor.dev.",
+    desc: "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
     tagline: "A BROKEN RULE WON'T BUILD",
     outcome:
       "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
+    // Lesson 3 of Mentl's course and the echo it calls, copied from the repo
+    // as `mentl fmt` lays them out; … marks the lines left out. Together they
+    // write all five operators. The key is the README's and SYNTAX's words.
+    listing: {
+      code: `// lib/dsp/stereo.mn
+fn echo(fb: Decay) = {
+  fn stage(x: Float) with !Alloc = { prev => x + fb * prev } <~ delay(12000)
+  stage
+}
+
+// examples/pulse/course/03-bus.mn
+fn frame(buf, rig, n) = {
+  …
+  let (echoed, roomed) = dry <| (rig.echo, rig.room)
+  let l = ((echoed) >< (dry)) |> mix(0.35) |> soft_clip
+  let r = ((roomed) >< (dry)) |> mix(0.5) |> soft_clip
+  wav_frame(buf, n, l, r)
+}
+
+fn build_rig(sr) = {echo: echo(0.4), room: room_left(), voice: sine_voice(sr)}
+
+fn main() = {
+  {
+    …
+    play(frames, frame(buf, build_rig(rate())))
+    print(wav_bytes(buf))
+  } ~> stdout_console ~> sample_at(48000)
+  0
+}`,
+      key: [
+        ["|>", "stages in sequence"],
+        ["<|", "one value to several branches, each borrowing it"],
+        ["><", "independent flows side by side"],
+        ["~>", "installs a handler over everything to its left"],
+        ["<~", "feeds back a value from the previous step"],
+      ],
+    },
     highlights: [
       "HUM'S DECISION: 5 RULES, ALL PROVEN",
       "REBUILDS ITSELF BYTE FOR BYTE",
       "FULL EFFECT ALGEBRA (+, -, &, !, Pure)",
-      "FIVE PIPE OPERATORS: |> <| >< ~> <~",
       "PROPOSES PROVEN CODE AT A ?? HOLE",
-      "ONE GRAPH, ONE WRITER: INFERENCE",
     ],
     stack: [
       "Mentl",
