@@ -368,3 +368,29 @@ test("with the lights on, the cabinet still stands in the dark", async ({
   );
   await expect(page.locator("[data-backdrop]")).toHaveCSS("opacity", "1");
 });
+
+// A phone has no hover, so a tapped row must not stay lit and shifted, and
+// the list comes back where it was rather than at the top.
+test("a tap leaves no row stuck in its hover, and Back keeps the list's place", async ({
+  page,
+}, testInfo) => {
+  test.skip(!testInfo.project.use.hasTouch, "hover sticks only on touch screens");
+  await page.goto("/arcade/");
+  const list = page.getByRole("listbox", { name: "Project list" });
+  await expect(list).toBeVisible();
+  await list.evaluate((el) => el.scrollTo({ top: 200 }));
+  const row = page.getByRole("option").nth(6);
+  await row.tap();
+  await expect(page).toHaveURL(/#/);
+  await page.goBack();
+  await expect(list).toBeVisible();
+  await expect
+    .poll(() => list.evaluate((el) => el.scrollTop))
+    .toBeGreaterThan(100);
+  const shifted = await page
+    .getByRole("option")
+    .evaluateAll((rows) =>
+      rows.filter((r) => getComputedStyle(r).transform !== "none").length,
+    );
+  expect(shifted).toBe(0);
+});

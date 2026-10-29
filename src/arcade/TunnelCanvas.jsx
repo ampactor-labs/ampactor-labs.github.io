@@ -51,7 +51,7 @@ function initDust() {
 // The inner name is what React DevTools shows for the component.
 // eslint-disable-next-line no-shadow
 const TunnelCanvas = forwardRef(function TunnelCanvas(
-  { speed = 0.00008 },
+  { speed = 0.00008, moving = true },
   ref,
 ) {
   const isMobileRef = useRef(
@@ -68,6 +68,12 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     animId: null,
   });
 
+  // Held still, the tunnel is one frame: drawn when it stops and again on a
+  // resize, with no loop running behind a screen someone is reading.
+  const movingRef = useRef(moving);
+  const kickRef = useRef(null);
+  const redrawRef = useRef(null);
+
   useImperativeHandle(ref, () => ({
     setSpeed(s) {
       stateRef.current.speed = s;
@@ -80,6 +86,8 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
     },
     setRevealRadius(r) {
       stateRef.current.revealRadius = r;
+      // Held still (or under reduced motion) nothing else would show it.
+      if (stateRef.current.animId === null) redrawRef.current?.();
     },
     getRevealRadius() {
       return stateRef.current.revealRadius;
@@ -221,6 +229,11 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
   }, []);
 
   useEffect(() => {
+    movingRef.current = moving;
+    kickRef.current?.();
+  }, [moving]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -233,16 +246,23 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       isMobileRef.current = window.innerWidth <= 600;
     };
+    const still = () =>
+      draw(ctx, canvas.offsetWidth, canvas.offsetHeight, 0);
+    redrawRef.current = still;
+    const onResize = () => {
+      resize();
+      if (!movingRef.current || stateRef.current.animId === null) still();
+    };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", onResize);
 
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      draw(ctx, canvas.offsetWidth, canvas.offsetHeight, 0);
+      still();
       return () => {
-        window.removeEventListener("resize", resize);
+        window.removeEventListener("resize", onResize);
       };
     }
 
@@ -259,13 +279,28 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
           Math.min(elapsed, 50),
         );
       }
+      if (movingRef.current) {
+        stateRef.current.animId = requestAnimationFrame(loop);
+      } else {
+        // The last frame stays up; the loop ends until it moves again.
+        stateRef.current.animId = null;
+      }
+    };
+    const start = () => {
+      if (stateRef.current.animId !== null) return;
+      lastTime = performance.now();
       stateRef.current.animId = requestAnimationFrame(loop);
     };
-    stateRef.current.animId = requestAnimationFrame(loop);
+    kickRef.current = start;
+    start();
 
     return () => {
-      cancelAnimationFrame(stateRef.current.animId);
-      window.removeEventListener("resize", resize);
+      kickRef.current = null;
+      redrawRef.current = null;
+      if (stateRef.current.animId !== null)
+        cancelAnimationFrame(stateRef.current.animId);
+      stateRef.current.animId = null;
+      window.removeEventListener("resize", onResize);
     };
   }, [draw]);
 

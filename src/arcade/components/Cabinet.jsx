@@ -24,8 +24,20 @@ function handFocusBack(e) {
     before.focus({ preventScroll: true });
   else e.currentTarget.blur();
 }
-const pressWith = (action) => (e) => {
+// A finger presses a key when it lands, the way a cabinet's buttons do, and
+// the click its lift sends is then spent. A mouse and the keyboard keep the
+// click.
+let pressedByTouch = null;
+const pressDown = (action) => (e) => {
+  rememberFocus();
+  if (e.pointerType === "mouse") return;
+  pressedByTouch = e.currentTarget;
   action();
+};
+const pressWith = (action) => (e) => {
+  const spent = e.detail !== 0 && pressedByTouch === e.currentTarget;
+  pressedByTouch = null;
+  if (!spent) action();
   handFocusBack(e);
 };
 
@@ -38,7 +50,7 @@ function DpadButton({ label, glyph, onPress, style }) {
       role="button"
       aria-label={label}
       tabIndex={0}
-      onMouseDown={rememberFocus}
+      onPointerDown={pressDown(onPress)}
       onClick={pressWith(onPress)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -239,7 +251,7 @@ export default function Cabinet({
           role="button"
           aria-label="Insert coin"
           tabIndex={0}
-          onMouseDown={rememberFocus}
+          onPointerDown={pressDown(insertCoin)}
           onClick={pressWith(insertCoin)}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
@@ -321,7 +333,7 @@ export default function Cabinet({
           role="switch"
           aria-checked={sound}
           className={`sound-toggle${sound ? " on" : ""}`}
-          onMouseDown={rememberFocus}
+          onPointerDown={pressDown(onToggleSound)}
           onClick={pressWith(onToggleSound)}
           disabled={!panelLive}
           style={{ fontSize: pixel(fs(6)) }}
@@ -348,7 +360,7 @@ export default function Cabinet({
             role="button"
             aria-label="Back"
             tabIndex={0}
-            onMouseDown={rememberFocus}
+            onPointerDown={pressDown(goBack)}
             onClick={pressWith(goBack)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -380,7 +392,7 @@ export default function Cabinet({
             role="button"
             aria-label={screen === "detail" ? "Open link" : "Select"}
             tabIndex={0}
-            onMouseDown={rememberFocus}
+            onPointerDown={pressDown(pressA)}
             onClick={pressWith(pressA)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {

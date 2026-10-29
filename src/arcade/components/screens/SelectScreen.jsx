@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { CONTACT, MAILTO } from "../../../data/profile";
 import { MARQUEE_TEXT, MARQUEE_SECONDS } from "../../constants";
 import { QUOTES } from "../../../data/quotes";
@@ -9,24 +9,46 @@ import { pixel } from "../../type";
 // Long enough for the last of the three staggered entrances to land.
 const UNLOCK_MS = 800;
 
+// Where the list was scrolled when a cartridge opened. The screen unmounts
+// while a readout is up, so it comes back to this instead of to the top and a
+// long smooth scroll down to the lit row.
+let savedScroll = 0;
+
+const smooth = () =>
+  typeof window !== "undefined" &&
+  !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 export default function SelectScreen({
   projects,
   selectedIdx,
   onSelect,
   onHover,
-  onHoverBlip,
   onHoverSelect,
   fs,
   gameHighlight,
   coinCount,
 }) {
   const listRef = useRef(null);
+  // Back on the list: where it was, before the first paint.
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    list.scrollTop = savedScroll;
+    return () => {
+      savedScroll = list.scrollTop;
+    };
+  }, []);
+  // The lit row stays in view: at once when the screen comes up, smoothly
+  // when the selection moves.
+  const firstScroll = useRef(true);
   useEffect(() => {
-    if (listRef.current?.children[selectedIdx])
-      listRef.current.children[selectedIdx].scrollIntoView({
-        block: "nearest",
-        behavior: "smooth",
-      });
+    const row = listRef.current?.children[selectedIdx];
+    if (!row) return;
+    row.scrollIntoView({
+      block: "nearest",
+      behavior: firstScroll.current || !smooth() ? "auto" : "smooth",
+    });
+    firstScroll.current = false;
   }, [selectedIdx]);
 
   // The list is the screen's one control, so it takes focus when the screen
@@ -51,17 +73,19 @@ export default function SelectScreen({
     return () => clearTimeout(t);
   }, [unlocking]);
 
+  // A coin dropped on this screen scrolls down to what it unlocked; coming
+  // back to the list later does not.
+  const coinsAtMount = useRef(coinCount);
   useEffect(() => {
-    if (coinCount > 0 && listRef.current) {
-      setTimeout(() => {
-        if (listRef.current) {
-          listRef.current.scrollTo({
-            top: listRef.current.scrollHeight,
-            behavior: "smooth",
-          });
-        }
-      }, 100);
-    }
+    if (coinCount <= coinsAtMount.current || !listRef.current) return;
+    coinsAtMount.current = coinCount;
+    const t = setTimeout(() => {
+      listRef.current?.scrollTo({
+        top: listRef.current.scrollHeight,
+        behavior: smooth() ? "smooth" : "auto",
+      });
+    }, 100);
+    return () => clearTimeout(t);
   }, [coinCount]);
 
   const pill = {
@@ -203,7 +227,7 @@ export default function SelectScreen({
         ref={listRef}
         role="listbox"
         aria-label="Project list"
-        className="frost"
+        className="project-list"
         tabIndex={0}
         aria-activedescendant={
           projects[selectedIdx] ? `program-${projects[selectedIdx].id}` : undefined
@@ -250,10 +274,18 @@ export default function SelectScreen({
                 aria-label={`${p.title} — ${p.subtitle}`}
                 className={`project-row${isH && unlocking ? ` tier-${p.tier}-enter` : ""}${isGameGlow ? " game-highlight" : ""}`}
                 onClick={() => onSelect(i)}
-                onMouseEnter={() => {
-                  onHoverSelect(i);
+                // A mouse that really moves lights the row it is over. A row
+                // sliding under a still pointer (a wheel scroll) or a phone's
+                // emulated hover after a tap does not.
+                onPointerMove={(e) => {
+                  if (e.pointerType !== "mouse" || i === selectedIdx) return;
+                  if (!e.movementX && !e.movementY) return;
                   onHover(i);
-                  onHoverBlip();
+                  onHoverSelect(i);
+                }}
+                // A finger lights the row the moment it lands; the lift opens it.
+                onPointerDown={(e) => {
+                  if (e.pointerType !== "mouse" && i !== selectedIdx) onHoverSelect(i);
                 }}
                 style={{
                   display: "flex",

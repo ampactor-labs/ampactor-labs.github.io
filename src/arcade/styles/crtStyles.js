@@ -3,33 +3,36 @@ import { CARD, FRINGE, PALETTE, alpha } from "../palette";
 // Fonts are loaded via <link> in index.html (not @import here).
 export const crtStyles = `
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  .attract-start:hover, .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
-  @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+  .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
   @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  @keyframes coinGlow { 0%,100%{box-shadow:inset 0 0 6px ${alpha(PALETTE.coin, 0.25)},0 0 4px ${alpha(PALETTE.coin, 0.1)}} 50%{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}} }
-  @keyframes crtOn { 0%{clip-path:inset(49.5% 0 49.5% 0);filter:brightness(8)} 15%{clip-path:inset(40% 0 40% 0);filter:brightness(3)} 40%{clip-path:inset(10% 0 10% 0);filter:brightness(1.5)} 70%{clip-path:inset(2% 0 2% 0);filter:brightness(1.1)} 100%{clip-path:inset(0 0 0 0);filter:brightness(1)} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%,60%{opacity:1} 100%{opacity:0} }
-  /* The tube's ground: indigo over void, the lit grid (8 px cells, 6 px on a
-     phone) and four brightness bands, painted once. Above it, under the
+  /* The tube's ground: indigo over void, a faint grid (8 px cells, 6 px on a
+     phone) that stays behind what is on it, and four brightness bands,
+     painted once. Above it, under the
      content, one shade pulls the edges down into the void. */
-  .tube-ground{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(180deg,transparent 0 58%,${alpha(PALETTE.lit, 0.05)} 58% 72%,${alpha(PALETTE.lit, 0.09)} 72% 86%,${alpha(PALETTE.lit, 0.13)} 86% 100%),linear-gradient(${alpha(PALETTE.muted, 0.11)} 1px,transparent 1px),linear-gradient(90deg,${alpha(PALETTE.muted, 0.11)} 1px,transparent 1px),radial-gradient(ellipse at center,var(--cab-tube) 0%,var(--cab-void) 80%);background-size:100% 100%,8px 8px,8px 8px,100% 100%}
+  .tube-ground{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(180deg,transparent 0 58%,${alpha(PALETTE.lit, 0.05)} 58% 72%,${alpha(PALETTE.lit, 0.09)} 72% 86%,${alpha(PALETTE.lit, 0.13)} 86% 100%),linear-gradient(${alpha(PALETTE.muted, 0.05)} 1px,transparent 1px),linear-gradient(90deg,${alpha(PALETTE.muted, 0.05)} 1px,transparent 1px),radial-gradient(ellipse at center,var(--cab-tube) 0%,var(--cab-void) 80%);background-size:100% 100%,8px 8px,8px 8px,100% 100%}
   @media (max-width: 480px) { .tube-ground{background-size:100% 100%,6px 6px,6px 6px,100% 100%} }
   .tube-shade{position:absolute;inset:0;z-index:40;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,${alpha(PALETTE.void, 0.55)} 100%)}
-  /* Bloom in the text's own colour: a soft stop on every readout, two on the
-     signage, and the chromatic split (magenta left, cyan right) on signage. */
-  .cabinet-scope{--track-pixel:0.125em;--track-ui:0.1em;--track-display:0.06em;--bloom-text:0 0 4px color-mix(in srgb, currentColor 35%, transparent);--bloom-signage:0 0 6px color-mix(in srgb, currentColor 60%, transparent),0 0 24px color-mix(in srgb, currentColor 28%, transparent);--fringe:-1.5px 0 0 ${alpha(PALETTE.voice, 0.5)},1.5px 0 0 ${alpha(PALETTE.mark, 0.5)}}
-  .crt-phosphor{text-shadow:var(--bloom-text)}
+  /* Bloom belongs to signs: two stops and the chromatic split (magenta left,
+     cyan right) on the signage. Text you read stays crisp. A phone gets no
+     grey tap flash, and a drag the cabinet can't use doesn't pull the page
+     to refresh. */
+  .cabinet-scope{--track-pixel:0.125em;--track-ui:0.1em;--track-display:0.06em;--bloom-signage:0 0 6px color-mix(in srgb, currentColor 60%, transparent),0 0 24px color-mix(in srgb, currentColor 28%, transparent);--fringe:-1.5px 0 0 ${alpha(PALETTE.voice, 0.5)},1.5px 0 0 ${alpha(PALETTE.mark, 0.5)}}
+  .cabinet-scope{-webkit-tap-highlight-color:transparent}
+  .cabinet-scope *{overscroll-behavior:contain}
+  html[data-stage],html[data-stage] body{overscroll-behavior:none}
   .signage{text-shadow:var(--bloom-signage),var(--fringe)}
   .blink-cursor{animation:blink 1s step-end infinite}
   /* The verbs. One entrance for everything that comes onto the tube: a short
-     dash from the left that leaves a magenta and a cyan after-image (transform
-     and opacity only on a phone). Screen changes cut the old frame out and
-     dash the new one in through the view-transition API. PRESS START, INSERT
-     COIN and the skip hint breathe instead of blinking. */
-  @keyframes dashIn { 0%{transform:translateX(-16px);opacity:0;filter:drop-shadow(-8px 0 0 ${alpha(PALETTE.voice, 0.6)}) drop-shadow(8px 0 0 ${alpha(PALETTE.mark, 0.6)})} 100%{transform:none;opacity:1;filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent)} }
-  @keyframes dashInLite { 0%{transform:translateX(-16px);opacity:0} 100%{transform:none;opacity:1} }
-  @keyframes cutOut { to{opacity:0} }
+     dash from the left, transform and opacity only. A screen change is one
+     motion through the view-transition API: the old frame fades as the new
+     one rises into place (and settles down into place going back). PRESS
+     START, INSERT COIN and the skip hint breathe instead of blinking. */
+  @keyframes dashIn { 0%{transform:translateX(-16px);opacity:0} 100%{transform:none;opacity:1} }
+  @keyframes tubeOut { to{opacity:0} }
+  @keyframes tubeIn { from{transform:translateY(8px);opacity:0} }
+  @keyframes tubeInBack { from{transform:translateY(-8px);opacity:0} }
   @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.55} }
   .dash-in{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) both}
   .tier-1-enter{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) both}
@@ -37,10 +40,12 @@ export const crtStyles = `
   .tier-3-enter{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) 0.16s both}
   .crt-phosphor{view-transition-name:tube}
   ::view-transition-old(root),::view-transition-new(root){animation:none}
-  ::view-transition-old(tube){animation:cutOut 0.03s steps(1,end) both}
-  ::view-transition-new(tube){animation:dashInLite 0.22s cubic-bezier(0.16,1,0.3,1) both}
-  /* The idle layer: one slow sweep of light across the grid, on its own
-     transform layer; off on a phone and under reduced motion. */
+  ::view-transition-old(tube){animation:tubeOut 0.12s ease-in both}
+  ::view-transition-new(tube){animation:tubeIn 0.2s cubic-bezier(0.16,1,0.3,1) both}
+  html[data-nav=back]::view-transition-new(tube){animation-name:tubeInBack}
+  /* The title card's idle layer: one slow sweep of light across the grid, on
+     its own transform layer; off on a phone and under reduced motion, and
+     never on a screen someone is reading. */
   @keyframes sweep { to{transform:translateX(100%)} }
   .tube-sweep{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,transparent 42%,${alpha(PALETTE.muted, 0.07)} 50%,transparent 58%);transform:translateX(-100%);animation:sweep 9s linear infinite;will-change:transform}
   /* The coin: the slit takes the drop, a ring blooms from the slot, then the
@@ -51,8 +56,18 @@ export const crtStyles = `
   .coin-slot.lit::after{content:'';position:absolute;inset:-2px;border-radius:12px;border:2px solid ${alpha(PALETTE.coin, 0.7)};animation:coinRing 0.6s ease-out 0.12s both;pointer-events:none}
   /* The marquee sets its own duration inline from its text's length (constants.js). */
   .marquee-track{position:absolute;display:flex;white-space:nowrap;width:max-content;text-shadow:none;animation:marquee 90s linear infinite}
-  .project-row{transition:all 0.2s ease;cursor:pointer}
-  .project-row:hover{background:linear-gradient(${alpha(FRINGE.warm, 0.04)},${alpha(FRINGE.warm, 0.04)}),${CARD}!important;transform:translateX(4px)}
+  /* A row warms under a mouse (only where there is one: a phone's hover
+     sticks after a tap) and darkens under a finger. */
+  .project-row{transition:background-color 0.15s ease,transform 0.15s ease,border-color 0.15s ease;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+  .project-row:active{background:linear-gradient(${alpha(PALETTE.white, 0.04)},${alpha(PALETTE.white, 0.04)}),${CARD}!important}
+  @media (hover: hover) and (pointer: fine) {
+    .project-row:hover{background:linear-gradient(${alpha(FRINGE.warm, 0.04)},${alpha(FRINGE.warm, 0.04)}),${CARD}!important;transform:translateX(4px)}
+    .btn-cabinet:hover{transform:scale(1.08)}
+    .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
+    .coin-slot:hover{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}!important}
+    .sound-toggle:hover{color:var(--cab-text)}
+    .attract-start:hover{animation:none !important;opacity:1;filter:brightness(1.2)}
+  }
   /* Cards and controls stand on the grid: their fill (CARD in palette.js)
      dims it, and frost softens what shows through around them. Only on
      things that hold still, or on a list that scrolls inside itself. */
@@ -62,14 +77,12 @@ export const crtStyles = `
      pointer every key, the coin, the pills and the chips grow to a 44 px
      hit area. */
   .btn-cabinet{transition:transform 0.12s ease,background 0.12s ease,border-color 0.12s ease;cursor:pointer;user-select:none}
-  .btn-cabinet:hover{transform:scale(1.08)}
   .btn-cabinet:active{transform:scale(0.95);background:${alpha(PALETTE.voice, 0.35)};border-color:var(--cab-voice);color:var(--cab-text)}
   .dpad-key{position:relative;width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,${alpha(PALETTE.raised, 0.9)},var(--cab-void));color:var(--cab-muted);border:1px solid ${alpha(PALETTE.muted, 0.35)};box-shadow:inset 0 1px 0 ${alpha(PALETTE.white, 0.06)}}
   .dpad-centre{width:30px;height:30px;border-radius:4px;background:var(--cab-void);border:1px solid ${alpha(PALETTE.muted, 0.18)}}
   .btn-action{position:relative;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--cab-void);transition:transform 0.12s ease,filter 0.12s ease;cursor:pointer;user-select:none}
   .btn-action.btn-b{border:2px solid var(--cab-hot);color:var(--cab-danger);box-shadow:0 0 14px ${alpha(PALETTE.hot, 0.45)},inset 0 0 10px ${alpha(PALETTE.hot, 0.18)}}
   .btn-action.btn-a{border:2px solid var(--cab-mark);color:var(--cab-mark);box-shadow:0 0 14px ${alpha(PALETTE.mark, 0.45)},inset 0 0 10px ${alpha(PALETTE.mark, 0.18)}}
-  .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
   .btn-action:active{transform:scale(0.92);filter:brightness(0.8)}
   .panel-label{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--cab-muted);letter-spacing:var(--track-pixel);user-select:none}
   /* SOUND ON / SOUND OFF: the words are the lamp, lit in the text colour
@@ -77,7 +90,6 @@ export const crtStyles = `
      click area; the negative margin keeps it out of the layout. */
   .sound-toggle{position:relative;margin:-4px -8px;padding:4px 8px;background:none;border:0;border-radius:4px;font-family:'Press Start 2P',monospace;line-height:1;letter-spacing:var(--track-pixel);color:var(--cab-muted);cursor:pointer;user-select:none;transition:color 0.2s ease,text-shadow 0.2s ease}
   .sound-toggle.on{color:var(--cab-text);text-shadow:0 0 6px ${alpha(PALETTE.halo, 0.7)}}
-  .sound-toggle:hover{color:var(--cab-text)}
   .sound-toggle:disabled{opacity:0.3;cursor:default}
   /* A narrow deck: the 8 px labels are wider than their buttons, so the
      padding, the gap between B and A and the tracking come in, and the
@@ -141,17 +153,15 @@ export const crtStyles = `
   .ok-cell{justify-self:start;padding:0 6px;border-radius:3px;line-height:1.6;color:var(--cab-ok);background:${alpha(PALETTE.ok, 0.14)};border:1px solid ${alpha(PALETTE.ok, 0.5)}}
   @keyframes gameHighlight { 0%{box-shadow:0 0 20px ${alpha(PALETTE.hot, 0.6)},inset 0 0 10px ${alpha(PALETTE.hot, 0.15)}} 100%{box-shadow:none} }
   .game-highlight{animation:gameHighlight 2s ease-out forwards}
-  .coin-slot{animation:coinGlow 6s ease-in-out infinite;cursor:pointer;transition:all 0.2s ease}
-  .coin-slot:hover{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}!important}
+  /* The coin slot is lit, not pulsing: a glow that animated forever repainted
+     the deck sixty times a second. */
+  .coin-slot{box-shadow:inset 0 0 8px ${alpha(PALETTE.coin, 0.35)},0 0 6px ${alpha(PALETTE.coin, 0.14)};cursor:pointer;transition:transform 0.12s ease,box-shadow 0.2s ease}
   .coin-slot:active{transform:scale(0.95)}
   .cabinet-body{box-shadow:0 20px 80px ${alpha(PALETTE.voice, 0.10)},0 0 120px ${alpha(PALETTE.lit, 0.14)},0 40px 60px ${alpha(PALETTE.black, 0.5)};position:relative}
   .cabinet-body::after{content:'';position:absolute;bottom:-40px;left:10%;right:10%;height:40px;background:radial-gradient(ellipse at center,${alpha(PALETTE.voice, 0.14)} 0%,transparent 70%);pointer-events:none;filter:blur(10px)}
   .crt-screen ::-webkit-scrollbar{width:4px}
   .crt-screen ::-webkit-scrollbar-track{background:${alpha(PALETTE.black, 0.3)}}
   .crt-screen ::-webkit-scrollbar-thumb{background:${alpha(PALETTE.mark, 0.2)};border-radius:2px}
-  /* A cabinet scrolled off the floor stops running its tube effects. */
-  .arcade-offscreen .marquee-track,.arcade-offscreen .tube-sweep,
-  .arcade-offscreen .coin-slot,.arcade-offscreen .btn-action{animation-play-state:paused!important}
   @keyframes announceIn { 0%{opacity:0;transform:translateY(8px)} 20%{opacity:1;transform:translateY(0)} 80%{opacity:1} 100%{opacity:0} }
   @keyframes tier3Overlay { 0%{opacity:0} 10%{opacity:1} 85%{opacity:1} 100%{opacity:0} }
   .coin-announce{position:absolute;left:50%;transform:translateX(-50%);animation:announceIn 1.6s ease forwards;font-family:'Press Start 2P',monospace;pointer-events:none;z-index:200}
@@ -165,15 +175,9 @@ export const crtStyles = `
     .coin-slot.lit .slit, .coin-slot.lit::after,
     .marquee-track, .attract-start { animation: none !important; }
   }
-  /* Mobile: drop the continuous animations that jank low-power GPUs. */
-  .desktop-only-flex { display: flex; }
-  .mobile-only-block { display: none; }
+  /* Mobile: no sweep, and no blurred floor glow under the cabinet. */
   @media (max-width: 600px) {
-    .btn-action, .coin-slot { animation: none !important; }
     .tube-sweep { display: none !important; }
-    .dash-in, .tier-1-enter, .tier-2-enter, .tier-3-enter { animation-name: dashInLite !important; }
     .cabinet-body::after { display: none !important; }
-    .desktop-only-flex { display: none !important; }
-    .mobile-only-block { display: block !important; }
   }
 `;
