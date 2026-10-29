@@ -21,26 +21,26 @@ describe("AttractScreen", () => {
     vi.useRealTimers();
   });
 
-  it("opens on the title card: the name as the page's heading, the role, the operator's lines, PRESS START", () => {
+  it("opens on the title card: the name as the page's heading, the role, PRESS START", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     expect(screen.getByTestId("attract-screen").dataset.frame).toBe("title");
     expect(
       screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
     ).toBeVisible();
     expect(screen.getByText("SOFTWARE ENGINEER")).toBeInTheDocument();
-    expect(screen.getByText(QUOTES.titleFirst)).toBeInTheDocument();
+    // A first visitor is not greeted back; the card says nothing more.
+    expect(screen.queryByText(QUOTES.titleReturn)).toBeNull();
     expect(screen.getByRole("button", { name: "PRESS START" })).toBeInTheDocument();
     // Nothing else on the card: the sticker on the select screen has the rest.
     expect(screen.queryAllByRole("link")).toHaveLength(0);
   });
 
-  it("greets a returning visitor differently", () => {
+  it("greets a returning visitor", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} returning />);
     expect(screen.getByText(QUOTES.titleReturn)).toBeInTheDocument();
-    expect(screen.queryByText(QUOTES.titleFirst)).toBeNull();
   });
 
-  it("cycles title → four cartridges → high scores → the splash → round again", () => {
+  it("cycles title → four cartridges → high scores → round again", () => {
     render(<AttractScreen projects={PROJECTS} fs={fs} />);
     const el = screen.getByTestId("attract-screen");
     let frame = 0;
@@ -56,9 +56,6 @@ describe("AttractScreen", () => {
     advance();
     expect(el.dataset.frame).toBe("scores");
     expect(screen.getByText(topScores(1)[0].repo, { exact: false })).toBeInTheDocument();
-    advance();
-    expect(el.dataset.frame).toBe("winners");
-    expect(screen.getByText(QUOTES.winners)).toBeInTheDocument();
     advance();
     expect(el.dataset.frame).toBe("title");
     // The heading is in the document on every frame, shown only on the title.

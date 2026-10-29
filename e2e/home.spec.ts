@@ -214,8 +214,8 @@ test.describe("the first visit", () => {
     await expect(page).toHaveURL(HOME_URL);
     expect(await page.evaluate(() => history.length)).toBe(entries);
     expect(await visited(page)).toBe("1");
-    // A first visitor is asked, not greeted back.
-    await expect(page.getByText("SHALL WE PLAY A GAME?")).toBeVisible();
+    // A first visitor is not greeted back.
+    await expect(page.getByText("KEPT YOU WAITING, HUH?")).toHaveCount(0);
 
     // It has booted once: START now cuts straight to the list.
     await page.getByRole("button", START).click();

@@ -61,10 +61,13 @@ Morgan's rules, as written:
 
 Borrowed lines live in `src/data/quotes.js`: short, famous lines from games,
 films and dev folklore, each with its source in a comment and never on screen,
-placed where a real machine would show something (the title card's greeting,
-the locked rows, the coin, the game over, the 404, an epigraph on a paper
+placed where a real machine would show something (a returning visitor's
+greeting, the locked rows, the coin, the game over, an epigraph on a paper
 page). They are idiom, like PRESS START, not words about Morgan. Short lines
-only; never a lyric, never a passage, never Fallout.
+only; never a lyric, never a passage, never Fallout, and never a line every
+developer's site already wears: SHALL WE PLAY A GAME?, IT'S DANGEROUS TO GO
+ALONE!, the princess in another castle, "Talk is cheap. Show me the code.",
+WINNERS DON'T USE DRUGS and xkcd 303 were cut for that in October 2026.
 
 In practice: one fact in one place per screen; no instructions to the reader
 and no explaining what to conclude; no lists of three for rhythm, no "X, Y"

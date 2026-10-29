@@ -3,7 +3,6 @@ import { summary } from "../../../data/receiptsSummary";
 import { audit } from "../../../data/audit";
 import resume from "../../../data/resume.json";
 import { WORDS } from "../../../data/profile";
-import { QUOTES } from "../../../data/quotes";
 import { int, monthLabel } from "../../../lib/format";
 import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
@@ -25,18 +24,6 @@ const CONTROLS = [
 function HowToPlay({ color, fs }) {
   return (
     <>
-      <p
-        style={{
-          margin: "0 0 16px",
-          fontFamily: "'Press Start 2P', monospace",
-          fontSize: pixel(fs(9)),
-          lineHeight: 1.8,
-          color,
-          letterSpacing: "var(--track-pixel)",
-        }}
-      >
-        {QUOTES.howto}
-      </p>
       <Sign text="CONTROLS" fs={fs} />
       <table
         style={{
