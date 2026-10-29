@@ -188,7 +188,13 @@ export default function ArcadeStage({
     <div className={styles.stage} data-screen={screen}>
       <style>{crtStyles}</style>
       <div className={styles.backdrop} data-backdrop="">
-        <TunnelCanvas ref={tunnelRef} />
+        {/* The tunnel moves while the machine is putting on a show (the
+            boot, the title loop, the game) and holds still while someone is
+            reading. */}
+        <TunnelCanvas
+          ref={tunnelRef}
+          moving={screen === "boot" || screen === "attract" || screen === "game"}
+        />
         <AMarkOverlay logoRef={logoRef} />
         {screen === "game" && (
           <Suspense fallback={null}>
@@ -216,7 +222,6 @@ export default function ArcadeStage({
             position: "relative",
             overflow: "hidden",
             boxShadow: `inset 0 0 80px ${alpha(PALETTE.void, 0.6)}, 0 0 40px ${alpha(PALETTE.mark, 0.08)}`,
-            willChange: "clip-path, filter",
           }}
         >
           {/* The tube's layers, bottom to top: the lit ground, the cartridge's
@@ -225,7 +230,7 @@ export default function ArcadeStage({
               content. */}
           <div className="tube-ground" />
           <div className="tube-shade" />
-          <div className="tube-sweep" />
+          {screen === "attract" && <div className="tube-sweep" />}
           {announcing === 3 && (
             <div className="coin-announce tier-3">
               CREDIT ACCEPTED
@@ -233,17 +238,15 @@ export default function ArcadeStage({
               <span>{QUOTES.coin}</span>
             </div>
           )}
-          {/* Project color bleed */}
+          {/* The open cartridge's colour, bled faintly into the tube. Not on
+              the list: there it would repaint the whole tube at every step. */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               background: detailProject
                 ? `radial-gradient(ellipse at 30% 40%, ${detailProject.color}08 0%, transparent 60%)`
-                : allProjects[selectedIdx] && screen === "select"
-                  ? `radial-gradient(ellipse at 30% 40%, ${allProjects[selectedIdx].color}06 0%, transparent 60%)`
-                  : "none",
-              transition: "background 0.5s ease",
+                : "none",
               pointerEvents: "none",
               zIndex: 45,
             }}
@@ -316,7 +319,6 @@ export default function ArcadeStage({
                   }}
                   onHoverSelect={hoverSelect}
                   coinCount={coinCount}
-                  onHoverBlip={playBlip}
                   fs={fs}
                   gameHighlight={gameHighlight}
                 />

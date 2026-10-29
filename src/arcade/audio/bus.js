@@ -1,5 +1,9 @@
 // The cabinet's one sound system (docs/AUDIT-NEON.md, step 9): a single
-// AudioContext, a master gain into a compressor, and a delay send for space.
+// AudioContext asked for its lowest latency, a master gain through a gentle
+// top-end rolloff into a compressor, and a short send for space. A phone's
+// speaker is small and bright, so nothing here is square-edged, resonant or
+// late: every note fades in over a few milliseconds instead of clicking on,
+// and the space is a short room, not an echo that arrives after the tap.
 // Every voice takes a send amount. Nothing exists until the first sound is
 // asked for, and the cabinet asks only once the machine is started: the
 // power-on, the boot and the title card are silent, and a visitor who only
@@ -30,20 +34,27 @@ export function hasBus() {
 export function getBus() {
   if (bus) return bus;
   const Ctx = window.AudioContext || window.webkitAudioContext;
-  const ctx = new Ctx();
+  const ctx = new Ctx({ latencyHint: "interactive" });
   const master = ctx.createGain();
   master.gain.value = soundOn() ? MASTER : 0;
+  // Takes the fizz off the top, where a phone speaker is harshest.
+  const soften = ctx.createBiquadFilter();
+  soften.type = "lowpass";
+  soften.frequency.value = 6500;
+  soften.Q.value = 0.5;
   const comp = ctx.createDynamicsCompressor();
-  master.connect(comp);
+  master.connect(soften);
+  soften.connect(comp);
   comp.connect(ctx.destination);
-  // The send: a short slap echo with a little feedback, low in the mix.
+  // The send: a short room, 70 ms with a little feedback, low in the mix.
+  // (It was a 180 ms slap, which a phone heard as the sound arriving late.)
   const send = ctx.createGain();
   const delay = ctx.createDelay(1);
-  delay.delayTime.value = 0.18;
+  delay.delayTime.value = 0.07;
   const feedback = ctx.createGain();
-  feedback.gain.value = 0.28;
+  feedback.gain.value = 0.18;
   const wet = ctx.createGain();
-  wet.gain.value = 0.35;
+  wet.gain.value = 0.22;
   send.connect(delay);
   delay.connect(feedback);
   feedback.connect(delay);
@@ -87,11 +98,13 @@ export function withClock(fn) {
 }
 
 // One voice: an oscillator through an envelope, optionally through a
-// resonant lowpass that sweeps, into the master and (by `send`) the delay.
+// lowpass that sweeps, into the master and (by `send`) the room. The attack
+// is never shorter than 4 ms: an envelope that starts at full level clicks.
+const MIN_ATTACK = 0.004;
 export function voice(
   b,
   t0,
-  { freq, type = "square", at = 0, dur, peak, sweepTo, cutoff, cutoffTo, q = 1, send = 0, attack = 0 },
+  { freq, type = "triangle", at = 0, dur, peak, sweepTo, cutoff, cutoffTo, q = 1, send = 0, attack = 0 },
 ) {
   const { ctx } = b;
   const start = t0 + at;
@@ -100,13 +113,9 @@ export function voice(
   osc.frequency.setValueAtTime(freq, start);
   if (sweepTo != null) osc.frequency.linearRampToValueAtTime(sweepTo, start + dur);
   const env = ctx.createGain();
-  if (attack > 0) {
-    env.gain.setValueAtTime(0.0001, start);
-    env.gain.exponentialRampToValueAtTime(peak, start + attack);
-  } else {
-    env.gain.setValueAtTime(peak, start);
-  }
-  env.gain.exponentialRampToValueAtTime(0.001, start + dur);
+  env.gain.setValueAtTime(0.0001, start);
+  env.gain.exponentialRampToValueAtTime(peak, start + Math.max(attack, MIN_ATTACK));
+  env.gain.exponentialRampToValueAtTime(0.0001, start + dur);
   let head = osc;
   if (cutoff != null) {
     const filter = ctx.createBiquadFilter();
@@ -144,8 +153,9 @@ export function noise(b, t0, { at = 0, dur, peak, freq = 2400, q = 1, send = 0 }
   band.frequency.value = freq;
   band.Q.value = q;
   const env = ctx.createGain();
-  env.gain.setValueAtTime(peak, start);
-  env.gain.exponentialRampToValueAtTime(0.001, start + dur);
+  env.gain.setValueAtTime(0.0001, start);
+  env.gain.exponentialRampToValueAtTime(peak, start + MIN_ATTACK);
+  env.gain.exponentialRampToValueAtTime(0.0001, start + dur);
   src.connect(band);
   band.connect(env);
   env.connect(b.master);

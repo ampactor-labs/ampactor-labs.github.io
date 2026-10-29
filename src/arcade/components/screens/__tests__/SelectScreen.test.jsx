@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { act, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import SelectScreen from "../SelectScreen";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../../../data/projects";
 
@@ -11,7 +11,6 @@ const baseProps = {
   selectedIdx: 0,
   onSelect: noop,
   onHover: noop,
-  onHoverBlip: noop,
   fs,
   gameHighlight: false,
 };
@@ -90,5 +89,25 @@ describe("SelectScreen", () => {
   it("renders contact email", () => {
     const { getAllByText } = render(<SelectScreen {...baseProps} />);
     expect(getAllByText("ampactorlabs@gmail.com").length).toBeGreaterThan(0);
+  });
+
+  // A row lights under a mouse that moves, not under one that holds still
+  // while the list scrolls beneath it, and a finger lights it as it lands.
+  it("lights a row for a moving mouse or a landing finger, not a still pointer", () => {
+    const onHoverSelect = vi.fn();
+    const onHover = vi.fn();
+    const { getAllByRole } = render(
+      <SelectScreen {...baseProps} onHover={onHover} onHoverSelect={onHoverSelect} />,
+    );
+    const row = getAllByRole("option")[2];
+    fireEvent.pointerMove(row, { pointerType: "mouse", movementX: 0, movementY: 0 });
+    expect(onHoverSelect).not.toHaveBeenCalled();
+    fireEvent.pointerMove(row, { pointerType: "touch", movementX: 3, movementY: 0 });
+    expect(onHoverSelect).not.toHaveBeenCalled();
+    fireEvent.pointerMove(row, { pointerType: "mouse", movementX: 2, movementY: 1 });
+    expect(onHoverSelect).toHaveBeenLastCalledWith(2);
+    expect(onHover).toHaveBeenCalledTimes(1);
+    fireEvent.pointerDown(getAllByRole("option")[4], { pointerType: "touch" });
+    expect(onHoverSelect).toHaveBeenLastCalledWith(4);
   });
 });

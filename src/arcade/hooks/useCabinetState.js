@@ -68,12 +68,13 @@ export default function useCabinetState({
     if (hasVisited.current || deepLinked) return atHome ? "attract" : "select";
     return "boot";
   });
-  // A screen change as a cut and a dash (crtStyles.js): the tube's old frame
-  // cuts out and the new one dashes in through the view-transition API, where
-  // the browser has it and motion is welcome; a plain state change otherwise.
-  // `update` holds every state change of the move, so the old frame is
-  // captured whole and the new one lands whole.
-  const changeScreen = (update) => {
+  // A screen change as one motion (crtStyles.js): the tube's old frame fades
+  // as the new one rises into place, or settles down into place going back,
+  // through the view-transition API where the browser has it and motion is
+  // welcome; a plain state change otherwise. `update` holds every state
+  // change of the move, so the old frame is captured whole and the new one
+  // lands whole.
+  const changeScreen = (update, back = false) => {
     const still =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -81,7 +82,11 @@ export default function useCabinetState({
       update();
       return;
     }
-    document.startViewTransition(() => flushSync(update));
+    const root = document.documentElement;
+    if (back) root.dataset.nav = "back";
+    else delete root.dataset.nav;
+    const t = document.startViewTransition(() => flushSync(update));
+    t.finished?.finally?.(() => delete root.dataset.nav);
   };
   const [bootPhase, setBootPhase] = useState(0);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -166,7 +171,7 @@ export default function useCabinetState({
         changeScreen(() => {
           setDetailProject(null);
           setScreen("attract");
-        });
+        }, true);
         if (screen !== "select") playBack();
       }
       return;
@@ -196,7 +201,7 @@ export default function useCabinetState({
       changeScreen(() => {
         setDetailProject(null);
         setScreen("select");
-      });
+      }, wasOpen);
       if (wasOpen) playBack();
     }
     // playBack and onNavigate are stable enough; screen and detailProject are
@@ -231,7 +236,8 @@ export default function useCabinetState({
     const from = settled ? el.scrollTop : scrollAnchor.current.top;
     const top = Math.min(Math.max(from + dir * SCROLL_STEP, 0), max);
     scrollAnchor.current = { top, at: Date.now() };
-    el.scrollTo({ top, behavior: "smooth" });
+    const still = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({ top, behavior: still ? "auto" : "smooth" });
   };
 
   const moveLink = (delta) => {
@@ -540,17 +546,20 @@ export default function useCabinetState({
   // four buttons scroll the body and walk the link rail, because a d-pad that
   // does nothing on the screen you just opened reads as broken. On the title
   // card left and right step the attract loop.
+  // The d-pad sounds like the arrow keys: a blip per step on the list.
   const navUp = () => {
-    if (screen === "select")
+    if (screen === "select") {
       setSelectedIdx((i) => (i - 1 + allProjects.length) % allProjects.length);
-    else if (screen === "detail" || screen === "system") scrollDetail(-1);
+      playBlip();
+    } else if (screen === "detail" || screen === "system") scrollDetail(-1);
     else if (screen === "boot") skipBoot();
   };
 
   const navDown = () => {
-    if (screen === "select")
+    if (screen === "select") {
       setSelectedIdx((i) => (i + 1) % allProjects.length);
-    else if (screen === "detail" || screen === "system") scrollDetail(1);
+      playBlip();
+    } else if (screen === "detail" || screen === "system") scrollDetail(1);
   };
 
   // Left falls through to Back when there is no rail to walk, so the hidden

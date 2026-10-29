@@ -190,23 +190,37 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
     if (!el || reducedMotion) return;
     let raf = 0;
     let last = performance.now();
-    let carry = 0;
+    // The roll keeps its own fractional position, so on a high-density phone
+    // it glides by device pixels instead of jumping a whole CSS pixel every
+    // second or third frame. A hand on it pauses it; it picks up from wherever
+    // the hand left it, and it stops when the last line is in place.
+    let pos = el.scrollTop;
+    let held = false;
     const tick = (now) => {
       const dt = now - last;
       last = now;
+      const max = el.scrollHeight - el.clientHeight;
       if (now > pausedUntil.current) {
-        carry += (dt / 1000) * ROLL_SPEED;
-        const step = Math.floor(carry);
-        if (step > 0) {
-          carry -= step;
-          const max = el.scrollHeight - el.clientHeight;
-          if (el.scrollTop < max) el.scrollTop = Math.min(max, el.scrollTop + step);
+        if (held) {
+          pos = el.scrollTop;
+          held = false;
         }
+        pos = Math.min(max, pos + (dt / 1000) * ROLL_SPEED);
+        el.scrollTop = pos;
+      } else {
+        held = true;
       }
-      raf = requestAnimationFrame(tick);
+      if (pos < max || held) raf = requestAnimationFrame(tick);
+      else raf = 0;
     };
     const pause = () => {
       pausedUntil.current = performance.now() + PAUSE_MS;
+      // A roll that had finished picks up again after the hand lets go.
+      if (!raf) {
+        held = true;
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      }
     };
     for (const ev of ["pointerdown", "wheel", "touchstart", "focusin"])
       el.addEventListener(ev, pause, { passive: true });
@@ -284,7 +298,7 @@ export default function SystemScreen({
   const rail = p.links ?? [];
   const color = p.color;
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }} className="dash-in">
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",

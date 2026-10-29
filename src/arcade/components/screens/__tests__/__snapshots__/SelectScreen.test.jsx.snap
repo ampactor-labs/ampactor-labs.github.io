@@ -121,7 +121,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   <div
     aria-activedescendant="program-mentl"
     aria-label="Project list"
-    class="frost"
+    class="project-list"
     role="listbox"
     style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
     tabindex="0"
@@ -1220,7 +1220,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   <div
     aria-activedescendant="program-mentl"
     aria-label="Project list"
-    class="frost"
+    class="project-list"
     role="listbox"
     style="flex: 1 1 0%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 3px; outline: none;"
     tabindex="0"

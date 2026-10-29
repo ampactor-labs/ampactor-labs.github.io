@@ -33,15 +33,17 @@ function keyOf(color) {
 export default function useAmbientHum({ enabled = true } = {}) {
   const [sound, setSoundState] = useState(soundOn);
 
+  // A step through the list: a soft tick, not a buzz.
   const playBlip = useCallback(
     () =>
       withClock((b, t0) =>
-        voice(b, t0, { freq: 960, type: "square", dur: 0.022, peak: 0.012 }),
+        voice(b, t0, { freq: 1175, type: "triangle", dur: 0.03, peak: 0.018 }),
       ),
     [],
   );
 
-  // Into a cartridge: a resonant filter sweeping up, keyed by its colour.
+  // Into a cartridge: a filter opening upward, keyed by its colour. Rounded:
+  // a low resonance that colours without whistling.
   const playEnter = useCallback(
     (color) =>
       withClock((b, t0) => {
@@ -49,22 +51,19 @@ export default function useAmbientHum({ enabled = true } = {}) {
         voice(b, t0, {
           freq: 110 * (1 + k),
           type: "sawtooth",
-          dur: 0.22,
-          peak: 0.05,
-          cutoff: 300,
-          cutoffTo: 2200 + k * 2400,
-          q: 9,
-          send: 0.25,
+          dur: 0.2,
+          peak: 0.035,
+          cutoff: 280,
+          cutoffTo: 1400 + k * 1200,
+          q: 2.5,
+          send: 0.2,
         });
         voice(b, t0, {
           freq: 220 * (1 + k),
-          type: "square",
-          at: 0.02,
+          type: "triangle",
+          at: 0.015,
           dur: 0.12,
           peak: 0.02,
-          cutoff: 1200,
-          cutoffTo: 4000,
-          q: 4,
         });
       }),
     [],
@@ -77,12 +76,12 @@ export default function useAmbientHum({ enabled = true } = {}) {
         voice(b, t0, {
           freq: 165,
           type: "sawtooth",
-          dur: 0.2,
-          peak: 0.045,
-          cutoff: 2600,
-          cutoffTo: 260,
-          q: 9,
-          send: 0.15,
+          dur: 0.18,
+          peak: 0.03,
+          cutoff: 1600,
+          cutoffTo: 300,
+          q: 2.5,
+          send: 0.12,
         }),
       ),
     [],
@@ -104,8 +103,8 @@ export default function useAmbientHum({ enabled = true } = {}) {
             peak,
             attack: 0.75,
             cutoff: 180,
-            cutoffTo: 2400,
-            q: 6,
+            cutoffTo: 1800,
+            q: 2.5,
           });
         for (const [freq, peak] of [
           [110, 0.06],
@@ -118,10 +117,10 @@ export default function useAmbientHum({ enabled = true } = {}) {
             at: 0.82,
             dur: 1.1,
             peak,
-            cutoff: 3200,
-            cutoffTo: 600,
-            q: 2,
-            send: 0.35,
+            cutoff: 2000,
+            cutoffTo: 500,
+            q: 1.2,
+            send: 0.3,
           });
         startBed();
       }),
@@ -132,7 +131,7 @@ export default function useAmbientHum({ enabled = true } = {}) {
   const playInsertSting = useCallback(
     () =>
       withClock((b, t0) => {
-        noise(b, t0, { dur: 0.03, peak: 0.05, freq: 5200, q: 3 });
+        noise(b, t0, { dur: 0.03, peak: 0.03, freq: 4200, q: 2 });
         voice(b, t0, { freq: 2637, type: "sine", dur: 0.12, peak: 0.05 });
         voice(b, t0, { freq: 3951, type: "sine", at: 0.06, dur: 0.16, peak: 0.04, send: 0.3 });
         for (const [freq, peak] of [
@@ -147,10 +146,10 @@ export default function useAmbientHum({ enabled = true } = {}) {
             at: 0.22,
             dur: 0.9,
             peak,
-            cutoff: 900,
-            cutoffTo: 3600,
-            q: 3,
-            send: 0.35,
+            cutoff: 800,
+            cutoffTo: 2200,
+            q: 1.5,
+            send: 0.3,
           });
       }),
     [],
