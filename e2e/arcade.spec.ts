@@ -22,6 +22,11 @@ test("the whole cabinet is playable from the keyboard", async ({ page }) => {
   await expect(list).toBeVisible();
   await expect(
     page.getByRole("option", { selected: true }),
+  ).toHaveAccessibleName(/WASATCH SYMPHONY/);
+
+  await page.keyboard.press("ArrowDown");
+  await expect(
+    page.getByRole("option", { selected: true }),
   ).toHaveAccessibleName(/MENTL/);
 
   await page.keyboard.press("ArrowDown");
@@ -51,10 +56,10 @@ test("a deck key answers its own Enter, and a click on one leaves Enter to A", a
   await page.getByRole("button", { name: "Navigate down", exact: true }).click();
   await expect(
     page.getByRole("option", { selected: true }),
-  ).toHaveAccessibleName(/SONIDO/);
+  ).toHaveAccessibleName(/MENTL/);
   await expect(list).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/#sonido$/);
+  await expect(page).toHaveURL(/#mentl$/);
 
   await page.goto("/arcade/");
   await expect(list).toBeVisible();
@@ -258,7 +263,9 @@ test("on a touch screen every panel control is a 44 px target", async ({
     const box = await page
       .getByRole("link", { name, exact: true })
       .boundingBox();
-    expect(box!.height, name).toBeGreaterThanOrEqual(40);
+    // Compact chips on the select screen (Oct 2026): 32 px, still well past
+    // WCAG's 24 px target size.
+    expect(box!.height, name).toBeGreaterThanOrEqual(32);
   }
 });
 

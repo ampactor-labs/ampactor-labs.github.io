@@ -136,11 +136,11 @@ export const crtStyles = `
     .readout-rail>a{flex:1;justify-content:center;text-align:center}
   }
   /* The select screen on a phone: the links and the contact as one set of
-     40 px chips (the links first, all of it in view), and a 3 px band in the
-     lit row's colour instead of the marquee (the taglines are on the
-     readouts and in NOW SHOWING). */
-  .phone-rail{gap:6px;flex-wrap:wrap;margin-top:10px}
-  .phone-rail a{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:6px;white-space:nowrap;text-decoration:none}
+     compact 32 px chips (the links first, all of it in view; still past
+     WCAG's 24 px target), and a 3 px band in the lit row's colour instead
+     of the marquee (the taglines are on the readouts and in NOW SHOWING). */
+  .phone-rail{gap:5px;flex-wrap:wrap;margin-top:8px}
+  .phone-rail a{flex:none;display:inline-flex;align-items:center;min-height:32px;padding:0 9px;border-radius:5px;white-space:nowrap;text-decoration:none}
   @media (max-width: 600px) {
     .desk-only{display:none!important}
     .phone-rail{display:flex!important}

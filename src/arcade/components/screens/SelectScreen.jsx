@@ -145,7 +145,7 @@ export default function SelectScreen({
     fontFamily: "var(--font-body)",
     fontSize: fs(10),
     letterSpacing: "var(--track-display)",
-    padding: "0 10px",
+    padding: "0 8px",
     color: "var(--cab-muted)",
     border: `1px solid ${alpha(PALETTE.muted, 0.3)}`,
     background: onCard(alpha(PALETTE.muted, 0.05)),

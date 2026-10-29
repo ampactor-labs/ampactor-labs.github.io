@@ -105,21 +105,21 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
       <a
         class="frost"
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 8px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
         class="frost"
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 8px;"
       >
         +1 435-268-2446
       </a>
     </nav>
   </div>
   <div
-    aria-activedescendant="program-mentl"
+    aria-activedescendant="program-wasatch"
     aria-label="Project list"
     class="project-list"
     role="listbox"
@@ -142,15 +142,62 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
         />
       </div>
       <div
-        aria-label="MENTL — SELF-HOSTING COMPILER"
+        aria-label="WASATCH SYMPHONY — THE VALLEY AS LIVE MUSIC"
         aria-selected="true"
         class="project-row"
-        id="program-mentl"
+        id="program-wasatch"
         role="option"
         style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
+          style="width: 3px; top: 0px; bottom: 0px; background: rgb(46, 196, 182); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #2ec4b6; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(46, 196, 182); background: rgba(46, 196, 182, 0.067); border-radius: 5px; border: 1px solid rgba(46, 196, 182, 0.133); flex-shrink: 0;"
+        >
+          ⛰
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(46, 196, 182); transition: color 0.2s ease;"
+            >
+              WASATCH SYMPHONY
+            </span>
+            <span
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust/TS
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
+          >
+            THE VALLEY AS LIVE MUSIC
+          </div>
+        </div>
+        <div
+          style="color: rgb(46, 196, 182); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
+        >
+          ›
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="MENTL — SELF-HOSTING COMPILER"
+        aria-selected="false"
+        class="project-row"
+        id="program-mentl"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
         />
         <div
           style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); flex-shrink: 0;"
@@ -164,7 +211,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(224, 255, 0); transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); transition: color 0.2s ease;"
             >
               MENTL
             </span>
@@ -179,11 +226,6 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
           >
             SELF-HOSTING COMPILER
           </div>
-        </div>
-        <div
-          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-        >
-          ›
         </div>
       </div>
     </div>
@@ -1115,7 +1157,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   <div
     aria-hidden="true"
     class="marquee-band"
-    style="display: none; height: 3px; margin-top: 10px; border-radius: 2px; background: rgb(224, 255, 0); box-shadow: 0 0 10px rgba(224,255,0,0.6);"
+    style="display: none; height: 3px; margin-top: 10px; border-radius: 2px; background: rgb(46, 196, 182); box-shadow: 0 0 10px rgba(46,196,182,0.6);"
   />
   <div
     class="marquee-wrap"
@@ -1123,18 +1165,18 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 261s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 277s;"
     >
       <span
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        WASATCH SYMPHONY: EVERY TRAIN RINGS A BELL · MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        WASATCH SYMPHONY: EVERY TRAIN RINGS A BELL · MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
     </div>
   </div>
@@ -1246,21 +1288,21 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
       <a
         class="frost"
         href="mailto:ampactorlabs@gmail.com"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 8px;"
       >
         ampactorlabs@gmail.com
       </a>
       <a
         class="frost"
         href="tel:+14352682446"
-        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 10px;"
+        style="font-family: var(--font-body); font-size: 10px; letter-spacing: var(--track-display); color: var(--cab-muted); border: 1px solid rgba(185, 166, 232, 0.3); background: linear-gradient(rgba(185, 166, 232, 0.05), rgba(185, 166, 232, 0.05)), rgba(10, 7, 22, 0.72); padding: 0px 8px;"
       >
         +1 435-268-2446
       </a>
     </nav>
   </div>
   <div
-    aria-activedescendant="program-mentl"
+    aria-activedescendant="program-wasatch"
     aria-label="Project list"
     class="project-list"
     role="listbox"
@@ -1283,15 +1325,62 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
         />
       </div>
       <div
-        aria-label="MENTL — SELF-HOSTING COMPILER"
+        aria-label="WASATCH SYMPHONY — THE VALLEY AS LIVE MUSIC"
         aria-selected="true"
         class="project-row"
-        id="program-mentl"
+        id="program-wasatch"
         role="option"
         style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.06)), rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(0, 229, 255, 0.15); border-right: 1px solid rgba(0, 229, 255, 0.15); border-bottom: 1px solid rgba(0, 229, 255, 0.15); border-image: none; position: relative;"
       >
         <div
-          style="width: 3px; top: 0px; bottom: 0px; background: rgb(224, 255, 0); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #E0FF00; transition: all 0.2s ease;"
+          style="width: 3px; top: 0px; bottom: 0px; background: rgb(46, 196, 182); border-radius: 2px; position: absolute; left: 2px; box-shadow: 0 0 6px #2ec4b6; transition: all 0.2s ease;"
+        />
+        <div
+          style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(46, 196, 182); background: rgba(46, 196, 182, 0.067); border-radius: 5px; border: 1px solid rgba(46, 196, 182, 0.133); flex-shrink: 0;"
+        >
+          ⛰
+        </div>
+        <div
+          style="flex: 1 1 0%; min-width: 0px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 6px;"
+          >
+            <span
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(46, 196, 182); transition: color 0.2s ease;"
+            >
+              WASATCH SYMPHONY
+            </span>
+            <span
+              style="font-family: var(--font-body); font-size: 9px; color: var(--cab-muted); padding: 1px 5px; background: rgba(255, 255, 255, 0.03); border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;"
+            >
+              Rust/TS
+            </span>
+          </div>
+          <div
+            style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
+          >
+            THE VALLEY AS LIVE MUSIC
+          </div>
+        </div>
+        <div
+          style="color: rgb(46, 196, 182); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
+        >
+          ›
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        aria-label="MENTL — SELF-HOSTING COMPILER"
+        aria-selected="false"
+        class="project-row"
+        id="program-mentl"
+        role="option"
+        style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 6px; background: rgba(10, 7, 22, 0.72); border-top: 1px solid rgba(185, 166, 232, 0.08); border-right: 1px solid rgba(185, 166, 232, 0.08); border-bottom: 1px solid rgba(185, 166, 232, 0.08); border-image: none; position: relative;"
+      >
+        <div
+          style="width: 3px; top: 0px; bottom: 0px; background: transparent; border-radius: 2px; position: absolute; left: 2px; box-shadow: none; transition: all 0.2s ease;"
         />
         <div
           style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(224, 255, 0); background: rgba(224, 255, 0, 0.067); border-radius: 5px; border: 1px solid rgba(224, 255, 0, 0.133); flex-shrink: 0;"
@@ -1305,7 +1394,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
             style="display: flex; align-items: center; gap: 6px;"
           >
             <span
-              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: rgb(224, 255, 0); transition: color 0.2s ease;"
+              style="font-family: "Share Tech Mono", monospace; font-size: 14px; color: var(--cab-text); transition: color 0.2s ease;"
             >
               MENTL
             </span>
@@ -1320,11 +1409,6 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           >
             SELF-HOSTING COMPILER
           </div>
-        </div>
-        <div
-          style="color: rgb(224, 255, 0); font-size: 14px; flex-shrink: 0; opacity: 0.6;"
-        >
-          ›
         </div>
       </div>
     </div>
@@ -2130,7 +2214,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   <div
     aria-hidden="true"
     class="marquee-band"
-    style="display: none; height: 3px; margin-top: 10px; border-radius: 2px; background: rgb(224, 255, 0); box-shadow: 0 0 10px rgba(224,255,0,0.6);"
+    style="display: none; height: 3px; margin-top: 10px; border-radius: 2px; background: rgb(46, 196, 182); box-shadow: 0 0 10px rgba(46,196,182,0.6);"
   />
   <div
     class="marquee-wrap"
@@ -2138,18 +2222,18 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
   >
     <div
       class="marquee-track"
-      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 261s;"
+      style="font-family: var(--font-body); font-size: 8px; color: var(--cab-faint); letter-spacing: var(--track-ui); animation-duration: 277s;"
     >
       <span
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        WASATCH SYMPHONY: EVERY TRAIN RINGS A BELL · MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
       <span
         aria-hidden="true"
         style="padding-right: 48px;"
       >
-        MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
+        WASATCH SYMPHONY: EVERY TRAIN RINGS A BELL · MENTL: THE COMPILER BOOTSTRAPS ITSELF · SONIDO: DESKTOP AND BARE METAL. SAME CODE. · HUM: PLUG IN A GUITAR, READ THE GRID · TURBOSORT: FASTER THAN STD · 2-TOP: DETERMINISTIC ACROSS PLATFORMS · CLOB: THREE NUMBERS AND A LAPTOP · TOKENSAFE + SCRY: CHECKS THE CHAIN FOR RUGS · LANDED: WON'T SEND WHAT IT CAN'T CHECK · PERENNIALS: DESCRIBE THE SPOT, GET THE PLANTS · BITS: PUT ON THE SHOW · NOODLES: CAN'T PLAY A WRONG NOTE · COPYCATS: RACE YOUR OWN PAST LIVES · STOOP: FOLD IT, LEAVE IT SOMEWHERE · UNDERSTORY: WHAT A SONG NEVER SAYS · CELEZDIAL SELEKTA: TWELVE SIGNS, TWELVE VOICES · FREESTYLE ENGINE: DRILLS WHATEVER YOU'RE WORST AT · SLOT: 49 CELLS, 9 EXACTLY TRUE · COMMA: TWELVE FIFTHS, ONE LEFTOVER · APAPACHO: THREE CARDS A DAY
       </span>
     </div>
   </div>

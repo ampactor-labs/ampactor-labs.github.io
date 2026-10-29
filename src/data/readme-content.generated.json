@@ -1,4 +1,11 @@
 {
+  "wasatch": {
+    "status": "working",
+    "statusNote": "The site is live; the Utah Avalanche Center's forecast is coded and tested, and stays off until its API token is set.",
+    "desc": "A web app that plays the Salt Lake valley live as music, from its trains, buses, planes, weather, air and seismometers. A Rust engine compiled to WebAssembly composes and renders every bar on the browser's audio thread, and every phone plays the same bar at the same moment, about 90 seconds behind the valley. A small Node server seals the realtime feeds into 30-second windows that every phone reads alike. The page is TypeScript and hand-drawn SVG.",
+    "operatorNote": "Automated tests run only in headless Chrome, so Safari and real phones are checked by hand. On October 29, 2026 that let phones play silence while every check passed, because headless Chrome starts its audio at page load and a phone waits for the tap. The smoke test now holds the audio until the tap and fails on silence.",
+    "summary": "A web app that plays the Salt Lake valley live as music, from its trains, buses, planes, weather, air and seismometers."
+  },
   "mentl": {
     "status": "working",
     "statusNote": "The language and the command surface may still change, and the verifier is incomplete by design: a claim it cannot decide is reported as pending debt at compile time and the program still builds."
