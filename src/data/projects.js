@@ -132,7 +132,7 @@ const RAW_PROJECTS = [
   {
     id: "clob",
     title: "CLOB",
-    subtitle: "TERNARY INTELLIGENCE KERNEL",
+    subtitle: "TERNARY LANGUAGE MODEL",
     lang: "Rust",
     color: "#00ff9c",
     icon: "∴",
@@ -608,12 +608,11 @@ export const HIDDEN_PROJECTS = [
     color: "#ff2266",
     icon: "\u25b8",
     github: null,
-    desc: "The tunnel is alive. Compiler errors are pouring out. Dodge the exceptions. Destroy the segfaults. Your ship is the signal \u2014 how long can you keep it clean?",
+    desc: "Compiler errors are pouring out. Dodge the exceptions. Destroy the segfaults.",
     tags: ["dodge", "shoot", "survive", "compile"],
     hidden: true,
     interactive: "tunnelgame",
     tier: 3,
-    tagline: "COMPILE OR DIE",
     highlights: [
       "VECTOR WIREFRAME GFX",
       "PROCEDURAL AUDIO",

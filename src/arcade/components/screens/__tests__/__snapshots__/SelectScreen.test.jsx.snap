@@ -315,7 +315,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     </div>
     <div>
       <div
-        aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
+        aria-label="CLOB — TERNARY LANGUAGE MODEL"
         aria-selected="false"
         class="project-row"
         id="program-clob"
@@ -350,7 +350,7 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
           <div
             style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
-            TERNARY INTELLIGENCE KERNEL
+            TERNARY LANGUAGE MODEL
           </div>
         </div>
       </div>
@@ -1414,7 +1414,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     </div>
     <div>
       <div
-        aria-label="CLOB — TERNARY INTELLIGENCE KERNEL"
+        aria-label="CLOB — TERNARY LANGUAGE MODEL"
         aria-selected="false"
         class="project-row"
         id="program-clob"
@@ -1449,7 +1449,7 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
           <div
             style="font-size: 10px; color: var(--cab-text); margin-top: 1px; letter-spacing: var(--track-ui);"
           >
-            TERNARY INTELLIGENCE KERNEL
+            TERNARY LANGUAGE MODEL
           </div>
         </div>
       </div>
