@@ -128,7 +128,7 @@ const RAW_PROJECTS = [
     status: "deployed",
     category: "systems",
     operatorNote:
-      "The Station is a model, and the page at ampactor.dev/hum replays a session recorded on a synthesized test hum; reading a real room's hum takes the guitar, an audio interface and a laptop running the director. The compiler proves what the decision cannot do. It does not prove the decisions are good: those are tested on recordings, including Britain's 9 August 2019 grid failure transposed to 60 Hz.",
+      "The Station is a model, and the page at ampactor.dev/hum replays a session recorded on a synthesized test hum; reading a real room's hum takes the guitar, an audio interface and a laptop running the director. The 2019 grid failure it replays is real data from Britain, transposed to 60 Hz.",
   },
 
   {
