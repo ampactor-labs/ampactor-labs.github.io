@@ -8,6 +8,42 @@
 // fallback until its README is updated.
 const RAW_PROJECTS = [
   {
+    id: "wasatch",
+    title: "WASATCH SYMPHONY",
+    subtitle: "THE VALLEY AS LIVE MUSIC",
+    lang: "Rust/TS",
+    // The lake on its own page (--lake in wasatch's styles).
+    color: "#2ec4b6",
+    icon: "⛰",
+    github: "https://github.com/ampactor-labs/wasatch",
+    live: "https://ampactor.dev/wasatch/",
+    desc: "A web app that plays the Salt Lake valley live as music, from its trains, buses, planes, weather, air and seismometers. A Rust engine compiled to WebAssembly composes and renders every bar on the browser's audio thread, and every phone plays the same bar at the same moment, about 90 seconds behind the valley. A small Node server seals the realtime feeds into 30-second windows that every phone reads alike. The page is TypeScript and hand-drawn SVG.",
+    tags: ["live-data", "generative", "wasm", "determinism"],
+    tagline: "EVERY TRAIN RINGS A BELL",
+    outcome:
+      "A web app that plays the Salt Lake valley live as music, from its trains, buses, planes, weather, air and seismometers.",
+    highlights: [
+      "19 VALLEY SIGNALS, EACH WITH A SOUND",
+      "SAME BAR ON EVERY PHONE, ~90 s BEHIND",
+      "THE THEME IS 13 WASATCH SUMMITS",
+      "RUST → WASM ON THE AUDIO THREAD",
+      "4 VANTAGES, EACH WITH ITS OWN ROOM",
+      "MASTERED TO −16 LUFS",
+    ],
+    stack: [
+      "Rust",
+      "WebAssembly",
+      "AudioWorklet",
+      "TypeScript",
+      "Node + Railway",
+    ],
+    status: "deployed",
+    category: "systems",
+    operatorNote:
+      "Automated tests run only in headless Chrome, so Safari and real phones are checked by hand. On October 29, 2026 that let phones play silence while every check passed, because headless Chrome starts its audio at page load and a phone waits for the tap. The smoke test now holds the audio until the tap and fails on silence.",
+  },
+
+  {
     id: "mentl",
     title: "MENTL",
     subtitle: "SELF-HOSTING COMPILER",

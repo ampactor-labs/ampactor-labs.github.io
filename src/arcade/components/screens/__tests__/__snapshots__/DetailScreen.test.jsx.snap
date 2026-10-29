@@ -5,7 +5,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
   style="height: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;"
 >
   <div
-    style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(224, 255, 0, 0.133);"
+    style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(46, 196, 182, 0.133);"
   >
     <div
       aria-label="Back to project list"
@@ -17,23 +17,23 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       ◄
     </div>
     <div
-      style="font-size: 20px; color: rgb(224, 255, 0);"
+      style="font-size: 20px; color: rgb(46, 196, 182);"
     >
-      ☀
+      ⛰
     </div>
     <div
       style="flex: 1 1 0%;"
     >
       <h1
         class="signage"
-        style="font-family: "Press Start 2P", monospace; font-size: 16px; font-weight: 400; color: rgb(224, 255, 0); letter-spacing: var(--track-pixel); margin: 0px;"
+        style="font-family: "Press Start 2P", monospace; font-size: 16px; font-weight: 400; color: rgb(46, 196, 182); letter-spacing: var(--track-pixel); margin: 0px;"
       >
-        MENTL
+        WASATCH SYMPHONY
       </h1>
       <div
         style="font-size: 10px; color: var(--cab-text); letter-spacing: var(--track-ui); margin-top: 3px;"
       >
-        SELF-HOSTING COMPILER
+        THE VALLEY AS LIVE MUSIC
       </div>
     </div>
     <div
@@ -43,9 +43,18 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <a
         aria-current="true"
         class="chip frost"
-        href="https://github.com/ampactor-labs/mentl"
+        href="https://ampactor.dev/wasatch/"
         rel="noopener noreferrer"
-        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(224, 255, 0); background: linear-gradient(rgba(224, 255, 0, 0.067), rgba(224, 255, 0, 0.067)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.333); box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #E0FF00, 0 0 18px #E0FF0099; transition: box-shadow 0.15s ease;"
+        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 700; color: var(--cab-void); background: rgb(46, 196, 182); border: 1px solid transparent; box-shadow: 0 0 0 2px var(--cab-void), 0 0 0 4px #2ec4b6, 0 0 18px #2ec4b699; transition: box-shadow 0.15s ease;"
+        target="_blank"
+      >
+        ▸ DEMO
+      </a>
+      <a
+        class="chip frost"
+        href="https://github.com/ampactor-labs/wasatch"
+        rel="noopener noreferrer"
+        style="font-size: 10px; letter-spacing: var(--track-ui); text-decoration: none; padding: 5px 12px; border-radius: 4px; white-space: nowrap; font-weight: 600; color: rgb(46, 196, 182); background: linear-gradient(rgba(46, 196, 182, 0.067), rgba(46, 196, 182, 0.067)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.333); box-shadow: none; transition: box-shadow 0.15s ease;"
         target="_blank"
       >
         › SOURCE
@@ -59,17 +68,17 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
     tabindex="0"
   >
     <span
-      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 8px; letter-spacing: var(--track-pixel); color: rgba(224, 255, 0, 0.04); pointer-events: none; user-select: none;"
+      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 8px; letter-spacing: var(--track-pixel); color: rgba(46, 196, 182, 0.04); pointer-events: none; user-select: none;"
     >
-      THE COMPILER BOOTSTRAPS ITSELF
+      EVERY TRAIN RINGS A BELL
     </span>
     <div
-      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(224, 255, 0); font-weight: 600; max-width: 520px;"
+      style="margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: rgb(46, 196, 182); font-weight: 600; max-width: 520px;"
     >
-      A programming language that compiles itself.
+      A web app that plays the Salt Lake valley live as music, from its trains, buses, planes, weather, air and seismometers.
     </div>
     <div
-      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: linear-gradient(rgba(224, 255, 0, 0.02), rgba(224, 255, 0, 0.02)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.04);"
+      style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: linear-gradient(rgba(46, 196, 182, 0.02), rgba(46, 196, 182, 0.02)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.04);"
     >
       <div
         class="sign"
@@ -88,11 +97,11 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="font-size: 11px; line-height: 1.75; color: var(--cab-text); max-width: 520px;"
       >
         <span
-          style="color: rgb(224, 255, 0);"
+          style="color: rgb(46, 196, 182);"
         >
           &gt; 
         </span>
-        Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.
+        A Rust engine compiled to WebAssembly composes and renders every bar on the browser's audio thread, and every phone plays the same bar at the same moment, about 90 seconds behind the valley. A small Node server seals the realtime feeds into 30-second windows that every phone reads alike. The page is TypeScript and hand-drawn SVG.
       </div>
     </div>
     <div
@@ -118,61 +127,61 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          BYTE-IDENTICAL SELF-COMPILE, EVERY PIN
+          19 VALLEY SIGNALS, EACH WITH A SOUND
         </div>
         <div
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          FULL EFFECT ALGEBRA (+, -, &, !, Pure)
+          SAME BAR ON EVERY PHONE, ~90 s BEHIND
         </div>
         <div
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          SELF-HOSTED: MENTL COMPILES MENTL
+          THE THEME IS 13 WASATCH SUMMITS
         </div>
         <div
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          ONE GRAPH, ONE WRITER: INFERENCE
+          RUST → WASM ON THE AUDIO THREAD
         </div>
         <div
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          ROW-POLYMORPHIC TYPE SYSTEM
+          4 VANTAGES, EACH WITH ITS OWN ROOM
         </div>
         <div
           style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
         >
           <span
-            style="color: rgba(224, 255, 0, 0.533);"
+            style="color: rgba(46, 196, 182, 0.533);"
           >
             &gt;&gt; 
           </span>
-          WASM CODEGEN · 149 MICROS · 62 CRUCIBLES
+          MASTERED TO −16 LUFS
         </div>
       </div>
       <div
@@ -195,30 +204,35 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
           style="display: flex; flex-wrap: wrap; gap: 4px;"
         >
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.082), rgba(46, 196, 182, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.19); color: rgba(46, 196, 182, 0.8); letter-spacing: var(--track-display);"
           >
-            WASM
+            Rust
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.082), rgba(46, 196, 182, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.19); color: rgba(46, 196, 182, 0.8); letter-spacing: var(--track-display);"
           >
-            WAT
+            WebAssembly
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.082), rgba(46, 196, 182, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.19); color: rgba(46, 196, 182, 0.8); letter-spacing: var(--track-display);"
           >
-            Hindley-Milner
+            AudioWorklet
           </span>
           <span
-            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.082), rgba(224, 255, 0, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.19); color: rgba(224, 255, 0, 0.8); letter-spacing: var(--track-display);"
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.082), rgba(46, 196, 182, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.19); color: rgba(46, 196, 182, 0.8); letter-spacing: var(--track-display);"
           >
-            row polymorphism
+            TypeScript
+          </span>
+          <span
+            style="font-family: var(--font-body); font-size: 9px; padding: 2px 7px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.082), rgba(46, 196, 182, 0.082)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.19); color: rgba(46, 196, 182, 0.8); letter-spacing: var(--track-display);"
+          >
+            Node + Railway
           </span>
         </div>
       </div>
     </div>
     <div
-      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: linear-gradient(rgba(224, 255, 0, 0.024), rgba(224, 255, 0, 0.024)), rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.082) rgba(224, 255, 0, 0.25); border-image: none;"
+      style="margin-bottom: 14px; padding: 8px 12px; border-radius: 4px; background: linear-gradient(rgba(46, 196, 182, 0.024), rgba(46, 196, 182, 0.024)), rgba(10, 7, 22, 0.72); border-width: 1px 1px 1px 3px; border-style: solid; border-color: rgba(46, 196, 182, 0.082) rgba(46, 196, 182, 0.082) rgba(46, 196, 182, 0.082) rgba(46, 196, 182, 0.25); border-image: none;"
     >
       <div
         class="sign"
@@ -236,18 +250,18 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
       <div
         style="font-size: 10px; line-height: 1.75; color: var(--cab-text); font-style: italic; max-width: 520px;"
       >
-        Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.
+        Automated tests run only in headless Chrome, so Safari and real phones are checked by hand. On October 29, 2026 that let phones play silence while every check passed, because headless Chrome starts its audio at page load and a phone waits for the tap. The smoke test now holds the audio until the tap and fails on silence.
       </div>
     </div>
     <div
       style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;"
     >
       <span
-        style="font-family: var(--font-body); font-size: 10px; color: var(--cab-ok);"
+        style="font-family: var(--font-body); font-size: 10px; color: var(--cab-voice);"
       >
         ●
          
-        ACTIVE
+        DEPLOYED
       </span>
       <span
         style="color: var(--cab-faint); font-size: 10px;"
@@ -258,30 +272,30 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
         style="display: flex; flex-wrap: wrap; gap: 4px;"
       >
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.04), rgba(46, 196, 182, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.125); color: rgba(46, 196, 182, 0.667); letter-spacing: var(--track-display);"
         >
-          compiler
+          live-data
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.04), rgba(46, 196, 182, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.125); color: rgba(46, 196, 182, 0.667); letter-spacing: var(--track-display);"
         >
-          effects
+          generative
         </span>
         <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
-        >
-          self-hosting
-        </span>
-        <span
-          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(224, 255, 0, 0.04), rgba(224, 255, 0, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(224, 255, 0, 0.125); color: rgba(224, 255, 0, 0.667); letter-spacing: var(--track-display);"
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.04), rgba(46, 196, 182, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.125); color: rgba(46, 196, 182, 0.667); letter-spacing: var(--track-display);"
         >
           wasm
+        </span>
+        <span
+          style="font-family: var(--font-body); font-size: 8px; padding: 2px 6px; border-radius: 3px; background: linear-gradient(rgba(46, 196, 182, 0.04), rgba(46, 196, 182, 0.04)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(46, 196, 182, 0.125); color: rgba(46, 196, 182, 0.667); letter-spacing: var(--track-display);"
+        >
+          determinism
         </span>
       </div>
     </div>
   </div>
   <div
-    style="font-family: var(--font-body); padding-top: 10px; border-top: 1px solid rgba(224, 255, 0, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
+    style="font-family: var(--font-body); padding-top: 10px; border-top: 1px solid rgba(46, 196, 182, 0.067); font-size: 8px; color: var(--cab-muted); display: flex; justify-content: space-between;"
   >
     <span>
       [ 
@@ -289,7 +303,7 @@ exports[`DetailScreen > matches snapshot for regular project 1`] = `
        BACK ]
     </span>
     <span>
-      ampactor-labs/mentl
+      ampactor-labs/wasatch
     </span>
   </div>
 </div>
