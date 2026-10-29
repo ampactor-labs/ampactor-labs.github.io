@@ -9,10 +9,16 @@ import { pixel } from "../../type";
 // Long enough for the last of the three staggered entrances to land.
 const UNLOCK_MS = 800;
 
-// Where the list was scrolled when a cartridge opened. The screen unmounts
-// while a readout is up, so it comes back to this instead of to the top and a
-// long smooth scroll down to the lit row.
+// Where the list was last scrolled. The screen unmounts while a readout is
+// up, so it comes back to this instead of to the top and a long smooth scroll
+// down to the lit row. It is kept as the reader scrolls, not read at unmount:
+// the unmount happens inside a view transition's DOM swap.
 let savedScroll = 0;
+// How long a return keeps trying to land the list where it was, while the
+// browser is still laying the list out (a scroll offset written before the
+// rows have their height is clamped, and some browsers drop one written
+// during a view transition's swap).
+const RESTORE_MS = 500;
 
 const smooth = () =>
   typeof window !== "undefined" &&
@@ -29,13 +35,34 @@ export default function SelectScreen({
   coinCount,
 }) {
   const listRef = useRef(null);
-  // Back on the list: where it was, before the first paint.
+  // Back on the list: where it was, before the first paint, and again each
+  // frame until it holds, unless the reader takes the list first.
+  const restoring = useRef(false);
   useLayoutEffect(() => {
     const list = listRef.current;
     if (!list) return;
-    list.scrollTop = savedScroll;
+    const target = savedScroll;
+    list.scrollTop = target;
+    if (target <= 0) return;
+    restoring.current = true;
+    const until = performance.now() + RESTORE_MS;
+    let raf = 0;
+    const stop = () => {
+      restoring.current = false;
+      cancelAnimationFrame(raf);
+    };
+    const tick = () => {
+      if (!restoring.current) return;
+      if (Math.abs(list.scrollTop - target) > 1) list.scrollTop = target;
+      if (performance.now() < until) raf = requestAnimationFrame(tick);
+      else restoring.current = false;
+    };
+    raf = requestAnimationFrame(tick);
+    const taken = ["wheel", "touchstart", "keydown", "pointerdown"];
+    for (const ev of taken) list.addEventListener(ev, stop, { passive: true });
     return () => {
-      savedScroll = list.scrollTop;
+      stop();
+      for (const ev of taken) list.removeEventListener(ev, stop);
     };
   }, []);
   // The lit row stays in view: at once when the screen comes up, smoothly
@@ -44,6 +71,9 @@ export default function SelectScreen({
   useEffect(() => {
     const row = listRef.current?.children[selectedIdx];
     if (!row) return;
+    // A selection that moves after arrival is the reader's: the return's
+    // restore stands down.
+    if (!firstScroll.current) restoring.current = false;
     row.scrollIntoView({
       block: "nearest",
       behavior: firstScroll.current || !smooth() ? "auto" : "smooth",
@@ -228,6 +258,9 @@ export default function SelectScreen({
         role="listbox"
         aria-label="Project list"
         className="project-list"
+        onScroll={(e) => {
+          if (!restoring.current) savedScroll = e.currentTarget.scrollTop;
+        }}
         tabIndex={0}
         aria-activedescendant={
           projects[selectedIdx] ? `program-${projects[selectedIdx].id}` : undefined
