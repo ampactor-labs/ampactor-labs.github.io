@@ -30,11 +30,9 @@ describe("the flash budget", () => {
     )[1];
     for (const cls of [
       "dash-in",
-      "tube-sweep",
       "tier-1-enter",
       "coin-announce",
       "coin-slot.lit",
-      "attract-start",
       "marquee-track",
     ])
       expect(block, cls).toContain(`.${cls}`);

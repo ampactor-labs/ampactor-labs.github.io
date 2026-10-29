@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
-  HOME_ROUTE,
   SELECT_ROUTE,
-  isArcadeHistoryState,
   projectRoute,
   resolveRoute,
   stateFor,
@@ -14,10 +12,8 @@ import { isKnownProgramId } from "./knownIds";
 // The cabinet asks for navigation with these; the router turns each into
 // history entries and hands back the route the address bar now wants.
 export type NavIntent =
-  | { type: "enter"; id?: string }
   | { type: "open"; id: string }
   | { type: "back" }
-  | { type: "exit" }
   | { type: "select" };
 
 // The route the page loaded on. A hash naming nothing the machine has is the
@@ -47,14 +43,12 @@ function addressFor(route: ArcadeRoute): string {
 
 // One owner for history. Entries:
 //
-//   /            the title card (attract mode)
-//   /arcade/     the select screen; marked fromHome when this session pushed
-//                it from the title card
+//   /            the project list, where the machine lands
+//   /arcade/     the project list too
 //   /arcade/#id  an open cartridge or operator program, always pushed over a
-//                select entry
+//                list entry
 //
-// so Back always walks cartridge → select → title card, and Forward walks
-// back in.
+// so Back always walks cartridge → list, and Forward walks back in.
 export function useArcadeHistory(initialRoute: ArcadeRoute): {
   route: ArcadeRoute;
   navigate: (intent: NavIntent) => void;
@@ -96,8 +90,8 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
   const navigate = useCallback((intent: NavIntent) => {
     const { history } = window;
     const current = routeRef.current;
-    const push = (next: ArcadeRoute, fromHome = false) => {
-      history.pushState(stateFor(next, { fromHome }), "", addressFor(next));
+    const push = (next: ArcadeRoute) => {
+      history.pushState(stateFor(next), "", addressFor(next));
       routeRef.current = next;
       setRoute(next);
     };
@@ -108,11 +102,6 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
     };
 
     switch (intent.type) {
-      case "enter": {
-        if (current.view === "home") push(SELECT_ROUTE, true);
-        if (intent.id) push(projectRoute(intent.id));
-        return;
-      }
       case "open": {
         push(projectRoute(intent.id));
         return;
@@ -129,20 +118,6 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
           history.back();
         } else if (current.view === "arcade") {
           replace(SELECT_ROUTE);
-        }
-        return;
-      }
-      case "exit": {
-        if (current.view !== "arcade") return;
-        const state: unknown = history.state;
-        if (isArcadeHistoryState(state) && state.fromHome) {
-          // We came from the title card's entry directly beneath; walk back
-          // onto it.
-          history.back();
-        } else {
-          // Hard-loaded at /arcade/ (or leaving from a cartridge): give the
-          // title card its own entry so Back returns to the list.
-          push(HOME_ROUTE);
         }
         return;
       }

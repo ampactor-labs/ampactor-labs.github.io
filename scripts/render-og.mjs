@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Render the social card from the real page: the cabinet on its title card.
+// Render the social card from the real page: the cabinet on its project list.
 //
 //   npx vite build && npx vite preview --port 4173 &   # serve the build
 //   node scripts/render-og.mjs                         # writes public/og-home.png
 //
 // The card is the machine as a first visitor sees it once the boot has run,
-// standing in the dark with the name up. Re-run it when the title card changes; the PNG is
-// committed because the deploy has no browser.
+// standing in the dark with the name and the cartridges up. Re-run it when the
+// list's look changes; the PNG is committed because the deploy has no browser.
 
 /* global document */
 // (the two callbacks below run inside the page, not in Node)
@@ -25,14 +25,14 @@ const page = await browser.newPage({
   viewport: { width: 1200, height: 630 },
   deviceScaleFactor: 1,
   colorScheme: "dark",
-  // Holds the title card still and turns the CRT's flicker off.
+  // Holds the screen still and turns the CRT's flicker off.
   reducedMotion: "reduce",
   ignoreHTTPSErrors: true,
 });
-// A first visit, so the card asks the question a stranger sees; under reduced
-// motion the boot still prints, so the title card is up within a few seconds.
+// A first visit, as a stranger sees it; under reduced motion the boot still
+// prints, so the list is up within a few seconds.
 await page.goto(url);
-await page.waitForSelector('[data-testid="attract-screen"][data-frame="title"]', {
+await page.waitForSelector('[role="listbox"]', {
   timeout: 20_000,
 });
 await page.evaluate(() => document.fonts.ready);

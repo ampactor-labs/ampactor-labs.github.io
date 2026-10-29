@@ -70,19 +70,6 @@ describe("arcadeRoute", () => {
     }
   });
 
-  it("marks the arcade entry pushed from the title card", () => {
-    expect(stateFor(SELECT_ROUTE, { fromHome: true })).toEqual({
-      v: 1,
-      view: "arcade",
-      screen: "select",
-      fromHome: true,
-    });
-    expect(stateFor(HOME_ROUTE, { fromHome: true })).toEqual({
-      v: 1,
-      view: "home",
-    });
-  });
-
   it("compares routes structurally", () => {
     expect(sameRoute(HOME_ROUTE, { view: "home" })).toBe(true);
     expect(sameRoute(SELECT_ROUTE, projectRoute("mentl"))).toBe(false);

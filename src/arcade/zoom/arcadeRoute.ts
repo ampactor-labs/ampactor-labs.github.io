@@ -1,5 +1,5 @@
-// The cabinet's URL scheme, as pure functions. Home ("/") is the machine in
-// attract mode, "/arcade/" is its select screen, and "/arcade/#<id>" is an
+// The cabinet's URL scheme, as pure functions. Home ("/") and "/arcade/" are
+// both its select screen (the project list), and "/arcade/#<id>" is an
 // open cartridge or one of the operator's programs. History entries carry a
 // small state object so popstate can route without parsing, but a null
 // state (a hard load, a hand-edited hash) still resolves from the URL alone.
@@ -14,10 +14,6 @@ export interface ArcadeHistoryState {
   view: "home" | "arcade";
   screen?: "select" | "project";
   id?: string;
-  // True on the "/arcade/" entry this session pushed from the title card, so
-  // leaving the select screen can walk back to that entry instead of adding
-  // one.
-  fromHome?: boolean;
 }
 
 export const HOME_ROUTE: ArcadeRoute = { view: "home" };
@@ -64,15 +60,12 @@ export function resolveRoute(
   return id ? projectRoute(id) : SELECT_ROUTE;
 }
 
-export function stateFor(
-  route: ArcadeRoute,
-  extra: Pick<ArcadeHistoryState, "fromHome"> = {},
-): ArcadeHistoryState {
+export function stateFor(route: ArcadeRoute): ArcadeHistoryState {
   if (route.view === "home") return { v: 1, view: "home" };
   if (route.screen === "project") {
-    return { v: 1, view: "arcade", screen: "project", id: route.id, ...extra };
+    return { v: 1, view: "arcade", screen: "project", id: route.id };
   }
-  return { v: 1, view: "arcade", screen: "select", ...extra };
+  return { v: 1, view: "arcade", screen: "select" };
 }
 
 export function urlFor(route: ArcadeRoute): string {

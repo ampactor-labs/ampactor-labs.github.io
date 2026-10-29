@@ -11,12 +11,10 @@ import TunnelCanvas from "./TunnelCanvas";
 import { crtStyles } from "./styles/crtStyles";
 import styles from "./styles/stage.module.css";
 import { BOOT_LINES } from "./constants";
-import { PROJECTS } from "../data/projects";
 import { hasVisited } from "./visited";
 import { QUOTES } from "../data/quotes";
 import BootScreen from "./components/screens/BootScreen";
 import SelectScreen from "./components/screens/SelectScreen";
-import AttractScreen from "./components/screens/AttractScreen";
 import Cabinet from "./components/Cabinet";
 import useCabinetState from "./hooks/useCabinetState";
 import { PALETTE, alpha } from "./palette";
@@ -119,9 +117,6 @@ export default function ArcadeStage({
         (route.view === "arcade" && route.screen === "project")
       ),
   );
-  // Read once: the boot marks the visit, and the title card after a first
-  // boot must still greet a first visitor.
-  const [returning] = useState(() => hasVisited());
 
   const {
     screen,
@@ -134,12 +129,10 @@ export default function ArcadeStage({
     dims,
     gameHighlight,
     allProjects,
-    attractNudge,
     fs,
     introComplete,
     skipIntro,
     insertCoin,
-    start,
     openProject,
     goBack,
     exitGame,
@@ -189,11 +182,10 @@ export default function ArcadeStage({
       <style>{crtStyles}</style>
       <div className={styles.backdrop} data-backdrop="">
         {/* The tunnel moves while the machine is putting on a show (the
-            boot, the title loop, the game) and holds still while someone is
-            reading. */}
+            boot, the game) and holds still while someone is reading. */}
         <TunnelCanvas
           ref={tunnelRef}
-          moving={screen === "boot" || screen === "attract" || screen === "game"}
+          moving={screen === "boot" || screen === "game"}
         />
         <AMarkOverlay logoRef={logoRef} />
         {screen === "game" && (
@@ -230,7 +222,6 @@ export default function ArcadeStage({
               content. */}
           <div className="tube-ground" />
           <div className="tube-shade" />
-          {screen === "attract" && <div className="tube-sweep" />}
           {announcing === 3 && (
             <div className="coin-announce tier-3">
               CREDIT ACCEPTED
@@ -285,17 +276,6 @@ export default function ArcadeStage({
                 overflow: "hidden",
               }}
             >
-              {screen === "attract" && (
-                <AttractScreen
-                  projects={PROJECTS}
-                  fs={fs}
-                  onStart={start}
-                  nudge={attractNudge}
-                  reducedMotion={reducedMotion}
-                  screenWidth={dims.w}
-                  returning={returning}
-                />
-              )}
               {screen === "boot" && (
                 <BootScreen
                   lines={BOOT_LINES}

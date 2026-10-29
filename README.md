@@ -14,15 +14,14 @@ npm run dev            # vite, multi-page: /, /arcade/, /receipts/, /craft/
 ```
 
 The site is an arcade cabinet, and the cabinet is the whole page. It opens on
-its title card (the name, the trade, two lines of Morgan's own, PRESS START);
-START shows the select screen, where each project is a cartridge and three
-operator programs at the end of the list hold the rest of a portfolio: HOW TO
-PLAY (the controls), HIGH SCORES (the commit ledger) and CREDITS (the career
-roll). The résumé, GitHub and LinkedIn are pills on the select screen's
-header. Escape or the browser's Back button steps back the way you came, down
-to the title card. On a first visit the machine powers on and prints its BIOS
-before the title card, about two and a half seconds in all, and any key or tap
-skips ahead; after that it lands where the URL points. Click the coin slot on
+the select screen, where each project is a cartridge and three operator
+programs at the end of the list hold the rest of a portfolio: HOW TO PLAY (the
+controls), HIGH SCORES (the commit ledger) and CREDITS (the career roll). The
+name, the trade, the résumé, GitHub and LinkedIn are on the select screen's
+header. B, Escape or the browser's Back button steps back from a cartridge to
+the list. On a first visit the machine powers on and prints its BIOS before
+the list, about 2.7 seconds once the tube is lit, and any key or tap skips
+ahead; after that it lands where the URL points. Click the coin slot on
 the cabinet to unlock three hidden programs. One of them is TUNNEL_RUN, a
 vector shooter with a global top-10 leaderboard that runs with no server.
 
@@ -42,9 +41,7 @@ npm run audit          # Lighthouse (median of 5), test counts and weights → s
 
 The pages:
 
-- `/`: the cabinet on its title card (attract mode): the name, the trade, then
-  the cartridges in turn and the high-score table
-- `/arcade/`: the cabinet's select screen; `/arcade/#<project id>` opens a
+- `/` and `/arcade/`: the cabinet's select screen (the project list); `/arcade/#<project id>` opens a
   project, `/arcade/#how-to-play`, `#high-scores` and `#credits` the operator
   programs
 - `/receipts/`: the commit log, every public commit with filters, charts and
@@ -59,11 +56,11 @@ The pages:
 
 The console fills the viewport (`min(900px, 100vw)` × `100dvh`) and stands in
 a dark backdrop; there is no page around it to scroll. The URL is the source
-of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route (`/` the title
-card, `/arcade/` the list, `/arcade/#<id>` an open program),
+of truth: `src/arcade/zoom/arcadeRoute.ts` resolves the route (`/` and
+`/arcade/` the list, `/arcade/#<id>` an open program),
 `useArcadeHistory` owns the History API, and the cabinet requests navigation
 through intents instead of calling it directly, so Back always walks program →
-list → title card. The boot is the machine's own business and not a route: a
+list. The boot is the machine's own business and not a route: a
 first visit (nothing in `localStorage`) powers on and prints the BIOS, then
 lands where the URL points. `docs/DESIGN-SYSTEM.md` covers the design.
 
@@ -76,8 +73,8 @@ theme and the formatters. `vite.config.js` defines it with a Rolldown
 shared by some pages but not all a chunk of its own; adding `/craft/` once
 added a request to the home page and 160 ms to its largest paint on
 Lighthouse's simulated phone. The cabinet's readout and operator programs
-load once the machine has booted and the page is idle, so the title card
-ships without them, and the power-on uses GSAP's core alone, with the styles
+load once the machine has booted and the page is idle, so the list ships
+without them, and the power-on uses GSAP's core alone, with the styles
 written by hand.
 
 ### Project cards from READMEs
@@ -149,7 +146,7 @@ date. The last run, 2026-09-25, on one laptop:
 
 The cost is the cabinet: the home page ships the most JavaScript and paints
 its largest element last, because a first visit powers the machine on and
-prints the BIOS before the title card.
+prints the BIOS before the list.
 
 The audit is also the gate (`docs/AUDIT-NEON.md`, step 10). After writing what
 it measured, it exits non-zero when a measured page scores under 95 for
@@ -167,8 +164,7 @@ blocking time, before the neon audit and after it alike.
 ```
 src/
   main.tsx, App.tsx        the cabinet page and its router
-  arcade/                  the cabinet (JavaScript): the screens (title card, boot,
-                           select, cartridge, operator programs), the panel, the
+  arcade/                  the cabinet (JavaScript): the screens (boot, select, cartridge, operator programs), the panel, the
                            game; zoom/ holds the URL scheme and the history
   receipts/                the commit log page: pure data model, URL state, charts,
                            the virtualized table, the drawer, the export form
@@ -205,7 +201,7 @@ npm run typecheck      # tsc --noEmit
 The unit tests cover the commit log's model, URL codec, chart scale and
 export schema, the project data, the arcade's route and history, cabinet
 state, screens and boss, the formatters and the theme, and the pages'
-rendering. The browser tests cover the title card, the boot, the list and the
+rendering. The browser tests cover the boot, the list and the
 operator programs, the history, the commit log, the craft page, continuity between pages and
 behaviour on a slow network, on a desktop and a phone profile, with an axe
 accessibility scan. `npm run audit` counted 243 unit tests and 68 browser

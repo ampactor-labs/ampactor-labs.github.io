@@ -1,3 +1,4 @@
+import { PROJECTS } from "../../data/projects";
 import { describe, it, expect, vi } from "vitest";
 import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -45,21 +46,20 @@ function renderStage(route = HOME) {
 }
 
 describe("ArcadeStage", () => {
-  it("at home shows the title card with the name, and START asks to enter", () => {
-    const { onNavigate } = renderStage(HOME);
-    expect(
-      screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
-    ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "PRESS START" }));
-    expect(onNavigate).toHaveBeenCalledWith({ type: "enter" });
+  it("home is the list, with the name and the résumé in its header", () => {
+    renderStage(HOME);
+    expect(screen.getByRole("listbox", { name: "Project list" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "PRESS START" })).toBeNull();
+    expect(screen.getByText(/MORGAN ESPITIA/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute("href", "/resume.html");
   });
 
-  it("the panel is live on the title card: A starts, the coin starts with credit", () => {
+  it("the panel is live at home: A opens the lit cartridge, the coin is credit on the list", () => {
     const { onNavigate } = renderStage(HOME);
     fireEvent.click(screen.getByRole("button", { name: "Select" }));
-    expect(onNavigate).toHaveBeenCalledWith({ type: "enter" });
+    expect(onNavigate).toHaveBeenCalledWith({ type: "open", id: PROJECTS[0].id });
     fireEvent.click(screen.getByRole("button", { name: "Insert coin" }));
-    expect(onNavigate).toHaveBeenCalledTimes(2);
+    expect(onNavigate).toHaveBeenCalledTimes(1);
   });
 
   it("at the select route lists the cartridges and the operator programs", () => {

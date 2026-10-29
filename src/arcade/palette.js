@@ -98,7 +98,7 @@ export function alpha(hex, a) {
 
 // A card on the tube: the void at 72%, so the lit grid recedes behind
 // whatever stands on it (the list's programs, the pills and chips, the
-// readout's panels, the cartridge on the title card). onCard(tint) lays a
+// readout's panels). onCard(tint) lays a
 // colour's tint over it.
 export const CARD = alpha(PALETTE.void, 0.72);
 export const onCard = (tint) => `linear-gradient(${tint}, ${tint}), ${CARD}`;

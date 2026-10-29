@@ -21,11 +21,11 @@ week:
 Both tried to make the site quick for a recruiter to skim. The cabinet already
 does that, and anything more for that reader belongs inside it:
 
-- The title card (attract mode, `/`) is the name, the role, two lines of
-  Morgan's own and PRESS START.
-  A visitor who touches nothing sees the cartridges and the high scores go by.
-- The select screen's header, one press away, has the email, the phone,
-  RESUME, GITHUB and LINKEDIN.
+- The first screen is the project list (the select screen, at `/` and
+  `/arcade/`). Its header has the name, the role, the email, the phone,
+  RESUME, GITHUB and LINKEDIN. There is no title card or attract loop in
+  front of it: Morgan scrapped it in October 2026 (it was a screen to get
+  past), so don't bring one back.
 - The `<noscript>` list (`src/data/site.js`) is the plain version for
   crawlers, applicant-tracking systems and visitors without JavaScript.
 
@@ -35,12 +35,13 @@ or operator programs (`src/data/programs.js`), the way `/receipts/` and
 
 ## The flow
 
-A first visit: the tube lights, the BIOS lines burst by (the last one before
-`READY.` is Morgan's), the title card drops in, about two and a half seconds
-in all, and any key or tap skips ahead. Then
-PRESS START → select screen (`/arcade/`) → a cartridge (`/arcade/#<id>`). A
-returning visitor, or a link straight to a cartridge, skips the boot. Back walks cartridge → list → title card. The coin slot
-unlocks the hidden programs; the site's copy never points at it.
+A first visit: the tube lights, the BIOS lines print (the last one before
+`READY.` is Morgan's), and the machine lands on the project list, about 2.7
+seconds of test pattern and BIOS once the tube is lit; any key or tap skips
+ahead. Then the list → a cartridge (`/arcade/#<id>`). A returning visitor, or
+a link straight to a cartridge, skips the boot. Back walks cartridge → list;
+on the list B and Escape do nothing, since there is nothing behind it. The
+coin slot unlocks the hidden programs; the site's copy never points at it.
 
 ## The words
 
@@ -61,9 +62,8 @@ Morgan's rules, as written:
 
 Borrowed lines live in `src/data/quotes.js`: short, famous lines from games,
 films and dev folklore, each with its source in a comment and never on screen,
-placed where a real machine would show something (a returning visitor's
-greeting, the locked rows, the coin, the game over, an epigraph on a paper
-page). They are idiom, like PRESS START, not words about Morgan. Short lines
+placed where a real machine would show something (the locked rows, the
+coin, the game over, an epigraph on a paper page). They are idiom, like PRESS START, not words about Morgan. Short lines
 only; never a lyric, never a passage, never Fallout, and never a line every
 developer's site already wears: SHALL WE PLAY A GAME?, IT'S DANGEROUS TO GO
 ALONE!, the princess in another castle, "Talk is cheap. Show me the code.",
@@ -72,7 +72,7 @@ WINNERS DON'T USE DRUGS and xkcd 303 were cut for that in October 2026.
 In practice: one fact in one place per screen; no instructions to the reader
 and no explaining what to conclude; no lists of three for rhythm, no "X, Y"
 taglines, no brand words worn as a personality. The cabinet's game idiom
-(PRESS START, INSERT COIN, HIGH SCORES) is fine. Every claim about a project
+(INSERT COIN, HIGH SCORES, READY.) is fine. Every claim about a project
 is literally true and can be checked against its README
 (`docs/README-STANDARD.md`). The pages (the commit log, the case study, the
 résumé) are plain. `docs/DESIGN-SYSTEM.md` has the rest.
@@ -85,5 +85,5 @@ npm run lint && npm run typecheck && npm test
 npm run e2e    # builds, serves on :4173, runs desktop and Pixel 7
 ```
 
-The title card must fit a short phone (375×548) without spilling onto PRESS
-START; `e2e/home.spec.ts` checks it.
+On a short phone (375×548) the name and the first cartridge must both be in
+view; `e2e/home.spec.ts` checks it.
