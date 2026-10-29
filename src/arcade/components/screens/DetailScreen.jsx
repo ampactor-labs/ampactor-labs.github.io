@@ -230,7 +230,7 @@ export default function DetailScreen({
             {p.outcome}
           </div>
         )}
-        {/* A program from the project's repo, its operators lit, and their key */}
+        {/* A program from the project's repo, as it stands, operators lit */}
         {p.listing && (
           <div
             style={{
@@ -242,10 +242,22 @@ export default function DetailScreen({
             }}
           >
             <Sign text="PROGRAM LISTING" fs={fs} />
+            <div
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: fs(8),
+                color: "var(--cab-muted)",
+                marginBottom: 6,
+              }}
+            >
+              {p.listing.path}
+            </div>
             {/* Every line on one line: the type shrinks, only as far as the
                 longest line needs, to fit the listing's width (a monospace
                 character is 0.6em wide). Ligatures are off: the font would
-                draw |> as one triangle, and the listing shows what is typed. */}
+                draw |> as one triangle, and the listing shows what is typed.
+                An operator is lit in a comment too, where the comment names
+                it. */}
             <div style={{ containerType: "inline-size" }}>
               <pre
                 role="region"
@@ -262,24 +274,25 @@ export default function DetailScreen({
               >
                 <code>
                   {p.listing.code.split("\n").map((line, i) => (
-                    <span key={i}>
-                      {line.trimStart().startsWith("//") ? (
-                        <span style={{ color: "var(--cab-muted)" }}>
-                          {line}
-                        </span>
-                      ) : (
-                        line.split(OPERATOR).map((part, j) =>
-                          j % 2 ? (
-                            <span
-                              key={j}
-                              style={{ color: p.color, fontWeight: 700 }}
-                            >
-                              {part}
-                            </span>
-                          ) : (
-                            part
-                          ),
-                        )
+                    <span
+                      key={i}
+                      style={
+                        line.trimStart().startsWith("//")
+                          ? { color: "var(--cab-muted)" }
+                          : undefined
+                      }
+                    >
+                      {line.split(OPERATOR).map((part, j) =>
+                        j % 2 ? (
+                          <span
+                            key={j}
+                            style={{ color: p.color, fontWeight: 700 }}
+                          >
+                            {part}
+                          </span>
+                        ) : (
+                          part
+                        ),
                       )}
                       {"\n"}
                     </span>
@@ -287,36 +300,6 @@ export default function DetailScreen({
                 </code>
               </pre>
             </div>
-            {p.listing.key && (
-              <dl
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "auto 1fr",
-                  columnGap: 10,
-                  rowGap: 2,
-                  margin: "10px 0 0",
-                  fontSize: fs(10),
-                  lineHeight: 1.6,
-                  color: "var(--cab-text)",
-                }}
-              >
-                {p.listing.key.map(([op, meaning]) => (
-                  <div key={op} style={{ display: "contents" }}>
-                    <dt
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontVariantLigatures: "none",
-                        color: p.color,
-                        fontWeight: 700,
-                      }}
-                    >
-                      {op}
-                    </dt>
-                    <dd style={{ margin: 0 }}>{meaning}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
           </div>
         )}
         {/* Zone A — SYS/READOUT: the rest of the lead, after the headline */}

@@ -31,7 +31,7 @@ describe("DetailScreen", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it("shows MENTL's program with all five operators lit, and their key", () => {
+  it("shows MENTL's hello program with all five operators lit", () => {
     const mentl = PROJECTS.find((p) => p.id === "mentl");
     const { getByRole, getByText } = render(
       <DetailScreen {...baseProps} project={mentl} />,
@@ -44,11 +44,9 @@ describe("DetailScreen", () => {
     );
     expect([...lit].sort()).toEqual(["<|", "<~", "><", "|>", "~>"].sort());
     expect(listing.textContent).toContain(
-      "let ph = { prev => wrap_phase(prev + step) } <~ delay(1)",
+      "fn total(x) = { t => t + x } <~ delay(1)",
     );
-    for (const [op] of mentl.listing.key) {
-      expect(getByText(op, { selector: "dt" })).toBeTruthy();
-    }
+    expect(getByText("examples/hello/five.mn")).toBeTruthy();
   });
 
   it("renders back button", () => {

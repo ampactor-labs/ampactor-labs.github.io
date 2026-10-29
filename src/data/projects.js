@@ -61,48 +61,36 @@ const RAW_PROJECTS = [
     tagline: "A BROKEN RULE WON'T BUILD",
     outcome:
       "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
-    // Lesson 3 of Mentl's course and the sine voice it plays, three whole
-    // functions copied from the repo as `mentl fmt` lays them out. Together
-    // they write all five operators. The key is the README's and SYNTAX's
-    // words.
+    // examples/hello/five.mn from Mentl's repo, copied as it stands: the
+    // program writes each of the five operators once, with a comment before
+    // each saying what it does.
     listing: {
-      code: `// lib/dsp/osc.mn
-fn sine_voice(sr: Int) = {
-  fn stage(freq) with !Alloc = {
-    let step = phase_step(freq, sr)
-    let ph = { prev => wrap_phase(prev + step) } <~ delay(1)
-    sin(two_pi() * ph)
-  }
-  stage
-}
+      path: "examples/hello/five.mn",
+      code: `// hello: Mentl's five operators, once each.
+// \`mentl run examples/hello/five.mn\` prints:
+//   hello
+//   1 *
+//   3 ***
+//   6 ******
+import io
 
-// examples/pulse/course/03-bus.mn
-fn frame(buf, rig, n) = {
-  let t = time()
-  let tn = if t < 2.0 { t } else { t - 2.0 }
-  let dry = rig.voice(note_hz(t)) * 0.5 * shape(tn)
-  let (echoed, roomed) = dry <| (rig.echo, rig.room)
-  let l = ((echoed) >< (dry)) |> mix(0.35) |> soft_clip
-  let r = ((roomed) >< (dry)) |> mix(0.5) |> soft_clip
-  wav_frame(buf, n, l, r)
-}
+// <~ adds each number to the total before it.
+fn total(x) = { t => t + x } <~ delay(1)
 
+fn bar(n) = join("", repeat(n, "*"))
+
+fn say(n, b) = print("{n} {b}\\n")
+
+// <| sends the total to two places, and
+// |> hands both to \`say\`, which prints them.
+fn row(x) = (total(x) <| (int_to_str, bar)) |> say
+
+// ~> sends what \`print\` writes to the screen.
 fn main() = {
-  {
-    let frames = frames_of(seconds())
-    let buf = wav_header(wav_alloc(frames), frames, rate())
-    play(frames, frame(buf, build_rig(rate())))
-    print(wav_bytes(buf))
-  } ~> stdout_console ~> sample_at(48000)
+  // >< greets and counts side by side.
+  (print("hello\\n")) >< (each(row, range(1, 4)))
   0
-}`,
-      key: [
-        ["|>", "stages in sequence"],
-        ["<|", "one value to several branches"],
-        ["><", "independent flows side by side"],
-        ["~>", "installs a handler over everything to its left"],
-        ["<~", "feeds back a value from the previous step"],
-      ],
+} ~> stdout_console`,
     },
     highlights: [
       "HUM'S DECISION: 5 RULES, ALL PROVEN",
