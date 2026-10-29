@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from "react";
-import { QUOTES } from "../data/quotes";
 import Frame from "../ui/Frame";
 import {
   aggregateByMonth,
@@ -50,7 +49,6 @@ export default function ReceiptsApp() {
             COMMITS
           </p>
           <h1 className={styles.h1}>Every public commit</h1>
-          <p className="epigraph">{QUOTES.receipts}</p>
           <Lede />
         </header>
         {status.state === "loading" ? <Loading /> : null}

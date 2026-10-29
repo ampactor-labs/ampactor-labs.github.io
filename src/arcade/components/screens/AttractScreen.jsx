@@ -7,26 +7,24 @@ import { CARD, PALETTE, alpha } from "../../palette";
 import { pixel } from "../../type";
 
 // The loop a real machine runs when nobody is playing, and this site's front
-// door: the title card, a few cartridges, the high score table, the splash
-// every cabinet of the period ran, then round again. Any input starts the machine; the d-pad steps the loop. It captures
+// door: the title card, a few cartridges, the high score table, then round
+// again. Any input starts the machine; the d-pad steps the loop. It captures
 // no keys itself; the cabinet's state machine does, so the loop and the panel
 // cannot disagree.
 
 const TITLE_MS = 6000;
 const CARTRIDGE_MS = 2600;
 const SCORES_MS = 6000;
-const WINNERS_MS = 2500;
 // How many cartridges one pass of the loop shows; the next pass shows the
 // next few, so every cartridge gets its turn on the marquee.
 export const FEATURED = 4;
 
-export const FRAMES = ["title", "show", "show", "show", "show", "scores", "winners"];
+export const FRAMES = ["title", "show", "show", "show", "show", "scores"];
 
 export function frameDuration(frame) {
   const kind = FRAMES[frame];
   if (kind === "title") return TITLE_MS;
   if (kind === "scores") return SCORES_MS;
-  if (kind === "winners") return WINNERS_MS;
   return CARTRIDGE_MS;
 }
 
@@ -86,21 +84,22 @@ function TitleCard({ fs, hidden, nameSize, returning }) {
       >
         {CONTACT.role}
       </div>
-      {/* The machine speaks: a question for a first visitor, a nod to one
-          who has been here before (quotes.js). */}
-      <div
-        style={{
-          marginTop: 10,
-          fontFamily: "var(--font-sans)",
-          fontSize: fs(13),
-          fontWeight: 500,
-          color: "var(--cab-text)",
-          letterSpacing: "var(--track-ui)",
-          lineHeight: 1.9,
-        }}
-      >
-        {returning ? QUOTES.titleReturn : QUOTES.titleFirst}
-      </div>
+      {/* A nod to a visitor who has been here before (quotes.js). */}
+      {returning && (
+        <div
+          style={{
+            marginTop: 10,
+            fontFamily: "var(--font-sans)",
+            fontSize: fs(13),
+            fontWeight: 500,
+            color: "var(--cab-text)",
+            letterSpacing: "var(--track-ui)",
+            lineHeight: 1.9,
+          }}
+        >
+          {QUOTES.titleReturn}
+        </div>
+      )}
     </div>
   );
 }
@@ -168,41 +167,6 @@ function NowShowing({ cartridge, fs }) {
         <div style={{ fontSize: fs(12), color: "var(--cab-text)", letterSpacing: "var(--track-ui)" }}>
           {cartridge.tagline || cartridge.subtitle}
         </div>
-      </div>
-    </div>
-  );
-}
-
-// The splash that ran between every game's attract frames for a decade,
-// set the way the machine sets everything else.
-function Winners({ fs }) {
-  return (
-    <div
-      className="dash-in"
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 14,
-        padding: "0 16px",
-        textAlign: "center",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "'Press Start 2P', monospace",
-          fontSize: pixel(fs(14)),
-          lineHeight: 1.7,
-          color: "var(--cab-text)",
-          letterSpacing: "var(--track-pixel)",
-        }}
-      >
-        {QUOTES.winners}
-      </div>
-      <div style={{ ...label(fs, "var(--cab-muted)"), letterSpacing: "0.2em" }}>
-        {QUOTES.winnersBy}
       </div>
     </div>
   );
@@ -363,7 +327,6 @@ export default function AttractScreen({
         />
         {cartridge && <NowShowing cartridge={cartridge} fs={fs} />}
         {kind === "scores" && <HighScores fs={fs} />}
-        {kind === "winners" && <Winners fs={fs} />}
       </div>
       <div
         style={{

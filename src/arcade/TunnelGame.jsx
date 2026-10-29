@@ -381,8 +381,6 @@ export default function TunnelGame({ tunnelRef, onExit }) {
         ctx.fillText("P / TAP TO RESUME", cx, cy + (mobile ? 16 : 24));
         ctx.fillStyle = rgba(GAME.hud, 0.5);
         ctx.fillText("ESC / B TO END", cx, cy + (mobile ? 34 : 48));
-        ctx.fillStyle = rgba(GAME.hud, 0.35);
-        ctx.fillText(QUOTES.paused, cx, cy + (mobile ? 56 : 78));
         return;
       }
 
