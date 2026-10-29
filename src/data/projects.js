@@ -50,24 +50,35 @@ const RAW_PROJECTS = [
     lang: "Mentl/WASM",
     color: "#E0FF00",
     icon: "☀",
+    // The README does not meet docs/README-STANDARD.md yet (no Status line,
+    // and its lead runs long), so the content fields below are the ones the
+    // site shows, written from that README.
     github: "https://github.com/ampactor-labs/mentl",
-    desc: "Mentl removes exceptions, async, and generators, replacing them with a single algebraic effect system. To make this performant, the compiler uses a graph-native intermediate representation that resolves polymorphic handler dispatch before generating WebAssembly. The language is fully self-hosted. The seed compiler, originally written in raw WebAssembly text, builds the Mentl compiler, which then compiles itself to produce bit-identical output in every generation.",
+    live: "https://space.ampactor.dev/",
+    desc: "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one. A function's signature says what it must never do and what range its values keep, and the compiler checks each rule through every function the code calls. HUM's grid controller is written in Mentl: its decision is proven never to reach the network, touch a file, call outside the program, allocate memory or stop with an error, and a copy with one price lookup added does not build. The compiler is written in Mentl and compiles to WebAssembly; the pinned binary rebuilds itself byte for byte, and that binary is what is released. It runs in a terminal under wasmtime, and in the browser at space.ampactor.dev.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
-    tagline: "THE COMPILER BOOTSTRAPS ITSELF",
-    outcome: "A programming language that compiles itself.",
+    tagline: "A BROKEN RULE WON'T BUILD",
+    outcome:
+      "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
     highlights: [
-      "BYTE-IDENTICAL SELF-COMPILE, EVERY PIN",
+      "HUM'S DECISION: 5 RULES, ALL PROVEN",
+      "REBUILDS ITSELF BYTE FOR BYTE",
       "FULL EFFECT ALGEBRA (+, -, &, !, Pure)",
-      "SELF-HOSTED: MENTL COMPILES MENTL",
+      "FIVE PIPE OPERATORS: |> <| >< ~> <~",
+      "PROPOSES PROVEN CODE AT A ?? HOLE",
       "ONE GRAPH, ONE WRITER: INFERENCE",
-      "ROW-POLYMORPHIC TYPE SYSTEM",
-      "WASM CODEGEN · 149 MICROS · 62 CRUCIBLES",
     ],
-    stack: ["WASM", "WAT", "Hindley-Milner", "row polymorphism"],
+    stack: [
+      "Mentl",
+      "WebAssembly",
+      "WASI",
+      "Hindley-Milner",
+      "row polymorphism",
+    ],
     status: "active",
     category: "systems",
     operatorNote:
-      "Self-compiles to bit-identical output every generation. Handle/resume does the work of five separate language features.",
+      "A claim the verifier cannot decide is reported as pending, and the program still builds. One false proof is known: a function that says !Trap can still trap when recursion runs deep enough to exhaust the stack.",
   },
 
   {
