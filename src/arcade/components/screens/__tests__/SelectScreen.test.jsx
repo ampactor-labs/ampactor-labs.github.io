@@ -110,4 +110,36 @@ describe("SelectScreen", () => {
     fireEvent.pointerDown(getAllByRole("option")[4], { pointerType: "touch" });
     expect(onHoverSelect).toHaveBeenLastCalledWith(4);
   });
+
+  // The list comes back where the reader left it, kept as they scroll rather
+  // than read at unmount.
+  it("comes back where it was scrolled", () => {
+    const scrollTops = new WeakMap();
+    const desc = Object.getOwnPropertyDescriptor(Element.prototype, "scrollTop");
+    Object.defineProperty(Element.prototype, "scrollTop", {
+      configurable: true,
+      get() {
+        return scrollTops.get(this) ?? 0;
+      },
+      set(v) {
+        scrollTops.set(this, v);
+      },
+    });
+    const hadScrollIntoView = "scrollIntoView" in Element.prototype;
+    if (!hadScrollIntoView) Element.prototype.scrollIntoView = () => {};
+    try {
+      const first = render(<SelectScreen {...baseProps} />);
+      const list = first.getByRole("listbox");
+      list.scrollTop = 240;
+      fireEvent.scroll(list);
+      first.unmount();
+      const again = render(<SelectScreen {...baseProps} />);
+      expect(again.getByRole("listbox").scrollTop).toBe(240);
+      again.unmount();
+    } finally {
+      if (desc) Object.defineProperty(Element.prototype, "scrollTop", desc);
+      else delete Element.prototype.scrollTop;
+      if (!hadScrollIntoView) delete Element.prototype.scrollIntoView;
+    }
+  });
 });
