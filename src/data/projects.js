@@ -64,6 +64,38 @@ const RAW_PROJECTS = [
   },
 
   {
+    id: "hum",
+    title: "HUM",
+    subtitle: "GRID FREQUENCY FROM A GUITAR PICKUP",
+    lang: "Rust/Mentl",
+    color: "#1C9DB8",
+    icon: "⏦",
+    // The README does not meet docs/README-STANDARD.md yet (no Status line,
+    // Testing, Limitations or License), so the content fields below are the
+    // ones the site shows, written from that README.
+    github: "https://github.com/ampactor-labs/hum",
+    live: "https://ampactor.dev/hum/",
+    desc: "HUM reads the power grid's frequency from the 60 Hz hum that a guitar pickup hears in a room's wiring, to a thousandth of a hertz, with an estimator built into sonido. A model of a Torus Station, built from Torus's published figures (a 100 kW flywheel and a 300 kW battery), decides what to do with each reading: the battery carries the building through the rush hour marked in EIA's hourly demand data, and the flywheel pushes when the frequency falls fast. The controller is written in Mentl, and the compiler proves the decision never reaches the network, a file or the clock, never allocates memory and never stops with an error. A copy with one price lookup added inside the decision does not build. Built during Hard Tech Week 2026 in Salt Lake City.",
+    tags: ["grid", "dsp", "effects", "hackathon"],
+    tagline: "PLUG IN A GUITAR, READ THE GRID",
+    outcome:
+      "Reads the power grid's frequency through a guitar pickup and drives a model of a Torus Station with a controller its compiler proves can't reach the network.",
+    highlights: [
+      "60 Hz READ TO A THOUSANDTH OF A HERTZ",
+      "A 0.20 Hz/s FALL CAUGHT IN 250 ms",
+      "DECISION PROVEN: NO NETWORK, NO ALLOCATION",
+      "A PRICE LOOKUP IN THE DECISION WON'T BUILD",
+      "BRITAIN'S 9 AUGUST 2019 GRID FAILURE, REPLAYED",
+      "BUILT IN ONE WEEK ON SONIDO AND MENTL",
+    ],
+    stack: ["Rust", "Mentl", "sonido", "Python", "WASM"],
+    status: "deployed",
+    category: "systems",
+    operatorNote:
+      "The Station is a model, and the page at ampactor.dev/hum replays a session recorded on a synthesized test hum; reading a real room's hum takes the guitar, an audio interface and a laptop running the director. The compiler proves what the decision cannot do. It does not prove the decisions are good: those are tested on recordings, including Britain's 9 August 2019 grid failure transposed to 60 Hz.",
+  },
+
+  {
     id: "turbosort",
     title: "TURBOSORT",
     subtitle: "SIMD-ACCELERATED RADIX SORT",

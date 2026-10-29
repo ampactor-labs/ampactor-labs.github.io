@@ -31,6 +31,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HOMEPAGE = {
   mentl: "https://ampactor.dev/arcade/#mentl",
   sonido: "https://ampactor.dev/sonido",
+  hum: "https://ampactor.dev/hum/",
   turbosort: "https://crates.io/crates/turbosort",
   "two-top": "https://github.com/ampactor-labs/two-top/releases/tag/apk-latest",
   clob: "https://ampactor.dev/arcade/#clob",
@@ -53,6 +54,7 @@ const HOMEPAGE = {
 // Added to whatever topics a repository already has; never removes one.
 const TOPICS = {
   mentl: ["programming-language", "compiler", "self-hosting", "algebraic-effects", "webassembly", "type-inference"],
+  hum: ["power-grid", "grid-frequency", "dsp", "rust", "hackathon"],
   "two-top": ["rust", "bevy", "rollback-netcode", "ggrs", "webrtc", "deterministic", "android"],
   clob: ["rust", "machine-learning", "ternary-neural-network"],
   tokensafe: ["typescript", "x402", "api"],
