@@ -9,6 +9,9 @@ import { pixel } from "../../type";
 // capture keeps each operator in the parts, at the odd indexes.
 const OPERATOR = /(\|>|<\||><|~>|<~)/;
 
+const longestLine = (code) =>
+  Math.max(...code.split("\n").map((line) => line.length));
+
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
 
@@ -239,38 +242,27 @@ export default function DetailScreen({
             }}
           >
             <Sign text="PROGRAM LISTING" fs={fs} />
-            {/* A line wider than the screen wraps under its own indent, so
-                every operator stays in view on a phone. Ligatures are off:
-                the font would draw |> as one triangle, and the listing shows
-                what is typed. */}
-            <pre
-              role="region"
-              aria-label="Program listing"
-              style={{
-                margin: 0,
-                whiteSpace: "pre-wrap",
-                fontFamily: "var(--font-body)",
-                fontVariantLigatures: "none",
-                fontSize: fs(9),
-                lineHeight: 1.6,
-                color: "var(--cab-text)",
-              }}
-            >
-              <code>
-                {p.listing.code.split("\n").map((line, i) => {
-                  // The spaces stay in the text, so a copied line keeps its
-                  // indent; only the wrapped part hangs, 4ch past it.
-                  const indent = line.length - line.trimStart().length;
-                  return (
-                    <span
-                      key={i}
-                      style={{
-                        display: "block",
-                        minHeight: "1.6em",
-                        paddingLeft: `${indent + 4}ch`,
-                        textIndent: `-${indent + 4}ch`,
-                      }}
-                    >
+            {/* Every line on one line: the type shrinks, only as far as the
+                longest line needs, to fit the listing's width (a monospace
+                character is 0.6em wide). Ligatures are off: the font would
+                draw |> as one triangle, and the listing shows what is typed. */}
+            <div style={{ containerType: "inline-size" }}>
+              <pre
+                role="region"
+                aria-label="Program listing"
+                style={{
+                  margin: 0,
+                  overflowX: "auto",
+                  fontFamily: "var(--font-body)",
+                  fontVariantLigatures: "none",
+                  fontSize: `min(${fs(9)}px, calc(100cqw / ${longestLine(p.listing.code) * 0.6 + 1}))`,
+                  lineHeight: 1.6,
+                  color: "var(--cab-text)",
+                }}
+              >
+                <code>
+                  {p.listing.code.split("\n").map((line, i) => (
+                    <span key={i}>
                       {line.trimStart().startsWith("//") ? (
                         <span style={{ color: "var(--cab-muted)" }}>
                           {line}
@@ -289,11 +281,12 @@ export default function DetailScreen({
                           ),
                         )
                       )}
+                      {"\n"}
                     </span>
-                  );
-                })}
-              </code>
-            </pre>
+                  ))}
+                </code>
+              </pre>
+            </div>
             {p.listing.key && (
               <dl
                 style={{

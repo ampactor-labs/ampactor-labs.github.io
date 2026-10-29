@@ -61,30 +61,36 @@ const RAW_PROJECTS = [
     tagline: "A BROKEN RULE WON'T BUILD",
     outcome:
       "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
-    // Lesson 3 of Mentl's course and the echo it calls, copied from the repo
-    // as `mentl fmt` lays them out; … marks the lines left out. Together they
-    // write all five operators. The key is the README's and SYNTAX's words.
+    // Lesson 3 of Mentl's course and the sine voice it plays, three whole
+    // functions copied from the repo as `mentl fmt` lays them out. Together
+    // they write all five operators. The key is the README's and SYNTAX's
+    // words.
     listing: {
-      code: `// lib/dsp/stereo.mn
-fn echo(fb: Decay) = {
-  fn stage(x: Float) with !Alloc = { prev => x + fb * prev } <~ delay(12000)
+      code: `// lib/dsp/osc.mn
+fn sine_voice(sr: Int) = {
+  fn stage(freq) with !Alloc = {
+    let step = phase_step(freq, sr)
+    let ph = { prev => wrap_phase(prev + step) } <~ delay(1)
+    sin(two_pi() * ph)
+  }
   stage
 }
 
 // examples/pulse/course/03-bus.mn
 fn frame(buf, rig, n) = {
-  …
+  let t = time()
+  let tn = if t < 2.0 { t } else { t - 2.0 }
+  let dry = rig.voice(note_hz(t)) * 0.5 * shape(tn)
   let (echoed, roomed) = dry <| (rig.echo, rig.room)
   let l = ((echoed) >< (dry)) |> mix(0.35) |> soft_clip
   let r = ((roomed) >< (dry)) |> mix(0.5) |> soft_clip
   wav_frame(buf, n, l, r)
 }
 
-fn build_rig(sr) = {echo: echo(0.4), room: room_left(), voice: sine_voice(sr)}
-
 fn main() = {
   {
-    …
+    let frames = frames_of(seconds())
+    let buf = wav_header(wav_alloc(frames), frames, rate())
     play(frames, frame(buf, build_rig(rate())))
     print(wav_bytes(buf))
   } ~> stdout_console ~> sample_at(48000)
@@ -92,7 +98,7 @@ fn main() = {
 }`,
       key: [
         ["|>", "stages in sequence"],
-        ["<|", "one value to several branches, each borrowing it"],
+        ["<|", "one value to several branches"],
         ["><", "independent flows side by side"],
         ["~>", "installs a handler over everything to its left"],
         ["<~", "feeds back a value from the previous step"],

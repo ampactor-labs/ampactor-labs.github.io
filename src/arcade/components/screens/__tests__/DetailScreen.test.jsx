@@ -44,7 +44,7 @@ describe("DetailScreen", () => {
     );
     expect([...lit].sort()).toEqual(["<|", "<~", "><", "|>", "~>"].sort());
     expect(listing.textContent).toContain(
-      "{ prev => x + fb * prev } <~ delay(12000)",
+      "let ph = { prev => wrap_phase(prev + step) } <~ delay(1)",
     );
     for (const [op] of mentl.listing.key) {
       expect(getByText(op, { selector: "dt" })).toBeTruthy();
