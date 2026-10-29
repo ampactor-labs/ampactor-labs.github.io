@@ -231,7 +231,7 @@ still prints: it is text.
 
 The title card holds 6 s, then `NOW SHOWING` runs four cartridges at 2.6 s each, then
 `HIGH SCORES` 6 s, and round again with the next four. Every frame dashes in (`dashIn`,
-260 ms, a magenta and a cyan after-image; transform and opacity only on a phone).
+260 ms, transform and opacity only).
 `PRESS START` breathes (`breathe`, 2.4 s, a sine, never fully off). `◄` `►` and the
 arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
 start the machine. No `AudioContext` exists until then. Someone reading holds it: a
@@ -240,15 +240,25 @@ loop carries on from the top of that frame when they leave.
 
 ### Between screens
 
-A screen change on the tube is a cut and a dash: the old frame cuts out
-(`cutOut`, two frames) and the new one dashes in (`dashInLite`, 220 ms), through the
+A screen change on the tube is one motion: the old frame fades (`tubeOut`, 120 ms) as
+the new one rises 8 px into place (`tubeIn`, 200 ms), or settles down 8 px into place
+going back (`tubeInBack`, set by `data-nav="back"` on `<html>`), through the
 same-document view-transition API on the tube's content layer
 (`view-transition-name: tube`), only where the browser has it and motion is welcome.
 The hidden rows the coin unlocks dash in with an 80 ms stagger. The coin itself is a
 thing that happens: the slit takes the drop (120 ms), a ring blooms from the slot,
-then the stamp lands on the tube, then the rows light in order. The idle layer is one
-slow sweep of light across the grid (`sweep`, 9 s, transform only), off on a phone
-and under reduced motion.
+then the stamp lands on the tube, then the rows light in order. The title card's idle
+layer is one slow sweep of light across the grid (`sweep`, 9 s, transform only), off on
+a phone and under reduced motion, and never on a screen someone is reading.
+
+**What holds still.** The backdrop tunnel moves during the power-on, the title loop and
+the game, and holds a single frame on the list, the readouts and the operator's
+programs (no drawing loop runs behind them). Nothing loops forever on the main
+thread: the coin slot is lit, not pulsing, and anything that does loop (`breathe`, the
+marquee) animates only opacity or transform. A cartridge's colour bleeds into the tube
+when it is open, not while the list is walked. The list keeps its scroll position
+when you come back to it, and the lit row only scrolls smoothly when the selection
+moves.
 
 ### The flash budget
 
@@ -273,30 +283,42 @@ the plain page.
 
 ### Interaction motion
 
-- Cabinet rows: the bar and the title take the project's colour, `0.2 s`; a hover blips.
+- Cabinet rows: the bar and the title take the project's colour, `0.2 s`. A mouse that
+  moves over a row lights it and blips; a row sliding under a still pointer does not.
+  A finger lights a row as it lands and opens it on the lift. Hover styles live under
+  `(hover: hover) and (pointer: fine)`, so nothing stays lit after a tap.
+- Deck keys, B, A, the coin and SOUND act when a finger lands, not when it lifts; a
+  mouse and the keyboard keep the click. The d-pad blips on the list as the arrow keys do.
 - Cabinet links: the focused pill carries the ring; A opens it.
-- The credits roll at `26 px/s` and pause `3.5 s` on a touch, a wheel or a focus.
+- The credits roll at `26 px/s`, by fractional pixels, stop when the last line is in
+  place, and pause `3.5 s` on a touch, a wheel or a focus.
 - Page links: colour fade to the accent, `0.15 s`. Primary CTA: bloom +
   `translateY(-1px)`, `0.18 s`.
 
 ### Sound
 
-One `AudioContext` for the whole cabinet (`src/arcade/audio/bus.js`): every voice runs
-into one master gain and a compressor, with a short delay send (`0.18 s`, a little
-feedback) for the room. The master gives back the compressor's makeup gain, so a voice
+One `AudioContext` for the whole cabinet (`src/arcade/audio/bus.js`), asked for its
+lowest latency: every voice runs into one master gain, a gentle lowpass at 6.5 kHz
+(a phone's speaker is harshest up there) and a compressor, with a short room send
+(`70 ms`, a little feedback; a longer slap read as the sound arriving late). Every
+note fades in over at least 4 ms instead of clicking on; the cabinet's own voices are
+triangles and filtered saws at low resonance, never bare square waves. The master gives back the compressor's makeup gain, so a voice
 plays at the level it was written at and only the peaks are caught. Nothing exists until the machine is started, so the power-on,
 the BIOS and the title card are silent.
 
 - **START** is the ignition: a `0.9 s` swell through an opening filter, then a power
   chord, and the room's bed comes up under it.
-- **The bed:** two triangles a fifth apart (55 and 82.6 Hz) under a slow lowpass, and a
-  quiet band of noise, about 38 dB under full scale and under every other sound. It
+- **The bed:** two triangles a fifth apart (55 and 82.6 Hz) under a slow lowpass, about
+  38 dB under full scale and under every other sound. No noise: on a phone's speaker it
+  was all that played, as static. It
   fades in over `2.5 s`, opens with the tunnel's speed (the run and the boss brighten
   it) and fades out on the way back to the title card.
-- **Into a cartridge:** a resonant sweep keyed by the cartridge's colour. Back out is
-  the same sweep falling. A row under the pointer blips.
+- **Into a cartridge:** a filter opening upward, keyed by the cartridge's colour. Back
+  out is the same sweep falling. A step through the list is a soft tick.
 - **The coin:** a clink, then a chord.
 - **TUNNEL_RUN** plays on the same bus; its laser and blasts climb with the run's speed.
+- **A hidden page is silent:** the context sleeps when the page is hidden (another tab,
+  or a phone leaving the browser) and wakes when it is shown again, if the room was up.
 - **SOUND ON / SOUND OFF** on the deck mutes the master with a `0.12 s` ramp, never a
   click, then stops the room and puts the context to sleep. It is remembered
   (`localStorage`, `ampactor_sound`), and while it is off nothing is made or played:
