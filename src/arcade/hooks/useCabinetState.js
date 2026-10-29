@@ -160,6 +160,33 @@ export default function useCabinetState({
 
   const detailLinks = useMemo(() => detailLinksOf(detailProject), [detailProject]);
 
+  // A screen change's state lands when the browser runs the transition's
+  // update, which can be after the route has moved on: Back pressed while a
+  // cartridge is still opening. So the update applies the route as it is
+  // when it runs, not as it was when it was asked for; otherwise the late
+  // open would leave the readout up under the list's address.
+  const routeRef = useRef(route);
+  routeRef.current = route;
+  const applyRoute = () => {
+    const r = routeRef.current;
+    if (r.view === "home") {
+      setDetailProject(null);
+      setScreen("attract");
+      return;
+    }
+    if (r.screen === "project") {
+      const idx = allProjects.findIndex((p) => p.id === r.id);
+      if (idx === -1) return;
+      const project = allProjects[idx];
+      setSelectedIdx(idx);
+      setDetailProject(project);
+      setScreen(screenFor(project));
+      return;
+    }
+    setDetailProject(null);
+    setScreen("select");
+  };
+
   // The route decides between the title card, select, detail, system and
   // game. A cartridge the machine does not have (a hidden program before the
   // coin drops, a typo in the hash) is corrected to the select screen. The
@@ -168,10 +195,7 @@ export default function useCabinetState({
     if (screen === "boot") return;
     if (route.view === "home") {
       if (screen !== "attract") {
-        changeScreen(() => {
-          setDetailProject(null);
-          setScreen("attract");
-        }, true);
+        changeScreen(applyRoute, true);
         if (screen !== "select") playBack();
       }
       return;
@@ -191,17 +215,10 @@ export default function useCabinetState({
       const project = allProjects[idx];
       const target = screenFor(project);
       if (detailProject?.id === project.id && screen === target) return;
-      changeScreen(() => {
-        setSelectedIdx(idx);
-        setDetailProject(project);
-        setScreen(target);
-      });
+      changeScreen(applyRoute);
     } else if (screen !== "select") {
       const wasOpen = screen === "detail" || screen === "game" || screen === "system";
-      changeScreen(() => {
-        setDetailProject(null);
-        setScreen("select");
-      }, wasOpen);
+      changeScreen(applyRoute, wasOpen);
       if (wasOpen) playBack();
     }
     // playBack and onNavigate are stable enough; screen and detailProject are
