@@ -338,11 +338,6 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
     style="flex: 1 1 0%; overflow: auto; position: relative;"
     tabindex="0"
   >
-    <span
-      style="position: absolute; right: 6px; top: 50%; transform: rotate(90deg); transform-origin: right center; white-space: nowrap; font-family: "Press Start 2P"; font-size: 8px; letter-spacing: var(--track-pixel); color: rgba(255, 184, 0, 0.04); pointer-events: none; user-select: none;"
-    >
-      THE CHAIN SPEAKS
-    </span>
     <div
       style="margin-bottom: 14px; padding: 10px 12px; border-radius: 4px; background: linear-gradient(rgba(255, 184, 0, 0.02), rgba(255, 184, 0, 0.02)), rgba(10, 7, 22, 0.72); border: 1px solid rgba(255, 184, 0, 0.04);"
     >
@@ -367,7 +362,7 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
         >
           &gt; 
         </span>
-        Playable single-voice subtractive synthesizer. Oscillator → Filter → Amp → Delay. Keyboard-mapped. The signal chain, alive in the browser.
+        Playable single-voice subtractive synthesizer. Oscillator → Filter → Amp → Delay. Keyboard-mapped.
       </div>
     </div>
     <div
@@ -428,26 +423,6 @@ exports[`DetailScreen > matches snapshot for synth project 1`] = `
             &gt;&gt; 
           </span>
           WEB AUDIO SYNTHESIS
-        </div>
-        <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
-        >
-          <span
-            style="color: rgba(255, 184, 0, 0.533);"
-          >
-            &gt;&gt; 
-          </span>
-          SUBTRACTIVE SIGNAL CHAIN
-        </div>
-        <div
-          style="font-size: 10px; color: var(--cab-text); line-height: 1.8; letter-spacing: var(--track-display);"
-        >
-          <span
-            style="color: rgba(255, 184, 0, 0.533);"
-          >
-            &gt;&gt; 
-          </span>
-          PLAYABLE IN BROWSER
         </div>
       </div>
       <div
