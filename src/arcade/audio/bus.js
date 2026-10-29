@@ -3,7 +3,8 @@
 // Every voice takes a send amount. Nothing exists until the first sound is
 // asked for, and the cabinet asks only once the machine is started: the
 // power-on, the boot and the title card are silent, and a visitor who only
-// looks never gets a context.
+// looks never gets a context. A hidden page is silent too: the context sleeps
+// while the visitor is in another tab or app.
 
 const SOUND_KEY = "ampactor_sound";
 // The compressor's makeup gain lifts quiet sounds about 3.7 dB at its
@@ -49,7 +50,17 @@ export function getBus() {
   delay.connect(wet);
   wet.connect(master);
   bus = { ctx, master, send };
+  document.addEventListener("visibilitychange", onVisibility);
+  window.addEventListener("pagehide", suspendBus);
   return bus;
+}
+
+// A phone keeps a page's audio running after its browser is left. Hidden,
+// the context sleeps; shown again, it wakes if the room was up. A note asked
+// for later wakes it on its own (withClock).
+function onVisibility() {
+  if (document.hidden) suspendBus();
+  else if (bed && soundOn()) bus?.ctx.resume?.().catch?.(() => {});
 }
 
 // Run fn(bus, t0) against a live audio clock. resume() is async and a
@@ -169,9 +180,10 @@ export function setSound(on) {
   }, 200);
 }
 
-// The room's bed: two detuned triangles a fifth apart under a slow lowpass,
-// and a quiet band of noise for the air. It fades in after START and out on
-// the way back to the title card. setBedOpen(0..1) opens the filter: the
+// The room's bed: two detuned triangles a fifth apart under a slow lowpass.
+// No noise: a phone's speaker drops everything under about 150 Hz, so a band
+// of air under the drones was all a phone played, and it heard as static.
+// It fades in after START and out on the way back to the title card. setBedOpen(0..1) opens the filter: the
 // tunnel's speed, so the game and the boss brighten the room.
 // About -38 dBFS, under every sound the cabinet makes.
 const BED_LEVEL = 0.015;
@@ -213,26 +225,11 @@ export function startBed() {
     depth.gain.value = 90;
     lfo.connect(depth);
     depth.connect(lp.frequency);
-    const buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-    const data = buf.getChannelData(0);
-    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    const air = ctx.createBufferSource();
-    air.buffer = buf;
-    air.loop = true;
-    const band = ctx.createBiquadFilter();
-    band.type = "bandpass";
-    band.frequency.value = 800;
-    band.Q.value = 0.5;
-    const airGain = ctx.createGain();
-    airGain.gain.value = 0.25;
     root.connect(lp);
     fifth.connect(lp);
     lp.connect(out);
-    air.connect(band);
-    band.connect(airGain);
-    airGain.connect(out);
     out.connect(b.master);
-    const nodes = [root, fifth, lfo, air];
+    const nodes = [root, fifth, lfo];
     for (const n of nodes) n.start(t0);
     // A stop asked for while the clock was still waking takes effect now.
     const stopAfter = bed.stopAfter;
@@ -272,6 +269,8 @@ export function suspendBus() {
 
 // For tests: forget the context and the bed.
 export function resetBus() {
+  document.removeEventListener("visibilitychange", onVisibility);
+  window.removeEventListener("pagehide", suspendBus);
   try {
     bus?.ctx.close?.();
   } catch {

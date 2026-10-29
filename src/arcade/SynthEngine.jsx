@@ -274,8 +274,18 @@ export default function SynthEngine({ width }) {
     return () => cancelAnimationFrame(animRef.current);
   }, [width]);
 
+  // Its own context, so its own sleep: hidden, the synth stops sounding; the
+  // next key wakes it (initAudio).
   useEffect(() => {
+    const sleep = () => {
+      if (document.hidden) audioCtxRef.current?.suspend?.().catch?.(() => {});
+    };
+    const leave = () => audioCtxRef.current?.suspend?.().catch?.(() => {});
+    document.addEventListener("visibilitychange", sleep);
+    window.addEventListener("pagehide", leave);
     return () => {
+      document.removeEventListener("visibilitychange", sleep);
+      window.removeEventListener("pagehide", leave);
       cancelAnimationFrame(animRef.current);
       audioCtxRef.current?.close();
       audioCtxRef.current = null;

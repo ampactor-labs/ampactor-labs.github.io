@@ -96,6 +96,63 @@ describe("the cabinet's sound bus", () => {
     oscillators.mockRestore();
   });
 
+  it("the room is the drones alone: no noise for a phone to play as static", () => {
+    const sources = vi.spyOn(window.AudioContext.prototype, "createBufferSource");
+    startBed();
+    expect(bedRunning()).toBe(true);
+    expect(sources).not.toHaveBeenCalled();
+    sources.mockRestore();
+  });
+
+  it("sleeps while the page is hidden, and wakes with the room when it is back", async () => {
+    let hidden = false;
+    Object.defineProperty(document, "hidden", { configurable: true, get: () => hidden });
+    try {
+      startBed();
+      const { ctx } = getBus();
+      hidden = true;
+      document.dispatchEvent(new Event("visibilitychange"));
+      expect(ctx.state).toBe("suspended");
+      hidden = false;
+      document.dispatchEvent(new Event("visibilitychange"));
+      await settle();
+      expect(ctx.state).toBe("running");
+
+      // Leaving the page (a phone backgrounding the browser) sleeps it too.
+      window.dispatchEvent(new Event("pagehide"));
+      expect(ctx.state).toBe("suspended");
+    } finally {
+      delete document.hidden;
+    }
+  });
+
+  it("comes back silent when the room is not up or the sound is off", async () => {
+    let hidden = false;
+    Object.defineProperty(document, "hidden", { configurable: true, get: () => hidden });
+    try {
+      const { ctx } = getBus();
+      hidden = true;
+      document.dispatchEvent(new Event("visibilitychange"));
+      hidden = false;
+      document.dispatchEvent(new Event("visibilitychange"));
+      await settle();
+      // No room was running: nothing to wake for.
+      expect(ctx.state).toBe("suspended");
+
+      startBed();
+      await settle();
+      setSound(false);
+      hidden = true;
+      document.dispatchEvent(new Event("visibilitychange"));
+      hidden = false;
+      document.dispatchEvent(new Event("visibilitychange"));
+      await settle();
+      expect(ctx.state).toBe("suspended");
+    } finally {
+      delete document.hidden;
+    }
+  });
+
   it("a stop asked for while the clock wakes still lands, and a restart wins", async () => {
     getBus().ctx.state = "suspended";
     startBed();
