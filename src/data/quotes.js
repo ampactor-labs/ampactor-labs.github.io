@@ -5,9 +5,6 @@
 // Short lines only, never a lyric, never a passage, and never one every
 // developer's site already wears.
 export const QUOTES = {
-  // A returning visitor is recognised. Metal Gear Solid: Snake, the line as
-  // Peace Walker (2010) and Ground Zeroes (2014) have it.
-  titleReturn: "KEPT YOU WAITING, HUH?",
   // The locked rows before the coin drops. Jurassic Park (1993), Nedry's
   // lockout: "Ah ah ah! You didn't say the magic word!"
   locked: "YOU DIDN'T SAY THE MAGIC WORD",

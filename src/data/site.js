@@ -61,7 +61,7 @@ export const ENTRIES = {
     title: `${SITE.name} · ${SITE.jobTitle}, ${SITE.locality}`,
     description:
       "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub. The site is an arcade cabinet: press start.",
-    // Rendered from the live title card by scripts/render-og.mjs.
+    // Rendered from the live list by scripts/render-og.mjs.
     image: "/og-home.png",
     person: true,
     // The cabinet is the page: dark from the first paint in either theme.

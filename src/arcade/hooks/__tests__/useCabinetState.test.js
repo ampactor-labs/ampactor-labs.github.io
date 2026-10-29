@@ -16,7 +16,6 @@ vi.mock("../../useAmbientHum", () => ({
     playBlip: vi.fn(),
     playEnter: vi.fn(),
     playBack: vi.fn(),
-    playStart: vi.fn(),
     playInsertSting: vi.fn(),
     sound: true,
     toggleSound: vi.fn(),
@@ -68,8 +67,6 @@ describe("useCabinetState", () => {
         if (intent.type === "open") setRoute(project(intent.id));
         else if (intent.type === "back" || intent.type === "select")
           setRoute(SELECT);
-        else if (intent.type === "exit") setRoute(HOME);
-        else if (intent.type === "enter") setRoute(SELECT);
       };
       const state = useCabinetState({
         screenRef,
@@ -212,36 +209,15 @@ describe("useCabinetState", () => {
       expect(result.current.selectedIdx).toBe(1);
     });
 
-    it("Escape on the select screen asks to leave the arcade", () => {
+    it("Escape and B on the list go nowhere: there is nothing behind it", () => {
       const { result, intents } = renderCabinet();
       bootToSelect(result);
       act(() => {
         window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
-      });
-      expect(intents.at(-1)).toEqual({ type: "exit" });
-      expect(result.current.route).toEqual(HOME);
-    });
-
-    it("B on the select screen leaves, but not right after closing a detail", () => {
-      const { result, intents } = renderCabinet();
-      bootToSelect(result);
-      act(() => {
-        result.current.openProject(0);
-      });
-      act(() => {
-        result.current.goBack(); // closes the detail
-      });
-      act(() => {
-        result.current.goBack(); // mashed: must not leave
-      });
-      expect(intents.filter((i) => i.type === "exit")).toHaveLength(0);
-      act(() => {
-        vi.advanceTimersByTime(500);
-      });
-      act(() => {
         result.current.goBack();
       });
-      expect(intents.at(-1)).toEqual({ type: "exit" });
+      expect(intents).toEqual([]);
+      expect(result.current.screen).toBe("select");
     });
 
     it("follows a route change it did not initiate (browser Back/Forward)", () => {
@@ -297,62 +273,33 @@ describe("useCabinetState", () => {
     });
   });
 
-  describe("the title card", () => {
+  describe("home and the boot", () => {
     // A returning visitor: the machine has booted for them before, so it
     // lands where the URL points.
     beforeEach(() => localStorage.setItem("ampactor_visited", "1"));
 
-    it("is home: Enter, A and a tap start the machine", () => {
-      const { result, intents } = renderCabinet({ initialRoute: HOME });
-      expect(result.current.screen).toBe("attract");
-      act(() => {
-        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
-      });
-      expect(intents).toEqual([{ type: "enter" }]);
+    it("home is the list", () => {
+      const { result } = renderCabinet({ initialRoute: HOME });
       expect(result.current.screen).toBe("select");
+      act(() => result.current.navDown());
+      expect(result.current.selectedIdx).toBe(1);
     });
 
-    it("A on the panel starts it too", () => {
-      const { result, intents } = renderCabinet({ initialRoute: HOME });
-      act(() => result.current.pressA());
-      expect(intents).toEqual([{ type: "enter" }]);
-    });
-
-    it("left and right step the attract loop instead of the list", () => {
-      const { result, intents } = renderCabinet({ initialRoute: HOME });
-      act(() => {
-        result.current.navRight();
-        result.current.navLeft();
-        window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
-      });
-      expect(result.current.attractNudge).toEqual({ n: 3, dir: 1 });
-      expect(result.current.selectedIdx).toBe(0);
-      expect(intents).toEqual([]);
-    });
-
-    it("a coin on the title card is credit accepted and the machine starts", () => {
+    it("a coin at home is credit accepted on the list", () => {
       const { result, intents } = renderCabinet({ initialRoute: HOME });
       act(() => result.current.insertCoin());
       expect(result.current.coinCount).toBe(3);
-      expect(intents).toEqual([{ type: "enter" }]);
+      expect(intents).toEqual([]);
+      expect(result.current.screen).toBe("select");
       expect(result.current.allProjects.map((p) => p.id)).toContain("tunnel-run");
     });
 
-    it("B on the list steps back to the title card", () => {
-      const { result, intents } = renderCabinet({ initialRoute: HOME });
-      act(() => result.current.pressA());
-      expect(result.current.screen).toBe("select");
-      act(() => result.current.goBack());
-      expect(intents.at(-1)).toEqual({ type: "exit" });
-      expect(result.current.screen).toBe("attract");
-    });
-
-    it("a first visit boots, then lands on the title card at home", () => {
+    it("a first visit boots, then lands on the list at home", () => {
       localStorage.clear();
       const { result } = renderCabinet({ initialRoute: HOME });
       expect(result.current.screen).toBe("boot");
       bootToSelect(result);
-      expect(result.current.screen).toBe("attract");
+      expect(result.current.screen).toBe("select");
       expect(localStorage.getItem("ampactor_visited")).toBe("1");
     });
 
@@ -371,7 +318,7 @@ describe("useCabinetState", () => {
         load.mockClear();
         localStorage.setItem("ampactor_visited", "1");
         const { result } = renderCabinet({ initialRoute: HOME });
-        expect(result.current.screen).toBe("attract");
+        expect(result.current.screen).toBe("select");
         expect(load).not.toHaveBeenCalled();
       } finally {
         delete document.fonts;

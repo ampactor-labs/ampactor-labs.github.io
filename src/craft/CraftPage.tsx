@@ -11,7 +11,7 @@ import styles from "./Craft.module.css";
 // imported: a module this page and the cabinet both import would be split
 // into a chunk of its own, adding a request before the cabinet renders. The
 // unit test checks it against the cabinet's real pacing.
-export const BOOT_SECONDS = 1.3;
+export const BOOT_SECONDS = 2.7;
 
 const REPO = "https://github.com/ampactor-labs/ampactor-labs.github.io";
 const source = (path: string) => `${REPO}/blob/main/${path}`;
@@ -253,9 +253,8 @@ function CabinetChapter() {
           The site is one arcade cabinet, and the cabinet is the whole page. It
           stands in a dark room, as wide as the browser up to 900 pixels and as
           tall as it. What a portfolio needs, a real machine already has a
-          surface for. The attract loop on the home page is the title card,
-          a few cartridges and the HIGH SCORES table. PRESS START opens the
-          select screen, where the operator&apos;s sticker carries the email,
+          surface for. The home page is the select screen, where the
+          operator&apos;s sticker carries the email,
           the phone number and the links to the résumé, GitHub and LinkedIn.
           The eighteen projects are cartridges, and three operator programs at
           the end of the list hold the rest: HOW TO PLAY (the controls), HIGH
@@ -274,8 +273,8 @@ function CabinetChapter() {
         approach={
           <>
             Keep the machine and use the surfaces a cabinet has anyway. The
-            title card is the hero, the select screen&apos;s header is the
-            contact block, and three programs at the end of the list are the
+            select screen is the first screen and its header is the contact
+            block, and three programs at the end of the list are the
             about pages. The URL still names each screen, and nothing on the
             page exists outside the cabinet&apos;s own vocabulary.
           </>
@@ -285,7 +284,7 @@ function CabinetChapter() {
             Playwright loads the home page cold and as a returning visitor,
             checks that the name and the résumé link are one press away, walks
             the list from the keyboard, opens the operator programs, steps back
-            through history from a cartridge to the title card, and runs axe on
+            through history from a cartridge to the list, and runs axe on
             the screens, on desktop and on a phone.
           </>
         }
@@ -294,10 +293,10 @@ function CabinetChapter() {
       <div className={styles.prose}>
         <p>
           On a first visit the machine powers on out of the dark, then prints
-          its BIOS lines and drops the title card in, about {BOOT_SECONDS}{" "}
+          its BIOS lines and lands on the list, about {BOOT_SECONDS}{" "}
           seconds after the tube is lit; any key, click or tap skips ahead. It
           plays once per browser. After that a visit
-          lands on the title card, and a shared link such as{" "}
+          lands on the list, and a shared link such as{" "}
           <a href="/arcade/#mentl">/arcade/#mentl</a> lands on that cartridge
           without booting.
         </p>
@@ -564,7 +563,7 @@ function Testing() {
         <li>
           {int(audit.tests.unit)} unit tests in Vitest and{" "}
           {int(audit.tests.browserRuns)} browser test runs in Playwright, on a
-          desktop viewport and a Pixel 7. They cover the title card, the boot,
+          desktop viewport and a Pixel 7. They cover the boot,
           the list and the operator programs, history, the commit filters and
           export, and this page. CI runs all of them on every pull request.
         </li>

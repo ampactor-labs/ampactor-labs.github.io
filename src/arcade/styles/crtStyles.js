@@ -3,7 +3,6 @@ import { CARD, FRINGE, PALETTE, alpha } from "../palette";
 // Fonts are loaded via <link> in index.html (not @import here).
 export const crtStyles = `
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  .attract-start:focus-visible { animation: none !important; opacity: 1; filter: brightness(1.2); }
   @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
   @keyframes fadeHints { 0%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
   @keyframes testPattern { 0%,60%{opacity:1} 100%{opacity:0} }
@@ -43,11 +42,6 @@ export const crtStyles = `
   ::view-transition-old(tube){animation:tubeOut 0.12s ease-in both}
   ::view-transition-new(tube){animation:tubeIn 0.2s cubic-bezier(0.16,1,0.3,1) both}
   html[data-nav=back]::view-transition-new(tube){animation-name:tubeInBack}
-  /* The title card's idle layer: one slow sweep of light across the grid, on
-     its own transform layer; off on a phone and under reduced motion, and
-     never on a screen someone is reading. */
-  @keyframes sweep { to{transform:translateX(100%)} }
-  .tube-sweep{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,transparent 42%,${alpha(PALETTE.muted, 0.07)} 50%,transparent 58%);transform:translateX(-100%);animation:sweep 9s linear infinite;will-change:transform}
   /* The coin: the slit takes the drop, a ring blooms from the slot, then the
      stamp lands on the tube (coin-announce) and the rows light in order. */
   @keyframes coinDrop { 0%{transform:translateY(-6px);opacity:0} 100%{transform:none;opacity:1} }
@@ -66,7 +60,6 @@ export const crtStyles = `
     .btn-action:hover{transform:scale(1.08);filter:brightness(1.25)}
     .coin-slot:hover{box-shadow:inset 0 0 12px ${alpha(PALETTE.coin, 0.6)},0 0 10px ${alpha(PALETTE.coin, 0.2)}!important}
     .sound-toggle:hover{color:var(--cab-text)}
-    .attract-start:hover{animation:none !important;opacity:1;filter:brightness(1.2)}
   }
   /* Cards and controls stand on the grid: their fill (CARD in palette.js)
      dims it, and frost softens what shows through around them. Only on
@@ -170,14 +163,13 @@ export const crtStyles = `
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:16px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
   .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:8px;letter-spacing:var(--track-pixel);white-space:nowrap;color:var(--cab-text)}
   @media (prefers-reduced-motion: reduce) {
-    .blink-cursor, .coin-slot, .btn-action, .tube-sweep,
+    .blink-cursor, .coin-slot, .btn-action,
     .dash-in, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,
     .coin-slot.lit .slit, .coin-slot.lit::after,
-    .marquee-track, .attract-start { animation: none !important; }
+    .marquee-track { animation: none !important; }
   }
-  /* Mobile: no sweep, and no blurred floor glow under the cabinet. */
+  /* Mobile: no blurred floor glow under the cabinet. */
   @media (max-width: 600px) {
-    .tube-sweep { display: none !important; }
     .cabinet-body::after { display: none !important; }
   }
 `;

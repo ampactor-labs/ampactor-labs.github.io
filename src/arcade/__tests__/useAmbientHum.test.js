@@ -13,7 +13,7 @@ beforeEach(() => {
 afterEach(() => resetBus());
 
 describe("the cabinet's sound", () => {
-  it("is silent on the title card: a tap and a key make no context", () => {
+  it("is silent while off: a tap and a key make no context", () => {
     const before = contexts();
     renderHook(() => useAmbientHum({ enabled: false }));
     act(() => {
@@ -24,14 +24,7 @@ describe("the cabinet's sound", () => {
     expect(hasBus()).toBe(false);
   });
 
-  it("START is the ignition: the room comes up under it", () => {
-    const { result } = renderHook(() => useAmbientHum({ enabled: false }));
-    act(() => result.current.playStart());
-    expect(hasBus()).toBe(true);
-    expect(bedRunning()).toBe(true);
-  });
-
-  it("in the arcade the first gesture wakes the room", () => {
+  it("the first gesture wakes the room", () => {
     renderHook(() => useAmbientHum({ enabled: true }));
     expect(hasBus()).toBe(false);
     act(() => tap());
@@ -39,7 +32,7 @@ describe("the cabinet's sound", () => {
     expect(bedRunning()).toBe(true);
   });
 
-  it("going back to the title card takes the room down", () => {
+  it("switching it off takes the room down", () => {
     const { rerender } = renderHook(
       ({ enabled }) => useAmbientHum({ enabled }),
       { initialProps: { enabled: true } },
@@ -49,7 +42,7 @@ describe("the cabinet's sound", () => {
     expect(bedRunning()).toBe(false);
   });
 
-  it("SOUND OFF takes the room down; back on in the arcade, it comes up", () => {
+  it("SOUND OFF takes the room down; back on, it comes up", () => {
     const { result } = renderHook(() => useAmbientHum({ enabled: true }));
     act(() => tap());
     expect(bedRunning()).toBe(true);
@@ -67,7 +60,7 @@ describe("the cabinet's sound", () => {
     expect(localStorage.getItem("ampactor_sound")).toBe("off");
     const next = renderHook(() => useAmbientHum({ enabled: false }));
     expect(next.result.current.sound).toBe(false);
-    // Flipping the switch on the title card still makes no context.
+    // Flipping the switch while off still makes no context.
     expect(hasBus()).toBe(false);
   });
 });

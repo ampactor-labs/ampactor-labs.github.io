@@ -3,9 +3,6 @@ import AxeBuilder from "@axe-core/playwright";
 import { settled } from "./settled";
 import { PALETTE } from "../src/arcade/palette.js";
 
-// The title card's address: the origin and nothing else.
-const HOME_URL = /^https?:\/\/[^/]+\/$/;
-
 // A palette token the way the browser reports a computed colour.
 const rgb = (hex: string) =>
   `rgb(${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(", ")})`;
@@ -65,8 +62,10 @@ test("a deck key answers its own Enter, and a click on one leaves Enter to A", a
   await expect(list).toBeVisible();
   await page.getByRole("button", { name: "Back", exact: true }).focus();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(HOME_URL);
-  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+  // B's own Enter, not A's: the lit cartridge does not open, and on the list
+  // B has nowhere to go.
+  await expect(page).toHaveURL(/\/arcade\/$/);
+  await expect(list).toBeVisible();
 });
 
 test("the list is accessible, and the operator's programs end it", async ({
@@ -92,7 +91,7 @@ test("the list is accessible, and the operator's programs end it", async ({
   ).toEqual([]);
 });
 
-test("up from the top wraps to CREDITS; B steps out to the list, then the title card", async ({
+test("up from the top wraps to CREDITS; B steps out to the list, and no further", async ({
   page,
 }) => {
   await page.goto("/arcade/");
@@ -117,12 +116,12 @@ test("up from the top wraps to CREDITS; B steps out to the list, then the title 
   await expect(
     page.getByRole("listbox", { name: "Project list" }),
   ).toBeVisible();
-  // A B mashed right after closing a program must not also leave; past the
-  // settle window it does.
-  await page.waitForTimeout(450);
+  // On the list there is nothing behind it.
   await B.click();
-  await expect(page).toHaveURL(HOME_URL);
-  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+  await expect(page).toHaveURL(/\/arcade\/$/);
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
 });
 
 test("HIGH SCORES is the ledger in the cabinet's own words", async ({
@@ -325,7 +324,9 @@ test("the pixel face sits on its 8 px grid on every screen", async ({
         }),
     );
   await page.goto("/");
-  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
   expect(await offGrid()).toEqual([]);
   await page.goto("/arcade/");
   await expect(

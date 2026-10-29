@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 
-// The title card's address: the origin and nothing else.
+// Home's address: the origin and nothing else.
 const HOME_URL = /^https?:\/\/[^/]+\/$/;
 
 // The new page reports whether it arrived through a view transition.
@@ -36,7 +36,9 @@ test("leaving the cabinet for the ledger is one place, not a cut", async ({
   await page.getByRole("link", { name: "Ampactor Labs, home" }).click();
   await expect(page).toHaveURL(HOME_URL);
   await expect.poll(() => arrivedByTransition(page)).toBe(true);
-  await expect(page.getByRole("button", { name: "PRESS START" })).toBeVisible();
+  await expect(
+    page.getByRole("listbox", { name: "Project list" }),
+  ).toBeVisible();
 });
 
 test("with reduced motion the pages cut, as they always did", async ({

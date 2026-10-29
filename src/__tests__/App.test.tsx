@@ -43,7 +43,6 @@ vi.mock("../arcade/useAmbientHum", () => ({
     playBlip: vi.fn(),
     playEnter: vi.fn(),
     playBack: vi.fn(),
-    playStart: vi.fn(),
     playInsertSting: vi.fn(),
     sound: true,
     toggleSound: vi.fn(),
@@ -71,7 +70,6 @@ async function pressBack() {
   });
 }
 
-const START = { name: "PRESS START" };
 const LIST = { name: "Project list" };
 const returning = () => localStorage.setItem("ampactor_visited", "1");
 
@@ -84,81 +82,49 @@ describe("App", () => {
     window.history.pushState(null, "", "/");
   });
 
-  it("lands on the title card, with the name as the heading", () => {
+  it("lands on the list at home, with the name as the heading", () => {
     returning();
     render(<App />);
     expect(
-      screen.getByRole("heading", { level: 1, name: "MORGAN ESPITIA" }),
+      screen.getByRole("heading", { level: 1, name: /MORGAN ESPITIA/ }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", START)).toBeInTheDocument();
-    expect(screen.getByRole("main")).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).toBeNull();
-    expect(window.location.pathname).toBe("/");
-    expect(window.history.state).toEqual({ v: 1, view: "home" });
-  });
-
-  it("PRESS START pushes /arcade/ and shows the list with the résumé one press away", async () => {
-    returning();
-    render(<App />);
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", START));
-    });
-    expect(window.location.pathname).toBe("/arcade/");
-    expect(window.history.state).toMatchObject({
-      v: 1,
-      view: "arcade",
-      screen: "select",
-      fromHome: true,
-    });
     expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "PRESS START" })).toBeNull();
     expect(screen.getByRole("link", { name: "RESUME" })).toHaveAttribute(
       "href",
       "/resume.html",
     );
-  });
-
-  it("Escape on the list walks history back to the title card", async () => {
-    returning();
-    render(<App />);
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", START));
-    });
-    await act(async () => {
-      const popped = nextPopState();
-      fireEvent.keyDown(window, { key: "Escape" });
-      await popped;
-    });
     expect(window.location.pathname).toBe("/");
-    expect(screen.getByRole("button", START)).toBeInTheDocument();
-    expect(screen.queryByRole("listbox", LIST)).toBeNull();
   });
 
-  it("browser Back from the list lands on the title card", async () => {
+  it("Escape on the list stays on the list and adds no history", async () => {
     returning();
     render(<App />);
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", START));
-    });
-    await pressBack();
-    expect(window.location.pathname).toBe("/");
-    expect(screen.getByRole("button", START)).toBeInTheDocument();
-  });
-
-  it("a hard load of /arcade/ mounts on the list, and leaving gives the title card its own entry", async () => {
-    returning();
-    window.history.replaceState(null, "", "/arcade/");
-    render(<App />);
-    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
     const entries = window.history.length;
     await act(async () => {
       fireEvent.keyDown(window, { key: "Escape" });
     });
     expect(window.location.pathname).toBe("/");
-    expect(window.history.length).toBe(entries + 1);
-    expect(screen.getByRole("button", START)).toBeInTheDocument();
-    // ...so Back returns to the list rather than leaving the site.
+    expect(window.history.length).toBe(entries);
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+  });
+
+  it("a cartridge opened from home goes back to the list at home", async () => {
+    returning();
+    render(<App />);
+    await act(async () => {
+      fireEvent.keyDown(window, { key: "Enter" });
+    });
+    expect(window.history.state).toMatchObject({ screen: "project" });
     await pressBack();
-    expect(window.location.pathname).toBe("/arcade/");
+    expect(window.location.pathname).toBe("/");
+    expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
+  });
+
+  it("a hard load of /arcade/ mounts on the list", () => {
+    returning();
+    window.history.replaceState(null, "", "/arcade/");
+    render(<App />);
     expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
   });
 
@@ -215,11 +181,11 @@ describe("App", () => {
     beforeEach(() => vi.useFakeTimers());
     afterEach(() => vi.useRealTimers());
 
-    it("boots, then lands on the title card by itself and remembers the visit", async () => {
+    it("boots, then lands on the list by itself and remembers the visit", async () => {
       render(<App />);
       await act(async () => {});
-      // The test pattern first; no title card yet.
-      expect(screen.queryByRole("button", START)).toBeNull();
+      // The test pattern first; no list yet.
+      expect(screen.queryByRole("listbox", LIST)).toBeNull();
       await act(async () => {
         vi.advanceTimersByTime(BOOT_PATTERN_MS + 10); // test pattern → the first BIOS line
       });
@@ -227,11 +193,11 @@ describe("App", () => {
       await act(async () => {
         vi.advanceTimersByTime((BOOT_LINES.length - 1) * BOOT_LINE_MS + 10); // every line
       });
-      expect(screen.queryByRole("button", START)).toBeNull();
+      expect(screen.queryByRole("listbox", LIST)).toBeNull();
       await act(async () => {
         vi.advanceTimersByTime(BOOT_BEAT_MS + 10); // the beat after READY.
       });
-      expect(screen.getByRole("button", START)).toBeInTheDocument();
+      expect(screen.getByRole("listbox", LIST)).toBeInTheDocument();
       expect(localStorage.getItem("ampactor_visited")).toBe("1");
       expect(window.location.pathname).toBe("/");
     });

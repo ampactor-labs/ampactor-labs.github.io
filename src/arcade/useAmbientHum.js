@@ -27,9 +27,10 @@ function keyOf(color) {
   return h < 0 ? h + 1 : h;
 }
 
-// The cabinet's sounds, on the shared bus (audio/bus.js). Silent until the
-// machine is started: `enabled` is false on the title card, where no context
-// exists until START asks for one, and going back there fades the room out.
+// The cabinet's sounds, on the shared bus (audio/bus.js). No context exists
+// until the visitor's first gesture, which wakes the clock and brings the room
+// up. While `enabled` is false nothing sounds, and turning it off fades the
+// room out.
 export default function useAmbientHum({ enabled = true } = {}) {
   const [sound, setSoundState] = useState(soundOn);
 
@@ -87,46 +88,6 @@ export default function useAmbientHum({ enabled = true } = {}) {
     [],
   );
 
-  // START is the one ignition: a 0.9 s swell, then a power chord with the
-  // room behind it, and the bed comes up under it.
-  const playStart = useCallback(
-    () =>
-      withClock((b, t0) => {
-        for (const [freq, peak] of [
-          [55, 0.05],
-          [110.4, 0.03],
-        ])
-          voice(b, t0, {
-            freq,
-            type: "sawtooth",
-            dur: 0.9,
-            peak,
-            attack: 0.75,
-            cutoff: 180,
-            cutoffTo: 1800,
-            q: 2.5,
-          });
-        for (const [freq, peak] of [
-          [110, 0.06],
-          [165, 0.05],
-          [220, 0.045],
-        ])
-          voice(b, t0, {
-            freq,
-            type: "sawtooth",
-            at: 0.82,
-            dur: 1.1,
-            peak,
-            cutoff: 2000,
-            cutoffTo: 500,
-            q: 1.2,
-            send: 0.3,
-          });
-        startBed();
-      }),
-    [],
-  );
-
   // The coin: a clink, then a chord.
   const playInsertSting = useCallback(
     () =>
@@ -166,16 +127,15 @@ export default function useAmbientHum({ enabled = true } = {}) {
 
   useEffect(() => {
     if (!enabled) {
-      // Back on the title card: the room fades rather than cuts, then the
-      // context sleeps. Nothing to do for a visitor who never started.
+      // Switched off: the room fades rather than cuts, then the context
+      // sleeps. Nothing to do for a visitor who never started.
       if (!hasBus()) return;
       stopBed(1.2);
       const t = setTimeout(suspendBus, 1400);
       return () => clearTimeout(t);
     }
-    // In the arcade the first gesture wakes the clock, so the first sound is
-    // instant, and brings the bed up for a visitor who came straight to the
-    // list and never pressed START.
+    // The first gesture wakes the clock, so the first sound is instant, and
+    // brings the bed up.
     const warm = () => {
       withClock(() => {});
       startBed();
@@ -201,7 +161,6 @@ export default function useAmbientHum({ enabled = true } = {}) {
     playBlip,
     playEnter,
     playBack,
-    playStart,
     playInsertSting,
     sound,
     toggleSound,

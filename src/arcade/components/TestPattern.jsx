@@ -1,7 +1,6 @@
 import { PALETTE, alpha } from "../palette";
 // The CRT test pattern: concentric rings, crosshairs, and the A-mark. It is
-// the boot sequence's phase 0 and the attract loop's first frame, so the
-// markup lives here once. BootScreen's phase-0 output must stay identical to
+// the boot sequence's phase 0, so the markup lives here once. BootScreen's phase-0 output must stay identical to
 // what it was before the extraction (its snapshot pins that).
 export default function TestPattern({
   fs,

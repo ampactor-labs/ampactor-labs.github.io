@@ -24,13 +24,13 @@ design tool as the brand context.
 
 The site is the machine. There is no page around it: the cabinet stands in the dark
 and fills the viewport, and everything a portfolio has to say is said in the idiom an
-arcade cabinet already has. The **title card** (attract mode, at `/`) is the hero: the
-name, the trade, `PRESS START`. START is the
-**select screen** (`/arcade/`): the cartridges are the work, and the header is the
-operator's sticker (name, email, phone, RESUME · GITHUB · LINKEDIN). At the end of
-the list sit the **operator's programs**: `HOW TO PLAY` (the controls), `HIGH SCORES`
-(the commit ledger), `CREDITS` (the career roll). Escape, B or the browser's Back step
-out the way you came in, down to the title card. The coin slot is still a coin slot:
+arcade cabinet already has. The first screen is the **select screen** (`/` and
+`/arcade/`): the cartridges are the work, and the header is the operator's sticker
+(name, trade, email, phone, RESUME · GITHUB · LINKEDIN). There is no title card or
+attract loop in front of it (scrapped in October 2026: a screen to get past). At the
+end of the list sit the **operator's programs**: `HOW TO PLAY` (the controls), `HIGH
+SCORES` (the commit ledger), `CREDITS` (the career roll). Escape, B or the browser's
+Back step out of a cartridge to the list; on the list there is nothing behind it. The coin slot is still a coin slot:
 nothing on the site points at it, and the hidden programs are found, not linked.
 
 One universe, one depth. The aesthetic is not nostalgia for its own sake — it is
@@ -69,7 +69,7 @@ What that means for the site:
   (`docs/README-STANDARD.md`) and are literally true. Headings name the thing. No
   slogans.
 - **Let the machine teach.** No instructions to the reader, no explaining what to
-  conclude, no asking to be trusted. The cabinet's own idiom (`PRESS START`, `INSERT
+  conclude, no asking to be trusted. The cabinet's own idiom (`READY.`, `INSERT
   COIN`, `NOW SHOWING`, `HIGH SCORES`, `CREDITS`, `HOW TO PLAY` for the controls) is the
   one voice the cabinet speaks for itself.
 - **One fact, one place.** The name, the role, the contact, the city: once per screen.
@@ -111,7 +111,7 @@ has every ratio). Text sits only on void, room, raised and the band; never on
 | `band` / `bandBright` | `#2b1a5e` / `#4a2ca0` | The title band, dark end to bright end. |
 | `text` / `muted` / `faint` | `#ece6fb` / `#b9a6e8` / `#8f7fb8` | The three text tiers. Faint never sits on the band. |
 | `mark` | `#00e5ff` | The A-mark, the name, the A button, the ship, the tunnel. |
-| `voice` / `voiceLt` | `#ff2fd2` / `#ff5ce1` | The machine's voice: PRESS START, READY., INSERT COIN, the lit row; the lighter one at 7 to 9 px. |
+| `voice` / `voiceLt` | `#ff2fd2` / `#ff5ce1` | The machine's voice: READY., INSERT COIN, the lit row; the lighter one at 7 to 9 px. |
 | `ok` / `mint` | `#00ffd0` | OK, status, deployed; lasers and the dust. |
 | `quiet` / `halo` | `#b388ff` | The operator's programs and a status that is not live; the bloom behind the letters. |
 | `coin` | `#ffb800` | The coin and only the coin. |
@@ -120,7 +120,7 @@ has every ratio). Text sits only on void, room, raised and the band; never on
 
 Cards and controls stand on the tube's lit grid on one fill, `CARD`: the void at
 72%. The list's programs, the pills and chips, the readout's back key, rail and
-panels, and the cartridge on the title card all use it, a tint laid over it
+panels all use it, a tint laid over it
 where the thing has a colour (`onCard`). The grid recedes behind them. The
 `frost` class (a 2 px backdrop blur) softens it around the ones that hold
 still, and between the cards of the list, which scrolls inside itself.
@@ -134,9 +134,9 @@ below until their own step of the audit.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--color-cyan` | `#00E5FF` | **Hero accent.** Glow, the active item, the cabinet's signage, the name on the title card. Spend it like a spotlight. |
+| `--color-cyan` | `#00E5FF` | **Hero accent.** Glow, the active item, the cabinet's signage. Spend it like a spotlight. |
 | `--accent-text` | cyan / `#00708a` | The accent **as text on a page background**. Cyan in the dark theme; deepened in the light theme, where electric cyan has no contrast on parchment. Use this, not `--color-cyan`, for links, eyebrows, CTAs and the focus ring on the pages. |
-| `--color-amber` | `#d8a657` | Secondary accent: `PRESS START`, the operator's programs, INSERT COIN, employment, caution. |
+| `--color-amber` | `#d8a657` | Secondary accent: the operator's programs, INSERT COIN, employment, caution. |
 | `--bg` / `--color-charcoal` | `#1d2021` | Page background (top of the radial). |
 | `--color-dim` | `#2a2826` | Mid background, the cabinet's chassis. |
 | `--color-void` | `#0f0e0d` | Deepest background, insets, the dark behind the machine. |
@@ -187,15 +187,15 @@ the dark behind the machine is painted before the first frame in either theme.
 
 | Token | Font | Used for |
 |---|---|---|
-| `--font-arcade` | **Press Start 2P** | Signage: the name on the title card, screen titles (`SELECT PROGRAM`, `HIGH SCORES`), `PRESS START`, the operator's pills, section eyebrows, the pages' nav. ALL-CAPS. In the cabinet it sits on its 8 px grid (`pixel()` in `src/arcade/type.js` snaps every size to 8, 16, 24, 32 or 40, the game's canvas included) with `--track-pixel` (0.125em: whole pixels), so every cell is crisp; a browser test holds every screen to it. **Tiny** on the pages (7–9 px). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
+| `--font-arcade` | **Press Start 2P** | Signage: screen titles (`SELECT PROGRAM`, `HIGH SCORES`), `READY.`, the operator's pills, section eyebrows, the pages' nav. ALL-CAPS. In the cabinet it sits on its 8 px grid (`pixel()` in `src/arcade/type.js` snaps every size to 8, 16, 24, 32 or 40, the game's canvas included) with `--track-pixel` (0.125em: whole pixels), so every cell is crisp; a browser test holds every screen to it. **Tiny** on the pages (7–9 px). Never body text. It has no `▸` and no accented capitals: write `RESUME`, not `RÉSUMÉ`, in this face. |
 | `--font-display` | **Share Tech Mono** | Row titles, CTAs, readouts, the credits' names. Weight 400; size and glow carry emphasis. |
 | `--font-body` | **JetBrains Mono** | By opt-in: the BIOS, numbers, stack and tag chips, status lines, the contact, the marquee. |
-| `--font-sans` | **Inter** | The reading face, and the cabinet's default: a readout's prose, subtitles, the returning visitor's line on the title card; on the pages the ledger's copy, the case study, the 404. Tabular numerals for data. |
+| `--font-sans` | **Inter** | The reading face, and the cabinet's default: a readout's prose, subtitles; on the pages the ledger's copy, the case study, the 404. Tabular numerals for data. |
 
 Tracking in the cabinet is three tokens: `--track-pixel` for Press Start, `--track-ui` (0.1em) for labels and subtitles, `--track-display` (0.06em) for display and chips; the role's wide 0.24em stays its own.
 
 Type in the cabinet scales with the screen's width (`fs()` in `useCabinetState`: ×1 at
-300 px, ×1.25 from 475 px); the name on the title card is `min(38px, width / 16)` snapped to the grid. On
+300 px, ×1.25 from 475 px). On
 the pages the scale is by `clamp()`: titles `clamp(26px, 3.4vw, 36px)`, ledes
 `clamp(16px, 1.6vw, 18px)`. Body line-height 1.5–1.6.
 
@@ -216,27 +216,16 @@ page requests anything from another origin (`e2e/network.spec.ts`).
 
 A first visit (nothing in `localStorage`) powers the machine on out of the dark: the
 tunnel reveals and the A-mark snaps on behind it (one rise, one fall), the tube lights
-up in twelve bands left to right, cuts to the test card (`BOOT_PATTERN_MS`, 350 ms),
-and the boot roll pops its BIOS lines on
-(`OPERATOR: MORGAN ESPITIA`, `AMPACTOR BIOS v7.7.7`, … `READY.`) in a burst
-(`BOOT_LINE_MS`, 40 ms a line), holds a beat on `READY.` (`BOOT_BEAT_MS`, 350 ms) and
-lands where the URL points: the title card at `/`, the list at `/arcade/`. About two
-and a half seconds in all, the ignition included. Any key or tap during it skips
+up in twelve bands left to right, cuts to the test card (`BOOT_PATTERN_MS`, 600 ms),
+and the boot roll prints its BIOS lines
+(`OPERATOR: MORGAN ESPITIA`, `AMPACTOR BIOS v7.7.7`, … `READY.`) one by one
+(`BOOT_LINE_MS`, 90 ms a line), holds a beat on `READY.` (`BOOT_BEAT_MS`, 700 ms) and
+lands where the URL points: the list, or a cartridge. About 2.7 seconds once the tube
+is lit. Any key or tap during it skips
 ahead. It never runs
 for a returning visitor (`ampactor_visited`) or a deep-linked cartridge, and it never
 touches the URL or history. Under reduced motion the tween is skipped and the BIOS
 still prints: it is text.
-
-### The attract loop
-
-The title card holds 6 s, then `NOW SHOWING` runs four cartridges at 2.6 s each, then
-`HIGH SCORES` 6 s, and round again with the next four. Every frame dashes in (`dashIn`,
-260 ms, transform and opacity only).
-`PRESS START` breathes (`breathe`, 2.4 s, a sine, never fully off). `◄` `►` and the
-arrow keys step the loop by hand; START, A, Enter, Space, a tap on the tube or a coin
-start the machine. No `AudioContext` exists until then. Someone reading holds it: a
-pointer over the tube, a finger on it or focus inside keeps the frame on screen, and the
-loop carries on from the top of that frame when they leave.
 
 ### Between screens
 
@@ -247,15 +236,13 @@ same-document view-transition API on the tube's content layer
 (`view-transition-name: tube`), only where the browser has it and motion is welcome.
 The hidden rows the coin unlocks dash in with an 80 ms stagger. The coin itself is a
 thing that happens: the slit takes the drop (120 ms), a ring blooms from the slot,
-then the stamp lands on the tube, then the rows light in order. The title card's idle
-layer is one slow sweep of light across the grid (`sweep`, 9 s, transform only), off on
-a phone and under reduced motion, and never on a screen someone is reading.
+then the stamp lands on the tube, then the rows light in order.
 
-**What holds still.** The backdrop tunnel moves during the power-on, the title loop and
-the game, and holds a single frame on the list, the readouts and the operator's
+**What holds still.** The backdrop tunnel moves during the power-on, the boot and the
+game, and holds a single frame on the list, the readouts and the operator's
 programs (no drawing loop runs behind them). Nothing loops forever on the main
-thread: the coin slot is lit, not pulsing, and anything that does loop (`breathe`, the
-marquee) animates only opacity or transform. A cartridge's colour bleeds into the tube
+thread: the coin slot is lit, not pulsing, and anything that does loop (INSERT COIN's
+`breathe`, the marquee) animates only opacity or transform. A cartridge's colour bleeds into the tube
 when it is open, not while the list is walked. The list keeps its scroll position
 when you come back to it, and the lit row only scrolls smoothly when the selection
 moves.
@@ -303,16 +290,15 @@ lowest latency: every voice runs into one master gain, a gentle lowpass at 6.5 k
 (`70 ms`, a little feedback; a longer slap read as the sound arriving late). Every
 note fades in over at least 4 ms instead of clicking on; the cabinet's own voices are
 triangles and filtered saws at low resonance, never bare square waves. The master gives back the compressor's makeup gain, so a voice
-plays at the level it was written at and only the peaks are caught. Nothing exists until the machine is started, so the power-on,
-the BIOS and the title card are silent.
+plays at the level it was written at and only the peaks are caught. Nothing exists until
+the visitor's first gesture (a browser allows no sound before one), so a power-on and
+BIOS left alone are silent; the first tap or key wakes the clock and brings the room up.
 
-- **START** is the ignition: a `0.9 s` swell through an opening filter, then a power
-  chord, and the room's bed comes up under it.
 - **The bed:** two triangles a fifth apart (55 and 82.6 Hz) under a slow lowpass, about
   38 dB under full scale and under every other sound. No noise: on a phone's speaker it
   was all that played, as static. It
   fades in over `2.5 s`, opens with the tunnel's speed (the run and the boss brighten
-  it) and fades out on the way back to the title card.
+  it) and fades out when the cabinet leaves the page.
 - **Into a cartridge:** a filter opening upward, keyed by the cartridge's colour. Back
   out is the same sweep falling. A step through the list is a soft tick.
 - **The coin:** a clink, then a chord.
@@ -322,12 +308,12 @@ the BIOS and the title card are silent.
 - **SOUND ON / SOUND OFF** on the deck mutes the master with a `0.12 s` ramp, never a
   click, then stops the room and puts the context to sleep. It is remembered
   (`localStorage`, `ampactor_sound`), and while it is off nothing is made or played:
-  no context, no notes, no bed. Flipping it on the title card makes no context.
+  no context, no notes, no bed.
 
 ### Reduced motion — non-negotiable
 
 Every animated surface honours it: the power-on is a cut (the BIOS still prints),
-the title card holds still and `PRESS START` does not blink, the credits stand, pages
+INSERT COIN does not breathe, the credits stand, pages
 cut instead of crossfading, every block is simply there, and every page transition is
 off (`global.css`).
 
@@ -366,20 +352,19 @@ off (`global.css`).
 
 | Screen | Spec |
 |---|---|
-| **Title card** (`AttractScreen.jsx`) | `<h1>` name in Press Start, mist and flat, on the title band (the band's lit cells brighten in four steps to the right; the band is its light) → `SOFTWARE ENGINEER` in ember on the dark ground → for a returning visitor only, a borrowed line in Inter (`quotes.js`: KEPT YOU WAITING, HUH?) → `PRESS START` (a `<button>`). Nothing else: the sticker on the select screen has the contact and the links. The `<h1>` stays in the DOM (visually hidden) on the loop's other frames. It fits a short phone (375×548) above `PRESS START`. |
-| **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (shared with the attract loop's `TestPattern.jsx`), phase 1 the BIOS laid out at its final height and printed top to bottom in a burst (`BOOT_LINE_MS`, 40 ms a line), each status line a lit checklist row (name, verb, a mint `OK` cell; the words are `constants.js`'s, the dots are gone); the operator's sign-off (`WORDS.boot`), lit cyan like the `OPERATOR:` line, then a beat on the last line, `READY.`, in Press Start and magenta, and the title card. Any key or tap skips ahead. |
+| **Boot** (`BootScreen.jsx`) | Phase 0 the test pattern (`TestPattern.jsx`), phase 1 the BIOS laid out at its final height and printed top to bottom, one line at a time (`BOOT_LINE_MS`, 90 ms a line), each status line a lit checklist row (name, verb, a mint `OK` cell; the words are `constants.js`'s, the dots are gone); the operator's sign-off (`WORDS.boot`), lit cyan like the `OPERATOR:` line, then a beat on the last line, `READY.`, in Press Start and magenta, and the list. Any key or tap skips ahead. |
 | **Select** (`SelectScreen.jsx`) | The operator's sticker: `SELECT PROGRAM`, `<h1>` `NAME · ROLE`, email and phone as links, and `<nav aria-label="Operator">` with the pills `RESUME` (`/resume.html`) · `GITHUB` · `LINKEDIN`. Under 600 px the links and the contact are one `Operator` nav of 40 px chips, the links first, all of it in view. Then the `listbox` (`Project list`), which takes focus when the screen comes up and names its active row with `aria-activedescendant`: category headers `SYSTEMS · SECURITY · WEB3 · CREATIVE · OPERATOR` as signs, one 56 px card per program on a dark fill, so the tube's grid recedes behind the programs and shows softened between them (the list blurs it): a 40 px icon tile in the program's colour, the full-height lit bar on the active row, title in Share Tech Mono, a `lang` chip unless it would repeat the category sign, subtitle. Three `[CLASSIFIED] · YOU DIDN'T SAY THE MAGIC WORD` rows until the coin drops; then the three secret programs dash in once, staggered, and hold still; the marquee (the cartridges and their taglines, `constants.js`); under 600 px a 3 px band in the lit row's colour in its place. |
 | **Cartridge readout** (`DetailScreen.jsx`) | `◄` back, icon, `<h1>` title, subtitle, the link rail (demo first, then source; the header wraps before it clips, and under 420 px the rail is two tiles the width of the tube), then `outcome` as the headline → the rest of the lead under `SYS/READOUT` (a README's lead opens with the headline's sentence, and the readout says it once) → highlights → stack → operator notes in a scrolling, focusable region, each section under a sign. Under it, the B hint and the cartridge's label (its repository's path, or its name when the source is private) as plain text: `SOURCE` is the one link to the code. |
 | **Sign** (`Sign.jsx`) | A section label in lilac Press Start, then the sunset bar (cyan → violet → magenta, 3 px) running out to the edge. Pit Viper's band, kept as one rule: the list's categories, the readout's sections, the programs' parts, and under HIGH SCORES on the loop. NOW SHOWING sets the cartridge as a card in its own light with its icon in a 64 px tile; HIGH SCORES on the loop is a scoreboard with alternating row fills. |
 | **Operator programs** (`SystemScreen.jsx`, data in `programs.js`) | Same head as a readout, in the quiet violet. `HOW TO PLAY`: `CONTROLS`, what the panel does; rail `▸ HOW THIS CABINET IS BUILT` (`/craft/`) · `› THE README STANDARD`. `HIGH SCORES`: the top-10 table (`RANK · NAME · SCORE`, repositories by commits), the last twelve months as bars (`role="img"` with the numbers in its name), the `CO-OP` line; rail `▸ FULL LEDGER` (`/receipts/`) · `› GITHUB`. `CREDITS`: the career roll from `resume.json`, the tests as the crew, and the operator's sign-off (`WORDS.credits`) where `THANK YOU FOR PLAYING` would be; rail `▸ FULL RÉSUMÉ` · `› SOURCE`. |
-| **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`), and under INSERT COIN the `SOUND` switch (`role="switch"`; `SOUND ON` lit in the text colour with the halo, `SOUND OFF` in lilac; remembered). On the title card `◄ ►` step the loop and A starts; on the list the d-pad walks rows and A opens; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. The deck is the band: dusk into violet, a 12 px lit grid and four brightness steps; black keys with a lilac edge that light magenta when pressed; flat rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a touch screen the d-pad keys grow to 36 px and every key, button, the coin slot and the SOUND switch take a 44 px tap (the switch drops a few pixels so its tap starts below the INSERT COIN words); the header's pills and the readout's chips stand 40 px tall. Under 480 px the Salt Lake City line goes and the deck tightens. |
+| **Panel** (`Cabinet.jsx`) | D-pad (`Navigate up/down/left/right`), `B` (`Back`), `A` (`Select` / `Open link`), the A-mark plate, the coin slot (`Insert coin`), and under INSERT COIN the `SOUND` switch (`role="switch"`; `SOUND ON` lit in the text colour with the halo, `SOUND OFF` in lilac; remembered). On the list the d-pad walks rows, A opens and B does nothing; on a readout up/down scroll, left/right walk the rail, A opens the focused link, B goes back. The deck is the band: dusk into violet, a 12 px lit grid and four brightness steps; black keys with a lilac edge that light magenta when pressed; flat rings for B (hot magenta) and A (cyan); 8 px lilac labels. On a touch screen the d-pad keys grow to 36 px and every key, button, the coin slot and the SOUND switch take a 44 px tap (the switch drops a few pixels so its tap starts below the INSERT COIN words); the header's pills and the readout's chips stand 40 px tall. Under 480 px the Salt Lake City line goes and the deck tightens. |
 | **Hidden programs** | Unlocked by the coin, wherever it is dropped, or by the Konami code on a keyboard; the ceremony says CREDIT ACCEPTED and IT'S A SECRET TO EVERYBODY.; a link straight to one (`/arcade/#tunnel-run`) drops the coin for the visitor. `TUNNEL_RUN` plays on the backdrop with the console faded out. Never linked from the site's own copy. |
 
 ### The pages' frame (`src/ui/Frame.tsx`)
 
 | Component | Spec |
 |---|---|
-| **Frame** | One line: the A-mark and `AMPACTOR` in Press Start 8 px (a link home, `Ampactor Labs, home`, 44 px tall) over the sunset rule. No nav, no footer, no light switch; the cabinet has the contact and the links, one press from its title card. |
+| **Frame** | One line: the A-mark and `AMPACTOR` in Press Start 8 px (a link home, `Ampactor Labs, home`, 44 px tall) over the sunset rule. No nav, no footer, no light switch; the cabinet has the contact and the links on its first screen. |
 
 ### Receipts (`/receipts/`)
 
@@ -448,8 +433,8 @@ work, skills); `src/data/site.js` holds the per-page `<head>`.
 ## 10 · Information Architecture
 
 ```
-/                 → the cabinet on its title card (attract mode)
-/arcade/          → the select screen (a real static entry)
+/                 → the select screen (the project list)
+/arcade/          → the select screen too (a real static entry)
 /arcade/#<id>     → a cartridge open in the cabinet (shareable), or an operator
                     program: #how-to-play, #high-scores, #credits
 /receipts/        → the ledger; ?from=&to=&repo=&q=&merges=0&sort=-key is the whole view
@@ -462,23 +447,20 @@ and re-reads the address on `popstate`; defaults are omitted so the plain URL st
 plain, and anything unparseable falls back to the default instead of breaking the page.
 
 The URL is the source of truth (`src/arcade/zoom/arcadeRoute.ts`); the cabinet asks for
-navigation with intents (`enter`, `open`, `back`, `exit`, `select`) and
-`useArcadeHistory` owns the History API. START pushes `/arcade/`; opening a program
-pushes `/arcade/#id`; Back walks program → list → title card and Forward walks back in.
-A deep link gets a select entry laid down beneath it; a hash naming nothing is
-corrected to `/arcade/` on load. Leaving a hard-loaded `/arcade/` gives the title card
-its own entry, so Back returns to the list. `ampactor_visited` only decides whether the
+navigation with intents (`open`, `back`, `select`) and `useArcadeHistory` owns the
+History API. Opening a program pushes `/arcade/#id`; Back walks program → list and
+Forward walks back in. A deep link gets a select entry laid down beneath it; a hash
+naming nothing is corrected to `/arcade/` on load. `ampactor_visited` only decides whether the
 power-on plays.
 
 ---
 
 ## 11 · Accessibility
 
-- The title card, the select screen, HIGH SCORES, the ledger and the case study pass
+- The select screen, HIGH SCORES, the ledger and the case study pass
   axe in the browser suite, at desktop and phone sizes, the ledger and the case study
   in both themes (`e2e/*.spec.ts`).
-- Every screen has one `<h1>`: the name on the title card, `NAME · ROLE` on the select
-  screen, the title of an open cartridge or program on its readout.
+- Every screen has one `<h1>`: `NAME · ROLE` on the select screen, the title of an open cartridge or program on its readout.
 - One focus ring everywhere (`:focus-visible`, `--focus-ring`: cyan in the dark and
   on the cabinet in either theme, violet on paper); in the listbox the lit row is the
   indicator.
@@ -488,14 +470,13 @@ power-on plays.
   included, and the cabinet's keys never answer them a second time. A panel key pressed
   with a mouse or a finger hands focus back to the list or the readout, so Enter
   afterwards still means A.
-- Escape and B step back; browser Back steps back; the title card's `PRESS START` is a
-  real button and the email a real link.
+- Escape and B step back from a cartridge; browser Back steps back; the email is a
+  real link.
 - Decorative SVG and glyphs are `aria-hidden`; the HIGH SCORES bars carry their
   numbers in the image's name.
 - External links: `target="_blank"` + `rel="noopener noreferrer"`.
-- `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` is created on
-  the title card; audio starts only once the machine is started, and SOUND OFF on the
-  deck is remembered.
+- `prefers-reduced-motion` honoured everywhere (§5). No `AudioContext` exists before
+  the visitor's first gesture, and SOUND OFF on the deck is remembered.
 - Contrast: parchment on charcoal and the deepened accent on parchment both clear AA at
   the sizes used; keep muted/comment text at ≥ 11 px mono / 12 px sans.
 
@@ -556,7 +537,7 @@ _Paste this block into a design tool as the brand context. Scope any generation 
 > Salt Lake City who makes compilers, synths, games, and the apps around them.
 > **Concept:** "Patina Dark" — the site is an arcade cabinet, and the cabinet is the
 > whole page: a worn CRT rendered with engineering precision, standing in the dark.
-> The title card is the hero, the select screen is the work, the operator's programs
+> The select screen is the first screen and the work, the operator's programs
 > (HOW TO PLAY, HIGH SCORES, CREDITS) are the rest of the portfolio, and two paper
 > pages beside it carry the commit log and the case study. Morgan's words, plain; no
 > slogans.
@@ -575,8 +556,7 @@ _Paste this block into a design tool as the brand context. Scope any generation 
 > hairline low-alpha borders, radii 6/10/16 px, soft blooms on hover, reduced motion
 > honoured.
 >
-> **Screens, in order:** title card (name → role → two lines of Morgan's → PRESS START)
-> → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
+> **Screens, in order:** boot (first visit only) → select screen (operator's sticker with RESUME · GITHUB · LINKEDIN, the
 > cartridges by category, then OPERATOR: HOW TO PLAY · HIGH SCORES · CREDITS) →
 > readouts. **Pages:** the frame (the A-mark home over the sunset rule) → the commit log
 > / the case study.
