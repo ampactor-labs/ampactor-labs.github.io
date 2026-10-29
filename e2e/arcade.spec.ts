@@ -379,7 +379,9 @@ test("a tap leaves no row stuck in its hover, and Back keeps the list's place", 
   const list = page.getByRole("listbox", { name: "Project list" });
   await expect(list).toBeVisible();
   await list.evaluate((el) => el.scrollTo({ top: 200 }));
+  await expect.poll(() => list.evaluate((el) => el.scrollTop)).toBe(200);
   const row = page.getByRole("option").nth(6);
+  await expect(row).toBeInViewport({ ratio: 1 });
   await row.tap();
   await expect(page).toHaveURL(/#/);
   await page.goBack();
