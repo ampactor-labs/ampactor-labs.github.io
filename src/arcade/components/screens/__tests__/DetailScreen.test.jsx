@@ -31,6 +31,24 @@ describe("DetailScreen", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
+  it("shows MENTL's hello program with all five operators lit", () => {
+    const mentl = PROJECTS.find((p) => p.id === "mentl");
+    const { getByRole, getByText } = render(
+      <DetailScreen {...baseProps} project={mentl} />,
+    );
+    const listing = getByRole("region", { name: "Program listing" });
+    const lit = new Set(
+      [...listing.querySelectorAll("code span span")]
+        .map((el) => el.textContent)
+        .filter((t) => /^(\|>|<\||><|~>|<~)$/.test(t)),
+    );
+    expect([...lit].sort()).toEqual(["<|", "<~", "><", "|>", "~>"].sort());
+    expect(listing.textContent).toContain(
+      "fn total(x) = { t => t + x } <~ delay(1)",
+    );
+    expect(getByText("examples/hello/five.mn")).toBeTruthy();
+  });
+
   it("renders back button", () => {
     const project = PROJECTS[0];
     const { getByRole } = render(

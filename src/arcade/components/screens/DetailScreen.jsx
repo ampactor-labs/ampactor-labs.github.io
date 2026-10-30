@@ -5,6 +5,13 @@ import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
+// The five pipe operators, as a listing's lines are split around them; the
+// capture keeps each operator in the parts, at the odd indexes.
+const OPERATOR = /(\|>|<\||><|~>|<~)/;
+
+const longestLine = (code) =>
+  Math.max(...code.split("\n").map((line) => line.length));
+
 const CoherenceField = lazy(() => import("../../CoherenceField"));
 const SynthEngine = lazy(() => import("../../SynthEngine"));
 
@@ -223,6 +230,78 @@ export default function DetailScreen({
             {p.outcome}
           </div>
         )}
+        {/* A program from the project's repo, as it stands, operators lit */}
+        {p.listing && (
+          <div
+            style={{
+              marginBottom: 14,
+              padding: "10px 12px",
+              borderRadius: 4,
+              background: onCard(`${p.color}05`),
+              border: `1px solid ${p.color}0a`,
+            }}
+          >
+            <Sign text="PROGRAM LISTING" fs={fs} />
+            <div
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: fs(8),
+                color: "var(--cab-muted)",
+                marginBottom: 6,
+              }}
+            >
+              {p.listing.path}
+            </div>
+            {/* Every line on one line: the type shrinks, only as far as the
+                longest line needs, to fit the listing's width (a monospace
+                character is 0.6em wide). Ligatures are off: the font would
+                draw |> as one triangle, and the listing shows what is typed.
+                An operator is lit in a comment too, where the comment names
+                it. */}
+            <div style={{ containerType: "inline-size" }}>
+              <pre
+                role="region"
+                aria-label="Program listing"
+                style={{
+                  margin: 0,
+                  overflowX: "auto",
+                  fontFamily: "var(--font-body)",
+                  fontVariantLigatures: "none",
+                  fontSize: `min(${fs(9)}px, calc(100cqw / ${longestLine(p.listing.code) * 0.6 + 1}))`,
+                  lineHeight: 1.6,
+                  color: "var(--cab-text)",
+                }}
+              >
+                <code>
+                  {p.listing.code.split("\n").map((line, i) => (
+                    <span
+                      key={i}
+                      style={
+                        line.trimStart().startsWith("//")
+                          ? { color: "var(--cab-muted)" }
+                          : undefined
+                      }
+                    >
+                      {line.split(OPERATOR).map((part, j) =>
+                        j % 2 ? (
+                          <span
+                            key={j}
+                            style={{ color: p.color, fontWeight: 700 }}
+                          >
+                            {part}
+                          </span>
+                        ) : (
+                          part
+                        ),
+                      )}
+                      {"\n"}
+                    </span>
+                  ))}
+                </code>
+              </pre>
+            </div>
+          </div>
+        )}
         {/* Zone A — SYS/READOUT: the rest of the lead, after the headline */}
         {readout && (
           <div
@@ -341,7 +420,13 @@ export default function DetailScreen({
         >
           {p.status && (
             <>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: fs(10), color: statusColor }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: fs(10),
+                  color: statusColor,
+                }}
+              >
                 {"\u25cf"} {p.status.toUpperCase()}
               </span>
               <span style={{ color: "var(--cab-faint)", fontSize: fs(10) }}>
