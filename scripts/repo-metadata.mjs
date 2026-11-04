@@ -40,6 +40,7 @@ const HOMEPAGE = {
   perennials: "https://ampactor.dev/perennials/",
   bits: "https://ampactor.dev/bits/",
   noodles: "https://ampactor.dev/noodles",
+  gauntlet: "https://ampactor.dev/gauntlet/",
   copycats: "https://ampactor.dev/copycats/",
   stoop: "https://ampactor.dev/stoop/",
   understory: "https://ampactor.dev/understory/",
