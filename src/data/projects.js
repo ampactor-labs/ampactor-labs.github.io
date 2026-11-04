@@ -418,7 +418,7 @@ fn main() = {
     color: "#ff7a29",
     icon: "🔥",
     github: "https://github.com/ampactor-labs/gauntlet",
-    live: "https://ampactor.dev/gauntlet",
+    live: "https://ampactor.dev/gauntlet/",
     desc: "A year-long calendar of novelty holidays, with a heat rating for every observance. Check off the ones you actually celebrate, conquer each day, and bank your heat. Floating holidays land on their calendar dates; progress stays in the browser.",
     tags: ["calendar", "holidays", "vanilla-js", "local-storage"],
     tagline: "OBSERVE THE HOLIDAYS. BANK THE HEAT.",
