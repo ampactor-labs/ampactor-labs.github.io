@@ -71,7 +71,7 @@ export const ENTRIES = {
     path: "/arcade/",
     title: `Arcade · ${SITE.name}`,
     description:
-      "The select screen of the cabinet: eighteen projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.",
+      "The select screen of the cabinet: nineteen projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.",
     image: "/og-home.png",
     person: false,
     stage: true,

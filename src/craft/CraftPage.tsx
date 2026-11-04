@@ -256,7 +256,7 @@ function CabinetChapter() {
           surface for. The home page is the select screen, where the
           operator&apos;s sticker carries the email,
           the phone number and the links to the résumé, GitHub and LinkedIn.
-          The eighteen projects are cartridges, and three operator programs at
+          The nineteen projects are cartridges, and three operator programs at
           the end of the list hold the rest: HOW TO PLAY (the controls), HIGH
           SCORES (the commit log) and CREDITS (the years, and who built this).
         </p>

@@ -411,6 +411,35 @@ fn main() = {
   },
 
   {
+    id: "gauntlet",
+    title: "THE GAUNTLET",
+    subtitle: "365-DAY HOLIDAY SURVIVAL CALENDAR",
+    lang: "HTML/CSS/JS",
+    color: "#ff7a29",
+    icon: "🔥",
+    github: "https://github.com/ampactor-labs/the-gauntlet",
+    live: "https://ampactor.dev/gauntlet",
+    desc: "A year-long calendar of novelty holidays, with a heat rating for every observance. Check off the ones you actually celebrate, conquer each day, and bank your heat. Floating holidays land on their calendar dates; progress stays in the browser.",
+    tags: ["calendar", "holidays", "vanilla-js", "local-storage"],
+    tagline: "OBSERVE THE HOLIDAYS. BANK THE HEAT.",
+    outcome:
+      "A 365-day novelty-holiday gauntlet that tracks observed holidays and banked heat in your browser.",
+    highlights: [
+      "1,193 FIXED-DATE HOLIDAYS",
+      "144 FLOATING HOLIDAYS",
+      "BANK HEAT AS YOU CHECK THEM OFF",
+      "PROGRESS SAVED IN YOUR BROWSER",
+      "NO ACCOUNT OR SERVER REQUIRED",
+      "LEAP-YEAR CALENDAR",
+    ],
+    stack: ["HTML", "CSS", "Vanilla JavaScript", "localStorage"],
+    status: "deployed",
+    category: "creative",
+    operatorNote:
+      "The browser is the save file: checked holidays, the selected month, and banked heat stay local.",
+  },
+
+  {
     id: "copycats",
     title: "COPYCATS",
     subtitle: "REPLAY-GHOST PARTY RACER",
