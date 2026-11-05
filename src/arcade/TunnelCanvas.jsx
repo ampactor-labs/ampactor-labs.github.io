@@ -51,7 +51,7 @@ function initDust() {
 // The inner name is what React DevTools shows for the component.
 // eslint-disable-next-line no-shadow
 const TunnelCanvas = forwardRef(function TunnelCanvas(
-  { speed = 0.00008, moving = true },
+  { speed = 0.00004, moving = true },
   ref,
 ) {
   const isMobileRef = useRef(
