@@ -110,6 +110,13 @@ export default function ArcadeStage({
   // A first visit powers the machine on out of the dark: the console starts
   // hidden and the intro brings it up. Decided once, so React never
   // re-applies it over the animation.
+  // A browser with a mouse keeps the tunnel running behind the console; a
+  // phone holds it still while someone reads, to spare its battery.
+  const [ambient] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+  );
   const [darkStart] = useState(
     () =>
       !(
@@ -182,10 +189,11 @@ export default function ArcadeStage({
       <style>{crtStyles}</style>
       <div className={styles.backdrop} data-backdrop="">
         {/* The tunnel moves while the machine is putting on a show (the
-            boot, the game) and holds still while someone is reading. */}
+            boot, the game), and always on a browser with a mouse; on a
+            phone it holds still while someone is reading. */}
         <TunnelCanvas
           ref={tunnelRef}
-          moving={screen === "boot" || screen === "game"}
+          moving={ambient || screen === "boot" || screen === "game"}
         />
         <AMarkOverlay logoRef={logoRef} />
         {screen === "game" && (

@@ -239,8 +239,10 @@ thing that happens: the slit takes the drop (120 ms), a ring blooms from the slo
 then the stamp lands on the tube, then the rows light in order.
 
 **What holds still.** The backdrop tunnel moves during the power-on, the boot and the
-game, and holds a single frame on the list, the readouts and the operator's
-programs (no drawing loop runs behind them). Nothing loops forever on the main
+game. On a browser with a mouse (`(hover: hover) and (pointer: fine)`) it keeps
+moving behind the list, the readouts and the operator's programs; on a phone it
+holds a single frame there (no drawing loop runs behind them), and under reduced
+motion it never moves. Nothing else loops forever on the main
 thread: the coin slot is lit, not pulsing, and anything that does loop (INSERT COIN's
 `breathe`, the marquee) animates only opacity or transform. A cartridge's colour bleeds into the tube
 when it is open, not while the list is walked. The list keeps its scroll position
