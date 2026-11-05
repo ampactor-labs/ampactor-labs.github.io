@@ -35,6 +35,7 @@ import {
 // opacity, and a parameter of that name once shadowed it (no-shadow guards it).
 import { FRINGE, GAME, PALETTE, alpha as rgba } from "./palette";
 import { pixel } from "./type";
+import { IDLE_SPEED } from "./TunnelCanvas";
 
 
 // Debug hook: ?boss=<score> summons the first ANOMALY early. Used for
@@ -185,7 +186,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
     (gs) => {
       if (!gs || gs.phase === "gameover") return;
       audio.playGameOver();
-      if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
+      if (tunnelRef?.current) tunnelRef.current.setSpeed(IDLE_SPEED);
       gs.phase = "gameover";
       gs.gameoverAt = gs.elapsed;
       keysRef.current.left =
@@ -1021,7 +1022,7 @@ export default function TunnelGame({ tunnelRef, onExit }) {
       window.removeEventListener("resize", resize);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
-      if (tunnelRef?.current) tunnelRef.current.setSpeed(0.00008);
+      if (tunnelRef?.current) tunnelRef.current.setSpeed(IDLE_SPEED);
     };
   }, [initState, tunnelRef]);
 

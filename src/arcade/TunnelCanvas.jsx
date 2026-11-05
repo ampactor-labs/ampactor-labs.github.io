@@ -48,10 +48,12 @@ function initDust() {
   return particles;
 }
 
+export const IDLE_SPEED = 0.00004;
+
 // The inner name is what React DevTools shows for the component.
 // eslint-disable-next-line no-shadow
 const TunnelCanvas = forwardRef(function TunnelCanvas(
-  { speed = 0.00004, moving = true },
+  { speed = IDLE_SPEED, moving = true },
   ref,
 ) {
   const isMobileRef = useRef(
