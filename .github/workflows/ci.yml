@@ -1,9 +1,11 @@
 name: CI
 
+# A branch push runs CI once, and its checks show on the branch's pull
+# request too (same commit). A pull_request trigger as well ran every job
+# twice per push, in two concurrency groups that never cancelled each other.
 on:
   push:
     branches-ignore: [main]
-  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,9 @@ concurrency:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest became 26.04 in November 2026, where Playwright
+    # 1.56 cannot install Chromium, and every run failed at that step.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,7 +45,7 @@ jobs:
       - run: test -f dist/index.html && test -f dist/arcade/index.html && test -f dist/receipts/index.html && test -f dist/craft/index.html
 
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

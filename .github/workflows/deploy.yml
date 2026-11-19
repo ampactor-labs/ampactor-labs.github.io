@@ -21,7 +21,9 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest became 26.04 in November 2026, where Playwright
+    # 1.56 cannot install Chromium, and deploys #231 to #233 failed there.
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
