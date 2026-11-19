@@ -175,7 +175,8 @@ src/
                            readme-content.generated.json
 scripts/                   sync-readmes, check-readme, add-project, sync-receipts,
                            build-resume, render-og, axe-report, audit, merge-leaderboard
-docs/                      README-STANDARD.md, ADDING-A-PROJECT.md, DESIGN-SYSTEM.md
+docs/                      README-STANDARD.md, ADDING-A-PROJECT.md, DESIGN-SYSTEM.md,
+                           UPGRADES.md (what to build next), AUDIT-2026-11.md
 public/                    static files, the hosted apps, the leaderboard, the résumé
 e2e/                       the Playwright specs
 ```
