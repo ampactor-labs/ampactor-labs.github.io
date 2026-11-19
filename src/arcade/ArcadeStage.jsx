@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, lazy } from "react";
+import LazySlot from "./components/LazySlot";
 const TunnelGame = lazy(() => import("./TunnelGame"));
 // The readout and the operator programs are a press or two away, never the
 // first screen: they load once the machine has booted and the page is idle
@@ -198,9 +199,9 @@ export default function ArcadeStage({
         />
         <AMarkOverlay logoRef={logoRef} />
         {screen === "game" && (
-          <Suspense fallback={null}>
+          <LazySlot>
             <TunnelGame tunnelRef={tunnelRef} onExit={exitGame} />
-          </Suspense>
+          </LazySlot>
         )}
       </div>
       <div
@@ -313,7 +314,7 @@ export default function ArcadeStage({
                 />
               )}
               {screen === "detail" && detailProject && (
-                <Suspense fallback={null}>
+                <LazySlot>
                   <DetailScreen
                     project={detailProject}
                     onBack={goBack}
@@ -324,10 +325,10 @@ export default function ArcadeStage({
                     linkRefs={linkRefs}
                     focusedLink={linkIdx}
                   />
-                </Suspense>
+                </LazySlot>
               )}
               {screen === "system" && detailProject && (
-                <Suspense fallback={null}>
+                <LazySlot>
                   <SystemScreen
                     program={detailProject}
                     onBack={goBack}
@@ -337,7 +338,7 @@ export default function ArcadeStage({
                     focusedLink={linkIdx}
                     reducedMotion={reducedMotion}
                   />
-                </Suspense>
+                </LazySlot>
               )}
             </div>
           </div>

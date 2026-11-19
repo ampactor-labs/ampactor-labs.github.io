@@ -1,5 +1,6 @@
-import { lazy, Suspense, useRef } from "react";
-import { detailLinksOf } from "../../hooks/useCabinetState";
+import { lazy, useRef } from "react";
+import LazySlot from "../LazySlot";
+import { detailLinksOf } from "../../detailLinks";
 import { bodyAfterHeadline, withReadme } from "../../../data/readme";
 import { PALETTE, alpha, onCard } from "../../palette";
 import Sign from "../Sign";
@@ -455,14 +456,14 @@ export default function DetailScreen({
           </div>
         </div>
         {p.interactive === "coherence" && (
-          <Suspense fallback={null}>
+          <LazySlot>
             <CoherenceField width={iw} height={ih} />
-          </Suspense>
+          </LazySlot>
         )}
         {p.interactive === "synth" && (
-          <Suspense fallback={null}>
+          <LazySlot>
             <SynthEngine width={iw} />
-          </Suspense>
+          </LazySlot>
         )}
       </div>
       {/* Footer */}

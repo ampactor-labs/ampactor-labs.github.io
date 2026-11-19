@@ -27,7 +27,7 @@ describe("loadLeaderboard", () => {
     Object.defineProperty(window, "localStorage", {
       configurable: true,
       get() {
-        throw new DOMException("blocked", "SecurityError");
+        throw new Error("SecurityError: site data blocked");
       },
     });
     try {

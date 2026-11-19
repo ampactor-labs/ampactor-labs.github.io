@@ -7,28 +7,20 @@ import { SYSTEM_PROGRAMS, isSystemProgram } from "../../data/programs";
 import { BOOT_LINES } from "../constants";
 import { hasVisited as readVisited, markVisited } from "../visited";
 import { KONAMI } from "../../data/quotes";
+import { detailLinksOf } from "../detailLinks";
 
 // The detail screen's link rail, in focus order. Demo comes first when a project
 // has one, so A opens the running thing rather than the repo. DetailScreen renders
 // from this same list, so the rail's order and the focus index cannot drift apart.
 // An operator program declares its rail outright.
-export function detailLinksOf(p) {
-  if (!p) return [];
-  if (p.links) return p.links;
-  const links = [];
-  // liveLabel overrides the pill text for demos that aren't pages —
-  // 2-Top's slot serves an APK download, and the pill should say so.
-  if (p.live) links.push({ kind: "live", href: p.live, label: p.liveLabel });
-  if (p.github) links.push({ kind: "github", href: p.github });
-  return links;
-}
+export { detailLinksOf };
 
 // One d-pad press of scroll on the detail body.
 const SCROLL_STEP = 72;
 
 
 // The power-on's pacing once the tube is lit: the test card, the BIOS lines
-// in a burst, a beat on READY., then the title card. About 1.4 s in all; the
+// in a burst, a beat on READY., then the list. About 2.7 s in all; the
 // tube's own ignition (useIntroSequence) runs before it.
 export const BOOT_PATTERN_MS = 600;
 export const BOOT_LINE_MS = 90;
