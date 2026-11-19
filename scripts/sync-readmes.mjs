@@ -61,13 +61,15 @@ export async function fetchReadme(
     const p = join(homedir(), "Projects", repo, "README.md");
     return existsSync(p) ? { md: readFileSync(p, "utf8") } : { md: null };
   }
-  for (const branch of ["master", "main"]) {
+  // HEAD is the repository's default branch. Trying "master" first read a
+  // stale README wherever an old master outlived a move to main (turbosort).
+  for (const branch of ["HEAD"]) {
     const url = `https://raw.githubusercontent.com/ampactor-labs/${repo}/${branch}/README.md`;
     for (let attempt = 1; ; attempt++) {
       try {
         const res = await get(url);
         if (res.ok) return { md: await res.text() };
-        if (res.status === 404) break; // not on this branch: try the other
+        if (res.status === 404) break; // no README
         throw new Error(`HTTP ${res.status}`);
       } catch (err) {
         if (attempt >= tries) return { md: null, networkError: err };

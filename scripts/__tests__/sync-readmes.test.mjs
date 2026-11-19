@@ -224,12 +224,22 @@ describe("fetching a README", () => {
     expect(result.networkError.cause.code).toBe("ECONNRESET");
   });
 
-  it("falls through a 404 on one branch to the other", async () => {
-    const get = async (url) =>
-      url.includes("/master/") ? missing : ok("# on main");
+  // An old master can outlive a move to main (turbosort's did); HEAD is
+  // whichever branch the repository calls its default.
+  it("reads the README on the default branch", async () => {
+    const urls = [];
+    const get = async (url) => (urls.push(url), ok("# on the default branch"));
     expect(await fetchReadme("repo", { get, delayMs: 0 })).toEqual({
-      md: "# on main",
+      md: "# on the default branch",
     });
+    expect(urls).toEqual([
+      "https://raw.githubusercontent.com/ampactor-labs/repo/HEAD/README.md",
+    ]);
+  });
+
+  it("reports a repository with no README as none", async () => {
+    const get = async () => missing;
+    expect(await fetchReadme("repo", { get, delayMs: 0 })).toEqual({ md: null });
   });
 
   it("retries a server error like a dropped connection", async () => {

@@ -44,7 +44,7 @@ describe("DetailScreen", () => {
     );
     expect([...lit].sort()).toEqual(["<|", "<~", "><", "|>", "~>"].sort());
     expect(listing.textContent).toContain(
-      "fn total(x) = { t => t + x } <~ delay(1)",
+      "fn add(x) with !Alloc = { t => t + x } <~ delay(1)",
     );
     expect(getByText("examples/hello/five.mn")).toBeTruthy();
   });

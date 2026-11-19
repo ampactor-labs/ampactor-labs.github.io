@@ -55,13 +55,14 @@ const RAW_PROJECTS = [
     // site shows, written from that README. The desc is the headline alone,
     // so the program listing stands where the readout would.
     github: "https://github.com/ampactor-labs/mentl",
-    live: "https://space.ampactor.dev/",
+    live: "https://mentl.ampactor.dev/",
     desc: "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
     tags: ["compiler", "effects", "self-hosting", "wasm"],
     tagline: "A BROKEN RULE WON'T BUILD",
     outcome:
       "A programming language whose compiler proves the rules written into the code, and refuses to build a version that breaks one.",
-    // examples/hello/five.mn from Mentl's repo, copied as it stands: the
+    // examples/hello/five.mn from Mentl's repo at 94fb6b8 (2026-11-06),
+    // copied as it stands: the
     // program writes each of the five operators once, with a comment before
     // each saying what it does.
     listing: {
@@ -69,26 +70,31 @@ const RAW_PROJECTS = [
       code: `// hello: Mentl's five operators, once each.
 // \`mentl run examples/hello/five.mn\` prints:
 //   hello
-//   1 *
-//   3 ***
+//   2 **
 //   6 ******
+//   12 ************
 import io
 
-// <~ adds each number to the total before it.
-fn total(x) = { t => t + x } <~ delay(1)
+fn double(n) = n * 2
+
+// The feedback, <~, adds each number to the total before it.
+// \`!Alloc\` is checked on every build: a version
+// of this stage that allocates does not build.
+fn add(x) with !Alloc = { t => t + x } <~ delay(1)
 
 fn bar(n) = join("", repeat(n, "*"))
 
 fn say(n, b) = print("{n} {b}\\n")
 
-// <| sends the total to two places, and
-// |> hands both to \`say\`, which prints them.
-fn row(x) = (total(x) <| (int_to_str, bar)) |> say
+// The share, <|, sends each total to two stages, and
+// the pipe, |>, hands both answers to \`say\`.
+fn row(x) = (add(x) <| (int_to_str, bar)) |> say
 
-// ~> sends what \`print\` writes to the screen.
+// The install, ~>, sends what \`print\` writes to the screen.
 fn main() = {
-  // >< greets and counts side by side.
-  (print("hello\\n")) >< (each(row, range(1, 4)))
+  print("hello\\n")
+  // The split, ><, doubles every number, each a branch.
+  each(row, [1, 2, 3] >< double)
   0
 } ~> stdout_console`,
     },
