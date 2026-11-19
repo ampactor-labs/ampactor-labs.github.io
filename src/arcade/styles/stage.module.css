@@ -51,3 +51,29 @@
     height: 100dvh;
   }
 }
+
+/* A short window: a laptop zoomed to 200% (640×400 of CSS pixels at
+   1280×800), a phone held sideways. The header and the deck are taller than
+   the window leaves room for, and the list, fixed between them, was 0 px
+   tall (WCAG 1.4.4, 1.4.10). Here the console grows to its content and the
+   page scrolls instead, so every cartridge can be reached; the cabinet is
+   still the whole page. */
+@media (max-height: 460px) {
+  .main {
+    position: absolute;
+    inset: 0 0 auto 0;
+    min-height: 100%;
+  }
+
+  .stage {
+    position: relative;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .console,
+  .console:where(*) {
+    height: auto;
+    min-height: 100vh;
+  }
+}

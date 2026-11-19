@@ -44,6 +44,39 @@ test.describe("on a short phone", () => {
   });
 });
 
+// A laptop zoomed to 200% (1280×800 is 640×400 of CSS pixels) or a phone
+// held sideways: the header and the deck once left the list 0 px tall. The
+// page scrolls there instead, and every cartridge can be reached.
+for (const viewport of [
+  { width: 640, height: 400 },
+  { width: 844, height: 390 },
+]) {
+  test.describe(`in a ${viewport.width}×${viewport.height} window`, () => {
+    test.use({ viewport });
+
+    test("the list has room, and its last cartridge can be scrolled to", async ({
+      page,
+    }) => {
+      await landOnList(page);
+      const list = page.getByRole("listbox", LIST);
+      expect((await list.boundingBox())?.height ?? 0).toBeGreaterThan(200);
+      const last = page.getByRole("option").last();
+      await last.scrollIntoViewIfNeeded();
+      await expect(last).toBeInViewport();
+    });
+  });
+}
+
+// Enter on a focused link belongs to the link; the cabinet once took it and
+// opened the lit cartridge, so a keyboard couldn't reach the résumé.
+test("a keyboard follows the RESUME link from the list", async ({ page }) => {
+  await landOnList(page);
+  const operator = page.getByRole("navigation", { name: "Operator" });
+  await operator.getByRole("link", { name: "RESUME" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/resume\.html$/);
+});
+
 test("the list's header has the résumé, GitHub and LinkedIn", async ({
   page,
 }) => {
