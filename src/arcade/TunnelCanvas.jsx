@@ -53,7 +53,7 @@ export const IDLE_SPEED = 0.00004;
 // The inner name is what React DevTools shows for the component.
 // eslint-disable-next-line no-shadow
 const TunnelCanvas = forwardRef(function TunnelCanvas(
-  { speed = IDLE_SPEED, moving = true },
+  { speed = IDLE_SPEED, moving = true, idle = false },
   ref,
 ) {
   const isMobileRef = useRef(
@@ -73,6 +73,8 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
   // Held still, the tunnel is one frame: drawn when it stops and again on a
   // resize, with no loop running behind a screen someone is reading.
   const movingRef = useRef(moving);
+  const idleRef = useRef(idle);
+  idleRef.current = idle;
   const kickRef = useRef(null);
   const redrawRef = useRef(null);
 
@@ -268,11 +270,15 @@ const TunnelCanvas = forwardRef(function TunnelCanvas(
       };
     }
 
-    // Cap the redraw to ~30fps on phones. The ambient motion is slow enough that
-    // halving the canvas work is invisible, but it's noticeably smoother on weak GPUs.
+    // Cap the redraw to ~30fps on phones, and everywhere while the tunnel is
+    // only the room behind a screen someone is reading (desktop keeps it
+    // moving there). The ambient motion is slow enough that halving the
+    // canvas work is invisible; on a 120 Hz display it saves three frames in
+    // four. The boot and the game run at the display's rate.
     const loop = (now) => {
       const elapsed = now - lastTime;
-      if (elapsed >= (isMobileRef.current ? 33 : 0)) {
+      const minFrame = isMobileRef.current ? 33 : idleRef.current ? 30 : 0;
+      if (elapsed >= minFrame) {
         lastTime = now;
         draw(
           ctx,

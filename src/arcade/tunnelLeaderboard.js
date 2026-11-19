@@ -33,14 +33,15 @@ export function loadLeaderboard() {
     list = [];
   }
   // One-time migration of the old single-value high score.
+  // Inside a try too: with site data blocked, merely reading
+  // window.localStorage throws, and the game would take the cabinet down.
   if (list.length === 0) {
-    const legacy = parseInt(
-      (typeof localStorage !== "undefined" &&
-        localStorage.getItem(LEGACY_HI_KEY)) ||
-        "0",
-      10,
-    );
-    if (legacy > 0) list.push({ i: "AMP", s: legacy });
+    try {
+      const legacy = parseInt(localStorage.getItem(LEGACY_HI_KEY) || "0", 10);
+      if (legacy > 0) list.push({ i: "AMP", s: legacy });
+    } catch {
+      /* storage unavailable: start with an empty board */
+    }
   }
   list.sort((a, b) => b.s - a.s);
   return list.slice(0, LB_MAX);

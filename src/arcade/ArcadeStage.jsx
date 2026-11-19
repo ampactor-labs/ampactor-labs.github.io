@@ -194,6 +194,7 @@ export default function ArcadeStage({
         <TunnelCanvas
           ref={tunnelRef}
           moving={ambient || screen === "boot" || screen === "game"}
+          idle={screen !== "boot" && screen !== "game"}
         />
         <AMarkOverlay logoRef={logoRef} />
         {screen === "game" && (

@@ -21,6 +21,22 @@ beforeEach(() => {
 });
 
 describe("loadLeaderboard", () => {
+  // Site data blocked: the localStorage getter itself throws.
+  it("returns an empty board when storage cannot be read at all", () => {
+    const desc = Object.getOwnPropertyDescriptor(window, "localStorage");
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get() {
+        throw new DOMException("blocked", "SecurityError");
+      },
+    });
+    try {
+      expect(loadLeaderboard()).toEqual([]);
+    } finally {
+      Object.defineProperty(window, "localStorage", desc);
+    }
+  });
+
   it("returns an empty board when nothing is stored", () => {
     expect(loadLeaderboard()).toEqual([]);
   });
