@@ -18,6 +18,23 @@ if (window.location.pathname === "/" && window.location.hash === "#arcade") {
 
 recoverStaleChunks();
 
+// Which hand is on the machine: Tab marks the keyboard, any pointer clears
+// it. The list's focus ring shows only for the keyboard (crtStyles.js).
+window.addEventListener(
+  "keydown",
+  (e) => {
+    if (e.key === "Tab") document.documentElement.dataset.input = "keyboard";
+  },
+  true,
+);
+window.addEventListener(
+  "pointerdown",
+  () => {
+    delete document.documentElement.dataset.input;
+  },
+  true,
+);
+
 const root = document.getElementById("root");
 if (!root) throw new Error("#root is missing from the document");
 

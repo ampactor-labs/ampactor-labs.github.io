@@ -164,8 +164,11 @@ export const crtStyles = `
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:16px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
   .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:8px;letter-spacing:var(--track-pixel);white-space:nowrap;color:var(--cab-text)}
   /* The list keeps its own outline off (the lit row is the selection), so a
-     keyboard needs a ring on the lit row to see that the list has focus. */
-  .project-list:focus-visible [role="option"][aria-selected="true"]{outline:2px solid var(--focus-ring, var(--cab-mark));outline-offset:-2px}
+     keyboard needs a ring on the lit row to see that the list has focus. The
+     list takes focus as it loads, which :focus-visible alone would ring for
+     every visitor; html[data-input="keyboard"] (main.tsx, set by Tab and
+     cleared by a pointer) keeps it for the keyboard. */
+  html[data-input="keyboard"] .project-list:focus-visible [role="option"][aria-selected="true"]{outline:2px solid var(--focus-ring, var(--cab-mark));outline-offset:-2px}
   /* Windows high contrast drops backgrounds and box-shadows: the lit row and
      the lit rail link draw a system-colour outline instead. */
   @media (forced-colors: active) {
