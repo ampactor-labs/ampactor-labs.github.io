@@ -129,14 +129,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 0px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 0px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYSTEMS
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -442,14 +442,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SECURITY
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -498,14 +498,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           WEB3
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -554,14 +554,14 @@ exports[`SelectScreen > matches snapshot with all projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           CREATIVE
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -1354,14 +1354,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 0px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 0px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SYSTEMS
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -1667,14 +1667,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           SECURITY
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -1723,14 +1723,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           WEB3
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />
@@ -1779,14 +1779,14 @@ exports[`SelectScreen > matches snapshot with base projects 1`] = `
     <div>
       <div
         class="sign"
-        style="padding: 8px 4px 2px; margin-top: 6px;"
+        style="font-size: inherit; font-weight: normal; padding: 8px 4px 2px; margin: 6px 0px 8px;"
       >
         <span
           style="font-family: "Press Start 2P", monospace; font-size: 8px; color: var(--cab-muted); letter-spacing: var(--track-pixel); white-space: nowrap;"
         >
           CREATIVE
         </span>
-        <div
+        <span
           aria-hidden="true"
           class="sunset"
         />

@@ -1,8 +1,8 @@
-import { lazy, useRef } from "react";
+import { lazy, useEffect, useRef } from "react";
 import LazySlot from "../LazySlot";
 import { detailLinksOf } from "../../detailLinks";
 import { bodyAfterHeadline, withReadme } from "../../../data/readme";
-import { PALETTE, alpha, onCard } from "../../palette";
+import { PALETTE, alpha, legible, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
@@ -29,6 +29,15 @@ export default function DetailScreen({
   // The README's word on what the project is, applied here: nothing before
   // the readout needs it (src/data/readme.js).
   const p = withReadme(project);
+  // Opening a screen unmounts the list, which had focus, and leaves focus on
+  // <body>: nothing would be announced. The title takes it instead (a
+  // heading, so tabIndex -1 and no ring), unless something else already has.
+  const titleRef = useRef(null);
+  useEffect(() => {
+    const active = document.activeElement;
+    if (!active || active === document.body)
+      titleRef.current?.focus({ preventScroll: true });
+  }, [p.id]);
   const readout = bodyAfterHeadline(p.desc, p.outcome);
   const iw = Math.min(screenWidth, 400),
     ih = Math.min(screenHeight - 220, 240);
@@ -98,8 +107,11 @@ export default function DetailScreen({
         </div>
         <div style={{ flex: 1 }}>
           <h1
+            ref={titleRef}
+            tabIndex={-1}
             className="signage"
             style={{
+              outline: "none",
               fontFamily: "'Press Start 2P', monospace",
               fontSize: pixel(fs(12)),
               fontWeight: 400,
@@ -371,7 +383,7 @@ export default function DetailScreen({
                         borderRadius: 3,
                         background: onCard(`${p.color}15`),
                         border: `1px solid ${p.color}30`,
-                        color: `${p.color}cc`,
+                        color: legible(p.color),
                         letterSpacing: "var(--track-display)",
                       }}
                     >
@@ -446,7 +458,7 @@ export default function DetailScreen({
                   borderRadius: 3,
                   background: onCard(`${p.color}0a`),
                   border: `1px solid ${p.color}20`,
-                  color: `${p.color}aa`,
+                  color: legible(p.color),
                   letterSpacing: "var(--track-display)",
                 }}
               >

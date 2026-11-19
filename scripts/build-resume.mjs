@@ -73,7 +73,7 @@ export function render(r) {
     :root {
       --ink: #1a1a1a;
       --muted: #555;
-      --faint: #888;
+      --faint: #666; /* 5.7:1 on white; #888 was 3.5:1 */
       --teal: #00708a;
       --rule: #e2e2e2;
       --bg: #ffffff;
@@ -114,6 +114,10 @@ export function render(r) {
     .job .detail { color: var(--muted); font-size: 13px; margin-top: 2px; }
     .before { color: var(--muted); font-size: 13px; }
     footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 11px; color: var(--faint); }
+    /* A link inside a line of text is underlined, not told apart by colour. */
+    footer a { text-decoration: underline; }
+    /* At 320 px a date or stack line that never wraps pushed the page sideways. */
+    @media (max-width: 400px) { .job .when, .job .stack { white-space: normal; } }
     /* Printed, it fits two Letter or A4 pages: tighter type and spacing,
        and a job is never split across the page break. */
     @media print {

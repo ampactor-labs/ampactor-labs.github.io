@@ -33,6 +33,7 @@ export const crtStyles = `
   @keyframes tubeIn { from{transform:translateY(8px);opacity:0} }
   @keyframes tubeInBack { from{transform:translateY(-8px);opacity:0} }
   @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.55} }
+  @keyframes glowBreathe { 0%,100%{text-shadow:0 0 8px ${alpha(PALETTE.voice, 0.7)}} 50%{text-shadow:0 0 0 transparent} }
   .dash-in{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) both}
   .tier-1-enter{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) both}
   .tier-2-enter{animation:dashIn 0.26s cubic-bezier(0.16,1,0.3,1) 0.08s both}
@@ -115,7 +116,7 @@ export const crtStyles = `
   /* The sunset bar, and the sign that hangs a label on it (Sign.jsx). */
   .sunset{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--cab-mark),var(--cab-quiet) 50%,var(--cab-voice))}
   .sign{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-  .sign .sunset{flex:1;min-width:24px}
+  .sign .sunset{display:block;flex:1;min-width:24px}
   /* The title band: the name on the reference's band, lit cells with dark
      gaps brightening in four steps to the right. The name is mist, which
      clears 6.4:1 on the brightest cell; nothing smaller sits on the band. */
@@ -162,6 +163,14 @@ export const crtStyles = `
   .coin-announce.tier-2{bottom:120px;font-size:8px;color:var(--cab-halo)}
   .coin-announce.tier-3{top:50%;transform:translate(-50%,-50%);font-size:16px;color:var(--cab-danger);text-align:center;animation:tier3Overlay 2.8s ease 0.3s both;background:${alpha(PALETTE.black, 0.9)};padding:20px 30px;border:1px solid var(--cab-danger)}
   .coin-announce.tier-3 span{display:block;margin-top:10px;font-size:8px;letter-spacing:var(--track-pixel);white-space:nowrap;color:var(--cab-text)}
+  /* The list keeps its own outline off (the lit row is the selection), so a
+     keyboard needs a ring on the lit row to see that the list has focus. */
+  .project-list:focus-visible [role="option"][aria-selected="true"]{outline:2px solid var(--focus-ring, var(--cab-mark));outline-offset:-2px}
+  /* Windows high contrast drops backgrounds and box-shadows: the lit row and
+     the lit rail link draw a system-colour outline instead. */
+  @media (forced-colors: active) {
+    .project-list [role="option"][aria-selected="true"], [aria-current="true"]{outline:2px solid Highlight;outline-offset:-2px}
+  }
   @media (prefers-reduced-motion: reduce) {
     .blink-cursor, .coin-slot, .btn-action,
     .dash-in, .tier-1-enter, .tier-2-enter, .tier-3-enter, .coin-announce,

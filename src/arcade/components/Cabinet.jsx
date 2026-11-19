@@ -315,11 +315,13 @@ export default function Cabinet({
               style={{
                 fontSize: pixel(fs(7)),
                 fontFamily: "'Press Start 2P', monospace",
-                color: "var(--cab-voice)",
+                // voiceLt: the voice at 7 to 9 px. It breathes in its glow,
+                // not its opacity: a fade to 55% took the words to 2:1.
+                color: "var(--cab-voiceLt)",
                 letterSpacing: "var(--track-pixel)",
                 opacity: coinCount > 0 ? 0 : 1,
                 transition: "opacity 0.4s ease",
-                animation: coinCount > 0 ? "none" : "breathe 2.4s ease-in-out infinite",
+                animation: coinCount > 0 ? "none" : "glowBreathe 2.4s ease-in-out infinite",
               }}
             >
               INSERT COIN

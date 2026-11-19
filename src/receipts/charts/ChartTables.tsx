@@ -11,7 +11,8 @@ export function MonthTable({
   caption: string;
 }) {
   return (
-    <div className={styles.tableScroll}>
+    // A scroll box the keyboard can reach and a screen reader can name.
+    <div className={styles.tableScroll} tabIndex={0} role="region" aria-label={caption}>
       <table className={styles.table}>
         <caption className="visually-hidden">{caption}</caption>
         <thead>
@@ -61,7 +62,8 @@ export function RepoTable({
   caption: string;
 }) {
   return (
-    <div className={styles.tableScroll}>
+    // A scroll box the keyboard can reach and a screen reader can name.
+    <div className={styles.tableScroll} tabIndex={0} role="region" aria-label={caption}>
       <table className={styles.table}>
         <caption className="visually-hidden">{caption}</caption>
         <thead>

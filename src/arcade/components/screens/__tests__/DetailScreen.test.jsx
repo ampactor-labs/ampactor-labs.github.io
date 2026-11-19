@@ -23,6 +23,21 @@ describe("DetailScreen", () => {
     expect(getByText(project.subtitle)).toBeTruthy();
   });
 
+  // The list had focus and is gone; the readout's title takes it, so a
+  // screen reader says which cartridge opened.
+  it("takes focus on its title when it opens", () => {
+    document.body.focus();
+    const project = PROJECTS[0];
+    const { getByRole } = render(<DetailScreen {...baseProps} project={project} />);
+    expect(document.activeElement).toBe(getByRole("heading", { level: 1 }));
+  });
+
+  it("shows its sections as headings", () => {
+    const { getAllByRole } = render(<DetailScreen {...baseProps} project={PROJECTS[0]} />);
+    const names = getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
+    expect(names).toContain("SYS/READOUT");
+  });
+
   it("matches snapshot for regular project", () => {
     const project = PROJECTS[0];
     const { container } = render(

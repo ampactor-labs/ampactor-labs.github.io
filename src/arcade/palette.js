@@ -96,6 +96,46 @@ export function alpha(hex, a) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }
 
+// WCAG relative luminance and contrast ratio, for the tokens and for
+// colours that arrive from data (a cartridge's colour).
+const channel = (c) => {
+  const v = c / 255;
+  return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+};
+const rgbOf = (hex) => {
+  const h = hex.slice(1);
+  const s = h.length === 3 ? h.replace(/./g, (c) => c + c) : h;
+  const n = parseInt(s, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+const luminance = (hex) => {
+  const [r, g, b] = rgbOf(hex).map(channel);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+export function contrast(a, b) {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+// A cartridge's colour as small text: the colour itself where it reads at
+// 4.5:1 on the lightest ground a chip sits on, else lifted toward the text
+// token until it does. Chips once drew their label in the colour at 67 to
+// 80% alpha, which left BITS, 2-TOP, STOOP and nine others between 3.0 and
+// 4.4.
+export function legible(hex, ground = PALETTE.raised, ratio = 4.5) {
+  const from = rgbOf(hex);
+  const to = rgbOf(PALETTE.text);
+  for (let t = 0; t <= 1.0001; t += 0.05) {
+    const mixed =
+      "#" +
+      from
+        .map((c, i) => Math.round(c + (to[i] - c) * t).toString(16).padStart(2, "0"))
+        .join("");
+    if (contrast(mixed, ground) >= ratio) return mixed;
+  }
+  return PALETTE.text;
+}
+
 // A card on the tube: the void at 72%, so the lit grid recedes behind
 // whatever stands on it (the list's programs, the pills and chips, the
 // readout's panels). onCard(tint) lays a

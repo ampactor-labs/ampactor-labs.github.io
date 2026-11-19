@@ -4,7 +4,7 @@ import { audit } from "../../../data/audit";
 import resume from "../../../data/resume.json";
 import { WORDS } from "../../../data/profile";
 import { int, monthLabel } from "../../../lib/format";
-import { PALETTE, alpha, onCard } from "../../palette";
+import { PALETTE, alpha, legible, onCard } from "../../palette";
 import Sign from "../Sign";
 import { pixel } from "../../type";
 
@@ -248,7 +248,7 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
       {lines.map((l, i) => {
         if (l.kind === "section")
           return (
-            <div key={i} style={{ ...{ fontFamily: "'Press Start 2P', monospace", fontSize: pixel(fs(7)), color: `${color}99`, letterSpacing: "var(--track-pixel)" }, margin: "26px 0 6px" }}>
+            <div key={i} style={{ ...{ fontFamily: "'Press Start 2P', monospace", fontSize: pixel(fs(7)), color: legible(color), letterSpacing: "var(--track-pixel)" }, margin: "26px 0 6px" }}>
               {l.head}
             </div>
           );
@@ -297,6 +297,15 @@ export default function SystemScreen({
   const links = linkRefs ?? localLinks;
   const rail = p.links ?? [];
   const color = p.color;
+  // Opening a screen unmounts the list, which had focus, and leaves focus on
+  // <body>: nothing would be announced. The title takes it instead (a
+  // heading, so tabIndex -1 and no ring), unless something else already has.
+  const titleRef = useRef(null);
+  useEffect(() => {
+    const active = document.activeElement;
+    if (!active || active === document.body)
+      titleRef.current?.focus({ preventScroll: true });
+  }, [p.id]);
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div
@@ -336,8 +345,11 @@ export default function SystemScreen({
         <div style={{ fontSize: fs(20), color }}>{p.icon}</div>
         <div style={{ flex: 1, minWidth: 140 }}>
           <h1
+            ref={titleRef}
+            tabIndex={-1}
             className="signage"
             style={{
+              outline: "none",
               fontFamily: "'Press Start 2P', monospace",
               fontSize: pixel(fs(12)),
               fontWeight: 400,

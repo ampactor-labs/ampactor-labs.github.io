@@ -294,6 +294,7 @@ export default function SelectScreen({
             <div key={p.id}>
               {showHeader && (
                 <Sign
+                  as="div"
                   text={CATEGORY_LABELS[p.category] ?? p.category.toUpperCase()}
                   fs={fs}
                   style={{ padding: "8px 4px 2px", marginTop: i === 0 ? 0 : 6 }}
