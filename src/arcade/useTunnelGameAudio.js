@@ -1,10 +1,29 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { getBus, soundOn } from "./audio/bus";
 
 // TUNNEL_RUN's sounds, on the cabinet's bus (audio/bus.js): one context, one
 // master, so SOUND OFF on the panel silences the game too. The laser and the
 // blasts take a rate, the run's speed against its start, and climb with it.
 export default function useTunnelGameAudio() {
+  // The multi-note cues (game over, combo, the boss) are scheduled with
+  // timers; leaving the game clears them, so a game-over run started on the
+  // way out no longer plays over the list.
+  const timers = useRef(new Set());
+  const later = useCallback((fn, ms) => {
+    const id = setTimeout(() => {
+      timers.current.delete(id);
+      fn();
+    }, ms);
+    timers.current.add(id);
+  }, []);
+  useEffect(() => {
+    const pending = timers.current;
+    return () => {
+      for (const id of pending) clearTimeout(id);
+      pending.clear();
+    };
+  }, []);
+
   // The bus, awake, or null with SOUND OFF (silence all the way down: no
   // context, no notes) or no Web Audio at all.
   const live = useCallback(() => {
@@ -105,14 +124,14 @@ export default function useTunnelGameAudio() {
 
   const playCombo = useCallback(() => {
     tone(660, "sine", 0.04, 0.03);
-    setTimeout(() => tone(880, "sine", 0.04, 0.03), 40);
-  }, [tone]);
+    later(() => tone(880, "sine", 0.04, 0.03), 40);
+  }, [tone, later]);
 
   const playGameOver = useCallback(() => {
     [440, 330, 220, 110].forEach((f, i) => {
-      setTimeout(() => tone(f, "sawtooth", 0.15, 0.04), i * 150);
+      later(() => tone(f, "sawtooth", 0.15, 0.04), i * 150);
     });
-  }, [tone]);
+  }, [tone, later]);
 
   const playCountdown = useCallback(() => tone(660, "square", 0.1, 0.03), [tone]);
   const playGo = useCallback(() => tone(1320, "square", 0.15, 0.04), [tone]);
@@ -121,14 +140,14 @@ export default function useTunnelGameAudio() {
   // game-over run). Boss down: a rising square fanfare.
   const playBossAlert = useCallback(() => {
     [0, 1, 2].forEach((i) => {
-      setTimeout(() => tone(196, "sawtooth", 0.14, 0.05), i * 190);
+      later(() => tone(196, "sawtooth", 0.14, 0.05), i * 190);
     });
-  }, [tone]);
+  }, [tone, later]);
   const playBossDown = useCallback(() => {
     [660, 880, 1100, 1320].forEach((f, i) => {
-      setTimeout(() => tone(f, "square", 0.1, 0.04), i * 90);
+      later(() => tone(f, "square", 0.1, 0.04), i * 90);
     });
-  }, [tone]);
+  }, [tone, later]);
 
   return {
     playLaser,

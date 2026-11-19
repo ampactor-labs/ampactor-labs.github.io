@@ -74,6 +74,7 @@ function Knob({
       </div>
       <input
         type="range"
+        aria-label={label}
         min={min}
         max={max}
         step={step}
@@ -126,14 +127,17 @@ export default function SynthEngine({ width }) {
       return audioCtxRef.current;
     }
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    // The knobs as they are now, not as they were on the first render: a knob
+    // turned before the first note used to show one value and play another.
+    const knobs = paramsRef.current;
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
-    filter.frequency.value = params.cutoff;
-    filter.Q.value = params.resonance;
+    filter.frequency.value = knobs.cutoff;
+    filter.Q.value = knobs.resonance;
     const delay = ctx.createDelay(2);
-    delay.delayTime.value = params.delayTime;
+    delay.delayTime.value = knobs.delayTime;
     const feedback = ctx.createGain();
-    feedback.gain.value = params.delayFeed;
+    feedback.gain.value = knobs.delayFeed;
     const master = ctx.createGain();
     master.gain.value = 0.3;
     const analyser = ctx.createAnalyser();
