@@ -374,13 +374,28 @@ export default function useCabinetState({
       insertCoin();
       return;
     }
-    // A button (PRESS START, the deck's keys, the SOUND switch, a
-    // cartridge's own controls) answers its own Enter and Space; the cabinet
-    // must not answer them a second time.
+    // A held key repeats; the cabinet acts once per press, so a held Enter
+    // can't open a cartridge and then its demo.
+    if (
+      e.repeat &&
+      (e.key === "Enter" ||
+        e.key === " " ||
+        e.key === "Escape" ||
+        e.key === "Backspace" ||
+        e.key === "b" ||
+        e.key === "B")
+    )
+      return;
+    // A focused control (the deck's keys, the SOUND switch, a link in the
+    // header or a readout, a cartridge's own inputs) answers its own Enter
+    // and Space: the cabinet must not answer them instead, or a focused
+    // RESUME link would open the lit cartridge.
     if (
       (e.key === "Enter" || e.key === " ") &&
       e.target instanceof Element &&
-      e.target.closest('button, [role="button"]')
+      e.target.closest(
+        'button, [role="button"], [role="switch"], a[href], input, select, textarea, [contenteditable="true"]',
+      )
     )
       return;
     if (screen === "game" || screen === "boot") return;

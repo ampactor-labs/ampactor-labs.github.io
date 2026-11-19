@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   SELECT_ROUTE,
+  isArcadeHistoryState,
   projectRoute,
+  sameRoute,
   resolveRoute,
   stateFor,
   urlFor,
@@ -65,7 +67,17 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
   // navigate.
   useLayoutEffect(() => {
     const { history, location } = window;
-    if (initialRoute.view === "arcade" && initialRoute.screen === "project") {
+    // A reload of a cartridge entry this cabinet wrote already sits over the
+    // select entry it was pushed on; laying another one under it would make
+    // each reload one more Back to leave the site.
+    const reloaded =
+      initialRoute.view === "arcade" &&
+      initialRoute.screen === "project" &&
+      isArcadeHistoryState(history.state) &&
+      sameRoute(resolveRoute(history.state, "", ""), initialRoute);
+    if (reloaded) {
+      history.replaceState(stateFor(initialRoute), "", addressFor(initialRoute));
+    } else if (initialRoute.view === "arcade" && initialRoute.screen === "project") {
       history.replaceState(stateFor(SELECT_ROUTE), "", addressFor(SELECT_ROUTE));
       history.pushState(stateFor(initialRoute), "", addressFor(initialRoute));
     } else if (initialRoute.view === "arcade" && location.hash) {
@@ -103,7 +115,10 @@ export function useArcadeHistory(initialRoute: ArcadeRoute): {
 
     switch (intent.type) {
       case "open": {
-        push(projectRoute(intent.id));
+        // Two opens in one frame (a double Enter) are one navigation.
+        const next = projectRoute(intent.id);
+        if (sameRoute(current, next)) return;
+        push(next);
         return;
       }
       case "select": {

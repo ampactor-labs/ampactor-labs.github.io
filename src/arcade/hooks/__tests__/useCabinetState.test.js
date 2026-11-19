@@ -195,6 +195,44 @@ describe("useCabinetState", () => {
       expect(intents).toEqual([]);
     });
 
+    // A keyboard user on RESUME, GITHUB or the email link must reach it: the
+    // link follows its own Enter, and the lit cartridge stays shut.
+    it("a focused link answers its own Enter and Space; nothing opens", () => {
+      const { result, intents } = renderCabinet();
+      bootToSelect(result);
+      act(() => {
+        vi.advanceTimersByTime(600);
+      });
+      const link = document.createElement("a");
+      link.href = "/resume.html";
+      document.body.append(link);
+      try {
+        act(() => {
+          for (const k of ["Enter", " "])
+            link.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true }));
+        });
+      } finally {
+        link.remove();
+      }
+      expect(intents).toEqual([]);
+    });
+
+    // Only the first keydown of a held key acts: its repeats would open the
+    // lit cartridge and then, on the readout, its demo.
+    it("a held key's repeats do nothing", () => {
+      const { result, intents } = renderCabinet();
+      bootToSelect(result);
+      act(() => {
+        vi.advanceTimersByTime(600);
+      });
+      act(() => {
+        for (let i = 0; i < 3; i++)
+          window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", repeat: true }));
+      });
+      expect(intents).toEqual([]);
+      expect(result.current.screen).toBe("select");
+    });
+
     it("arrow keys on the select screen are consumed, not scrolled", () => {
       const { result } = renderCabinet();
       bootToSelect(result);
