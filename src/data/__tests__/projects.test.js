@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
 import { PROJECTS, HIDDEN_PROJECTS } from "../projects";
 
 const REQUIRED_FIELDS = [
@@ -66,5 +67,21 @@ describe("HIDDEN_PROJECTS", () => {
   it("tiers are 1, 2, 3", () => {
     const tiers = HIDDEN_PROJECTS.map((p) => p.tier).sort();
     expect(tiers).toEqual([1, 2, 3]);
+  });
+});
+
+// The pages that say how many projects there are, written as text where a
+// page can't import the list. Each new cartridge must update them, and this
+// says where: they once said nineteen and eighteen with twenty-one in the
+// cabinet.
+describe("the project count on the pages", () => {
+  const read = (file) => readFileSync(`${process.cwd()}/${file}`, "utf8");
+  const n = PROJECTS.length;
+  it.each([
+    ["src/craft/CraftPage.tsx", `The ${n} projects are cartridges`],
+    ["src/data/resume.json", `${n} projects at ampactor.dev`],
+    ["public/404.html", `<small>${n} of them</small>`],
+  ])("%s says %s", (file, text) => {
+    expect(read(file)).toContain(text);
   });
 });

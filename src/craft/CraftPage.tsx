@@ -256,7 +256,7 @@ function CabinetChapter() {
           surface for. The home page is the select screen, where the
           operator&apos;s sticker carries the email,
           the phone number and the links to the résumé, GitHub and LinkedIn.
-          The nineteen projects are cartridges, and three operator programs at
+          The 21 projects are cartridges, and three operator programs at
           the end of the list hold the rest: HOW TO PLAY (the controls), HIGH
           SCORES (the commit log) and CREDITS (the years, and who built this).
         </p>
@@ -304,8 +304,8 @@ function CabinetChapter() {
       <h3 className={styles.h3}>History and deep links</h3>
       <div className={styles.prose}>
         <p>
-          A single pure function maps each history entry to a screen: the title
-          card, the list, or one program. The cabinet asks for navigation
+          A single pure function maps each history entry to a screen: the list
+          or one program. The cabinet asks for navigation
           instead of calling the History API itself, so Back, Forward, a
           reload and a shared link all end up in the same place, and Back from
           a cartridge always lands on the list rather than off the site.
@@ -315,7 +315,6 @@ function CabinetChapter() {
         items={[
           ["useCabinetState.js", source("src/arcade/hooks/useCabinetState.js")],
           ["arcadeRoute.ts", source("src/arcade/zoom/arcadeRoute.ts")],
-          ["AttractScreen.jsx", source("src/arcade/components/screens/AttractScreen.jsx")],
           ["SystemScreen.jsx", source("src/arcade/components/screens/SystemScreen.jsx")],
           ["e2e/home.spec.ts", source("e2e/home.spec.ts")],
           ["e2e/arcade.spec.ts", source("e2e/arcade.spec.ts")],

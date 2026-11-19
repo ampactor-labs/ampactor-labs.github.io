@@ -60,7 +60,7 @@ export const ENTRIES = {
     path: "/",
     title: `${SITE.name} · ${SITE.jobTitle}, ${SITE.locality}`,
     description:
-      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub. The site is an arcade cabinet: press start.",
+      "Morgan Espitia, software engineer in Salt Lake City. Six years of full-stack work in PHP, Node, React and TypeScript, then independent work: web apps, APIs, a compiler, audio software and games, with source on GitHub. The site is an arcade cabinet.",
     // Rendered from the live list by scripts/render-og.mjs.
     image: "/og-home.png",
     person: true,
@@ -71,7 +71,7 @@ export const ENTRIES = {
     path: "/arcade/",
     title: `Arcade · ${SITE.name}`,
     description:
-      "The select screen of the cabinet: nineteen projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.",
+      `The select screen of the cabinet: ${PROJECTS.length} projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.`,
     image: "/og-home.png",
     person: false,
     stage: true,

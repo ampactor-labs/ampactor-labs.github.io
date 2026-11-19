@@ -15,7 +15,7 @@ import { pixel } from "../../type";
 // What the panel does, which is what HOW TO PLAY means on a cabinet.
 const CONTROLS = [
   { keys: "\u25b2 \u25bc", does: "WALK THE LIST · SCROLL A READOUT" },
-  { keys: "\u25c4 \u25ba", does: "WALK A READOUT'S LINKS · STEP THE TITLE LOOP" },
+  { keys: "\u25c4 \u25ba", does: "WALK A READOUT'S LINKS" },
   { keys: "A", does: "OPEN" },
   { keys: "B", does: "BACK" },
   { keys: "ARROWS · ENTER · ESC", does: "THE SAME, ON A KEYBOARD" },
