@@ -218,6 +218,8 @@ export default function useCabinetState({
     const from = settled ? el.scrollTop : scrollAnchor.current.top;
     const top = Math.min(Math.max(from + dir * SCROLL_STEP, 0), max);
     scrollAnchor.current = { top, at: Date.now() };
+    // The CREDITS roll listens for this and hands the scroll to the reader.
+    el.dispatchEvent?.(new Event("cabinetscroll"));
     const still = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     el.scrollTo({ top, behavior: still ? "auto" : "smooth" });
   };

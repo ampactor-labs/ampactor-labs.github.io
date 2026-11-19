@@ -9,7 +9,9 @@
 
 html {
   /* Reserve the scrollbar's gutter so a page's scrollbar never shifts its
-     layout. */
+     layout. The cabinet never scrolls, so it opts out (below): with classic
+     scrollbars the gutter was a dark stripe and the cabinet sat 7.5 px left
+     of centre. */
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
@@ -32,6 +34,10 @@ body {
 /* The cabinet's pages (src/data/site.js marks them `stage`): the room is
    dark from the first paint in either theme, the same radial the stage's
    backdrop paints, so the first frame and the machine's room are one. */
+html[data-stage] {
+  scrollbar-gutter: auto;
+}
+
 html[data-stage] body {
   background: radial-gradient(
     ellipse at 50% 40%,

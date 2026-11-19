@@ -177,13 +177,11 @@ export function creditLines() {
   ];
 }
 
-// Pixels per second the roll climbs; a hand on it pauses it.
+// Pixels per second the roll climbs; a hand on it stops it.
 const ROLL_SPEED = 26;
-const PAUSE_MS = 3500;
 
 function Credits({ color, fs, bodyRef, reducedMotion }) {
   const lines = creditLines();
-  const pausedUntil = useRef(0);
 
   useEffect(() => {
     const el = bodyRef.current;
@@ -192,44 +190,29 @@ function Credits({ color, fs, bodyRef, reducedMotion }) {
     let last = performance.now();
     // The roll keeps its own fractional position, so on a high-density phone
     // it glides by device pixels instead of jumping a whole CSS pixel every
-    // second or third frame. A hand on it pauses it; it picks up from wherever
-    // the hand left it, and it stops when the last line is in place.
+    // second or third frame. It stops when the last line is in place, or for
+    // good the moment the reader takes over (a hand, the wheel, focus, or the
+    // arrows and d-pad, which scroll through useCabinetState and announce it
+    // with a cabinetscroll event): a roll that picked up again after a pause
+    // fought the reader and could not be stopped (WCAG 2.2.2).
     let pos = el.scrollTop;
-    let held = false;
     const tick = (now) => {
       const dt = now - last;
       last = now;
       const max = el.scrollHeight - el.clientHeight;
-      if (now > pausedUntil.current) {
-        if (held) {
-          pos = el.scrollTop;
-          held = false;
-        }
-        pos = Math.min(max, pos + (dt / 1000) * ROLL_SPEED);
-        el.scrollTop = pos;
-      } else {
-        held = true;
-      }
-      if (pos < max || held) raf = requestAnimationFrame(tick);
-      else raf = 0;
+      pos = Math.min(max, pos + (dt / 1000) * ROLL_SPEED);
+      el.scrollTop = pos;
+      raf = pos < max ? requestAnimationFrame(tick) : 0;
     };
-    const pause = () => {
-      pausedUntil.current = performance.now() + PAUSE_MS;
-      // A roll that had finished picks up again after the hand lets go.
-      if (!raf) {
-        held = true;
-        last = performance.now();
-        raf = requestAnimationFrame(tick);
-      }
-    };
-    for (const ev of ["pointerdown", "wheel", "touchstart", "focusin"])
-      el.addEventListener(ev, pause, { passive: true });
-    raf = requestAnimationFrame(tick);
-    return () => {
+    const EVENTS = ["pointerdown", "wheel", "touchstart", "focusin", "cabinetscroll"];
+    const stop = () => {
       cancelAnimationFrame(raf);
-      for (const ev of ["pointerdown", "wheel", "touchstart", "focusin"])
-        el.removeEventListener(ev, pause);
+      raf = 0;
+      for (const ev of EVENTS) el.removeEventListener(ev, stop);
     };
+    for (const ev of EVENTS) el.addEventListener(ev, stop, { passive: true });
+    raf = requestAnimationFrame(tick);
+    return stop;
   }, [bodyRef, reducedMotion]);
 
   return (

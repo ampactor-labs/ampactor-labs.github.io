@@ -69,6 +69,8 @@ export const ENTRIES = {
   },
   "arcade/index.html": {
     path: "/arcade/",
+    // The same screen as /, so search engines are told to count it as /.
+    canonical: "/",
     title: `Arcade · ${SITE.name}`,
     description:
       `The select screen of the cabinet: ${PROJECTS.length} projects to read about, plus HOW TO PLAY, HIGH SCORES and the credits.`,
@@ -133,7 +135,7 @@ function personJsonLd() {
 // whatever the theme. `tokens` is public/tokens.css, inlined so the palette costs no
 // render-blocking request (the file stays for the pages that link it).
 export function renderHead(entry, { prepaint, bootShim, tokens }) {
-  const url = `${SITE.origin}${entry.path}`;
+  const url = `${SITE.origin}${entry.canonical ?? entry.path}`;
   const image = `${SITE.origin}${entry.image}`;
   const title = escapeHtml(entry.title);
   const description = escapeHtml(entry.description);
@@ -184,12 +186,19 @@ export function renderHead(entry, { prepaint, bootShim, tokens }) {
   return lines.join("\n    ");
 }
 
-// One <url> per entry plus the static résumé, from the same table, so the
-// sitemap and the pages cannot disagree. Emitted by vite.config.js at build.
+// One <url> per canonical entry plus the static résumé, from the same table,
+// so the sitemap and the pages cannot disagree, and every cartridge's demo
+// that GitHub Pages serves on this host (ampactor.dev/<repo>/). Emitted by
+// vite.config.js at build.
 export function renderSitemap() {
-  const paths = [...Object.values(ENTRIES).map((e) => e.path), "/resume.html"];
-  const urls = paths
-    .map((path) => `  <url><loc>${SITE.origin}${path}</loc></url>`)
+  const pages = Object.values(ENTRIES)
+    .filter((e) => !e.canonical || e.canonical === e.path)
+    .map((e) => `${SITE.origin}${e.path}`);
+  const demos = PROJECTS.map((p) => p.live)
+    .filter((live) => live && live.startsWith(`${SITE.origin}/`))
+    .map((live) => (/\/[^/.]+$/.test(live) ? `${live}/` : live));
+  const urls = [...new Set([...pages, `${SITE.origin}/resume.html`, ...demos])]
+    .map((loc) => `  <url><loc>${loc}</loc></url>`)
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
