@@ -71,8 +71,7 @@
     overflow: visible;
   }
 
-  .console,
-  .console:where(*) {
+  .console {
     height: auto;
     min-height: 100vh;
   }
