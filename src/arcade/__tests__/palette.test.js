@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { PALETTE, CABINET_VARS, cabinetCss, alpha, contrast, legible } from "../palette";
+import {
+  PALETTE,
+  CABINET_VARS,
+  cabinetCss,
+  alpha,
+  contrast as paletteContrast,
+  legible,
+} from "../palette";
 import { PROJECTS, HIDDEN_PROJECTS } from "../../data/projects";
 
 // WCAG 2.x relative luminance and contrast ratio.
@@ -53,7 +60,10 @@ describe("the cabinet's palette", () => {
 
   it("void ink reads on every lit pill", () => {
     for (const pill of ["voice", "mark", "coin", "mint"])
-      expect(contrast(PALETTE.void, PALETTE[pill]), pill).toBeGreaterThanOrEqual(4.5);
+      expect(
+        contrast(PALETTE.void, PALETTE[pill]),
+        pill,
+      ).toBeGreaterThanOrEqual(4.5);
   });
 
   it("every value is a six-digit hex", () => {
@@ -74,9 +84,13 @@ describe("the cabinet's palette", () => {
     expect(cabinetCss).toContain(`--cab-mark:${PALETTE.mark}`);
   });
 
-  it("contrast() matches the WCAG formula", () => {
-    expect(contrast("#000000", "#ffffff")).toBeCloseTo(21, 5);
-    expect(contrast("#777777", "#ffffff")).toBeCloseTo(4.48, 2);
+  it("the palette's contrast() agrees with this file's formula", () => {
+    for (const [a, b] of [
+      ["#000000", "#ffffff"],
+      ["#777777", "#ffffff"],
+      [PALETTE.voice, PALETTE.raised],
+    ])
+      expect(paletteContrast(a, b)).toBeCloseTo(contrast(a, b), 6);
   });
 
   // Chips, stack labels and section heads take their text colour from the
@@ -86,8 +100,10 @@ describe("the cabinet's palette", () => {
       if (!p.color) continue;
       const text = legible(p.color);
       for (const ground of [PALETTE.void, PALETTE.tube, PALETTE.raised])
-        expect(contrast(text, ground), `${p.id} on ${ground}`).toBeGreaterThanOrEqual(4.5);
+        expect(
+          contrast(text, ground),
+          `${p.id} on ${ground}`,
+        ).toBeGreaterThanOrEqual(4.5);
     }
   });
 });
-

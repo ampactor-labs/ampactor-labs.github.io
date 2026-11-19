@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
+import process from "node:process";
 import { PROJECTS, HIDDEN_PROJECTS } from "../projects";
 
 const REQUIRED_FIELDS = [
