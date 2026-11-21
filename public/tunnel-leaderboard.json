@@ -1,11 +1,17 @@
 {
-  "updated": "2026-07-15",
+  "updated": "2026-11-21",
   "scores": [
     {
       "i": "AMP",
       "s": 14253,
       "user": "ampactor",
       "date": "2026-07-15"
+    },
+    {
+      "i": "ADC",
+      "s": 5271,
+      "user": "sonofagoose",
+      "date": "2026-11-21"
     },
     {
       "i": "AAA",
